@@ -1,1 +1,1699 @@
-<!-- Brewery AI Discovery Doc - Publishing to GitHub Pages -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brewery & Winery AI Platform — Co-Founder Discovery Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES — THEME
+       =========================================== */
+    :root {
+      --bg-primary: #0f1117;
+      --bg-secondary: #161b27;
+      --bg-card: #1a2133;
+      --bg-card-hover: #1e2840;
+      --text-primary: #f0f4ff;
+      --text-secondary: #8b9ab5;
+      --text-muted: #4a5568;
+      --accent: #14b8a6;
+      --accent-dim: rgba(20, 184, 166, 0.15);
+      --accent-border: rgba(20, 184, 166, 0.35);
+      --accent-glow: rgba(20, 184, 166, 0.2);
+      --amber: #f59e0b;
+      --amber-bg: #1c1507;
+      --amber-border: rgba(245, 158, 11, 0.4);
+      --red: #ef4444;
+      --green: #22c55e;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --input-bg: rgba(255, 255, 255, 0.04);
+      --input-border: rgba(20, 184, 166, 0.3);
+
+      /* Typography */
+      --font: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --title-size: clamp(1.6rem, 3.5vw, 3rem);
+      --h2-size: clamp(1.1rem, 2vw, 1.5rem);
+      --h3-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      --body-size: clamp(0.72rem, 1.1vw, 0.88rem);
+      --small-size: clamp(0.65rem, 0.9vw, 0.78rem);
+
+      /* Spacing */
+      --slide-pad: clamp(1.5rem, 3vw, 3rem);
+      --gap: clamp(0.6rem, 1.2vw, 1.2rem);
+      --gap-sm: clamp(0.3rem, 0.6vw, 0.6rem);
+
+      /* Animation */
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur: 0.55s;
+    }
+
+    /* ===========================================
+       RESET & BASE
+       =========================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      height: 100%;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      height: 100%;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===========================================
+       SLIDE SYSTEM — VIEWPORT FITTING
+       =========================================== */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top chrome bar */
+    .slide-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(0.6rem, 1vw, 0.9rem) var(--slide-pad);
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 17, 23, 0.8);
+      backdrop-filter: blur(12px);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .slide-label {
+      font-size: var(--small-size);
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .slide-meta {
+      font-size: var(--small-size);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Main content area */
+    .slide-body {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: var(--slide-pad);
+      padding-top: clamp(0.8rem, 1.5vw, 1.5rem);
+      gap: var(--gap);
+      max-height: 100%;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: var(--h2-size);
+      font-weight: 700;
+      color: var(--text-primary);
+      border-left: 3px solid var(--accent);
+      padding-left: clamp(0.6rem, 1vw, 1rem);
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    /* ===========================================
+       CONTENT COMPONENTS
+       =========================================== */
+
+    /* Two-column layout */
+    .cols-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      flex: 1;
+      min-height: 0;
+    }
+
+    .cols-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--gap);
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* Card / panel */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: clamp(0.7rem, 1.2vw, 1.2rem);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+    }
+
+    .card-title {
+      font-size: var(--small-size);
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--small-size);
+    }
+
+    .data-table th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: var(--small-size);
+      padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.4rem, 0.8vw, 0.8rem);
+      border-bottom: 1px solid var(--accent-border);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: clamp(0.2rem, 0.4vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.8rem);
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .data-table tr:nth-child(even) td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* Fill-in inputs */
+    .fill-in {
+      background: var(--input-bg);
+      border: 1px dashed var(--input-border);
+      border-radius: 4px;
+      padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.5rem, 0.8vw, 0.8rem);
+      color: var(--text-secondary);
+      font-family: var(--font);
+      font-size: var(--small-size);
+      width: 100%;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      line-height: 1.5;
+    }
+
+    .fill-in:focus {
+      border-color: var(--accent);
+      background: rgba(20, 184, 166, 0.05);
+      color: var(--text-primary);
+    }
+
+    .fill-in::placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    input.fill-in {
+      height: auto;
+    }
+
+    /* Inline fill text */
+    .blank {
+      display: inline-block;
+      min-width: 80px;
+      border-bottom: 1px dashed var(--accent);
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: var(--small-size);
+      padding: 0 4px;
+    }
+
+    /* Coaching callout */
+    .coach-callout {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-left: 3px solid var(--amber);
+      border-radius: 6px;
+      padding: clamp(0.5rem, 0.8vw, 0.8rem) clamp(0.7rem, 1vw, 1rem);
+      flex-shrink: 0;
+    }
+
+    .coach-callout .coach-label {
+      font-size: var(--small-size);
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: 4px;
+    }
+
+    .coach-callout p {
+      font-size: var(--small-size);
+      color: #d4a84b;
+      font-style: italic;
+      line-height: 1.55;
+    }
+
+    /* Labels */
+    .field-label {
+      font-size: var(--small-size);
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 3px;
+    }
+
+    /* Body text */
+    .body-text {
+      font-size: var(--small-size);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Checkbox items */
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.25rem, 0.5vw, 0.5rem);
+      list-style: none;
+    }
+
+    .checkbox-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--small-size);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .checkbox-list li input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkbox-list li.checked {
+      color: var(--accent);
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    /* Tag / badge */
+    .badge {
+      display: inline-block;
+      font-size: var(--small-size);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      font-family: var(--font-mono);
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Revenue row */
+    .revenue-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap-sm);
+    }
+
+    .revenue-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: clamp(0.4rem, 0.7vw, 0.7rem);
+    }
+
+    .revenue-item .rev-label {
+      font-size: var(--small-size);
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    /* Timeline items */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.4rem, 0.7vw, 0.7rem);
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(0.6rem, 1vw, 1rem);
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .timeline-dot.milestone {
+      background: var(--amber);
+      box-shadow: 0 0 8px var(--amber);
+    }
+
+    .timeline-date {
+      font-size: var(--small-size);
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      min-width: clamp(60px, 8vw, 90px);
+      flex-shrink: 0;
+    }
+
+    .timeline-date.milestone {
+      color: var(--amber);
+    }
+
+    .timeline-desc {
+      font-size: var(--small-size);
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Radio-style decision */
+    .decision-options {
+      display: flex;
+      gap: var(--gap);
+      flex-wrap: wrap;
+    }
+
+    .decision-option {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: var(--small-size);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .decision-option input[type="radio"] {
+      accent-color: var(--accent);
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Scenario blocks */
+    .scenario-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: clamp(0.4rem, 0.7vw, 0.7rem) clamp(0.6rem, 1vw, 1rem);
+    }
+
+    .scenario-block .s-label {
+      font-size: var(--small-size);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+      font-family: var(--font-mono);
+    }
+
+    /* Feature checkboxes row */
+    .feature-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .feature-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: var(--small-size);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .feature-chip:hover {
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+    }
+
+    .feature-chip input[type="checkbox"] {
+      accent-color: var(--accent);
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Score badge in table */
+    .score-select {
+      background: var(--input-bg);
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      font-size: var(--small-size);
+      padding: 2px 4px;
+      font-family: var(--font);
+    }
+
+    /* ===========================================
+       NAVIGATION
+       =========================================== */
+    .nav-bar {
+      position: fixed;
+      bottom: clamp(0.8rem, 1.5vw, 1.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(22, 27, 39, 0.9);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-strong);
+      border-radius: 100px;
+      padding: 0.4rem 0.8rem;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      transition: color 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-btn:hover {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .nav-counter {
+      font-size: var(--small-size);
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      padding: 0 0.3rem;
+      min-width: 3.5rem;
+      text-align: center;
+    }
+
+    .nav-dots-row {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      padding: 0;
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 200;
+      transition: width 0.3s var(--ease);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    /* ===========================================
+       TITLE SLIDE
+       =========================================== */
+    .title-slide {
+      background: radial-gradient(ellipse at 20% 100%, rgba(20, 184, 166, 0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 0%, rgba(20, 184, 166, 0.06) 0%, transparent 50%),
+                  var(--bg-primary);
+      justify-content: center;
+    }
+
+    .title-slide .inner {
+      padding: var(--slide-pad);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.8rem, 1.5vw, 1.5rem);
+      max-width: 900px;
+    }
+
+    .title-eyebrow {
+      font-size: var(--small-size);
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .title-main {
+      font-size: var(--title-size);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .title-main span {
+      color: var(--accent);
+    }
+
+    .title-sub {
+      font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .title-tagline {
+      display: inline-block;
+      font-size: var(--small-size);
+      font-weight: 700;
+      color: var(--amber);
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+    }
+
+    .title-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .title-pill {
+      font-size: var(--small-size);
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+    }
+
+    .title-pill strong {
+      color: var(--text-secondary);
+    }
+
+    /* Decorative grid lines */
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ===========================================
+       REVEAL ANIMATIONS
+       =========================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+    }
+
+    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+    .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+    .slide.visible .reveal:nth-child(2) { transition-delay: 0.12s; }
+    .slide.visible .reveal:nth-child(3) { transition-delay: 0.19s; }
+    .slide.visible .reveal:nth-child(4) { transition-delay: 0.26s; }
+    .slide.visible .reveal:nth-child(5) { transition-delay: 0.33s; }
+    .slide.visible .reveal:nth-child(6) { transition-delay: 0.40s; }
+
+    /* ===========================================
+       RESPONSIVE
+       =========================================== */
+    @media (max-height: 700px) {
+      :root {
+        --slide-pad: clamp(0.8rem, 2vw, 1.5rem);
+        --gap: clamp(0.4rem, 0.8vw, 0.8rem);
+        --gap-sm: clamp(0.2rem, 0.4vw, 0.4rem);
+      }
+    }
+
+    @media (max-height: 600px) {
+      :root {
+        --slide-pad: clamp(0.6rem, 1.5vw, 1rem);
+        --body-size: clamp(0.65rem, 0.9vw, 0.78rem);
+        --small-size: clamp(0.6rem, 0.8vw, 0.72rem);
+      }
+      .nav-bar { display: none; }
+      .progress-bar { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .cols-2, .cols-3 {
+        grid-template-columns: 1fr;
+      }
+      .revenue-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-bar" id="navBar">
+    <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" title="Previous (←)">
+      ← Prev
+    </button>
+    <div class="nav-dots-row" id="navDots"></div>
+    <span class="nav-counter" id="slideCounter">1 / 8</span>
+    <button class="nav-btn" id="nextBtn" onclick="navigate(1)" title="Next (→)">
+      Next →
+    </button>
+  </nav>
+
+
+  <!-- ============================================
+       SLIDE 1 — TITLE
+       ============================================ -->
+  <section class="slide title-slide" id="slide-1">
+    <div class="grid-lines"></div>
+    <div class="inner">
+      <div class="title-eyebrow reveal">Gary × WillieOS — Co-Founder Discovery Document</div>
+      <h1 class="title-main reveal">
+        Brewery & Winery<br>
+        <span>AI Platform</span>
+      </h1>
+      <p class="title-sub reveal">
+        Willie Kopp + Joe [Last Name] &nbsp;·&nbsp; Powered by WillieOS / Gary
+      </p>
+      <div class="title-tagline reveal">
+        Build the irrefusable pitch. Complete by March 28. Pitch Altamont April 1–3.
+      </div>
+      <div class="title-pills reveal">
+        <span class="title-pill"><strong>50/50</strong> Co-Founders</span>
+        <span class="title-pill"><strong>MVP Customer:</strong> Altamont Brewing Company, Livermore CA</span>
+        <span class="title-pill"><strong>March 2026</strong></span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 2 — SECTION 1: THE OPPORTUNITY
+       ============================================ -->
+  <section class="slide" id="slide-2">
+    <div class="slide-chrome">
+      <span class="slide-label">Section 1 / 6 — The Opportunity</span>
+      <span class="slide-meta">Fill in all cells before March 28</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">🎯 The Opportunity</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+        <!-- Left: Market Sizing Table -->
+        <div class="card" style="overflow:auto;">
+          <div class="card-title">Market Sizing</div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Market</th>
+                <th># Venues</th>
+                <th>Avg Tech Spend/yr</th>
+                <th>TAM Est.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Livermore</td>
+                <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+              </tr>
+              <tr>
+                <td>Napa</td>
+                <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+              </tr>
+              <tr>
+                <td>Santa Rosa</td>
+                <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+              </tr>
+              <tr>
+                <td>Healdsburg</td>
+                <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+              </tr>
+              <tr>
+                <td>Santa Cruz</td>
+                <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+                <td><input class="fill-in" placeholder="$___" style="width:70px;"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: auto;">
+            <div class="field-label">Competitive Landscape — Who are they using now?</div>
+            <textarea class="fill-in" rows="2" placeholder="List current tools, POS systems, spreadsheet workarounds…"></textarea>
+          </div>
+        </div>
+
+        <!-- Right: Why You + Interview Plan -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Why Willie + Joe</div>
+            <div class="body-text" style="line-height:1.55;">
+              <span style="color:var(--accent);">Willie</span> brings: strategic vision, technical architecture, direct relationships with Altamont &amp; McGrail owners.<br>
+              <span style="color:var(--accent);">Joe</span> brings: senior dev experience, coding, web design.<br>
+              <span style="color:var(--text-muted);">Together:</span>
+              <textarea class="fill-in" rows="2" placeholder="What makes you uniquely dangerous as a pair?" style="margin-top:4px;"></textarea>
+            </div>
+          </div>
+
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Customer Interview Plan</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Name</th><th>Business</th><th>Date Scheduled</th><th>Key Question</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:100px;"></td></tr>
+                <tr><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:100px;"></td></tr>
+                <tr><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:100px;"></td></tr>
+                <tr><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:80px;"></td><td><input class="fill-in" placeholder="___" style="width:100px;"></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="coach-callout reveal" style="flex-shrink:0;">
+            <div class="coach-label">Coach Says</div>
+            <p>Don't skip the market sizing. If you can't find the number, call 3 brewery owners and ask what they spend on tech annually. That IS the research.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 3 — SECTION 2: THE PROBLEM
+       ============================================ -->
+  <section class="slide" id="slide-3">
+    <div class="slide-chrome">
+      <span class="slide-label">Section 2 / 6 — The Problem</span>
+      <span class="slide-meta">Altamont-Specific — No guessing allowed</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">🎯 The Problem (Altamont-Specific)</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+
+        <!-- Left col -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Day-in-the-Life at Altamont — A Tuesday</div>
+            <div style="display:flex; flex-direction:column; gap:var(--gap-sm);">
+              <div>
+                <div class="field-label">Morning (8am) — where does the manager lose time?</div>
+                <textarea class="fill-in" rows="1" placeholder="e.g. manually reconciling yesterday's sales in a spreadsheet…"></textarea>
+              </div>
+              <div>
+                <div class="field-label">Mid-day (12pm) — where do mistakes happen?</div>
+                <textarea class="fill-in" rows="1" placeholder="e.g. wrong batch scheduled, inventory miscounted…"></textarea>
+              </div>
+              <div>
+                <div class="field-label">End of day (5pm) — what's still undone?</div>
+                <textarea class="fill-in" rows="1" placeholder="e.g. compliance logs, order follow-ups…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Define "Operational Independence" for Altamont</div>
+            <textarea class="fill-in" rows="2" placeholder="What would it look like if Altamont could run a day without the owner? What breaks today?"></textarea>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Revenue Impact (Monthly)</div>
+            <div class="revenue-grid">
+              <div class="revenue-item">
+                <div class="rev-label">Lost sales from stockouts</div>
+                <input class="fill-in" placeholder="$___/mo">
+              </div>
+              <div class="revenue-item">
+                <div class="rev-label">Waste from over-ordering</div>
+                <input class="fill-in" placeholder="$___/mo">
+              </div>
+              <div class="revenue-item">
+                <div class="rev-label">Staff inefficiency cost</div>
+                <input class="fill-in" placeholder="$___/mo">
+              </div>
+            </div>
+          </div>
+
+          <div class="coach-callout">
+            <div class="coach-label">Coach Says</div>
+            <p>Don't guess these numbers. Schedule the interview with Altamont this week. You have the relationship — use it. No data = no credibility in the pitch.</p>
+          </div>
+        </div>
+
+        <!-- Right col -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Time Cost Quantification</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Task</th><th>Hrs/Wk Wasted</th><th>Who Does It</th><th>Automatable?</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input class="fill-in" placeholder="e.g. Inventory count" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:50px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:70px;"></td>
+                  <td>
+                    <select class="score-select">
+                      <option value="">—</option>
+                      <option>Yes</option>
+                      <option>Partial</option>
+                      <option>No</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:50px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:70px;"></td>
+                  <td>
+                    <select class="score-select"><option value="">—</option><option>Yes</option><option>Partial</option><option>No</option></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:50px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:70px;"></td>
+                  <td>
+                    <select class="score-select"><option value="">—</option><option>Yes</option><option>Partial</option><option>No</option></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:50px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:70px;"></td>
+                  <td>
+                    <select class="score-select"><option value="">—</option><option>Yes</option><option>Partial</option><option>No</option></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:50px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:70px;"></td>
+                  <td>
+                    <select class="score-select"><option value="">—</option><option>Yes</option><option>Partial</option><option>No</option></select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Top 3 Problems — Ranked by Pain × Addressability</div>
+            <div style="display:flex; flex-direction:column; gap:var(--gap-sm);">
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <span class="badge">1</span>
+                <input class="fill-in" placeholder="Problem name" style="flex:1;">
+                <span style="font-size:var(--small-size); color:var(--text-muted);">Pain</span>
+                <input class="fill-in" placeholder="/10" style="width:40px;">
+                <span style="font-size:var(--small-size); color:var(--text-muted);">Addr.</span>
+                <input class="fill-in" placeholder="/10" style="width:40px;">
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <span class="badge">2</span>
+                <input class="fill-in" placeholder="Problem name" style="flex:1;">
+                <span style="font-size:var(--small-size); color:var(--text-muted);">Pain</span>
+                <input class="fill-in" placeholder="/10" style="width:40px;">
+                <span style="font-size:var(--small-size); color:var(--text-muted);">Addr.</span>
+                <input class="fill-in" placeholder="/10" style="width:40px;">
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <span class="badge">3</span>
+                <input class="fill-in" placeholder="Problem name" style="flex:1;">
+                <span style="font-size:var(--small-size); color:var(--text-muted);">Pain</span>
+                <input class="fill-in" placeholder="/10" style="width:40px;">
+                <span style="font-size:var(--small-size); color:var(--text-muted);">Addr.</span>
+                <input class="fill-in" placeholder="/10" style="width:40px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 4 — SECTION 3: THE SOLUTION
+       ============================================ -->
+  <section class="slide" id="slide-4">
+    <div class="slide-chrome">
+      <span class="slide-label">Section 3 / 6 — The Solution</span>
+      <span class="slide-meta">Gary at Altamont — be specific or go back to Section 2</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">🎯 The Solution — Gary at Altamont</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+
+        <!-- Left -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">What Gary does that nothing else does</div>
+            <textarea class="fill-in" rows="2" placeholder="One sentence. Not 'AI-powered operations.' Something specific that makes an Altamont manager say 'I need that.'"></textarea>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Feature Areas (check what's in scope)</div>
+            <div class="feature-chips">
+              <label class="feature-chip"><input type="checkbox"> Order management</label>
+              <label class="feature-chip"><input type="checkbox"> Scheduling</label>
+              <label class="feature-chip"><input type="checkbox"> Inventory</label>
+              <label class="feature-chip"><input type="checkbox"> Customer engagement</label>
+              <label class="feature-chip"><input type="checkbox"> Compliance</label>
+              <label class="feature-chip"><input type="checkbox"> Marketing</label>
+              <label class="feature-chip"><input type="checkbox"> Reporting/Analytics</label>
+              <label class="feature-chip"><input type="checkbox"> Staff management</label>
+              <label class="feature-chip" style="min-width:140px;"><input type="checkbox"> Other: <input class="fill-in" placeholder="___" style="width:80px; display:inline-block;"></label>
+            </div>
+          </div>
+
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Gary at Altamont — The Narrative</div>
+            <div class="scenario-block">
+              <div class="s-label">Morning: Manager logs in. Gary says:</div>
+              <textarea class="fill-in" rows="2" placeholder="Be specific. What data? What insight? What action?"></textarea>
+            </div>
+            <div class="scenario-block" style="margin-top:var(--gap-sm);">
+              <div class="s-label">Mid-day: Gary alerts them:</div>
+              <textarea class="fill-in" rows="2" placeholder="What would have been missed without Gary?"></textarea>
+            </div>
+            <div class="scenario-block" style="margin-top:var(--gap-sm);">
+              <div class="s-label">EOW/EOM: Gary delivers:</div>
+              <textarea class="fill-in" rows="2" placeholder="What report, summary, or decision does Gary make effortless?"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">MVP Scope — Max 5 Features for April Launch</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>#</th><th>Feature</th><th>Why It Matters</th><th>Complexity</th><th>Build Order</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color:var(--accent); font-weight:700;">1</td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td>
+                    <select class="score-select">
+                      <option value="">—</option><option>Low</option><option>Med</option><option>High</option>
+                    </select>
+                  </td>
+                  <td><input class="fill-in" placeholder="#___" style="width:40px;"></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--accent); font-weight:700;">2</td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                  <td><input class="fill-in" placeholder="#___" style="width:40px;"></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--accent); font-weight:700;">3</td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                  <td><input class="fill-in" placeholder="#___" style="width:40px;"></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--accent); font-weight:700;">4</td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                  <td><input class="fill-in" placeholder="#___" style="width:40px;"></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--accent); font-weight:700;">5</td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:90px;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                  <td><input class="fill-in" placeholder="#___" style="width:40px;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Phase 2 Roadmap — After MVP, What's Next?</div>
+            <textarea class="fill-in" rows="2" placeholder="What features unlock once Altamont is live and paying? What does the v2 look like for Napa?"></textarea>
+          </div>
+
+          <div class="coach-callout" style="flex-shrink:0;">
+            <div class="coach-label">Coach Says</div>
+            <p>The Gary narrative is your secret weapon. If you can't fill in those three sentences with something that makes an Altamont manager's jaw drop, your product vision isn't specific enough yet. Go talk to them first.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 5 — SECTION 4: GO-TO-MARKET
+       ============================================ -->
+  <section class="slide" id="slide-5">
+    <div class="slide-chrome">
+      <span class="slide-label">Section 4 / 6 — Go-To-Market</span>
+      <span class="slide-meta">The Guinea Pig Model — make Altamont feel like co-creators</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">🎯 Go-To-Market Strategy</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+
+        <!-- Left -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Landing Altamont — The Irrefusable Offer</div>
+            <div>
+              <div class="field-label">Relationship lever</div>
+              <textarea class="fill-in" rows="1" placeholder="Who specifically at Altamont? What's the relationship? What do they owe you (or respect about you)?"></textarea>
+            </div>
+            <div style="margin-top:var(--gap-sm);">
+              <div class="field-label">The offer they can't say no to</div>
+              <textarea class="fill-in" rows="2" placeholder="Make it concrete. What exactly are you offering, what do they risk, what do they gain?"></textarea>
+            </div>
+          </div>
+
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Guinea Pig Model Details</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Element</th><th>Details</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Upfront fee from Altamont</td>
+                  <td><input class="fill-in" placeholder="$___/mo" style="width:100%;"></td>
+                </tr>
+                <tr>
+                  <td>Hardware / license costs</td>
+                  <td><span style="color:var(--text-secondary); font-size:var(--small-size);">Pass-through to Altamont</span></td>
+                </tr>
+                <tr>
+                  <td>Willie + Joe dev investment</td>
+                  <td><input class="fill-in" placeholder="$___ est. over ___ months" style="width:100%;"></td>
+                </tr>
+                <tr>
+                  <td>What Altamont provides</td>
+                  <td><span style="color:var(--text-secondary); font-size:var(--small-size);">Real operational data + feedback + access</span></td>
+                </tr>
+                <tr>
+                  <td>Success metric</td>
+                  <td><input class="fill-in" placeholder="How do both parties know it worked?" style="width:100%;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Why Pick You Over Status Quo?</div>
+            <textarea class="fill-in" rows="2" placeholder="What does Altamont lose by doing nothing? What do they gain that no vendor can offer?"></textarea>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Pricing Model (Post-MVP)</div>
+            <div style="display:flex; gap:var(--gap-sm);">
+              <div style="flex:1;">
+                <div class="field-label">Monthly SaaS (per location)</div>
+                <input class="fill-in" placeholder="$___/mo">
+              </div>
+              <div style="flex:2;">
+                <div class="field-label">Add-ons / Upsells</div>
+                <input class="fill-in" placeholder="e.g. advanced analytics, integrations…">
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">90-Day Launch Plan</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Month</th><th>Goals</th><th>Key Deliverables</th><th>Owner</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600; color:var(--accent);">Apr (M1)</td>
+                  <td style="color:var(--text-secondary); font-size:var(--small-size);">Pilot kickoff + initial build</td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td style="color:var(--text-muted); font-size:var(--small-size);">Willie/Joe</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--accent);">May (M2)</td>
+                  <td style="color:var(--text-secondary); font-size:var(--small-size);">Core features live + feedback</td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--accent);">Jun (M3)</td>
+                  <td style="color:var(--text-secondary); font-size:var(--small-size);">Optimize + ready for next location</td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:60px;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="coach-callout" style="flex-shrink:0;">
+            <div class="coach-label">Coach Says</div>
+            <p>The guinea pig model only works if Altamont feels like co-creators, not test subjects. How will you frame this so they feel ownership? Think about that before the pitch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 6 — SECTION 5: TEAM & RESOURCE GAPS
+       ============================================ -->
+  <section class="slide" id="slide-6">
+    <div class="slide-chrome">
+      <span class="slide-label">Section 5 / 6 — Team & Resource Gaps</span>
+      <span class="slide-meta">Brutal honesty required here</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">🎯 Team &amp; Resource Gaps</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+
+        <!-- Left -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Team Audit</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Person</th><th>Strengths</th><th>Gaps</th><th>Plan to Fill</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600; color:var(--accent); white-space:nowrap;">Willie Kopp</td>
+                  <td style="color:var(--text-secondary); font-size:var(--small-size);">Strategic, technical, relationships, sales instinct</td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--accent); white-space:nowrap;">Joe [Last Name]</td>
+                  <td style="color:var(--text-secondary); font-size:var(--small-size);">Coding, web design, senior dev experience</td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                  <td><input class="fill-in" placeholder="___" style="width:100%;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Skills We Don't Have</div>
+            <textarea class="fill-in" rows="3" placeholder="Be specific. What domain knowledge, technical skills, or relationships are missing? Industry experience? Compliance expertise? Design? Sales?"></textarea>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Phase 1 Budget</div>
+            <div style="display:flex; gap:var(--gap-sm);">
+              <div style="flex:1;">
+                <div class="field-label">Willie invests</div>
+                <input class="fill-in" placeholder="$___">
+              </div>
+              <div style="flex:1;">
+                <div class="field-label">Joe invests</div>
+                <input class="fill-in" placeholder="$___">
+              </div>
+              <div style="flex:1;">
+                <div class="field-label">Total runway</div>
+                <input class="fill-in" placeholder="___ months">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Learn vs. Hire vs. Partner — Decision Matrix</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Skill Gap</th><th>Learn</th><th>Hire</th><th>Partner</th><th>Decision</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input class="fill-in" placeholder="e.g. Brewery domain knowledge" style="width:100%;"></td>
+                  <td><input type="radio" name="r1" value="learn" title="Learn"></td>
+                  <td><input type="radio" name="r1" value="hire" title="Hire"></td>
+                  <td><input type="radio" name="r1" value="partner" title="Partner"></td>
+                  <td><input class="fill-in" placeholder="Why?" style="width:80px;"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="e.g. UX/Design" style="width:100%;"></td>
+                  <td><input type="radio" name="r2" value="learn"></td>
+                  <td><input type="radio" name="r2" value="hire"></td>
+                  <td><input type="radio" name="r2" value="partner"></td>
+                  <td><input class="fill-in" placeholder="Why?" style="width:80px;"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="e.g. Legal/Compliance" style="width:100%;"></td>
+                  <td><input type="radio" name="r3" value="learn"></td>
+                  <td><input type="radio" name="r3" value="hire"></td>
+                  <td><input type="radio" name="r3" value="partner"></td>
+                  <td><input class="fill-in" placeholder="Why?" style="width:80px;"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill-in" placeholder="e.g. Sales/BD" style="width:100%;"></td>
+                  <td><input type="radio" name="r4" value="learn"></td>
+                  <td><input type="radio" name="r4" value="hire"></td>
+                  <td><input type="radio" name="r4" value="partner"></td>
+                  <td><input class="fill-in" placeholder="Why?" style="width:80px;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="coach-callout">
+            <div class="coach-label">Coach Says</div>
+            <p>Be brutally honest here. The gap analysis isn't about feeling bad — it's about planning smart. What will break first if you don't address it? Name the thing that scares you most.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 7 — SECTION 6: GO/NO-GO
+       ============================================ -->
+  <section class="slide" id="slide-7">
+    <div class="slide-chrome">
+      <span class="slide-label">Section 6 / 6 — Go / No-Go Validation</span>
+      <span class="slide-meta">This slide unlocks the pitch — or tells you to wait</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">🎯 Go / No-Go Validation</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+
+        <!-- Left: Checklist -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Pre-Build Checklist — Every Box Must Be Checked</div>
+            <ul class="checkbox-list">
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> Customer interviews completed (min. 3)</li>
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> At least 3 customers said they'd pay</li>
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> Unit economics modeled (LTV &gt; CAC)</li>
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> Technical feasibility confirmed</li>
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> Altamont: signed LOI or strong verbal yes</li>
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> MVP scope agreed between Willie + Joe</li>
+              <li><input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)"> March 28 discovery doc complete — sent to Gary</li>
+            </ul>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Go / No-Go Decision</div>
+            <div class="decision-options">
+              <label class="decision-option">
+                <input type="radio" name="decision" value="go">
+                <span style="color:var(--green); font-weight:700;">GO</span> — Full send
+              </label>
+              <label class="decision-option">
+                <input type="radio" name="decision" value="nogo">
+                <span style="color:var(--red); font-weight:700;">NO-GO</span> — Revisit
+              </label>
+              <label class="decision-option">
+                <input type="radio" name="decision" value="conditional">
+                <span style="color:var(--amber); font-weight:700;">CONDITIONAL GO</span>
+              </label>
+            </div>
+            <div style="margin-top:var(--gap-sm);">
+              <div class="field-label">Must resolve before pitching:</div>
+              <textarea class="fill-in" rows="2" placeholder="List any blockers that need resolution before April…"></textarea>
+            </div>
+          </div>
+
+          <div class="coach-callout" style="flex-shrink:0; border-left-width:4px;">
+            <div class="coach-label">Coach Says</div>
+            <p><strong style="color:var(--amber);">If you can't check every box by March 28, don't pitch in April.</strong> An unprepared pitch to a real relationship is worse than no pitch at all. Do the work. Come back ready.</p>
+          </div>
+        </div>
+
+        <!-- Right: Scoring Matrix -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Assumption Scoring Matrix</div>
+            <table class="data-table">
+              <thead>
+                <tr><th>Assumption</th><th>Score (1–5)</th><th>Evidence</th><th>Risk Level</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Customers will pay for this</td>
+                  <td>
+                    <select class="score-select">
+                      <option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                    </select>
+                  </td>
+                  <td><input class="fill-in" placeholder="What proves this?" style="width:100%;"></td>
+                  <td>
+                    <select class="score-select">
+                      <option value="">—</option><option style="color:var(--green);">Low</option><option style="color:var(--amber);">Med</option><option style="color:var(--red);">High</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>We can build MVP in 60 days</td>
+                  <td><select class="score-select"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+                  <td><input class="fill-in" placeholder="What proves this?" style="width:100%;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                </tr>
+                <tr>
+                  <td>Altamont data is accessible</td>
+                  <td><select class="score-select"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+                  <td><input class="fill-in" placeholder="What proves this?" style="width:100%;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                </tr>
+                <tr>
+                  <td>Can expand to Napa post-Altamont</td>
+                  <td><select class="score-select"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+                  <td><input class="fill-in" placeholder="What proves this?" style="width:100%;"></td>
+                  <td><select class="score-select"><option value="">—</option><option>Low</option><option>Med</option><option>High</option></select></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Additional Assumptions to Validate</div>
+            <div style="display:flex; flex-direction:column; gap:var(--gap-sm);">
+              <textarea class="fill-in" rows="1" placeholder="Assumption 5: ___"></textarea>
+              <textarea class="fill-in" rows="1" placeholder="Assumption 6: ___"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SLIDE 8 — TIMELINE & NEXT ACTIONS
+       ============================================ -->
+  <section class="slide" id="slide-8">
+    <div class="slide-chrome">
+      <span class="slide-label">Timeline & Critical Path</span>
+      <span class="slide-meta">Generated by Gary · WillieOS AI · March 2026</span>
+    </div>
+    <div class="slide-body">
+      <h2 class="section-title reveal">Timeline &amp; Next Actions</h2>
+
+      <div class="cols-2 reveal" style="flex:1; min-height:0;">
+
+        <!-- Left: Timeline -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex:1; min-height:0; overflow:auto;">
+            <div class="card-title">Critical Path — March to April</div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">Mar 10 wk</div>
+                  <div class="timeline-desc">Schedule customer interviews — Altamont, McGrail, 2+ others. Use the relationship. Get on calendars now.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">Mar 17 wk</div>
+                  <div class="timeline-desc">Complete all 4+ customer interviews. Record everything. Synthesize pain points together.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">Mar 24 wk</div>
+                  <div class="timeline-desc">Finalize all 6 sections of this document. Model unit economics. Agree on MVP scope.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot milestone"></div>
+                <div>
+                  <div class="timeline-date milestone">Mar 28</div>
+                  <div class="timeline-desc" style="font-weight:600; color:var(--text-primary);">Discovery doc complete. Send to Gary. Unlocks: business plan, pitch deck, product roadmap.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot milestone"></div>
+                <div>
+                  <div class="timeline-date milestone">Apr 1–3</div>
+                  <div class="timeline-desc" style="font-weight:600; color:var(--text-primary);">Pitch deck ready. Rehearse the narrative. Run it by someone who'll push back.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot milestone"></div>
+                <div>
+                  <div class="timeline-date milestone">Apr 7–14</div>
+                  <div class="timeline-desc" style="font-weight:600; color:var(--amber);">Pitch Altamont. The irrefusable offer. Close the pilot.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Next Actions -->
+        <div style="display:flex; flex-direction:column; gap:var(--gap); min-height:0; overflow:hidden;">
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Your Next 3 Actions</div>
+            <div style="display:flex; flex-direction:column; gap:var(--gap-sm);">
+              <div>
+                <div class="field-label">Action 1</div>
+                <div style="display:flex; gap:0.5rem;">
+                  <textarea class="fill-in" rows="1" placeholder="What specifically are you doing?" style="flex:2;"></textarea>
+                  <input class="fill-in" placeholder="By date" style="flex:1;">
+                </div>
+              </div>
+              <div>
+                <div class="field-label">Action 2</div>
+                <div style="display:flex; gap:0.5rem;">
+                  <textarea class="fill-in" rows="1" placeholder="What specifically are you doing?" style="flex:2;"></textarea>
+                  <input class="fill-in" placeholder="By date" style="flex:1;">
+                </div>
+              </div>
+              <div>
+                <div class="field-label">Action 3</div>
+                <div style="display:flex; gap:0.5rem;">
+                  <textarea class="fill-in" rows="1" placeholder="What specifically are you doing?" style="flex:2;"></textarea>
+                  <input class="fill-in" placeholder="By date" style="flex:1;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title">Return Commitment — Sign Here</div>
+            <div class="body-text" style="margin-bottom:var(--gap-sm);">
+              We commit to completing and returning this document to Gary by March 28, 2026. We understand that an incomplete discovery document = an incomplete pitch = wasted relationship capital with Altamont.
+            </div>
+            <div style="display:flex; gap:var(--gap);">
+              <div style="flex:1;">
+                <div class="field-label">Willie Kopp</div>
+                <input class="fill-in" placeholder="Sign here (type full name)">
+              </div>
+              <div style="flex:1;">
+                <div class="field-label">Joe [Last Name]</div>
+                <input class="fill-in" placeholder="Sign here (type full name)">
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="flex-shrink:0; background: linear-gradient(135deg, rgba(20,184,166,0.08) 0%, rgba(20,184,166,0.03) 100%); border-color: var(--accent-border);">
+            <div class="body-text" style="text-align:center; line-height:1.7;">
+              <span style="color:var(--accent); font-weight:600;">Generated by Gary</span> (WillieOS AI) · March 2026<br>
+              Complete this collaboratively with Joe.<br>
+              Return by <span style="color:var(--amber); font-weight:600;">March 28</span> to unlock the business plan, pitch deck, and product roadmap.<br><br>
+              <span style="color:var(--text-muted); font-size:var(--small-size);">
+                This is a 50/50 co-founder venture. You're not building in a vacuum — you're co-creating with a real customer who desperately needs it.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    /* ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== */
+
+    const TOTAL_SLIDES = 8;
+    let currentSlide = 1;
+
+    // Navigation dots init
+    const dotsContainer = document.getElementById('navDots');
+    for (let i = 1; i <= TOTAL_SLIDES; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot' + (i === 1 ? ' active' : '');
+      dot.title = `Slide ${i}`;
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateUI() {
+      // Counter
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${TOTAL_SLIDES}`;
+
+      // Progress bar
+      const pct = ((currentSlide - 1) / (TOTAL_SLIDES - 1)) * 100;
+      document.getElementById('progress').style.width = pct + '%';
+
+      // Dots
+      document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i + 1 === currentSlide);
+      });
+    }
+
+    function goToSlide(n) {
+      n = Math.max(1, Math.min(TOTAL_SLIDES, n));
+      currentSlide = n;
+      const el = document.getElementById(`slide-${n}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      updateUI();
+    }
+
+    function navigate(dir) {
+      goToSlide(currentSlide + dir);
+    }
+
+    // Intersection Observer — animate slides + track current
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const id = entry.target.id;
+          if (id && id.startsWith('slide-')) {
+            const n = parseInt(id.split('-')[1]);
+            if (!isNaN(n)) {
+              currentSlide = n;
+              updateUI();
+            }
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.slide').forEach(slide => {
+      observer.observe(slide);
+    });
+
+    // Keyboard nav
+    document.addEventListener('keydown', e => {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        navigate(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigate(-1);
+      }
+    });
+
+    // Checkbox visual toggle
+    document.querySelectorAll('.checkbox-list input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', function() {
+        this.closest('li').classList.toggle('checked', this.checked);
+      });
+    });
+
+    // Init
+    updateUI();
+    document.getElementById('slide-1').classList.add('visible');
+  </script>
+</body>
+</html>
