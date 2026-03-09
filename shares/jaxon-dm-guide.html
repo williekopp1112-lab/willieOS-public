@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaxon's DM Guide — Dungeons & Dragons First Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* =============================================
+   DESIGN TOKENS — change here to retheme the whole doc
+   ============================================= */
+:root {
+  --parchment:      #f5ead6;
+  --parchment-dark: #e8d5b5;
+  --ink:            #2a1a0a;
+  --ink-light:      #4a3020;
+  --gold:           #b8860b;
+  --gold-light:     #d4a017;
+  --crimson:        #8b1a1a;
+  --crimson-light:  #c0392b;
+  --teal:           #1a5c6b;
+  --teal-light:     #2980b9;
+  --forest:         #2d5a27;
+  --forest-light:   #27ae60;
+  --shadow:         #1a0d05;
+  --border:         rgba(184,134,11,0.35);
+
+  --font-display: 'Cinzel', serif;
+  --font-body:    'Crimson Pro', serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--shadow);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+/* =============================================
+   DECORATIVE BACKGROUND TEXTURE
+   ============================================= */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(139,26,26,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(26,92,107,0.08) 0%, transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 30px,
+      rgba(0,0,0,0.015) 30px,
+      rgba(0,0,0,0.015) 31px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================================
+   LAYOUT
+   ============================================= */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* =============================================
+   COVER / HERO
+   ============================================= */
+.cover {
+  background: linear-gradient(160deg, #1a0d05 0%, #2a1208 40%, #0d1a12 100%);
+  text-align: center;
+  padding: 5rem 2rem 4rem;
+  border-bottom: 3px solid var(--gold);
+  position: relative;
+  overflow: hidden;
+  margin: 0 -1.5rem;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(184,134,11,0.18) 0%, transparent 65%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8860b' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.cover-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(184,134,11,0.4);
+  padding: 0.35rem 1rem;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+}
+
+.cover h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  font-weight: 900;
+  color: var(--parchment);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 60px rgba(184,134,11,0.5), 0 2px 8px rgba(0,0,0,0.8);
+  margin-bottom: 0.5rem;
+}
+
+.cover h1 span {
+  color: var(--gold-light);
+}
+
+.cover .subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: rgba(245,234,214,0.75);
+  font-style: italic;
+  margin-bottom: 2.5rem;
+}
+
+.cover-divider {
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 2rem auto;
+}
+
+.cover-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: rgba(245,234,214,0.4);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   TABLE OF CONTENTS
+   ============================================= */
+.toc {
+  background: var(--parchment);
+  border-left: 4px solid var(--gold);
+  padding: 2rem 2rem 2rem 2.5rem;
+  margin: 3rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.toc h2 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+
+.toc-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 2rem;
+}
+
+@media (max-width: 600px) {
+  .toc-list { grid-template-columns: 1fr; }
+}
+
+.toc-list li a {
+  color: var(--ink-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  transition: color 0.2s;
+}
+
+.toc-list li a:hover { color: var(--crimson); }
+
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--gold);
+  min-width: 1.5rem;
+}
+
+/* =============================================
+   SECTION HEADERS
+   ============================================= */
+.section {
+  margin: 3.5rem 0 0;
+}
+
+.section-header {
+  background: linear-gradient(135deg, var(--ink) 0%, #3a2510 100%);
+  padding: 1.5rem 2rem;
+  margin: 0 -1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 3px solid var(--gold);
+  border-bottom: 1px solid rgba(184,134,11,0.3);
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gold);
+  background: rgba(184,134,11,0.15);
+  border: 1px solid rgba(184,134,11,0.3);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 700;
+  color: var(--parchment);
+  letter-spacing: 0.05em;
+}
+
+.section-header .section-icon {
+  font-size: 1.4rem;
+  margin-left: auto;
+  opacity: 0.7;
+}
+
+/* =============================================
+   CONTENT AREA
+   ============================================= */
+.section-body {
+  background: var(--parchment);
+  padding: 2rem 2rem 2.5rem;
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.section-body h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--crimson);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 1.75rem 0 0.6rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(139,26,26,0.2);
+}
+
+.section-body h3:first-child { margin-top: 0; }
+
+.section-body p {
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: 0.85rem;
+  line-height: 1.75;
+}
+
+.section-body p:last-child { margin-bottom: 0; }
+
+.section-body ul, .section-body ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.section-body li {
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
+}
+
+.section-body strong { color: var(--ink); font-weight: 600; }
+
+.section-body em { color: var(--ink-light); }
+
+/* =============================================
+   CALLOUT BOXES
+   ============================================= */
+.callout {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem 1rem 1.5rem;
+  border-radius: 3px;
+  border-left: 4px solid;
+  font-size: 0.97rem;
+}
+
+.callout-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.callout p { margin-bottom: 0; }
+.callout ul { margin-bottom: 0; }
+
+.callout-tip {
+  background: rgba(45,90,39,0.08);
+  border-color: var(--forest);
+}
+.callout-tip .callout-title { color: var(--forest); }
+
+.callout-warn {
+  background: rgba(139,26,26,0.07);
+  border-color: var(--crimson);
+}
+.callout-warn .callout-title { color: var(--crimson); }
+
+.callout-info {
+  background: rgba(26,92,107,0.07);
+  border-color: var(--teal);
+}
+.callout-info .callout-title { color: var(--teal); }
+
+.callout-gold {
+  background: rgba(184,134,11,0.08);
+  border-color: var(--gold);
+}
+.callout-gold .callout-title { color: var(--gold); }
+
+/* =============================================
+   TABLES
+   ============================================= */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th {
+  background: var(--ink);
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+}
+
+td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--parchment-dark);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
+tr:last-child td { border-bottom: none; }
+
+/* =============================================
+   CHECKLIST
+   ============================================= */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--parchment-dark);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.checklist li:last-child { border-bottom: none; }
+
+.check-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gold);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checklist-section-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin: 1.25rem 0 0.5rem;
+  display: block;
+}
+
+/* =============================================
+   TWO-COLUMN GRID
+   ============================================= */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--parchment-dark);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+}
+
+.card h4 {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.card p, .card li {
+  font-size: 0.92rem;
+  color: var(--ink-light);
+  margin-bottom: 0.3rem;
+}
+
+/* =============================================
+   QUICK REF TAG
+   ============================================= */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: var(--ink);
+  color: var(--gold-light);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+.tag-green { background: var(--forest); color: #90ee90; }
+.tag-red   { background: var(--crimson); color: #ffb3b3; }
+.tag-blue  { background: var(--teal); color: #b3e0ff; }
+
+/* =============================================
+   DECORATIVE RULE
+   ============================================= */
+.ornamental-rule {
+  text-align: center;
+  color: var(--gold);
+  opacity: 0.5;
+  margin: 1.5rem 0 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.5em;
+}
+
+/* =============================================
+   DICE VISUAL
+   ============================================= */
+.dice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.75rem 0;
+}
+
+.die {
+  background: var(--ink);
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid rgba(184,134,11,0.4);
+  display: inline-block;
+}
+
+/* =============================================
+   STAT BLOCK
+   ============================================= */
+.stat-block {
+  background: white;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1.25rem 0;
+}
+
+.stat-block-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--crimson);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px dotted var(--parchment-dark);
+  font-size: 0.95rem;
+}
+
+.stat-row:last-child { border-bottom: none; }
+.stat-key { color: var(--ink-light); font-style: italic; }
+.stat-val { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink); font-weight: 500; }
+
+/* =============================================
+   PRINT STYLES
+   ============================================= */
+@media print {
+  body { background: white; }
+  body::before { display: none; }
+  .cover { background: #1a0d05 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page-break { page-break-before: always; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     COVER
+     ============================================= -->
+<div class="cover">
+  <div class="cover-badge">The Dungeon Master's Handbook</div>
+  <h1>Jaxon's<br><span>DM Guide</span></h1>
+  <p class="subtitle">Everything you need to run your first Dungeons &amp; Dragons session</p>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">First Session Edition &nbsp;·&nbsp; D&amp;D 5th Edition &nbsp;·&nbsp; 2026</div>
+</div>
+
+<div class="page-wrap">
+
+<!-- =============================================
+     TABLE OF CONTENTS
+     ============================================= -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ul class="toc-list">
+    <li><a href="#s1"><span class="toc-num">01</span> Welcome &amp; Core Philosophy</a></li>
+    <li><a href="#s2"><span class="toc-num">02</span> Pre-Session Preparation</a></li>
+    <li><a href="#s3"><span class="toc-num">03</span> Running Your First Session</a></li>
+    <li><a href="#s4"><span class="toc-num">04</span> Combat Guide</a></li>
+    <li><a href="#s5"><span class="toc-num">05</span> Roleplay &amp; NPCs</a></li>
+    <li><a href="#s6"><span class="toc-num">06</span> The Golden Rules</a></li>
+    <li><a href="#s7"><span class="toc-num">07</span> Tools &amp; Resources</a></li>
+    <li><a href="#s8"><span class="toc-num">08</span> Session Checklist</a></li>
+    <li><a href="#s9"><span class="toc-num">09</span> Quick Reference</a></li>
+  </ul>
+</div>
+
+
+<!-- =============================================
+     SECTION 1 — WELCOME
+     ============================================= -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Welcome &amp; Core Philosophy</h2>
+    <span class="section-icon">⚔️</span>
+  </div>
+  <div class="section-body">
+
+    <p><strong>Jaxon, welcome.</strong> You are about to take on the most creative, rewarding, and occasionally chaotic role in tabletop gaming — the Dungeon Master. You are the author, director, narrator, and referee all at once. Your players are the heroes. Your job is to make them feel like heroes.</p>
+
+    <div class="callout callout-gold">
+      <span class="callout-title">The One Rule That Rules Them All</span>
+      <p>The goal is not to "win." The goal is for everyone at the table — including you — to have a great time. That's it. Everything else is just tools to get there.</p>
+    </div>
+
+    <h3>What the DM Actually Does</h3>
+    <ul>
+      <li><strong>Narrates the world</strong> — describes locations, smells, sounds, and atmosphere</li>
+      <li><strong>Plays every NPC</strong> — from the nervous innkeeper to the ancient dragon</li>
+      <li><strong>Adjudicates rules</strong> — decides what happens when the rulebook is unclear</li>
+      <li><strong>Creates challenges</strong> — puzzles, combat, social encounters, moral dilemmas</li>
+      <li><strong>Reacts to players</strong> — their choices drive the story, your job is to respond</li>
+    </ul>
+
+    <h3>The Three Pillars of D&amp;D</h3>
+    <div class="two-col">
+      <div class="card">
+        <h4>⚔️ Combat</h4>
+        <p>Turn-based fights with dice, tactics, and high stakes. The most rule-heavy pillar — but satisfying when it clicks.</p>
+      </div>
+      <div class="card">
+        <h4>🗺️ Exploration</h4>
+        <p>Discovering the world — dungeons, wilderness, cities. Players ask "what's here?" You describe it.</p>
+      </div>
+      <div class="card">
+        <h4>🗣️ Social Interaction</h4>
+        <p>Talking to NPCs, persuading guards, negotiating with merchants. Often the most memorable moments.</p>
+      </div>
+      <div class="card">
+        <h4>🎭 Your Balance</h4>
+        <p>Lean into whichever your group enjoys most. Watch their energy — when they lean forward, give them more of that.</p>
+      </div>
+    </div>
+
+    <h3>The DM's Mindset</h3>
+    <ul>
+      <li><strong>"Yes, and…"</strong> — Build on what players do, don't block them</li>
+      <li><strong>Imperfect is perfect</strong> — No session goes as planned. That's normal. Roll with it.</li>
+      <li><strong>Rulings, not rules</strong> — When unsure of a rule, make a fair call and look it up later</li>
+      <li><strong>The players are co-authors</strong> — The best D&amp;D moments come from players surprising you</li>
+      <li><strong>You cannot fail</strong> — As long as people are engaged, you're doing it right</li>
+    </ul>
+
+    <div class="callout callout-tip">
+      <span class="callout-title">First-Time DM Encouragement</span>
+      <p>Every legendary DM had a shaky first session. Matt Mercer had nervous moments. Chris Perkins made mistakes. Your players are your friends — they want you to succeed. Lower the bar for yourself: if everyone laughs and nobody dies bored, you nailed it.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 2 — PREPARATION
+     ============================================= -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Pre-Session Preparation</h2>
+    <span class="section-icon">📜</span>
+  </div>
+  <div class="section-body">
+
+    <p>Good preparation doesn't mean scripting every word — it means giving yourself enough structure to improvise confidently. Prepare the scaffolding; let the players fill in the story.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-title">The 2-Hour Rule</span>
+      <p>For a first session, 2 hours of prep is plenty. More than that and you risk over-scripting. Your players will go off-script within 10 minutes anyway.</p>
+    </div>
+
+    <h3>Step 1 — Define Your Hook</h3>
+    <p>Your session needs a clear opening situation. Something happens that pulls the players into action. Make it immediate. Make it visible.</p>
+    <ul>
+      <li>A village is attacked by bandits and they're the only people who can help</li>
+      <li>They wake up in a dungeon with no memory of how they got there</li>
+      <li>A merchant hires them to escort a mysterious crate across the mountains</li>
+      <li>A local mine has gone silent — workers missing, foreman hasn't returned</li>
+    </ul>
+    <p>Don't start with a 20-minute backstory monologue. Start <em>in the action</em>.</p>
+
+    <h3>Step 2 — Plan Your Locations</h3>
+    <p>Prep 2–3 locations, no more for a first session. Each location needs:</p>
+    <div class="stat-block">
+      <div class="stat-block-title">Location Template</div>
+      <div class="stat-row"><span class="stat-key">Name &amp; Type</span><span class="stat-val">e.g., "The Amber Flagon" (tavern)</span></div>
+      <div class="stat-row"><span class="stat-key">3 Sensory Details</span><span class="stat-val">Smell, sound, one visual</span></div>
+      <div class="stat-row"><span class="stat-key">Who's Here</span><span class="stat-val">1–2 named NPCs</span></div>
+      <div class="stat-row"><span class="stat-key">What Can Happen</span><span class="stat-val">Combat? Info? Purchase?</span></div>
+      <div class="stat-row"><span class="stat-key">Exit Options</span><span class="stat-val">Where can players go next?</span></div>
+    </div>
+
+    <h3>Step 3 — Create 2–3 NPCs</h3>
+    <p>You don't need a cast of thousands. Prepare 2–3 NPCs that players will definitely meet, and improvise the rest as needed.</p>
+    <p>For each NPC, know:</p>
+    <ul>
+      <li><strong>Name</strong> — Keep it pronounceable. "Brom" is fine. "Xzytheriax" is a mouthful.</li>
+      <li><strong>One physical detail</strong> — A scar, a nervous habit, a distinctive voice</li>
+      <li><strong>Their goal</strong> — What do they want right now?</li>
+      <li><strong>Their secret</strong> — Something they're hiding, even if it never comes up</li>
+      <li><strong>Their attitude toward the players</strong> — Friendly? Suspicious? Desperate?</li>
+    </ul>
+
+    <h3>Step 4 — Plan One Encounter</h3>
+    <p>Prepare at least one combat encounter. Use this formula for balanced first sessions:</p>
+    <div class="callout callout-info">
+      <span class="callout-title">Easy Encounter Formula (4 Players, Level 1)</span>
+      <p>3–4 Goblins or 2 Wolves or 1 Bandit Captain + 2 Bandits. Anything in the Monster Manual marked "CR ¼" or lower is appropriate. When in doubt, use fewer enemies — you can always add reinforcements mid-combat.</p>
+    </div>
+
+    <h3>Step 5 — Prepare Your Notes Format</h3>
+    <p>Keep your session notes on index cards or a single page. Avoid scrolling through long documents mid-game. Recommended layout:</p>
+    <ul>
+      <li><strong>Card 1:</strong> Hook sentence + opening scene description</li>
+      <li><strong>Card 2:</strong> Location A — sensory details + NPCs</li>
+      <li><strong>Card 3:</strong> Combat encounter — enemy stat blocks</li>
+      <li><strong>Card 4:</strong> Possible endings / "what happens if they fail"</li>
+    </ul>
+
+    <div class="callout callout-warn">
+      <span class="callout-title">Avoid These Prep Mistakes</span>
+      <ul>
+        <li>Don't write dialogue word-for-word — you'll freeze when players respond unexpectedly</li>
+        <li>Don't prep a railroad — give players at least 2 ways to approach every situation</li>
+        <li>Don't prep more than you can use in 3–4 hours — unused prep isn't wasted, save it for next session</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 3 — RUNNING YOUR SESSION
+     ============================================= -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Running Your First Session</h2>
+    <span class="section-icon">🎲</span>
+  </div>
+  <div class="section-body">
+
+    <h3>The Session Structure</h3>
+    <p>A standard 3–4 hour session follows a loose arc. Don't be rigid about it, but having this in your head helps you pace:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Phase</th><th>Duration</th><th>What Happens</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Opening</strong></td><td>15–20 min</td><td>Set the scene. Establish where players are, what they see. Hook them into the situation.</td></tr>
+          <tr><td><strong>Rising Action</strong></td><td>60–90 min</td><td>Exploration, social interaction, investigation. Players gather info and make decisions.</td></tr>
+          <tr><td><strong>Climax</strong></td><td>45–60 min</td><td>The main combat or dramatic confrontation. High stakes, real consequences.</td></tr>
+          <tr><td><strong>Resolution</strong></td><td>15–20 min</td><td>Wrap up, reward loot/XP, tease what's coming next. End on a hook.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Opening a Session (Word-for-Word Starter)</h3>
+    <p>If you're not sure how to open, steal this formula and fill in the blanks:</p>
+    <div class="callout callout-gold">
+      <span class="callout-title">Opening Script Template</span>
+      <p><em>"The year is [year/era]. You find yourselves in [location]. It is [time of day], and [sensory detail 1 — smell/sound]. [Describe what they see]. You've come here because [brief reason they're together]. As you [current activity], [the inciting event happens]. What do you do?"</em></p>
+    </div>
+    <p>End every scene setup with <strong>"What do you do?"</strong> — it passes the spotlight to the players and signals it's their turn.</p>
+
+    <h3>Pacing — Reading the Room</h3>
+    <ul>
+      <li><strong>Players looking bored?</strong> Introduce a new element — an NPC rushes in, something explodes, a stranger drops a note at their table</li>
+      <li><strong>Players arguing over a plan?</strong> Let them. This is good roleplay. After 5 minutes, apply light pressure — "you hear footsteps approaching"</li>
+      <li><strong>Players overwhelmed?</strong> Have an NPC give a gentle nudge in the right direction — an ally, a note, a sudden obvious clue</li>
+      <li><strong>Players flying through content?</strong> Skip to the next interesting thing. Never pad with filler.</li>
+    </ul>
+
+    <h3>Handling Unexpected Situations</h3>
+    <p>Players <em>will</em> do something you didn't plan for. This is a feature, not a bug. Tools for handling it:</p>
+    <ul>
+      <li><strong>"That's interesting — tell me more about what you're trying to do."</strong> Buys you thinking time.</li>
+      <li><strong>Assign a DC and roll.</strong> Almost any action can be resolved with an ability check.</li>
+      <li><strong>Say yes.</strong> If their idea is creative and doesn't break the game, let it work. They'll love you for it.</li>
+      <li><strong>Delay consequences.</strong> "The door slides open... you'll find out what's inside when you step through." Use tension to stall while you improvise.</li>
+      <li><strong>Take a 5-minute break.</strong> Totally legitimate. "Let's grab drinks — I need a moment." Nobody minds.</li>
+    </ul>
+
+    <h3>Ending Your Session</h3>
+    <p>Always end on something memorable. Options:</p>
+    <ul>
+      <li>A mystery revealed that opens new questions</li>
+      <li>A villain escapes and vows revenge</li>
+      <li>A reward received + a new hook hinted at</li>
+      <li>A quiet moment of roleplay between characters</li>
+    </ul>
+    <p>After the session, do a 5-minute "debrief" — ask players what they loved and what confused them. This feedback is gold.</p>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 4 — COMBAT
+     ============================================= -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Combat Guide</h2>
+    <span class="section-icon">🗡️</span>
+  </div>
+  <div class="section-body">
+
+    <h3>How Combat Works — Step by Step</h3>
+    <ol>
+      <li><strong>Surprise check</strong> — If one side ambushes the other, they get a surprise round</li>
+      <li><strong>Roll Initiative</strong> — Everyone rolls d20 + Dexterity modifier. Go from highest to lowest.</li>
+      <li><strong>Take turns</strong> — Each creature gets a turn. On a turn: Move + Action + Bonus Action</li>
+      <li><strong>Repeat</strong> — Rounds continue until combat ends (all enemies down, flee, surrender)</li>
+    </ol>
+
+    <h3>Action Economy — What Can You Do on Your Turn</h3>
+    <div class="two-col">
+      <div class="card">
+        <h4>Action (1 per turn)</h4>
+        <ul>
+          <li>Attack</li>
+          <li>Cast a spell</li>
+          <li>Dash (double movement)</li>
+          <li>Disengage (no opportunity attacks)</li>
+          <li>Help (give ally advantage)</li>
+          <li>Hide</li>
+          <li>Use an item</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Bonus Action &amp; Reaction</h4>
+        <p><strong>Bonus Action:</strong> Only if a feature or spell grants it (off-hand attack, certain spells)</p>
+        <br>
+        <p><strong>Reaction:</strong> Once per round, triggered by an event (Opportunity Attack, Shield spell, Counterspell)</p>
+      </div>
+    </div>
+
+    <h3>Making an Attack — The Flow</h3>
+    <ol>
+      <li>Announce target and attack type</li>
+      <li>Roll d20 + Attack Modifier</li>
+      <li>Compare to target's Armor Class (AC)</li>
+      <li>If equal or higher — hit! Roll damage dice</li>
+      <li>If lower — miss. Describe the near-miss dramatically</li>
+      <li>On a 20 — Critical Hit! Roll damage dice <em>twice</em></li>
+      <li>On a 1 — Critical Miss. Something goes wrong (weapon fumble, etc.)</li>
+    </ol>
+
+    <h3>Difficulty Balancing for First Sessions</h3>
+    <div class="callout callout-warn">
+      <span class="callout-title">Common New DM Mistake</span>
+      <p>New DMs often make encounters too hard, killing characters in session one. Or too easy, making combat feel pointless. Start easy — you can always add a second wave of enemies if the fight is going too smoothly.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Difficulty</th><th>For 4 Level-1 Players</th><th>Feel</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag tag-green">Easy</span></td><td>3 Goblins (CR ¼)</td><td>Satisfying win, minimal resource drain</td></tr>
+          <tr><td><span class="tag">Medium</span></td><td>4 Goblins + 1 Goblin Boss</td><td>Tense but manageable</td></tr>
+          <tr><td><span class="tag tag-red">Hard</span></td><td>1 Ogre (CR 2)</td><td>Someone probably goes down</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>When a Player Drops to 0 HP</h3>
+    <ol>
+      <li>Player is <strong>unconscious</strong> and falls prone</li>
+      <li>Each turn they roll a <strong>Death Save</strong> (d20): 10+ = success, 9 or lower = failure</li>
+      <li><strong>3 successes</strong> = stabilized (still unconscious but not dying)</li>
+      <li><strong>3 failures</strong> = dead</li>
+      <li>Any ally can use their Action to stabilize them with a DC 10 Medicine check (or a Healer's Kit)</li>
+      <li>Any healing immediately brings them back up with that many HP</li>
+    </ol>
+
+    <div class="callout callout-tip">
+      <span class="callout-title">Describe Combat Cinematically</span>
+      <p>Don't just say "the goblin takes 6 damage." Say "your blade bites into the goblin's shoulder — it staggers, green blood running down its arm, and snarls at you." Good description makes even a failed attack feel dramatic.</p>
+    </div>
+
+    <h3>Keeping Combat Moving</h3>
+    <ul>
+      <li>If a player takes more than 30 seconds on their turn — ask "what does [character name] do?" to prompt action</li>
+      <li>Move enemy turns quickly — enemies aren't the stars</li>
+      <li>Use a visible initiative tracker (sticky notes, index cards, a whiteboard)</li>
+      <li>When enemies reach half HP — have them react: flee, call for help, change tactics</li>
+      <li>Let the last enemy surrender if it makes for good roleplay</li>
+    </ul>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 5 — ROLEPLAY & NPCs
+     ============================================= -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Roleplay &amp; NPCs</h2>
+    <span class="section-icon">🎭</span>
+  </div>
+  <div class="section-body">
+
+    <h3>Creating Memorable NPCs</h3>
+    <p>Players remember NPCs who feel real — not because of elaborate backstories, but because of <em>distinctive traits</em> that show up in every interaction.</p>
+
+    <div class="two-col">
+      <div class="card">
+        <h4>Physical Quirks</h4>
+        <ul>
+          <li>Taps fingers when nervous</li>
+          <li>Never makes eye contact</li>
+          <li>Has a distinctive laugh</li>
+          <li>Constantly cleaning/organizing</li>
+          <li>Speaks very quietly</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Speech Patterns</h4>
+        <ul>
+          <li>Uses sailor slang</li>
+          <li>Refers to themselves in third person</li>
+          <li>Ends every statement as a question?</li>
+          <li>Extremely formal and verbose</li>
+          <li>Short, clipped answers. Doesn't elaborate.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Voicing NPCs — Accent Tips</h3>
+    <p>You don't need to be a voice actor. You need <em>contrast</em> between NPCs so players can tell them apart.</p>
+    <ul>
+      <li><strong>Pitch:</strong> One NPC speaks high, one speaks low — instantly distinguishable</li>
+      <li><strong>Speed:</strong> Fast-talker vs. slow, deliberate speaker</li>
+      <li><strong>Volume:</strong> Whisperer vs. someone who always seems to be projecting</li>
+      <li><strong>Vocabulary:</strong> Simple words vs. flowery language vs. jargon</li>
+    </ul>
+    <div class="callout callout-tip">
+      <span class="callout-title">The 3-Voice Rule</span>
+      <p>Prepare 3 distinct voices before your session: one raspy/low, one high-pitched/nervous, one warm/friendly. Assign them to your 3 main NPCs. You can improvise variations on the fly for others.</p>
+    </div>
+
+    <h3>Improv Techniques for DMs</h3>
+    <p>The core principle of improv is <strong>"Yes, and..."</strong> — accept what players offer and build on it. Translated to D&amp;D:</p>
+    <ul>
+      <li><strong>"I want to seduce the dragon"</strong> → Don't say no. Say "roll Persuasion — the dragon raises an eyebrow and says..."</li>
+      <li><strong>"Is the innkeeper secretly a spy?"</strong> → Now she is. Work backwards to establish why.</li>
+      <li><strong>"I dive through the window"</strong> → Roll Athletics. On success: cinematic escape. On failure: hilarious window frame situation.</li>
+    </ul>
+
+    <h3>NPC Motivation = Believability</h3>
+    <p>Every NPC should want something. Even the baker wants to sell bread and close early. When NPCs pursue their own goals even when players aren't around, the world feels alive.</p>
+    <div class="stat-block">
+      <div class="stat-block-title">Quick NPC Generator</div>
+      <div class="stat-row"><span class="stat-key">Roll d6 for Goal</span><span class="stat-val">1-Money 2-Safety 3-Revenge 4-Love 5-Power 6-Knowledge</span></div>
+      <div class="stat-row"><span class="stat-key">Roll d6 for Obstacle</span><span class="stat-val">1-Poverty 2-Enemy 3-Illness 4-Secrecy 5-Duty 6-Fear</span></div>
+      <div class="stat-row"><span class="stat-key">Roll d6 for Trait</span><span class="stat-val">1-Greedy 2-Brave 3-Cowardly 4-Kind 5-Bitter 6-Curious</span></div>
+    </div>
+
+    <h3>Describing the World</h3>
+    <p>Use all five senses — most DMs describe only visuals. Add one non-visual detail to every scene:</p>
+    <ul>
+      <li>"The cave smells of damp stone and something rotting."</li>
+      <li>"The market is deafening — a hundred voices haggling at once."</li>
+      <li>"The dungeon floor is cold through your boots."</li>
+      <li>"You taste iron on your tongue — blood from where you bit your cheek in the fall."</li>
+    </ul>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 6 — GOLDEN RULES
+     ============================================= -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>The Golden Rules</h2>
+    <span class="section-icon">📖</span>
+  </div>
+  <div class="section-body">
+
+    <h3>The 10 Commandments of the First-Time DM</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Rule</th><th>Why It Matters</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Never prepare a "correct" path</strong></td><td>Players will immediately take a different one. Prepare situations, not scripts.</td></tr>
+          <tr><td>2</td><td><strong>Let dice fall where they fall</strong></td><td>Fudging rolls to protect players removes stakes. Natural 1s and 20s create the best stories.</td></tr>
+          <tr><td>3</td><td><strong>Be consistent with your world</strong></td><td>If fire burns the villain, it burns the hero. Rules should apply equally.</td></tr>
+          <tr><td>4</td><td><strong>Say "yes, and" more than "no"</strong></td><td>Blocking player ideas kills momentum. Build on them instead.</td></tr>
+          <tr><td>5</td><td><strong>Don't narrate player emotions</strong></td><td>Never say "you feel afraid." Say "the creature looks terrifying — how does [name] react?"</td></tr>
+          <tr><td>6</td><td><strong>Give every player a moment</strong></td><td>If one player is dominating, find a scenario that lets quieter players shine.</td></tr>
+          <tr><td>7</td><td><strong>Consequences must feel fair</strong></td><td>Players accept failure if it followed logically. They riot if it feels arbitrary.</td></tr>
+          <tr><td>8</td><td><strong>Check in with your players</strong></td><td>A quick "how are we doing?" break keeps everyone comfortable and engaged.</td></tr>
+          <tr><td>9</td><td><strong>Rules disputes go to break time</strong></td><td>Never stop the game to look something up. Make a call, write it down, settle it after.</td></tr>
+          <tr><td>10</td><td><strong>Have fun yourself</strong></td><td>DM energy is contagious. If you're excited, they're excited. Your enthusiasm is the session.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>When to Say Yes vs. No</h3>
+    <div class="two-col">
+      <div class="card">
+        <h4>✅ Say Yes When...</h4>
+        <ul>
+          <li>It's creative and fun</li>
+          <li>It doesn't undermine others' fun</li>
+          <li>Failure is still interesting</li>
+          <li>It moves the story forward</li>
+          <li>You just think it would be cool</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🚫 Say No When...</h4>
+        <ul>
+          <li>It would hurt another player (not their character)</li>
+          <li>It would end the session immediately with no fun</li>
+          <li>It violates the session's agreed tone</li>
+          <li>It requires you to lie about the world's rules</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Player Engagement Tips</h3>
+    <ul>
+      <li><strong>Use character names constantly</strong> — "What does <em>Theron</em> do?" feels more personal than "what do you do?"</li>
+      <li><strong>Tie encounters to backstories</strong> — If a player has a dead sister, have an NPC mention a girl matching her description in the next town</li>
+      <li><strong>Spotlight introverted players</strong> — Directly address them: "Mirella, you notice something the others missed — roll Perception"</li>
+      <li><strong>Celebrate good ideas</strong> — "That's brilliant — roll for it" validates player creativity</li>
+      <li><strong>Lose gracefully</strong> — When players outsmart your plan, be visibly delighted. It teaches them the game rewards cleverness.</li>
+    </ul>
+
+    <div class="callout callout-warn">
+      <span class="callout-title">Common Beginner Mistakes</span>
+      <ul>
+        <li><strong>DMPC (DM's own player character)</strong> — Don't give yourself a character that joins the party. You already play everyone else.</li>
+        <li><strong>Monologuing villains</strong> — Keep villain speeches to 30 seconds max. Then something happens.</li>
+        <li><strong>Railroading</strong> — If players feel their choices don't matter, they disengage. Always honor the illusion of choice, at minimum.</li>
+        <li><strong>Rewarding passivity</strong> — Make sure cautious, quiet players still feel engaged. Ask them questions directly.</li>
+      </ul>
+    </div>
+
+    <h3>Session Zero — Do This Before Session One</h3>
+    <p>A 30-minute "Session Zero" before your first real session saves enormous headaches:</p>
+    <ul>
+      <li>Discuss what kind of game everyone wants (dark, comedic, heroic?)</li>
+      <li>Establish safety tools — is there any content that's off-limits?</li>
+      <li>Confirm player character concepts don't conflict or undermine each other</li>
+      <li>Set expectations: how long per session? How often do you meet?</li>
+    </ul>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 7 — TOOLS & RESOURCES
+     ============================================= -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Tools &amp; Resources</h2>
+    <span class="section-icon">🧰</span>
+  </div>
+  <div class="section-body">
+
+    <h3>Dice You Need</h3>
+    <div class="dice-row">
+      <span class="die">d4</span>
+      <span class="die">d6</span>
+      <span class="die">d8</span>
+      <span class="die">d10</span>
+      <span class="die">d12</span>
+      <span class="die">d20</span>
+      <span class="die">d100</span>
+    </div>
+    <p>You need at least one full set. Ideally two d6s (for rolling 2d6 damage, etc.) and two d20s (for Advantage/Disadvantage — roll both, take higher/lower).</p>
+
+    <h3>Advantage &amp; Disadvantage</h3>
+    <p><strong>Advantage:</strong> Roll 2d20, take the <em>higher</em> result. Granted when a player has a meaningful edge.</p>
+    <p><strong>Disadvantage:</strong> Roll 2d20, take the <em>lower</em> result. Applied when something hinders the roll.</p>
+
+    <h3>Essential Free Digital Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tool</th><th>What It Does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>D&amp;D Beyond (dndbeyond.com)</strong></td><td>Official rules, free Basic Rules, monster manual, spell references</td></tr>
+          <tr><td><strong>Roll20 (roll20.net)</strong></td><td>Virtual tabletop for online play, dice rolling, maps</td></tr>
+          <tr><td><strong>Donjon (donjon.bin.sh)</strong></td><td>Random dungeon generator, encounter tables, treasure, NPCs</td></tr>
+          <tr><td><strong>Kobold Fight Club</strong></td><td>Encounter difficulty calculator — enter party size/level, get balanced fights</td></tr>
+          <tr><td><strong>BehindTheName.com</strong></td><td>Fantasy name generator by culture/language</td></tr>
+          <tr><td><strong>Fantasy Name Generators</strong></td><td>Town names, tavern names, NPC names — everything</td></tr>
+          <tr><td><strong>Ambient Mixer / Tabletop Audio</strong></td><td>Background music and ambient sounds for atmosphere</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Physical Tools Worth Having</h3>
+    <ul>
+      <li><strong>DM Screen</strong> — Hides your notes, has reference tables on the inside panels</li>
+      <li><strong>Dry-erase battle mat</strong> — Draw maps, track positions in combat (1 square = 5 feet)</li>
+      <li><strong>Index cards</strong> — NPC notes, initiative tracker, loot cards for players</li>
+      <li><strong>Miniatures or tokens</strong> — Coins, bottle caps, or actual minis — anything to show position</li>
+      <li><strong>Timer</strong> — Keep player turns to 30–60 seconds to maintain pace</li>
+    </ul>
+
+    <h3>Random Encounter Table (Roll d10)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Roll</th><th>Encounter</th><th>Tone</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1–2</td><td>Group of bandits demanding a toll</td><td>Combat or social</td></tr>
+          <tr><td>3</td><td>Injured traveler who needs help</td><td>Social + mystery</td></tr>
+          <tr><td>4</td><td>Merchant with unusual goods</td><td>Social + roleplay</td></tr>
+          <tr><td>5–6</td><td>Wolves (or equivalent beasts) hunting</td><td>Combat</td></tr>
+          <tr><td>7</td><td>A traveling bard with rumors</td><td>Information drop</td></tr>
+          <tr><td>8</td><td>Strange weather event or environmental hazard</td><td>Exploration + skill</td></tr>
+          <tr><td>9</td><td>Abandoned campfire — still warm</td><td>Mystery + tension</td></tr>
+          <tr><td>10</td><td>An opportunity that seems too good to be true</td><td>Social + intrigue</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Reading List (If You Want More)</h3>
+    <ul>
+      <li><strong>Dungeon Master's Guide</strong> (official WotC) — The comprehensive DM reference</li>
+      <li><strong>Sly Flourish's "Return of the Lazy Dungeon Master"</strong> — Prep techniques for busy DMs</li>
+      <li><strong>The Monsters Know What They're Doing</strong> — How to run intelligent monster tactics</li>
+      <li><em>YouTube:</em> <strong>Ginny Di, Matt Colville, Dungeon Dudes</strong> — Practical DM advice channels</li>
+    </ul>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 8 — SESSION CHECKLIST
+     ============================================= -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2>Session Checklist</h2>
+    <span class="section-icon">✅</span>
+  </div>
+  <div class="section-body">
+
+    <p>Print this page. Use it every session. The checkboxes are functional — check them off as you go.</p>
+
+    <span class="checklist-section-title">Before the Session (Day Before)</span>
+    <ul class="checklist">
+      <li><span class="check-box"></span>Hook defined — I know how the session opens</li>
+      <li><span class="check-box"></span>2–3 locations prepped with sensory details and NPCs</li>
+      <li><span class="check-box"></span>At least 1 combat encounter ready (enemy stats noted)</li>
+      <li><span class="check-box"></span>2–3 NPCs prepped (name + trait + goal)</li>
+      <li><span class="check-box"></span>Possible endings considered (success, failure, partial)</li>
+      <li><span class="check-box"></span>Music/ambiance playlist ready</li>
+      <li><span class="check-box"></span>Printed or written notes in easy-to-reference format</li>
+    </ul>
+
+    <span class="checklist-section-title">Setup (30 Min Before Players Arrive)</span>
+    <ul class="checklist">
+      <li><span class="check-box"></span>Table cleared, snacks/drinks ready</li>
+      <li><span class="check-box"></span>Dice accessible and within reach</li>
+      <li><span class="check-box"></span>DM screen up (if using), notes behind it</li>
+      <li><span class="check-box"></span>Battle mat/grid ready if using miniatures</li>
+      <li><span class="check-box"></span>Music playing when players arrive (sets the mood immediately)</li>
+      <li><span class="check-box"></span>Phone on silent / Do Not Disturb</li>
+      <li><span class="check-box"></span>Initiative tracker ready (index cards or whiteboard)</li>
+    </ul>
+
+    <span class="checklist-section-title">Opening (First 15 Minutes)</span>
+    <ul class="checklist">
+      <li><span class="check-box"></span>Brief recap of last session (or intro if first session)</li>
+      <li><span class="check-box"></span>Opening scene delivered — players oriented to location + situation</li>
+      <li><span class="check-box"></span>"What do you do?" — spotlight on players</li>
+      <li><span class="check-box"></span>First 10 minutes: something interesting has already happened</li>
+    </ul>
+
+    <span class="checklist-section-title">During Play</span>
+    <ul class="checklist">
+      <li><span class="check-box"></span>Every player has spoken/acted at least once in the last 20 minutes</li>
+      <li><span class="check-box"></span>Pacing feels right — not too rushed, not too slow</li>
+      <li><span class="check-box"></span>No rules dispute has stalled the game more than 60 seconds</li>
+      <li><span class="check-box"></span>Notes taken on any player decisions that should have future consequences</li>
+    </ul>
+
+    <span class="checklist-section-title">Closing (Final 20 Minutes)</span>
+    <ul class="checklist">
+      <li><span class="check-box"></span>Combat/main challenge resolved</li>
+      <li><span class="check-box"></span>Loot awarded (or promised)</li>
+      <li><span class="check-box"></span>XP awarded (or milestone leveling noted)</li>
+      <li><span class="check-box"></span>Hook for next session teased or established</li>
+      <li><span class="check-box"></span>Quick debrief: what did players love? What was confusing?</li>
+      <li><span class="check-box"></span>Notes made for next session prep</li>
+    </ul>
+
+    <div class="callout callout-gold">
+      <span class="callout-title">End Every Session With This Question</span>
+      <p>"What was your favorite moment tonight?" — It takes 2 minutes, tells you what's working, and sends everyone home on a positive note.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =============================================
+     SECTION 9 — QUICK REFERENCE
+     ============================================= -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <h2>Quick Reference</h2>
+    <span class="section-icon">⚡</span>
+  </div>
+  <div class="section-body">
+
+    <h3>Ability Check DCs (Difficulty Class)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>DC</th><th>Difficulty</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5</td><td>Very Easy</td><td>Climb a knotted rope, recall common knowledge</td></tr>
+          <tr><td>10</td><td>Easy</td><td>Break down a flimsy door, track recent footprints</td></tr>
+          <tr><td>15</td><td>Medium</td><td>Pick a basic lock, persuade a suspicious guard</td></tr>
+          <tr><td>20</td><td>Hard</td><td>Swim against a strong current, climb a sheer wall</td></tr>
+          <tr><td>25</td><td>Very Hard</td><td>Break manacles, recall obscure lore</td></tr>
+          <tr><td>30</td><td>Nearly Impossible</td><td>Track through snowstorm, persuade hostile enemy</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The 6 Ability Scores — What They're Used For</h3>
+    <div class="two-col">
+      <div class="card">
+        <h4>STR — Strength</h4>
+        <p>Lifting, pushing, breaking, melee attacks (usually). Athletics skill.</p>
+      </div>
+      <div class="card">
+        <h4>DEX — Dexterity</h4>
+        <p>Dodging, sneaking, ranged attacks, AC. Acrobatics, Stealth, Sleight of Hand.</p>
+      </div>
+      <div class="card">
+        <h4>CON — Constitution</h4>
+        <p>HP, concentration, holding breath, endurance. No skills directly tied to it.</p>
+      </div>
+      <div class="card">
+        <h4>INT — Intelligence</h4>
+        <p>Knowledge, reasoning, magic (Wizards). Arcana, History, Investigation, Nature, Religion.</p>
+      </div>
+      <div class="card">
+        <h4>WIS — Wisdom</h4>
+        <p>Perception, insight, awareness. Animal Handling, Insight, Medicine, Perception, Survival.</p>
+      </div>
+      <div class="card">
+        <h4>CHA — Charisma</h4>
+        <p>Social influence, force of personality. Deception, Intimidation, Performance, Persuasion.</p>
+      </div>
+    </div>
+
+    <h3>Conditions Reference (Most Common)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Condition</th><th>Effect Summary</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Blinded</strong></td><td>Can't see. Attacks against you have Advantage. Your attacks have Disadvantage.</td></tr>
+          <tr><td><strong>Charmed</strong></td><td>Can't attack the charmer. Charmer has Advantage on social checks vs. you.</td></tr>
+          <tr><td><strong>Frightened</strong></td><td>Disadvantage on ability checks/attacks while source of fear is in sight. Can't move closer to it.</td></tr>
+          <tr><td><strong>Grappled</strong></td><td>Speed becomes 0. Ends if grappler moves away or is incapacitated.</td></tr>
+          <tr><td><strong>Incapacitated</strong></td><td>Can't take Actions or Reactions.</td></tr>
+          <tr><td><strong>Paralyzed</strong></td><td>Incapacitated, can't move/speak. Attacks against you have Advantage. Hits within 5 ft are critical hits.</td></tr>
+          <tr><td><strong>Poisoned</strong></td><td>Disadvantage on attack rolls and ability checks.</td></tr>
+          <tr><td><strong>Prone</strong></td><td>Melee attacks against you have Advantage. Ranged attacks have Disadvantage. Must spend half movement to stand.</td></tr>
+          <tr><td><strong>Stunned</strong></td><td>Incapacitated, can't move. Attacks against you have Advantage. Fails STR and DEX saves.</td></tr>
+          <tr><td><strong>Unconscious</strong></td><td>Incapacitated, prone, can't move/speak. Attacks have Advantage. Hits within 5 ft are critical hits.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Common DM Rulings — When You're Not Sure</h3>
+    <ul>
+      <li><strong>Can they do this?</strong> → Pick an ability score + skill, set a DC, let them roll</li>
+      <li><strong>Is this possible?</strong> → If it's physically/logically possible in the fiction, yes. Assign a DC.</li>
+      <li><strong>Does this kill them?</strong> → Massive damage rule: if damage equals max HP or double remaining HP, they must make a DC 15 Constitution save or instantly die</li>
+      <li><strong>Do they know this information?</strong> → Relevant skill (Arcana, History, Nature, Religion) vs. DC 10–20 based on obscurity</li>
+      <li><strong>Does the trap trigger?</strong> → Passive Perception (10 + Perception modifier) to notice, or DC to spot if actively searching</li>
+    </ul>
+
+    <h3>Inspiration</h3>
+    <p>Award Inspiration when a player does something that embodies their character beautifully — great roleplay, honoring their flaw, acting in-character even when it costs them. A player with Inspiration can spend it for Advantage on any roll. Only one Inspiration can be held at a time.</p>
+
+    <h3>Short vs. Long Rest</h3>
+    <div class="two-col">
+      <div class="card">
+        <h4>Short Rest (1 hour)</h4>
+        <p>Players can spend Hit Dice to heal. Some class features recharge (Warlock spells, Fighter Second Wind).</p>
+      </div>
+      <div class="card">
+        <h4>Long Rest (8 hours)</h4>
+        <p>Full HP restored. All Hit Dice restored (half max). Most spells slots and features recharge.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-gold">
+      <span class="callout-title">Your Most Important Tool</span>
+      <p>The phrase <strong>"That's a great idea — roll for it."</strong> Use it whenever a player proposes something interesting, unexpected, or creative. It validates their agency, creates tension with the die roll, and lets the fiction emerge organically from the result. Master this phrase and you've mastered 80% of DMing.</p>
+    </div>
+
+    <div class="ornamental-rule">⁕ &nbsp; &nbsp; ⁕ &nbsp; &nbsp; ⁕</div>
+
+  </div>
+</div>
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<div style="text-align:center; padding: 3rem 1rem 1rem; color: rgba(245,234,214,0.25); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;">
+  Jaxon's DM Guide &nbsp;·&nbsp; First Session Edition &nbsp;·&nbsp; D&amp;D 5e &nbsp;·&nbsp; 2026<br>
+  <span style="opacity:0.5;">May your dice roll true and your players never split the party.</span>
+</div>
+
+</div><!-- end .page-wrap -->
+
+<script>
+// Simple scroll-to-section for TOC links
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Interactive checklist — clicking checks the box
+document.querySelectorAll('.check-box').forEach(box => {
+  box.style.cursor = 'pointer';
+  box.style.transition = 'background 0.2s, border-color 0.2s';
+  box.dataset.checked = 'false';
+
+  box.addEventListener('click', () => {
+    const checked = box.dataset.checked === 'true';
+    if (checked) {
+      box.style.background = '';
+      box.style.borderColor = 'var(--gold)';
+      box.innerHTML = '';
+      box.dataset.checked = 'false';
+    } else {
+      box.style.background = 'var(--forest)';
+      box.style.borderColor = 'var(--forest)';
+      box.innerHTML = '<svg viewBox="0 0 20 20" fill="none" style="width:14px;height:14px;margin:2px;"><path d="M4 10l4 4 8-8" stroke="#90ee90" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      box.dataset.checked = 'true';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
