@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary v2.0 — Release Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c14;
+    --bg-2: #0d1220;
+    --bg-3: #111827;
+    --surface: #141d2e;
+    --surface-2: #1a2540;
+    --border: rgba(99, 149, 255, 0.12);
+    --border-bright: rgba(99, 149, 255, 0.28);
+    --text: #e8edf8;
+    --text-muted: #7a8baa;
+    --text-dim: #3d4f6b;
+    --accent: #5b8cff;
+    --accent-glow: rgba(91, 140, 255, 0.18);
+    --accent-2: #a78bfa;
+    --accent-3: #38bdf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+    --serif: 'Instrument Serif', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* Ambient light blobs */
+  .ambient {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ambient-1 {
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(91,140,255,0.07) 0%, transparent 70%);
+    top: -100px; left: -100px;
+  }
+  .ambient-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(ellipse, rgba(167,139,250,0.06) 0%, transparent 70%);
+    bottom: 20%; right: -150px;
+  }
+  .ambient-3 {
+    width: 400px; height: 300px;
+    background: radial-gradient(ellipse, rgba(56,189,248,0.05) 0%, transparent 70%);
+    top: 40%; left: 30%;
+  }
+
+  /* Layout */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8, 12, 20, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    gap: 2rem;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: -0.5px;
+    box-shadow: 0 0 20px rgba(91,140,255,0.3);
+  }
+  .nav-logo span {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo small {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-glow);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(91,140,255,0.25);
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 100px 0 80px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(91,140,255,0.25);
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+    animation: fadeSlideUp 0.6s ease both;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero-title {
+    font-family: var(--sans);
+    font-size: clamp(52px, 8vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+    animation: fadeSlideUp 0.6s 0.1s ease both;
+  }
+  .hero-title .version {
+    display: block;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 60%, var(--accent-3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 22px);
+    color: var(--text-muted);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    max-width: 560px;
+    line-height: 1.5;
+    animation: fadeSlideUp 0.6s 0.2s ease both;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    animation: fadeSlideUp 0.6s 0.3s ease both;
+  }
+  .meta-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .meta-pill .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+  }
+  .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-blue { background: var(--accent); }
+
+  .hero-rule {
+    margin-top: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    animation: fadeSlideUp 0.6s 0.4s ease both;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    margin: 72px 0 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .section-title-wrap {}
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: var(--sans);
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  /* ─── FEATURE CARDS ─── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    align-items: start;
+    transition: border-color 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover {
+    border-color: var(--border-bright);
+    background: var(--surface-2);
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-card:first-child { border-radius: 12px 12px 2px 2px; }
+  .feature-card:last-child { border-radius: 2px 2px 12px 12px; }
+  .feature-card:only-child { border-radius: 12px; }
+
+  .feature-icon {
+    width: 52px; height: 52px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-body { position: relative; z-index: 1; }
+  .feature-name {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid;
+    font-weight: 400;
+  }
+  .badge-new {
+    color: var(--green);
+    border-color: rgba(52, 211, 153, 0.3);
+    background: rgba(52, 211, 153, 0.07);
+  }
+  .badge-improved {
+    color: var(--accent);
+    border-color: rgba(91, 140, 255, 0.3);
+    background: rgba(91, 140, 255, 0.07);
+  }
+  .badge-rework {
+    color: var(--accent-2);
+    border-color: rgba(167, 139, 250, 0.3);
+    background: rgba(167, 139, 250, 0.07);
+  }
+  .feature-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .feature-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .feature-bullets li {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .feature-bullets li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .compare-table thead th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table thead th:nth-child(2),
+  .compare-table thead th:nth-child(3) { text-align: center; }
+  .compare-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr:hover { background: var(--surface); }
+  .compare-table td {
+    padding: 12px 16px;
+    color: var(--text-muted);
+    vertical-align: middle;
+  }
+  .compare-table td:first-child {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .compare-table td:nth-child(2),
+  .compare-table td:nth-child(3) { text-align: center; }
+  .check { color: var(--green); font-size: 15px; }
+  .cross { color: var(--text-dim); font-size: 15px; }
+  .partial { color: var(--amber); font-size: 13px; font-family: var(--mono); }
+  .compare-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .compare-header {
+    padding: 14px 16px 0;
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    gap: 8px;
+  }
+  .compare-version {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .v1-badge {
+    color: var(--text-dim);
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+  }
+  .v2-badge {
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(91,140,255,0.3);
+  }
+
+  /* ─── GETTING STARTED ─── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 8px;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+  }
+  .step:first-child { border-radius: 12px 12px 2px 2px; }
+  .step:last-child { border-radius: 2px 2px 12px 12px; }
+  .step:hover { border-color: var(--border-bright); }
+  .step-num {
+    width: 32px; height: 32px;
+    background: var(--bg-3);
+    border: 1px solid var(--border-bright);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .step-content {}
+  .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent-3);
+  }
+
+  /* ─── SHORTCUT GRID ─── */
+  .shortcut-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .shortcut-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.2s;
+  }
+  .shortcut-item:hover { border-color: var(--border-bright); }
+  .shortcut-name {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .shortcut-keys {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+  kbd {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--bg-3);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: var(--text);
+    box-shadow: 0 2px 0 var(--border);
+    white-space: nowrap;
+  }
+
+  /* ─── CHANGELOG STRIP ─── */
+  .changelog {
+    margin: 48px 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .changelog-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .changelog-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .changelog-entry {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    font-size: 13px;
+  }
+  .changelog-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .tag-feat { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+  .tag-fix { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .tag-perf { background: rgba(251,191,36,0.1); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+  .tag-dx { background: rgba(56,189,248,0.1); color: var(--accent-3); border: 1px solid rgba(56,189,248,0.2); }
+  .changelog-text { color: var(--text-muted); line-height: 1.4; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    margin: 8px 0;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px 2rem;
+    margin-top: 80px;
+  }
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-left {}
+  .footer-product {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .footer-product span { color: var(--accent); }
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .footer-version {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: -0.02em;
+  }
+  .footer-links {
+    display: flex;
+    gap: 16px;
+  }
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-date { display: none; }
+    .feature-card { grid-template-columns: 1fr; }
+    .feature-icon { width: 40px; height: 40px; font-size: 18px; }
+    .hero { padding: 60px 0 50px; }
+    .shortcut-grid { grid-template-columns: 1fr; }
+    .footer-right { align-items: flex-start; }
+    .compare-header { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient ambient-1"></div>
+<div class="ambient ambient-2"></div>
+<div class="ambient ambient-3"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">G</div>
+      <span>Gary</span>
+      <small>v2.0</small>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#comparison">What's New</a></li>
+      <li><a href="#quickstart">Quickstart</a></li>
+      <li><a href="#changelog">Changelog</a></li>
+    </ul>
+    <span class="nav-date">March 9, 2026</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="container">
+  <section class="hero">
+    <div class="hero-eyebrow">Release Notes</div>
+    <h1 class="hero-title">
+      Gary
+      <span class="version">v2.0</span>
+    </h1>
+    <p class="hero-subtitle">The mission control you've been building toward. Dispatch automation, real-time intelligence, and a fully wired personal operating system.</p>
+    <div class="hero-meta">
+      <span class="meta-pill"><span class="dot dot-green"></span>Production Release</span>
+      <span class="meta-pill"><span class="dot dot-blue"></span>Tauri 2 + React 19</span>
+      <span class="meta-pill"><span class="dot dot-amber"></span>macOS / Linux</span>
+    </div>
+    <div class="hero-rule"></div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <div class="section-title-wrap">
+        <div class="section-label">What's in v2.0</div>
+        <h2 class="section-title">Core Features</h2>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+
+      <!-- 1. Dispatch System -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Dispatch System
+            <span class="badge badge-new">New</span>
+          </div>
+          <p class="feature-desc">
+            Gary can now orchestrate multi-step tasks across multiple agents. Route work intelligently to Claude Code for coding tasks, Cowork for research and documents, or handle directly — all from a single instruction.
+          </p>
+          <ul class="feature-bullets">
+            <li>Automatic routing: coding → Claude Code, research → Cowork, answers → Gary direct</li>
+            <li>Four-layer guardrail system: debounce, concurrency lock, cooldown, daily cap</li>
+            <li>Push model dispatch — immediate execution, no polling lag</li>
+            <li>Cost tracking per dispatch job in the <code>api_usage</code> table</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. Auto-Notifications -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Auto-Notifications
+            <span class="badge badge-new">New</span>
+          </div>
+          <p class="feature-desc">
+            Real-time alerts delivered where you are. Dispatch results, morning briefs, loop completions, and system events now push to Telegram, email, and macOS desktop notifications with configurable priority levels.
+          </p>
+          <ul class="feature-bullets">
+            <li>Three priority tiers: critical (Telegram + desktop), standard (desktop), ambient (badge)</li>
+            <li>Telegram bot integration — voice, photo, and text message ingestion</li>
+            <li>Native macOS notifications via Tauri's notification plugin</li>
+            <li>Smart deduplication prevents notification storms from job retries</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. Dashboard Customization -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎛</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Dashboard Customization
+            <span class="badge badge-improved">Improved</span>
+          </div>
+          <p class="feature-desc">
+            Your mission control, your layout. Reorganize, resize, and toggle every widget. Preferences persist in SQLite — your layout survives restarts and updates.
+          </p>
+          <ul class="feature-bullets">
+            <li>10-widget grid with per-widget show/hide and Small / Medium / Full size options</li>
+            <li>DashboardCustomizer slide-in panel — LayoutGrid button in the header</li>
+            <li>Layout config stored in <code>settings</code> table under <code>dashboard.widgets</code></li>
+            <li>New widgets: Weather, Habit Tracker, Loop Streak, Email Highlights, Priority Tasks</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. Gmail & Calendar Sync -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">📬</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Gmail &amp; Calendar Sync
+            <span class="badge badge-improved">Improved</span>
+          </div>
+          <p class="feature-desc">
+            Full two-way Google integration. Unread badges refresh every 5 minutes, body cache allows offline reading, and meeting prep briefs surface automatically before scheduled events.
+          </p>
+          <ul class="feature-bullets">
+            <li>6-month Gmail sweep on first connect — full body cache in <code>email_bodies</code> table</li>
+            <li>7-day calendar sync with real-time read/unread badge updates</li>
+            <li>Meeting prep auto-pilot: AI brief generated 15 minutes before each event</li>
+            <li>Google OAuth tokens stored locally in <code>google_auth</code> SQLite table</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5. Keyboard Shortcuts -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">⌨️</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Keyboard Shortcuts
+            <span class="badge badge-new">New</span>
+          </div>
+          <p class="feature-desc">
+            Everything within reach of the home row. The command palette centralizes navigation, search, and actions. Capture modals are one chord away from anywhere in the app.
+          </p>
+          <div class="shortcut-grid" style="margin-top:12px; margin-bottom:0;">
+            <div class="shortcut-item"><span class="shortcut-name">Command Palette</span><div class="shortcut-keys"><kbd>⌘</kbd><kbd>K</kbd></div></div>
+            <div class="shortcut-item"><span class="shortcut-name">Quick Note</span><div class="shortcut-keys"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>N</kbd></div></div>
+            <div class="shortcut-item"><span class="shortcut-name">Quick Loop</span><div class="shortcut-keys"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd></div></div>
+            <div class="shortcut-item"><span class="shortcut-name">Compose Email</span><div class="shortcut-keys"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>E</kbd></div></div>
+            <div class="shortcut-item"><span class="shortcut-name">Transcript Capture</span><div class="shortcut-keys"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>T</kbd></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Widget System -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">🧩</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Widget System
+            <span class="badge badge-rework">Rework</span>
+          </div>
+          <p class="feature-desc">
+            The dashboard now runs on a composable widget architecture. Each widget is independently sized, toggled, and themed — making the dashboard feel genuinely tailored rather than templated.
+          </p>
+          <ul class="feature-bullets">
+            <li>Weather Widget — OpenMeteo API, geolocation, 30-min cache, Fahrenheit</li>
+            <li>Habit Widget — daily tracking with inline add/remove, satisfying pop animation</li>
+            <li>Loop Streak Widget — animated counter, 7-day SVG bar chart</li>
+            <li>Email Highlights, Meeting Prep, Priority Tasks widgets (new in v2.0)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 7. Daily Check-ins -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">🪞</div>
+        <div class="feature-body">
+          <div class="feature-name">
+            Daily Check-ins
+            <span class="badge badge-new">New</span>
+          </div>
+          <p class="feature-desc">
+            A 4-phase morning ritual built into the app. Contextual questions adapt to your recent activity, mood tracking feeds weekly digest summaries, and insights surface in your Willie Profile.
+          </p>
+          <ul class="feature-bullets">
+            <li>Auto-triggers 1.2 seconds after app ready — once per day, never again until tomorrow</li>
+            <li>4 phases: focus, energy, priorities, intentions — takes under 90 seconds</li>
+            <li>Insights written to <code>willie_profile</code> table — informs AI responses all day</li>
+            <li>DB migration v16: <code>daily_checkins</code> table</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section id="comparison">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <div class="section-title-wrap">
+        <div class="section-label">v1 → v2</div>
+        <h2 class="section-title">What's Different</h2>
+      </div>
+    </div>
+
+    <div class="compare-wrap reveal">
+      <div class="compare-header">
+        <div></div>
+        <div class="compare-version v1-badge">v1</div>
+        <div class="compare-version v2-badge">v2</div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>v1</th>
+            <th>v2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Multi-agent dispatch</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Telegram notifications + ingestion</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Gmail body cache (6-month sweep)</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Dashboard widget customization</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Daily check-ins + mood tracking</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Meeting prep briefs (auto)</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Job guardrails (dedup, caps, cooldowns)</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>AI cost tracking</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Willie Profile context injection</td>
+            <td class="cross">✕</td>
+            <td class="check">✓</td>
+          </tr>
+          <tr>
+            <td>Keyboard shortcuts</td>
+            <td class="partial">2 shortcuts</td>
+            <td class="check">Full suite</td>
+          </tr>
+          <tr>
+            <td>Morning Brief</td>
+            <td class="partial">Manual</td>
+            <td class="check">Scheduled + auto</td>
+          </tr>
+          <tr>
+            <td>Google Calendar sync</td>
+            <td class="check">✓</td>
+            <td class="check">✓ (enhanced)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Getting Started -->
+  <section id="quickstart">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <div class="section-title-wrap">
+        <div class="section-label">Getting Started</div>
+        <h2 class="section-title">Quick-Start Guide</h2>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Connect Google Account</div>
+          <p class="step-desc">Open <strong>Settings → Google</strong> and click <em>Connect Google Account</em>. Authorize Calendar and Gmail scopes. Gary will run an initial 6-month Gmail sweep in the background — this takes a few minutes on first run.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Configure AI Model Routing</div>
+          <p class="step-desc">Go to <strong>Settings → AI</strong> and add your Anthropic API key. Background jobs use Gemini Flash via OpenRouter by default (pennies per day). Add an OpenRouter key in <strong>Settings → AI → Model Routing</strong> to enable it.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Set Up Telegram Bot (optional)</div>
+          <p class="step-desc">Create a bot via <code>@BotFather</code> on Telegram and paste the token into <strong>Settings → Telegram</strong>. Send yourself a message to get your chat ID. Gary will now receive voice memos, photos, and text from your phone.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Customize Your Dashboard</div>
+          <p class="step-desc">Click the <strong>LayoutGrid icon</strong> in the dashboard header to open the widget customizer. Toggle widgets on/off and pick S / M / F sizes. Your layout persists automatically across restarts.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Complete Your First Check-in</div>
+          <p class="step-desc">Gary will auto-prompt your daily check-in 1.2 seconds after startup (once per day). Take 90 seconds to complete all 4 phases. Your answers inform Gary's AI context for the rest of the day.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Try the Command Palette</div>
+          <p class="step-desc">Press <kbd>⌘</kbd><kbd>K</kbd> anywhere in the app. Search for notes, loops, commands, and settings. Use <kbd>⌘</kbd><kbd>⇧</kbd><kbd>N</kbd> to quick-capture a note and <kbd>⌘</kbd><kbd>⇧</kbd><kbd>L</kbd> to capture a loop without leaving your current view.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Changelog -->
+  <section id="changelog">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <div class="section-title-wrap">
+        <div class="section-label">Full Changelog</div>
+        <h2 class="section-title">v2.0 Changelog</h2>
+      </div>
+    </div>
+
+    <div class="changelog reveal">
+      <div class="changelog-title">MARCH 2026</div>
+      <div class="changelog-entries">
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Dispatch system with multi-agent routing (Claude Code / Cowork / Gary direct)</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Four-layer job guardrail system: debounce, concurrency lock, cooldown, daily cap</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Telegram bot integration: text, voice (Whisper), photo (Claude Vision) ingestion</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Auto-notifications: Telegram, macOS desktop, and email with priority tiers</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Dashboard widget customizer with show/hide and S/M/F size controls</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Daily Check-in modal: 4-phase, auto-triggers once per day, feeds Willie Profile</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Meeting prep auto-pilot: AI brief 15 minutes before calendar events</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Gmail Compose (⌘⇧E), Web Search (Brave API), full keyboard shortcut suite</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">Willie Profile: people/project extraction, AI context injection across all prompts</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-feat">feat</span><span class="changelog-text">New widgets: Weather, Habit Tracker, Loop Streak, Email Highlights, Priority Tasks</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-perf">perf</span><span class="changelog-text">Model routing: Gemini Flash Lite for background jobs, Haiku for chat (cost ~$10-15/wk)</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-perf">perf</span><span class="changelog-text">Chat context windowing: max 30 messages, last 10 full + older compressed, 80K cap</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-perf">perf</span><span class="changelog-text">Gmail 6-month sweep on first connect, body cache in SQLite for offline access</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-fix">fix</span><span class="changelog-text">Event-triggered jobs now go through guardrail system (fixes v0.1 job storm — 8K+ runs/day)</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-fix">fix</span><span class="changelog-text">HMR listener stacking: cronEngine protected via AbortController</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-dx">dx</span><span class="changelog-text">DB migrations v13–v16: daily_habits, habit_completions, media_path fields, daily_checkins</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-dx">dx</span><span class="changelog-text">MCP Node.js sidecar: modular dispatch, decision engine, result ingestion, 30+ tools</span></div>
+        <div class="changelog-entry"><span class="changelog-tag tag-dx">dx</span><span class="changelog-text">Rust media save command: saves bytes to {app_data_dir}/media/ for Telegram photos/video</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-product">Gary <span>v2.0</span></div>
+      <div class="footer-meta">
+        Released March 9, 2026<br>
+        Built on Tauri 2 + React 19 + SQLite<br>
+        Bundle ID: com.willieos.app
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-version">2.0.0</div>
+      <div class="footer-links">
+        <a href="#">Changelog</a>
+        <a href="#">GitHub</a>
+        <a href="#">Settings</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Stagger children if it's a grid
+        const children = entry.target.querySelectorAll('.reveal-child');
+        children.forEach((child, i) => {
+          setTimeout(() => child.classList.add('visible'), i * 80);
+        });
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger feature cards
+  document.querySelectorAll('.feature-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 40}ms`;
+  });
+
+  // Stagger steps
+  document.querySelectorAll('.step').forEach((step, i) => {
+    step.style.transitionDelay = `${i * 50}ms`;
+  });
+</script>
+</body>
+</html>
