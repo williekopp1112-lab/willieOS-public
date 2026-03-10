@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary — Willie's AI Chief of Staff</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #080b10;
+    --bg-card: #0d1117;
+    --bg-elevated: #111820;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(99,179,237,0.25);
+    --blue: #63b3ed;
+    --blue-dim: #3a7bd5;
+    --blue-glow: rgba(99,179,237,0.15);
+    --purple: #9f7aea;
+    --purple-glow: rgba(159,122,234,0.15);
+    --text: #e2e8f0;
+    --text-dim: #718096;
+    --text-muted: #4a5568;
+    --green: #68d391;
+    --amber: #f6ad55;
+    --red: #fc8181;
+    --mono: 'DM Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ──────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ──────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8,11,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-logo .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 8px var(--blue);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--blue); }
+    50% { opacity: 0.5; box-shadow: 0 0 16px var(--blue); }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--blue);
+    color: #080b10 !important;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    transition: all 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: #90cdf4 !important;
+    color: #080b10 !important;
+    box-shadow: 0 0 20px rgba(99,179,237,0.4);
+  }
+
+  /* ── HERO ──────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99,179,237,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,179,237,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .hero-orb-1 {
+    width: 600px; height: 400px;
+    background: radial-gradient(circle, rgba(99,179,237,0.12) 0%, transparent 70%);
+    top: 10%; left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero-orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(159,122,234,0.1) 0%, transparent 70%);
+    bottom: 20%; right: 10%;
+  }
+
+  .hero-orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(99,179,237,0.08) 0%, transparent 70%);
+    bottom: 30%; left: 5%;
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--border-bright);
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--blue);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    background: rgba(99,179,237,0.05);
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-title .accent {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background: var(--blue);
+    color: #080b10;
+    font-family: var(--body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover {
+    background: #90cdf4;
+    box-shadow: 0 0 30px rgba(99,179,237,0.4), 0 4px 20px rgba(0,0,0,0.5);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: var(--body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--border-bright);
+    color: var(--text);
+    background: rgba(99,179,237,0.05);
+  }
+
+  .hero-terminal {
+    margin-top: 4rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeUp 0.8s 0.4s ease both;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .terminal-dot.red { background: #fc8181; }
+  .terminal-dot.amber { background: #f6ad55; }
+  .terminal-dot.green { background: #68d391; }
+
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .terminal-body {
+    padding: 1.25rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+
+  .t-prompt { color: var(--text-muted); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--text-dim); }
+  .t-blue { color: var(--blue); }
+  .t-green { color: var(--green); }
+  .t-amber { color: var(--amber); }
+  .t-purple { color: var(--purple); }
+
+  .t-cursor {
+    display: inline-block;
+    width: 6px; height: 14px;
+    background: var(--blue);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ── SECTIONS ───────────────────────────────────── */
+  section {
+    padding: 6rem 2rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--blue);
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    font-size: 1rem;
+    color: var(--text-dim);
+    max-width: 540px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── FEATURE GRID ───────────────────────────────── */
+  .feature-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .feature-layout.reverse { direction: rtl; }
+  .feature-layout.reverse > * { direction: ltr; }
+
+  @media (max-width: 768px) {
+    .feature-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .feature-layout.reverse { direction: ltr; }
+  }
+
+  .feature-copy .section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); }
+
+  .feature-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .feature-list .check {
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(104,211,145,0.15);
+    border: 1px solid rgba(104,211,145,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  /* ── MOCK UI COMPONENTS ────────────────────────── */
+  .mock-window {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mock-window:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 40px rgba(99,179,237,0.05);
+  }
+
+  .mock-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mock-titlebar-title {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+
+  /* ── CHAT MOCK ──────────────────────────────────── */
+  .chat-messages {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .chat-msg {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+  }
+
+  .chat-msg.user { flex-direction: row-reverse; }
+
+  .chat-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: var(--display);
+  }
+
+  .chat-avatar.gary {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white;
+  }
+
+  .chat-avatar.user {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+
+  .chat-bubble {
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    max-width: 75%;
+  }
+
+  .chat-bubble.gary {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .chat-bubble.user {
+    background: rgba(99,179,237,0.12);
+    border: 1px solid rgba(99,179,237,0.2);
+    color: var(--text);
+  }
+
+  .chat-tool-call {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(159,122,234,0.1);
+    border: 1px solid rgba(159,122,234,0.2);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--purple);
+    margin-top: 0.4rem;
+  }
+
+  .chat-input-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
+  }
+
+  .chat-input-fake {
+    flex: 1;
+    padding: 0.4rem 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+
+  /* ── DISPATCH MOCK ──────────────────────────────── */
+  .dispatch-flow {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dispatch-job {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .dispatch-job:hover {
+    border-color: var(--border-bright);
+    background: rgba(99,179,237,0.04);
+  }
+
+  .dispatch-icon {
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .dispatch-info { flex: 1; min-width: 0; }
+
+  .dispatch-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dispatch-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  .dispatch-status {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .status-running {
+    background: rgba(99,179,237,0.1);
+    color: var(--blue);
+    border: 1px solid rgba(99,179,237,0.2);
+  }
+
+  .status-done {
+    background: rgba(104,211,145,0.1);
+    color: var(--green);
+    border: 1px solid rgba(104,211,145,0.2);
+  }
+
+  .status-queued {
+    background: rgba(246,173,85,0.1);
+    color: var(--amber);
+    border: 1px solid rgba(246,173,85,0.2);
+  }
+
+  /* ── LOOPS MOCK ─────────────────────────────────── */
+  .loops-list {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .loop-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .loop-item:hover {
+    border-color: var(--border-bright);
+    transform: translateX(2px);
+  }
+
+  .loop-check {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-bright);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .loop-item:hover .loop-check {
+    border-color: var(--blue);
+    background: var(--blue-glow);
+  }
+
+  .loop-text {
+    flex: 1;
+    font-size: 0.78rem;
+    color: var(--text);
+  }
+
+  .loop-badge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+  }
+
+  .badge-high {
+    background: rgba(252,129,129,0.1);
+    color: var(--red);
+    border: 1px solid rgba(252,129,129,0.2);
+  }
+
+  .badge-med {
+    background: rgba(246,173,85,0.1);
+    color: var(--amber);
+    border: 1px solid rgba(246,173,85,0.2);
+  }
+
+  .badge-low {
+    background: rgba(104,211,145,0.1);
+    color: var(--green);
+    border: 1px solid rgba(104,211,145,0.2);
+  }
+
+  .badge-context {
+    background: rgba(99,179,237,0.08);
+    color: var(--blue);
+    border: 1px solid rgba(99,179,237,0.15);
+  }
+
+  /* ── BRIEF MOCK ─────────────────────────────────── */
+  .brief-content {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .brief-date {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .brief-greeting {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .brief-body {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .brief-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .brief-stat {
+    padding: 0.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .brief-stat-num {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  .brief-stat-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    margin-top: 0.1rem;
+  }
+
+  /* ── CALENDAR MOCK ──────────────────────────────── */
+  .calendar-list {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cal-event {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--blue);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.78rem;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .cal-event:hover { background: rgba(99,179,237,0.05); }
+
+  .cal-time {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    min-width: 70px;
+    white-space: nowrap;
+  }
+
+  .cal-title { flex: 1; color: var(--text); }
+
+  .cal-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    background: rgba(104,211,145,0.1);
+    color: var(--green);
+    border-radius: 3px;
+  }
+
+  /* ── KEYBOARD SHORTCUTS ────────────────────────── */
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .shortcut-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .shortcut-card:hover {
+    border-color: var(--border-bright);
+    background: rgba(99,179,237,0.03);
+    transform: translateY(-1px);
+  }
+
+  .shortcut-keys {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.45rem;
+    background: var(--bg-elevated);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 2px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    min-width: 26px;
+    text-align: center;
+  }
+
+  .shortcut-sep {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+  }
+
+  .shortcut-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* ── WIDGET GRID MOCK ───────────────────────────── */
+  .widget-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .widget {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.2s;
+    cursor: grab;
+  }
+
+  .widget:hover {
+    border-color: var(--border-bright);
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  .widget:active { cursor: grabbing; }
+
+  .widget-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .widget-val {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .widget-sub {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  .widget.span2 { grid-column: span 2; }
+
+  .mini-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 32px;
+    margin-top: 0.5rem;
+  }
+
+  .mini-bar {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+    background: rgba(99,179,237,0.3);
+    transition: height 0.3s;
+  }
+
+  /* ── DIVIDER ─────────────────────────────────────── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 auto;
+    max-width: 1100px;
+  }
+
+  /* ── CTA SECTION ────────────────────────────────── */
+  .cta-section {
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+
+  .cta-orb-1 {
+    width: 500px; height: 300px;
+    background: radial-gradient(circle, rgba(99,179,237,0.12) 0%, transparent 70%);
+    top: 0; left: 50%; transform: translateX(-50%);
+  }
+
+  .cta-section .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-section .section-desc {
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.1rem;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text-dim); }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  /* ── SCROLL REVEAL ──────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── SECTION SEPARATORS ────────────────────────── */
+  .alt-section { background: rgba(255,255,255,0.015); }
+
+  /* ── TYPING ANIMATION ───────────────────────────── */
+  .typing-dots { display: inline-flex; gap: 3px; align-items: center; padding: 0.2rem 0; }
+  .typing-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    animation: typingBounce 1.2s ease-in-out infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingBounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+    40% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  /* ── ANIMATED PROGRESS ──────────────────────────── */
+  .progress-bar-wrap {
+    height: 3px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    animation: fillBar 2s ease-in-out infinite alternate;
+  }
+  @keyframes fillBar {
+    from { width: 30%; }
+    to { width: 85%; }
+  }
+
+  /* Mobile nav */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .widget-grid { grid-template-columns: repeat(2, 1fr); }
+    .widget.span2 { grid-column: span 2; }
+    .brief-stats { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="dot"></span>
+    Gary
+  </div>
+  <ul class="nav-links">
+    <li><a href="#chat">AI Chat</a></li>
+    <li><a href="#dispatch">Dispatch</a></li>
+    <li><a href="#loops">Loops</a></li>
+    <li><a href="#brief">Brief</a></li>
+    <li><a href="#try" class="nav-cta">Try Gary</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+      Personal AI OS &nbsp;·&nbsp; v0.2.0
+    </div>
+
+    <h1 class="hero-title">
+      Meet <span class="accent">Gary</span><br>
+      Your AI Chief<br>of Staff
+    </h1>
+
+    <p class="hero-sub">
+      A local-first desktop OS that dispatches tasks, triages your inbox, manages open loops, and briefs you every morning — all without leaving your machine.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#try" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+        Try Gary
+      </a>
+      <a href="#chat" class="btn-secondary">
+        Explore Features
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot amber"></div>
+        <div class="terminal-dot green"></div>
+        <div class="terminal-title">gary — mission control</div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">gary</span> <span class="t-blue">▸</span> <span class="t-cmd">good morning, Willie</span></div>
+        <div class="t-out" style="margin-top:0.25rem;">You have <span class="t-amber">3 urgent loops</span>, <span class="t-blue">2 meetings</span> before noon,</div>
+        <div class="t-out">and <span class="t-green">14 unread emails</span> (4 need action).</div>
+        <div style="margin-top:0.5rem;"><span class="t-purple">→</span> <span class="t-out">Drafting morning brief…</span></div>
+        <div><span class="t-purple">→</span> <span class="t-out">Running email triage…</span></div>
+        <div style="margin-top:0.5rem;"><span class="t-prompt">gary</span> <span class="t-blue">▸</span> <span class="t-cmd">what's the highest priority right now?</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT -->
+<div class="section-divider"></div>
+<section id="chat">
+  <div class="section-inner">
+    <div class="feature-layout">
+      <div class="feature-copy reveal">
+        <span class="section-label">01 — AI Chat</span>
+        <h2 class="section-title">Conversational AI That Knows Your World</h2>
+        <p class="section-desc">Gary doesn't just answer questions — he has full context about your calendar, email, open loops, and habits. Every response is grounded in your actual data.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Claude (Haiku 4.5) with 110+ MCP tools available on every message
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Streaming responses with live tool-call visibility
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Context-aware: calendar, loops, recent emails, willie profile
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Conversation history with smart context windowing (80K token cap)
+          </li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot amber"></div>
+            <div class="terminal-dot green"></div>
+            <div class="mock-titlebar-title">Gary — AI Assistant</div>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-msg user">
+              <div class="chat-avatar user">W</div>
+              <div class="chat-bubble user">What do I need to prep for my 2pm standup?</div>
+            </div>
+            <div class="chat-msg">
+              <div class="chat-avatar gary">G</div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;max-width:75%;">
+                <div class="chat-bubble gary">Let me check your calendar and recent threads…</div>
+                <div class="chat-tool-call">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 1 21 12a10 10 0 0 1-1.93 7.07"/><path d="M4.93 4.93A10 10 0 0 0 3 12a10 10 0 0 0 1.93 7.07"/></svg>
+                  list_calendar_events · get_recent_emails
+                </div>
+                <div class="chat-bubble gary">Your standup is at 14:00 in Google Meet. Based on your open loops, you should mention: <strong>API rate limiter PR</strong> (blocked on review) and <strong>staging deploy</strong> (ready to go). Two unread emails from Alex about the deploy — I can draft a quick status update if you want.</div>
+              </div>
+            </div>
+            <div class="chat-msg user">
+              <div class="chat-avatar user">W</div>
+              <div class="chat-bubble user">Yes, draft that update and schedule it for 1:45pm</div>
+            </div>
+            <div class="chat-msg">
+              <div class="chat-avatar gary">G</div>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;max-width:75%;">
+                <div class="chat-tool-call">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 1 21 12a10 10 0 0 1-1.93 7.07"/><path d="M4.93 4.93A10 10 0 0 0 3 12a10 10 0 0 0 1.93 7.07"/></svg>
+                  create_draft · schedule_reminder
+                </div>
+                <div class="chat-bubble gary">Done. Draft saved and reminder set for 1:45pm.</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <div class="chat-input-fake">Ask Gary anything…</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#63b3ed" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISPATCH -->
+<div class="section-divider"></div>
+<section id="dispatch" class="alt-section">
+  <div class="section-inner">
+    <div class="feature-layout reverse">
+      <div class="feature-copy reveal">
+        <span class="section-label">02 — Dispatch System</span>
+        <h2 class="section-title">Intelligent Task Routing at Scale</h2>
+        <p class="section-desc">Gary routes complex work to the right engine automatically — Claude Code for coding tasks, Cowork for research and analysis. Results come back as structured files you can act on.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Claude Code dispatches: $0 cost (Max-covered via CLI)
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            4-layer guardrail system: debounce → concurrency → cooldown → daily cap
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Push-model dispatch — no polling, zero latency
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Results ingested automatically as notes, loops, or files
+          </li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot amber"></div>
+            <div class="terminal-dot green"></div>
+            <div class="mock-titlebar-title">Dispatch — Agent Queue</div>
+          </div>
+          <div class="dispatch-flow">
+            <div class="dispatch-job">
+              <div class="dispatch-icon" style="background:rgba(99,179,237,0.12);border:1px solid rgba(99,179,237,0.2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#63b3ed" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div class="dispatch-info">
+                <div class="dispatch-name">Refactor auth middleware to JWT</div>
+                <div class="dispatch-meta">claude-code · dispatched 12s ago</div>
+                <div class="progress-bar-wrap"><div class="progress-bar-fill" style="animation-duration:3s;"></div></div>
+              </div>
+              <div class="dispatch-status status-running">running</div>
+            </div>
+            <div class="dispatch-job">
+              <div class="dispatch-icon" style="background:rgba(104,211,145,0.1);border:1px solid rgba(104,211,145,0.2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#68d391" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="dispatch-info">
+                <div class="dispatch-name">Summarize Q1 investor deck</div>
+                <div class="dispatch-meta">cowork · completed 2m ago · 3 action items</div>
+              </div>
+              <div class="dispatch-status status-done">done</div>
+            </div>
+            <div class="dispatch-job">
+              <div class="dispatch-icon" style="background:rgba(246,173,85,0.1);border:1px solid rgba(246,173,85,0.2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <div class="dispatch-info">
+                <div class="dispatch-name">Research: competitor pricing landscape</div>
+                <div class="dispatch-meta">cowork · queued · cooldown 47m</div>
+              </div>
+              <div class="dispatch-status status-queued">queued</div>
+            </div>
+            <div class="dispatch-job">
+              <div class="dispatch-icon" style="background:rgba(104,211,145,0.1);border:1px solid rgba(104,211,145,0.2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#68d391" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="dispatch-info">
+                <div class="dispatch-name">Write unit tests for payment module</div>
+                <div class="dispatch-meta">claude-code · completed 18m ago · 12 tests added</div>
+              </div>
+              <div class="dispatch-status status-done">done</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR & EMAIL -->
+<div class="section-divider"></div>
+<section id="calendar">
+  <div class="section-inner">
+    <div class="feature-layout">
+      <div class="feature-copy reveal">
+        <span class="section-label">03 — Calendar &amp; Email</span>
+        <h2 class="section-title">Your Schedule and Inbox, Understood</h2>
+        <p class="section-desc">Bidirectional Google sync keeps Gary in lockstep with your calendar and Gmail. He triages email, preps you for meetings, and surfaces what actually needs your attention.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            7-day calendar sync, auto-detects meetings and deadlines
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Email triage: priority scoring, action-item extraction
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Pre-meeting brief: context, participants, open threads
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Gmail Compose with ⌘⇧E — draft and send without leaving Gary
+          </li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot amber"></div>
+            <div class="terminal-dot green"></div>
+            <div class="mock-titlebar-title">Today — Monday, Mar 9</div>
+          </div>
+          <div class="calendar-list">
+            <div class="cal-event">
+              <div class="cal-time">09:00 AM</div>
+              <div class="cal-title">Design review — Mobile onboarding</div>
+              <div class="cal-tag">prep ready</div>
+            </div>
+            <div class="cal-event" style="border-left-color:#9f7aea;">
+              <div class="cal-time">10:30 AM</div>
+              <div class="cal-title">1:1 with Sarah — Product sync</div>
+            </div>
+            <div class="cal-event">
+              <div class="cal-time">12:00 PM</div>
+              <div class="cal-title">Lunch break</div>
+            </div>
+            <div class="cal-event" style="border-left-color:#f6ad55;">
+              <div class="cal-time">02:00 PM</div>
+              <div class="cal-title">Engineering standup</div>
+              <div class="cal-tag">4 loops</div>
+            </div>
+            <div class="cal-event" style="border-left-color:#fc8181;">
+              <div class="cal-time">04:00 PM</div>
+              <div class="cal-title">Investor call — Series A prep ⚠</div>
+              <div class="cal-tag">urgent</div>
+            </div>
+          </div>
+          <div style="padding:0.75rem 1rem;border-top:1px solid var(--border);background:var(--bg-elevated);">
+            <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text-muted);margin-bottom:0.35rem;">EMAIL TRIAGE</div>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(252,129,129,0.1);border:1px solid rgba(252,129,129,0.2);border-radius:4px;color:#fc8181;">4 action needed</span>
+              <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(246,173,85,0.1);border:1px solid rgba(246,173,85,0.2);border-radius:4px;color:#f6ad55;">7 FYI</span>
+              <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(104,211,145,0.1);border:1px solid rgba(104,211,145,0.2);border-radius:4px;color:#68d391;">3 auto-handled</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN LOOPS -->
+<div class="section-divider"></div>
+<section id="loops" class="alt-section">
+  <div class="section-inner">
+    <div class="feature-layout reverse">
+      <div class="feature-copy reveal">
+        <span class="section-label">04 — Open Loops</span>
+        <h2 class="section-title">GTD Task Management That Keeps Itself Updated</h2>
+        <p class="section-desc">Open Loops are Gary's GTD-inspired task system. He auto-spawns loops from emails, calendar events, and conversations — so nothing slips through the cracks.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Urgency × Context filtering — see what matters, right now
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Auto-spawn from email threads, meeting notes, Telegram captures
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Owner, due date, source tracking on every loop
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            ⌘⇧L quick-capture from anywhere in the app
+          </li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot amber"></div>
+            <div class="terminal-dot green"></div>
+            <div class="mock-titlebar-title">Open Loops — 7 active</div>
+          </div>
+          <div style="display:flex;gap:0.5rem;padding:0.75rem 1rem;border-bottom:1px solid var(--border);flex-wrap:wrap;">
+            <span class="loop-badge badge-high">urgent</span>
+            <span class="loop-badge badge-med">medium</span>
+            <span class="loop-badge badge-context">@work</span>
+            <span class="loop-badge badge-context">@home</span>
+            <span class="loop-badge badge-context">@focus</span>
+          </div>
+          <div class="loops-list">
+            <div class="loop-item">
+              <div class="loop-check"></div>
+              <div class="loop-text">Review investor deck before 4pm call</div>
+              <span class="loop-badge badge-high">urgent</span>
+            </div>
+            <div class="loop-item">
+              <div class="loop-check"></div>
+              <div class="loop-text">Merge auth middleware PR — blocked on Sarah</div>
+              <span class="loop-badge badge-high">urgent</span>
+            </div>
+            <div class="loop-item">
+              <div class="loop-check"></div>
+              <div class="loop-text">Reply to Alex re: staging deploy status</div>
+              <span class="loop-badge badge-med">medium</span>
+            </div>
+            <div class="loop-item">
+              <div class="loop-check"></div>
+              <div class="loop-text">Update project roadmap with Q2 milestones</div>
+              <span class="loop-badge badge-context">@work</span>
+            </div>
+            <div class="loop-item">
+              <div class="loop-check"></div>
+              <div class="loop-text">Schedule dentist appointment (from Telegram)</div>
+              <span class="loop-badge badge-context">@home</span>
+            </div>
+            <div class="loop-item">
+              <div class="loop-check"></div>
+              <div class="loop-text">Write up system design doc for new API</div>
+              <span class="loop-badge badge-low">low</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MORNING BRIEF -->
+<div class="section-divider"></div>
+<section id="brief">
+  <div class="section-inner">
+    <div class="feature-layout">
+      <div class="feature-copy reveal">
+        <span class="section-label">05 — Morning Brief</span>
+        <h2 class="section-title">Your Day, Assembled Before You Wake Up</h2>
+        <p class="section-desc">Every morning Gary generates a personalized daily digest — synthesizing your calendar, open loops, email, and habits into an actionable briefing cached in your local database.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Gemini 2.5 Flash Lite — blazing fast, near-zero cost
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Cached per-day in SQLite — instant load, no repeated API calls
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Includes Willie Profile context — people, projects, priorities
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Loop status, habit streaks, and key events all in one view
+          </li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot amber"></div>
+            <div class="terminal-dot green"></div>
+            <div class="mock-titlebar-title">Morning Brief</div>
+          </div>
+          <div class="brief-content">
+            <div class="brief-date">Monday · March 9, 2026</div>
+            <div class="brief-greeting">Good morning, Willie.</div>
+            <div class="brief-body">
+              Today is a full day — your 4pm investor call is the critical anchor. You have 3 urgent loops that need resolution before then, including the auth PR and staging deploy. Alex is waiting on you for the deploy status; that email has been sitting 18 hours. Your 9am design review is prepped. Block 30 minutes at 3pm to rehearse your Series A narrative.
+            </div>
+            <div class="brief-stats">
+              <div class="brief-stat">
+                <div class="brief-stat-num" style="color:var(--red);">3</div>
+                <div class="brief-stat-label">urgent loops</div>
+              </div>
+              <div class="brief-stat">
+                <div class="brief-stat-num">5</div>
+                <div class="brief-stat-label">meetings</div>
+              </div>
+              <div class="brief-stat">
+                <div class="brief-stat-num" style="color:var(--amber);">14</div>
+                <div class="brief-stat-label">emails</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEYBOARD SHORTCUTS -->
+<div class="section-divider"></div>
+<section id="shortcuts" class="alt-section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <span class="section-label" style="justify-content:center;">06 — Keyboard Shortcuts</span>
+      <h2 class="section-title" style="text-align:center;">Everything at Your Fingertips</h2>
+      <p class="section-desc" style="margin:0 auto;text-align:center;">Gary is built for keyboard-first workflows. Every major action is one chord away, designed to keep you in flow.</p>
+    </div>
+    <div class="shortcuts-grid">
+      <div class="shortcut-card reveal reveal-delay-1">
+        <div class="shortcut-keys">
+          <kbd>⌘</kbd><span class="shortcut-sep">+</span><kbd>K</kbd>
+        </div>
+        <div class="shortcut-desc">Open command palette</div>
+      </div>
+      <div class="shortcut-card reveal reveal-delay-1">
+        <div class="shortcut-keys">
+          <kbd>⌘</kbd><span class="shortcut-sep">+</span><kbd>⇧</kbd><span class="shortcut-sep">+</span><kbd>N</kbd>
+        </div>
+        <div class="shortcut-desc">Quick capture note</div>
+      </div>
+      <div class="shortcut-card reveal reveal-delay-2">
+        <div class="shortcut-keys">
+          <kbd>⌘</kbd><span class="shortcut-sep">+</span><kbd>⇧</kbd><span class="shortcut-sep">+</span><kbd>L</kbd>
+        </div>
+        <div class="shortcut-desc">Create open loop</div>
+      </div>
+      <div class="shortcut-card reveal reveal-delay-2">
+        <div class="shortcut-keys">
+          <kbd>⌘</kbd><span class="shortcut-sep">+</span><kbd>⇧</kbd><span class="shortcut-sep">+</span><kbd>E</kbd>
+        </div>
+        <div class="shortcut-desc">Compose email</div>
+      </div>
+      <div class="shortcut-card reveal reveal-delay-3">
+        <div class="shortcut-keys">
+          <kbd>⌘</kbd><span class="shortcut-sep">+</span><kbd>⇧</kbd><span class="shortcut-sep">+</span><kbd>T</kbd>
+        </div>
+        <div class="shortcut-desc">Capture transcript</div>
+      </div>
+      <div class="shortcut-card reveal reveal-delay-3">
+        <div class="shortcut-keys">
+          <kbd>⌘</kbd><span class="shortcut-sep">+</span><kbd>⇧</kbd><span class="shortcut-sep">+</span><kbd>V</kbd>
+        </div>
+        <div class="shortcut-desc">Voice capture to note</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIDGET SYSTEM -->
+<div class="section-divider"></div>
+<section id="widgets">
+  <div class="section-inner">
+    <div class="feature-layout reverse">
+      <div class="feature-copy reveal">
+        <span class="section-label">07 — Dashboard Widgets</span>
+        <h2 class="section-title">Mission Control, Customized Your Way</h2>
+        <p class="section-desc">The dashboard is a fully customizable grid of real-time status widgets. Show what you care about, hide the rest. Resize between small, medium, and full-width.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            10 built-in widgets: weather, habits, email, loops, brief, schedule…
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Per-widget show/hide and S/M/F size — persisted in SQLite
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Live data: real-time loop counts, streak visualizations, weather
+          </li>
+          <li>
+            <span class="check"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#68d391" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Spring entrance animations with staggered widget reveals
+          </li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot amber"></div>
+            <div class="terminal-dot green"></div>
+            <div class="mock-titlebar-title">Mission Control Dashboard</div>
+          </div>
+          <div class="widget-grid">
+            <div class="widget">
+              <div class="widget-label">Loops</div>
+              <div class="widget-val" style="color:var(--blue);">7</div>
+              <div class="widget-sub">3 urgent</div>
+            </div>
+            <div class="widget">
+              <div class="widget-label">Streak</div>
+              <div class="widget-val" style="color:var(--amber);">12🔥</div>
+              <div class="widget-sub">days closed</div>
+            </div>
+            <div class="widget">
+              <div class="widget-label">Weather</div>
+              <div class="widget-val" style="color:var(--text);">68°</div>
+              <div class="widget-sub">Partly cloudy</div>
+            </div>
+            <div class="widget span2">
+              <div class="widget-label">Loop Streak — last 7 days</div>
+              <div class="mini-bars">
+                <div class="mini-bar" style="height:60%;background:rgba(99,179,237,0.4);"></div>
+                <div class="mini-bar" style="height:100%;background:rgba(99,179,237,0.7);"></div>
+                <div class="mini-bar" style="height:80%;background:rgba(99,179,237,0.5);"></div>
+                <div class="mini-bar" style="height:40%;background:rgba(99,179,237,0.3);"></div>
+                <div class="mini-bar" style="height:100%;background:rgba(99,179,237,0.7);"></div>
+                <div class="mini-bar" style="height:90%;background:rgba(99,179,237,0.65);"></div>
+                <div class="mini-bar" style="height:70%;background:var(--blue);"></div>
+              </div>
+            </div>
+            <div class="widget">
+              <div class="widget-label">Habits</div>
+              <div class="widget-val" style="color:var(--green);">4/5</div>
+              <div class="widget-sub">done today</div>
+            </div>
+            <div class="widget span2">
+              <div class="widget-label">Next Meeting</div>
+              <div style="font-size:0.8rem;font-weight:500;margin-top:0.25rem;">Engineering standup</div>
+              <div class="widget-sub" style="color:var(--amber);">in 47 minutes</div>
+            </div>
+            <div class="widget">
+              <div class="widget-label">Emails</div>
+              <div class="widget-val" style="color:var(--red);">14</div>
+              <div class="widget-sub">4 action needed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="section-divider"></div>
+<section class="cta-section" id="try">
+  <div class="cta-orb cta-orb-1"></div>
+  <div class="section-inner" style="position:relative;">
+    <div class="reveal">
+      <span class="section-label" style="justify-content:center;">Get Started</span>
+      <h2 class="section-title">Your AI Chief of Staff<br><span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">is ready to work</span></h2>
+      <p class="section-desc" style="margin:0 auto 2.5rem;">Gary runs entirely on your machine. Your data stays local. No subscriptions, no cloud lock-in. Just a focused, powerful AI operating system built around your workflow.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/williekopp1112-lab/willieOS" class="btn-primary" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#chat" class="btn-secondary">
+          Explore Features
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Gary — Willie's AI Chief of Staff</div>
+    <ul class="footer-links">
+      <li><a href="https://github.com/williekopp1112-lab/willieOS" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="#chat">Features</a></li>
+      <li><a href="#shortcuts">Shortcuts</a></li>
+      <li><a href="#try">Get Started</a></li>
+    </ul>
+    <div class="footer-copy">Local-first · macOS · Tauri 2 + React + SQLite</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const navH = 60;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH - 20;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Nav background intensify on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+    } else {
+      nav.style.borderBottomColor = 'rgba(255,255,255,0.07)';
+    }
+  }, { passive: true });
+
+  // Animate mini bars on hover
+  document.querySelectorAll('.widget.span2').forEach(w => {
+    const bars = w.querySelectorAll('.mini-bar');
+    if (!bars.length) return;
+    w.addEventListener('mouseenter', () => {
+      bars.forEach((b, i) => {
+        setTimeout(() => {
+          const h = Math.random() * 60 + 40;
+          b.style.height = h + '%';
+        }, i * 60);
+      });
+    });
+  });
+</script>
+</body>
+</html>
