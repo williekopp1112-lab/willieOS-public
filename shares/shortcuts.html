@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gary Keyboard Shortcuts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #111829;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1a6;
+            --accent: #22c55e;
+            --accent-dark: #16a34a;
+            --border: #27272a;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: "Geist", system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body {
+            position: relative;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.01) 0px,
+                    rgba(255, 255, 255, 0.01) 1px,
+                    transparent 1px,
+                    transparent 2px
+                ),
+                radial-gradient(
+                    circle at 20% 50%,
+                    rgba(34, 197, 94, 0.05) 0%,
+                    transparent 50%
+                );
+            background-size: 100% 100%, 100% 100%;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2' /%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23000' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #e4e4e7 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .search-box input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: "Geist Mono", monospace;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.2s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+            background: var(--bg-secondary);
+        }
+
+        .search-hint {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-family: "Geist Mono", monospace;
+            margin-top: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 680px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.1);
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .entry {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            transition: opacity 0.2s ease;
+        }
+
+        .entry:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .entry.hidden {
+            display: none;
+        }
+
+        .entry-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .keys {
+            display: inline-flex;
+            gap: 0.25rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        kbd {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2rem;
+            height: 2rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            border-radius: 0.35rem;
+            color: var(--accent);
+            font-family: "Geist Mono", monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.05em;
+        }
+
+        .separator {
+            color: var(--text-secondary);
+            margin: 0 0.1rem;
+            font-weight: 300;
+        }
+
+        .entry-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .entry-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            margin-left: 0;
+        }
+
+        .result-count {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            font-family: "Geist Mono", monospace;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⌘ Gary Shortcuts</h1>
+            <p class="subtitle">Keyboard commands & command palette reference</p>
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Search shortcuts... (press / anywhere)" autocomplete="off">
+            </div>
+            <p class="search-hint">Press <kbd>/</kbd> to focus, <kbd>Esc</kbd> to clear</p>
+        </header>
+
+        <div id="results-count" class="result-count"></div>
+
+        <div class="grid">
+            <!-- Keyboard Shortcuts -->
+            <div class="section">
+                <h2>⌨️ Keyboard Shortcuts</h2>
+                <div id="shortcuts-list">
+                    <div class="entry">
+                        <div class="entry-header">
+                            <div class="keys">
+                                <kbd>⌘</kbd>
+                                <span class="separator">+</span>
+                                <kbd>K</kbd>
+                            </div>
+                            <span class="entry-title">Command Palette</span>
+                        </div>
+                        <div class="entry-description">Open the command palette to search all commands</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <div class="keys">
+                                <kbd>⌘</kbd>
+                                <span class="separator">⇧</span>
+                                <kbd>N</kbd>
+                            </div>
+                            <span class="entry-title">New Loop</span>
+                        </div>
+                        <div class="entry-description">Create a new task or action item</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <div class="keys">
+                                <kbd>⌘</kbd>
+                                <span class="separator">⇧</span>
+                                <kbd>L</kbd>
+                            </div>
+                            <span class="entry-title">List Loops</span>
+                        </div>
+                        <div class="entry-description">View all open loops and tasks</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <div class="keys">
+                                <kbd>⌘</kbd>
+                                <span class="separator">⇧</span>
+                                <kbd>E</kbd>
+                            </div>
+                            <span class="entry-title">Email</span>
+                        </div>
+                        <div class="entry-description">Jump to inbox or compose new email</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <div class="keys">
+                                <kbd>⌘</kbd>
+                                <span class="separator">⇧</span>
+                                <kbd>T</kbd>
+                            </div>
+                            <span class="entry-title">Today's Schedule</span>
+                        </div>
+                        <div class="entry-description">View today's calendar events and agenda</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command Palette Commands -->
+            <div class="section">
+                <h2>🎯 Command Palette</h2>
+                <div id="commands-list">
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Create Loop</span>
+                        </div>
+                        <div class="entry-description">Spawn a new task or action item with context</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">List Loops</span>
+                        </div>
+                        <div class="entry-description">Search and filter open loops by urgency or context</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Complete Loop</span>
+                        </div>
+                        <div class="entry-description">Mark a task as done and archive it</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Today's Schedule</span>
+                        </div>
+                        <div class="entry-description">Quick view of calendar events for today</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Weekly Digest</span>
+                        </div>
+                        <div class="entry-description">Review completed tasks and upcoming deadlines</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Check Email</span>
+                        </div>
+                        <div class="entry-description">Scan inbox and triage new messages</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Schedule Meeting</span>
+                        </div>
+                        <div class="entry-description">Find free time and create calendar event</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Search</span>
+                        </div>
+                        <div class="entry-description">Search across loops, emails, notes, and calendar</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Morning Autopilot</span>
+                        </div>
+                        <div class="entry-description">Run email scan, calendar review, and daily brief</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Meeting Prep</span>
+                        </div>
+                        <div class="entry-description">Get context on attendees and related tasks</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Sync Data</span>
+                        </div>
+                        <div class="entry-description">Push/pull changes across all instances</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Settings</span>
+                        </div>
+                        <div class="entry-description">Configure preferences and integrations</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">Help</span>
+                        </div>
+                        <div class="entry-description">View documentation and keyboard shortcuts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Gary Throttle • Willie Kopp's AI Chief of Staff • 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const shortcutsList = document.getElementById('shortcuts-list');
+        const commandsList = document.getElementById('commands-list');
+        const resultsCount = document.getElementById('results-count');
+
+        function getAllEntries() {
+            return [
+                ...shortcutsList.querySelectorAll('.entry'),
+                ...commandsList.querySelectorAll('.entry')
+            ];
+        }
+
+        function updateResultsCount() {
+            const allEntries = getAllEntries();
+            const visibleCount = allEntries.filter(e => !e.classList.contains('hidden')).length;
+            const totalCount = allEntries.length;
+            resultsCount.textContent = visibleCount === totalCount 
+                ? `${totalCount} results` 
+                : `${visibleCount} of ${totalCount} results`;
+        }
+
+        function search(query) {
+            const lowerQuery = query.toLowerCase();
+            const allEntries = getAllEntries();
+
+            allEntries.forEach(entry => {
+                const text = entry.textContent.toLowerCase();
+                if (lowerQuery === '' || text.includes(lowerQuery)) {
+                    entry.classList.remove('hidden');
+                } else {
+                    entry.classList.add('hidden');
+                }
+            });
+
+            updateResultsCount();
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            search(e.target.value);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Press / to focus search
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            // Press Esc to clear search
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                search('');
+                searchInput.blur();
+            }
+        });
+
+        // Initialize results count
+        updateResultsCount();
+    </script>
+</body>
+</html>
