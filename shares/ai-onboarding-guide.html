@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Onboarding Playbook — Best Practices Reference</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --ink:          #1a1714;
+      --ink-muted:    #6b6560;
+      --ink-faint:    #b5afa9;
+      --paper:        #faf8f5;
+      --paper-warm:   #f3efe9;
+      --paper-card:   #ffffff;
+      --rule:         #e2ddd7;
+
+      --green-raw:    #2d6a4f;
+      --green-light:  #d8f3dc;
+      --green-glow:   #52b788;
+      --green-tag:    #b7e4c7;
+
+      --red-raw:      #9b2335;
+      --red-light:    #fde8ea;
+      --red-glow:     #e63950;
+      --red-tag:      #ffc2ca;
+
+      --blue-raw:     #1b4f8c;
+      --blue-light:   #dbeafe;
+      --blue-glow:    #3b82f6;
+      --blue-tag:     #bfdbfe;
+
+      --amber:        #b45309;
+      --amber-light:  #fef3c7;
+
+      --radius:       6px;
+      --radius-lg:    12px;
+      --shadow-card:  0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+      --shadow-float: 0 8px 32px rgba(0,0,0,.12);
+      --transition:   0.18s cubic-bezier(.4,0,.2,1);
+    }
+
+    [data-theme="dark"] {
+      --ink:          #f0ece6;
+      --ink-muted:    #9b9590;
+      --ink-faint:    #5c5752;
+      --paper:        #161412;
+      --paper-warm:   #1e1b18;
+      --paper-card:   #252220;
+      --rule:         #2e2b28;
+
+      --green-raw:    #52b788;
+      --green-light:  #0d2b1a;
+      --green-glow:   #74c69d;
+      --green-tag:    #1a3d29;
+
+      --red-raw:      #e63950;
+      --red-light:    #2b0d11;
+      --red-glow:     #fc6679;
+      --red-tag:      #3d1219;
+
+      --blue-raw:     #60a5fa;
+      --blue-light:   #0d1f3c;
+      --blue-glow:    #3b82f6;
+      --blue-tag:     #1e3a5f;
+
+      --amber:        #fbbf24;
+      --amber-light:  #2d1f04;
+
+      --shadow-card:  0 1px 3px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+      --shadow-float: 0 8px 32px rgba(0,0,0,.5);
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      min-height: 100vh;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .site-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: background var(--transition);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .header-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding: 3px 8px;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+    }
+
+    .header-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Search bar */
+    .search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      pointer-events: none;
+      color: var(--ink-faint);
+    }
+
+    #global-search {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      color: var(--ink);
+      padding: 7px 12px 7px 32px;
+      width: 220px;
+      outline: none;
+      transition: border-color var(--transition), width var(--transition), box-shadow var(--transition);
+    }
+
+    #global-search::placeholder { color: var(--ink-faint); }
+
+    #global-search:focus {
+      border-color: var(--blue-glow);
+      box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+      width: 280px;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink-muted);
+      display: none;
+      font-size: 14px;
+      padding: 2px;
+      line-height: 1;
+    }
+
+    .search-clear.visible { display: block; }
+
+    /* Theme toggle */
+    .theme-toggle {
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      width: 36px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ink-muted);
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover { color: var(--ink); border-color: var(--ink-muted); }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      padding: 64px 0 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: end;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 56px;
+    }
+
+    .hero-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-kicker::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--ink-muted);
+    }
+
+    .hero-h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      max-width: 680px;
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--green-raw);
+    }
+
+    .hero-sub {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: var(--ink-muted);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .stat-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 14px 20px;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      background: var(--paper-card);
+      box-shadow: var(--shadow-card);
+      min-width: 130px;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: 4px;
+    }
+
+    /* ─── NAV TABS ─────────────────────────────────────────── */
+    .section-nav {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .section-nav::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      padding: 10px 18px 12px;
+      border: none;
+      background: none;
+      color: var(--ink-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+      transition: color var(--transition), border-color var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .nav-tab svg { opacity: .7; }
+
+    .nav-tab:hover { color: var(--ink); }
+
+    .nav-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    .nav-tab.active svg { opacity: 1; }
+
+    .nav-tab .tab-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 20px;
+      font-weight: 400;
+    }
+
+    .nav-tab:nth-child(1) .tab-count { background: var(--green-light); color: var(--green-raw); }
+    .nav-tab:nth-child(2) .tab-count { background: var(--red-light); color: var(--red-raw); }
+    .nav-tab:nth-child(3) .tab-count { background: var(--blue-light); color: var(--blue-raw); }
+
+    /* ─── SECTIONS ─────────────────────────────────────────── */
+    .section { display: none; animation: fadeUp .3s ease both; }
+    .section.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .section-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .badge-green { background: var(--green-light); color: var(--green-raw); }
+    .badge-red   { background: var(--red-light);   color: var(--red-raw);   }
+    .badge-blue  { background: var(--blue-light);  color: var(--blue-raw);  }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .section-desc {
+      font-size: .9rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* ─── CARD GRID ─────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .card-green::before { background: linear-gradient(90deg, var(--green-glow), var(--green-raw)); }
+    .card-red::before   { background: linear-gradient(90deg, var(--red-glow), var(--red-raw)); }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-float);
+      border-color: var(--ink-faint);
+    }
+
+    .card.hidden { display: none; }
+
+    .card-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      line-height: 1;
+      color: var(--ink-faint);
+      margin-bottom: 12px;
+      transition: color var(--transition);
+    }
+
+    .card:hover .card-num { color: var(--ink); }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .card-green .card-title { color: var(--green-raw); }
+    .card-red   .card-title { color: var(--red-raw);   }
+
+    .card-body {
+      font-size: .875rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .06em;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .tag-green { background: var(--green-tag); color: var(--green-raw); }
+    .tag-red   { background: var(--red-tag);   color: var(--red-raw);   }
+
+    /* No-results */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 64px 20px;
+      color: var(--ink-muted);
+    }
+
+    .no-results.visible { display: block; }
+
+    .no-results-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      opacity: .3;
+    }
+
+    .no-results p { font-size: .9rem; }
+
+    /* ─── CHECKLIST ─────────────────────────────────────────── */
+    .checklist-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 12px;
+    }
+
+    .checklist-group {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .group-header {
+      padding: 14px 20px;
+      background: var(--blue-light);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .group-title {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--blue-raw);
+      font-family: 'Syne', sans-serif;
+    }
+
+    .group-progress {
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--blue-raw);
+      opacity: .8;
+    }
+
+    .checklist-items { padding: 8px 0; }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background var(--transition);
+      border-radius: 0;
+      position: relative;
+    }
+
+    .check-item:hover { background: var(--paper-warm); }
+
+    .check-item.done .check-label { color: var(--ink-faint); text-decoration: line-through; }
+    .check-item.done .check-desc  { color: var(--ink-faint); opacity: .6; }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--rule);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), border-color var(--transition);
+      background: var(--paper);
+    }
+
+    .check-item.done .check-box {
+      background: var(--blue-glow);
+      border-color: var(--blue-glow);
+    }
+
+    .check-box svg {
+      opacity: 0;
+      transform: scale(.5);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .check-item.done .check-box svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .check-label {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--ink);
+      transition: color var(--transition);
+      line-height: 1.4;
+    }
+
+    .check-desc {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      margin-top: 2px;
+      transition: color var(--transition);
+    }
+
+    /* Checklist footer */
+    .checklist-footer {
+      margin-top: 32px;
+      padding: 20px 24px;
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .progress-bar-wrap {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .progress-text {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    .progress-pct {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--blue-glow);
+    }
+
+    .progress-track {
+      height: 6px;
+      background: var(--paper-warm);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue-glow), #6366f1);
+      border-radius: 20px;
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+      width: 0%;
+    }
+
+    .btn-reset {
+      font-family: 'Syne', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--rule);
+      background: none;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+      letter-spacing: .02em;
+    }
+
+    .btn-reset:hover { color: var(--red-raw); border-color: var(--red-raw); background: var(--red-light); }
+
+    /* ─── SEARCH HIGHLIGHT ──────────────────────────────────── */
+    mark {
+      background: var(--amber-light);
+      color: var(--amber);
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+
+    /* ─── SECTION DIVIDER ───────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--rule);
+      margin: 48px 0;
+    }
+
+    /* ─── FLOATING PROGRESS ─────────────────────────────────── */
+    .float-badge {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: 40px;
+      box-shadow: var(--shadow-float);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      z-index: 50;
+      user-select: none;
+    }
+
+    .float-badge:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,.18); }
+
+    .float-ring {
+      width: 32px;
+      height: 32px;
+      position: relative;
+    }
+
+    .float-ring svg { transform: rotate(-90deg); }
+
+    .float-ring circle {
+      fill: none;
+      stroke: var(--rule);
+      stroke-width: 2.5;
+    }
+
+    .float-ring .ring-fill {
+      stroke: var(--blue-glow);
+      stroke-dasharray: 88;
+      stroke-dashoffset: 88;
+      stroke-linecap: round;
+      transition: stroke-dashoffset .4s cubic-bezier(.4,0,.2,1);
+    }
+
+    .float-label { font-size: .75rem; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .site-header { padding: 12px 16px; }
+      .site-wrap { padding: 0 16px 60px; }
+      .hero { grid-template-columns: 1fr; padding: 40px 0 32px; }
+      .hero-stats { flex-direction: row; }
+      .stat-pill { align-items: flex-start; min-width: auto; flex: 1; }
+      #global-search { width: 160px; }
+      #global-search:focus { width: 200px; }
+      .header-eyebrow { display: none; }
+      .card-grid { grid-template-columns: 1fr; }
+      .checklist-wrap { grid-template-columns: 1fr; }
+      .float-badge { bottom: 16px; right: 16px; padding: 8px 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { flex-wrap: wrap; }
+      .section-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-brand">
+    <span class="header-eyebrow">Reference</span>
+    <span class="header-title">AI Onboarding Playbook</span>
+  </div>
+  <div class="header-controls">
+    <div class="search-wrap">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="global-search" placeholder="Search tips, pitfalls…" autocomplete="off" />
+      <button class="search-clear" id="search-clear" title="Clear search">✕</button>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="site-wrap">
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <div>
+      <p class="hero-kicker">Product &amp; Onboarding Specialist Reference</p>
+      <h1 class="hero-h1">The <em>Art</em> of Getting Users Hooked on AI Tools</h1>
+      <p class="hero-sub">A practitioner's playbook covering proven onboarding strategies, critical failure modes to avoid, and an interactive launch checklist — built for PMs, designers, and growth teams shipping AI-powered products.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <span class="stat-num">9</span>
+        <span class="stat-label">Best practices</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Pitfalls</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">20</span>
+        <span class="stat-label">Checklist items</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NAV TABS ─────────────────────────────────────────── -->
+  <nav class="section-nav" role="tablist">
+    <button class="nav-tab active" data-tab="tips" role="tab" aria-selected="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Best Practices
+      <span class="tab-count">9</span>
+    </button>
+    <button class="nav-tab" data-tab="pitfalls" role="tab" aria-selected="false">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Common Pitfalls
+      <span class="tab-count">7</span>
+    </button>
+    <button class="nav-tab" data-tab="checklist" role="tab" aria-selected="false">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Launch Checklist
+      <span class="tab-count">20</span>
+    </button>
+  </nav>
+
+  <!-- ─── TIPS SECTION ─────────────────────────────────────── -->
+  <section class="section active" id="section-tips" role="tabpanel">
+    <div class="section-header">
+      <div>
+        <div class="section-label">
+          <span class="section-badge badge-green">9 Strategies</span>
+        </div>
+        <h2 class="section-title">Best Practices for AI Onboarding</h2>
+      </div>
+      <p class="section-desc">Proven strategies that drive activation, engagement, and long-term retention for AI-powered productivity tools.</p>
+    </div>
+
+    <div class="card-grid" id="tips-grid">
+
+      <div class="card card-green" data-searchable="Progressive Disclosure Layer complexity gradually. Start users with one or two core features. Introduce advanced capabilities only after they've experienced value. Cognitive load is the enemy of activation. onboarding ux product flow activation">
+        <div class="card-num">01</div>
+        <div class="card-title">Progressive Disclosure</div>
+        <div class="card-body">Layer complexity gradually. Start users with one or two core features that demonstrate immediate value. Gate advanced capabilities behind early wins — introduce power-user features only after they've completed key actions. Cognitive load is the enemy of activation.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">UX Design</span>
+          <span class="tag tag-green">Activation</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Lead with a Clear, Specific Value Proposition Don't describe what the AI can do — show what it does for them. Replace vague claims like 'AI-powered productivity' with concrete outcomes: 'Save 2 hours/week on email triage.' Specificity converts. messaging value prop">
+        <div class="card-num">02</div>
+        <div class="card-title">Lead with a Specific Value Prop</div>
+        <div class="card-body">Don't describe what the AI <em>can</em> do — show what it does <em>for them</em>. Replace vague claims like "AI-powered productivity" with concrete outcomes: "Save 2 hours/week on email triage." Specificity converts. Vagueness bounces.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Messaging</span>
+          <span class="tag tag-green">Conversion</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Hands-On Interactive Demo First impressions happen in the product, not in docs. Build a sandbox or interactive walkthrough that lets users touch the AI with zero setup. Pre-populate with realistic data. Let them feel the magic before they commit to connecting their own data. demo sandbox aha moment">
+        <div class="card-num">03</div>
+        <div class="card-title">Hands-On Interactive Demo First</div>
+        <div class="card-body">First impressions happen in the product, not in docs. Build a sandbox or interactive walkthrough that lets users touch the AI with zero setup. Pre-populate with realistic data so they feel the "aha moment" before having to connect their own accounts or upload files.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Demo</span>
+          <span class="tag tag-green">Aha Moment</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Design for the Skeptic Most users approach AI tools with distrust — they've been burned by hype. Design for skepticism: show your reasoning, cite sources, surface confidence levels, and make it easy to verify outputs. Trust is earned incrementally. trust transparency">
+        <div class="card-num">04</div>
+        <div class="card-title">Design for the Skeptic</div>
+        <div class="card-body">Most users approach AI tools with distrust — they've been burned by hype. Design for skepticism: show your reasoning, cite sources, surface confidence levels, and make it easy to verify outputs. Trust is earned incrementally over many sessions, not granted upfront.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Trust</span>
+          <span class="tag tag-green">Transparency</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Define the Minimal Footprint Setup Flow Every required integration or permission is a drop-off point. Ruthlessly audit your setup flow. Ask for the minimum data needed to deliver immediate value. Defer optional integrations until after the user has experienced a clear win. setup friction permissions">
+        <div class="card-num">05</div>
+        <div class="card-title">Minimal-Footprint Setup Flow</div>
+        <div class="card-body">Every required integration or permission is a drop-off point. Ruthlessly audit your setup flow. Ask for the minimum data needed to deliver immediate value. Defer optional integrations to after the user's first "win" — never make them configure seven things before seeing anything useful.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Setup</span>
+          <span class="tag tag-green">Friction Reduction</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Personalize from the First Interaction Use whatever signals you have — role, industry, team size, stated goals — to tailor the onboarding path. A generic 'getting started' flow feels like an airport. A personalized flow feels like a concierge. Segment your users and route them accordingly. personalization segmentation">
+        <div class="card-num">06</div>
+        <div class="card-title">Personalize from Interaction One</div>
+        <div class="card-body">Use whatever signals you have — role, industry, team size, stated goals — to tailor the onboarding path immediately. A generic "getting started" flow feels like an airport. A personalized flow feels like a concierge. Segment users and route them to relevant use cases, not generic features.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Personalization</span>
+          <span class="tag tag-green">Segmentation</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Instrument Everything and Iterate Ruthlessly Map every onboarding step, instrument drop-off points, and run weekly reviews. The best onboarding teams treat their flow like a product with a roadmap. Identify the moment users stop and fix it. Data-driven iteration is the only way to improve activation rates. analytics metrics data iteration">
+        <div class="card-num">07</div>
+        <div class="card-title">Instrument Everything, Iterate Ruthlessly</div>
+        <div class="card-body">Map every onboarding step, instrument drop-off points, and run weekly reviews. The best onboarding teams treat their flow like a product with a roadmap. Identify the exact moment users stop engaging and fix it — hypothesis first, data to validate. Gut instinct alone doesn't scale.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Analytics</span>
+          <span class="tag tag-green">Iteration</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Celebrate Progress and Streaks AI productivity tools live and die by habit formation. Celebrate early wins visibly — completion animations, progress milestones, streak counters. Use behavioral design patterns that reinforce the habit loop: cue, routine, reward. The goal is to make the tool feel rewarding before it feels necessary. gamification retention habit formation">
+        <div class="card-num">08</div>
+        <div class="card-title">Celebrate Progress &amp; Build Habits</div>
+        <div class="card-body">AI productivity tools live and die by habit formation. Celebrate early wins visibly — completion animations, milestones, streak counters. Apply behavioral design patterns that reinforce the habit loop: cue → routine → reward. Make the tool feel <em>rewarding</em> before it feels <em>necessary</em>.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Retention</span>
+          <span class="tag tag-green">Habit Design</span>
+        </div>
+      </div>
+
+      <div class="card card-green" data-searchable="Build a Human Escalation Path Never leave users stranded when the AI fails. Define clear paths to human support: in-product chat, community forums, onboarding calls for high-value accounts. AI failures are inevitable — your response to failure defines your brand. support escalation success human">
+        <div class="card-num">09</div>
+        <div class="card-title">Build a Human Escalation Path</div>
+        <div class="card-body">Never leave users stranded when the AI fails or produces confusing results. Define clear paths to human support: in-product chat, community forums, onboarding calls for high-value accounts. AI failures are inevitable — how you respond to them defines your brand reputation more than perfect outputs do.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">Support</span>
+          <span class="tag tag-green">Customer Success</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="no-results" id="tips-no-results">
+      <div class="no-results-icon">◌</div>
+      <p>No tips match your search. Try different keywords.</p>
+    </div>
+  </section>
+
+  <!-- ─── PITFALLS SECTION ───────────────────────────────────── -->
+  <section class="section" id="section-pitfalls" role="tabpanel">
+    <div class="section-header">
+      <div>
+        <div class="section-label">
+          <span class="section-badge badge-red">7 Mistakes</span>
+        </div>
+        <h2 class="section-title">Common Pitfalls to Avoid</h2>
+      </div>
+      <p class="section-desc">These failure modes consistently derail AI product launches. Study them before you ship, not after.</p>
+    </div>
+
+    <div class="card-grid" id="pitfalls-grid">
+
+      <div class="card card-red" data-searchable="Information Overload in the First Session Trying to show every feature on day one is the #1 onboarding killer. Users don't need to understand everything — they need to succeed at one thing. An overwhelmed user is an inactive user. Ruthlessly cut your initial feature surface. ux design complexity cognitive load">
+        <div class="card-num">01</div>
+        <div class="card-title">Information Overload on Day One</div>
+        <div class="card-body">Trying to demonstrate every feature in the first session is the #1 onboarding killer. Users don't need to understand everything — they need to succeed at <em>one thing</em>. An overwhelmed user is an inactive user. Ruthlessly cut your initial feature surface and resist the urge to "educate."</div>
+        <div class="card-tags">
+          <span class="tag tag-red">UX Anti-pattern</span>
+          <span class="tag tag-red">Cognitive Load</span>
+        </div>
+      </div>
+
+      <div class="card card-red" data-searchable="Skipping the Aha Moment Mapping If you haven't defined what the aha moment is — the specific action that reliably predicts long-term retention — your onboarding has no north star. Without this, teams optimize for engagement theater instead of actual value delivery. retention activation product">
+        <div class="card-num">02</div>
+        <div class="card-title">Skipping the "Aha Moment" Map</div>
+        <div class="card-body">If you haven't defined what the "aha moment" is — the specific action that reliably predicts long-term retention — your onboarding has no north star. Without it, teams optimize for engagement theater instead of actual value delivery. Always validate: "what action correlates with D30 retention?" first.</div>
+        <div class="card-tags">
+          <span class="tag tag-red">Strategy</span>
+          <span class="tag tag-red">Retention Risk</span>
+        </div>
+      </div>
+
+      <div class="card card-red" data-searchable="Overpromising AI Capabilities Claiming the AI is perfect, always right, or infallible creates expectations that will shatter on first error. When the AI gets something wrong, a user who was told to expect magic feels deceived. Calibrate expectations honestly and frame errors as expected behavior to correct. trust hype expectations messaging">
+        <div class="card-num">03</div>
+        <div class="card-title">Overpromising AI Capabilities</div>
+        <div class="card-body">Claiming the AI is "always right" or "infallible" creates expectations that shatter on first error. When the AI makes a mistake, a user who was told to expect magic feels <em>deceived</em>. Calibrate expectations honestly during onboarding: frame errors as expected behavior to review and correct, not failures.</div>
+        <div class="card-tags">
+          <span class="tag tag-red">Trust Risk</span>
+          <span class="tag tag-red">Messaging</span>
+        </div>
+      </div>
+
+      <div class="card card-red" data-searchable="Making Users Set Up Before Seeing Value Requiring account linking, data import, or configuration before showing any output is a silent activation killer. Users abandon flows when the cost feels higher than the promised benefit. Show value first — even with placeholder or demo data — then ask for setup. setup flow friction conversion">
+        <div class="card-num">04</div>
+        <div class="card-title">Setup-Before-Value Ordering</div>
+        <div class="card-body">Requiring users to link accounts, import data, or configure settings before showing any output is a silent activation killer. Users abandon when perceived cost exceeds perceived benefit. Show value first — even with demo data — <em>then</em> ask for the setup that unlocks the full, personalized experience.</div>
+        <div class="card-tags">
+          <span class="tag tag-red">Setup Flow</span>
+          <span class="tag tag-red">Conversion</span>
+        </div>
+      </div>
+
+      <div class="card card-red" data-searchable="No Feedback Loop for AI Output Quality If users can't flag when the AI is wrong, you lose your most valuable quality signal. Absent feedback mechanisms, AI products degrade in perceived quality without the team ever knowing. Thumbs up/down is a start, but structured feedback unlocks improvement. feedback quality ml improvement">
+        <div class="card-num">05</div>
+        <div class="card-title">No Feedback Loop for AI Quality</div>
+        <div class="card-body">If users can't flag when the AI is wrong, you lose your most valuable quality signal. Absent feedback mechanisms, AI products degrade in perceived quality without the team ever knowing. Thumbs up/down is a start — but structured correction flows are what drive real model and prompt improvement over time.</div>
+        <div class="card-tags">
+          <span class="tag tag-red">Quality</span>
+          <span class="tag tag-red">Feedback Design</span>
+        </div>
+      </div>
+
+      <div class="card card-red" data-searchable="Treating Onboarding as a One-Time Event Onboarding doesn't end when a user completes the setup wizard. It continues through the first 30, 60, 90 days. Abandoning users after initial setup — no check-ins, no progressive feature discovery, no success milestones — leads to silent churn. lifecycle retention email">
+        <div class="card-num">06</div>
+        <div class="card-title">Treating Onboarding as One-Time</div>
+        <div class="card-body">Onboarding doesn't end when a user completes the setup wizard. It continues through the first 30, 60, 90 days. Abandoning users after initial setup — no check-ins, no progressive feature discovery, no win celebrations — leads to silent churn that looks like low engagement but is actually low guidance.</div>
+        <div class="card-tags">
+          <span class="tag tag-red">Lifecycle</span>
+          <span class="tag tag-red">Retention Risk</span>
+        </div>
+      </div>
+
+      <div class="card card-red" data-searchable="Ignoring the Non-Technical User AI tools default toward power-user vocabulary: prompts, context windows, tokens, models. New users find this alienating. Design the primary UX for the least technical person on a team. Power users can access depth — but they shouldn't be the default audience for language, UI, or documentation. accessibility language ux design">
+        <div class="card-num">07</div>
+        <div class="card-title">Ignoring the Non-Technical User</div>
+        <div class="card-body">AI tools default toward power-user vocabulary: "prompts," "context windows," "tokens," "models." New users find this alienating and assume the product isn't for them. Design the primary UX for the least technical person on a team. Power-users can access depth — but they should never be the default audience.</div>
+        <div class="card-tags">
+          <span class="tag tag-red">Accessibility</span>
+          <span class="tag tag-red">Language Design</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="no-results" id="pitfalls-no-results">
+      <div class="no-results-icon">◌</div>
+      <p>No pitfalls match your search. Try different keywords.</p>
+    </div>
+  </section>
+
+  <!-- ─── CHECKLIST SECTION ─────────────────────────────────── -->
+  <section class="section" id="section-checklist" role="tabpanel">
+    <div class="section-header">
+      <div>
+        <div class="section-label">
+          <span class="section-badge badge-blue">20 Items</span>
+        </div>
+        <h2 class="section-title">Pre-Launch Onboarding Checklist</h2>
+      </div>
+      <p class="section-desc">A comprehensive readiness checklist for product and onboarding teams. Progress is saved automatically in your browser.</p>
+    </div>
+
+    <div class="checklist-wrap" id="checklist-wrap">
+      <!-- Groups generated by JS -->
+    </div>
+
+    <div class="checklist-footer">
+      <div class="progress-bar-wrap">
+        <div class="progress-label">
+          <span class="progress-text">Overall Completion</span>
+          <span class="progress-pct" id="progress-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+      <button class="btn-reset" id="reset-checklist">Reset All</button>
+    </div>
+  </section>
+
+</div><!-- /site-wrap -->
+
+<!-- ─── FLOATING PROGRESS BADGE ─────────────────────────────── -->
+<div class="float-badge" id="float-badge" title="Go to checklist" style="display:none">
+  <div class="float-ring">
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="14"/>
+      <circle class="ring-fill" cx="16" cy="16" r="14"/>
+    </svg>
+  </div>
+  <span class="float-label"><strong id="float-done">0</strong> / 20 done</span>
+</div>
+
+<script>
+/* ─── THEME ─────────────────────────────────────────────────── */
+const html = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+const iconSun  = document.getElementById('icon-sun');
+const iconMoon = document.getElementById('icon-moon');
+
+function setTheme(dark) {
+  html.dataset.theme = dark ? 'dark' : 'light';
+  iconSun.style.display  = dark ? 'none'  : '';
+  iconMoon.style.display = dark ? ''      : 'none';
+  localStorage.setItem('aio_theme', dark ? 'dark' : 'light');
+}
+
+const savedTheme = localStorage.getItem('aio_theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
+
+themeToggle.addEventListener('click', () => {
+  setTheme(html.dataset.theme !== 'dark');
+});
+
+/* ─── TAB NAV ─────────────────────────────────────────────── */
+const tabs     = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    document.getElementById('section-' + tab.dataset.tab).classList.add('active');
+
+    // Show/hide float badge only outside checklist
+    floatBadge.style.display = tab.dataset.tab !== 'checklist' ? '' : 'none';
+    clearSearch();
+  });
+});
+
+/* ─── SEARCH ─────────────────────────────────────────────── */
+const searchInput  = document.getElementById('global-search');
+const searchClear  = document.getElementById('search-clear');
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function highlight(text, query) {
+  if (!query) return text;
+  const re = new RegExp(`(${escapeRegex(query)})`, 'gi');
+  return text.replace(re, '<mark>$1</mark>');
+}
+
+function clearSearch() {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  filterCards('');
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  searchClear.classList.toggle('visible', q.length > 0);
+  filterCards(q);
+});
+
+searchClear.addEventListener('click', clearSearch);
+
+function filterCards(query) {
+  const activeSection = document.querySelector('.section.active');
+  const grid = activeSection.querySelector('.card-grid');
+  if (!grid) return;
+
+  const noResults = activeSection.querySelector('.no-results');
+  const cards = grid.querySelectorAll('.card');
+  const q = query.toLowerCase();
+  let visible = 0;
+
+  cards.forEach(card => {
+    const searchText = (card.dataset.searchable || '').toLowerCase();
+    const matches = !q || searchText.includes(q);
+    card.classList.toggle('hidden', !matches);
+
+    if (matches) {
+      visible++;
+      // Restore or highlight
+      const title = card.querySelector('.card-title');
+      const body  = card.querySelector('.card-body');
+      title.innerHTML = highlight(title.textContent, query);
+      body.innerHTML  = highlight(body.textContent,  query);
+    }
+  });
+
+  noResults.classList.toggle('visible', visible === 0);
+}
+
+/* ─── CHECKLIST ─────────────────────────────────────────────── */
+const CHECKLIST_KEY = 'aio_checklist_v1';
+
+const CHECKLIST_DATA = [
+  {
+    group: 'Strategy & Positioning',
+    icon: '◈',
+    items: [
+      { id: 'c1',  label: 'Define the Aha Moment',         desc: 'Identify the single action that most reliably predicts 30-day retention. Validate with cohort data.' },
+      { id: 'c2',  label: 'Write a Specific Value Prop',   desc: 'Replace generic capability claims with concrete, quantified outcomes for your primary persona.' },
+      { id: 'c3',  label: 'Map User Segments',             desc: 'Define 2-4 user archetypes. Ensure onboarding paths and language are tailored per segment.' },
+      { id: 'c4',  label: 'Set Activation Metric',         desc: 'Define what "activated" means — a specific action within a specific time window (e.g., 3 tasks in Day 1).' },
+    ]
+  },
+  {
+    group: 'Flow & UX Design',
+    icon: '◐',
+    items: [
+      { id: 'c5',  label: 'Audit Setup Step Count',        desc: 'Every step before first value is a potential drop-off. Target ≤ 3 steps before the demo experience.' },
+      { id: 'c6',  label: 'Build a Demo/Sandbox Mode',     desc: 'Users should be able to experience value with zero credentials or data upload required.' },
+      { id: 'c7',  label: 'Progressive Disclosure Audit',  desc: 'Identify all features shown on Day 1. Hide anything not essential to reaching the aha moment.' },
+      { id: 'c8',  label: 'Mobile Responsiveness',         desc: 'Test the full onboarding flow on iOS and Android. Fix any flows that break on small screens.' },
+      { id: 'c9',  label: 'Accessibility Check',           desc: 'Run an automated scan (axe, Lighthouse). Ensure color contrast, keyboard nav, and screen reader support.' },
+    ]
+  },
+  {
+    group: 'AI-Specific Trust & Safety',
+    icon: '◎',
+    items: [
+      { id: 'c10', label: 'Set AI Expectation Calibration', desc: 'Explicitly communicate what the AI does well and where it makes mistakes — before users encounter errors.' },
+      { id: 'c11', label: 'Add Output Feedback Mechanism',  desc: 'Implement thumbs up/down or correction flows on AI outputs. Instrument the data for review.' },
+      { id: 'c12', label: 'Audit AI-Generated Language',    desc: 'Ensure no technical jargon (tokens, prompts, context) appears in primary user-facing flows without explanation.' },
+      { id: 'c13', label: 'Define Error Recovery Path',     desc: 'For every AI failure mode, define a graceful recovery UI — helpful message, fallback, human escalation.' },
+    ]
+  },
+  {
+    group: 'Measurement & Iteration',
+    icon: '◉',
+    items: [
+      { id: 'c14', label: 'Instrument All Onboarding Steps', desc: 'Every screen and CTA in the onboarding flow should emit an analytics event. Set up funnel reporting.' },
+      { id: 'c15', label: 'Define Onboarding KPIs',          desc: 'Pick 2-3 primary metrics: activation rate, time-to-aha, D7 retention. Review weekly.' },
+      { id: 'c16', label: 'Schedule Weekly Onboarding Review', desc: 'Block recurring time with PM and design to review funnel data and prioritize iterations.' },
+      { id: 'c17', label: 'Set Up Session Recording',         desc: 'Use Hotjar, FullStory, or equivalent to capture real user sessions through onboarding. Watch 10/week.' },
+    ]
+  },
+  {
+    group: 'Support & Lifecycle',
+    icon: '◑',
+    items: [
+      { id: 'c18', label: 'Human Escalation Path Ready',    desc: 'In-product chat, email, or community forum is live and staffed. No user should reach a dead end.' },
+      { id: 'c19', label: 'D7 / D30 Email Cadence Mapped', desc: 'Define the email or in-app notification sequence for Days 3, 7, 14, and 30. Map to feature milestones.' },
+      { id: 'c20', label: 'High-Value Account Playbook',   desc: 'For enterprise/high-ACV accounts, define when and how CS team conducts a live onboarding call.' },
+    ]
+  },
+];
+
+let checkState = {};
+
+function loadState() {
+  try {
+    const stored = localStorage.getItem(CHECKLIST_KEY);
+    checkState = stored ? JSON.parse(stored) : {};
+  } catch { checkState = {}; }
+}
+
+function saveState() {
+  localStorage.setItem(CHECKLIST_KEY, JSON.stringify(checkState));
+}
+
+function totalItems() {
+  return CHECKLIST_DATA.reduce((a, g) => a + g.items.length, 0);
+}
+
+function totalDone() {
+  return Object.values(checkState).filter(Boolean).length;
+}
+
+function updateProgress() {
+  const done  = totalDone();
+  const total = totalItems();
+  const pct   = Math.round((done / total) * 100);
+
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  // Update group progress badges
+  CHECKLIST_DATA.forEach(group => {
+    const groupDone = group.items.filter(i => checkState[i.id]).length;
+    const el = document.getElementById('gp-' + group.group.replace(/\s+/g, '-'));
+    if (el) el.textContent = groupDone + '/' + group.items.length;
+  });
+
+  // Float badge
+  const floatDone = document.getElementById('float-done');
+  floatDone.textContent = done;
+
+  // Ring
+  const circumference = 88;
+  const offset = circumference - (done / total) * circumference;
+  const ring = document.querySelector('.ring-fill');
+  if (ring) ring.style.strokeDashoffset = offset;
+}
+
+function renderChecklist() {
+  const wrap = document.getElementById('checklist-wrap');
+  wrap.innerHTML = '';
+
+  CHECKLIST_DATA.forEach(group => {
+    const groupEl = document.createElement('div');
+    groupEl.className = 'checklist-group';
+
+    const safeId = 'gp-' + group.group.replace(/\s+/g, '-');
+
+    groupEl.innerHTML = `
+      <div class="group-header">
+        <span style="font-size:1rem;opacity:.7">${group.icon}</span>
+        <span class="group-title">${group.group}</span>
+        <span class="group-progress" id="${safeId}">0/${group.items.length}</span>
+      </div>
+      <div class="checklist-items" id="items-${safeId}"></div>
+    `;
+
+    wrap.appendChild(groupEl);
+
+    const itemsEl = groupEl.querySelector('.checklist-items');
+
+    group.items.forEach(item => {
+      const itemEl = document.createElement('div');
+      itemEl.className = 'check-item' + (checkState[item.id] ? ' done' : '');
+      itemEl.dataset.id = item.id;
+      itemEl.setAttribute('role', 'checkbox');
+      itemEl.setAttribute('aria-checked', checkState[item.id] ? 'true' : 'false');
+      itemEl.setAttribute('tabindex', '0');
+
+      itemEl.innerHTML = `
+        <div class="check-box">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1.5 5 4 7.5 8.5 2.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="check-label">${item.label}</div>
+          <div class="check-desc">${item.desc}</div>
+        </div>
+      `;
+
+      function toggle() {
+        checkState[item.id] = !checkState[item.id];
+        itemEl.classList.toggle('done', checkState[item.id]);
+        itemEl.setAttribute('aria-checked', checkState[item.id] ? 'true' : 'false');
+        saveState();
+        updateProgress();
+      }
+
+      itemEl.addEventListener('click', toggle);
+      itemEl.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
+
+      itemsEl.appendChild(itemEl);
+    });
+  });
+
+  updateProgress();
+}
+
+document.getElementById('reset-checklist').addEventListener('click', () => {
+  if (!confirm('Reset all checklist items?')) return;
+  checkState = {};
+  saveState();
+  renderChecklist();
+});
+
+/* Float badge → jump to checklist */
+const floatBadge = document.getElementById('float-badge');
+floatBadge.addEventListener('click', () => {
+  tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  sections.forEach(s => s.classList.remove('active'));
+  document.querySelector('[data-tab="checklist"]').classList.add('active');
+  document.getElementById('section-checklist').classList.add('active');
+  floatBadge.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Show float badge on tips/pitfalls tabs
+floatBadge.style.display = '';
+
+/* ─── INIT ─────────────────────────────────────────────────── */
+loadState();
+renderChecklist();
+</script>
+</body>
+</html>
