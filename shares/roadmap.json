@@ -325,6 +325,46 @@
       "prompt_file": null,
       "depends_on": [],
       "notes": "Fixes Gary conflating Drive MCP with Mac Mini. Clarifies local output vs Drive shareable link routing."
+    },
+    {
+      "id": "fix-cpu-spike-mcp-crash",
+      "title": "Fix CPU Spike from MCP EOF Busy-Loop & Server Crash",
+      "description": "Fixed Rust mcp.rs EOF busy-loop (1000%+ CPU), EmailCenter infinite re-render, orchestration.js duplicate imports, and DispatchDashboard timeout hardening.",
+      "status": "done",
+      "owner": "joe",
+      "branch": "joe/fix-cpu-spike-mcp-crash",
+      "priority": "critical",
+      "files": [
+        "src-tauri/src/mcp.rs",
+        "src/components/dispatch/DispatchDashboard.jsx",
+        "src/components/email/EmailCenter.jsx",
+        "willieos-mcp-server/tools/orchestration.js"
+      ],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Merged PR #5. Root cause of MCP outage and CPU spikes."
+    },
+    {
+      "id": "remaining-hardcoded-paths",
+      "title": "Remove Remaining Hardcoded MCP Server Paths",
+      "description": "Replaced all hardcoded /Users/vault/ MCP server fallback paths with dynamic getDefaultMcpServerPath() across 8 files.",
+      "status": "done",
+      "owner": "joe",
+      "branch": "joe/remaining-hardcoded-paths",
+      "priority": "high",
+      "files": [
+        "src/components/dashboard/AgentCommandCenter.jsx",
+        "src/components/dashboard/QuickDispatchModal.jsx",
+        "src/components/dispatch/DispatchAgentWidget.jsx",
+        "src/components/settings/MCPPanel.jsx",
+        "src/stores/aiStore.js",
+        "src/utils/aiTools.js",
+        "src/utils/dispatchMonitor.js",
+        "src/utils/mcpServerManager.js"
+      ],
+      "prompt_file": null,
+      "depends_on": ["identity-generalization"],
+      "notes": "Merged PR #6. Continuation of PR #4 (mcpDefaults.js)."
     }
   ]
 }
