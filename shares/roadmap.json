@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-03-10",
+  "updated": "2026-03-11",
   "developers": {
     "willie": { "name": "Willie Kopp", "github": "williekopp1112-lab" },
     "joe": { "name": "Joe Ortega", "github": "Joeortega1085" },
@@ -32,7 +32,7 @@
       "id": "email-attachments",
       "title": "Gmail Attachment Support",
       "description": "Add file attachment support to Gary's email tools so Gary can attach local files or Google Drive files to emails.",
-      "status": "in_progress",
+      "status": "review",
       "owner": "willie",
       "branch": "willie/email-attachments",
       "priority": "high",
@@ -50,9 +50,9 @@
       "id": "output-folder-selection",
       "title": "User-Selectable Output Folder (Local + Drive)",
       "description": "Replace single cowork.sharedFolderPath with flexible output destination supporting local folders and Google Drive.",
-      "status": "planned",
-      "owner": null,
-      "branch": null,
+      "status": "review",
+      "owner": "willie",
+      "branch": "willie/email-attachments",
       "priority": "high",
       "files": [
         "src/components/settings/CoworkBridgePanel.jsx",
@@ -142,7 +142,7 @@
       "id": "email-reply-drafting",
       "title": "Contextual Email Reply Drafting",
       "description": "Auto-generate draft replies using thread context and relationship data.",
-      "status": "in_progress",
+      "status": "review",
       "owner": "willie",
       "branch": null,
       "priority": "medium",
@@ -158,7 +158,7 @@
       "id": "meeting-prep-autopilot",
       "title": "Predictive Meeting Prep Autopilot",
       "description": "Auto-trigger meeting prep 60 minutes before events with attendee intel.",
-      "status": "in_progress",
+      "status": "review",
       "owner": "willie",
       "branch": null,
       "priority": "medium",
@@ -175,7 +175,7 @@
       "id": "ambient-intelligence",
       "title": "Ambient Intelligence & Proactive Push",
       "description": "Pattern detection on email velocity, loop staleness, calendar density.",
-      "status": "in_progress",
+      "status": "review",
       "owner": "willie",
       "branch": null,
       "priority": "medium",
@@ -192,7 +192,7 @@
       "id": "weekly-digest-polish",
       "title": "Weekly Digest Polish",
       "description": "Polish output format and add trend comparison to previous weeks.",
-      "status": "in_progress",
+      "status": "review",
       "owner": "willie",
       "branch": null,
       "priority": "low",
@@ -258,8 +258,8 @@
       "id": "roadmap-db-system",
       "title": "Gary Self-Development Roadmap (DB + MCP)",
       "description": "SQLite roadmap_items table, MCP tools, focus enforcer, sprint planner.",
-      "status": "planned",
-      "owner": null,
+      "status": "claimed",
+      "owner": "willie",
       "branch": null,
       "priority": "medium",
       "files": [
@@ -289,7 +289,42 @@
       ],
       "prompt_file": null,
       "depends_on": ["identity-generalization", "get-setting-tool", "output-folder-selection"],
-      "notes": "North star vision. Requires: safe Code dispatch with rollback, dynamic MCP tool registration, per-user DB migration system, sandbox testing before activation. This is what separates Gary from every other AI assistant \u2014 the app evolves per user."
+      "notes": "North star vision. Requires: safe Code dispatch with rollback, dynamic MCP tool registration, per-user DB migration system, sandbox testing before activation. This is what separates Gary from every other AI assistant — the app evolves per user."
+    },
+    {
+      "id": "recursive-file-search",
+      "title": "Configurable Search Directories & Recursive File Search",
+      "description": "Rust search_files_recursive command (depth-limited BFS), search_local_files AI tool, configurable search directories in Settings > Files, recursive resolveFilename for email attachments.",
+      "status": "review",
+      "owner": "willie",
+      "branch": "willie/email-attachments",
+      "priority": "high",
+      "files": [
+        "src-tauri/src/cowork.rs",
+        "src-tauri/src/lib.rs",
+        "src/utils/outputFolder.js",
+        "src/utils/aiTools.js",
+        "src/components/settings/CoworkBridgePanel.jsx",
+        "willieos-mcp-server/tools/outputFolder.js"
+      ],
+      "prompt_file": null,
+      "depends_on": ["output-folder-selection"],
+      "notes": "Gary can now find files in subdirectories across all configured search dirs. No DB migration needed."
+    },
+    {
+      "id": "gary-drive-awareness",
+      "title": "Gary System Prompt: Drive & File Output Awareness",
+      "description": "Added File Output & Google Drive section to Gary's system prompt so he knows Drive tools are built into his MCP server and stops hallucinating about external servers or Mac Mini requirements.",
+      "status": "review",
+      "owner": "willie",
+      "branch": "willie/email-attachments",
+      "priority": "medium",
+      "files": [
+        "src/stores/aiStore.js"
+      ],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Fixes Gary conflating Drive MCP with Mac Mini. Clarifies local output vs Drive shareable link routing."
     }
   ]
 }
