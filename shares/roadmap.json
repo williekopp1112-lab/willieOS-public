@@ -106,20 +106,43 @@
       "notes": "Intelligence multiplier. Phase 2 of upgrade plan."
     },
     {
-      "id": "vector-embeddings",
-      "title": "Vector Embeddings for Cognitive Shadow",
-      "description": "Replace SQLite FTS5 with dense vector embeddings for semantic recall.",
+      "id": "universal-spotlight-search",
+      "title": "Universal Spotlight Search (Command+K)",
+      "description": "Transform Command+K from a command palette into a unified search-everything bar. Searches across all Gary data (emails, texts, loops, notes, contacts, calendar, dispatches) AND local files from configured search directories simultaneously. Results grouped by type with icons and contextual actions. Hybrid search: FTS5 for exact matches + sqlite-vec for semantic meaning. Proactive context surfacing — before meetings, during email composition, when contacts message you. This is the UI and search infrastructure that makes Gary's intelligence accessible in one keystroke.",
       "status": "planned",
       "owner": null,
       "branch": null,
-      "priority": "medium",
+      "priority": "high",
       "files": [
-        "src/utils/shadowService.js",
-        "willieos-mcp-server/aiContext.js"
+        "src/components/command-palette/CommandPalette.jsx",
+        "src/utils/universalSearch.js",
+        "src/stores/searchStore.js",
+        "src/utils/aiTools.js",
+        "src-tauri/src/search.rs"
       ],
       "prompt_file": null,
-      "depends_on": [],
-      "notes": "Options: sqlite-vss, Ollama, or cheap embedding API."
+      "depends_on": ["recursive-file-search"],
+      "notes": "Phase 1: Unified search UI across all data sources with FTS5. Phase 2: Add semantic ranking when embedding engine is ready. Phase 3: Proactive context suggestions. The search bar every productivity app wishes it had."
+    },
+    {
+      "id": "semantic-search-engine",
+      "title": "Semantic Search Engine (Embeddings + Hybrid Retrieval)",
+      "description": "Local-first semantic search engine powered by sqlite-vec and all-MiniLM embeddings via Ollama. Hybrid retrieval: runs FTS5 keyword search and vector similarity in parallel, combines scores with weighted fusion (70% vector + 30% FTS). Background indexing pipeline embeds all Gary data (emails, texts, notes, loops, files) on ingest. Cross-encoder reranking for top results. Zero cloud calls — all embeddings generated on-device using Apple Silicon. Graceful degradation to pure FTS5 if Ollama not installed. This is the intelligence layer that makes Universal Spotlight Search feel like Gary reads your mind.",
+      "status": "planned",
+      "owner": null,
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "src/utils/embeddingService.js",
+        "src/utils/semanticSearch.js",
+        "src-tauri/src/db/",
+        "willieos-mcp-server/aiContext.js",
+        "willieos-mcp-server/cronEngine.js",
+        "src/components/settings/SearchSettings.jsx"
+      ],
+      "prompt_file": null,
+      "depends_on": ["universal-spotlight-search"],
+      "notes": "sqlite-vec extension for vector storage in existing SQLite DB. all-MiniLM-L6-v2 (384-dim) for fast embeddings via Ollama. Background indexing on data ingest. Optional mxbai-embed-large reranking for premium quality. Settings UI for model selection. Storage: ~500MB for typical user data. Query latency: 60-150ms."
     },
     {
       "id": "loop-priority-scoring",
@@ -218,7 +241,7 @@
         "src/utils/willieProfile.js"
       ],
       "prompt_file": null,
-      "depends_on": ["vector-embeddings"],
+      "depends_on": ["semantic-search-engine"],
       "notes": "Future architecture item."
     },
     {
