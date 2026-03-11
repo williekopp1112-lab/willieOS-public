@@ -20,6 +20,7 @@
     --medium: #d29922;
     --low: #8b949e;
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -28,7 +29,9 @@
     line-height: 1.5;
     min-height: 100vh;
   }
+
   .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
   header {
     display: flex;
     align-items: center;
@@ -39,6 +42,7 @@
   }
   header h1 { font-size: 24px; font-weight: 600; }
   header h1 span { color: var(--text-muted); font-weight: 400; font-size: 16px; }
+
   .meta {
     display: flex;
     gap: 16px;
@@ -47,6 +51,7 @@
     color: var(--text-muted);
   }
   .meta .version { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2px 10px; }
+
   .stats-bar {
     display: flex;
     gap: 12px;
@@ -63,6 +68,7 @@
   }
   .stat-value { font-size: 24px; font-weight: 600; }
   .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
   .filters {
     display: flex;
     gap: 8px;
@@ -83,6 +89,7 @@
   .filter-btn:hover { border-color: var(--accent); color: var(--text); }
   .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
   .filter-label { font-size: 12px; color: var(--text-muted); margin-right: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
   .overlap-banner {
     display: none;
     background: #f8514920;
@@ -94,7 +101,12 @@
   }
   .overlap-banner.visible { display: block; }
   .overlap-banner strong { color: var(--critical); }
-  .features-grid { display: grid; gap: 12px; }
+
+  .features-grid {
+    display: grid;
+    gap: 12px;
+  }
+
   .feature-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -111,6 +123,7 @@
   .feature-card.owner-willie.status-in_progress { border-left-color: var(--willie-color); }
   .feature-card.owner-joe.status-claimed,
   .feature-card.owner-joe.status-in_progress { border-left-color: var(--joe-color); }
+
   .card-header {
     display: flex;
     align-items: flex-start;
@@ -120,6 +133,7 @@
   }
   .card-title { font-size: 15px; font-weight: 600; }
   .card-badges { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
+
   .badge {
     font-size: 11px;
     padding: 2px 8px;
@@ -132,6 +146,7 @@
   .badge-priority-high { background: #f0883e20; color: var(--high); border: 1px solid #f0883e40; }
   .badge-priority-medium { background: #d2992220; color: var(--medium); border: 1px solid #d2992240; }
   .badge-priority-low { background: #8b949e20; color: var(--low); border: 1px solid #8b949e40; }
+
   .badge-status {
     font-size: 11px;
     padding: 2px 8px;
@@ -143,12 +158,14 @@
   .badge-status-in_progress { background: #58a6ff20; color: var(--accent); border: 1px solid #58a6ff40; }
   .badge-status-review { background: #a371f720; color: #a371f7; border: 1px solid #a371f740; }
   .badge-status-merged { background: #3fb95020; color: #3fb950; border: 1px solid #3fb95040; }
+
   .card-desc {
     font-size: 13px;
     color: var(--text-muted);
     margin-bottom: 10px;
     line-height: 1.5;
   }
+
   .card-meta {
     display: flex;
     gap: 16px;
@@ -166,6 +183,7 @@
   }
   .owner-dot.willie { background: var(--willie-color); }
   .owner-dot.joe { background: var(--joe-color); }
+
   .card-files {
     display: none;
     margin-top: 10px;
@@ -192,6 +210,7 @@
     margin: 2px 2px;
   }
   .file-tag.overlap { border-color: var(--critical); color: var(--critical); background: #f8514910; }
+
   .card-deps {
     margin-top: 6px;
     font-size: 12px;
@@ -199,12 +218,14 @@
   }
   .dep-link { color: var(--accent); cursor: pointer; }
   .dep-link:hover { text-decoration: underline; }
+
   .card-notes {
     margin-top: 6px;
     font-size: 12px;
     color: var(--text-muted);
     font-style: italic;
   }
+
   .toggle-files {
     background: none;
     border: none;
@@ -214,6 +235,7 @@
     padding: 0;
   }
   .toggle-files:hover { text-decoration: underline; }
+
   .claim-btn {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -225,6 +247,9 @@
     transition: all 0.15s;
   }
   .claim-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .claim-btn.is-willie:hover { border-color: var(--willie-color); color: var(--willie-color); }
+  .claim-btn.is-joe:hover { border-color: var(--joe-color); color: var(--joe-color); }
+
   .identity-bar {
     display: flex;
     align-items: center;
@@ -247,8 +272,17 @@
     cursor: pointer;
     transition: all 0.15s;
   }
-  .identity-btn.active-willie { background: var(--willie-color); border-color: var(--willie-color); color: #fff; }
-  .identity-btn.active-joe { background: var(--joe-color); border-color: var(--joe-color); color: #fff; }
+  .identity-btn.active-willie {
+    background: var(--willie-color);
+    border-color: var(--willie-color);
+    color: #fff;
+  }
+  .identity-btn.active-joe {
+    background: var(--joe-color);
+    border-color: var(--joe-color);
+    color: #fff;
+  }
+
   .modal-overlay {
     display: none;
     position: fixed;
@@ -294,6 +328,7 @@
   }
   .modal-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .modal-btn:hover { opacity: 0.9; }
+
   .copy-toast {
     position: fixed;
     bottom: 24px;
@@ -308,6 +343,7 @@
     z-index: 200;
   }
   .copy-toast.visible { display: block; }
+
   footer {
     margin-top: 48px;
     padding-top: 24px;
@@ -318,6 +354,7 @@
   }
   footer a { color: var(--accent); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
+
   @media (max-width: 640px) {
     .stats-bar { flex-direction: column; }
     .card-header { flex-direction: column; }
@@ -330,16 +367,19 @@
     <h1>WillieOS Roadmap <span>powered by Gary</span></h1>
     <div class="meta">
       <span class="version" id="version-badge">v1.0.0</span>
-      <span id="updated-date">Updated: 2026-03-10</span>
+      <span id="updated-date">Loading...</span>
     </div>
   </header>
+
   <div class="stats-bar" id="stats-bar"></div>
+
   <div class="identity-bar">
     <label>I am:</label>
     <button class="identity-btn" onclick="setIdentity('willie')" id="id-willie">Willie</button>
     <button class="identity-btn" onclick="setIdentity('joe')" id="id-joe">Joe</button>
     <span style="margin-left: auto; font-size:12px; color: var(--text-muted);" id="identity-hint">Select yourself to claim features</span>
   </div>
+
   <div class="filters">
     <span class="filter-label">Status:</span>
     <button class="filter-btn active" onclick="setFilter('status','all',this)">All</button>
@@ -355,8 +395,11 @@
     <button class="filter-btn" onclick="setFilter('priority','medium',this)">Medium</button>
     <button class="filter-btn" onclick="setFilter('priority','low',this)">Low</button>
   </div>
+
   <div class="overlap-banner" id="overlap-banner"></div>
+
   <div class="features-grid" id="features-grid"></div>
+
   <div class="modal-overlay" id="claim-modal">
     <div class="modal">
       <h3 id="modal-title">Claim Feature</h3>
@@ -368,175 +411,270 @@
       </div>
     </div>
   </div>
+
   <div class="copy-toast" id="copy-toast">Copied to clipboard</div>
+
   <footer>
-    <p>WillieOS Developer Roadmap &middot; <a href="https://github.com/williekopp1112-lab/willieOS" target="_blank">GitHub Repo</a> &middot; Roadmap data lives in <code>roadmap.json</code> at the repo root</p>
+    <p>WillieOS Developer Roadmap &middot; <a href="https://github.com/williekopp1112-lab/willieOS" target="_blank">GitHub Repo</a> &middot; Live data from <code>roadmap.json</code> on main branch</p>
   </footer>
 </div>
+
 <script>
-const ROADMAP={"version":"1.0.0","updated":"2026-03-10","developers":{"willie":{"name":"Willie Kopp","github":"williekopp1112-lab"},"joe":{"name":"Joe Ortega","github":"Joeortega1085"}},"features":[{"id":"identity-generalization","title":"Identity & Path Generalization","description":"Replace all hardcoded Willie Kopp references and /Users/vault/ paths with dynamic helpers so the app works for any user.","status":"claimed","owner":"joe","branch":"joe/identity-generalization","priority":"critical","files":["src/stores/aiStore.js","src/utils/modelIntelligence.js","willieos-mcp-server/claudeCode.js","willieos-mcp-server/tools/orchestration.js","willieos-mcp-server/garySystemPrompt.js","src/components/ai-assistant/ChatMessage.jsx","src/components/settings/ProfileSettings.jsx"],"prompt_file":"willieOS-generalization-prompt.md","depends_on":[],"notes":"Includes Joe's 4 bug fixes from commits 08e4f02 and bb9c617."},{"id":"email-attachments","title":"Gmail Attachment Support","description":"Add file attachment support to Gary's email tools so Gary can attach local files or Google Drive files to emails.","status":"planned","owner":null,"branch":null,"priority":"high","files":["src/utils/gmailSend.js","willieos-mcp-server/tools/actions.js","willieos-mcp-server/tools/googleDriveShare.js","src/utils/aiTools.js"],"prompt_file":"Prompt_67_Email_Attachments.md","depends_on":[],"notes":"Multipart MIME builder, local file reading, Drive download helper."},{"id":"output-folder-selection","title":"User-Selectable Output Folder (Local + Drive)","description":"Replace single cowork.sharedFolderPath with flexible output destination supporting local folders and Google Drive.","status":"planned","owner":null,"branch":null,"priority":"high","files":["src/components/settings/CoworkBridgePanel.jsx","willieos-mcp-server/tools/utils.js","willieos-mcp-server/coworkDispatch.js","willieos-mcp-server/claudeCode.js","willieos-mcp-server/fileBridge.js","willieos-mcp-server/resultIngestion.js","willieos-mcp-server/tools/system.js","willieos-mcp-server/tools/googleDriveShare.js","src/utils/readSharedContext.js","src/utils/coworkCleanup.js","src/utils/exportBriefing.js","src/components/settings/HealthDashboard.jsx"],"prompt_file":"Prompt_68_Output_Folder_Selection.md","depends_on":[],"notes":"12 files to update. Backward compatible with legacy setting."},{"id":"get-setting-tool","title":"Add get_setting / set_setting Tools","description":"Give Gary the ability to read and write settings from chat.","status":"planned","owner":null,"branch":null,"priority":"high","files":["src/utils/aiTools.js","src/stores/aiStore.js"],"prompt_file":null,"depends_on":[],"notes":"15-minute fix. Phase 1A of intelligence upgrade plan."},{"id":"ask-cowork","title":"Synchronous ask_cowork Tool","description":"Let Gary dispatch a question to Cowork and get a text answer back inline.","status":"planned","owner":null,"branch":null,"priority":"high","files":["src/utils/aiTools.js","willieos-mcp-server/coworkDispatch.js","src/stores/aiStore.js"],"prompt_file":null,"depends_on":["get-setting-tool"],"notes":"Intelligence multiplier. Phase 2 of upgrade plan."},{"id":"vector-embeddings","title":"Vector Embeddings for Cognitive Shadow","description":"Replace SQLite FTS5 with dense vector embeddings for semantic recall.","status":"planned","owner":null,"branch":null,"priority":"medium","files":["src/utils/shadowService.js","willieos-mcp-server/aiContext.js"],"prompt_file":null,"depends_on":[],"notes":"Options: sqlite-vss, Ollama, or cheap embedding API."},{"id":"loop-priority-scoring","title":"AI Loop Priority Scoring","description":"Dynamic urgency scoring using due-date proximity, email activity, calendar context.","status":"planned","owner":null,"branch":null,"priority":"medium","files":["willieos-mcp-server/tools/loops.js","src/utils/jobGuardrails.js","willieos-mcp-server/cronEngine.js"],"prompt_file":null,"depends_on":[],"notes":"Numeric score alongside existing static urgency levels."},{"id":"email-reply-drafting","title":"Contextual Email Reply Drafting","description":"Auto-generate draft replies using thread context and relationship data.","status":"in_progress","owner":"willie","branch":null,"priority":"medium","files":["willieos-mcp-server/tools/email.js","src/utils/connectors/gmailConnector.js"],"prompt_file":null,"depends_on":[],"notes":"Partially built. compose_smart_reply exists."},{"id":"meeting-prep-autopilot","title":"Predictive Meeting Prep Autopilot","description":"Auto-trigger meeting prep 60 minutes before events with attendee intel.","status":"in_progress","owner":"willie","branch":null,"priority":"medium","files":["willieos-mcp-server/cronEngine.js","src/utils/telegramService.js","willieos-mcp-server/tools/calendar.js"],"prompt_file":null,"depends_on":[],"notes":"80% built. Missing auto-trigger and Telegram push."},{"id":"ambient-intelligence","title":"Ambient Intelligence & Proactive Push","description":"Pattern detection on email velocity, loop staleness, calendar density.","status":"in_progress","owner":"willie","branch":null,"priority":"medium","files":["willieos-mcp-server/cronEngine.js","src/utils/telegramService.js","willieos-mcp-server/tools/proactive.js"],"prompt_file":null,"depends_on":[],"notes":"40% built. gary_take and proactive_scan exist."},{"id":"weekly-digest-polish","title":"Weekly Digest Polish","description":"Polish output format and add trend comparison to previous weeks.","status":"in_progress","owner":"willie","branch":null,"priority":"low","files":["willieos-mcp-server/ai.js","willieos-mcp-server/cronEngine.js"],"prompt_file":null,"depends_on":[],"notes":"90% built. Close to shippable."},{"id":"knowledge-graph","title":"Relationship & Project Knowledge Graph","description":"Linked entity graph connecting People, Projects, Emails, Loops.","status":"planned","owner":null,"branch":null,"priority":"low","files":["willieos-mcp-server/tools/contacts.js","willieos-mcp-server/aiContext.js","src/utils/willieProfile.js"],"prompt_file":null,"depends_on":["vector-embeddings"],"notes":"Future architecture item."},{"id":"pdf-contract-intelligence","title":"PDF & Contract Intelligence","description":"Ingest PDF attachments, extract key terms, auto-create Open Loops.","status":"planned","owner":null,"branch":null,"priority":"low","files":["src/utils/connectors/gmailConnector.js","willieos-mcp-server/tools/loops.js"],"prompt_file":null,"depends_on":["email-attachments"],"notes":"Depends on attachment pipeline."},{"id":"deep-work-scheduling","title":"Intelligent Deep Work Block Scheduling","description":"Reclaim.ai-style engine for proposing deep work blocks.","status":"planned","owner":null,"branch":null,"priority":"low","files":["src/utils/connectors/googleAuth.js","willieos-mcp-server/tools/calendar.js","willieos-mcp-server/cronEngine.js"],"prompt_file":null,"depends_on":[],"notes":"Future architecture item."},{"id":"roadmap-db-system","title":"Gary Self-Development Roadmap (DB + MCP)","description":"SQLite roadmap_items table, MCP tools, focus enforcer, sprint planner.","status":"planned","owner":null,"branch":null,"priority":"medium","files":["src-tauri/src/db/","willieos-mcp-server/tools/roadmap.js","src/stores/aiStore.js","willieos-mcp-server/cronEngine.js"],"prompt_file":"roadmap-phase1a-db-migration.md","depends_on":["identity-generalization"],"notes":"6 phase prompts already built. Full playbook in roadmap-execution-order.md."},{"id":"user-extensible-platform","title":"Self-Extending Platform (User Vibe-Codes Features)","description":"Enable each user to extend Gary through natural language. User describes a capability they want, Gary dispatches to Code which creates the DB table, MCP tool, and UI wiring. Each user's Gary becomes uniquely shaped by their needs.","status":"planned","owner":null,"branch":null,"priority":"medium","files":["willieos-mcp-server/tools/orchestration.js","willieos-mcp-server/coworkDispatch.js","willieos-mcp-server/claudeCode.js","src-tauri/src/db/","src/utils/aiTools.js"],"prompt_file":null,"depends_on":["identity-generalization","get-setting-tool","output-folder-selection"],"notes":"North star vision. Requires: safe Code dispatch with rollback, dynamic MCP tool registration, per-user DB migration system, sandbox testing before activation."}]};
+// ===== ROADMAP DATA (fetched live from GitHub repo) =====
+const ROADMAP_URL = 'https://raw.githubusercontent.com/williekopp1112-lab/willieOS/main/roadmap.json';
+let ROADMAP = null;
 
-let currentIdentity=null;
-let filters={status:'all',priority:'all'};
-let expandedCards=new Set();
+// ===== STATE =====
+let currentIdentity = null;
+let filters = { status: 'all', priority: 'all' };
+let expandedCards = new Set();
 
-document.getElementById('version-badge').textContent='v'+ROADMAP.version;
-document.getElementById('updated-date').textContent='Updated: '+ROADMAP.updated;
-renderStats();
-renderFeatures();
-detectOverlaps();
+// ===== LOADING STATE =====
+function showLoading() {
+  document.getElementById('features-grid').innerHTML =
+    '<div style="text-align:center;padding:48px;color:var(--text-muted);font-size:14px;">' +
+    'Loading roadmap from GitHub...' +
+    '</div>';
+}
 
-function setIdentity(who){
-  currentIdentity=who;
-  document.getElementById('id-willie').className='identity-btn'+(who==='willie'?' active-willie':'');
-  document.getElementById('id-joe').className='identity-btn'+(who==='joe'?' active-joe':'');
-  document.getElementById('identity-hint').textContent='Viewing as '+ROADMAP.developers[who].name;
+function showError(msg) {
+  document.getElementById('features-grid').innerHTML =
+    '<div style="text-align:center;padding:48px;color:var(--critical);font-size:14px;">' +
+    'Failed to load roadmap: ' + msg + '<br><br>' +
+    '<button onclick="loadRoadmap()" style="background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;">Retry</button>' +
+    '</div>';
+}
+
+// ===== INIT =====
+showLoading();
+loadRoadmap();
+
+async function loadRoadmap() {
+  try {
+    const cacheBuster = '?t=' + Date.now();
+    const resp = await fetch(ROADMAP_URL + cacheBuster);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    ROADMAP = await resp.json();
+
+    document.getElementById('version-badge').textContent = 'v' + ROADMAP.version;
+    document.getElementById('updated-date').textContent = 'Updated: ' + ROADMAP.updated;
+    renderStats();
+    renderFeatures();
+    detectOverlaps();
+  } catch (e) {
+    console.error('Failed to fetch roadmap:', e);
+    showError(e.message);
+  }
+}
+
+// ===== IDENTITY =====
+function setIdentity(who) {
+  if (!ROADMAP) return;
+  currentIdentity = who;
+  document.getElementById('id-willie').className = 'identity-btn' + (who === 'willie' ? ' active-willie' : '');
+  document.getElementById('id-joe').className = 'identity-btn' + (who === 'joe' ? ' active-joe' : '');
+  document.getElementById('identity-hint').textContent = 'Viewing as ' + ROADMAP.developers[who].name;
   renderFeatures();
 }
 
-function setFilter(type,value,btn){
-  filters[type]=value;
-  const allBtns=Array.from(document.querySelectorAll('.filters .filter-btn'));
-  const statusBtns=allBtns.slice(0,6);
-  const priorityBtns=allBtns.slice(6);
-  const targetGroup=type==='status'?statusBtns:priorityBtns;
-  targetGroup.forEach(b=>b.classList.remove('active'));
+// ===== FILTERS =====
+function setFilter(type, value, btn) {
+  filters[type] = value;
+  const allBtns = Array.from(document.querySelectorAll('.filters .filter-btn'));
+  const statusBtns = allBtns.slice(0, 6);
+  const priorityBtns = allBtns.slice(6);
+  const targetGroup = type === 'status' ? statusBtns : priorityBtns;
+  targetGroup.forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderFeatures();
 }
 
-function renderStats(){
-  const f=ROADMAP.features;
-  const total=f.length;
-  const inProgress=f.filter(x=>x.status==='in_progress'||x.status==='claimed').length;
-  const planned=f.filter(x=>x.status==='planned').length;
-  const merged=f.filter(x=>x.status==='merged').length;
-  const willieCount=f.filter(x=>x.owner==='willie').length;
-  const joeCount=f.filter(x=>x.owner==='joe').length;
-  document.getElementById('stats-bar').innerHTML=`
-    <div class="stat"><div class="stat-value">${total}</div><div class="stat-label">Total Features</div></div>
-    <div class="stat"><div class="stat-value">${inProgress}</div><div class="stat-label">Active</div></div>
-    <div class="stat"><div class="stat-value">${planned}</div><div class="stat-label">Available</div></div>
-    <div class="stat"><div class="stat-value">${merged}</div><div class="stat-label">Merged</div></div>
-    <div class="stat"><div class="stat-value" style="color:var(--willie-color)">${willieCount}</div><div class="stat-label">Willie's</div></div>
-    <div class="stat"><div class="stat-value" style="color:var(--joe-color)">${joeCount}</div><div class="stat-label">Joe's</div></div>`;
+// ===== STATS =====
+function renderStats() {
+  if (!ROADMAP) return;
+  const f = ROADMAP.features;
+  const total = f.length;
+  const inProgress = f.filter(x => x.status === 'in_progress' || x.status === 'claimed').length;
+  const planned = f.filter(x => x.status === 'planned').length;
+  const merged = f.filter(x => x.status === 'merged').length;
+  const willieCount = f.filter(x => x.owner === 'willie').length;
+  const joeCount = f.filter(x => x.owner === 'joe').length;
+
+  document.getElementById('stats-bar').innerHTML =
+    '<div class="stat"><div class="stat-value">' + total + '</div><div class="stat-label">Total Features</div></div>' +
+    '<div class="stat"><div class="stat-value">' + inProgress + '</div><div class="stat-label">Active</div></div>' +
+    '<div class="stat"><div class="stat-value">' + planned + '</div><div class="stat-label">Available</div></div>' +
+    '<div class="stat"><div class="stat-value">' + merged + '</div><div class="stat-label">Merged</div></div>' +
+    '<div class="stat"><div class="stat-value" style="color:var(--willie-color)">' + willieCount + '</div><div class="stat-label">Willie\'s</div></div>' +
+    '<div class="stat"><div class="stat-value" style="color:var(--joe-color)">' + joeCount + '</div><div class="stat-label">Joe\'s</div></div>';
 }
 
-function detectOverlaps(){
-  const active=ROADMAP.features.filter(f=>f.status==='claimed'||f.status==='in_progress');
-  const overlaps=[];
-  for(let i=0;i<active.length;i++){
-    for(let j=i+1;j<active.length;j++){
-      const shared=active[i].files.filter(f=>active[j].files.includes(f));
-      if(shared.length>0&&active[i].owner!==active[j].owner){
-        overlaps.push({a:active[i],b:active[j],files:shared});
+// ===== OVERLAP DETECTION =====
+function detectOverlaps() {
+  if (!ROADMAP) return [];
+  const active = ROADMAP.features.filter(f => f.status === 'claimed' || f.status === 'in_progress');
+  const overlaps = [];
+  for (let i = 0; i < active.length; i++) {
+    for (let j = i + 1; j < active.length; j++) {
+      const shared = active[i].files.filter(f => active[j].files.includes(f));
+      if (shared.length > 0 && active[i].owner !== active[j].owner) {
+        overlaps.push({ a: active[i], b: active[j], files: shared });
       }
     }
   }
-  const banner=document.getElementById('overlap-banner');
-  if(overlaps.length>0){
-    banner.innerHTML='<strong>File Overlap Detected:</strong> '+overlaps.map(o=>`"${o.a.title}" (${o.a.owner}) and "${o.b.title}" (${o.b.owner}) share: ${o.files.map(f=>'<code>'+f.split('/').pop()+'</code>').join(', ')}`).join(' | ');
+  const banner = document.getElementById('overlap-banner');
+  if (overlaps.length > 0) {
+    banner.innerHTML = '<strong>File Overlap Detected:</strong> ' +
+      overlaps.map(o => '"' + o.a.title + '" (' + o.a.owner + ') and "' + o.b.title + '" (' + o.b.owner + ') share: ' + o.files.map(f => '<code>' + f.split('/').pop() + '</code>').join(', ')).join(' | ');
     banner.classList.add('visible');
-  }else{banner.classList.remove('visible');}
+  } else {
+    banner.classList.remove('visible');
+  }
   return overlaps;
 }
 
-function getOverlappingFiles(featureId){
-  const feature=ROADMAP.features.find(f=>f.id===featureId);
-  if(!feature)return new Set();
-  const active=ROADMAP.features.filter(f=>(f.status==='claimed'||f.status==='in_progress')&&f.id!==featureId);
-  const overlapping=new Set();
-  active.forEach(other=>{feature.files.forEach(file=>{if(other.files.includes(file))overlapping.add(file);});});
+function getOverlappingFiles(featureId) {
+  if (!ROADMAP) return new Set();
+  const feature = ROADMAP.features.find(f => f.id === featureId);
+  if (!feature) return new Set();
+  const active = ROADMAP.features.filter(f =>
+    (f.status === 'claimed' || f.status === 'in_progress') && f.id !== featureId
+  );
+  const overlapping = new Set();
+  active.forEach(other => {
+    feature.files.forEach(file => {
+      if (other.files.includes(file)) overlapping.add(file);
+    });
+  });
   return overlapping;
 }
 
-function renderFeatures(){
-  const grid=document.getElementById('features-grid');
-  const filtered=ROADMAP.features.filter(f=>{
-    if(filters.status!=='all'&&f.status!==filters.status)return false;
-    if(filters.priority!=='all'&&f.priority!==filters.priority)return false;
+// ===== RENDER =====
+function renderFeatures() {
+  if (!ROADMAP) return;
+  const grid = document.getElementById('features-grid');
+  const filtered = ROADMAP.features.filter(f => {
+    if (filters.status !== 'all' && f.status !== filters.status) return false;
+    if (filters.priority !== 'all' && f.priority !== filters.priority) return false;
     return true;
   });
-  const priorityOrder={critical:0,high:1,medium:2,low:3};
-  const statusOrder={in_progress:0,claimed:1,review:2,planned:3,merged:4};
-  filtered.sort((a,b)=>{
-    const ps=(priorityOrder[a.priority]||9)-(priorityOrder[b.priority]||9);
-    if(ps!==0)return ps;
-    return(statusOrder[a.status]||9)-(statusOrder[b.status]||9);
+
+  const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+  const statusOrder = { in_progress: 0, claimed: 1, review: 2, planned: 3, merged: 4 };
+  filtered.sort((a, b) => {
+    const ps = (priorityOrder[a.priority] || 9) - (priorityOrder[b.priority] || 9);
+    if (ps !== 0) return ps;
+    return (statusOrder[a.status] || 9) - (statusOrder[b.status] || 9);
   });
-  grid.innerHTML=filtered.map(f=>{
-    const ownerClass=f.owner?`owner-${f.owner}`:'';
-    const overlappingFiles=getOverlappingFiles(f.id);
-    const isExpanded=expandedCards.has(f.id);
-    const canClaim=f.status==='planned'&&currentIdentity;
-    const depsMet=f.depends_on.every(depId=>{const dep=ROADMAP.features.find(x=>x.id===depId);return dep&&dep.status==='merged';});
-    const blockedByDeps=f.depends_on.length>0&&!depsMet;
-    return`<div class="feature-card status-${f.status} ${ownerClass}" data-id="${f.id}">
-      <div class="card-header">
-        <div class="card-title">${f.title}</div>
-        <div class="card-badges">
-          <span class="badge badge-priority-${f.priority}">${f.priority}</span>
-          <span class="badge-status badge-status-${f.status}">${f.status.replace('_',' ')}</span>
-          ${canClaim?`<button class="claim-btn" onclick="openClaim('${f.id}')">Claim</button>`:''}
-        </div>
-      </div>
-      <div class="card-desc">${f.description}</div>
-      <div class="card-meta">
-        ${f.owner?`<span class="card-meta-item"><span class="owner-dot ${f.owner}"></span> ${ROADMAP.developers[f.owner].name}</span>`:'<span class="card-meta-item" style="color:var(--unclaimed)">Unclaimed</span>'}
-        ${f.branch?`<span class="card-meta-item">${f.branch}</span>`:''}
-        <span class="card-meta-item">${f.files.length} files</span>
-        ${f.prompt_file?`<span class="card-meta-item">Has prompt</span>`:''}
-        <button class="toggle-files" onclick="toggleFiles('${f.id}')">${isExpanded?'Hide details':'Show details'}</button>
-      </div>
-      <div class="card-files ${isExpanded?'open':''}" id="files-${f.id}">
-        <div class="card-files-label">Files touched</div>
-        <div>${f.files.map(file=>`<span class="file-tag ${overlappingFiles.has(file)?'overlap':''}">${file}</span>`).join('')}</div>
-        ${f.depends_on.length>0?`<div class="card-deps">Depends on: ${f.depends_on.map(depId=>{const dep=ROADMAP.features.find(x=>x.id===depId);const depStatus=dep?dep.status:'unknown';const icon=depStatus==='merged'?'&check;':'&bull;';return`<span class="dep-link" onclick="scrollToFeature('${depId}')">${icon} ${dep?dep.title:depId}</span>`;}).join(', ')}${blockedByDeps?' <span style="color:var(--critical)">(blocked)</span>':''}</div>`:''} 
-        ${f.notes?`<div class="card-notes">${f.notes}</div>`:''}
-      </div>
-    </div>`;
+
+  grid.innerHTML = filtered.map(f => {
+    const ownerClass = f.owner ? 'owner-' + f.owner : '';
+    const overlappingFiles = getOverlappingFiles(f.id);
+    const isExpanded = expandedCards.has(f.id);
+    const canClaim = f.status === 'planned' && currentIdentity;
+    const depsMet = f.depends_on.every(depId => {
+      const dep = ROADMAP.features.find(x => x.id === depId);
+      return dep && dep.status === 'merged';
+    });
+    const blockedByDeps = f.depends_on.length > 0 && !depsMet;
+
+    let html = '<div class="feature-card status-' + f.status + ' ' + ownerClass + '" data-id="' + f.id + '">';
+    html += '<div class="card-header">';
+    html += '<div class="card-title">' + f.title + '</div>';
+    html += '<div class="card-badges">';
+    html += '<span class="badge badge-priority-' + f.priority + '">' + f.priority + '</span>';
+    html += '<span class="badge-status badge-status-' + f.status + '">' + f.status.replace('_', ' ') + '</span>';
+    if (canClaim) html += '<button class="claim-btn is-' + currentIdentity + '" onclick="openClaim(\'' + f.id + '\')">Claim</button>';
+    html += '</div></div>';
+    html += '<div class="card-desc">' + f.description + '</div>';
+    html += '<div class="card-meta">';
+    if (f.owner) {
+      html += '<span class="card-meta-item"><span class="owner-dot ' + f.owner + '"></span> ' + ROADMAP.developers[f.owner].name + '</span>';
+    } else {
+      html += '<span class="card-meta-item" style="color:var(--unclaimed)">Unclaimed</span>';
+    }
+    if (f.branch) html += '<span class="card-meta-item">' + f.branch + '</span>';
+    html += '<span class="card-meta-item">' + f.files.length + ' files</span>';
+    if (f.prompt_file) html += '<span class="card-meta-item">Has prompt</span>';
+    html += '<button class="toggle-files" onclick="toggleFiles(\'' + f.id + '\')">' + (isExpanded ? 'Hide details' : 'Show details') + '</button>';
+    html += '</div>';
+    html += '<div class="card-files ' + (isExpanded ? 'open' : '') + '" id="files-' + f.id + '">';
+    html += '<div class="card-files-label">Files touched</div>';
+    html += '<div>' + f.files.map(file => '<span class="file-tag ' + (overlappingFiles.has(file) ? 'overlap' : '') + '">' + file + '</span>').join('') + '</div>';
+    if (f.depends_on.length > 0) {
+      html += '<div class="card-deps">Depends on: ' + f.depends_on.map(depId => {
+        const dep = ROADMAP.features.find(x => x.id === depId);
+        const depStatus = dep ? dep.status : 'unknown';
+        const icon = depStatus === 'merged' ? '&#10003;' : '&#8226;';
+        return '<span class="dep-link" onclick="scrollToFeature(\'' + depId + '\')">' + icon + ' ' + (dep ? dep.title : depId) + '</span>';
+      }).join(', ');
+      if (blockedByDeps) html += ' <span style="color:var(--critical)">(blocked)</span>';
+      html += '</div>';
+    }
+    if (f.notes) html += '<div class="card-notes">' + f.notes + '</div>';
+    html += '</div></div>';
+    return html;
   }).join('');
 }
 
-function toggleFiles(id){
-  if(expandedCards.has(id))expandedCards.delete(id);
+function toggleFiles(id) {
+  if (expandedCards.has(id)) expandedCards.delete(id);
   else expandedCards.add(id);
   renderFeatures();
 }
 
-function scrollToFeature(id){
-  const card=document.querySelector(`[data-id="${id}"]`);
-  if(card){
+function scrollToFeature(id) {
+  const card = document.querySelector('[data-id="' + id + '"]');
+  if (card) {
     expandedCards.add(id);
     renderFeatures();
-    setTimeout(()=>{document.querySelector(`[data-id="${id}"]`).scrollIntoView({behavior:'smooth',block:'center'});},50);
+    setTimeout(() => {
+      document.querySelector('[data-id="' + id + '"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 50);
   }
 }
 
-function openClaim(featureId){
-  if(!currentIdentity)return;
-  const f=ROADMAP.features.find(x=>x.id===featureId);
-  if(!f)return;
-  const dev=ROADMAP.developers[currentIdentity];
-  const branchName=`${currentIdentity}/${featureId}`;
-  document.getElementById('modal-title').textContent=`Claim: ${f.title}`;
-  document.getElementById('modal-commands').textContent=`# 1. Pull latest main\ngit pull origin main\n\n# 2. Edit roadmap.json — update this feature:\n#    "status": "claimed"\n#    "owner": "${currentIdentity}"\n#    "branch": "${branchName}"\n\n# 3. Commit the claim\ngit add roadmap.json\ngit commit -m "Claim ${featureId} for ${dev.name}"\ngit push origin main\n\n# 4. Create your feature branch\ngit checkout -b ${branchName}`;
+// ===== CLAIM MODAL =====
+function openClaim(featureId) {
+  if (!currentIdentity || !ROADMAP) return;
+  const f = ROADMAP.features.find(x => x.id === featureId);
+  if (!f) return;
+
+  const dev = ROADMAP.developers[currentIdentity];
+  const branchName = currentIdentity + '/' + featureId;
+
+  document.getElementById('modal-title').textContent = 'Claim: ' + f.title;
+  document.getElementById('modal-commands').textContent =
+    '# 1. Pull latest main\ngit pull origin main\n\n' +
+    '# 2. Edit roadmap.json \u2014 update this feature:\n' +
+    '#    "status": "claimed"\n' +
+    '#    "owner": "' + currentIdentity + '"\n' +
+    '#    "branch": "' + branchName + '"\n\n' +
+    '# 3. Commit the claim\ngit add roadmap.json\n' +
+    'git commit -m "Claim ' + featureId + ' for ' + dev.name + '"\n' +
+    'git push origin main\n\n' +
+    '# 4. Create your feature branch\ngit checkout -b ' + branchName;
+
   document.getElementById('claim-modal').classList.add('open');
 }
 
-function closeModal(){document.getElementById('claim-modal').classList.remove('open');}
+function closeModal() {
+  document.getElementById('claim-modal').classList.remove('open');
+}
 
-function copyCommands(){
-  const text=document.getElementById('modal-commands').textContent;
-  navigator.clipboard.writeText(text).then(()=>{
-    const toast=document.getElementById('copy-toast');
+function copyCommands() {
+  const text = document.getElementById('modal-commands').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('copy-toast');
     toast.classList.add('visible');
-    setTimeout(()=>toast.classList.remove('visible'),2000);
+    setTimeout(() => toast.classList.remove('visible'), 2000);
   });
   closeModal();
 }
 
-document.getElementById('claim-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.getElementById('claim-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
 </script>
 </body>
 </html>
