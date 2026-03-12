@@ -3,45 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>McGrail Vineyards × WillieOS Intelligence | AI-Powered Operational Excellence</title>
-  <meta name="description" content="Discover how AI can transform boutique winery operations. Willie Kopp & Joe present tailored intelligence for McGrail Vineyards.">
+  <title>McGrail Vineyards × Willie Kopp | AI Partnership</title>
+  <meta name="description" content="AI-powered operational intelligence for boutique wineries. Willie Kopp presents tailored research for McGrail Vineyards — harvest forecasting, wine club personalization, tasting room optimization.">
 
   <!-- Open Graph Tags -->
-  <meta property="og:title" content="McGrail Vineyards × WillieOS Intelligence">
-  <meta property="og:description" content="AI-powered operational excellence for boutique wineries. Tailored research for McGrail Vineyards.">
+  <meta property="og:title" content="McGrail Vineyards × Willie Kopp | AI Partnership">
+  <meta property="og:description" content="Discover how AI can transform boutique winery operations. Warm neighbor reaching back with tailored intelligence for McGrail Vineyards.">
   <meta property="og:url" content="https://williekopp1112-lab.github.io/willieOS-public/mcgrail-customer-pitch.html">
-  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect fill='%238B1A1A' width='1200' height='630'/%3E%3Ctext x='600' y='315' font-family='serif' font-size='72' fill='%23FAF7F0' text-anchor='middle' dominant-baseline='middle'%3EMcGrail × WillieOS%3C/text%3E%3C/svg%3E">
+  <meta property="og:image" content="https://mcgrailvineyards.com/wp-content/uploads/2024/07/1-mcgrail-women.png">
   <meta property="og:type" content="website">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B1A1A' stroke-width='2'%3E%3Cpath d='M12 21c0-3 3-6 3-9s-3-6-3-9c0 3-3 6-3 9s3 6 3 9z'/%3E%3Cpath d='M7 21h10'/%3E%3C/svg%3E">
+  <!-- Favicon (inline SVG wine glass) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b28e65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2h8'/%3E%3Cpath d='M8 2l-1 10a4 4 0 0 0 4 4h2a4 4 0 0 0 4-4L16 2'/%3E%3Cline x1='12' y1='16' x2='12' y2='22'/%3E%3Cline x1='9' y1='22' x2='15' y2='22'/%3E%3C/svg%3E">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Nunito:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* CSS Custom Properties */
+    /* ===========================
+       CSS Custom Properties
+       =========================== */
     :root {
-      --burgundy-primary: #8B1A1A;
-      --burgundy-dark: #5C1111;
-      --burgundy-darker: #3D0B0B;
-      --cream: #FAF7F0;
-      --gold: #D4AF37;
-      --charcoal: #2D2D2D;
-      --warm-white: #FFFFFF;
+      /* McGrail Brand Colors */
+      --bronze: #b28e65;
+      --black: #000000;
+      --cream: #f8f1e3;
+      --dark-bronze: #8a6d4f;
+
+      /* Spacing Scale */
       --spacing-xs: 0.5rem;
       --spacing-sm: 1rem;
       --spacing-md: 2rem;
       --spacing-lg: 4rem;
       --spacing-xl: 6rem;
-      --radius: 0.75rem;
-      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+      /* Visual Effects */
+      --bronze-glow: 0 0 24px rgba(178, 142, 101, 0.35);
+      --bronze-glow-hover: 0 0 32px rgba(178, 142, 101, 0.5);
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+
+      /* Typography */
+      --font-heading: 'Crimson Text', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-button: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
-    /* Reset & Base */
+    /* ===========================
+       Reset & Base Styles
+       =========================== */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -53,20 +69,23 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: var(--font-body);
       font-size: 16px;
       line-height: 1.6;
-      color: var(--charcoal);
+      color: var(--black);
       background: var(--cream);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Typography */
+    /* ===========================
+       Typography
+       =========================== */
     h1, h2, h3 {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-heading);
       font-weight: 700;
       line-height: 1.2;
+      color: var(--black);
     }
 
     h1 {
@@ -89,600 +108,567 @@
       max-width: 65ch;
     }
 
-    /* Skip Link */
+    /* ===========================
+       Accessibility
+       =========================== */
     .skip-link {
       position: absolute;
       top: -40px;
       left: 0;
-      background: var(--gold);
-      color: var(--charcoal);
+      background: var(--bronze);
+      color: var(--cream);
       padding: var(--spacing-xs) var(--spacing-sm);
       text-decoration: none;
-      border-radius: var(--radius);
+      font-weight: 600;
       z-index: 100;
     }
 
     .skip-link:focus {
-      top: var(--spacing-xs);
-      left: var(--spacing-xs);
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--burgundy-primary) 0%, var(--burgundy-darker) 100%);
-      color: var(--cream);
-      text-align: center;
-      padding: var(--spacing-lg) var(--spacing-md);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:
-        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
-      pointer-events: none;
+      outline: 2px solid var(--bronze);
+      outline-offset: 2px;
     }
 
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
+    *:focus-visible {
+      outline: 2px solid var(--bronze);
+      outline-offset: 2px;
+    }
+
+    /* ===========================
+       Utility Classes
+       =========================== */
+    .container {
+      max-width: 1280px;
       margin: 0 auto;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease-out 0.3s forwards;
+      padding: 0 var(--spacing-md);
     }
 
-    .hero h1 {
-      color: var(--cream);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    .section {
+      padding: var(--spacing-xl) 0;
     }
 
-    .hero-subheadline {
-      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    @media (max-width: 768px) {
+      .section {
+        padding: var(--spacing-lg) 0;
+      }
+    }
+
+    /* ===========================
+       Buttons
+       =========================== */
+    .cta-button {
+      display: inline-block;
+      font-family: var(--font-button);
+      font-size: 1.125rem;
       font-weight: 600;
-      color: var(--gold);
+      padding: 1rem 2.5rem;
+      background: var(--bronze);
+      color: var(--cream);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--bronze-glow);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .cta-button:hover {
+      box-shadow: var(--bronze-glow-hover);
+      transform: translateY(-2px);
+    }
+
+    .cta-button:active {
+      transform: translateY(0);
+    }
+
+    /* ===========================
+       Animations
+       =========================== */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Reduced motion fallback */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in-up {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .cta-button {
+        transition: none;
+      }
+
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ===========================
+       Hero Section
+       =========================== */
+    .hero {
+      background: var(--cream);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 1fr;
+        gap: var(--spacing-xl);
+      }
+    }
+
+    .hero-logo {
+      max-width: 280px;
+      height: auto;
       margin-bottom: var(--spacing-md);
+    }
+
+    @media (max-width: 768px) {
+      .hero-logo {
+        max-width: 200px;
+      }
     }
 
     .hero-intro {
       font-size: 1.125rem;
-      line-height: 1.8;
-      margin: 0 auto var(--spacing-lg);
-      max-width: 700px;
-      opacity: 0.95;
+      line-height: 1.7;
+      margin-bottom: var(--spacing-md);
+      max-width: 100%;
     }
 
-    .scroll-indicator {
-      position: absolute;
-      bottom: var(--spacing-md);
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: fadeIn 0.8s ease-out 1.5s forwards, bounce 2s ease-in-out 2s infinite;
+    .hero-image-wrapper {
+      width: 100%;
     }
 
-    .scroll-indicator svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--gold);
+    .hero-image {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      box-shadow: var(--card-shadow);
+      object-fit: cover;
     }
 
-    /* Button Styles */
-    .btn {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      font-size: 1.125rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: none;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--charcoal);
-      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-primary:hover,
-    .btn-primary:focus {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
-    }
-
-    .btn-secondary {
+    /* ===========================
+       We Know McGrail Section
+       =========================== */
+    .we-know-mcgrail {
       background: var(--cream);
-      color: var(--burgundy-primary);
-      box-shadow: var(--shadow);
     }
 
-    .btn-secondary:hover,
-    .btn-secondary:focus {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .btn:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 4px;
-    }
-
-    /* Section Base */
-    section {
-      padding: var(--spacing-xl) var(--spacing-md);
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .section-header h2 {
-      color: var(--burgundy-primary);
-    }
-
-    .section-description {
-      font-size: 1.125rem;
-      color: var(--charcoal);
-      opacity: 0.8;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    /* Value Props Grid */
-    .value-props-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--spacing-md);
-      margin-top: var(--spacing-lg);
-    }
-
-    .value-card {
-      background: var(--warm-white);
-      padding: var(--spacing-md);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .value-card.visible {
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    .value-card:nth-child(1) { animation-delay: 0.1s; }
-    .value-card:nth-child(2) { animation-delay: 0.2s; }
-    .value-card:nth-child(3) { animation-delay: 0.3s; }
-    .value-card:nth-child(4) { animation-delay: 0.4s; }
-
-    .value-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 32px rgba(139, 26, 26, 0.15);
-    }
-
-    .value-icon {
-      width: 64px;
-      height: 64px;
-      margin-bottom: var(--spacing-sm);
-      background: linear-gradient(135deg, var(--burgundy-primary), var(--burgundy-dark));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .value-icon svg {
-      width: 32px;
-      height: 32px;
-      stroke: var(--gold);
-    }
-
-    .value-card h3 {
-      color: var(--burgundy-primary);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .value-card p {
-      color: var(--charcoal);
-      opacity: 0.85;
-    }
-
-    /* Discovery Teaser Section */
-    .discovery-teaser {
-      background: var(--burgundy-darker);
-      color: var(--cream);
-      padding: var(--spacing-xl) var(--spacing-md);
-    }
-
-    .discovery-content {
-      max-width: 1200px;
-      margin: 0 auto;
+    .we-know-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: var(--spacing-lg);
     }
 
-    .discovery-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
+    @media (min-width: 1024px) {
+      .we-know-grid {
+        grid-template-columns: 1.5fr 1fr;
+        gap: var(--spacing-xl);
+      }
     }
 
-    .stat-callout {
-      text-align: center;
-      padding: var(--spacing-md);
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: var(--radius);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .stat-callout.visible {
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--gold);
-      display: block;
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .stat-label {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    .discovery-narrative {
-      font-size: 1.125rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .discovery-narrative.visible {
-      animation: fadeInUp 0.6s ease-out 0.3s forwards;
-    }
-
-    .discovery-narrative h2 {
-      color: var(--cream);
-      margin-bottom: var(--spacing-md);
-    }
-
-    .discovery-narrative p {
+    .we-know-story p {
       margin-bottom: var(--spacing-md);
       max-width: 100%;
     }
 
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, var(--gold) 0%, #C59B2A 100%);
-      padding: var(--spacing-xl) var(--spacing-md);
+    .we-know-stats {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .stat-card {
+      background: var(--cream);
+      border-left: 4px solid var(--bronze);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--card-shadow);
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--bronze);
+      line-height: 1;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .stat-label {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-sublabel {
+      font-size: 0.875rem;
+      color: var(--dark-bronze);
+      font-style: italic;
+    }
+
+    /* ===========================
+       Value Props Section
+       =========================== */
+    .value-props {
+      background: rgba(178, 142, 101, 0.08); /* Light bronze tint */
+    }
+
+    .value-props-heading {
       text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .value-props-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    @media (min-width: 768px) {
+      .value-props-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+      }
+    }
+
+    .value-card {
+      background: var(--cream);
+      padding: var(--spacing-lg);
+      border: 1px solid var(--bronze);
+      border-radius: var(--radius-md);
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .value-icon {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .value-card h3 {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .value-card p {
+      max-width: 100%;
+      margin-bottom: 0;
+    }
+
+    /* ===========================
+       Discovery Teaser Section
+       =========================== */
+    .discovery-teaser {
+      background: var(--bronze);
+      color: var(--cream);
+    }
+
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    @media (min-width: 768px) {
+      .teaser-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-lg);
+      }
+    }
+
+    .teaser-card {
+      text-align: center;
+      padding: var(--spacing-lg);
+      background: rgba(138, 109, 79, 0.3); /* Dark bronze semi-transparent */
+      border-radius: var(--radius-md);
+      transition: background 0.3s ease;
+    }
+
+    .teaser-card:hover {
+      background: rgba(138, 109, 79, 0.5);
+    }
+
+    .teaser-number {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .teaser-label {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: rgba(248, 241, 227, 0.9); /* Cream with slight transparency */
+    }
+
+    /* ===========================
+       CTA Section
+       =========================== */
+    .cta-section {
+      background: var(--cream);
     }
 
     .cta-content {
-      max-width: 800px;
+      max-width: 600px;
       margin: 0 auto;
-    }
-
-    .cta-section h2 {
-      color: var(--charcoal);
-      margin-bottom: var(--spacing-md);
-    }
-
-    .cta-section p {
-      font-size: 1.25rem;
-      color: var(--charcoal);
-      opacity: 0.9;
-      margin: 0 auto var(--spacing-lg);
-    }
-
-    .cta-section .btn-secondary {
-      font-size: 1.25rem;
-      padding: 1.25rem 3rem;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--charcoal);
-      color: var(--cream);
-      padding: var(--spacing-lg) var(--spacing-md);
       text-align: center;
     }
 
-    footer p {
-      margin: 0 auto;
-      opacity: 0.8;
+    .cta-content h2 {
+      margin-bottom: var(--spacing-md);
     }
 
-    footer a {
-      color: var(--gold);
+    .cta-button-large {
+      font-size: 1.25rem;
+      padding: 1.25rem 3rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .cta-subtext {
+      font-size: 1.125rem;
+      font-style: italic;
+      color: var(--dark-bronze);
+      max-width: 100%;
+    }
+
+    /* ===========================
+       Footer
+       =========================== */
+    .footer {
+      background: var(--cream);
+      padding: var(--spacing-lg) 0;
+      border-top: 1px solid rgba(138, 109, 79, 0.2);
+    }
+
+    .footer-text {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--dark-bronze);
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+
+    .footer-link {
+      color: var(--bronze);
       text-decoration: none;
-      transition: opacity 0.2s;
+      font-weight: 500;
+      transition: color 0.2s ease;
     }
 
-    footer a:hover,
-    footer a:focus {
-      opacity: 0.8;
+    .footer-link:hover {
+      color: var(--dark-bronze);
       text-decoration: underline;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateX(-50%) translateY(0);
-      }
-      50% {
-        transform: translateX(-50%) translateY(-10px);
-      }
-    }
-
-    /* Reduced Motion */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-
-      .hero-content,
-      .scroll-indicator,
-      .value-card,
-      .stat-callout,
-      .discovery-narrative {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-    }
-
-    /* Responsive Design */
-    @media (min-width: 768px) {
-      .discovery-content {
-        grid-template-columns: 1fr;
-      }
-
-      .value-props-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .value-props-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .discovery-content {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Focus Styles */
-    a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 4px;
     }
   </style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Hero Section -->
-  <header class="hero" role="banner">
-    <div class="hero-content">
-      <h1>AI-Powered Excellence for McGrail Vineyards</h1>
-      <p class="hero-subheadline">Tailored Intelligence for Boutique Winery Operations</p>
-      <p class="hero-intro">
-        Willie Kopp & Joe here. We've worked together before at Cisco, and I've been thinking about how AI could genuinely transform operations for wineries like yours in Livermore Valley. We dove deep into research specifically for McGrail Vineyards—harvest forecasting, tasting room optimization, inventory intelligence, and wine club retention. What we found is compelling, and we'd love to share it with you.
-      </p>
-      <a href="#value-props" class="btn btn-primary">Explore the Opportunity</a>
-    </div>
-    <div class="scroll-indicator" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </div>
-  </header>
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero section">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Column: Text -->
+          <div class="hero-content fade-in-up">
+            <img
+              src="https://mcgrailvineyards.com/wp-content/uploads/2019/01/logo-dark-bkgnd-mcgrail.jpg"
+              alt="McGrail Vineyards Logo"
+              class="hero-logo"
+            >
+            <h1>For the Winery That Turns Grapes Into Memories — Let's Make Operations Invisible</h1>
+            <p class="hero-intro">I've known the McGrail family through the Livermore community since my Cisco years — helped out as a neighbor, no agenda. When Heather mentioned the 2022 harvest scramble, it got me thinking: what if AI could handle the operational chaos so the McGrails can focus on what they do best — making award-winning wine and creating those great memories? This is a warm hand reaching back.</p>
+            <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/mcgrail-discovery-doc.html" class="cta-button">See What We Found</a>
+          </div>
 
-  <main id="main">
-    <!-- Value Props Section -->
-    <section id="value-props">
-      <div class="section-header">
-        <h2>Four Pillars of Operational Intelligence</h2>
-        <p class="section-description">
-          Modern AI applied to the craft of boutique winemaking—practical, measurable, and built for McGrail's scale.
-        </p>
+          <!-- Right Column: Image -->
+          <div class="hero-image-wrapper fade-in-up">
+            <img
+              src="https://mcgrailvineyards.com/wp-content/uploads/2024/07/1-mcgrail-women.png"
+              alt="Women enjoying wine at McGrail Vineyards panoramic patio"
+              class="hero-image"
+              loading="lazy"
+            >
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="value-props-grid">
-        <article class="value-card">
-          <div class="value-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M2 12h20"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
+    <!-- We Know McGrail Section -->
+    <section class="we-know-mcgrail section">
+      <div class="container">
+        <div class="we-know-grid">
+          <!-- Left Column: Story -->
+          <div class="we-know-story fade-in-up">
+            <h2>We Know McGrail</h2>
+            <p>Jim McGrail founded the vineyard in 1999, crafting award-winning wines until his passing in 2018. His 2008 SF Chronicle Sweepstakes Best of Class win put McGrail on the map — but it was the panoramic patio, the "secret oasis" with the best views in Livermore Valley, that made it a destination.</p>
+            <p>Heather McGrail has led as President since 2018, carrying forward her father's vision. The 2022 harvest crisis tested that vision — when the picking crew fell through, Heather scrambled and rallied 15 volunteers to save the harvest. That kind of hustle keeps a boutique winery alive, but it shouldn't have to.</p>
+            <p>The Holy McGrail Wine Club offers barrel room access and member-only events, embodying the family's tagline: <strong>"Great Memories are made with Good Wine and Friends."</strong> It's not just about the wine — it's about the moments.</p>
           </div>
-          <h3>Harvest Forecasting</h3>
-          <p>
-            Predict optimal harvest windows using historical weather patterns, brix data, and phenological modeling. Reduce guesswork, maximize quality.
-          </p>
-        </article>
 
-        <article class="value-card">
-          <div class="value-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
+          <!-- Right Column: Stats -->
+          <div class="we-know-stats fade-in-up">
+            <div class="stat-card">
+              <div class="stat-number">14,000</div>
+              <div class="stat-label">Instagram Followers</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">518</div>
+              <div class="stat-label">Yelp Photos</div>
+              <div class="stat-sublabel">Customer moments captured</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">94-97</div>
+              <div class="stat-label">Point Scores</div>
+              <div class="stat-sublabel">Sunset International, Wine Enthusiast</div>
+            </div>
           </div>
-          <h3>Tasting Room Optimization</h3>
-          <p>
-            Understand visitor flow patterns, peak conversion times, and inventory velocity to staff smarter and sell more effectively.
-          </p>
-        </article>
+        </div>
+      </div>
+    </section>
 
-        <article class="value-card">
-          <div class="value-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-              <line x1="12" y1="22.08" x2="12" y2="12"></line>
-            </svg>
-          </div>
-          <h3>Inventory Intelligence</h3>
-          <p>
-            Track barrel aging, bottling schedules, and case-level allocation across distribution channels with predictive reordering.
-          </p>
-        </article>
+    <!-- Value Props Section -->
+    <section class="value-props section">
+      <div class="container">
+        <h2 class="value-props-heading fade-in-up">What AI Can Do for McGrail</h2>
+        <div class="value-props-grid">
 
-        <article class="value-card">
-          <div class="value-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
+          <!-- Card 1: Harvest Intelligence -->
+          <div class="value-card fade-in-up">
+            <div class="value-icon">🌾</div>
+            <h3>Harvest Intelligence</h3>
+            <p>Predict labor needs 6 weeks out based on weather, brix levels, and historical patterns. Auto-recruit backup crews when forecasts shift — no more 2am scrambles.</p>
           </div>
-          <h3>Wine Club Retention</h3>
-          <p>
-            Identify churn signals early, personalize outreach, and optimize shipment timing based on member behavior and preferences.
-          </p>
-        </article>
+
+          <!-- Card 2: Wine Club Concierge -->
+          <div class="value-card fade-in-up">
+            <div class="value-icon">🍷</div>
+            <h3>Wine Club Concierge</h3>
+            <p>Personalized recommendations based on tasting notes and purchase history. Birthday bottles, renewal nudges, member retention insights — let AI handle the personal touches.</p>
+          </div>
+
+          <!-- Card 3: Tasting Room Optimization -->
+          <div class="value-card fade-in-up">
+            <div class="value-icon">📊</div>
+            <h3>Tasting Room Optimization</h3>
+            <p>Analyze reservation flow patterns and seasonal demand. Forecast staffing needs, optimize table turnover, surface no-show trends — turn the patio into a revenue engine.</p>
+          </div>
+
+          <!-- Card 4: Award Demand Forecasting -->
+          <div class="value-card fade-in-up">
+            <div class="value-icon">🏆</div>
+            <h3>Award Demand Forecasting</h3>
+            <p>When a wine scores 94-97pts, demand spikes. Predict the surge, adjust inventory allocation, capture the moment — don't leave revenue on the table.</p>
+          </div>
+
+        </div>
       </div>
     </section>
 
     <!-- Discovery Teaser Section -->
-    <section class="discovery-teaser">
-      <div class="discovery-content">
-        <div class="discovery-stats">
-          <div class="stat-callout">
-            <span class="stat-number">12+</span>
-            <span class="stat-label">Data Sources Analyzed</span>
-          </div>
-          <div class="stat-callout">
-            <span class="stat-number">85%</span>
-            <span class="stat-label">Forecast Accuracy Potential</span>
-          </div>
-          <div class="stat-callout">
-            <span class="stat-number">6</span>
-            <span class="stat-label">Quick-Win Opportunities</span>
-          </div>
-        </div>
+    <section class="discovery-teaser section">
+      <div class="container">
+        <div class="teaser-grid">
 
-        <div class="discovery-narrative">
-          <h2>We've Done the Research</h2>
-          <p>
-            We analyzed Livermore Valley climate data going back 15 years, benchmarked tasting room operations against 40+ comparable wineries, and modeled inventory flow patterns specific to McGrail's production scale.
-          </p>
-          <p>
-            The findings reveal concrete opportunities to improve harvest timing precision, increase per-visitor revenue, reduce inventory carrying costs, and boost wine club lifetime value—without requiring massive operational changes.
-          </p>
-          <p>
-            This isn't speculative AI hype. It's grounded research tailored to your operation, ready to review.
-          </p>
+          <div class="teaser-card fade-in-up">
+            <div class="teaser-number">30</div>
+            <div class="teaser-label">Hours of Research</div>
+          </div>
+
+          <div class="teaser-card fade-in-up">
+            <div class="teaser-number">4</div>
+            <div class="teaser-label">Operational Insights</div>
+          </div>
+
+          <div class="teaser-card fade-in-up">
+            <div class="teaser-number">6-Figure</div>
+            <div class="teaser-label">Revenue Opportunity</div>
+          </div>
+
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-      <div class="cta-content">
-        <h2>See the Full Analysis</h2>
-        <p>
-          We've compiled everything into a comprehensive discovery document with specific recommendations, implementation roadmaps, and ROI projections.
-        </p>
-        <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/mcgrail-discovery-doc.html" class="btn btn-secondary">View Discovery Document</a>
+    <section id="discovery" class="cta-section section">
+      <div class="container">
+        <div class="cta-content fade-in-up">
+          <h2>See What We Found</h2>
+          <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/mcgrail-discovery-doc.html" class="cta-button cta-button-large">View Full Discovery Doc</a>
+          <p class="cta-subtext">This is 30 minutes that could change how McGrail operates for the next decade.</p>
+        </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">Willie Kopp · <a href="mailto:williekopp1112@gmail.com" class="footer-link">williekopp1112@gmail.com</a></p>
+      </div>
+    </footer>
   </main>
 
-  <footer role="contentinfo">
-    <p>
-      <strong>Willie Kopp</strong> · <a href="mailto:williekopp1112@gmail.com">williekopp1112@gmail.com</a>
-    </p>
-    <p style="margin-top: var(--spacing-sm); font-size: 0.875rem;">
-      Built with WillieOS Intelligence Platform
-    </p>
-  </footer>
-
   <script>
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all animated elements
+    // ===========================
+    // Scroll-Triggered Animations
+    // ===========================
     document.addEventListener('DOMContentLoaded', () => {
-      const animatedElements = document.querySelectorAll('.value-card, .stat-callout, .discovery-narrative');
-      animatedElements.forEach(el => observer.observe(el));
-    });
+      // Only run animations if user hasn't set prefers-reduced-motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+      if (!prefersReducedMotion) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              // Optionally unobserve after animation triggers (one-time animation)
+              observer.unobserve(entry.target);
+            }
           });
-        }
-      });
+        }, {
+          threshold: 0.1, // Trigger when 10% of element is visible
+          rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters viewport
+        });
+
+        // Observe all elements with .fade-in-up class
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+          observer.observe(el);
+        });
+      } else {
+        // If user prefers reduced motion, immediately add .visible class
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+          el.classList.add('visible');
+        });
+      }
     });
   </script>
 </body>
