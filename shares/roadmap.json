@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-03-11",
+  "updated": "2026-03-12",
   "developers": {
     "willie": { "name": "Willie Kopp", "github": "williekopp1112-lab" },
     "joe": { "name": "Joe Ortega", "github": "Joeortega1085" },
@@ -165,17 +165,19 @@
       "id": "email-reply-drafting",
       "title": "Contextual Email Reply Drafting",
       "description": "Auto-generate draft replies using thread context and relationship data.",
-      "status": "review",
+      "status": "done",
       "owner": "willie",
-      "branch": null,
+      "branch": "willie/ui-refresh",
       "priority": "medium",
       "files": [
         "willieos-mcp-server/tools/email.js",
-        "src/utils/connectors/gmailConnector.js"
+        "src/utils/connectors/gmailConnector.js",
+        "src/stores/emailStore.js",
+        "src/utils/aiTools.js"
       ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "Partially built. compose_smart_reply exists."
+      "notes": "compose_smart_reply MCP tool built. Gary Draft button wired to MCP for live calendar context (4cffb29). callMcpTool export fix (ec355ef) unblocked the feature."
     },
     {
       "id": "meeting-prep-autopilot",
@@ -393,9 +395,9 @@
       "id": "gary-personality-audit",
       "title": "Gary Personality & System Prompt Audit & Redesign",
       "description": "Comprehensive audit and redesign of Gary's system prompt, personality, and behavioral constraints. Cowork audit found 19 system prompts across 14 files with 'Willie Kopp' hardcoded in 13 of them, 8 different personality definitions, and 60% of the main chat prompt consumed by operational procedures instead of personality. Goal: centralize identity into a shared garyIdentity.js module, trim chat prompt to personality-first with conditional operational blocks, standardize tone across all services, and make every prompt settings-driven for product readiness.",
-      "status": "claimed",
+      "status": "in_progress",
       "owner": "willie",
-      "branch": null,
+      "branch": "willie/ui-refresh",
       "priority": "high",
       "files": [
         "src/stores/aiStore.js",
@@ -416,7 +418,7 @@
       ],
       "prompt_file": "~/Documents/Claude WillieOS Strategy/Gary_System_Prompt_Audit.md",
       "depends_on": [],
-      "notes": "Cowork audit complete (March 11, 2026). Key findings: (1) 'Willie Kopp' hardcoded in 13/19 prompts — needs getUserName() helper, (2) 8 different identity lines across services — needs shared garyIdentity.js, (3) chat prompt is 60% operational bloat — move dispatch/Drive/publish rules to tool descriptions, (4) compact prompt for weak models actually has better personality than the full prompt — use it as the template, (5) checkinService hardcodes family names 'Nikki' and 'JV', (6) 'NEVER APOLOGIZE' rule too absolute — reword to 'don't grovel, just fix it'. Previous fix: removed 3-sentence hard cap."
+      "notes": "Cowork audit complete (March 11). Modular system prompt architecture built (ce63d5a) — learned preferences integration. Remaining: centralize identity into garyIdentity.js, replace hardcoded names in 13 prompts with getUserName(), trim chat prompt operational bloat, standardize tone across services."
     },
     {
       "id": "proactive-email-triage",
@@ -454,6 +456,56 @@
       "prompt_file": null,
       "depends_on": [],
       "notes": "Root cause: get_project_root() used current_dir() which returns / in production .app builds. Now scans $HOME/Developer/Active/willieOS etc. as fallback."
+    },
+    {
+      "id": "dashboard-ui-refresh",
+      "title": "Dashboard UI Refresh — New Shell, Sidebar, Home View",
+      "description": "Complete UI overhaul: new AppShell with icon-rail SidebarNav, fixed-layout HomeView (greeting, FocusCard, GarySuggestions, Timeline, InboxSummary), redesigned IntelligencePanel with active agents dock + activity feed + daily spend sparkline + quick actions, navigation store for tab routing, shared Card/SectionHeader components. Matches v0.dev reference designs.",
+      "status": "in_progress",
+      "owner": "willie",
+      "branch": "willie/ui-refresh",
+      "priority": "high",
+      "files": [
+        "src/components/shell/AppShell.jsx",
+        "src/components/shell/SidebarNav.jsx",
+        "src/components/shell/IntelligencePanel.jsx",
+        "src/components/dashboard/HomeView.jsx",
+        "src/components/dashboard/FocusCard.jsx",
+        "src/components/dashboard/GarySuggestions.jsx",
+        "src/components/dashboard/InboxSummary.jsx",
+        "src/components/dashboard/Dashboard.jsx",
+        "src/components/dashboard/DashboardHeader.jsx",
+        "src/components/dashboard/HeroSection.jsx",
+        "src/components/agents/AgentDock.jsx",
+        "src/components/shared/Card.jsx",
+        "src/components/shared/SectionHeader.jsx",
+        "src/stores/navigationStore.js",
+        "src/utils/formatters.js",
+        "src/App.jsx",
+        "src/index.css"
+      ],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Shell and home view built (0795b8f). 5 rounds of feedback addressed — light mode, agent overlay, header overlap, click handlers. Background email preload added (ec355ef). Remaining: verify all tabs work, polish animations."
+    },
+    {
+      "id": "dispatch-workflow-fixes",
+      "title": "Dispatch Chain Auto-Trigger & Workflow Fixes",
+      "description": "Fix dispatch chains not auto-triggering after completion. Root cause: ingestResult() never called saveDispatchMemory(), so checkDependencyChain() never fired. Also implement chain_dispatch post-completion action and verify result delivery to AI chat.",
+      "status": "in_progress",
+      "owner": "willie",
+      "branch": "willie/ui-refresh",
+      "priority": "high",
+      "files": [
+        "willieos-mcp-server/resultIngestion.js",
+        "willieos-mcp-server/dispatch.js",
+        "willieos-mcp-server/crossAgentMemory.js",
+        "src/stores/aiStore.js",
+        "src/utils/dispatchMonitor.js"
+      ],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Auto-memory save added to ingestResult() so chains trigger. chain_dispatch action implemented with ${parent.summary}/${parent.result} interpolation. Result delivery to AI chat was already working via gary:dispatch-completed event listener. publish_to_github_pages still stubbed."
     },
     {
       "id": "imessage-integration",
