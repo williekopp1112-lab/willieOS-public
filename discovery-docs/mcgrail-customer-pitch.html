@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered operational intelligence for McGrail Vineyards & Winery. Discover how modern technology can elevate your boutique winery operations.">
+    <meta property="og:title" content="McGrail Vineyards × AI Operational Intelligence">
+    <meta property="og:description" content="A partnership opportunity from Willie Kopp & Joe — bringing AI innovation to Livermore's finest estate winery.">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect fill='%23450a0a' width='1200' height='630'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='72' fill='%23fbbf24'%3EMcGrail Vineyards%3C/text%3E%3C/svg%3E">
+    <title>McGrail Vineyards × AI Operational Intelligence</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🍷%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette - Wine Country + Modern Tech */
+            --burgundy-dark: #450a0a;
+            --burgundy: #7f1d1d;
+            --burgundy-light: #991b1b;
+            --gold: #fbbf24;
+            --gold-light: #fcd34d;
+            --cream: #fef3c7;
+            --cream-light: #fffbeb;
+            --slate-dark: #1e293b;
+            --slate: #334155;
+            --slate-light: #64748b;
+            --white: #ffffff;
+            --off-white: #fafafa;
+
+            /* Typography */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Effects */
+            --blur-subtle: blur(8px);
+            --blur-medium: blur(16px);
+            --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-quick: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--slate-dark);
+            background: linear-gradient(135deg, var(--cream-light) 0%, var(--off-white) 100%);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, -30px) scale(1.05); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: var(--blur-subtle);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            margin-bottom: 2rem;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sparkle {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0.6; transform: scale(0.9) rotate(180deg); }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--burgundy-dark);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            color: var(--slate);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity var(--transition-quick);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-light) 100%);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(127, 29, 29, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(127, 29, 29, 0.4);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: var(--blur-subtle);
+            color: var(--burgundy);
+            border: 2px solid rgba(127, 29, 29, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--burgundy);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:focus-visible {
+            outline: 3px solid var(--burgundy);
+            outline-offset: 3px;
+        }
+
+        /* Arrow Icon */
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--transition-quick);
+        }
+
+        .btn:hover .arrow-icon {
+            transform: translateX(4px);
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: var(--blur-subtle);
+        }
+
+        .intro-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            color: var(--burgundy-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .intro-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--slate);
+            margin-bottom: 2rem;
+        }
+
+        .relationship-note {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-light) 100%);
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--slate-dark);
+            max-width: 700px;
+            text-align: left;
+        }
+
+        /* Value Props */
+        .value-props {
+            padding: 6rem 2rem;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.4) 100%);
+        }
+
+        .value-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: var(--blur-subtle);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-smooth);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(127, 29, 29, 0.15);
+            border-color: var(--gold);
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--burgundy-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .value-card p {
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        /* Discovery Teaser */
+        .discovery-section {
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: var(--blur-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discovery-section::before {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(127, 29, 29, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .discovery-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .discovery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .discovery-stat {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--burgundy);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--slate);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--burgundy-dark) 0%, var(--burgundy) 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0h60v60H0z" fill="none"/%3E%3Cpath d="M30 0v60M0 30h60" stroke="rgba(251,191,36,0.1)" stroke-width="1"/%3E%3C/svg%3E');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            color: var(--cream);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .btn-cta-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--burgundy-dark);
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+        }
+
+        .btn-cta-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(251, 191, 36, 0.4);
+        }
+
+        .btn-cta-primary:focus-visible {
+            outline: 3px solid var(--white);
+            outline-offset: 3px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--burgundy-dark);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+            margin: 1.5rem auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            color: var(--cream);
+            font-size: 0.875rem;
+        }
+
+        .contact-info a {
+            color: var(--gold-light);
+            text-decoration: none;
+            transition: color var(--transition-quick);
+        }
+
+        .contact-info a:hover {
+            color: var(--gold);
+        }
+
+        .contact-info a:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto;
+                padding: 4rem 1.5rem;
+            }
+
+            h1 {
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                margin-bottom: 2rem;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .discovery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-section,
+            .value-props,
+            .discovery-section,
+            .cta-section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="sparkle" role="presentation" aria-hidden="true"></div>
+                <span>A Partnership Opportunity</span>
+            </div>
+            <h1>AI Operational Intelligence<br>for McGrail Vineyards</h1>
+            <p class="hero-subtitle">
+                Bringing modern AI technology to Livermore Valley's finest estate winery —
+                an invitation to explore how operational intelligence can elevate your craft,
+                from harvest forecasting to tasting room excellence.
+            </p>
+            <div class="cta-container">
+                <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/mcgrail-discovery-doc.html" class="btn btn-primary">
+                    View Our Discovery & Research
+                    <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+                <a href="#intro" class="btn btn-secondary">
+                    Learn More
+                    <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section id="intro" class="intro-section">
+        <div class="intro-content">
+            <span class="section-label">Who We Are</span>
+            <h2>A Relationship Built on Trust & Innovation</h2>
+            <p class="intro-text">
+                I'm Willie Kopp, and together with my partner Joe, we've been exploring how AI
+                can transform operations for boutique wineries. You may remember me from our work
+                together at Cisco — where technology met hands-on problem solving.
+            </p>
+            <p class="intro-text">
+                Now, we're bringing that same practical innovation to the wine industry. McGrail
+                Vineyards has always stood out to us — not just for your award-winning estate wines,
+                but for your commitment to family, community, and Livermore Valley's agricultural legacy.
+            </p>
+            <div class="relationship-note">
+                <strong>Why McGrail?</strong> Because boutique, family-owned wineries like yours deserve
+                technology that respects your craft while elevating your operations. We've done the research.
+                We've built the systems. Now we'd like to show you what's possible.
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Propositions -->
+    <section class="value-props">
+        <div class="intro-content">
+            <span class="section-label">What AI Can Do</span>
+            <h2>Operational Intelligence, Tailored for Wineries</h2>
+        </div>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Harvest Forecasting</h3>
+                <p>
+                    Predict optimal harvest windows using weather data, historical yields, and
+                    real-time vineyard conditions — reducing waste and maximizing quality.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <h3>Tasting Room Optimization</h3>
+                <p>
+                    Understand visitor patterns, personalize recommendations, and streamline
+                    reservations — creating memorable experiences that drive wine club growth.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                </div>
+                <h3>Inventory Intelligence</h3>
+                <p>
+                    Track barrel aging, bottle inventory, and distribution channels with AI-powered
+                    insights — reducing overstock and ensuring availability.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </div>
+                <h3>Wine Club Retention</h3>
+                <p>
+                    Analyze member preferences, predict churn, and automate personalized outreach —
+                    turning occasional visitors into lifelong advocates.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discovery Teaser -->
+    <section class="discovery-section">
+        <div class="discovery-content">
+            <span class="section-label">What We've Found</span>
+            <h2>We've Done the Research</h2>
+            <p class="intro-text">
+                Over the past weeks, we've analyzed McGrail Vineyards' operations, studied
+                industry benchmarks, and identified specific opportunities where AI can make
+                an immediate impact — without disrupting your craft or your culture.
+            </p>
+
+            <div class="discovery-grid">
+                <div class="discovery-stat">
+                    <span class="stat-number">24+</span>
+                    <span class="stat-label">Data Sources Analyzed</span>
+                </div>
+                <div class="discovery-stat">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Operational Areas Mapped</span>
+                </div>
+                <div class="discovery-stat">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Quick-Win Opportunities</span>
+                </div>
+            </div>
+
+            <p class="intro-text">
+                Our discovery document outlines exactly how AI can integrate into your existing
+                workflows — from vineyard to tasting room to wine club management. We've mapped
+                your operations, identified pain points, and designed practical solutions.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>See What We Found</h2>
+        <p>
+            We've prepared a comprehensive discovery document tailored specifically for McGrail
+            Vineyards. It includes operational analysis, technology recommendations, and a roadmap
+            for implementation — all designed to respect your craft while elevating your business.
+        </p>
+        <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/mcgrail-discovery-doc.html" class="btn btn-cta-primary">
+            View Full Discovery Document
+            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">McGrail Vineyards × AI Partnership</div>
+            <div class="footer-divider" aria-hidden="true"></div>
+            <div class="contact-info">
+                <p><strong>Willie Kopp & Joe</strong></p>
+                <p>Operational Intelligence for Boutique Wineries</p>
+                <p><a href="mailto:williekopp1112@gmail.com">williekopp1112@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
