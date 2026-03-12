@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operational Intelligence for McGrail Vineyards | A Custom Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #1B3A2D;
+            --cream: #F5F0E8;
+            --gold: #C9A84C;
+            --burgundy: #6B1F1F;
+            --dark-bg: #0F1F18;
+            --light-gold: #E8D7A0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--forest-green);
+            background: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(27, 58, 45, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--cream);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .nav-info {
+            font-size: 0.85rem;
+            color: var(--light-gold);
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-info span {
+            opacity: 0.9;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg,
+                #8B6F47 0%,
+                #C9A84C 25%,
+                #E8D7A0 50%,
+                #C9A84C 75%,
+                #6B1F1F 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(107, 31, 31, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(27, 58, 45, 0.4) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(27, 58, 45, 0.9);
+            color: var(--gold);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--gold);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--forest-green);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-subheadline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--forest-green);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--burgundy);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--burgundy);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--burgundy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 31, 31, 0.3);
+        }
+
+        .vine-decoration {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, var(--cream), transparent);
+            z-index: 3;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--forest-green);
+            opacity: 0.8;
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pain-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--burgundy);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .pain-card h3 {
+            color: var(--burgundy);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .pain-card p {
+            color: var(--forest-green);
+            opacity: 0.85;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: var(--forest-green);
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .solution .section-title,
+        .solution .section-subtitle {
+            color: var(--cream);
+        }
+
+        .features-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tab-button {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .tab-button:hover,
+        .tab-button.active {
+            background: var(--gold);
+            color: var(--forest-green);
+        }
+
+        .feature-content {
+            display: none;
+            background: rgba(245, 240, 232, 0.1);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .feature-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feature-content h3 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-content p {
+            color: var(--cream);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--burgundy);
+            color: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step h3 {
+            color: var(--forest-green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step p {
+            color: var(--forest-green);
+            opacity: 0.85;
+        }
+
+        /* Founding Partner Section */
+        .founding-partner {
+            background: var(--dark-bg);
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .founding-partner .section-title,
+        .founding-partner .section-subtitle {
+            color: var(--cream);
+        }
+
+        .founding-partner .section-subtitle {
+            opacity: 0.9;
+        }
+
+        .benefits-list {
+            max-width: 700px;
+            margin: 3rem auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+            font-size: 1.1rem;
+        }
+
+        .benefit-item::before {
+            content: '✓';
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .founding-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .founding-cta .cta-button {
+            background: var(--gold);
+            color: var(--forest-green);
+            border-color: var(--gold);
+        }
+
+        .founding-cta .cta-button:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        /* Who We Are */
+        .team-section {
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member h4 {
+            color: var(--forest-green);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: var(--forest-green);
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        .team-message {
+            background: var(--forest-green);
+            color: var(--cream);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-style: italic;
+            border-left: 4px solid var(--gold);
+        }
+
+        .livermore-badge {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            margin-top: 3rem;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(27, 58, 45, 0.1);
+        }
+
+        .comparison-table th {
+            background: var(--forest-green);
+            color: var(--cream);
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .comparison-table td {
+            color: var(--forest-green);
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--forest-green) 100%);
+            padding: 6rem 2rem;
+            margin: 0;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .final-cta .section-title,
+        .final-cta .section-subtitle {
+            color: var(--cream);
+        }
+
+        .final-cta-body {
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin: 2rem auto 3rem;
+            max-width: 700px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .cta-primary {
+            background: var(--gold);
+            color: var(--forest-green);
+            border-color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .cta-primary:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .cta-secondary {
+            color: var(--cream);
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--forest-green);
+            color: var(--cream);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-credits {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-date {
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        /* Stats Animation */
+        .stat-number {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--burgundy);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--forest-green);
+            opacity: 0.85;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .problem-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .features-tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+
+            .feature-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 3;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--forest-green);
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">🍷 McGRAIL VINEYARDS & WINERY</div>
+        <div class="nav-info">
+            <span>5600 Greenville Rd, Livermore, CA</span>
+            <span>mcgrailvineyards.com</span>
+            <span>Est. 1999</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">Built exclusively for McGrail Vineyards</div>
+            <h1>What if running McGrail felt as good as the wine tastes?</h1>
+            <p class="hero-subheadline">A custom-built AI operations platform designed specifically for McGrail Vineyards & Winery</p>
+            <a href="#solution" class="cta-button">Discover What's Possible ↓</a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">↓</div>
+        </div>
+        <div class="vine-decoration"></div>
+    </section>
+
+    <section id="problem">
+        <h2 class="section-title">Premium wine deserves premium operations.</h2>
+        <p class="section-subtitle">But the reality of running an estate winery in 2026 is anything but elegant.</p>
+
+        <div class="problem-grid">
+            <div class="pain-card">
+                <h3>Wine club complexity</h3>
+                <p>Managing member renewals, shipments, preferences, churn — in spreadsheets that break every harvest season.</p>
+            </div>
+            <div class="pain-card">
+                <h3>DTC compliance chaos</h3>
+                <p>Shipping wine to different states means navigating a maze of licensing and compliance rules. One mistake is a headache.</p>
+            </div>
+            <div class="pain-card">
+                <h3>Tasting room juggling</h3>
+                <p>Reservations, walk-ins, events, weddings — every day is a logistics puzzle with too many moving pieces.</p>
+            </div>
+            <div class="pain-card">
+                <h3>Harvest overwhelm</h3>
+                <p>The 30-60 days of crush require perfect coordination. One breakdown cascades everywhere.</p>
+            </div>
+            <div class="pain-card">
+                <h3>Cellar tracking gaps</h3>
+                <p>Barrel programs, SO₂ additions, blending notes — scattered across notebooks and memory.</p>
+            </div>
+            <div class="pain-card">
+                <h3>The owner-operator trap</h3>
+                <p>You're running the business instead of growing it. Your time is buried in operations, not vision.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution" id="solution">
+        <h2 class="section-title">Operational Intelligence — Crafted for McGrail.</h2>
+        <p class="section-subtitle">An AI that learns how your winery operates and quietly handles the complexity — so you can focus on what makes McGrail special.</p>
+
+        <div class="features-tabs">
+            <button class="tab-button active" onclick="showFeature(0)">Wine Club Intelligence</button>
+            <button class="tab-button" onclick="showFeature(1)">DTC Compliance Autopilot</button>
+            <button class="tab-button" onclick="showFeature(2)">Tasting Room Command</button>
+            <button class="tab-button" onclick="showFeature(3)">Harvest Operations Hub</button>
+            <button class="tab-button" onclick="showFeature(4)">Cellar & Vintage Tracker</button>
+            <button class="tab-button" onclick="showFeature(5)">Daily Estate Brief</button>
+        </div>
+
+        <div class="features-content">
+            <div class="feature-content active">
+                <h3>Wine Club Intelligence</h3>
+                <p>Predicts churn before it happens. Automates renewal sequences tailored to each member's preferences. Tracks engagement patterns and keeps your most loyal customers connected to McGrail's story. Your club manager spends time building relationships, not chasing spreadsheets.</p>
+            </div>
+            <div class="feature-content">
+                <h3>DTC Compliance Autopilot</h3>
+                <p>Knows which states you can ship to, handles the paperwork, keeps you protected. Compliance rules change constantly — the system stays current so you don't have to. Ship confidently to all 50 states without worrying about licensing gaps.</p>
+            </div>
+            <div class="feature-content">
+                <h3>Tasting Room Command</h3>
+                <p>Reservation flow, waitlists, capacity optimization, staff coordination — seamless. The system knows your busiest days, suggests optimal scheduling, and handles the details. Your tasting room team focuses on hospitality, not logistics.</p>
+            </div>
+            <div class="feature-content">
+                <h3>Harvest Operations Hub</h3>
+                <p>Coordinates every moving part during crush: teams, equipment, contractors, timelines. The 60 most intense days of the year become manageable. Know exactly what's happening, what's next, and who needs to be where — all in one place.</p>
+            </div>
+            <div class="feature-content">
+                <h3>Cellar & Vintage Tracker</h3>
+                <p>Every barrel, every addition, every blending decision — documented and searchable. No more notebook flipping or memory gaps. Access your entire cellar history instantly. Know exactly what went into every vintage of your award-winning Cabernet Sauvignon.</p>
+            </div>
+            <div class="feature-content">
+                <h3>The Daily Estate Brief</h3>
+                <p>What needs attention today. What can wait. What's a risk. Every morning, in 60 seconds. Your AI operations partner delivers a personalized briefing that cuts through the noise and keeps you focused on what matters.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how">
+        <h2 class="section-title">From chaos to clarity — in days, not months.</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>We learn McGrail's rhythm</h3>
+                <p>How your estate operates, season by season, role by role. We study your processes, your people, your patterns.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>We build your system</h3>
+                <p>Configured to your winery, your wine club, your events calendar. This isn't off-the-shelf software adapted for wineries — it's McGrail's platform.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>You get your time back</h3>
+                <p>The AI handles the overhead. You focus on the craft, the vision, and the legacy you're building for the next 25 years.</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="15">0+</div>
+                <div class="stat-label">Hours saved per week during harvest</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="40">0%</div>
+                <div class="stat-label">Potential reduction in club churn</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="100">0%</div>
+                <div class="stat-label">DTC compliance confidence</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="founding-partner" id="founding">
+        <h2 class="section-title">We're looking for one founding winery partner in Livermore Valley.</h2>
+        <p class="section-subtitle">We're not building generic software. We're building a deep, long-term partnership with one estate winery — learning everything about how they operate, and designing the platform around their specific needs. McGrail's legacy, complexity, and standards make it the perfect founding partner.</p>
+
+        <div class="benefits-list">
+            <div class="benefit-item">Platform designed around McGrail's actual operations</div>
+            <div class="benefit-item">Founding partner pricing — a fraction of what this will cost at scale</div>
+            <div class="benefit-item">Direct influence over every feature we build</div>
+            <div class="benefit-item">White-glove onboarding — we handle the heavy lifting</div>
+            <div class="benefit-item">A technology partner invested in McGrail's long-term success</div>
+        </div>
+
+        <div class="founding-cta">
+            <a href="#contact" class="cta-button">Let's have a conversation →</a>
+        </div>
+    </section>
+
+    <section id="who">
+        <h2 class="section-title">Who We Are</h2>
+        <div class="team-section">
+            <div class="team-members">
+                <div class="team-member">
+                    <h4>Willie Kopp</h4>
+                    <p>Livermore local, tech strategist, builder</p>
+                </div>
+                <div class="team-member">
+                    <h4>Joe [Co-founder]</h4>
+                    <p>Senior developer, product architect</p>
+                </div>
+            </div>
+            <div class="team-message">
+                <p>"We're not a faceless software company. We're from here. We've visited your tasting room. We want McGrail to thrive for the next 25 years."</p>
+            </div>
+            <div class="livermore-badge">Proudly Livermore-built 🏔️</div>
+        </div>
+    </section>
+
+    <section id="difference">
+        <h2 class="section-title">Why This Is Different</h2>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Off-the-shelf tools</th>
+                        <th>Hiring more staff</th>
+                        <th>Operational Intelligence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Built for estate wineries</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Learns McGrail's processes</td>
+                        <td>❌</td>
+                        <td>🟡</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Handles DTC compliance</td>
+                        <td>❌</td>
+                        <td>🟡</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Costs less than one part-time hire</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Gets smarter every season</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="final-cta" id="contact">
+        <h2 class="section-title">Ready to see what this could look like for McGrail?</h2>
+        <div class="final-cta-body">
+            30 minutes. No pitch. A real conversation about how your winery runs and where the opportunities are.
+        </div>
+        <div class="cta-buttons">
+            <a href="mailto:willie@example.com?subject=McGrail%20Vineyards%20Conversation" class="cta-button cta-primary">Schedule a Conversation</a>
+            <div class="cta-secondary">Or reach out to Willie directly: willie@example.com</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🍷 McGRAIL VINEYARDS & WINERY</div>
+        <div class="footer-credits">A proposal from Willie Kopp & Joe [Co-founder]</div>
+        <div class="footer-date">March 2026</div>
+    </footer>
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Feature tabs
+        function showFeature(index) {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.feature-content');
+
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            contents.forEach((content, i) => {
+                if (i === index) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        }
+
+        // Animated stats counter
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        stat.textContent = Math.floor(current) + (stat.textContent.includes('%') ? '%' : '+');
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        stat.textContent = target + (stat.textContent.includes('%') ? '%' : '+');
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Trigger stats animation when section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-grid');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
