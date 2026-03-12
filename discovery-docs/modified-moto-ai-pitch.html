@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modified Motorsports × BizPleaser AI | Internal Pitch Doc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #242424;
+            --border: #2a2a2a;
+            --border-bright: #3a3a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #f97316;
+            --accent-dim: #ea580c;
+            --accent-glow: rgba(249, 115, 22, 0.15);
+            --gradient-start: rgba(249, 115, 22, 0.08);
+            --gradient-end: rgba(249, 115, 22, 0);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 5rem;
+            background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dim) 100%);
+            border-radius: 2px;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-bright);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .card p, .card li {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* List Styles */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Checklist Styles */
+        .checklist {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            border-color: var(--border-bright);
+            background: var(--bg-card-hover);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-top: 0.125rem;
+            cursor: pointer;
+            accent-color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Link Styles */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        /* Collaboration Notes */
+        .notes-area {
+            width: 100%;
+            min-height: 200px;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        .notes-area:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .notes-area::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border: 1px solid var(--border-bright);
+            border-left: 4px solid var(--accent);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .hero {
+                padding: 3rem 0 4rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Auto-save indicator */
+        .save-indicator {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .save-indicator.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="badge">Livermore, CA | Confidential Draft</div>
+            <h1>Modified Motorsports × BizPleaser AI</h1>
+            <p class="subtitle">Local AI Solutions Pitch — Internal Collaboration Doc</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- The Opportunity -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">The Opportunity</h2>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>Warm intro, not a cold call.</strong> Ava owns Modified Motorsports — an auto shop specializing in wraps, wheels, rims, and dent repair in Livermore, CA. Willie is already a customer getting his car assessed for wrap work, new wheels/rims, and dent cleanup. During that customer conversation, Ava expressed genuine interest in AI solutions.</p>
+            </div>
+
+            <div class="card">
+                <h3>Why This Matters</h3>
+                <ul>
+                    <li>Existing customer relationship — Willie is trusted, not a stranger</li>
+                    <li>Ava initiated interest in AI — receptive audience</li>
+                    <li>Natural conversation opener during the car assessment visit</li>
+                    <li>Part of broader local business AI outreach strategy in Livermore</li>
+                    <li>Modified Moto is the proof-of-concept for the playbook</li>
+                    <li>Next targets: Altamont Brewing, McGrail Winery (same local market)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- The Stack -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">The Stack (What We're Selling)</h2>
+                <p class="section-description">White-labeled automation platform built on proven infrastructure</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Backend Platform</h3>
+                    <p><a href="https://www.gohighlevel.com/46321b6" target="_blank">GoHighLevel</a> — fully white-labeled, enterprise-grade marketing and CRM automation platform. No GoHighLevel branding visible to end client.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Our Brand</h3>
+                    <p><a href="https://bizpleaser.ai/" target="_blank">BizPleaser.ai</a> — our reseller brand. We handle onboarding, support, and client relationships. Modified Moto sees BizPleaser.ai, not GoHighLevel.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Key Features for Auto Shops</h3>
+                <ul>
+                    <li><strong>Appointment Booking Automation:</strong> Customers book online 24/7, synced to shop calendar</li>
+                    <li><strong>Automated Follow-Up:</strong> SMS/email after service completion — "How did we do?"</li>
+                    <li><strong>Review Management:</strong> Auto-request Google Reviews from happy customers</li>
+                    <li><strong>Missed Call Text-Back:</strong> Instant SMS when shop can't answer — "Saw you called, how can we help?"</li>
+                    <li><strong>CRM for Repeat Customers:</strong> Track service history, preferences, and upsell opportunities</li>
+                    <li><strong>Reactivation Campaigns:</strong> Automated outreach to dormant customers — "It's been 6 months, time for a check-up?"</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Pain Points -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Pain Points to Probe</h2>
+                <p class="section-description">Discovery questions for Willie & Joe to prep talking points</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Booking & Scheduling</h3>
+                    <p>How are they currently booking appointments? Phone only? Manual calendar management? Are they losing leads who call after hours?</p>
+                </div>
+
+                <div class="card">
+                    <h3>Customer Follow-Up</h3>
+                    <p>Do they follow up with customers after service is complete? Is it manual or automated? How often do they ask for feedback?</p>
+                </div>
+
+                <div class="card">
+                    <h3>Review Generation</h3>
+                    <p>Are they actively managing Google Reviews? Do they ask every happy customer to leave a review? What's their current star rating?</p>
+                </div>
+
+                <div class="card">
+                    <h3>Missed Opportunities</h3>
+                    <p>What happens when they miss a call — do leads fall through the cracks? How do they handle after-hours inquiries?</p>
+                </div>
+
+                <div class="card">
+                    <h3>Repeat Business</h3>
+                    <p>Are they tracking repeat customers? Do they run any loyalty or reactivation campaigns for customers who haven't been back in 6+ months?</p>
+                </div>
+
+                <div class="card">
+                    <h3>Time Drain</h3>
+                    <p>How much time does Ava or her team spend on manual follow-ups, appointment confirmations, and review requests? Could that time be better spent?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pitch Strategy -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Pitch Strategy</h2>
+                <p class="section-description">Keep it conversational, not salesy — Ava is already warm</p>
+            </div>
+
+            <div class="card">
+                <h3>The Approach</h3>
+                <ul>
+                    <li><strong>Lead with the car assessment:</strong> Willie is a customer first. Build the relationship during the service conversation.</li>
+                    <li><strong>Natural transition:</strong> "While I'm here, I wanted to share something we're building for local shops like yours..."</li>
+                    <li><strong>Demo the quick wins first:</strong> Missed-call text-back and booking automation — most immediately relatable for a shop owner.</li>
+                    <li><strong>Show, don't tell:</strong> Pull up the GHL demo account on mobile. Let Ava see the text-back in action.</li>
+                    <li><strong>Mention Gary:</strong> "My AI assistant has already been in contact with you via email — that's part of what we're building." Show the AI in action.</li>
+                    <li><strong>No pressure:</strong> "No obligation — just wanted to show you what's possible. If it makes sense, we can set up a proper demo."</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Key Talking Points</h3>
+                <ul>
+                    <li>"Most shops lose 30-40% of leads from missed calls. This eliminates that."</li>
+                    <li>"Google Reviews are the #1 driver of new customers. We automate asking for them."</li>
+                    <li>"Your best customers go dormant after 6 months. We bring them back automatically."</li>
+                    <li>"You shouldn't be spending hours on follow-ups. Let AI handle it — you focus on wraps and wheels."</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- The Offer -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">The Offer</h2>
+                <p class="section-description">Willie & Joe to finalize before pitch meeting</p>
+            </div>
+
+            <div class="card">
+                <h3>Pricing & Terms (TBD)</h3>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="pricing">
+                        <label for="pricing">Finalize pricing tier (suggest: $297/mo all-in, or tiered based on features)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="trial">
+                        <label for="trial">Decide on free trial period (suggest: 30 days, no credit card required)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="onboarding">
+                        <label for="onboarding">Confirm onboarding support included (setup, training, first campaign build)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="branding">
+                        <label for="branding">White-label branding for Modified Moto? (custom domain, branded emails/SMS)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="contract">
+                        <label for="contract">Contract length (suggest: month-to-month, cancel anytime)</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why This Scales -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Why This Playbook Scales</h2>
+                <p class="section-description">Same stack, different vertical — brewery & winery next</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Auto Shop (Modified Moto)</h3>
+                    <ul>
+                        <li>Appointment booking automation</li>
+                        <li>Missed call text-back</li>
+                        <li>Review generation</li>
+                        <li>Customer reactivation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Brewery (Altamont Brewing)</h3>
+                    <ul>
+                        <li>Event reservation booking</li>
+                        <li>Post-visit follow-up (loyalty program)</li>
+                        <li>Review generation (Yelp/Google)</li>
+                        <li>Seasonal campaign automation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Winery (McGrail Winery)</h3>
+                    <ul>
+                        <li>Tasting room reservations</li>
+                        <li>Wine club member engagement</li>
+                        <li>Event follow-up & upsell</li>
+                        <li>Harvest season campaigns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>The Strategy:</strong> Modified Moto is the proof-of-concept. Document what worked and what didn't with Ava. Refine the pitch. Then rinse and repeat with Altamont Brewing and McGrail Winery. Same tech stack, adapted messaging per vertical.</p>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Next Steps Tracker</h2>
+                <p class="section-description">Visual checklist for the Modified Moto playbook</p>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <input type="checkbox" id="step1">
+                    <label for="step1">Willie gets car assessed at Modified Moto (week of Mar 16)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step2">
+                    <label for="step2">Willie naturally introduces the AI pitch during the visit</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step3">
+                    <label for="step3">Joe & Willie align on pricing/offer before the visit</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step4">
+                    <label for="step4">Schedule dedicated AI pitch meeting with Ava</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step5">
+                    <label for="step5">Build demo GHL sub-account for Modified Moto (pre-populated with sample campaigns)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step6">
+                    <label for="step6">Capture learnings after pitch (what resonated, what didn't, objections, questions)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step7">
+                    <label for="step7">Refine playbook based on Modified Moto learnings</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step8">
+                    <label for="step8">Apply refined playbook to Altamont Brewing pitch</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="step9">
+                    <label for="step9">Apply refined playbook to McGrail Winery pitch</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collaboration Notes -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Collaboration Notes</h2>
+                <p class="section-description">In-browser notes for Willie and Joe during planning sessions</p>
+            </div>
+
+            <textarea
+                class="notes-area"
+                id="collab-notes"
+                placeholder="Jot notes here during planning sessions...&#10;&#10;• Ideas for the demo&#10;• Objections Ava might raise&#10;• Follow-up tasks&#10;• Pricing calculations&#10;&#10;Notes auto-save to browser localStorage."
+            ></textarea>
+        </section>
+    </div>
+
+    <div class="save-indicator" id="save-indicator">Notes saved</div>
+
+    <script>
+        // Auto-save collaboration notes to localStorage
+        const notesArea = document.getElementById('collab-notes');
+        const saveIndicator = document.getElementById('save-indicator');
+        let saveTimeout;
+
+        // Load saved notes on page load
+        const savedNotes = localStorage.getItem('modified-moto-notes');
+        if (savedNotes) {
+            notesArea.value = savedNotes;
+        }
+
+        // Save notes on input with debounce
+        notesArea.addEventListener('input', () => {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                localStorage.setItem('modified-moto-notes', notesArea.value);
+                saveIndicator.classList.add('show');
+                setTimeout(() => {
+                    saveIndicator.classList.remove('show');
+                }, 2000);
+            }, 1000);
+        });
+
+        // Save checklist states to localStorage
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Load saved checkbox states
+        checkboxes.forEach(checkbox => {
+            const saved = localStorage.getItem(`checkbox-${checkbox.id}`);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+        });
+
+        // Save checkbox state on change
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(`checkbox-${checkbox.id}`, checkbox.checked);
+            });
+        });
+    </script>
+</body>
+</html>
