@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altamont Beer Works — Discovery Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #1a1d29;
+            --bg-tertiary: #252937;
+            --bg-hover: #2d3142;
+            --accent: #F5A623;
+            --accent-dim: #c78419;
+            --text-primary: #e4e6eb;
+            --text-secondary: #b0b3ba;
+            --text-muted: #6b7280;
+            --border: #2d3142;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grain-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                var(--accent) 2px,
+                var(--accent) 4px
+            );
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 8px rgba(245, 166, 35, 0.3));
+        }
+
+        .logo-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .logo-text p {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+
+        .company-info {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .company-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid;
+        }
+
+        .status-badge.pre-interview {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+            color: #60a5fa;
+        }
+
+        .status-badge.in-progress {
+            background: rgba(245, 166, 35, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .status-badge.complete {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .progress-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-dim) 0%, var(--accent) 100%);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(245, 166, 35, 0.5);
+        }
+
+        /* Sections */
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(245, 166, 35, 0.1);
+        }
+
+        .section-header {
+            padding: 1.5rem 2rem;
+            background: var(--bg-tertiary);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: var(--bg-hover);
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .section-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .completion-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+        }
+
+        .completion-badge.complete {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .completion-badge.partial {
+            background: rgba(245, 166, 35, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .completion-badge.empty {
+            color: var(--text-muted);
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .section-header.collapsed .chevron {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: 2rem;
+            max-height: 10000px;
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding: 0 2rem;
+            overflow: hidden;
+        }
+
+        /* Form Elements */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.025em;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="tel"],
+        .form-group input[type="url"],
+        .form-group textarea,
+        .form-group select {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="url"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--accent);
+            background: var(--bg-tertiary);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            flex: 1;
+            margin: 0;
+        }
+
+        /* Question Bank */
+        .question-category {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .question-card:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .copy-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .question-notes {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .question-notes:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Slider */
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider-value {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 50px;
+            background: var(--bg-primary);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.5);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(245, 166, 35, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent);
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.checked {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: var(--success);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            accent-color: var(--success);
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .checklist-item.checked label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .info-panel h4 {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-panel ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-panel li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .info-panel li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Ranked List */
+        .ranked-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .ranked-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .rank-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .ranked-item input {
+            flex: 1;
+        }
+
+        /* Toggle */
+        .toggle-group {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-primary);
+            padding: 0.25rem;
+            border-radius: 8px;
+        }
+
+        .toggle-option {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-option.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 2rem 1.5rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.75rem;
+            }
+
+            .company-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .grain-texture,
+            .copy-btn,
+            .action-bar {
+                display: none;
+            }
+
+            .section-content.collapsed {
+                max-height: none;
+                opacity: 1;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain-texture"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-icon">🍺</div>
+                <div class="logo-text">
+                    <h1>Altamont Beer Works</h1>
+                    <p>Discovery Intelligence Doc — Internal Use Only</p>
+                </div>
+            </div>
+
+            <div class="company-info">
+                <span>📍 2402 Research Dr, Livermore, CA 94550</span>
+                <span>📞 (925) 443-2337</span>
+                <span>🌐 altamontbeerworks.com</span>
+            </div>
+
+            <div class="status-bar">
+                <div>
+                    <select id="interview-status" class="status-badge pre-interview">
+                        <option value="pre-interview">Pre-Interview</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                    <input type="date" id="interview-date" style="margin-left: 1rem; padding: 0.5rem; border-radius: 8px; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary);">
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Document Completion</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Business Profile -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>
+                    <span class="section-number">1</span>
+                    Business Profile
+                </h2>
+                <div class="section-meta">
+                    <span class="completion-badge empty" data-section="profile">Empty</span>
+                    <span class="chevron">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" value="Altamont Beer Works" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Type</label>
+                        <input type="text" value="Independent Craft Brewery" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" value="Livermore, CA" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label>Established</label>
+                        <input type="text" placeholder="Year" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label>Owner/Primary Contact</label>
+                        <input type="text" placeholder="Name" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="text" placeholder="email@example.com" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label># of Employees</label>
+                        <input type="number" placeholder="0" data-field="profile">
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Revenue (est)</label>
+                        <input type="text" placeholder="$0" data-field="profile">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Primary Revenue Streams</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rev-taproom" data-field="profile">
+                            <label for="rev-taproom">Taproom sales</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rev-cans" data-field="profile">
+                            <label for="rev-cans">Cans/bottles</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rev-distribution" data-field="profile">
+                            <label for="rev-distribution">Distribution</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rev-events" data-field="profile">
+                            <label for="rev-events">Events</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rev-merch" data-field="profile">
+                            <label for="rev-merch">Merchandise</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Hours of Operation</label>
+                    <input type="text" value="Wed–Sun 12–8pm" data-field="profile">
+                </div>
+
+                <div class="form-group">
+                    <label>Focus/Specialty</label>
+                    <textarea placeholder="West coast IPAs, hoppy styles, always fresh..." data-field="profile"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Pre-Interview Prep -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>
+                    <span class="section-number">2</span>
+                    Pre-Interview Prep (Question Bank)
+                </h2>
+                <div class="section-meta">
+                    <span class="completion-badge empty" data-section="questions">Empty</span>
+                    <span class="chevron">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <!-- Operations & Workflow -->
+                <div class="question-category">
+                    <div class="category-title">⚙️ Operations & Workflow</div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">Walk me through a typical brew day — what does that look like start to finish?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How do you track your inventory (ingredients, kegs, cans)?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What's your current ordering process for hops, malt, yeast, CO2?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How do you manage taproom scheduling and staffing?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What happens when something goes wrong mid-brew — how do you document it?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+                </div>
+
+                <!-- Tech Stack -->
+                <div class="question-category">
+                    <div class="category-title">💻 Tech Stack</div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What software do you use today (POS, inventory, accounting, scheduling)?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How do you track batch data and fermentation logs?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">Do you use any automation tools? What do you wish existed?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How do you handle online orders or curbside pickup?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+                </div>
+
+                <!-- Pain Points & Frustrations -->
+                <div class="question-category">
+                    <div class="category-title">🔥 Pain Points & Frustrations</div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What's the most manual, time-consuming thing you do every week?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What's the most expensive mistake you've made operationally in the last year?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">If you could snap your fingers and fix one thing about running this business, what would it be?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What do your competitors seem to do better than you operationally?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+                </div>
+
+                <!-- Revenue & Growth -->
+                <div class="question-category">
+                    <div class="category-title">📈 Revenue & Growth</div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What's your biggest growth constraint right now?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How do you decide what new beers to brew and when?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How do you manage your tap list rotation?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">Are there revenue streams you're leaving on the table?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+                </div>
+
+                <!-- AI & Tech Appetite -->
+                <div class="question-category">
+                    <div class="category-title">🤖 AI & Tech Appetite</div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">How tech-forward do you consider yourself as an operator?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">Have you tried any AI tools for your business yet?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">What would it take for you to trust an AI system with part of your operations?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-text">Would you be open to being a founding partner / guinea pig for a new product — at minimal cost — if it solved a real problem?</div>
+                            <button class="copy-btn" onclick="copyQuestion(this)">Copy</button>
+                        </div>
+                        <textarea class="question-notes" placeholder="Notes..." data-field="questions"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Interview Notes Capture -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>
+                    <span class="section-number">3</span>
+                    Interview Notes Capture
+                </h2>
+                <div class="section-meta">
+                    <span class="completion-badge empty" data-section="notes">Empty</span>
+                    <span class="chevron">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Raw Notes (paste or type anything)</label>
+                    <textarea style="min-height: 200px;" placeholder="Everything from the call..." data-field="notes"></textarea>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Top 3 Pain Points Mentioned (ranked by emphasis)</label>
+                    <div class="ranked-list">
+                        <div class="ranked-item">
+                            <span class="rank-badge">1</span>
+                            <input type="text" placeholder="Most emphasized pain point" data-field="notes">
+                        </div>
+                        <div class="ranked-item">
+                            <span class="rank-badge">2</span>
+                            <input type="text" placeholder="Second pain point" data-field="notes">
+                        </div>
+                        <div class="ranked-item">
+                            <span class="rank-badge">3</span>
+                            <input type="text" placeholder="Third pain point" data-field="notes">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Aha Moments / Quotes (verbatim)</label>
+                    <textarea placeholder='"We waste 4 hours every week just entering data into three different systems..."' data-field="notes"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Red Flags / Objections</label>
+                    <textarea placeholder="Concerns, skepticism, budget constraints..." data-field="notes"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Technology They Already Use</label>
+                    <input type="text" placeholder="POS systems, inventory tools, etc." data-field="notes">
+                </div>
+
+                <div class="form-group">
+                    <label>Their Biggest Operational Bottleneck</label>
+                    <input type="text" placeholder="The one thing slowing them down most" data-field="notes">
+                </div>
+
+                <div class="form-grid" style="margin-top: 1.5rem;">
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <label>Openness to AI</label>
+                            <span class="slider-value" id="ai-openness-value">5</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="5" id="ai-openness" data-field="notes" oninput="updateSliderValue('ai-openness')">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <label>Openness to Being a Guinea Pig</label>
+                            <span class="slider-value" id="guinea-pig-value">5</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="5" id="guinea-pig" data-field="notes" oninput="updateSliderValue('guinea-pig')">
+                    </div>
+                </div>
+
+                <div class="form-grid" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label>Est. Hours/Week Lost to Manual Processes</label>
+                        <input type="number" placeholder="0" data-field="notes">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Est. $ Lost to Waste/Errors/Month</label>
+                        <input type="text" placeholder="$0" data-field="notes">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Post-Interview Analysis -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>
+                    <span class="section-number">4</span>
+                    Post-Interview Analysis
+                </h2>
+                <div class="section-meta">
+                    <span class="completion-badge empty" data-section="analysis">Empty</span>
+                    <span class="chevron">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Problem Statement (1-2 sentences)</label>
+                    <textarea placeholder="Altamont loses X hours/week to Y because Z..." data-field="analysis"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantified Opportunity</label>
+                    <textarea placeholder="Time saved: X hours/week. Cost reduced: $Y/month. Revenue unlocked: $Z..." data-field="analysis"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Product Hypothesis (what we'd build specifically for them)</label>
+                    <textarea placeholder="An AI-powered system that..." data-field="analysis"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Irrefusable Offer Draft (guinea pig deal)</label>
+                    <textarea placeholder="We'll build you a custom solution for $X/month for the first 6 months, you give us feedback and a testimonial..." data-field="analysis"></textarea>
+                </div>
+
+                <div class="slider-group" style="margin-top: 1.5rem;">
+                    <div class="slider-label">
+                        <label>Fit Score (are they the right first customer?)</label>
+                        <span class="slider-value" id="fit-score-value">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" id="fit-score" data-field="analysis" oninput="updateSliderValue('fit-score')">
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Fit Score Notes</label>
+                    <textarea placeholder="Why this score? What makes them a good/bad fit?" data-field="analysis"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Next Steps</label>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="next-followup" data-field="analysis">
+                            <label for="next-followup">Schedule follow-up call</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="next-deck" data-field="analysis">
+                            <label for="next-deck">Send pitch deck</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="next-demo" data-field="analysis">
+                            <label for="next-demo">Schedule demo</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="next-proposal" data-field="analysis">
+                            <label for="next-proposal">Draft formal proposal</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="next-testimonial" data-field="analysis">
+                            <label for="next-testimonial">Get testimonial / case study permission</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Readiness for Pitch</label>
+                    <div class="toggle-group">
+                        <button class="toggle-option active" data-value="not-ready" onclick="setToggle(this, 'pitch-readiness')">Not Ready</button>
+                        <button class="toggle-option" data-value="ready" onclick="setToggle(this, 'pitch-readiness')">Ready to Pitch</button>
+                        <button class="toggle-option" data-value="pitched" onclick="setToggle(this, 'pitch-readiness')">Pitched</button>
+                    </div>
+                    <input type="hidden" id="pitch-readiness" value="not-ready" data-field="analysis">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Competitive & Market Context -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>
+                    <span class="section-number">5</span>
+                    Competitive & Market Context
+                </h2>
+                <div class="section-meta">
+                    <span class="chevron">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="info-panel">
+                    <h4>Livermore Craft Beer Market</h4>
+                    <ul>
+                        <li>Altamont Beer Works — West coast IPAs, hoppy styles, always fresh</li>
+                        <li>Las Positas Brewing — Established local competitor</li>
+                        <li>Working Man Brewing — Neighborhood brewery</li>
+                        <li>Eight Bridges Brewing — Larger production facility</li>
+                        <li>Market trend: Consumers want fresher beer, transparency, local sourcing</li>
+                    </ul>
+                </div>
+
+                <div class="info-panel">
+                    <h4>Industry Pain Points (Small Craft Breweries)</h4>
+                    <ul>
+                        <li>Inventory waste — hops/malt spoilage due to poor tracking</li>
+                        <li>Batch tracking and QC documentation — manual spreadsheets prone to errors</li>
+                        <li>Staff scheduling complexity — taproom hours, brew days, events</li>
+                        <li>Taproom vs. distribution margin squeeze — where to focus?</li>
+                        <li>Limited tech budgets — can't afford enterprise brewery software</li>
+                        <li>Owner-operators doing everything — wearing too many hats</li>
+                        <li>Data silos — POS, inventory, accounting don't talk to each other</li>
+                    </ul>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Additional Market Research / Competitive Notes</label>
+                    <textarea placeholder="Add your own observations..." data-field="market"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Pitch Readiness Tracker -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>
+                    <span class="section-number">6</span>
+                    Pitch Readiness Tracker
+                </h2>
+                <div class="section-meta">
+                    <span class="completion-badge empty" data-section="readiness">0/7</span>
+                    <span class="chevron">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-interview" data-field="readiness">
+                        <label for="ready-interview">Discovery interview completed</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-quantified" data-field="readiness">
+                        <label for="ready-quantified">Pain points quantified</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-hypothesis" data-field="readiness">
+                        <label for="ready-hypothesis">Product hypothesis validated</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-offer" data-field="readiness">
+                        <label for="ready-offer">Irrefusable offer drafted</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-deck" data-field="readiness">
+                        <label for="ready-deck">Customer-facing pitch deck live</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-scheduled" data-field="readiness">
+                        <label for="ready-scheduled">Pitch meeting scheduled</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="ready-delivered" data-field="readiness">
+                        <label for="ready-delivered">Pitch delivered</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <button class="btn btn-primary" onclick="exportData()">
+                <span>📥</span>
+                Export to JSON
+            </button>
+            <button class="btn btn-secondary" onclick="copyShareableSummary()">
+                <span>📋</span>
+                Copy Shareable Summary
+            </button>
+            <button class="btn btn-secondary" onclick="window.print()">
+                <span>🖨️</span>
+                Print Document
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // LocalStorage keys
+        const STORAGE_KEY = 'altamont-discovery-data';
+        const STATUS_KEY = 'altamont-interview-status';
+        const DATE_KEY = 'altamont-interview-date';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            updateProgress();
+            attachEventListeners();
+
+            // Set today's date if not set
+            const dateInput = document.getElementById('interview-date');
+            if (!dateInput.value) {
+                dateInput.value = new Date().toISOString().split('T')[0];
+            }
+        });
+
+        // Toggle section collapse
+        function toggleSection(header) {
+            header.classList.toggle('collapsed');
+            const content = header.nextElementSibling;
+            content.classList.toggle('collapsed');
+        }
+
+        // Update slider value display
+        function updateSliderValue(sliderId) {
+            const slider = document.getElementById(sliderId);
+            const valueDisplay = document.getElementById(sliderId + '-value');
+            valueDisplay.textContent = slider.value;
+            saveData();
+            updateProgress();
+        }
+
+        // Toggle button group
+        function setToggle(button, groupId) {
+            const group = button.parentElement;
+            group.querySelectorAll('.toggle-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            button.classList.add('active');
+            document.getElementById(groupId).value = button.dataset.value;
+            saveData();
+            updateProgress();
+        }
+
+        // Copy question to clipboard
+        function copyQuestion(button) {
+            const questionText = button.parentElement.querySelector('.question-text').textContent;
+            navigator.clipboard.writeText(questionText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Attach event listeners to all form fields
+        function attachEventListeners() {
+            // Text inputs, textareas, selects, checkboxes
+            document.querySelectorAll('input, textarea, select').forEach(element => {
+                if (element.dataset.field) {
+                    element.addEventListener('input', () => {
+                        saveData();
+                        updateProgress();
+                    });
+                    element.addEventListener('change', () => {
+                        saveData();
+                        updateProgress();
+                    });
+                }
+            });
+
+            // Interview status
+            const statusSelect = document.getElementById('interview-status');
+            statusSelect.addEventListener('change', (e) => {
+                localStorage.setItem(STATUS_KEY, e.target.value);
+                e.target.className = 'status-badge ' + e.target.value;
+                updateProgress();
+            });
+
+            // Date
+            document.getElementById('interview-date').addEventListener('change', (e) => {
+                localStorage.setItem(DATE_KEY, e.target.value);
+            });
+        }
+
+        // Save all data to localStorage
+        function saveData() {
+            const data = {};
+
+            document.querySelectorAll('input[data-field], textarea[data-field], select[data-field]').forEach(element => {
+                const key = element.id || element.name || `field-${Math.random()}`;
+
+                if (element.type === 'checkbox') {
+                    data[key] = element.checked;
+                } else if (element.type === 'range') {
+                    data[key] = element.value;
+                } else {
+                    data[key] = element.value;
+                }
+            });
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = data[key];
+                        } else {
+                            element.value = data[key];
+                        }
+
+                        // Update slider displays
+                        if (element.type === 'range') {
+                            const valueDisplay = document.getElementById(key + '-value');
+                            if (valueDisplay) valueDisplay.textContent = data[key];
+                        }
+
+                        // Update toggle groups
+                        if (element.id === 'pitch-readiness') {
+                            const activeButton = document.querySelector(`[data-value="${data[key]}"]`);
+                            if (activeButton) setToggle(activeButton, 'pitch-readiness');
+                        }
+                    }
+                });
+            }
+
+            // Load status and date
+            const savedStatus = localStorage.getItem(STATUS_KEY);
+            if (savedStatus) {
+                const statusSelect = document.getElementById('interview-status');
+                statusSelect.value = savedStatus;
+                statusSelect.className = 'status-badge ' + savedStatus;
+            }
+
+            const savedDate = localStorage.getItem(DATE_KEY);
+            if (savedDate) {
+                document.getElementById('interview-date').value = savedDate;
+            }
+        }
+
+        // Update completion progress
+        function updateProgress() {
+            const sections = {
+                profile: 0,
+                questions: 0,
+                notes: 0,
+                analysis: 0,
+                readiness: 0
+            };
+
+            // Count filled fields per section
+            document.querySelectorAll('input[data-field], textarea[data-field], select[data-field]').forEach(element => {
+                const section = element.dataset.field;
+                if (!sections.hasOwnProperty(section)) return;
+
+                if (element.type === 'checkbox') {
+                    if (element.checked) sections[section]++;
+                } else if (element.value && element.value.trim() !== '') {
+                    sections[section]++;
+                }
+            });
+
+            // Update section badges
+            Object.keys(sections).forEach(section => {
+                const badge = document.querySelector(`[data-section="${section}"]`);
+                if (!badge) return;
+
+                const count = sections[section];
+                if (section === 'readiness') {
+                    const total = 7;
+                    badge.textContent = `${count}/${total}`;
+                    badge.className = count === 0 ? 'completion-badge empty' :
+                                     count === total ? 'completion-badge complete' :
+                                     'completion-badge partial';
+                } else {
+                    badge.textContent = count === 0 ? 'Empty' :
+                                      count < 5 ? 'Partial' :
+                                      'Complete';
+                    badge.className = count === 0 ? 'completion-badge empty' :
+                                     count < 5 ? 'completion-badge partial' :
+                                     'completion-badge complete';
+                }
+            });
+
+            // Update overall progress
+            const totalFields = document.querySelectorAll('input[data-field], textarea[data-field], select[data-field]').length;
+            const totalFilled = Object.values(sections).reduce((a, b) => a + b, 0);
+            const percentage = Math.round((totalFilled / totalFields) * 100);
+
+            document.getElementById('progress-percent').textContent = percentage + '%';
+            document.getElementById('progress-fill').style.width = percentage + '%';
+        }
+
+        // Export data to JSON
+        function exportData() {
+            const data = {
+                metadata: {
+                    exportDate: new Date().toISOString(),
+                    interviewStatus: document.getElementById('interview-status').value,
+                    interviewDate: document.getElementById('interview-date').value
+                },
+                formData: JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `altamont-discovery-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Copy shareable summary
+        function copyShareableSummary() {
+            const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+            let summary = `ALTAMONT BEER WORKS — Discovery Summary\n`;
+            summary += `Date: ${document.getElementById('interview-date').value}\n`;
+            summary += `Status: ${document.getElementById('interview-status').value}\n\n`;
+
+            summary += `TOP 3 PAIN POINTS:\n`;
+            summary += `1. ${data[''] || '[Not filled]'}\n`;
+            summary += `2. ${data[''] || '[Not filled]'}\n`;
+            summary += `3. ${data[''] || '[Not filled]'}\n\n`;
+
+            summary += `OPPORTUNITY:\n`;
+            summary += `Hours/week lost: ${data[''] || '[Not filled]'}\n`;
+            summary += `$/month lost: ${data[''] || '[Not filled]'}\n\n`;
+
+            summary += `PRODUCT HYPOTHESIS:\n`;
+            summary += `${data[''] || '[Not filled]'}\n\n`;
+
+            summary += `IRREFUSABLE OFFER:\n`;
+            summary += `${data[''] || '[Not filled]'}\n\n`;
+
+            summary += `FIT SCORE: ${document.getElementById('fit-score').value}/10\n`;
+            summary += `AI OPENNESS: ${document.getElementById('ai-openness').value}/10\n`;
+            summary += `GUINEA PIG OPENNESS: ${document.getElementById('guinea-pig').value}/10\n`;
+
+            navigator.clipboard.writeText(summary).then(() => {
+                alert('Summary copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
