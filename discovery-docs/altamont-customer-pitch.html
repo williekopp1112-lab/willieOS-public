@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform Your Brewery with AI | Altamont Brewing × Willie Kopp & Joe</title>
+    <meta name="description" content="Discover how AI can revolutionize Altamont Brewing Company's operations—from demand forecasting to inventory intelligence. Premium research & discovery by Willie Kopp & Joe.">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Transform Your Brewery with AI | Altamont Brewing Company">
+    <meta property="og:description" content="AI-powered operational intelligence for craft breweries. Demand forecasting, inventory optimization, smart staffing, and customer insights.">
+    <meta property="og:url" content="https://williekopp1112-lab.github.io/willieOS-public/altamont-customer-pitch.html">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='none'%3E%3Crect width='1200' height='630' fill='%237C2D12'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='64' font-weight='700' fill='%23FFFFFF'%3EAltamont Brewing%3C/text%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='48' font-weight='400' fill='%23F59E0B'%3E× AI Intelligence%3C/text%3E%3C/svg%3E">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%237C2D12'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-size='60' fill='%23F59E0B'%3E🍺%3C/text%3E%3C/svg%3E">
+
+    <!-- Fonts - Amatic SC (indie/craft) + Cabin (readable body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== CSS CUSTOM PROPERTIES ========== */
+        :root {
+            /* Brewery Colors - Deep burgundy + craft gold */
+            --color-primary: #7C2D12;
+            --color-primary-dark: #5A1F0C;
+            --color-secondary: #B91C1C;
+            --color-accent: #D97706;
+            --color-accent-bright: #F59E0B;
+            --color-gold: #FBBF24;
+            --color-bg: #FEF2F2;
+            --color-fg: #450A0A;
+            --color-card: #FFFFFF;
+            --color-card-fg: #450A0A;
+            --color-muted: #ECEDF0;
+            --color-muted-fg: #64748B;
+            --color-border: #FECACA;
+
+            /* Typography */
+            --font-heading: 'Amatic SC', cursive;
+            --font-body: 'Cabin', sans-serif;
+
+            /* Spacing (4pt/8pt rhythm) */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+
+            /* Animation (150-300ms micro-interactions) */
+            --duration-fast: 150ms;
+            --duration-base: 250ms;
+            --duration-slow: 400ms;
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-fg);
+            background: var(--color-bg);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* ========== UTILITIES ========== */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            padding: var(--space-8) var(--space-6);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: amberPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes amberPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out) 0.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            margin-bottom: var(--space-6);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            margin-bottom: var(--space-8);
+            opacity: 0.95;
+            font-weight: 500;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-intro {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            margin-bottom: var(--space-12);
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            padding: var(--space-4) var(--space-12);
+            background: var(--color-accent);
+            color: white;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all var(--duration-base) var(--ease-out);
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-primary:hover {
+            background: var(--color-accent-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-primary:focus {
+            outline: 3px solid white;
+            outline-offset: 3px;
+        }
+
+        /* ========== VALUE PROPS ========== */
+        .value-props {
+            padding: var(--space-24) 0;
+            background: var(--color-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-primary);
+            margin-bottom: var(--space-16);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .value-card {
+            background: var(--color-card);
+            border-radius: 16px;
+            padding: var(--space-8);
+            box-shadow: 0 4px 20px rgba(124, 45, 18, 0.1);
+            transition: all var(--duration-base) var(--ease-out);
+            border: 2px solid var(--color-border);
+            opacity: 0;
+            animation: fadeInUp 0.6s var(--ease-out) forwards;
+        }
+
+        .value-card:nth-child(1) { animation-delay: 0.1s; }
+        .value-card:nth-child(2) { animation-delay: 0.2s; }
+        .value-card:nth-child(3) { animation-delay: 0.3s; }
+        .value-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .value-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(124, 45, 18, 0.2);
+        }
+
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: var(--space-6);
+            color: var(--color-accent);
+        }
+
+        .value-card h3 {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .value-card p {
+            color: var(--color-muted-fg);
+            line-height: 1.7;
+            font-size: 1.125rem;
+        }
+
+        /* ========== DISCOVERY TEASER ========== */
+        .discovery-teaser {
+            padding: var(--space-24) 0;
+            background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-muted) 100%);
+        }
+
+        .teaser-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .teaser-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin: var(--space-12) 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: var(--space-6);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(124, 45, 18, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            font-family: var(--font-heading);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--color-muted-fg);
+            font-size: 1rem;
+        }
+
+        .teaser-description {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--color-card-fg);
+            margin-bottom: var(--space-12);
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta-section {
+            padding: var(--space-24) 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--space-6);
+        }
+
+        .cta-section p {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-12);
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            padding: var(--space-6) var(--space-16);
+            background: white;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all var(--duration-base) var(--ease-out);
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-secondary:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 3px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: var(--space-12) 0;
+            background: var(--color-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .footer-name {
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .footer-email {
+            color: var(--color-accent-bright);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        .footer-email:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-email:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero { min-height: 90vh; }
+            .cards-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+            .stats-grid { grid-template-columns: 1fr; }
+            .value-props, .discovery-teaser, .cta-section { padding: var(--space-16) 0; }
+        }
+
+        @media (min-width: 1024px) {
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1440px) {
+            .container { padding: 0 var(--space-12); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" role="banner">
+        <div class="hero-content">
+            <h1>AI-Powered Excellence for Altamont Brewing</h1>
+            <p class="hero-subtitle">
+                Transform your craft brewery operations with intelligent forecasting, inventory optimization, and customer insights
+            </p>
+            <p class="hero-intro">
+                Hi, we're <strong>Willie Kopp</strong> and <strong>Joe</strong>—and we've spent weeks diving deep into how AI can revolutionize your brewery. From demand patterns to staffing optimization, we've mapped the path to operational excellence.
+            </p>
+            <a href="#discovery" class="cta-primary">Discover What's Possible</a>
+        </div>
+    </section>
+
+    <!-- Value Props Section -->
+    <section class="value-props" id="value">
+        <div class="container">
+            <h2 class="section-title">Four Game-Changing Capabilities</h2>
+
+            <div class="cards-grid">
+                <!-- Card 1: Demand Forecasting -->
+                <article class="value-card">
+                    <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                    </svg>
+                    <h3>Demand Forecasting</h3>
+                    <p>
+                        Predict customer demand with precision. Know exactly what brews will fly off the shelves this weekend—before you even start production.
+                    </p>
+                </article>
+
+                <!-- Card 2: Inventory Intelligence -->
+                <article class="value-card">
+                    <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                    <h3>Inventory Intelligence</h3>
+                    <p>
+                        Never run out of hops or hold excess grain again. AI-driven inventory management that adapts to your brewing cycles and seasonal shifts.
+                    </p>
+                </article>
+
+                <!-- Card 3: Smart Staffing -->
+                <article class="value-card">
+                    <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <h3>Smart Staffing</h3>
+                    <p>
+                        Optimize your team schedules based on peak hours, event patterns, and historical foot traffic. Reduce labor costs without sacrificing service.
+                    </p>
+                </article>
+
+                <!-- Card 4: Customer Insights -->
+                <article class="value-card">
+                    <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <h3>Customer Insights</h3>
+                    <p>
+                        Understand what your customers love—and why. Data-driven insights into taste preferences, seasonal trends, and untapped opportunities.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discovery Teaser Section -->
+    <section class="discovery-teaser" id="discovery">
+        <div class="container">
+            <div class="teaser-content">
+                <h2>We've Done the Research</h2>
+
+                <div class="stats-grid" role="list">
+                    <div class="stat-card" role="listitem">
+                        <span class="stat-number">78%</span>
+                        <span class="stat-label">Inventory Optimization Potential</span>
+                    </div>
+                    <div class="stat-card" role="listitem">
+                        <span class="stat-number">3x</span>
+                        <span class="stat-label">Faster Demand Response</span>
+                    </div>
+                    <div class="stat-card" role="listitem">
+                        <span class="stat-number">$12K+</span>
+                        <span class="stat-label">Est. Monthly Savings</span>
+                    </div>
+                </div>
+
+                <p class="teaser-description">
+                    We've analyzed industry patterns, studied brewery operations, and identified specific opportunities for Altamont. The numbers are compelling—but the full story is even better.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to See the Details?</h2>
+            <p>
+                Everything we've discovered about AI opportunities for Altamont Brewing—compiled into one comprehensive report.
+            </p>
+            <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/altamont-discovery-doc.html" class="cta-secondary">
+                View Full Discovery Report →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-name">Willie Kopp</p>
+                <a href="mailto:williekopp1112@gmail.com" class="footer-email">williekopp1112@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
