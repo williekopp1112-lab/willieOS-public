@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McGrail Vineyards — Discovery Intelligence Doc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1a1208;
+            --bg-card: #231a10;
+            --bg-card-hover: #2a2015;
+            --wine: #8B1A1A;
+            --wine-light: #A64545;
+            --gold: #C9A84C;
+            --text: #E8E1D5;
+            --text-muted: #B8AFA0;
+            --border: rgba(201, 168, 76, 0.15);
+            --success: #4CAF50;
+            --warning: #FF9800;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0f0a05 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--wine) 0%, #6B1515 100%);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(139, 26, 26, 0.3);
+        }
+
+        header::before {
+            content: '🍇';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            right: -2rem;
+            top: -3rem;
+            transform: rotate(-15deg);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .subtitle {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .date-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .date-field input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .status-badge.pre-interview { border-color: var(--warning); color: var(--warning); }
+        .status-badge.in-progress { border-color: var(--gold); color: var(--gold); }
+        .status-badge.complete { border-color: var(--success); color: var(--success); }
+
+        .progress-container {
+            margin-top: 1.5rem;
+        }
+
+        .progress-label {
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--wine-light) 100%);
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-number {
+            width: 40px;
+            height: 40px;
+            background: var(--wine);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .collapse-icon {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .section.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .completion-badge {
+            background: var(--wine);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .completion-badge.complete {
+            background: var(--success);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            background: rgba(201, 168, 76, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="url"],
+        textarea,
+        select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(201, 168, 76, 0.05);
+            border-color: var(--gold);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .question-bank {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .question-category {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: var(--wine);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-header:hover {
+            background: var(--wine-light);
+        }
+
+        .category-content {
+            padding: 1.5rem;
+        }
+
+        .question-item {
+            background: rgba(201, 168, 76, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .question-item:hover {
+            background: rgba(201, 168, 76, 0.05);
+            border-color: var(--gold);
+        }
+
+        .question-text {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--wine);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--wine-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(201, 168, 76, 0.2);
+        }
+
+        .btn-icon {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            padding: 0.5rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon:hover {
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--gold);
+        }
+
+        .notes-field {
+            margin-top: 0.75rem;
+        }
+
+        .notes-field textarea {
+            min-height: 60px;
+            font-size: 0.9rem;
+        }
+
+        .slider-container {
+            margin-top: 0.5rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--wine-light);
+            transform: scale(1.2);
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-top: 0.5rem;
+        }
+
+        .action-bar {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--wine);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(139, 26, 26, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            background: var(--wine-light);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(139, 26, 26, 0.6);
+        }
+
+        .fab.large {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--wine) 100%);
+        }
+
+        .checklist {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .checklist-item.checked {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .market-context {
+            background: rgba(139, 26, 26, 0.1);
+            border: 1px solid rgba(139, 26, 26, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pain-point-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .pain-point {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--wine);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .company-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(201, 168, 76, 0.05);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .company-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-details {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transform: translateY(200%);
+            transition: transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-bar {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .action-bar,
+            .collapse-icon,
+            .btn {
+                display: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍷 McGrail Vineyards & Winery</h1>
+            <div class="subtitle">Discovery Intelligence Doc — Internal Use Only</div>
+            <div class="company-info">
+                <h3>McGrail Vineyards & Winery</h3>
+                <div class="company-details">
+                    5600 Greenville Rd, Livermore, CA 94550 | (925) 215-0717 | mcgrailvineyards.com<br>
+                    Est. 1999 | Female-owned and operated | Specializes in Cabernet Sauvignon | Livermore Valley AVA
+                </div>
+            </div>
+            <div class="header-meta">
+                <div class="date-field">
+                    <label>Interview Date:</label>
+                    <input type="date" id="interview-date">
+                </div>
+                <div class="status-badge pre-interview" id="status-badge" onclick="cycleStatus()">
+                    Pre-Interview
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">Document Completion: <span id="progress-percent">0%</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1: Business Profile -->
+        <div class="section" data-section="business">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <span class="section-number">1</span>
+                    <span>Business Profile</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span class="completion-badge" data-completion="business">0% Complete</span>
+                    <span class="collapse-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Business Name</div>
+                        <div class="info-value">McGrail Vineyards & Winery</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Business Type</div>
+                        <div class="info-value">Estate Winery, Tasting Room, Wine Club, Events</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Established</div>
+                        <div class="info-value">1999</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Specialty</div>
+                        <div class="info-value">Cabernet Sauvignon, Livermore Valley AVA</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Hours</div>
+                        <div class="info-value">Mon–Sun 11am–5pm (by reservation)</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Ownership</div>
+                        <div class="info-value">Female-owned and operated</div>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Primary Contact / Owner</div>
+                        <input type="text" id="owner-name" placeholder="Find during interview">
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"># of Employees</div>
+                        <input type="number" id="num-employees" placeholder="e.g., 8">
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Annual Revenue (est)</div>
+                        <input type="text" id="annual-revenue" placeholder="e.g., $500K-$1M">
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <div class="info-label">Primary Revenue Streams</div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-field="revenue-tasting">
+                            <span>Tasting Room</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-field="revenue-club">
+                            <span>Wine Club</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-field="revenue-dtc">
+                            <span>Direct-to-Consumer</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-field="revenue-events">
+                            <span>Events/Weddings</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-field="revenue-restaurant">
+                            <span>Restaurant/Retail Distribution</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-field="revenue-merch">
+                            <span>Merchandise</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Pre-Interview Prep -->
+        <div class="section" data-section="prep">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <span class="section-number">2</span>
+                    <span>Pre-Interview Prep (Question Bank)</span>
+                </div>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="question-bank">
+                    <!-- Operations -->
+                    <div class="question-category">
+                        <div class="category-header" onclick="toggleCategory(this)">
+                            <span>Operations & Workflow</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="category-content">
+                            <div class="question-item">
+                                <div class="question-text">Walk me through harvest season — what does the 30-60 days of crush look like operationally?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-harvest"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you manage vineyard operations day-to-day between harvest seasons?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-vineyard"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you track inventory across your wine program (barrels, bottles, cases)?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-inventory"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">What's your current tasting room reservation and check-in process?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-tasting"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you manage your wine club — fulfillment, renewals, member communication?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-club"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack -->
+                    <div class="question-category">
+                        <div class="category-header" onclick="toggleCategory(this)">
+                            <span>Tech Stack</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="category-content">
+                            <div class="question-item">
+                                <div class="question-text">What software do you currently use? (POS, wine club management, accounting, CRM?)</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-software"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you handle your reservation system and event bookings?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-reservations"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you manage your DTC (direct-to-consumer) compliance and shipping?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-dtc"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Do you use any tools for vineyard/cellar tracking (fermentation logs, SO2 additions, etc.)?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-cellar"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">What's your biggest tech frustration day-to-day?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-frustration"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pain Points -->
+                    <div class="question-category">
+                        <div class="category-header" onclick="toggleCategory(this)">
+                            <span>Pain Points & Frustrations</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="category-content">
+                            <div class="question-item">
+                                <div class="question-text">What takes the most manual work per week that you wish was automated?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-manual"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Where do you see the most waste — time, wine, labor, money?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-waste"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">What's the most expensive operational mistake you've dealt with recently?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-mistake"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Wine club churn — is it a problem? How do you handle cancellations/win-backs?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-churn"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you handle compliance and DTC shipping to different states?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-compliance"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Revenue & Growth -->
+                    <div class="question-category">
+                        <div class="category-header" onclick="toggleCategory(this)">
+                            <span>Revenue & Growth</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="category-content">
+                            <div class="question-item">
+                                <div class="question-text">What's your biggest revenue growth lever right now?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-growth"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">How do you attract new visitors vs. retain existing club members?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-attract"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Events and weddings — big revenue for you, or more of a headache?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-events"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Are there wine club tiers or premium experiences you've wanted to add but couldn't execute?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-tiers"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">What's your average bottle price and where are you trying to push the brand?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-pricing"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI & Tech Appetite -->
+                    <div class="question-category">
+                        <div class="category-header" onclick="toggleCategory(this)">
+                            <span>AI & Tech Appetite</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="category-content">
+                            <div class="question-item">
+                                <div class="question-text">How tech-forward would you say your operation is compared to peers in Livermore Valley?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-tech-forward"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Have you explored any AI tools for the winery business?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-ai-tools"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">What would it take to trust a new tech product with part of your operations?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-trust"></textarea>
+                                </div>
+                            </div>
+                            <div class="question-item">
+                                <div class="question-text">Would you consider being a founding partner for a new AI operations tool — minimal cost, real impact — if it solved a genuine pain point?</div>
+                                <div class="question-actions">
+                                    <button class="btn btn-icon" onclick="copyQuestion(this)">📋</button>
+                                </div>
+                                <div class="notes-field">
+                                    <textarea placeholder="Notes..." data-field="q-founding"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Interview Notes -->
+        <div class="section" data-section="notes">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <span class="section-number">3</span>
+                    <span>Interview Notes Capture</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span class="completion-badge" data-completion="notes">0% Complete</span>
+                    <span class="collapse-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div style="margin-bottom: 1.5rem;">
+                    <div class="info-label">Raw Notes</div>
+                    <textarea id="raw-notes" style="min-height: 200px;" placeholder="Capture everything during the interview..."></textarea>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Top 3 Pain Points Mentioned</div>
+                        <textarea id="top-pain-points" placeholder="1.&#10;2.&#10;3."></textarea>
+                    </div>
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Aha Moments / Quotes</div>
+                        <textarea id="aha-moments" placeholder="Direct quotes and key insights..."></textarea>
+                    </div>
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Red Flags / Objections</div>
+                        <textarea id="red-flags" placeholder="Concerns, hesitations, blockers..."></textarea>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Technology They Already Use</div>
+                        <textarea id="existing-tech" placeholder="POS, wine club software, etc."></textarea>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Biggest Operational Bottleneck</div>
+                        <textarea id="bottleneck" placeholder="What's slowing them down most?"></textarea>
+                    </div>
+                </div>
+
+                <div class="info-grid" style="margin-top: 1.5rem;">
+                    <div class="info-item">
+                        <div class="info-label">Openness to AI (1-10)</div>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" id="ai-openness" oninput="updateSlider('ai-openness')">
+                            <div class="slider-value" id="ai-openness-value">5</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Openness to Being Guinea Pig (1-10)</div>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" id="guinea-pig" oninput="updateSlider('guinea-pig')">
+                            <div class="slider-value" id="guinea-pig-value">5</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Est. Hours/Week Lost to Manual Processes</div>
+                        <input type="number" id="hours-lost" placeholder="e.g., 15">
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Est. $/Month in Avoidable Waste or Missed Revenue</div>
+                        <input type="text" id="money-lost" placeholder="e.g., $5,000">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Post-Interview Analysis -->
+        <div class="section" data-section="analysis">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <span class="section-number">4</span>
+                    <span>Post-Interview Analysis</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span class="completion-badge" data-completion="analysis">0% Complete</span>
+                    <span class="collapse-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Problem Statement (1-2 sentences)</div>
+                        <textarea id="problem-statement" placeholder="What's the core problem we're solving for them?"></textarea>
+                    </div>
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Quantified Opportunity</div>
+                        <textarea id="quantified-opp" placeholder="$X lost per month, Y hours wasted per week, Z% churn rate..."></textarea>
+                    </div>
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Product Hypothesis</div>
+                        <textarea id="product-hypothesis" placeholder="We believe that [feature] will help [customer] achieve [outcome] by [mechanism]..."></textarea>
+                    </div>
+                    <div class="info-item" style="grid-column: 1 / -1;">
+                        <div class="info-label">Irrefusable Offer Draft</div>
+                        <textarea id="irrefusable-offer" placeholder="What's the offer they can't say no to?"></textarea>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <div class="info-label">Fit Score (1-10)</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="5" id="fit-score" oninput="updateSlider('fit-score')">
+                        <div class="slider-value" id="fit-score-value">5</div>
+                    </div>
+                    <textarea id="fit-notes" placeholder="Why this score? What makes them a good/bad fit?" style="margin-top: 1rem;"></textarea>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <div class="info-label">Next Steps</div>
+                    <div class="checklist">
+                        <label class="checklist-item">
+                            <input type="checkbox" data-field="next-follow-up">
+                            <span>Schedule follow-up conversation</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" data-field="next-proposal">
+                            <span>Draft custom proposal</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" data-field="next-demo">
+                            <span>Build demo/prototype</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" data-field="next-deck">
+                            <span>Create customer-facing pitch deck</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" data-field="next-research">
+                            <span>Additional research needed</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <div class="info-label">Readiness for Pitch</div>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="pitch-ready">
+                        <span>This customer is ready for a formal pitch</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Market Context -->
+        <div class="section" data-section="market">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <span class="section-number">5</span>
+                    <span>Competitive & Market Context</span>
+                </div>
+                <span class="collapse-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="market-context">
+                    <h3 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 1rem;">Livermore Valley Wine Scene</h3>
+                    <p style="margin-bottom: 0.75rem;">50+ wineries in Livermore Valley AVA, growing DTC focus post-pandemic. McGrail positioned as premium Cabernet Sauvignon specialist with hilltop estate, female-owned story, and strong local reputation.</p>
+                    <p>Key differentiators: Estate-grown, family-owned since 1999, hilltop vineyard with panoramic views, focus on single-varietal Cab Sauv excellence.</p>
+                </div>
+
+                <h3 style="font-family: 'Playfair Display', serif; color: var(--gold); margin: 1.5rem 0 1rem;">Known Industry Pain Points for Small Estate Wineries</h3>
+                <div class="pain-point-list">
+                    <div class="pain-point">
+                        <strong>Wine Club Churn & Member Management</strong> — Complex lifecycle management, manual fulfillment, renewal reminders, member communication across tiers
+                    </div>
+                    <div class="pain-point">
+                        <strong>DTC Compliance Across States</strong> — VERY painful. Each state has different shipping laws, tax requirements, licensing. Manual compliance tracking is expensive and error-prone
+                    </div>
+                    <div class="pain-point">
+                        <strong>Tasting Room Capacity + Reservation Optimization</strong> — Limited staff, reservation no-shows, suboptimal scheduling, peak weekend demand
+                    </div>
+                    <div class="pain-point">
+                        <strong>Vintage/Barrel Tracking & Cellar Management</strong> — Fermentation logs, SO2 additions, blending notes, barrel inventory — often manual or in Excel
+                    </div>
+                    <div class="pain-point">
+                        <strong>Harvest Labor Coordination</strong> — 30-60 days of crush is operationally intense. Picking schedules, cellar workflow, 24/7 monitoring
+                    </div>
+                    <div class="pain-point">
+                        <strong>Events + Weddings Operational Overhead</strong> — High revenue potential but labor-intensive. Coordination, cleanup, staffing, vendor management
+                    </div>
+                    <div class="pain-point">
+                        <strong>Slim Margins on Restaurant/Retail Channel</strong> — Wholesale distribution eats into margins. DTC is more profitable but harder to scale
+                    </div>
+                    <div class="pain-point">
+                        <strong>Owner-Operator Time Poverty</strong> — Wearing too many hats. No time for strategic work, always firefighting
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Pitch Readiness -->
+        <div class="section" data-section="pitch">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-title">
+                    <span class="section-number">6</span>
+                    <span>Pitch Readiness Tracker</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span class="completion-badge" data-completion="pitch">0% Complete</span>
+                    <span class="collapse-icon">▼</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="checklist">
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-discovery">
+                        <span>Discovery interview completed</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-quantified">
+                        <span>Pain points quantified</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-hypothesis">
+                        <span>Product hypothesis validated</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-offer">
+                        <span>Irrefusable offer drafted</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-deck">
+                        <span>Customer-facing pitch deck live</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-scheduled">
+                        <span>Pitch meeting scheduled</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" data-field="pitch-delivered">
+                        <span>Pitch delivered</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+        <button class="fab" onclick="exportJSON()" title="Export to JSON">💾</button>
+        <button class="fab" onclick="copyShareable()" title="Copy shareable summary">📄</button>
+        <button class="fab large" onclick="saveData()" title="Save (Auto-saves to localStorage)">✓</button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const STORAGE_KEY = 'mcgrail-discovery-doc';
+        let data = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            attachEventListeners();
+            updateProgress();
+        });
+
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                data = JSON.parse(saved);
+                populateFields();
+            }
+        }
+
+        function saveData() {
+            data = gatherData();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            showToast('Saved to localStorage');
+            updateProgress();
+        }
+
+        function gatherData() {
+            const fields = {};
+
+            // All inputs
+            document.querySelectorAll('input[type="text"], input[type="number"], input[type="tel"], input[type="url"], input[type="date"], textarea, select').forEach(el => {
+                if (el.id) fields[el.id] = el.value;
+            });
+
+            // Checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(el => {
+                const field = el.dataset.field || el.id;
+                if (field) fields[field] = el.checked;
+            });
+
+            // Sliders
+            document.querySelectorAll('input[type="range"]').forEach(el => {
+                if (el.id) fields[el.id] = el.value;
+            });
+
+            return fields;
+        }
+
+        function populateFields() {
+            Object.keys(data).forEach(key => {
+                const el = document.getElementById(key) || document.querySelector(`[data-field="${key}"]`);
+                if (!el) return;
+
+                if (el.type === 'checkbox') {
+                    el.checked = data[key];
+                    if (data[key]) {
+                        el.closest('.checklist-item')?.classList.add('checked');
+                    }
+                } else if (el.type === 'range') {
+                    el.value = data[key];
+                    updateSlider(key);
+                } else {
+                    el.value = data[key];
+                }
+            });
+        }
+
+        function attachEventListeners() {
+            // Auto-save on change
+            document.addEventListener('change', saveData);
+            document.addEventListener('input', debounce(saveData, 1000));
+
+            // Checklist items
+            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    e.target.closest('.checklist-item').classList.toggle('checked', e.target.checked);
+                });
+            });
+        }
+
+        function toggleSection(header) {
+            header.closest('.section').classList.toggle('collapsed');
+        }
+
+        function toggleCategory(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('span:last-child');
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+            icon.style.transform = content.style.display === 'none' ? 'rotate(-90deg)' : 'rotate(0)';
+        }
+
+        function copyQuestion(btn) {
+            const question = btn.closest('.question-item').querySelector('.question-text').textContent;
+            navigator.clipboard.writeText(question);
+            showToast('Question copied');
+        }
+
+        function updateSlider(id) {
+            const slider = document.getElementById(id);
+            const valueDisplay = document.getElementById(`${id}-value`);
+            if (valueDisplay) valueDisplay.textContent = slider.value;
+        }
+
+        function cycleStatus() {
+            const badge = document.getElementById('status-badge');
+            const statuses = ['pre-interview', 'in-progress', 'complete'];
+            const labels = ['Pre-Interview', 'In-Progress', 'Complete'];
+            const current = statuses.indexOf(badge.classList[1]);
+            const next = (current + 1) % statuses.length;
+
+            badge.className = `status-badge ${statuses[next]}`;
+            badge.textContent = labels[next];
+            saveData();
+        }
+
+        function updateProgress() {
+            const allFields = document.querySelectorAll('input, textarea, select');
+            let filled = 0;
+            let total = 0;
+
+            allFields.forEach(field => {
+                if (field.type === 'checkbox') {
+                    total++;
+                    if (field.checked) filled++;
+                } else if (field.value && field.value.trim()) {
+                    filled++;
+                    total++;
+                } else if (!field.value) {
+                    total++;
+                }
+            });
+
+            const percent = Math.round((filled / total) * 100);
+            document.getElementById('progress-percent').textContent = `${percent}%`;
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+
+            // Update section completion badges
+            updateSectionCompletion('business', ['owner-name', 'num-employees', 'annual-revenue']);
+            updateSectionCompletion('notes', ['raw-notes', 'top-pain-points', 'aha-moments', 'bottleneck']);
+            updateSectionCompletion('analysis', ['problem-statement', 'quantified-opp', 'product-hypothesis', 'irrefusable-offer']);
+            updateSectionCompletion('pitch', ['pitch-discovery', 'pitch-quantified', 'pitch-hypothesis', 'pitch-offer', 'pitch-deck', 'pitch-scheduled', 'pitch-delivered']);
+        }
+
+        function updateSectionCompletion(section, fields) {
+            let filled = 0;
+            fields.forEach(field => {
+                const el = document.getElementById(field) || document.querySelector(`[data-field="${field}"]`);
+                if (!el) return;
+                if (el.type === 'checkbox') {
+                    if (el.checked) filled++;
+                } else if (el.value && el.value.trim()) {
+                    filled++;
+                }
+            });
+
+            const percent = Math.round((filled / fields.length) * 100);
+            const badge = document.querySelector(`[data-completion="${section}"]`);
+            if (badge) {
+                badge.textContent = `${percent}% Complete`;
+                if (percent === 100) badge.classList.add('complete');
+                else badge.classList.remove('complete');
+            }
+        }
+
+        function exportJSON() {
+            const dataStr = JSON.stringify(gatherData(), null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `mcgrail-discovery-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            showToast('Exported to JSON');
+        }
+
+        function copyShareable() {
+            const d = gatherData();
+            const summary = `
+McGrail Vineyards & Winery — Discovery Summary
+Interview Date: ${d['interview-date'] || 'TBD'}
+
+BUSINESS PROFILE
+Owner: ${d['owner-name'] || 'N/A'}
+Employees: ${d['num-employees'] || 'N/A'}
+Revenue: ${d['annual-revenue'] || 'N/A'}
+
+TOP PAIN POINTS
+${d['top-pain-points'] || 'N/A'}
+
+AHA MOMENTS
+${d['aha-moments'] || 'N/A'}
+
+PROBLEM STATEMENT
+${d['problem-statement'] || 'N/A'}
+
+QUANTIFIED OPPORTUNITY
+${d['quantified-opp'] || 'N/A'}
+
+PRODUCT HYPOTHESIS
+${d['product-hypothesis'] || 'N/A'}
+
+IRREFUSABLE OFFER
+${d['irrefusable-offer'] || 'N/A'}
+
+FIT SCORE: ${d['fit-score'] || '5'}/10
+AI Openness: ${d['ai-openness'] || '5'}/10
+Guinea Pig Openness: ${d['guinea-pig'] || '5'}/10
+
+NEXT STEPS
+${d['fit-notes'] || 'N/A'}
+            `.trim();
+
+            navigator.clipboard.writeText(summary);
+            showToast('Summary copied to clipboard');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>
