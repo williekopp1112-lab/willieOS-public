@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altamont Beer Works × Willie Kopp | Pitch Deck</title>
+    <meta name="description" content="A data-driven conversation for Altamont Beer Works — operational intelligence for craft beer's next chapter.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Altamont Beer Works × Willie Kopp | Pitch Deck">
+    <meta property="og:description" content="A data-driven conversation for Altamont Beer Works — operational intelligence for craft beer's next chapter.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.altamontbeerworks.com/uploads/b/0f3ff9b82066f8a4b82f5926ab6c6d679083ada2f6358f721605d4c190781331/Altamont-Beer-Works-logo_1671680565_1672773387.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%2333cc66'/></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #33cc66;
+            --black: #111111;
+            --dark-bg: #1a1a1a;
+            --white: #ffffff;
+            --transition-speed: 400ms;
+            --transition-easing: ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                --transition-speed: 0ms;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #slides-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform var(--transition-speed) var(--transition-easing);
+            will-change: transform;
+        }
+
+        section {
+            flex-shrink: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            position: relative;
+            background: var(--dark-bg);
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Staatliches', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--green);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        h2 {
+            font-family: 'Staatliches', cursive;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--green);
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            line-height: 1.7;
+            max-width: 50rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .subtext {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .small-text {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Slide 1 - Title */
+        .slide-title {
+            background: var(--black);
+        }
+
+        .slide-title img {
+            max-width: 400px;
+            width: 80%;
+            margin-bottom: 3rem;
+        }
+
+        .pulse-dot {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            width: 12px;
+            height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .pulse-dot {
+                animation: none;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .keyboard-hint {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-family: monospace;
+        }
+
+        /* Slide 2 - Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+            max-width: 60rem;
+            width: 100%;
+        }
+
+        .stat-block {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Staatliches', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--green);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Slide 3-5 - Problems */
+        .decorative-number {
+            position: absolute;
+            font-family: 'Staatliches', cursive;
+            font-size: 20rem;
+            color: rgba(51, 204, 102, 0.08);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .pain-indicator {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-style: italic;
+        }
+
+        .decorative-icon {
+            width: 100px;
+            height: 100px;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .calendar-icon {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--green);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .calendar-icon::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            right: 10px;
+            height: 3px;
+            background: var(--green);
+        }
+
+        .calendar-icon::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10px;
+            width: 50%;
+            height: 50%;
+            background: rgba(51, 204, 102, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Slide 6 - Arrow */
+        .large-arrow {
+            font-family: 'Staatliches', cursive;
+            font-size: 8rem;
+            color: var(--green);
+            margin: 2rem 0;
+            animation: nudge 1.5s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .large-arrow {
+                animation: none;
+            }
+        }
+
+        @keyframes nudge {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(20px);
+            }
+        }
+
+        .cta-hint {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        /* Slide 7 - The Ask */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 60rem;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .column h3 {
+            font-family: 'Staatliches', cursive;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        li {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.85);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-size: 1.5em;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: var(--green);
+            color: var(--black);
+            text-decoration: none;
+            font-family: 'Staatliches', cursive;
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            border-radius: 8px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(51, 204, 102, 0.4);
+        }
+
+        .cta-button:hover,
+        .cta-button:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px rgba(51, 204, 102, 0.6);
+            outline: 2px solid var(--green);
+            outline-offset: 4px;
+        }
+
+        /* Slide 8 - Close */
+        .slide-close img {
+            max-width: 300px;
+            width: 60%;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 30px rgba(51, 204, 102, 0.3));
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tagline {
+            margin-top: 1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        /* Slide counter */
+        #slide-counter {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        /* Navigation areas */
+        .nav-area {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .nav-area-prev {
+            left: 0;
+            cursor: w-resize;
+        }
+
+        .nav-area-next {
+            right: 0;
+            cursor: e-resize;
+        }
+
+        /* Focus states */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 4px;
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="slides-container">
+        <div id="slides-track">
+            <!-- Slide 1: Title -->
+            <section class="slide-title" role="region" aria-label="Title slide">
+                <img src="https://www.altamontbeerworks.com/uploads/b/0f3ff9b82066f8a4b82f5926ab6c6d679083ada2f6358f721605d4c190781331/Altamont-Beer-Works-logo_1671680565_1672773387.png" alt="Altamont Beer Works logo">
+                <h1>WHAT WE FOUND.</h1>
+                <p class="subtext">A conversation for Stephen & Greg</p>
+                <p class="small-text">Willie Kopp & Joe · Livermore, CA · 2026</p>
+                <div class="pulse-dot" aria-hidden="true"></div>
+                <div class="keyboard-hint" aria-hidden="true">→ to begin</div>
+            </section>
+
+            <!-- Slide 2: Stats -->
+            <section role="region" aria-label="Community engagement statistics">
+                <h2>302,500+ REASONS WE REACHED OUT.</h2>
+                <div class="stats-grid">
+                    <div class="stat-block">
+                        <span class="stat-number">302,500+</span>
+                        <span class="stat-label">Untappd check-ins</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-number">3.86 / 5</span>
+                        <span class="stat-label">Average rating</span>
+                    </div>
+                    <div class="stat-block">
+                        <span class="stat-number">32K</span>
+                        <span class="stat-label">Instagram followers</span>
+                    </div>
+                </div>
+                <p>Altamont isn't just Livermore's first brewery since Prohibition — it's one of the most engaged craft beer communities in the East Bay. We noticed.</p>
+            </section>
+
+            <!-- Slide 3: Problem 1 -->
+            <section role="region" aria-label="Problem: Tap inventory complexity">
+                <div class="decorative-number" aria-hidden="true">296</div>
+                <h2>30 TAPS. 296 BEERS. THAT'S A LOT TO TRACK.</h2>
+                <p>Managing rotating inventory across 30 taps — knowing what's moving, what's sitting, and what to brew next — is still mostly gut instinct. There's a better way.</p>
+                <div class="pain-indicator" aria-hidden="true">Pain point 1 of 3</div>
+            </section>
+
+            <!-- Slide 4: Problem 2 -->
+            <section role="region" aria-label="Problem: Event staffing optimization">
+                <h2>FOOD TRUCKS. LIVE MUSIC. FOOTBALL SUNDAYS.</h2>
+                <div class="decorative-icon" aria-hidden="true">
+                    <div class="calendar-icon"></div>
+                </div>
+                <p>Every event creates a different demand curve. Staffing from a static schedule means either over-hiring on slow nights or scrambling on packed ones. AI can predict both.</p>
+                <div class="pain-indicator" aria-hidden="true">Pain point 2 of 3</div>
+            </section>
+
+            <!-- Slide 5: Problem 3 -->
+            <section role="region" aria-label="Problem: Customer loyalty personalization">
+                <h2>YOUR MOST LOYAL CUSTOMERS DESERVE MORE THAN A PUNCH CARD.</h2>
+                <p>The 20 Ounce Club is your best retention asset. But without behavioral data — what they order, how often they come, what events they love — you're leaving personalization (and revenue) on the table.</p>
+                <div class="pain-indicator" aria-hidden="true">Pain point 3 of 3</div>
+            </section>
+
+            <!-- Slide 6: What We Built -->
+            <section role="region" aria-label="Research deliverable">
+                <h2>WE DID THE RESEARCH. ALL OF IT.</h2>
+                <p>Before this conversation, we built a full discovery brief for Altamont — your competitive landscape, operational gaps, AI opportunity map, and a prioritized roadmap. It took weeks. You get it in 30 minutes.</p>
+                <div class="large-arrow" aria-hidden="true">→</div>
+                <p class="cta-hint">The full brief is one click away</p>
+            </section>
+
+            <!-- Slide 7: The Ask -->
+            <section role="region" aria-label="Meeting request">
+                <h2>30 MINUTES. NO PITCH DECK. JUST THE DATA.</h2>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>What you get</h3>
+                        <ul>
+                            <li>Full discovery brief</li>
+                            <li>Operational gap analysis</li>
+                            <li>AI roadmap for Altamont</li>
+                            <li>Competitive benchmarks</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>What we need</h3>
+                        <p style="text-align: left;">One conversation. Tell us what's actually hard right now.</p>
+                    </div>
+                </div>
+                <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/altamont-discovery-doc.html" class="cta-button" target="_blank" rel="noopener noreferrer">READ THE FULL BRIEF →</a>
+            </section>
+
+            <!-- Slide 8: Close -->
+            <section class="slide-close" role="region" aria-label="Closing slide">
+                <img src="https://www.altamontbeerworks.com/uploads/b/0f3ff9b82066f8a4b82f5926ab6c6d679083ada2f6358f721605d4c190781331/Altamont-Beer-Works-logo_1671680565_1672773387.png" alt="Altamont Beer Works logo">
+                <h1>LET'S BUILD SOMETHING WORTH POURING.</h1>
+                <p class="contact-info">Willie Kopp · williekopp1112@gmail.com</p>
+                <p class="tagline">"Down with Hops. Up for Anything."</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Slide counter -->
+    <div id="slide-counter" aria-live="polite" aria-atomic="true">
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+
+    <!-- Navigation areas -->
+    <div class="nav-area nav-area-prev" aria-label="Previous slide"></div>
+    <div class="nav-area nav-area-next" aria-label="Next slide"></div>
+
+    <script>
+        // Presentation state
+        let currentSlide = 0;
+        const totalSlides = 8;
+        const track = document.getElementById('slides-track');
+        const currentSlideEl = document.getElementById('current-slide');
+
+        // Update slide position
+        function updateSlide() {
+            track.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            currentSlideEl.textContent = currentSlide + 1;
+        }
+
+        // Navigate to slide
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlide = index;
+                updateSlide();
+            }
+        }
+
+        // Next/Previous
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                goToSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                goToSlide(totalSlides - 1);
+            } else if (e.key === 'Escape' || e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            }
+        });
+
+        // Click/touch navigation
+        document.querySelector('.nav-area-prev').addEventListener('click', prevSlide);
+        document.querySelector('.nav-area-next').addEventListener('click', nextSlide);
+
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        // Fullscreen toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('Fullscreen request failed:', err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
