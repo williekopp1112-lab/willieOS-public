@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nella Terra Cellars - Business Modernization Discovery Brief</title>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --primary-dark: #5b21b6;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --bg-page: #fafaf9;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --accent-wine: #7c2d41;
+            --accent-gold: #d4af37;
+            --success: #059669;
+            --warning: #ea580c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-page);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent-wine) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-bottom: 4px solid var(--accent-gold);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .meta {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item strong {
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 2.5rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-card {
+            background: linear-gradient(to bottom, #fafafa, #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .info-card-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid var(--accent-gold);
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-badge {
+            background: var(--bg-page);
+            border: 1px solid var(--border);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .opportunity-card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .opportunity-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .priority-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .priority-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .priority-low {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .talking-points {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+        }
+
+        .talking-points h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .talking-points ul {
+            margin: 0;
+        }
+
+        .talking-points li {
+            color: var(--text-primary);
+        }
+
+        .footer {
+            background: #f8fafc;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .sources {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .sources h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .sources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sources li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sources a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.8125rem;
+        }
+
+        .sources a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            header {
+                padding: 2rem 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .meta {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nella Terra Cellars</h1>
+            <div class="subtitle">Business Modernization Discovery Brief</div>
+            <div class="meta">
+                <div class="meta-item">
+                    <strong>Prepared for:</strong> Spencer Beemiller
+                </div>
+                <div class="meta-item">
+                    <strong>Date:</strong> March 12, 2026
+                </div>
+                <div class="meta-item">
+                    <strong>Prepared by:</strong> Willie Kopp (via Gary AI)
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Company Overview -->
+            <section class="section">
+                <h2>🏢 Company Overview</h2>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-title">Business Type</div>
+                        <div class="info-card-value">Boutique Winery + Event Venue</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-title">Founded</div>
+                        <div class="info-card-value">2014 (Property owned since 1978)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-title">Location</div>
+                        <div class="info-card-value">Sunol, California (Livermore Valley)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-title">Annual Production</div>
+                        <div class="info-card-value">~500 cases/year</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-title">Event Capacity</div>
+                        <div class="info-card-value">Up to 300 guests</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-title">Ownership</div>
+                        <div class="info-card-value">Family-owned (Beemiller Family)</div>
+                    </div>
+                </div>
+
+                <h3>Business Model</h3>
+                <p>Nella Terra Cellars operates as a <strong>multi-revenue stream business</strong> combining:</p>
+                <ul>
+                    <li><strong>Boutique Wine Production:</strong> Estate-grown varietals (Viognier, Pinot Noir, Petite Sirah, Primitivo, Chardonnay, Sauvignon Blanc, Semillon, Albariño, Syrah)</li>
+                    <li><strong>Wine Tasting Experiences:</strong> On-site tastings and vineyard tours with reservation system via Tock</li>
+                    <li><strong>Event & Wedding Venue:</strong> Premium venue rentals for weddings and corporate events</li>
+                    <li><strong>Direct-to-Consumer Sales:</strong> Wine club memberships, online sales, and tasting room purchases</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Unique Position:</strong> Nella Terra is structured as a <strong>benefit corporation</strong>, signaling a commitment to values beyond pure profit — sustainability, community, and land stewardship. This is a differentiator in a crowded wine market and appeals to conscious consumers.</p>
+                </div>
+            </section>
+
+            <!-- Current Tech Stack -->
+            <section class="section">
+                <h2>💻 Current Tech Stack Assessment</h2>
+
+                <h3>Identified Technology</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Wix (Website Platform)</span>
+                    <span class="tech-badge">Google Workspace</span>
+                    <span class="tech-badge">Gmail</span>
+                    <span class="tech-badge">Google Global Site Tag</span>
+                    <span class="tech-badge">ObtainWine (eCommerce)</span>
+                    <span class="tech-badge">Tock (Reservations)</span>
+                </div>
+
+                <h3>Current State Analysis</h3>
+                <p>Nella Terra's current tech infrastructure is <strong>typical for a small winery</strong> — functional but fragmented. They're using a patchwork of tools that don't communicate with each other:</p>
+
+                <ul>
+                    <li><strong>Website (Wix):</strong> Easy to maintain but limited in customization and integration capabilities. Not purpose-built for winery operations.</li>
+                    <li><strong>eCommerce (ObtainWine):</strong> Third-party platform handling wine sales, likely with transaction fees and limited CRM integration.</li>
+                    <li><strong>Reservations (Tock):</strong> Separate booking system for tasting room visits — customer data siloed from wine sales and event bookings.</li>
+                    <li><strong>Event Management:</strong> Likely manual (email, spreadsheets, contracts via DocuSign or similar) — high friction, time-intensive.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Key Gap:</strong> No unified customer view. A wedding couple, wine club member, and tasting room guest could all be in different systems with no cross-pollination of data or marketing opportunities.</p>
+                </div>
+
+                <h3>Likely Pain Points</h3>
+                <ul>
+                    <li>Manual data entry across multiple platforms (order data doesn't sync with CRM)</li>
+                    <li>Difficulty running cohesive marketing campaigns across customer segments</li>
+                    <li>Lost revenue from lack of cross-sell opportunities (event guests → wine club members)</li>
+                    <li>Time spent on administrative tasks instead of customer relationships</li>
+                    <li>Limited analytics and business intelligence visibility</li>
+                    <li>Inventory management likely spreadsheet-based, prone to errors</li>
+                </ul>
+            </section>
+
+            <!-- Integration Opportunities -->
+            <section class="section">
+                <h2>🔗 Integration Opportunities</h2>
+
+                <div class="opportunity-card">
+                    <h4>1. Unified Winery Management Platform <span class="priority-badge priority-high">High Priority</span></h4>
+                    <p><strong>Replace:</strong> ObtainWine + Tock + manual event management</p>
+                    <p><strong>With:</strong> All-in-one platform like <strong>Commerce7</strong>, <strong>OrderPort</strong>, or <strong>Corksy</strong></p>
+                    <p><strong>Impact:</strong></p>
+                    <ul>
+                        <li>Single source of truth for customer data (CRM, purchase history, preferences)</li>
+                        <li>Unified inventory management across tasting room, online, and wine club sales</li>
+                        <li>Real-time sync between POS, eCommerce, and reservations</li>
+                        <li>Automated wine club renewals, upsells, and personalized recommendations</li>
+                        <li>State-compliant shipping workflows built-in</li>
+                    </ul>
+                </div>
+
+                <div class="opportunity-card">
+                    <h4>2. Event Management & Venue Booking System <span class="priority-badge priority-high">High Priority</span></h4>
+                    <p><strong>Replace:</strong> Manual email/spreadsheet-based event coordination</p>
+                    <p><strong>With:</strong> <strong>Perfect Venue</strong>, <strong>Planning Pod</strong>, or <strong>Event Booking Engines</strong></p>
+                    <p><strong>Impact:</strong></p>
+                    <ul>
+                        <li>Online booking with real-time availability calendar for event inquiries</li>
+                        <li>Automated contract generation, e-signatures, and payment processing</li>
+                        <li>Integrated CRM for event leads and follow-up automation</li>
+                        <li>Catering order management and timeline coordination</li>
+                        <li>Client portals for self-service updates and communication</li>
+                    </ul>
+                </div>
+
+                <div class="opportunity-card">
+                    <h4>3. Marketing Automation & Email Platform <span class="priority-badge priority-medium">Medium Priority</span></h4>
+                    <p><strong>Current State:</strong> Likely basic email via Google Workspace or generic platform</p>
+                    <p><strong>Recommended:</strong> Wine-specific marketing automation (built into Commerce7/OrderPort) or integrated Mailchimp/Klaviyo</p>
+                    <p><strong>Impact:</strong></p>
+                    <ul>
+                        <li>Behavioral triggers (cart abandonment, post-visit follow-up, wine club renewal reminders)</li>
+                        <li>Segmented campaigns based on purchase history, preferences, engagement</li>
+                        <li>A/B testing for subject lines, send times, and content</li>
+                        <li>ROI tracking and attribution per campaign</li>
+                    </ul>
+                </div>
+
+                <div class="opportunity-card">
+                    <h4>4. Customer Loyalty & Wine Club Management <span class="priority-badge priority-medium">Medium Priority</span></h4>
+                    <p><strong>Enhancement:</strong> Upgrade from basic subscription to sophisticated wine club platform</p>
+                    <p><strong>Features:</strong></p>
+                    <ul>
+                        <li>Tiered membership levels with automatic upgrades based on spend</li>
+                        <li>Member-only perks (event access, early releases, discounts)</li>
+                        <li>Flexible shipment customization (frequency, selections, pause/skip options)</li>
+                        <li>Referral program automation</li>
+                    </ul>
+                </div>
+
+                <div class="opportunity-card">
+                    <h4>5. Analytics & Business Intelligence Dashboard <span class="priority-badge priority-low">Low Priority / Nice-to-Have</span></h4>
+                    <p><strong>Current State:</strong> Fragmented reporting across platforms</p>
+                    <p><strong>Vision:</strong> Unified dashboard (potentially built into winery platform or via Google Data Studio/Looker)</p>
+                    <p><strong>Metrics to Track:</strong></p>
+                    <ul>
+                        <li>Revenue by channel (tasting room, online, events, wine club)</li>
+                        <li>Customer lifetime value and cohort analysis</li>
+                        <li>Inventory turnover and production forecasting</li>
+                        <li>Event booking pipeline and conversion rates</li>
+                        <li>Marketing campaign ROI</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- AI & Automation -->
+            <section class="section">
+                <h2>🤖 AI & Automation Leverage Points</h2>
+
+                <p>The wine industry is in the midst of an AI transformation. Here's where Nella Terra can gain competitive advantage:</p>
+
+                <h3>1. Personalized Customer Experiences (Highest ROI)</h3>
+                <ul>
+                    <li><strong>AI-Driven Recommendations:</strong> Analyze purchase history, tasting notes, and preferences to suggest wines ("Customers who loved our 2022 Pinot Noir also enjoyed...")</li>
+                    <li><strong>Dynamic Pricing & Promotions:</strong> AI models predict optimal discount timing to drive conversions without eroding margins</li>
+                    <li><strong>Predictive Wine Club Churn:</strong> Identify members at risk of canceling and trigger retention campaigns proactively</li>
+                </ul>
+
+                <h3>2. Marketing Automation with AI Intelligence</h3>
+                <ul>
+                    <li><strong>Smart Segmentation:</strong> AI segments customers not just by demographics but by behavioral patterns (price sensitivity, varietal preference, engagement level, visit frequency)</li>
+                    <li><strong>Send-Time Optimization:</strong> Machine learning determines the best time to email each customer for maximum open/click rates</li>
+                    <li><strong>Content Personalization:</strong> Dynamic email content that adapts to each recipient (weather-triggered wine suggestions, seasonal pairings, event-based promotions)</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>2026 Data Point:</strong> AI-driven traffic to winery websites now has 23% lower bounce rates, 12% more page views, and 41% longer session duration compared to organic traffic. Wineries leveraging AI for wine discovery are seeing measurable engagement gains.</p>
+                </div>
+
+                <h3>3. Operational Efficiency Automation</h3>
+                <ul>
+                    <li><strong>Automated Inventory Alerts:</strong> Trigger restock notifications when stock levels hit thresholds</li>
+                    <li><strong>Event Inquiry Triage:</strong> AI chatbot handles initial event inquiries, qualifies leads, and routes to human follow-up only when serious</li>
+                    <li><strong>Post-Visit Follow-Up:</strong> Automated "thank you" emails with personalized wine recommendations after tasting room visits</li>
+                    <li><strong>Review Request Automation:</strong> Trigger Yelp/Google review requests post-purchase or post-event</li>
+                </ul>
+
+                <h3>4. AI-Powered Content Creation (Emerging Opportunity)</h3>
+                <ul>
+                    <li><strong>Wine Descriptions:</strong> AI generates tasting notes and food pairing suggestions at scale</li>
+                    <li><strong>Social Media Content:</strong> Tools like ChatGPT can draft Instagram captions, blog posts about vineyard life, seasonal promotions</li>
+                    <li><strong>Event Marketing Copy:</strong> Generate venue marketing materials and wedding package descriptions</li>
+                </ul>
+
+                <h3>5. Predictive Analytics for Business Planning</h3>
+                <ul>
+                    <li><strong>Demand Forecasting:</strong> Predict which varietals will sell best in upcoming seasons based on historical trends and market data</li>
+                    <li><strong>Optimal Production Levels:</strong> Use sales velocity data to inform next year's production targets</li>
+                    <li><strong>Event Revenue Modeling:</strong> Predict seasonal event booking trends to optimize pricing and availability</li>
+                </ul>
+            </section>
+
+            <!-- Modernization Roadmap -->
+            <section class="section">
+                <h2>🗺️ Recommended Modernization Roadmap</h2>
+
+                <h3>Phase 1: Foundation (Months 1-3) — Unified Customer & Inventory Data</h3>
+                <p><strong>Priority:</strong> Consolidate fragmented systems into a single platform</p>
+                <ul>
+                    <li><strong>Action:</strong> Migrate to an all-in-one winery management platform (Commerce7 Lite, OrderPort, or Corksy)</li>
+                    <li><strong>Immediate Wins:</strong>
+                        <ul>
+                            <li>Single CRM with unified customer view (wine buyers + event guests + tasting room visitors)</li>
+                            <li>Real-time inventory sync across all sales channels</li>
+                            <li>Automated wine club management with renewal triggers</li>
+                            <li>Integrated POS for tasting room + online sales</li>
+                        </ul>
+                    </li>
+                    <li><strong>Effort:</strong> 6-8 weeks for migration + staff training</li>
+                    <li><strong>Budget Range:</strong> $200-500/month platform fee + one-time setup/migration costs</li>
+                </ul>
+
+                <h3>Phase 2: Event Automation (Months 2-4) — Reduce Manual Event Coordination</h3>
+                <p><strong>Priority:</strong> Streamline event booking and eliminate manual contract/payment workflows</p>
+                <ul>
+                    <li><strong>Action:</strong> Implement dedicated event management platform (Perfect Venue or Planning Pod)</li>
+                    <li><strong>Immediate Wins:</strong>
+                        <ul>
+                            <li>Online event inquiry forms with automated follow-up</li>
+                            <li>Digital contracts with e-signature workflows (reduce email back-and-forth)</li>
+                            <li>Automated payment schedules and reminders</li>
+                            <li>Client-facing portal for event planning collaboration</li>
+                        </ul>
+                    </li>
+                    <li><strong>Effort:</strong> 4 weeks implementation</li>
+                    <li><strong>Budget Range:</strong> $100-300/month</li>
+                </ul>
+
+                <h3>Phase 3: Marketing Intelligence (Months 4-6) — AI-Powered Personalization</h3>
+                <p><strong>Priority:</strong> Turn customer data into revenue through intelligent automation</p>
+                <ul>
+                    <li><strong>Action:</strong> Activate AI-driven marketing automation features (likely built into winery platform)</li>
+                    <li><strong>Immediate Wins:</strong>
+                        <ul>
+                            <li>Behavioral email triggers (abandoned cart, post-visit upsell, wine club renewal)</li>
+                            <li>Smart customer segmentation by purchase behavior and preferences</li>
+                            <li>AI-powered wine recommendations in emails and on website</li>
+                            <li>Automated review request campaigns</li>
+                        </ul>
+                    </li>
+                    <li><strong>Effort:</strong> 3 weeks setup + ongoing optimization</li>
+                    <li><strong>Budget:</strong> Typically included in platform fee, minimal marginal cost</li>
+                </ul>
+
+                <h3>Phase 4: Analytics & Optimization (Months 6-9) — Data-Driven Decision Making</h3>
+                <p><strong>Priority:</strong> Build dashboards and reporting for strategic planning</p>
+                <ul>
+                    <li><strong>Action:</strong> Set up business intelligence dashboards (native platform analytics + optional Google Data Studio)</li>
+                    <li><strong>Immediate Wins:</strong>
+                        <ul>
+                            <li>Unified revenue reporting across channels</li>
+                            <li>Customer lifetime value tracking and cohort analysis</li>
+                            <li>Inventory turnover and stock-out alerts</li>
+                            <li>Marketing ROI attribution by campaign</li>
+                        </ul>
+                    </li>
+                    <li><strong>Effort:</strong> 2-4 weeks dashboard setup + staff training</li>
+                    <li><strong>Budget:</strong> Free (if using native tools) or $50-200/month for advanced BI</li>
+                </ul>
+
+                <h3>Phase 5: Expansion & Innovation (Months 9+) — Future-Proofing</h3>
+                <p><strong>Priority:</strong> Explore emerging technologies for competitive differentiation</p>
+                <ul>
+                    <li><strong>Possible Initiatives:</strong>
+                        <ul>
+                            <li>AI chatbot for website visitor engagement and event lead qualification</li>
+                            <li>Virtual tasting experiences (Zoom-based wine club events with kit shipping)</li>
+                            <li>AR wine label experiences via smartphone app</li>
+                            <li>Integration with wine marketplaces (Vivino, Wine.com) for broader distribution</li>
+                            <li>Loyalty app with gamification (visit tracking, rewards, exclusive perks)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Talking Points -->
+            <section class="section">
+                <h2>💬 Talking Points for Meeting with Spencer</h2>
+
+                <div class="talking-points">
+                    <h4>Opening Positioning</h4>
+                    <ul>
+                        <li><strong>"I come from the enterprise tech world, but what excites me is bringing that operational rigor to businesses like yours — where technology should enable the craft and relationships, not replace them."</strong></li>
+                        <li><strong>"I see Nella Terra as a multi-channel business — wine, events, hospitality — and right now your tech stack treats each as separate. There's huge untapped value in unifying those data streams."</strong></li>
+                    </ul>
+                </div>
+
+                <div class="talking-points">
+                    <h4>Discovery Questions to Ask</h4>
+                    <ul>
+                        <li><strong>Customer Data:</strong> "Right now, if a couple books a wedding at Nella Terra, do you have a system that automatically adds them to your wine club nurture campaign? Or are those handled separately?"</li>
+                        <li><strong>Time Allocation:</strong> "What percentage of your week is spent on manual admin (contracts, invoices, inventory tracking) vs. relationship-building and strategy?"</li>
+                        <li><strong>Revenue Visibility:</strong> "Can you easily pull a report showing your top 20 customers by lifetime value across all channels (events, wine club, tasting room)?"</li>
+                        <li><strong>Pain Points:</strong> "What's the most frustrating manual process you wish just worked automatically?"</li>
+                        <li><strong>Growth Constraints:</strong> "If you wanted to double event bookings next year, what breaks first? Staff capacity, systems, or something else?"</li>
+                    </ul>
+                </div>
+
+                <div class="talking-points">
+                    <h4>Value Propositions to Position</h4>
+                    <ul>
+                        <li><strong>Time ROI:</strong> "For every hour you save on admin, that's an hour you can spend with high-value customers, planning the next vintage, or building partnerships. That's where your competitive advantage lives."</li>
+                        <li><strong>Revenue Uplift:</strong> "Wineries using AI-powered marketing automation are seeing 15-30% increases in wine club renewals and 20%+ lifts in cross-channel customer spend. It's not magic — it's just better timing and personalization."</li>
+                        <li><strong>Scalability Without Headcount:</strong> "Right now, scaling revenue likely means hiring more people to handle the operational load. The right tech stack lets you scale revenue without proportionally scaling labor costs."</li>
+                        <li><strong>Customer Experience:</strong> "Your customers expect a seamless experience. A wedding guest who falls in love with your Pinot Noir should be able to order it online that night with one click — and that data should inform your next recommendation to them."</li>
+                    </ul>
+                </div>
+
+                <div class="talking-points">
+                    <h4>Willie's Unique Angle (Coming from Cisco/Tech)</h4>
+                    <ul>
+                        <li><strong>Enterprise Mindset, Small Business Execution:</strong> "I've seen how Fortune 500 companies use data and automation to optimize every customer touchpoint. Most small businesses think that's out of reach — but the tools exist now at accessible price points. It's about knowing which enterprise principles translate and which don't."</li>
+                        <li><strong>Integration Expertise:</strong> "At Cisco, we lived and breathed system integrations — making disparate platforms talk to each other. That's the exact problem family businesses face: a patchwork of tools that don't communicate. I can architect that differently."</li>
+                        <li><strong>Tech Due Diligence:</strong> "Spencer, you're at ServiceNow — you know the importance of the right platform foundation. I can help Nella Terra avoid the mistake of bolting together cheap point solutions and instead build on a platform that scales with you."</li>
+                    </ul>
+                </div>
+
+                <div class="talking-points">
+                    <h4>Potential Objections & Responses</h4>
+                    <ul>
+                        <li><strong>Objection:</strong> "We're a small family business — do we really need enterprise-level tech?"
+                            <br><strong>Response:</strong> "Not enterprise-level complexity, but enterprise-level thinking. The goal isn't to over-engineer — it's to give you back time and clarity so you can focus on what makes Nella Terra special: the wine, the land, and the experiences you create."</li>
+                        <li><strong>Objection:</strong> "We've tried new platforms before and they were too complicated or didn't stick."
+                            <br><strong>Response:</strong> "That's exactly why implementation matters as much as selection. I'd approach this with a phased rollout, focused on quick wins first — not a rip-and-replace that disrupts your business for months."</li>
+                        <li><strong>Objection:</strong> "Isn't AI and automation going to make the experience feel less personal?"
+                            <br><strong>Response:</strong> "The opposite, actually. Automation handles the repetitive stuff — reminders, follow-ups, data entry. That frees your team to do the high-touch, high-value interactions where human connection matters. AI helps you personalize at scale, not replace the human touch."</li>
+                    </ul>
+                </div>
+
+                <div class="talking-points">
+                    <h4>Closing with Next Steps</h4>
+                    <ul>
+                        <li><strong>"I'd love to do a deeper dive — maybe a half-day working session where we map out your current workflows, identify bottlenecks, and sketch out a phased roadmap. No obligation, just strategic clarity."</strong></li>
+                        <li><strong>"If you're open to it, I could also connect with your team (whoever handles day-to-day operations) to understand the on-the-ground pain points and get buy-in early."</strong></li>
+                        <li><strong>"I'm not pitching a product — I'm offering strategic consulting to help you architect the right tech foundation. Then we can decide together whether you want me to execute it or if you'd rather take it in-house."</strong></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sources -->
+            <div class="sources">
+                <h4>Sources</h4>
+                <ul>
+                    <li><a href="https://www.nellaterra.com/" target="_blank">Nella Terra Cellars Official Website</a></li>
+                    <li><a href="https://www.nellaterra.com/about" target="_blank">Nella Terra - Our Story & Team</a></li>
+                    <li><a href="https://www.yelp.com/biz/nella-terra-cellars-sunol" target="_blank">Nella Terra Cellars - Yelp</a></li>
+                    <li><a href="https://www.zoominfo.com/c/nella-terra-cellars-inc/370497565" target="_blank">Nella Terra Cellars - ZoomInfo Company Overview</a></li>
+                    <li><a href="https://corksy.io/" target="_blank">Corksy - DTC Solutions for Wineries</a></li>
+                    <li><a href="https://www.commerce7.com/" target="_blank">Commerce7 - Modern Commerce for Wineries</a></li>
+                    <li><a href="https://orderport.net/" target="_blank">OrderPort - All-in-One Winery Platform</a></li>
+                    <li><a href="https://vinsuite.com/winery-tasting-room-pos" target="_blank">vinSUITE - Winery Tasting Room POS Software</a></li>
+                    <li><a href="https://nextgenwinemarketing.com/7-digital-trends-shaping-wineries-and-retail-in-2026/" target="_blank">7 AI Wine Marketing Trends Shaping Wineries in 2026</a></li>
+                    <li><a href="https://www.hwy29creative.com/blog/ai-amp-winery-marketing-harnessing-technology-for-a-competitive-edge" target="_blank">AI & Winery Marketing: Harnessing Technology for a Competitive Edge</a></li>
+                    <li><a href="https://nextgenwinemarketing.com/services/winery-marketing-automation/" target="_blank">Winery Marketing Automation - NextGen Wine Marketing</a></li>
+                    <li><a href="https://nextgenwinemarketing.com/how-generative-ai-is-transforming-wine-discovery-in-2025/" target="_blank">How AI Is Changing Wine Discovery in 2025 for Wineries</a></li>
+                    <li><a href="https://www.perfectvenue.com/" target="_blank">Perfect Venue - Event Management Software</a></li>
+                    <li><a href="https://gomomentus.com/blog/event-automation-revolutionizing-venue-management-with-technology" target="_blank">Event Automation: Utilizing Software for Event Management</a></li>
+                    <li><a href="https://planningpod.com/solutions/use-cases/venue-and-catering-management" target="_blank">Planning Pod - Venue Management Software</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p><strong>Confidential Business Analysis</strong> — Prepared for strategic planning purposes only.</p>
+            <p>This document synthesizes publicly available information and industry research to provide actionable insights for Nella Terra Cellars' technology modernization strategy.</p>
+        </footer>
+    </div>
+</body>
+</html>
