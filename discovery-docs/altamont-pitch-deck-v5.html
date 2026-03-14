@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Altamont Beer Works discovery presentation — AI-powered insights for Livermore's premier craft brewery. Willie Kopp & Joe, 2026.">
+    <meta property="og:title" content="Altamont Beer Works × Willie Kopp | Pitch Deck">
+    <meta property="og:description" content="302,500 reasons we reached out. A data-driven conversation for Stephen & Greg.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.altamontbeerworks.com/uploads/b/0f3ff9b82066f8a4b82f5926ab6c6d679083ada2f6358f721605d4c190781331/Altamont-Beer-Works-logo_1671680565_1672773387.png">
+    <title>Altamont Beer Works × Willie Kopp | Pitch Deck V5</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%2333cc66'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #33cc66;
+            --black: #111111;
+            --dark-1: #0d0d0d;
+            --dark-2: #0a0a0a;
+            --white: #f5f5f5;
+            --muted: rgba(245, 245, 245, 0.6);
+            --font-display: 'Staatliches', sans-serif;
+            --font-body: 'Rubik', sans-serif;
+            --spacing-1: 8px;
+            --spacing-2: 16px;
+            --spacing-3: 24px;
+            --spacing-4: 32px;
+            --spacing-6: 48px;
+            --spacing-8: 64px;
+            --spacing-12: 96px;
+            --spacing-16: 128px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--white);
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .deck-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-8);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--green);
+            width: 0;
+            z-index: 1000;
+            transition: width 0.4s ease;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            bottom: var(--spacing-4);
+            right: var(--spacing-4);
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--muted);
+            z-index: 999;
+        }
+
+        /* Click Zones (invisible) */
+        .click-zone-prev,
+        .click-zone-next {
+            position: fixed;
+            top: 0;
+            height: 100vh;
+            z-index: 998;
+            cursor: pointer;
+        }
+
+        .click-zone-prev {
+            left: 0;
+            width: 40vw;
+        }
+
+        .click-zone-next {
+            right: 0;
+            width: 60vw;
+        }
+
+        /* ===== SLIDE 1: TITLE ===== */
+        #slide1 {
+            background: var(--black);
+            position: relative;
+        }
+
+        #slide1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 3px
+                );
+            pointer-events: none;
+        }
+
+        .slide1-logo {
+            max-width: 300px;
+            margin-bottom: var(--spacing-8);
+            opacity: 0;
+            animation: logoEntrance 0.8s ease forwards;
+            filter: drop-shadow(0 0 20px rgba(51, 204, 102, 0.6));
+        }
+
+        .slide1-headline {
+            font-family: var(--font-display);
+            font-size: clamp(64px, 10vw, 120px);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            margin-bottom: var(--spacing-4);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease 0.3s forwards;
+        }
+
+        .slide1-underline {
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            height: 4px;
+            background: var(--green);
+            width: 0;
+            animation: drawUnderline 0.8s ease 0.5s forwards;
+        }
+
+        .slide1-subtext {
+            font-family: var(--font-body);
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            margin-bottom: var(--spacing-6);
+            opacity: 0;
+            animation: subtextCollapse 0.8s ease 0.7s forwards;
+        }
+
+        .slide1-meta {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--muted);
+            opacity: 0;
+            animation: fadeIn 0.3s ease 1.1s forwards;
+        }
+
+        .pulse-dot {
+            position: absolute;
+            bottom: var(--spacing-4);
+            left: var(--spacing-4);
+            width: 12px;
+            height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .slide1-hint {
+            position: absolute;
+            bottom: var(--spacing-4);
+            right: var(--spacing-8);
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--muted);
+            opacity: 0;
+            animation: glow 2s ease-in-out 1.2s infinite;
+        }
+
+        /* ===== SLIDE 2: STATS ===== */
+        #slide2 {
+            background: var(--dark-1);
+        }
+
+        .slide2-headline {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 6vw, 72px);
+            color: var(--white);
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .slide2-headline.animate {
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            background: rgba(51, 204, 102, 0.05);
+            border: 1px solid rgba(51, 204, 102, 0.2);
+            border-top: 3px solid var(--green);
+            padding: var(--spacing-8) var(--spacing-6);
+            border-radius: 12px;
+            min-width: 240px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.8);
+            box-shadow: 0 0 30px rgba(51, 204, 102, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 50px rgba(51, 204, 102, 0.4);
+        }
+
+        .stat-card.animate-1 {
+            animation: popIn 0.5s ease 0.2s forwards;
+        }
+
+        .stat-card.animate-2 {
+            animation: popIn 0.5s ease 0.5s forwards;
+        }
+
+        .stat-card.animate-3 {
+            animation: popIn 0.5s ease 0.8s forwards;
+        }
+
+        /* Hero stat gets special treatment */
+        .stat-card:first-child .stat-number {
+            font-size: 84px;
+            text-shadow: 0 0 30px rgba(51, 204, 102, 0.6);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 64px;
+            color: var(--green);
+            margin-bottom: var(--spacing-2);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .stat-label {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .stat-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--black);
+            border: 1px solid var(--green);
+            padding: var(--spacing-2);
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .stat-card:hover .stat-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .slide2-body {
+            max-width: 700px;
+            text-align: center;
+            line-height: 1.6;
+            color: var(--white);
+            opacity: 0;
+            font-size: 17px;
+        }
+
+        .slide2-body.animate {
+            animation: fadeIn 0.5s ease 1.1s forwards;
+        }
+
+        /* ===== SLIDE 3: PAIN 1 ===== */
+        #slide3 {
+            background: var(--black);
+            align-items: stretch;
+            padding: var(--spacing-12);
+        }
+
+        .split-layout {
+            display: flex;
+            gap: var(--spacing-8);
+            width: 100%;
+            max-width: 1200px;
+            align-items: center;
+        }
+
+        .split-left {
+            flex: 1.5;
+            position: relative;
+        }
+
+        .split-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pain-headline {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5vw, 64px);
+            color: var(--white);
+            margin-bottom: var(--spacing-4);
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .pain-headline.animate {
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .pain-body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--white);
+            max-width: 500px;
+            opacity: 0;
+        }
+
+        .pain-body.animate {
+            animation: fadeIn 0.5s ease 0.3s forwards;
+        }
+
+        .decorative-number {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: 200px;
+            color: rgba(51, 204, 102, 0.1);
+            top: -60px;
+            right: -40px;
+            z-index: 0;
+            opacity: 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .decorative-number.animate {
+            animation: fadeIn 0.8s ease 0.2s forwards;
+        }
+
+        .decorative-number:hover {
+            color: rgba(51, 204, 102, 0.2);
+        }
+
+        .decorative-number.pulse-effect {
+            animation: pulseOnce 0.5s ease;
+        }
+
+        .number-callout {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--black);
+            border: 2px solid var(--green);
+            padding: var(--spacing-4);
+            border-radius: 8px;
+            max-width: 300px;
+            font-size: 14px;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 0 40px rgba(51, 204, 102, 0.4);
+        }
+
+        .number-callout.show {
+            animation: popupReveal 0.4s ease forwards;
+        }
+
+        .tap-visualization {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+            height: 200px;
+        }
+
+        .tap-bar {
+            flex: 1;
+            background: var(--green);
+            border-radius: 2px 2px 0 0;
+            min-width: 6px;
+            height: 0;
+            opacity: 0;
+        }
+
+        .tap-bar.animate {
+            animation: barGrow 0.6s ease forwards;
+        }
+
+        .pain-badge {
+            position: absolute;
+            top: var(--spacing-4);
+            right: var(--spacing-4);
+            background: rgba(51, 204, 102, 0.1);
+            border: 1px solid var(--green);
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: 20px;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--green);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .pain-badge.animate {
+            animation: popIn 0.4s ease 0.8s forwards;
+        }
+
+        /* ===== SLIDE 4: PAIN 2 ===== */
+        #slide4 {
+            background: var(--dark-2);
+            background-image:
+                linear-gradient(rgba(51, 204, 102, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(51, 204, 102, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            align-items: stretch;
+            padding: var(--spacing-12);
+        }
+
+        /* Reversed layout for slide 4 */
+        #slide4 .split-layout {
+            flex-direction: row-reverse;
+        }
+
+        .slide4-headline {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5vw, 64px);
+            color: var(--white);
+            margin-bottom: var(--spacing-4);
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .slide4-headline.animate {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin: var(--spacing-6) 0;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+        }
+
+        .calendar-cell {
+            aspect-ratio: 1;
+            background: rgba(51, 204, 102, 0.05);
+            border: 1px solid rgba(51, 204, 102, 0.2);
+            border-radius: 6px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            min-width: 50px;
+            min-height: 50px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .calendar-cell.event {
+            background: rgba(51, 204, 102, 0);
+            opacity: 0;
+        }
+
+        .calendar-cell.event.animate {
+            animation: cellFill 0.4s ease forwards;
+        }
+
+        .event-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .event-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: var(--spacing-4);
+            justify-content: center;
+            align-items: center;
+            margin-top: var(--spacing-2);
+            opacity: 0;
+        }
+
+        .calendar-legend.animate {
+            animation: fadeIn 0.5s ease 0.6s forwards;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .legend-icon {
+            font-size: 16px;
+        }
+
+        .calendar-cell:hover .staffing-bar {
+            opacity: 1;
+        }
+
+        .staffing-bar {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: var(--green);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ===== SLIDE 5: PAIN 3 ===== */
+        #slide5 {
+            background: radial-gradient(circle at center, rgba(51, 204, 102, 0.05), var(--black));
+        }
+
+        .slide5-headline {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 5vw, 56px);
+            color: var(--white);
+            text-align: center;
+            max-width: 900px;
+            margin-bottom: var(--spacing-8);
+            opacity: 0;
+        }
+
+        .slide5-headline.animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .loyalty-card {
+            width: 400px;
+            height: 240px;
+            background: linear-gradient(135deg, var(--dark-1), var(--black));
+            border: 2px solid var(--green);
+            border-radius: 16px;
+            padding: var(--spacing-6);
+            position: relative;
+            margin-bottom: var(--spacing-6);
+            box-shadow: 0 0 40px rgba(51, 204, 102, 0.3);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            opacity: 0;
+        }
+
+        .loyalty-card.animate {
+            animation: floatIn 0.8s ease forwards;
+        }
+
+        .loyalty-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: var(--spacing-6);
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--black), var(--dark-2));
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 48px;
+            color: var(--green);
+            letter-spacing: 0.1em;
+        }
+
+        .card-back-text {
+            font-family: var(--font-body);
+            font-size: 18px;
+            font-style: italic;
+            color: var(--green);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* ===== SLIDE 6: RESEARCH ===== */
+        #slide6 {
+            background: var(--black);
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(51, 204, 102, 0.02) 2px,
+                    rgba(51, 204, 102, 0.02) 4px
+                );
+        }
+
+        .typewriter-headline {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 6vw, 72px);
+            color: var(--white);
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+            min-height: 120px;
+        }
+
+        .research-bullets {
+            list-style: none;
+            max-width: 700px;
+            margin-bottom: var(--spacing-8);
+        }
+
+        .research-bullet {
+            font-family: var(--font-body);
+            font-size: 20px;
+            color: var(--white);
+            margin-bottom: var(--spacing-3);
+            padding-left: var(--spacing-6);
+            position: relative;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .research-bullet.animate {
+            animation: slideInLeft 0.4s ease forwards;
+        }
+
+        .research-bullet::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: bold;
+            font-size: 24px;
+            opacity: 0;
+        }
+
+        .research-bullet.animate::before {
+            animation: checkPop 0.3s ease forwards;
+        }
+
+        .arrow-svg {
+            width: 100px;
+            height: 20px;
+            margin-bottom: var(--spacing-4);
+            opacity: 0;
+        }
+
+        .arrow-svg.animate {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .arrow-path {
+            stroke: var(--green);
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+        }
+
+        .arrow-svg.animate .arrow-path {
+            animation: drawArrow 1s ease forwards;
+        }
+
+        .slide6-cta {
+            font-family: var(--font-body);
+            font-size: 18px;
+            color: var(--green);
+            cursor: pointer;
+            opacity: 0;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .slide6-cta.animate {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .slide6-cta.bounce-effect {
+            animation: bounceOnce 0.5s ease;
+        }
+
+        /* ===== SLIDE 7: THE ASK ===== */
+        #slide7 {
+            background: var(--dark-1);
+            align-items: stretch;
+            padding: var(--spacing-12);
+        }
+
+        .slide7-headline {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5vw, 64px);
+            color: var(--white);
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+            opacity: 0;
+        }
+
+        .slide7-headline.animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .two-column {
+            display: flex;
+            gap: var(--spacing-8);
+            max-width: 1000px;
+            margin-bottom: var(--spacing-8);
+        }
+
+        .column {
+            flex: 1;
+            opacity: 0;
+        }
+
+        .column-left.animate {
+            animation: slideInLeft 0.5s ease 0.3s forwards;
+        }
+
+        .column-right.animate {
+            animation: slideInRight 0.5s ease 0.3s forwards;
+        }
+
+        .column-header {
+            font-family: var(--font-display);
+            font-size: 32px;
+            color: var(--green);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .column-list {
+            list-style: none;
+        }
+
+        .column-item {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--white);
+            margin-bottom: var(--spacing-2);
+            padding-left: var(--spacing-3);
+            position: relative;
+            opacity: 0;
+        }
+
+        .column-item.animate {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .column-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+        }
+
+        .cta-button {
+            display: block;
+            max-width: 400px;
+            margin: 0 auto;
+            background: transparent;
+            color: var(--green);
+            font-family: var(--font-display);
+            font-size: 20px;
+            padding: 16px 48px;
+            border: 2px solid var(--green);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button.animate {
+            animation: fadeIn 0.5s ease 0.8s forwards;
+        }
+
+        .cta-button:hover {
+            background: var(--green);
+            color: var(--black);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(51, 204, 102, 0.4);
+        }
+
+        .cta-button.clicked {
+            background: var(--green);
+            color: var(--black);
+        }
+
+        .cta-button.clicked::after {
+            content: '✓ Opening...';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 0.5s ease infinite;
+        }
+
+        /* ===== SLIDE 8: CLOSE ===== */
+        #slide8 {
+            background: radial-gradient(circle at center, rgba(51, 204, 102, 0.1), var(--black));
+        }
+
+        .slide8-logo {
+            max-width: 400px;
+            margin-bottom: var(--spacing-8);
+            opacity: 0;
+            transform: scale(0.8);
+            cursor: pointer;
+            transition: filter 0.3s ease;
+            filter: drop-shadow(0 0 40px rgba(51, 204, 102, 0.8));
+        }
+
+        .slide8-logo.animate {
+            animation: logoScale 1.2s ease forwards;
+        }
+
+        .slide8-logo:hover {
+            filter: drop-shadow(0 0 60px rgba(51, 204, 102, 1));
+        }
+
+        .slide8-logo.pulse-effect {
+            animation: pulseGreen 0.5s ease;
+        }
+
+        .slide8-headline {
+            font-family: var(--font-display);
+            font-size: clamp(56px, 8vw, 96px);
+            color: var(--white);
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+            opacity: 0;
+        }
+
+        .slide8-headline.animate {
+            animation: fadeIn 0.5s ease 0.5s forwards;
+        }
+
+        .slide8-contact {
+            font-family: var(--font-body);
+            font-size: 18px;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: var(--spacing-3);
+            opacity: 0;
+        }
+
+        .slide8-contact.animate {
+            animation: fadeIn 0.3s ease 0.8s forwards;
+        }
+
+        .slide8-tagline {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-style: italic;
+            color: rgba(245, 245, 245, 0.6);
+            text-align: center;
+            opacity: 0;
+        }
+
+        .slide8-tagline.animate {
+            animation: fadeIn 0.6s ease 1.1s forwards;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes logoEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes drawUnderline {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes subtextCollapse {
+            from {
+                opacity: 0;
+                letter-spacing: 0.3em;
+            }
+            to {
+                opacity: 1;
+                letter-spacing: 0.05em;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 10px var(--green);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes barGrow {
+            from {
+                opacity: 0;
+                height: 0;
+            }
+            to {
+                opacity: 1;
+                height: var(--bar-height);
+            }
+        }
+
+        @keyframes pulseOnce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+                color: rgba(51, 204, 102, 0.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes popupReveal {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes cellFill {
+            from {
+                opacity: 0;
+                background: rgba(51, 204, 102, 0);
+            }
+            to {
+                opacity: 1;
+                background: var(--event-bg);
+            }
+        }
+
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes checkPop {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes drawArrow {
+            from {
+                stroke-dashoffset: 100;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes bounceOnce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes logoScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulseGreen {
+            0% {
+                filter: drop-shadow(0 0 40px rgba(51, 204, 102, 0.8));
+            }
+            50% {
+                filter: drop-shadow(0 0 80px rgba(51, 204, 102, 1));
+            }
+            100% {
+                filter: drop-shadow(0 0 40px rgba(51, 204, 102, 0.8));
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus States */
+        *:focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .split-layout,
+            .two-column {
+                flex-direction: column;
+            }
+
+            #slide4 .split-layout {
+                flex-direction: column;
+            }
+
+            .slide1-headline,
+            .slide2-headline,
+            .pain-headline,
+            .slide4-headline,
+            .slide5-headline,
+            .typewriter-headline,
+            .slide7-headline,
+            .slide8-headline {
+                font-size: 36px;
+            }
+
+            .loyalty-card {
+                width: 90%;
+                max-width: 350px;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 8</div>
+    <div class="click-zone-prev" id="clickPrev"></div>
+    <div class="click-zone-next" id="clickNext"></div>
+
+    <div class="deck-container" id="deckContainer">
+        <!-- SLIDE 1: TITLE -->
+        <section class="slide active" id="slide1" role="region" aria-label="Slide 1: Title">
+            <img src="https://www.altamontbeerworks.com/uploads/b/0f3ff9b82066f8a4b82f5926ab6c6d679083ada2f6358f721605d4c190781331/Altamont-Beer-Works-logo_1671680565_1672773387.png" alt="Altamont Beer Works Logo" class="slide1-logo">
+            <h1 class="slide1-headline">
+                WHAT WE FOUND.
+                <span class="slide1-underline"></span>
+            </h1>
+            <p class="slide1-subtext">A conversation for Stephen & Greg</p>
+            <p class="slide1-meta">Willie Kopp & Joe · Livermore, CA · 2026</p>
+            <div class="pulse-dot"></div>
+            <div class="slide1-hint">→ to begin</div>
+        </section>
+
+        <!-- SLIDE 2: STATS -->
+        <section class="slide" id="slide2" role="region" aria-label="Slide 2: Statistics">
+            <h2 class="slide2-headline">302,500+ REASONS WE REACHED OUT.</h2>
+            <div class="stats-container">
+                <div class="stat-card" data-stat="302500">
+                    <div class="stat-number" data-target="302500">0</div>
+                    <div class="stat-label">Check-ins</div>
+                    <div class="stat-tooltip">Untappd — #3 ranked brewery in Livermore</div>
+                </div>
+                <div class="stat-card" data-stat="3.86">
+                    <div class="stat-number" data-target="3.86">0</div>
+                    <div class="stat-label">Rating</div>
+                    <div class="stat-tooltip">Avg across 302K+ check-ins</div>
+                </div>
+                <div class="stat-card" data-stat="32000">
+                    <div class="stat-number" data-target="32000">0</div>
+                    <div class="stat-label">Community</div>
+                    <div class="stat-tooltip">East Bay craft beer community</div>
+                </div>
+            </div>
+            <p class="slide2-body">Altamont isn't just Livermore's first brewery since Prohibition — it's one of the most engaged craft beer communities in the East Bay. We noticed.</p>
+        </section>
+
+        <!-- SLIDE 3: PAIN 1 -->
+        <section class="slide" id="slide3" role="region" aria-label="Slide 3: Pain Point 1 - Tap Complexity">
+            <div class="split-layout">
+                <div class="split-left">
+                    <h2 class="pain-headline">30 TAPS. 296 BEERS. THAT'S A LOT TO TRACK.</h2>
+                    <p class="pain-body">Every beer has a story. Every tap rotation is a decision. When you're brewing 296 unique beers, manual tracking doesn't scale. What if your POS could recommend the next pour based on customer history?</p>
+                    <div class="decorative-number" id="decorative296">296</div>
+                    <div class="number-callout" id="callout296">296 unique beers brewed. Most breweries do 12-20 per year.</div>
+                </div>
+                <div class="split-right">
+                    <div class="tap-visualization" id="tapViz"></div>
+                </div>
+            </div>
+            <div class="pain-badge">PAIN POINT 1 / 3</div>
+        </section>
+
+        <!-- SLIDE 4: PAIN 2 -->
+        <section class="slide" id="slide4" role="region" aria-label="Slide 4: Pain Point 2 - Event Staffing">
+            <div class="split-layout">
+                <div class="split-left">
+                    <h2 class="slide4-headline">FOOD TRUCKS. LIVE MUSIC. FOOTBALL SUNDAYS.</h2>
+                    <p class="pain-body">Events drive revenue — but they also drive complexity. Staffing schedules, inventory forecasts, and customer flow patterns change weekly. What if AI could predict your busiest hours before the crowd arrives?</p>
+                </div>
+                <div class="split-right">
+                    <div class="calendar-container">
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                        <div class="calendar-legend" id="calendarLegend">
+                            <div class="legend-item">
+                                <span class="legend-icon">🍕</span>
+                                <span>Food Truck</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">🎵</span>
+                                <span>Live Music</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">🏈</span>
+                                <span>Game Day</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pain-badge">PAIN POINT 2 / 3</div>
+        </section>
+
+        <!-- SLIDE 5: PAIN 3 -->
+        <section class="slide" id="slide5" role="region" aria-label="Slide 5: Pain Point 3 - 20 Ounce Club">
+            <h2 class="slide5-headline">YOUR MOST LOYAL CUSTOMERS DESERVE MORE THAN A PUNCH CARD.</h2>
+            <div class="loyalty-card" id="loyaltyCard">
+                <div class="card-front">
+                    <div class="card-title">20 OZ CLUB</div>
+                </div>
+                <div class="card-back">
+                    <p class="card-back-text">What if every member got a personalized recommendation every visit?</p>
+                </div>
+            </div>
+            <p class="pain-body">The 20 Ounce Club is brilliant. But loyalty programs are data goldmines. Imagine: "Welcome back, Sarah! Based on your last 5 visits, you might love our new Hazy IPA."</p>
+            <div class="pain-badge">PAIN POINT 3 / 3</div>
+        </section>
+
+        <!-- SLIDE 6: RESEARCH -->
+        <section class="slide" id="slide6" role="region" aria-label="Slide 6: The Research">
+            <h2 class="typewriter-headline" id="typewriterText"></h2>
+            <ul class="research-bullets" id="researchBullets">
+                <li class="research-bullet">Untappd data analysis — 302,500 check-ins</li>
+                <li class="research-bullet">Competitive landscape — 8 East Bay breweries mapped</li>
+                <li class="research-bullet">Operational gap analysis — 3 critical gaps identified</li>
+                <li class="research-bullet">AI roadmap built — prioritized by ROI</li>
+            </ul>
+            <svg class="arrow-svg" id="arrowSvg" viewBox="0 0 100 20">
+                <path class="arrow-path" d="M 0 10 L 90 10 L 85 5 M 90 10 L 85 15" />
+            </svg>
+            <p class="slide6-cta" id="slide6Cta">The full brief is one click away →</p>
+        </section>
+
+        <!-- SLIDE 7: THE ASK -->
+        <section class="slide" id="slide7" role="region" aria-label="Slide 7: The Ask">
+            <h2 class="slide7-headline">30 MINUTES. ALL THE DATA. NONE OF THE FLUFF.</h2>
+            <div class="two-column">
+                <div class="column column-left">
+                    <h3 class="column-header">WHAT YOU GET:</h3>
+                    <ul class="column-list" id="columnLeft">
+                        <li class="column-item">Full discovery brief</li>
+                        <li class="column-item">Operational gap analysis</li>
+                        <li class="column-item">AI roadmap for Altamont</li>
+                        <li class="column-item">Competitive benchmarks</li>
+                    </ul>
+                </div>
+                <div class="column column-right">
+                    <h3 class="column-header">WHAT WE NEED:</h3>
+                    <ul class="column-list" id="columnRight">
+                        <li class="column-item">One conversation.</li>
+                        <li class="column-item">Tell us what's actually hard right now.</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="https://williekopp1112-lab.github.io/willieOS-public/discovery-docs/altamont-discovery-doc.html" target="_blank" class="cta-button" id="ctaButton">READ THE FULL BRIEF →</a>
+        </section>
+
+        <!-- SLIDE 8: CLOSE -->
+        <section class="slide" id="slide8" role="region" aria-label="Slide 8: Close">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Ctext x='200' y='100' font-family='Arial, sans-serif' font-size='48' font-weight='bold' fill='%2333cc66' text-anchor='middle' dominant-baseline='middle'%3EALTAMONT%3C/text%3E%3Ctext x='200' y='150' font-family='Arial, sans-serif' font-size='24' fill='%23f5f5f5' text-anchor='middle' dominant-baseline='middle'%3EBEER WORKS%3C/text%3E%3C/svg%3E" alt="Altamont Beer Works Logo" class="slide8-logo" id="slide8Logo">
+            <h2 class="slide8-headline">LET'S BUILD SOMETHING WORTH POURING.</h2>
+            <p class="slide8-contact">Willie Kopp · williekopp1112@gmail.com</p>
+            <p class="slide8-tagline">Down with Hops. Up for Anything.</p>
+        </section>
+    </div>
+
+    <script>
+        // === STATE ===
+        let currentSlide = 0;
+        const totalSlides = 8;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isFullscreen = false;
+        let isTransitioning = false;
+
+        // Transition configurations
+        const transitions = [
+            { name: 'fade-scale', duration: 600 },      // 1→2
+            { name: 'slide-h', duration: 500 },         // 2→3
+            { name: 'slide-v', duration: 500 },         // 3→4
+            { name: 'slide-h-reverse', duration: 500 }, // 4→5
+            { name: 'fade-black', duration: 700 },      // 5→6
+            { name: 'diagonal-wipe', duration: 600 },   // 6→7
+            { name: 'fade-scale-out', duration: 600 }   // 7→8
+        ];
+
+        // === NAVIGATION ===
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            const slides = document.querySelectorAll('.slide');
+            const current = slides[currentSlide];
+            const next = slides[index];
+
+            applyTransition(current, next, index > currentSlide);
+            currentSlide = index;
+            updateProgress();
+            updateCounter();
+
+            setTimeout(() => {
+                triggerSlideAnimations(index);
+            }, 100);
+
+            // Release lock after transition completes
+            const transitionIndex = Math.min(currentSlide, transitions.length - 1);
+            const duration = transitions[transitionIndex] ? transitions[transitionIndex].duration : 600;
+            setTimeout(() => {
+                isTransitioning = false;
+            }, duration + 150);
+        }
+
+        function applyTransition(current, next, forward) {
+            // Remove active from current
+            current.classList.remove('active');
+
+            const transitionIndex = Math.min(currentSlide, transitions.length - 1);
+            const transition = transitions[transitionIndex];
+
+            // Apply transition class
+            current.style.transition = `all ${transition.duration}ms ease`;
+            next.style.transition = `all ${transition.duration}ms ease`;
+
+            // Transition-specific styles
+            switch (transition.name) {
+                case 'fade-scale':
+                    current.style.opacity = '0';
+                    current.style.transform = 'scale(1.1)';
+                    next.style.opacity = '0';
+                    next.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        next.classList.add('active');
+                        next.style.opacity = '1';
+                        next.style.transform = 'scale(1)';
+                    }, 50);
+                    break;
+
+                case 'slide-h':
+                    current.style.transform = 'translateX(-100%)';
+                    next.style.transform = 'translateX(100%)';
+                    next.classList.add('active');
+                    setTimeout(() => {
+                        next.style.transform = 'translateX(0)';
+                    }, 50);
+                    break;
+
+                case 'slide-v':
+                    current.style.transform = 'translateY(-100%)';
+                    next.style.transform = 'translateY(100%)';
+                    next.classList.add('active');
+                    setTimeout(() => {
+                        next.style.transform = 'translateY(0)';
+                    }, 50);
+                    break;
+
+                case 'slide-h-reverse':
+                    current.style.transform = 'translateX(100%)';
+                    next.style.transform = 'translateX(-100%)';
+                    next.classList.add('active');
+                    setTimeout(() => {
+                        next.style.transform = 'translateX(0)';
+                    }, 50);
+                    break;
+
+                case 'fade-black':
+                    current.style.opacity = '0';
+                    setTimeout(() => {
+                        next.classList.add('active');
+                    }, transition.duration / 2);
+                    break;
+
+                case 'diagonal-wipe':
+                    current.style.clipPath = 'polygon(0 0, 0 0, 0 100%, 0 100%)';
+                    next.classList.add('active');
+                    next.style.clipPath = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)';
+                    setTimeout(() => {
+                        next.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+                    }, 50);
+                    break;
+
+                case 'fade-scale-out':
+                    current.style.opacity = '0';
+                    current.style.transform = 'scale(0.9)';
+                    next.style.opacity = '0';
+                    next.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        next.classList.add('active');
+                        next.style.opacity = '1';
+                        next.style.transform = 'scale(1)';
+                    }, 50);
+                    break;
+
+                default:
+                    next.classList.add('active');
+            }
+
+            // Reset styles after transition
+            setTimeout(() => {
+                current.style.transform = '';
+                current.style.clipPath = '';
+                current.style.opacity = '';
+                next.style.transform = '';
+                next.style.clipPath = '';
+            }, transition.duration + 100);
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function updateCounter() {
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        // === SLIDE-SPECIFIC ANIMATIONS ===
+        function triggerSlideAnimations(slideIndex) {
+            switch (slideIndex) {
+                case 1:
+                    animateSlide2();
+                    break;
+                case 2:
+                    animateSlide3();
+                    break;
+                case 3:
+                    animateSlide4();
+                    break;
+                case 4:
+                    animateSlide5();
+                    break;
+                case 5:
+                    animateSlide6();
+                    break;
+                case 6:
+                    animateSlide7();
+                    break;
+                case 7:
+                    animateSlide8();
+                    break;
+            }
+        }
+
+        // Slide 2: Stats with counting
+        function animateSlide2() {
+            const headline = document.querySelector('.slide2-headline');
+            const cards = document.querySelectorAll('.stat-card');
+            const body = document.querySelector('.slide2-body');
+
+            headline.classList.add('animate');
+
+            cards.forEach((card, i) => {
+                card.classList.add(`animate-${i + 1}`);
+                const numberEl = card.querySelector('.stat-number');
+                const target = parseFloat(numberEl.dataset.target);
+
+                setTimeout(() => {
+                    countUp(numberEl, target);
+                }, 200 + (i * 300));
+            });
+
+            body.classList.add('animate');
+        }
+
+        function countUp(element, target) {
+            const duration = target > 1000 ? 2000 : 1500;
+            const steps = 60;
+            const increment = target / steps;
+            let current = 0;
+            const isDecimal = target < 10;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+
+                if (isDecimal) {
+                    element.textContent = current.toFixed(2);
+                } else if (target >= 1000) {
+                    element.textContent = Math.floor(current).toLocaleString() + '+';
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, duration / steps);
+        }
+
+        // Slide 3: Tap visualization
+        function animateSlide3() {
+            const headline = document.querySelector('.pain-headline');
+            const body = document.querySelector('.pain-body');
+            const decorative = document.getElementById('decorative296');
+            const badge = document.querySelector('#slide3 .pain-badge');
+
+            headline.classList.add('animate');
+            body.classList.add('animate');
+            decorative.classList.add('animate');
+
+            // Create 30 tap bars
+            const tapViz = document.getElementById('tapViz');
+            tapViz.innerHTML = '';
+
+            for (let i = 0; i < 30; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'tap-bar';
+                const height = Math.random() * 150 + 50;
+                bar.style.setProperty('--bar-height', `${height}px`);
+                tapViz.appendChild(bar);
+
+                setTimeout(() => {
+                    bar.classList.add('animate');
+                }, i * 50);
+            }
+
+            badge.classList.add('animate');
+        }
+
+        // Slide 4: Calendar grid
+        function animateSlide4() {
+            const headline = document.querySelector('.slide4-headline');
+            const body = document.querySelector('#slide4 .pain-body');
+            const badge = document.querySelector('#slide4 .pain-badge');
+            const legend = document.getElementById('calendarLegend');
+
+            headline.classList.add('animate');
+            body.classList.add('animate');
+
+            // Create calendar grid with enhanced event cells
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            const events = [
+                { emoji: '🍕', label: 'Food Truck', color: 'rgba(51, 204, 102, 0.3)' },
+                { emoji: '🎵', label: 'Live Music', color: 'rgba(51, 204, 102, 0.25)' },
+                { emoji: '🏈', label: 'Game Day', color: 'rgba(51, 204, 102, 0.35)' }
+            ];
+
+            const eventDays = [
+                { day: 2, type: 0 },
+                { day: 5, type: 1 },
+                { day: 9, type: 2 },
+                { day: 13, type: 0 },
+                { day: 16, type: 1 },
+                { day: 20, type: 2 },
+                { day: 23, type: 0 },
+                { day: 27, type: 2 }
+            ];
+
+            for (let i = 0; i < 28; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-cell';
+
+                const eventDay = eventDays.find(e => e.day === i);
+                if (eventDay) {
+                    const event = events[eventDay.type];
+                    cell.classList.add('event');
+                    cell.style.setProperty('--event-bg', event.color);
+
+                    const icon = document.createElement('span');
+                    icon.className = 'event-icon';
+                    icon.textContent = event.emoji;
+                    cell.appendChild(icon);
+
+                    const label = document.createElement('span');
+                    label.className = 'event-label';
+                    label.textContent = event.label.split(' ')[0].toUpperCase();
+                    cell.appendChild(label);
+
+                    const staffBar = document.createElement('div');
+                    staffBar.className = 'staffing-bar';
+                    cell.appendChild(staffBar);
+
+                    setTimeout(() => {
+                        cell.classList.add('animate');
+                    }, i * 30);
+                }
+
+                grid.appendChild(cell);
+            }
+
+            legend.classList.add('animate');
+            badge.classList.add('animate');
+        }
+
+        // Slide 5: Loyalty card
+        function animateSlide5() {
+            const headline = document.querySelector('.slide5-headline');
+            const card = document.getElementById('loyaltyCard');
+            const body = document.querySelector('#slide5 .pain-body');
+            const badge = document.querySelector('#slide5 .pain-badge');
+
+            headline.classList.add('animate');
+            card.classList.add('animate');
+            body.classList.add('animate');
+            badge.classList.add('animate');
+        }
+
+        // Slide 6: Typewriter
+        function animateSlide6() {
+            const text = "WE DID THE RESEARCH. ALL OF IT.";
+            const element = document.getElementById('typewriterText');
+            const bullets = document.querySelectorAll('.research-bullet');
+            const arrow = document.getElementById('arrowSvg');
+            const cta = document.getElementById('slide6Cta');
+
+            element.textContent = '';
+            let i = 0;
+
+            const typeInterval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text[i];
+                    i++;
+                } else {
+                    clearInterval(typeInterval);
+
+                    // Animate bullets
+                    bullets.forEach((bullet, index) => {
+                        setTimeout(() => {
+                            bullet.classList.add('animate');
+                        }, index * 300);
+                    });
+
+                    // Animate arrow
+                    setTimeout(() => {
+                        arrow.classList.add('animate');
+                    }, bullets.length * 300 + 200);
+
+                    // Animate CTA
+                    setTimeout(() => {
+                        cta.classList.add('animate');
+                    }, bullets.length * 300 + 500);
+                }
+            }, 80);
+        }
+
+        // Slide 7: Two columns
+        function animateSlide7() {
+            const headline = document.querySelector('.slide7-headline');
+            const leftCol = document.querySelector('.column-left');
+            const rightCol = document.querySelector('.column-right');
+            const leftItems = document.querySelectorAll('#columnLeft .column-item');
+            const rightItems = document.querySelectorAll('#columnRight .column-item');
+            const cta = document.getElementById('ctaButton');
+
+            headline.classList.add('animate');
+            leftCol.classList.add('animate');
+            rightCol.classList.add('animate');
+
+            setTimeout(() => {
+                leftItems.forEach((item, i) => {
+                    setTimeout(() => {
+                        item.classList.add('animate');
+                    }, i * 200);
+                });
+            }, 300);
+
+            setTimeout(() => {
+                rightItems.forEach((item, i) => {
+                    setTimeout(() => {
+                        item.classList.add('animate');
+                    }, i * 200);
+                });
+            }, 300);
+
+            cta.classList.add('animate');
+        }
+
+        // Slide 8: Final
+        function animateSlide8() {
+            const logo = document.querySelector('.slide8-logo');
+            const headline = document.querySelector('.slide8-headline');
+            const contact = document.querySelector('.slide8-contact');
+            const tagline = document.querySelector('.slide8-tagline');
+
+            logo.classList.add('animate');
+            headline.classList.add('animate');
+            contact.classList.add('animate');
+            tagline.classList.add('animate');
+        }
+
+        // === INTERACTIVE ELEMENTS ===
+
+        // Slide 1: Click anywhere to advance
+        document.getElementById('slide1').addEventListener('click', (e) => {
+            if (currentSlide === 0 && !e.target.closest('.click-zone-prev, .click-zone-next')) {
+                nextSlide();
+            }
+        });
+
+        // Slide 3: Click 296
+        document.getElementById('decorative296').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const number = e.target;
+            const callout = document.getElementById('callout296');
+
+            number.classList.add('pulse-effect');
+            callout.classList.add('show');
+
+            setTimeout(() => {
+                number.classList.remove('pulse-effect');
+            }, 500);
+
+            setTimeout(() => {
+                callout.classList.remove('show');
+            }, 3000);
+        });
+
+        // Slide 5: Click card to flip
+        document.getElementById('loyaltyCard').addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.target.closest('.loyalty-card').classList.toggle('flipped');
+        });
+
+        // Slide 6: Click arrow
+        document.getElementById('slide6Cta').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const cta = e.target;
+            cta.classList.add('bounce-effect');
+
+            setTimeout(() => {
+                cta.classList.remove('bounce-effect');
+                nextSlide();
+            }, 500);
+        });
+
+        // Slide 7: CTA button
+        document.getElementById('ctaButton').addEventListener('click', (e) => {
+            const btn = e.target;
+            btn.classList.add('clicked');
+
+            setTimeout(() => {
+                window.open(btn.href, '_blank');
+            }, 800);
+        });
+
+        // Slide 8: Click logo
+        document.getElementById('slide8Logo').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const logo = e.target;
+            logo.classList.add('pulse-effect');
+
+            setTimeout(() => {
+                logo.classList.remove('pulse-effect');
+                window.location.href = 'mailto:williekopp1112@gmail.com';
+            }, 500);
+        });
+
+        // === KEYBOARD NAVIGATION ===
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                case 'PageDown':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    e.preventDefault();
+                    prevSlide();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    goToSlide(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    goToSlide(totalSlides - 1);
+                    break;
+                case 'f':
+                case 'F':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        // === CLICK ZONES ===
+        document.getElementById('clickPrev').addEventListener('click', prevSlide);
+        document.getElementById('clickNext').addEventListener('click', nextSlide);
+
+        // === TOUCH SUPPORT ===
+        const deckContainer = document.getElementById('deckContainer');
+
+        deckContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        deckContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const threshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        // === FULLSCREEN ===
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        deckContainer.addEventListener('dblclick', (e) => {
+            if (!e.target.closest('.stat-card, .decorative-number, .loyalty-card, .slide6-cta, .cta-button, .slide8-logo')) {
+                toggleFullscreen();
+            }
+        });
+
+        // === INIT ===
+        updateProgress();
+        updateCounter();
+    </script>
+</body>
+</html>
