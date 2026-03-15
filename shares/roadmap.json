@@ -525,6 +525,32 @@
       "prompt_file": null,
       "depends_on": [],
       "notes": "macOS stores iMessages in ~/Library/Messages/chat.db (SQLite). Requires Full Disk Access permission for the app to read it. Read-only — no sending. Similar pattern to gmailConnector.js but local DB instead of API. Could extend to SMS if iPhone is linked via iMessage forwarding."
+    },
+    {
+      "id": "email-loop-ui",
+      "title": "Better UI for loop started from email",
+      "description": "When a loop is email-sourced, show the email subject, sender, date, and a snippet on the loop card/detail view — not just 'started on an email'.",
+      "status": "planned",
+      "owner": "joe",
+      "branch": null,
+      "priority": "medium",
+      "files": [],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Feature idea from Joe (PR #8)."
+    },
+    {
+      "id": "gary-image-uploads",
+      "title": "Allow image/screenshot uploads in Gary chat",
+      "description": "Support drag-drop or paste of images/screenshots in Gary chat UI, same as Claude/ChatGPT. Pass image to Gary vision context.",
+      "status": "planned",
+      "owner": "joe",
+      "branch": null,
+      "priority": "medium",
+      "files": [],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Feature idea from Joe (PR #8)."
     }
   ]
 }
