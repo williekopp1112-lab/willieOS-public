@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WillieOS Introduction — Willie Kopp to Arseniy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1f6feb 0%, #58a6ff 100%);
+            padding: 48px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: #fff;
+            position: relative;
+        }
+
+        .badge::before {
+            content: '✓';
+            margin-right: 6px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            position: relative;
+        }
+
+        .content {
+            padding: 48px 40px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 32px;
+            color: #8b949e;
+        }
+
+        .section {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            transition: border-color 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: #58a6ff;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '▸';
+            color: #58a6ff;
+            margin-right: 12px;
+            font-size: 24px;
+            -webkit-text-fill-color: #58a6ff;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #c9d1d9;
+        }
+
+        code {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 13px;
+            color: #79c0ff;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #79c0ff;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .architecture {
+            color: #8b949e;
+        }
+
+        ul {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #c9d1d9;
+        }
+
+        strong {
+            color: #f0f6fc;
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1) 0%, rgba(31, 111, 235, 0.1) 100%);
+            border-left: 3px solid #58a6ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .cta {
+            text-align: center;
+            margin: 48px 0 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #1f6feb 0%, #58a6ff 100%);
+            color: #fff;
+            padding: 16px 48px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 24px rgba(31, 111, 235, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(31, 111, 235, 0.4);
+        }
+
+        .availability {
+            background: #161b22;
+            border-left: 3px solid #3fb950;
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+
+        .availability-title {
+            color: #3fb950;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .footer {
+            background: #0d1117;
+            border-top: 1px solid #30363d;
+            padding: 32px 40px;
+            text-align: center;
+            color: #8b949e;
+        }
+
+        .signature {
+            font-size: 16px;
+            font-weight: 500;
+            color: #c9d1d9;
+            margin-bottom: 12px;
+        }
+
+        .links {
+            margin-top: 16px;
+        }
+
+        .links a {
+            color: #58a6ff;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .links a:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .container {
+                border-radius: 8px;
+            }
+
+            .header {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 32px 24px;
+            }
+
+            .section {
+                padding: 24px 20px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .code-block {
+                font-size: 11px;
+                padding: 16px;
+            }
+
+            .cta-button {
+                padding: 14px 32px;
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="badge">Live Build · Production Ready</div>
+            <h1>WillieOS Introduction</h1>
+            <p class="subtitle">An AI Chief of Staff Operating System</p>
+        </div>
+
+        <div class="content">
+            <p class="greeting">Hey Arseniy,</p>
+
+            <p>I've been following your work on Dashbe.ai and wanted to reach out. I'm Willie — builder, founder, AI-first operator based in Livermore. I've spent the last several months building something I think you'll appreciate from a technical standpoint: <strong>WillieOS</strong>, a custom AI Chief of Staff system that's not a ChatGPT wrapper — it's a full agentic operating system with persistent memory, autonomous execution, and multi-agent dispatch.</p>
+
+            <p>I wanted to share what I've built, give you some genuine peer feedback on Dashbe, and see if you'd be up for a live demo.</p>
+
+            <div class="section">
+                <h2 class="section-title">What is WillieOS?</h2>
+                <p>WillieOS is an AI Chief of Staff named <strong>Gary Throttle</strong> who operates autonomously across email, calendar, tasks, notes, contacts, and knowledge management. Gary isn't a chatbot — he's an agent with persistent identity, cross-session memory, and the ability to execute complex workflows without hand-holding.</p>
+
+                <div class="highlight">
+                    <strong>Core Capabilities:</strong>
+                    <ul>
+                        <li>Persistent knowledge graph of my goals, concerns, family, projects, and energy levels</li>
+                        <li>Proactive scheduled behaviors (morning briefs, stale loop sweeps, pre-meeting briefings)</li>
+                        <li>Context-aware decision making (checks calendar before booking, avoids duplicate loops, references past conversations)</li>
+                        <li>Multi-agent dispatch system for complex tasks (routes work to specialized agents)</li>
+                        <li>80+ typed tools via MCP (Model Context Protocol) server</li>
+                        <li>Autonomous email mode for specific contacts (Gary handles full threads independently)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Architecture</h2>
+                <p>This is the full stack — not hiding anything here:</p>
+
+                <div class="code-block architecture">┌─────────────────────────────────────────────────────────┐
+│                   WillieOS Stack                        │
+├─────────────────────────────────────────────────────────┤
+│  Frontend Layer                                         │
+│  • macOS Desktop App (Electron)                         │
+│  • iOS Companion App                                    │
+│  • Real-time chat interface (Gary lives in menu bar)    │
+├─────────────────────────────────────────────────────────┤
+│  Agent Runtime                                          │
+│  • Claude Agent SDK (Anthropic)                         │
+│  • Custom MCP Server (Node.js)                          │
+│  • 80+ typed tools across 10 domains                    │
+├─────────────────────────────────────────────────────────┤
+│  Persistence Layer                                      │
+│  • SQLite (local)                                       │
+│  • Turso (cloud sync)                                   │
+│  • Dual-layer for cross-instance state sync             │
+├─────────────────────────────────────────────────────────┤
+│  Integrations                                           │
+│  • Google OAuth (Gmail + Calendar)                      │
+│  • GitHub (direct repo integration)                     │
+│  • Telegram (notifications + mobile input)              │
+│  • GitHub Pages (auto-publish output files)             │
+└─────────────────────────────────────────────────────────┘</div>
+
+                <p><strong>The 80+ MCP Tools breakdown:</strong></p>
+                <ul>
+                    <li><code>Calendar</code> — read, create, update, delete events; find free slots; pre-meeting briefings</li>
+                    <li><code>Email</code> — list, read, thread, send, reply with smart context-aware drafting</li>
+                    <li><code>Tasks (Loops)</code> — GTD-style open loop management with urgency, context, parent/child nesting, recurrence</li>
+                    <li><code>Notes</code> — create, update, search, delete (Living Docs system for evolving notes)</li>
+                    <li><code>Contacts</code> — lookup, save with aliases/relationship metadata</li>
+                    <li><code>Dispatch</code> — routes complex tasks to specialized agents (Cowork for docs, Claude Code for code)</li>
+                    <li><code>Workflows (Playbooks)</code> — chainable multi-step automations with cron scheduling</li>
+                    <li><code>Notifications</code> — Telegram + desktop alerts with quiet hours and batching</li>
+                    <li><code>Knowledge Graph</code> — entity graph of goals, blockers, decisions, family, sentiment</li>
+                    <li><code>Self-Assessment</code> — nightly Gary self-eval with accuracy/responsiveness/proactiveness scoring</li>
+                    <li><code>GitHub Pages</code> — auto-publishes output files to public URLs</li>
+                    <li><code>Google Drive</code> — upload, share, organize files</li>
+                    <li><code>Web</code> — search, browse, screenshot, extract structured data</li>
+                    <li><code>Settings</code> — dot-notation preference store for per-context preferences</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Dispatch System (Crown Jewel)</h2>
+                <p>This is where it gets interesting. When Gary encounters a task that requires specialized execution, the dispatch system routes it to the right agent:</p>
+
+                <div class="highlight">
+                    <strong>Dispatch Routing:</strong>
+                    <ul>
+                        <li><strong>Document/Report</strong> → <code>Cowork agent</code> (specialized document pipeline)</li>
+                        <li><strong>Code/Features</strong> → <code>Claude Code</code> (writes directly to disk, runs in project dir)</li>
+                        <li><strong>Research</strong> → handled inline or dispatched based on complexity</li>
+                    </ul>
+                </div>
+
+                <p><strong>Dispatch chains</strong> allow multi-step dependency execution. Step 2 auto-triggers when Step 1 completes. Dispatch memories persist cross-session, so context isn't lost between agent calls. A handoff packet system assembles relevant memories for new dispatches.</p>
+
+                <p>Gary also runs on a <strong>cron scheduler with guardrails</strong>:</p>
+                <ul>
+                    <li><strong>Morning autopilot</strong> (daily 7am) — email scan, calendar review, loop check, Gary's take</li>
+                    <li><strong>Stale loop sweep</strong> — surfaces overdue tasks</li>
+                    <li><strong>Pre-meeting brief</strong> — triggered before calendar events</li>
+                    <li><strong>Email triage</strong> — proactive inbox management</li>
+                    <li><strong>Nightly self-assessment</strong> — Gary grades himself on accuracy, responsiveness, proactiveness</li>
+                </ul>
+
+                <p>Per-job guardrails: debounce, cooldown, daily caps, concurrency limits to prevent runaway execution.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Learning Engine</h2>
+                <p>Gary learns from corrections and explicit teaching:</p>
+                <ul>
+                    <li><code>teach_gary</code> — I explicitly teach preferences</li>
+                    <li><code>record_correction</code> — tracks when I edit/override Gary's output</li>
+                    <li><code>get_gary_learnings</code> — retrieves learned patterns by category, contact, intent</li>
+                </ul>
+                <p>Preferences scope to global, contact-specific, context-specific, or intent-specific. Over time, Gary's drafts get eerily accurate.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Peer Feedback on Dashbe.ai</h2>
+                <p>I've been digging into what you're building and have some genuine thoughts (not flattery — real technical assessment from one builder to another):</p>
+
+                <div class="highlight">
+                    <strong>What's Impressive:</strong>
+                    <ul>
+                        <li><strong>Multi-channel reach is massive</strong> — 14+ platforms (Amazon, Shopify, TikTok Shop, Etsy, eBay, Walmart, WooCommerce, Pinterest, etc.). That's a serious integration challenge.</li>
+                        <li><strong>Product vision is bold</strong> — catalog-in → everything-out. One source of truth for an entire ecommerce operation. That's the right abstraction.</li>
+                        <li><strong>Model Magic & Scene Magic</strong> for product imagery is a smart moat — content quality at scale is a real pain point for sellers. If you're generating this on-demand with quality control, that's gold.</li>
+                        <li><strong>"Calculates, doesn't guess" positioning</strong> for AI order management is strong — logistics optimization is genuinely hard and valuable. If your AI is doing actual route optimization / inventory forecasting, not just heuristics, that's differentiated.</li>
+                        <li><strong>Mobile app builder in minutes</strong> is ambitious. If it works at that speed, it's a serious differentiator. Most no-code tools still require hours of setup.</li>
+                        <li><strong>Avatar video hosting</strong> as a "TV presenter" for product feeds is creative and taps into the TikTok/live commerce wave. Ahead of the curve if you're generating these programmatically.</li>
+                        <li><strong>Voice control across all channels</strong> — interesting bet, likely ahead of its time but the right direction. Conversational commerce is inevitable.</li>
+                    </ul>
+                </div>
+
+                <div class="highlight">
+                    <strong>Genuine Questions (Developer Peer Level):</strong>
+                    <ul>
+                        <li><strong>Catalog sync across 14 platforms must be technically brutal</strong> — how are you handling schema normalization across platforms with wildly different product data models? (Amazon's ASIN taxonomy vs. Shopify's metafields vs. Etsy's categories)</li>
+                        <li><strong>Personalization at checkout is table stakes now</strong> — what's the actual differentiation from Shopify's native AI, Klaviyo, etc.? Are you doing real-time behavioral modeling or just A/B testing?</li>
+                        <li><strong>"Instant dropshipping" claim is intriguing</strong> — is this connecting to existing suppliers (Alibaba, Printful, Spocket) or is there a proprietary supplier network? Supply chain is the hard part, not the interface.</li>
+                        <li><strong>Mobile app builder</strong> — native or PWA? If native, how are you handling App Store submissions / review cycles? That's usually the bottleneck.</li>
+                        <li><strong>Tech stack curiosity</strong> — the "infinite canvas" workflow builder feels like a Figma-style approach. Are you doing OT (operational transforms) for real-time collaboration? Or CRDT?</li>
+                    </ul>
+                </div>
+
+                <p>These aren't criticisms — just genuine curiosity from someone who's deep in the weeds on agent orchestration and multi-system integrations. I'd love to hear how you're solving these.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Let's Connect</h2>
+                <p>I'd love to give you a live demo of WillieOS and hear more about Dashbe's architecture. I think there's potential for collaboration here — the dispatch system I've built could be adapted for agent-driven ecommerce workflows, and your multi-channel orchestration challenges might inform how I think about tool composition.</p>
+
+                <div class="availability">
+                    <div class="availability-title">📅 My Availability (PST):</div>
+                    <p><strong>Friday, March 20:</strong></p>
+                    <ul>
+                        <li>9:00 AM – 12:30 PM</li>
+                        <li>1:00 PM – 2:30 PM</li>
+                    </ul>
+                    <p><strong>Monday, March 23:</strong></p>
+                    <ul>
+                        <li>9:00 AM – 12:00 PM</li>
+                        <li>12:30 PM – 6:00 PM</li>
+                    </ul>
+                </div>
+
+                <p>Would any of these work for you? I can send a calendar invite or we can keep it loose — whatever works best.</p>
+            </div>
+
+            <div class="cta">
+                <a href="mailto:willie@willieos.com?subject=WillieOS%20Demo%20%2B%20Dashbe%20Collaboration&body=Hey%20Willie%2C%0A%0AI'd%20love%20to%20see%20a%20demo%20of%20WillieOS%20and%20chat%20about%20Dashbe.%20Let's%20find%20a%20time." class="cta-button">Book a Demo →</a>
+            </div>
+
+            <p>Looking forward to connecting.</p>
+        </div>
+
+        <div class="footer">
+            <p class="signature">— Willie Kopp | Builder of WillieOS</p>
+            <p>Livermore, CA</p>
+            <div class="links">
+                <a href="https://github.com/williekopp1112-lab/willieOS" target="_blank">GitHub Repository</a>
+                <a href="https://williekopp1112-lab.github.io/willieOS-public/" target="_blank">Public Docs</a>
+                <a href="mailto:willie@willieos.com">willie@willieos.com</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
