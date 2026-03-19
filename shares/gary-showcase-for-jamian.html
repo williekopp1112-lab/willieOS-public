@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Built by Gary Throttle — For Jamian C. Polk</title>
+    <meta name="description" content="Willie Kopp's AI Chief of Staff showcases WillieOS capabilities. Builder to builder.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #1A1A2E;
+            --bg-card: #0F172A;
+            --accent-blue: #3B82F6;
+            --accent-emerald: #10B981;
+            --text-primary: #F1F5F9;
+            --text-muted: #94A3B8;
+            --border: rgba(59, 130, 246, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 25s; }
+        .particle:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 22s; }
+        .particle:nth-child(4) { left: 60%; animation-delay: 6s; animation-duration: 28s; }
+        .particle:nth-child(5) { left: 80%; animation-delay: 8s; animation-duration: 24s; }
+        .particle:nth-child(6) { left: 30%; animation-delay: 10s; animation-duration: 26s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 12s; animation-duration: 23s; }
+        .particle:nth-child(8) { left: 50%; animation-delay: 14s; animation-duration: 27s; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .meta-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .meta-label span {
+            color: var(--accent-emerald);
+            font-weight: 500;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 24px 0;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.3s forwards;
+        }
+
+        .sub-headline {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 24px auto 48px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.6s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease 0.9s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+            background: #2563EB;
+        }
+
+        /* Section Titles */
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+
+        /* Explainer Cards */
+        .explainer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .explainer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .explainer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .explainer-card .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .explainer-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .explainer-card p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* Meta Section - Chat Window */
+        .meta-section {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .chat-window {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 32px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-header {
+            background: #1A1A2E;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-emerald));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .chat-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chat-body {
+            padding: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+        }
+
+        .chat-label {
+            color: var(--accent-blue);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .chat-text {
+            color: var(--text-muted);
+            padding-left: 16px;
+            border-left: 2px solid var(--border);
+        }
+
+        .typing-text {
+            overflow: hidden;
+            border-right: 2px solid var(--accent-emerald);
+            white-space: nowrap;
+            animation: typing 3s steps(100) 1s forwards, blink 0.75s step-end infinite;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .feature-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-card h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Example Dispatch Cards */
+        .dispatch-grid {
+            display: grid;
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .dispatch-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .dispatch-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .dispatch-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .dispatch-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-emerald));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .dispatch-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .dispatch-prompt {
+            background: #000;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--accent-emerald);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .dispatch-result {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .feedback-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .feedback-column h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--accent-emerald);
+        }
+
+        .feedback-column ul {
+            list-style: none;
+        }
+
+        .feedback-column li {
+            padding-left: 24px;
+            margin-bottom: 16px;
+            position: relative;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .feedback-column li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        .opportunity-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-emerald);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+
+        .opportunity-box h4 {
+            color: var(--accent-emerald);
+            margin-bottom: 12px;
+        }
+
+        /* Tech Stack Diagram */
+        .tech-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            margin-top: 48px;
+            overflow-x: auto;
+        }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .flow-node {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .flow-arrow {
+            color: var(--accent-blue);
+            font-size: 24px;
+        }
+
+        .flow-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .flow-group-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 40px 0;
+            }
+
+            .meta-section, .feedback-section, .tech-diagram {
+                padding: 32px 24px;
+            }
+
+            .explainer-grid, .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feedback-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero visible">
+        <div class="container">
+            <div class="meta-label">
+                Built for <span>Jamian C. Polk</span><br>
+                by <span>Gary Throttle</span><br>
+                (Willie's AI Chief of Staff)
+            </div>
+            <h1>You're in Builder Phase.<br>So is Willie.</h1>
+            <p class="sub-headline">
+                We saw your energyandresources.ai launch. No fluff, no gatekeeping — just real tools for real builders.
+                That's our language. Willie built an AI that runs his life. Gary built this page. Let's talk.
+            </p>
+            <a href="#what-is-willieos" class="cta-button">See What We Built</a>
+        </div>
+    </section>
+
+    <!-- What is WillieOS? -->
+    <section id="what-is-willieos">
+        <div class="container">
+            <h2>What is WillieOS?</h2>
+            <p class="section-subtitle">A personal AI operating system. Built by Willie. Run by Gary.</p>
+
+            <div class="explainer-grid">
+                <div class="explainer-card">
+                    <span class="icon">🧠</span>
+                    <h4>The Brain</h4>
+                    <p>Anthropic's Claude Sonnet, running as a persistent AI Chief of Staff. Not a chatbot. An operating system.</p>
+                </div>
+                <div class="explainer-card">
+                    <span class="icon">🔧</span>
+                    <h4>The Tools</h4>
+                    <p>80+ MCP tools: calendar, email, tasks, research, publishing, learning. Gary doesn't ask permission. He has access.</p>
+                </div>
+                <div class="explainer-card">
+                    <span class="icon">⚡</span>
+                    <h4>The Agent</h4>
+                    <p>Gary Throttle. He doesn't wait to be asked. He dispatches sub-agents, learns preferences, and ships work autonomously.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Meta Moment -->
+    <section id="meta">
+        <div class="container">
+            <h2>Gary Built This Page</h2>
+            <p class="section-subtitle">The meta nature of what you're looking at right now.</p>
+
+            <div class="meta-section">
+                <p style="color: var(--text-muted); font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
+                    Willie typed: <em>"build a beautiful showcase page for Jamian, deep research him first, assess his website, draft an intro email, and look to schedule some time to share ideas"</em>
+                </p>
+
+                <div class="chat-window">
+                    <div class="chat-header">
+                        <div class="chat-avatar">G</div>
+                        <div class="chat-name">Gary Throttle</div>
+                    </div>
+                    <div class="chat-body">
+                        <div class="chat-message">
+                            <div class="chat-label">Willie:</div>
+                            <div class="chat-text">build a beautiful showcase page for Jamian, deep research him first, assess his website, draft an intro email, and look to schedule some time to share ideas</div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="chat-label">Gary:</div>
+                            <div class="chat-text typing-text">Researched JCP's LinkedIn post, analyzed energyandresources.ai, saved him as a contact with context, dispatched Code to build this showcase, prepared honest feedback on his site, and drafted an intro email — all in one autonomous turn.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-muted); font-size: 16px; margin-top: 24px; text-align: center;">
+                    <strong style="color: var(--accent-emerald);">This page IS the demo.</strong> If Gary can build this in one dispatch, imagine what he does for Willie every day.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section id="capabilities">
+        <div class="container">
+            <h2>What Gary Does</h2>
+            <p class="section-subtitle">Not a feature list. A day-to-day operating system.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="icon">📅</span>
+                    <h5>Smart Scheduling</h5>
+                    <p>Books meetings, reschedules conflicts, finds free time, manages Willie's calendar without asking.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📧</span>
+                    <h5>Email Intelligence</h5>
+                    <p>Reads inbox, drafts replies, sends on Willie's behalf, filters noise. Willie sees what matters.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔁</span>
+                    <h5>Open Loop System</h5>
+                    <p>Captures every open task with urgency, context, next actions. Nothing falls through the cracks.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🌐</span>
+                    <h5>One-Command Publishing</h5>
+                    <p>"Build me a site" → dispatch → publish to GitHub Pages in minutes. Gary handles everything.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🧠</span>
+                    <h5>Knowledge Graph</h5>
+                    <p>Live model of Willie's goals, concerns, blockers, family context. Gary knows the full picture.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🤖</span>
+                    <h5>Autonomous Agents</h5>
+                    <p>Dispatches Claude Code for building, Cowork for documents. Sub-agents work while Willie sleeps.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📊</span>
+                    <h5>Weekly Digest</h5>
+                    <p>Auto-generated summary every Sunday/Monday. What happened, what's next, what needs attention.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔬</span>
+                    <h5>Research Engine</h5>
+                    <p>Deep research on people, companies, topics. Gary reads, synthesizes, and presents insights.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📓</span>
+                    <h5>Living Notes</h5>
+                    <p>Documents that update over time. Meeting notes, contact profiles, project briefs — always current.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔔</span>
+                    <h5>Proactive Nudges</h5>
+                    <p>Surfaces risks, opportunities, follow-ups without being asked. Gary thinks ahead.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🎓</span>
+                    <h5>Learning Engine</h5>
+                    <p>Gary learns Willie's preferences via explicit teaching and implicit correction. Gets smarter daily.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🧩</span>
+                    <h5>31 Claude Code Skills</h5>
+                    <p>Auto-activated superpowers for every coding dispatch. TDD, debugging, PR review, architecture design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gary In Action -->
+    <section id="examples">
+        <div class="container">
+            <h2>Gary In Action</h2>
+            <p class="section-subtitle">Real dispatches. Real results.</p>
+
+            <div class="dispatch-grid">
+                <div class="dispatch-card">
+                    <div class="dispatch-header">
+                        <div class="dispatch-number">1</div>
+                        <div class="dispatch-title">Interview Prep</div>
+                    </div>
+                    <div class="dispatch-prompt">
+                        Willie: "Prep me for my ServiceNow interviews with Allen Hackman, Bradley Owen, and Julie McCarthy"
+                    </div>
+                    <div class="dispatch-result">
+                        <strong>Gary delivered:</strong> Full biographical research on 3 interviewers (LinkedIn, company profiles, social signals) + strategic talking points tailored to each person + watch-outs for cultural fit + interactive prep site published to GitHub Pages with timeline, Q&A prep, and company intelligence.
+                        <br><br>
+                        <em>Time: ~6 minutes. Willie showed up prepared.</em>
+                    </div>
+                </div>
+
+                <div class="dispatch-card">
+                    <div class="dispatch-header">
+                        <div class="dispatch-number">2</div>
+                        <div class="dispatch-title">Builder to Builder</div>
+                    </div>
+                    <div class="dispatch-prompt">
+                        Willie: "Check out Jamian's post, research him, assess his website, build a showcase, draft an email"
+                    </div>
+                    <div class="dispatch-result">
+                        <strong>Gary delivered:</strong> Contact saved with full context (Microsoft, 1921 Ventures, energyandresources.ai), website analyzed for strengths/gaps, honest feedback prepared, THIS showcase page built with premium design, and intro email drafted ready to send.
+                        <br><br>
+                        <em>You're looking at the output right now.</em>
+                    </div>
+                </div>
+
+                <div class="dispatch-card">
+                    <div class="dispatch-header">
+                        <div class="dispatch-number">3</div>
+                        <div class="dispatch-title">Morning Autopilot</div>
+                    </div>
+                    <div class="dispatch-prompt">
+                        [Automated, 7am every day]
+                    </div>
+                    <div class="dispatch-result">
+                        <strong>Gary delivers:</strong> Email triage (urgent flagged, noise filtered), loop review (stale items surfaced, due dates checked), calendar brief (conflicts resolved, prep needed for meetings), and Gary's take on the day — delivered before Willie's first coffee.
+                        <br><br>
+                        <em>Willie wakes up to a dashboard, not chaos.</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gary's Feedback on energyandresources.ai -->
+    <section id="feedback">
+        <div class="container">
+            <h2>Gary's Take on energyandresources.ai</h2>
+            <p class="section-subtitle">Unsolicited. Honest. Builder-to-builder.</p>
+
+            <div class="feedback-section">
+                <div class="feedback-columns">
+                    <div class="feedback-column">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Sharp niche at the exact right time — AI + Energy is the $300B play over the next decade</li>
+                            <li>"No fluff, no gatekeeping" ethos is the right cultural signal for the operator audience who's tired of hype</li>
+                            <li>Real-time market data + curated AI news = genuine daily utility for decision-makers</li>
+                            <li>Personal brand integration ("Jamian In The News") shows long game thinking — you're building authority, not just a news feed</li>
+                        </ul>
+                    </div>
+
+                    <div class="feedback-column">
+                        <h4>Honest Feedback</h4>
+                        <ul>
+                            <li>The "Jamian In The News" section is empty — this is the trust anchor for new visitors. Fill it first with your Microsoft thought leadership, GP work, film credits.</li>
+                            <li>Some AI news items in the feed may be AI-hallucinated or unverified (Gemini 3.0, GPT-5 energy launches that aren't confirmed) — add source verification or a "BETA" flag to protect credibility during early days</li>
+                            <li>Missing: a clear "who is this for?" line above the fold. The hero says "Enterprise AI tools" but Jamian's personal brand is the draw — lean into that</li>
+                            <li>Data source transparency: add an info button on the Market Pulse section explaining where data comes from (similar to Lou K.'s feedback in comments)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="opportunity-box">
+                    <h4>The Opportunity</h4>
+                    <p style="color: var(--text-muted); line-height: 1.8;">
+                        The intersection of Jamian's AI workforce expertise (Microsoft, 124+ enterprise customers, $1B+ portfolio) + energyandresources.ai could become <strong style="color: var(--text-primary);">THE resource for operators figuring out what AI actually works in regulated industries</strong> — not theory, not hype — the real stuff from someone doing it at scale.
+                        <br><br>
+                        That's differentiation you can't buy. It's earned through reps. You have the reps. The site needs to show it.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech">
+        <div class="container">
+            <h2>How It Works</h2>
+            <p class="section-subtitle">The architecture behind WillieOS.</p>
+
+            <div class="tech-diagram">
+                <div class="flow">
+                    <div class="flow-node">Willie</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">Gary (Claude)</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-group">
+                        <div class="flow-group-label">MCP Tools (80+)</div>
+                        <div class="flow-node">Calendar</div>
+                        <div class="flow-node">Email</div>
+                        <div class="flow-node">Tasks</div>
+                        <div class="flow-node">Research</div>
+                        <div class="flow-node">Publishing</div>
+                        <div class="flow-node">Notes</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-group">
+                        <div class="flow-group-label">Dispatchers</div>
+                        <div class="flow-node">Claude Code</div>
+                        <div class="flow-node">Cowork</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-group">
+                        <div class="flow-group-label">Output</div>
+                        <div class="flow-node">GitHub Pages</div>
+                        <div class="flow-node">Google Drive</div>
+                        <div class="flow-node">Telegram</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 48px; text-align: center;">
+                    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.8;">
+                        <strong style="color: var(--text-primary);">Tech Stack:</strong> Anthropic Claude (Sonnet) • MCP Protocol • React + Tauri 2 • Turso (SQLite edge DB) • Google Calendar + Gmail APIs • GitHub Pages • Telegram Bot API • Node.js MCP Server
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Builder to Builder.</h2>
+            <p>
+                Willie is in his Builder Phase too. He'd love to share what he's built, hear about what JCP is cooking, and swap notes on building in these crazy times.
+            </p>
+            <div class="cta-buttons">
+                <a href="mailto:jamiancpolk@gmail.com" class="cta-button">📧 Email Drafted by Gary</a>
+                <a href="#" class="cta-secondary">📅 Willie's Calendar is Open</a>
+            </div>
+
+            <p style="margin-top: 48px; font-size: 14px; color: var(--text-muted);">
+                Built autonomously by Gary Throttle on March 19, 2026<br>
+                Willie Kopp • Livermore, CA • <a href="https://github.com/williekopp1112-lab/willieOS" style="color: var(--accent-blue); text-decoration: none;">github.com/williekopp1112-lab/willieOS</a>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#what-is-willieos').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
