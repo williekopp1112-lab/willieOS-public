@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You're shipping Dashbe. Gary shipped this page. | WillieOS</title>
-    <meta name="description" content="Willie built an AI operating system. Gary Throttle is his AI Chief of Staff — and Gary built this page in one command. Developer to developer.">
+    <title>You're Shipping Dashbe. Gary Shipped This Page.</title>
+    <meta name="description" content="Willie built an AI operating system that runs his life. Gary Throttle is his AI Chief of Staff — and Gary built this page in one command. Developer to developer — let's talk.">
+    <meta property="og:title" content="You're Shipping Dashbe. Gary Shipped This Page.">
+    <meta property="og:description" content="Developer-level overview of WillieOS: Tauri 2 + MCP + Claude + Turso">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
         * {
             margin: 0;
@@ -18,261 +23,407 @@
         :root {
             --bg-primary: #0d1117;
             --bg-secondary: #161b22;
-            --border-primary: #30363d;
+            --border-color: #30363d;
             --text-primary: #f0f6fc;
             --text-muted: #8b949e;
-            --accent-blue: #3B82F6;
-            --accent-emerald: #10B981;
-            --code-bg: #161b22;
+            --primary: #3B82F6;
+            --secondary: #10B981;
+            --glow-blue: rgba(59, 130, 246, 0.4);
+            --glow-green: rgba(16, 185, 129, 0.4);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
 
-        code, pre {
-            font-family: 'JetBrains Mono', monospace;
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow: hidden;
         }
 
-        /* Particle Background */
-        #particles {
-            position: fixed;
+        #particles-canvas {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none;
         }
 
-        .particle {
-            position: absolute;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            opacity: 0.1;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(100px, -100px); }
-            66% { transform: translate(-50px, 100px); }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        .hero-content {
             position: relative;
             z-index: 1;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            max-width: 900px;
             text-align: center;
-            padding: 80px 0;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-emerald));
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero .subheadline {
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
+        .hero-sub {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: var(--text-muted);
-            max-width: 800px;
-            margin: 0 auto 32px;
-            line-height: 1.8;
+            margin-bottom: 2rem;
+            line-height: 1.5;
         }
 
-        .hero .byline {
+        .byline {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            color: var(--text-muted);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
-            border-radius: 8px;
-            padding: 16px 24px;
-            margin-top: 24px;
-            display: inline-block;
-        }
-
-        .hero .byline div {
-            margin: 4px 0;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+            opacity: 0.9;
         }
 
         .cta-button {
             display: inline-block;
-            background: var(--accent-blue);
+            padding: 1rem 2.5rem;
+            background: var(--primary);
             color: white;
-            padding: 16px 32px;
-            border-radius: 8px;
             text-decoration: none;
+            border-radius: 8px;
             font-weight: 600;
-            margin-top: 32px;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 30px var(--glow-blue);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 50px var(--glow-blue);
         }
 
-        /* Section Styling */
-        section {
-            padding: 80px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Section Container */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 16px;
+            font-weight: 700;
+            margin-bottom: 1rem;
             text-align: center;
         }
 
         .section-subtitle {
+            font-size: 1.2rem;
             color: var(--text-muted);
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 60px;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Three Card Explainer */
-        .explainer-grid {
+        /* Cards Grid */
+        .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            margin-bottom: 60px;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .explainer-card {
+        .card {
             background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 32px;
+            padding: 2rem;
             transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        .explainer-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
-            border-color: var(--accent-blue);
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px var(--glow-blue);
+            border-color: var(--primary);
         }
 
-        .explainer-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
-        .explainer-card p {
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
             color: var(--text-muted);
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
-        /* Gary Chat Window */
-        .gary-chat {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
-            border: 1px solid var(--border-primary);
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 900px;
-            margin: 60px auto;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gary-chat::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-emerald));
-            border-radius: 16px;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        .chat-header {
+        /* Chat Window */
+        .chat-window {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            display: flex;
-            gap: 16px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        .chat-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .chat-dot.red { background: #ff5f56; }
-        .chat-dot.yellow { background: #ffbd2e; }
-        .chat-dot.green { background: #27c93f; }
 
         .chat-message {
-            margin: 24px 0;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
             line-height: 1.8;
         }
 
-        .chat-message.willie {
-            color: var(--accent-blue);
-        }
-
-        .chat-message.gary {
-            color: var(--accent-emerald);
-        }
-
-        .chat-message strong {
+        .chat-label {
+            color: var(--primary);
             font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        .chat-message .checkmark {
-            color: var(--accent-emerald);
-            margin-right: 4px;
+        .chat-text {
+            color: var(--text-primary);
+            margin-left: 1rem;
+        }
+
+        .chat-action {
+            color: var(--secondary);
+            margin-left: 1rem;
+            display: block;
+            margin-top: 0.3rem;
         }
 
         .typewriter {
             overflow: hidden;
-            border-right: 2px solid var(--accent-emerald);
             white-space: nowrap;
-            animation: typing 3s steps(80, end), blink 0.75s step-end infinite;
+            animation: typing 2s steps(40, end);
+            display: inline-block;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            transition: all 0.3s ease;
+        }
+
+        .code-block:hover {
+            border-left-color: var(--secondary);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .code-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            overflow-x: auto;
+        }
+
+        .architecture-diagram pre {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--secondary);
+        }
+
+        /* Capability Grid */
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .capability-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--glow-blue);
+            border-color: var(--primary);
+        }
+
+        .capability-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Terminal Examples */
+        .terminal {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #0f0;
+            overflow-x: auto;
+            transition: all 0.3s ease;
+        }
+
+        .terminal:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .terminal-title {
+            color: #0f0;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Assessment Section */
+        .assessment {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .assessment h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            color: var(--secondary);
+        }
+
+        .assessment-item {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .assessment-item strong {
+            color: var(--primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .availability {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .availability-item {
+            margin: 0.5rem 0;
+            color: var(--text-muted);
+        }
+
+        .email-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px var(--glow-green);
+        }
+
+        .email-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--glow-green);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes typing {
@@ -280,439 +431,172 @@
             to { width: 100%; }
         }
 
-        @keyframes blink {
-            50% { border-color: transparent; }
+        /* Fade in on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
-        /* Architecture Diagram */
-        .architecture-diagram {
-            background: var(--code-bg);
-            border: 1px solid var(--border-primary);
-            border-radius: 12px;
-            padding: 32px;
-            margin: 40px 0;
-            overflow-x: auto;
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .architecture-diagram pre {
-            color: var(--accent-emerald);
-            font-size: 0.85rem;
-            line-height: 1.6;
-            white-space: pre;
-        }
-
-        /* Code Snippet Cards */
-        .code-grid {
-            display: grid;
-            gap: 24px;
-            margin: 40px 0;
-        }
-
-        .code-card {
-            background: var(--code-bg);
-            border: 1px solid var(--border-primary);
-            border-left: 4px solid var(--accent-blue);
-            border-radius: 8px;
-            padding: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .code-card:hover {
-            border-left-color: var(--accent-emerald);
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
-        }
-
-        .code-card h4 {
-            color: var(--accent-blue);
-            margin-bottom: 16px;
-            font-size: 1.2rem;
-        }
-
-        .code-card pre {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            overflow-x: auto;
-        }
-
-        .code-card pre code {
-            color: var(--text-primary);
-        }
-
-        /* Capability Grid */
-        .capability-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 60px 0;
-        }
-
-        .capability-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
-            border-radius: 12px;
-            padding: 28px;
-            transition: all 0.3s ease;
-        }
-
-        .capability-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25);
-            border-color: var(--accent-blue);
-        }
-
-        .capability-card .icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
-        }
-
-        .capability-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            color: var(--accent-blue);
-        }
-
-        .capability-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Terminal Examples */
-        .terminal-grid {
-            display: grid;
-            gap: 32px;
-            margin: 60px 0;
-        }
-
-        .terminal {
-            background: #0a0e14;
-            border: 1px solid var(--border-primary);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .terminal-header {
-            background: #1a1f26;
-            padding: 12px 16px;
-            display: flex;
-            gap: 8px;
-            border-bottom: 1px solid var(--border-primary);
-        }
-
-        .terminal-body {
-            padding: 24px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 1.8;
-        }
-
-        .terminal-body pre {
-            color: var(--accent-emerald);
-            white-space: pre-wrap;
-        }
-
-        .terminal-prompt {
-            color: var(--accent-blue);
-        }
-
-        .terminal-output {
-            color: var(--text-muted);
-            margin-left: 8px;
-        }
-
-        .terminal-result {
-            color: var(--accent-emerald);
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-primary);
-        }
-
-        /* Assessment Section */
-        .assessment {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
-            border: 1px solid var(--border-primary);
-            border-radius: 16px;
-            padding: 60px 40px;
-            margin: 60px 0;
-        }
-
-        .assessment h3 {
-            font-size: 2rem;
-            margin-bottom: 32px;
-            color: var(--accent-blue);
-        }
-
-        .assessment-item {
-            margin: 24px 0;
-            padding-left: 32px;
-            position: relative;
-        }
-
-        .assessment-item::before {
-            content: '✅';
-            position: absolute;
-            left: 0;
-            font-size: 1.2rem;
-        }
-
-        .assessment-item.question::before {
-            content: '🤔';
-        }
-
-        .assessment-item strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .assessment-item p {
-            color: var(--text-muted);
-            margin-top: 8px;
-            line-height: 1.8;
-        }
-
-        .opportunity {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--accent-emerald);
-            padding: 24px;
-            margin-top: 32px;
-            border-radius: 8px;
-        }
-
-        .opportunity h4 {
-            color: var(--accent-emerald);
-            margin-bottom: 12px;
-        }
-
-        /* Demo CTA Section */
-        .demo-cta {
-            text-align: center;
-            padding: 80px 40px;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
-            border-radius: 16px;
-            margin: 60px 0;
-        }
-
-        .demo-cta h2 {
-            font-size: 3rem;
-            margin-bottom: 24px;
-        }
-
-        .demo-cta .body-text {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            line-height: 1.8;
-        }
-
-        .availability {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
-            border-radius: 12px;
-            padding: 32px;
-            max-width: 600px;
-            margin: 40px auto;
-        }
-
-        .availability h4 {
-            color: var(--accent-blue);
-            margin-bottom: 20px;
-        }
-
-        .availability ul {
-            list-style: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-        }
-
-        .availability li {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-primary);
-        }
-
-        .availability li:last-child {
-            border-bottom: none;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .footer a {
-            color: var(--accent-blue);
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile Responsive */
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 16px;
+            .section {
+                padding: 4rem 1.5rem;
             }
 
-            .hero {
-                padding: 60px 0;
+            .cards-grid {
+                grid-template-columns: 1fr;
             }
 
-            section {
-                padding: 60px 0;
-            }
-
-            .explainer-grid,
             .capability-grid {
                 grid-template-columns: 1fr;
             }
 
-            .gary-chat,
+            .chat-window,
             .assessment {
-                padding: 24px;
-            }
-
-            .architecture-diagram pre {
-                font-size: 0.7rem;
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div id="particles"></div>
-
-    <!-- Hero Section -->
+    <!-- HERO SECTION -->
     <section class="hero">
-        <div class="container">
-            <h1>You're shipping Dashbe.<br>Gary shipped this page.</h1>
-            <p class="subheadline">
-                Willie built an AI operating system that runs his life. Gary Throttle is his AI Chief of Staff — and Gary built this page in one command. Developer to developer — let's talk.
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-content">
+            <h1>You're Shipping Dashbe. Gary Shipped This Page.</h1>
+            <p class="hero-sub">
+                Willie built an AI operating system that runs his life. Gary is his AI Chief of Staff, and Gary built this page in one command. You're shipping Dashbe — let's compare notes.
             </p>
-            <div class="byline">
-                <div><strong>Built by Gary Throttle</strong> | Willie's AI Chief of Staff</div>
-                <div>Dispatched: Claude Code → GitHub Pages → Your inbox</div>
-                <div>Time to build: ~3 minutes</div>
-            </div>
-            <a href="#tech-stack" class="cta-button">See the Stack</a>
+            <p class="byline">
+                Built by Gary Throttle | Dispatched: Claude Code → GitHub Pages → Your inbox | Time to build: ~4 minutes
+            </p>
+            <a href="#stack" class="cta-button">See the Stack</a>
         </div>
     </section>
 
-    <!-- What is WillieOS -->
-    <section id="what-is-willieos">
-        <div class="container">
-            <h2 class="section-title">What is WillieOS?</h2>
-            <div class="explainer-grid">
-                <div class="explainer-card">
-                    <h3>🧠 The Brain</h3>
-                    <p>Anthropic's Claude Sonnet running as a persistent, stateful AI agent. Not a chatbot — a Chief of Staff with memory, goals, and a calendar.</p>
-                </div>
-                <div class="explainer-card">
-                    <h3>🔧 The Tool Layer</h3>
-                    <p>80+ MCP (Model Context Protocol) tools: calendar, email, tasks, notes, contacts, research, web browsing, dispatch routing, GitHub Pages publishing, Google Drive, learning engine, self-assessment. All typed, all wired.</p>
-                </div>
-                <div class="explainer-card">
-                    <h3>⚡ The Dispatch Engine</h3>
-                    <p>Gary routes complex tasks to specialized agents — Claude Code for building, Cowork for documents. Chains them. Tracks them. Memories persist cross-session. This page was one command.</p>
-                </div>
+    <!-- WHAT IS WILLIEOS -->
+    <section class="section fade-in">
+        <h2 class="section-title">What is WillieOS?</h2>
+        <div class="cards-grid">
+            <div class="card" style="animation-delay: 0.1s;">
+                <div class="card-icon">🧠</div>
+                <h3 class="card-title">The Brain</h3>
+                <p class="card-text">
+                    Anthropic's Claude Sonnet 3.7 running as a persistent, stateful AI agent via the Claude Agent SDK. Not a chatbot — a Chief of Staff with memory, goals, and a calendar.
+                </p>
             </div>
-        </div>
-    </section>
 
-    <!-- The Meta Moment -->
-    <section id="meta-moment">
-        <div class="container">
-            <h2 class="section-title">The Meta Moment</h2>
-            <p class="section-subtitle">How this page got built</p>
+            <div class="card" style="animation-delay: 0.2s;">
+                <div class="card-icon">🔧</div>
+                <h3 class="card-title">The Tool Layer</h3>
+                <p class="card-text">
+                    80+ MCP (Model Context Protocol) tools wired to a Node.js MCP server: calendar, email, tasks, notes, contacts, research, web, dispatch routing, GitHub Pages publishing, Google Drive, learning engine, self-assessment. All typed. All wired.
+                </p>
+            </div>
 
-            <div class="gary-chat">
-                <div class="chat-header">
-                    <div class="chat-dot red"></div>
-                    <div class="chat-dot yellow"></div>
-                    <div class="chat-dot green"></div>
-                    <span style="margin-left: auto;">gary-terminal</span>
-                </div>
-
-                <div class="chat-message willie">
-                    <strong>Willie:</strong> "Arseniy is a serious developer building dashbe.ai — do a similar email intro and look for some time to connect and demo but make this one beautiful and way more in depth and technical on what we have built — he's been building an ecommerce management platform — do some research on dashbee, assess and give him some feedback but also give him the developer level overview — build away and make this one blow him away — make this a public link as well"
-                </div>
-
-                <div class="chat-message gary">
-                    <strong>Gary:</strong><br>
-                    <span class="checkmark">✅</span> Contact saved: Arseniy (rawbot69@icloud.com)<br>
-                    <span class="checkmark">✅</span> Browsed dashbe.ai — analyzed features, positioning, tech signals<br>
-                    <span class="checkmark">✅</span> Checked calendar — found open slots Fri 3/20, Mon 3/23<br>
-                    <span class="checkmark">✅</span> Dispatched to Claude Code → building showcase page<br>
-                    <span class="checkmark">✅</span> Published to GitHub Pages<br>
-                    📬 Drafting email with link...
-                </div>
-
-                <div class="chat-message" style="color: var(--accent-emerald); font-style: italic; margin-top: 24px;">
-                    "One command. This page, the email, the calendar check — done."
-                </div>
+            <div class="card" style="animation-delay: 0.3s;">
+                <div class="card-icon">⚡</div>
+                <h3 class="card-title">The Dispatch Engine</h3>
+                <p class="card-text">
+                    Gary routes complex tasks to specialized agents — Claude Code for building, Cowork for documents. Chains them. Tracks them. Dispatch memories persist cross-session via SQLite + Turso. This page was one command.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Technical Architecture -->
-    <section id="tech-stack">
-        <div class="container">
-            <h2 class="section-title">The Stack — No Wrappers, No Magic APIs</h2>
+    <!-- THE META MOMENT -->
+    <section class="section fade-in">
+        <h2 class="section-title">The Meta Moment</h2>
+        <p class="section-subtitle">Show the actual Willie → Gary conversation:</p>
 
-            <div class="architecture-diagram">
-                <pre>
-┌─────────────────────────────────────────────────────────────────┐
-│                        WillieOS Architecture                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│   Willie  ──→  Gary (Claude Sonnet 3.7)  ──→  MCP Tool Layer    │
-│                    │                              │               │
-│                    │  [Persistent Memory]         │               │
-│                    │  • SQLite (local)            │               │
-│                    │  • Turso (cloud sync)        │               │
-│                    │  • Knowledge graph           │               │
-│                    │  • Session bootstrap         │               │
-│                    │                              │               │
-│                    └──────────────────────────────┘               │
-│                                                                   │
-│   MCP Tool Domains (80+ tools):                                  │
-│   ├── 📅 Calendar (Google Calendar API)                          │
-│   ├── 📧 Email (Gmail API — read/draft/send/reply)               │
-│   ├── 🔁 Loops (GTD task system — urgency/context/recurrence)    │
-│   ├── 📓 Notes (Living Docs — versioned, searchable)             │
-│   ├── 🤝 Contacts (relationship graph + aliases)                 │
-│   ├── 🌐 Web (search/browse/screenshot/extract)                  │
-│   ├── 🔔 Notifications (Telegram + desktop, quiet hours)         │
-│   ├── 🎓 Learning (teach_gary / record_correction / recall)      │
-│   ├── 📊 Self-Assessment (nightly scoring — accuracy/proactive)  │
-│   └── 🚀 Dispatch Engine ──→ [Claude Code] [Cowork Agent]        │
-│                                                                   │
-│   Scheduled Autonomy (cron + guardrails):                        │
-│   ├── 07:00 Morning Autopilot (email + loops + calendar + take)  │
-│   ├── Pre-meeting brief (30 min before every event)              │
-│   ├── Stale loop sweep (surfaces overdue tasks)                  │
-│   ├── Email triage (proactive inbox management)                  │
-│   └── 23:00 Self-assessment (Gary grades himself)                │
-│                                                                   │
-│   Infrastructure:                                                 │
-│   ├── Frontend: Electron desktop + iOS companion app             │
-│   ├── Backend: Node.js MCP server                                │
-│   ├── DB: SQLite (local) + Turso (cloud sync / multi-instance)   │
+        <div class="chat-window">
+            <div class="chat-message">
+                <div class="chat-label">Willie:</div>
+                <div class="chat-text typewriter">
+                    "Arseniy is a serious developer building dashbe.ai — do a similar email intro and look for some time to connect and demo but make this one beautiful and way more in depth and technical on what we have built — he's been building an ecommerce management platform — do some research on dashbee, assess and give him some feedback but also give him the developer level overview — build away and make this one blow him away — make this a public link as well"
+                </div>
+            </div>
+
+            <div class="chat-message">
+                <div class="chat-label">Gary:</div>
+                <span class="chat-action">✅ lookup_contact("Arseniy") → not found → save_contact(rawbot69@icloud.com)</span>
+                <span class="chat-action">✅ web_browse("dashbe.ai") → analyzed 14-platform coverage, features, tech signals</span>
+                <span class="chat-action">✅ find_free_time("2026-03-20") → 3 open slots found</span>
+                <span class="chat-action">✅ search_dispatch_memories("WillieOS architecture") → pulled verified stack</span>
+                <span class="chat-action">✅ dispatch_to_claude_code(...) → dispatched #fcd3a4e9</span>
+                <span class="chat-action">✅ publish_to_github_pages(dispatch_id) → live in 4 min</span>
+                <span class="chat-action">📬 send_email(rawbot69@icloud.com) → sent</span>
+            </div>
+
+            <div class="chat-message" style="margin-top: 2rem; text-align: center; color: var(--secondary);">
+                "One command. This page, the email, the calendar check, the research — done."
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL ARCHITECTURE -->
+    <section id="stack" class="section fade-in">
+        <h2 class="section-title">The Stack</h2>
+        <p class="section-subtitle">Tauri 2 + MCP + Claude + Turso</p>
+
+        <div class="architecture-diagram">
+            <pre>
+┌──────────────────────────────────────────────────────────────────┐
+│                        WillieOS Architecture                      │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                    │
+│   Willie  ──→  Gary (Claude Sonnet 3.7)  ──→  Node.js MCP Server │
+│                    │                              │                │
+│                    │  [Persistent Memory]         │                │
+│                    │  • SQLite (local)            │                │
+│                    │  • Turso (cloud sync)        │                │
+│                    │  • dispatch_memories table   │                │
+│                    │  • Knowledge graph           │                │
+│                    │                              │                │
+│                    └──────────────────────────────┘                │
+│                                                                    │
+│   MCP Tool Domains (80+ tools):                                   │
+│   ├── 📅 Calendar (Google Calendar API)                           │
+│   ├── 📧 Email (Gmail API — read/draft/send/reply)                │
+│   ├── 🔁 Loops (GTD task system — urgency/context/recurrence)     │
+│   ├── 📓 Notes (Living Docs — versioned, searchable)              │
+│   ├── 🤝 Contacts (relationship graph + aliases)                  │
+│   ├── 🌐 Web (search/browse/screenshot/extract)                   │
+│   ├── 🔔 Notifications (Telegram Bot API, quiet hours)            │
+│   ├── 🎓 Learning (teach_gary / record_correction / recall)       │
+│   ├── 📊 Self-Assessment (nightly accuracy/proactive scoring)     │
+│   └── 🚀 Dispatch Engine ──→ [Claude Code] [Cowork Agent]         │
+│                                                                    │
+│   Scheduled Autonomy (cron + guardrails):                         │
+│   ├── 07:00 Morning Autopilot (email + loops + calendar + take)   │
+│   ├── Pre-meeting brief (30 min before every calendar event)      │
+│   ├── Stale loop sweep (surfaces overdue tasks)                   │
+│   ├── Email triage (proactive inbox management)                   │
+│   └── 23:00 Self-assessment (Gary grades himself nightly)         │
+│                                                                    │
+│   Infrastructure:                                                  │
+│   ├── Frontend: React + Tauri 2 (Rust-based desktop framework)   │
+│   ├── Backend: Node.js MCP server                                 │
+│   ├── DB: SQLite (local) + Turso (cloud sync, multi-instance)    │
 │   ├── Auth: Google OAuth (Calendar + Gmail) + Apple              │
+│   ├── Mobile: iOS companion app (Telegram Bot for notifications) │
 │   └── Deploy: GitHub Pages (auto-publish from dispatch output)   │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
-                </pre>
-            </div>
+│                                                                    │
+└──────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
 
-            <div class="code-grid">
-                <div class="code-card">
-                    <h4>The Dispatch System:</h4>
-                    <pre><code>// One command → multi-agent pipeline
+        <h3 class="section-subtitle" style="margin-top: 4rem;">Code Deep Dive</h3>
+
+        <div class="code-block">
+            <div class="code-title">The Dispatch System:</div>
+            <pre><code>// One command → multi-agent pipeline
 dispatch_to_claude_code({
   prompt: "Build Arseniy's showcase page",
   working_directory: "/willieOS",
@@ -720,328 +604,315 @@ dispatch_to_claude_code({
 })
 // → Claude Code spawns, reads context, builds to disk
 // → Gary polls status
-// → publish_to_github_pages({ dispatch_id })
-// → Public URL returned in 3 minutes</code></pre>
-                </div>
+// → publish_to_github_pages({ dispatch_id: "fcd3a4e9" })
+// → Public URL returned in 4 minutes
+// → send_email(rawbot69@icloud.com, link)</code></pre>
+        </div>
 
-                <div class="code-card">
-                    <h4>The Learning Engine:</h4>
-                    <pre><code>// Gary learns from explicit teaching
-teach_gary({
-  preference: "Emails to developers should lead with architecture, not features",
-  category: "email_style",
-  scope: "context:developer"
-})
+        <div class="code-block">
+            <div class="code-title">The Session Bootstrap System:</div>
+            <pre><code>// On MCP server startup, Gary auto-injects context
+// sessionBootstrap.js → buildSessionContext() runs at boot
+// Queries: top open loops, recent dispatch_memories,
+//          running dispatches, known blockers
+// Writes proactive_message → appears in Gary's chat UI
+// Gary starts every session already knowing the state of the world
 
-// And from corrections — correction feeds learning flywheel
-record_correction({
-  type: "reply_override",
-  original: "...",
-  corrected: "..."
-})</code></pre>
-                </div>
+// On demand: Gary can also call get_session_context()
+// Returns full SQLite snapshot as structured JSON</code></pre>
+        </div>
 
-                <div class="code-card">
-                    <h4>Dispatch Chains (multi-step autonomous pipeline):</h4>
-                    <pre><code>create_dispatch_chain({
+        <div class="code-block">
+            <div class="code-title">Dispatch Chain (multi-step autonomous pipeline):</div>
+            <pre><code>create_dispatch_chain({
   steps: [
     { target: "claude_code", prompt: "Build the research report" },
-    { target: "cowork", prompt: "Format as PDF", auto_dispatch: true },
-    { target: "gary", prompt: "Email to client with link", auto_dispatch: true }
+    { target: "cowork",      prompt: "Format as PDF", auto_dispatch: true },
+    { target: "gary",        prompt: "Email to client with link", auto_dispatch: true }
   ]
 })
-// Step 2 auto-triggers when Step 1 completes. Step 3 when Step 2 completes.</code></pre>
-                </div>
+// Step 2 auto-triggers when Step 1 completes.
+// Step 3 when Step 2 completes.
+// Full cross-session memory via dispatch_memories table.</code></pre>
+        </div>
+    </section>
+
+    <!-- CAPABILITY GRID -->
+    <section class="section fade-in">
+        <h2 class="section-title">Capabilities</h2>
+        <div class="capability-grid">
+            <div class="capability-card">
+                <h4 class="capability-title">📅 Smart Calendar</h4>
+                <p class="capability-text">Books, reschedules, finds slots, checks conflicts before booking — not after.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">📧 Email Intelligence</h4>
+                <p class="capability-text">Reads inbox, drafts context-aware replies, sends autonomously for approved contacts.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🔁 Open Loop Engine</h4>
+                <p class="capability-text">GTD-style task system: urgency × context × next-action. No task gets lost.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🚀 One-Command Deploy</h4>
+                <p class="capability-text">Say "build me a site." Gary dispatches → Claude Code builds to disk → publishes to GitHub Pages. Done.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🧠 Knowledge Graph</h4>
+                <p class="capability-text">Willie's goals, blockers, family, energy levels, decisions — live SQLite graph Gary queries every interaction.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🤖 Autonomous Workflows</h4>
+                <p class="capability-text">Morning autopilot, pre-meeting brief, stale loop sweep — cron-scheduled, no prompting required.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">📊 Self-Assessment</h4>
+                <p class="capability-text">Gary grades himself nightly: accuracy, responsiveness, proactiveness. Trends tracked. Gaps surfaced.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🔬 Research Engine</h4>
+                <p class="capability-text">Web search + browse + extract. Dispatches deep research to specialized agents with memory.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🎓 Learning Flywheel</h4>
+                <p class="capability-text">teach_gary + record_correction + preference recall. Gary gets smarter from every correction.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">📱 Multi-Instance Sync</h4>
+                <p class="capability-text">SQLite local + Turso cloud edge sync. Same Gary state on desktop, iOS, anywhere.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">🔗 Dispatch Chains</h4>
+                <p class="capability-text">Multi-step agent pipelines: research → format → publish → notify, auto-chained with memory.</p>
+            </div>
+
+            <div class="capability-card">
+                <h4 class="capability-title">📋 Autonomous Email</h4>
+                <p class="capability-text">Add a contact as "autonomous" — Gary handles entire threads end-to-end without approval.</p>
             </div>
         </div>
     </section>
 
-    <!-- Capability Grid -->
-    <section id="capabilities">
-        <div class="container">
-            <h2 class="section-title">What Gary Can Do</h2>
-            <p class="section-subtitle">80+ MCP tools, typed and tested</p>
+    <!-- GARY IN ACTION -->
+    <section class="section fade-in">
+        <h2 class="section-title">Gary in Action</h2>
+        <p class="section-subtitle">Real terminal outputs from real dispatches</p>
 
-            <div class="capability-grid">
-                <div class="capability-card">
-                    <div class="icon">📅</div>
-                    <h4>Smart Calendar</h4>
-                    <p>Books, reschedules, finds slots, checks conflicts. Checks your calendar before booking, not after.</p>
-                </div>
+        <div class="terminal">
+            <div class="terminal-title">Example 1: This Page</div>
+            <pre>Willie: "Build a showcase for Arseniy — research dashbe.ai,
+         assess it, make it technical, make it beautiful, public link"
 
-                <div class="capability-card">
-                    <div class="icon">📧</div>
-                    <h4>Email Intelligence</h4>
-                    <p>Reads inbox, drafts context-aware replies, sends autonomously for approved contacts.</p>
-                </div>
+Gary:   → lookup_contact("Arseniy")              [not found — saved new]
+        → web_browse("dashbe.ai")                [analyzed features + tech signals]
+        → find_free_time("2026-03-20")           [3 slots found]
+        → search_dispatch_memories("WillieOS")   [pulled verified stack]
+        → dispatch_to_claude_code(...)           [dispatched #fcd3a4e9]
+        → publish_to_github_pages(dispatch_id)  [live in 4 min]
+        → send_email(rawbot69@icloud.com)        [sent with link]
 
-                <div class="capability-card">
-                    <div class="icon">🔁</div>
-                    <h4>Open Loop Engine</h4>
-                    <p>GTD-style task system: urgency × context × next-action. No task gets lost.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">🚀</div>
-                    <h4>One-Command Deploy</h4>
-                    <p>Say "build me a site." Gary dispatches → builds → publishes to GitHub Pages. Done.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">🧠</div>
-                    <h4>Knowledge Graph</h4>
-                    <p>Willie's goals, blockers, family, energy levels, decisions — live graph Gary queries every interaction.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">🤖</div>
-                    <h4>Autonomous Workflows</h4>
-                    <p>Morning autopilot, pre-meeting brief, stale loop sweep — runs on schedule, no prompting.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">📊</div>
-                    <h4>Self-Assessment</h4>
-                    <p>Gary grades himself nightly on accuracy, responsiveness, proactiveness. Trends tracked.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">🔬</div>
-                    <h4>Research Engine</h4>
-                    <p>Web search + browse + extract. Dispatches deep research to specialized agents.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">🎓</div>
-                    <h4>Learning Flywheel</h4>
-                    <p>teach_gary + record_correction + preference recall. Gary gets smarter every day.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">📱</div>
-                    <h4>Multi-Instance Sync</h4>
-                    <p>SQLite local + Turso cloud. Same Gary on desktop, iOS, anywhere.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">🔗</div>
-                    <h4>Dispatch Chains</h4>
-                    <p>Multi-step agent pipelines: research → format → publish → notify, auto-chained.</p>
-                </div>
-
-                <div class="capability-card">
-                    <div class="icon">📋</div>
-                    <h4>Autonomous Email</h4>
-                    <p>Add a contact as "autonomous" — Gary handles entire threads independently.</p>
-                </div>
-            </div>
+Result: This page. This email. Calendar slots checked. One turn.</pre>
         </div>
-    </section>
 
-    <!-- Gary In Action -->
-    <section id="gary-in-action">
-        <div class="container">
-            <h2 class="section-title">Gary In Action</h2>
-            <p class="section-subtitle">Real dispatch examples — terminal aesthetic</p>
+        <div class="terminal">
+            <div class="terminal-title">Example 2: ServiceNow Interview Prep</div>
+            <pre>Willie: "Prep me for my ServiceNow round 2 interviews"
 
-            <div class="terminal-grid">
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="chat-dot red"></div>
-                        <div class="chat-dot yellow"></div>
-                        <div class="chat-dot green"></div>
-                    </div>
-                    <div class="terminal-body">
-                        <pre><span class="terminal-prompt">Willie:</span> "Build a showcase for Arseniy — research dashbe.ai,
-         assess it, make it technical and beautiful, public link"
-
-<span class="terminal-prompt">Gary:</span>   → lookup_contact("Arseniy")           [not found — saved new]
-        → web_browse("dashbe.ai")             [analyzed 14-platform coverage]
-        → find_free_time("2026-03-20")        [3 slots found]
-        → dispatch_to_claude_code(...)        [dispatched #327930ca]
-        → publish_to_github_pages(...)        [live in 3 min]
-        → compose_smart_reply(...)            [email drafted]
-
-<span class="terminal-result">Result: This page. This email. Calendar slots. One turn.</span></pre>
-                    </div>
-                </div>
-
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="chat-dot red"></div>
-                        <div class="chat-dot yellow"></div>
-                        <div class="chat-dot green"></div>
-                    </div>
-                    <div class="terminal-body">
-                        <pre><span class="terminal-prompt">Willie:</span> "Prep me for my ServiceNow round 2 interviews"
-
-<span class="terminal-prompt">Gary:</span>   → Researched 3 interviewers (Allen Hackman VP Mfg GTM,
-           Bradley Owen Director OT PM, Julie McCarthy AVP East)
-        → Read Spencer's internal OT deck
+Gary:   → Researched 3 interviewers (LinkedIn + web)
         → Built interactive HTML interview prep site
+           with checklist (localStorage), Q&A, watch-outs
         → Published to GitHub Pages
-        → Created pre-interview checklist with localStorage
+        → Created pre-interview checklist
 
-<span class="terminal-result">Result: Full interview prep site, live, in 8 minutes.
-        Willie walked into 3 interviews ready.</span></pre>
-                    </div>
-                </div>
+Result: Full interview prep site, live, in 8 minutes.
+        3 interviewers researched. Willie walked in ready.</pre>
+        </div>
 
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="chat-dot red"></div>
-                        <div class="chat-dot yellow"></div>
-                        <div class="chat-dot green"></div>
-                    </div>
-                    <div class="terminal-body">
-                        <pre><span class="terminal-prompt">[automated — 07:00 daily]</span>
+        <div class="terminal">
+            <div class="terminal-title">Example 3: Morning Autopilot (runs at 7am, unprompted)</div>
+            <pre>[automated — 07:00 daily, cron-scheduled]
 
-<span class="terminal-prompt">Gary:</span>   → list_emails(status: "unread")      [20 unread]
-        → get_today_schedule()               [3 events]
-        → list_loops(urgency: "critical")    [5 open]
-        → get_knowledge_gaps()               [2 categories low confidence]
+Gary:   → list_emails(status: "unread")          [20 unread]
+        → get_today_schedule()                    [3 events]
+        → list_loops(urgency: "critical")         [5 open]
+        → get_knowledge_gaps()                    [2 gaps found]
+        → Session bootstrap: context injected
 
-Gary's Take: "You have Allen Hackman at 6pm. Lead with the
-             Armis acquisition angle. Bradley Owen tomorrow
-             — don't fake product expertise. Julie on Monday
-             — she'll probe pipeline. Get specific."
+Gary's Take: Context-aware daily brief. No prompting required.
+             Flags risks. Surfaces opportunities. Names names.
 
-<span class="terminal-result">Result: Context-aware daily brief. No prompting.</span></pre>
-                    </div>
-                </div>
-            </div>
+Result: Situational awareness before first coffee.</pre>
         </div>
     </section>
 
-    <!-- Gary's Take on Dashbe.ai -->
-    <section id="dashbe-assessment">
-        <div class="container">
-            <h2 class="section-title">Gary's Take on dashbe.ai</h2>
+    <!-- GARY'S TAKE ON DASHBE.AI -->
+    <section class="section fade-in">
+        <div class="assessment">
+            <h2 class="section-title">Gary's Assessment of dashbe.ai</h2>
             <p class="section-subtitle">Developer to developer. Unsolicited. Honest.</p>
 
-            <div class="assessment">
-                <h3>What's technically impressive:</h3>
+            <h3>What's technically impressive:</h3>
 
-                <div class="assessment-item">
-                    <strong>14-platform catalog sync</strong>
-                    <p>This is legitimately hard. Schema normalization across Amazon ASIN taxonomy, Shopify metafields, Etsy's category tree, WooCommerce custom attributes, TikTok Shop's content requirements — getting a unified product model that maps cleanly to all of these without data loss is serious engineering. Hats off.</p>
-                </div>
+            <div class="assessment-item">
+                ✅ <strong>14-platform catalog sync</strong> — This is legitimately hard. Schema normalization across Amazon ASIN taxonomy, Shopify metafields, Etsy's category tree, WooCommerce custom attributes, TikTok Shop content requirements — a unified product model that maps cleanly to all without data loss is serious engineering.
+            </div>
 
-                <div class="assessment-item">
-                    <strong>Model Magic + Scene Magic</strong>
-                    <p>Building a productized AI imagery pipeline for thousands of SKUs at once is a real moat. Content quality at scale is where most multi-channel sellers bleed time and money. Solving this is high-value.</p>
-                </div>
+            <div class="assessment-item">
+                ✅ <strong>Model Magic + Scene Magic</strong> — A productized AI imagery pipeline for thousands of SKUs at once is a real moat. Content quality at scale is where multi-channel sellers bleed time. This is high-value, defensible.
+            </div>
 
-                <div class="assessment-item">
-                    <strong>AI order management ("calculates, doesn't guess")</strong>
-                    <p>Logistics optimization that factors speed, cost, demand, and margin in real-time is genuinely hard ML. This isn't just "cheapest carrier" — this is a proper optimization problem. Strong.</p>
-                </div>
+            <div class="assessment-item">
+                ✅ <strong>AI order management</strong> — Logistics optimization across speed, cost, demand, and margin in real-time isn't just "cheapest carrier" — it's a real optimization problem. The "calculates, doesn't guess" positioning is strong.
+            </div>
 
-                <div class="assessment-item">
-                    <strong>"Catalog-in → everything-out" architecture</strong>
-                    <p>Single source of truth for the entire ecommerce stack. This is the right structural bet. Shopify did it for storefronts, Dashbe is doing it for the full operator workflow.</p>
-                </div>
+            <div class="assessment-item">
+                ✅ <strong>Catalog-native architecture</strong> — Single source of truth for the full ecommerce stack. Shopify owns storefronts. Dashbe is betting it can own the entire operator workflow. That's the right structural bet.
+            </div>
 
-                <div class="assessment-item">
-                    <strong>Avatar video hosting as TV presenter</strong>
-                    <p>Smart read on where commerce is going. TikTok Live, Amazon Live — the live commerce wave is real. Betting on AI-hosted shoppable video early is the right direction.</p>
-                </div>
+            <div class="assessment-item">
+                ✅ <strong>Avatar video + live commerce</strong> — TikTok Live, Amazon Live — the live commerce wave is real. Betting on AI-hosted shoppable video early is directionally correct.
+            </div>
 
-                <h3 style="margin-top: 60px;">Genuine developer-level questions:</h3>
+            <h3>Genuine developer-level questions:</h3>
 
-                <div class="assessment-item question">
-                    <strong>The schema normalization problem</strong>
-                    <p>How are you handling platform-specific required fields that have no equivalent in other platforms? (Amazon requires ASIN + brand registry; Etsy requires handmade certification; Walmart requires GTIN) — is this rules-based mapping, LLM-assisted classification, or something else? Would love to know the approach.</p>
-                </div>
+            <div class="assessment-item">
+                🤔 <strong>Schema normalization</strong> — How are you handling platform-specific required fields with no cross-platform equivalent? (Amazon ASIN + brand registry; Etsy handmade certification; Walmart GTIN) — rules-based mapping, LLM-assisted classification, or something else?
+            </div>
 
-                <div class="assessment-item question">
-                    <strong>The mobile app builder</strong>
-                    <p>Native or PWA? If native, how are you handling App Store review cycles? Apple's 2-7 day review makes "launch in minutes" a bold claim for true native. If it's React Native / Expo, that's a different story and worth being explicit about.</p>
-                </div>
+            <div class="assessment-item">
+                🤔 <strong>Mobile app builder</strong> — Native or PWA? If true native, App Store review cycles make "launch in minutes" a bold claim. React Native/Expo is a different story — worth being explicit about.
+            </div>
 
-                <div class="assessment-item question">
-                    <strong>The infinite canvas workflow builder</strong>
-                    <p>This feels Figma-inspired. Are you doing OT (operational transforms) for real-time collaboration, or is it single-user for now? CRDTs are the modern answer here but add significant complexity.</p>
-                </div>
+            <div class="assessment-item">
+                🤔 <strong>Infinite canvas workflow builder</strong> — Figma-inspired. OT (operational transforms) for real-time collab, or single-user for now? CRDTs are the modern answer but add significant complexity.
+            </div>
 
-                <div class="assessment-item question">
-                    <strong>Supplier network for instant dropshipping</strong>
-                    <p>Is this connecting to existing suppliers (Alibaba, Printful, Spocket, CJ Dropshipping) via API, or is there a proprietary supplier network? The former is faster to market; the latter is a defensible moat.</p>
-                </div>
+            <div class="assessment-item">
+                🤔 <strong>Supplier network</strong> — Connecting to existing suppliers (Alibaba, Printful, Spocket, CJ Dropshipping) via API, or proprietary network? Former is faster; latter is the defensible moat.
+            </div>
 
-                <div class="assessment-item question">
-                    <strong>Personalization vs. Shopify's native AI + Klaviyo</strong>
-                    <p>The checkout personalization angle is increasingly crowded. What's the differentiation layer — is it the catalog-native context that Klaviyo doesn't have? Curious about the data model.</p>
-                </div>
+            <div class="assessment-item">
+                🤔 <strong>Personalization differentiation</strong> — Checkout personalization is crowded (Shopify native AI, Klaviyo). What's the data model advantage — is it catalog-native context that Klaviyo doesn't have?
+            </div>
 
-                <div class="opportunity">
-                    <h4>The real opportunity:</h4>
-                    <p>The catalog-native AI layer is the right structural position. Most personalization tools are bolt-ons that infer product context. Dashbe owns the catalog — that's first-party product intelligence that nobody else has in the multi-channel context. That's the moat worth doubling down on.</p>
-                </div>
+            <h3>Where this gets interesting:</h3>
+
+            <div class="assessment-item" style="color: var(--secondary); font-weight: 600;">
+                Dashbe owns the catalog. That's first-party product intelligence in a multi-channel context that no bolt-on tool has. If I were building this, I'd double down on the catalog-native AI layer — that's where the real moat is.
             </div>
         </div>
     </section>
 
-    <!-- Demo + Connect CTA -->
-    <section id="connect">
-        <div class="container">
-            <div class="demo-cta">
-                <h2>Builder to Builder.</h2>
-                <p class="body-text">
-                    Willie's available this week. Whether it's a 30-minute Gary demo, a look at the MCP architecture, or just trading notes on what we're each building — the calendar is open.
-                </p>
+    <!-- CTA SECTION -->
+    <section class="section">
+        <div class="cta-section fade-in">
+            <h2 class="section-title">Builder to Builder.</h2>
+            <p class="section-subtitle">Willie's free this week for a Gary demo, an MCP walkthrough, or to just trade war stories about what we're each building.</p>
 
-                <div class="availability">
-                    <h4>Available:</h4>
-                    <ul>
-                        <li><strong>Fri March 20:</strong> 9am–12:30pm PST | 1pm–2:30pm PST</li>
-                        <li><strong>Mon March 23:</strong> 9am–12pm PST | 12:30pm–6pm PST</li>
-                    </ul>
-                </div>
-
-                <a href="mailto:willie.kopp@gmail.com" class="cta-button">📧 Reply to Willie</a>
-
-                <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.95rem;">
-                    Or just reply to the email — Gary's watching the inbox 👀
-                </p>
+            <div class="availability">
+                <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Available:</h4>
+                <div class="availability-item">• Fri March 20: 9am–12:30pm PST | 1pm–2:30pm PST</div>
+                <div class="availability-item">• Mon March 23: 9am–12pm PST | 12:30pm–6pm PST</div>
             </div>
+
+            <a href="mailto:willie.kopp@gmail.com" class="email-cta">📧 Reply to Willie</a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <p>— Willie Kopp | Builder of WillieOS | <a href="https://github.com/williekopp1112-lab/willieOS" target="_blank">github.com/williekopp1112-lab/willieOS</a></p>
-            <p style="margin-top: 12px; font-size: 0.85rem;">Built by Gary Throttle • Dispatched via Claude Code • Published to GitHub Pages</p>
-        </div>
-    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>— Willie Kopp | Builder of WillieOS | <a href="https://github.com/williekopp1112-lab/willieOS" style="color: var(--primary); text-decoration: none;">github.com/williekopp1112-lab/willieOS</a></p>
+    </footer>
 
     <script>
-        // Particle background generation
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 50;
+        // Particle Background
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-                const size = Math.random() * 4 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 20}s`;
-                particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+        const particles = [];
+        const particleCount = 100;
 
-                container.appendChild(particle);
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+                ctx.fill();
             }
         }
 
-        // Intersection Observer for scroll animations
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.2 * (1 - distance / 100)})`;
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Intersection Observer for fade-in animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1052,27 +923,9 @@ Gary's Take: "You have Allen Hackman at 6pm. Lead with the
             });
         }, observerOptions);
 
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
         });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Initialize
-        createParticles();
-
-        // Make hero visible immediately
-        document.querySelector('.hero').classList.add('visible');
     </script>
 </body>
 </html>
