@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI Front End Office services pitch deck for The Breakfast Club Livermore - powered by Gary and bizpleaser.ai">
-    <meta property="og:title" content="The Breakfast Club × Gary AI | Smart Front Office Automation">
-    <meta property="og:description" content="Transform your breakfast restaurant operations with AI-powered customer engagement, scheduling, and front-of-house automation">
-    <meta property="og:image" content="https://williekopp1112-lab.github.io/willieOS/pitches/breakfast-club/preview.png">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E☕%3C/text%3E%3C/svg%3E">
-    <title>The Breakfast Club × Gary AI | Smart Front Office</title>
+    <title>The Breakfast Club Livermore — Gary AI Pitch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,23 +15,39 @@
         }
 
         :root {
-            --sunrise-orange: #FF8C42;
-            --golden-yellow: #FFD166;
-            --fresh-green: #06D6A0;
-            --morning-blue: #118AB2;
-            --dark-espresso: #1A1A2E;
-            --cream: #FFF8F0;
-            --gradient-morning: linear-gradient(135deg, #FF8C42 0%, #FFD166 100%);
-            --gradient-fresh: linear-gradient(135deg, #06D6A0 0%, #118AB2 100%);
+            --primary-gold: #F5A623;
+            --espresso: #3B1F0A;
+            --cream: #FFF8EF;
+            --coral: #E8652A;
+            --text-dark: #1A1A1A;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--dark-espresso);
-            color: var(--cream);
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
             overflow: hidden;
+            position: relative;
         }
 
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+        }
+
+        /* Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--primary-gold);
+            width: 11.11%;
+            transition: width 0.5s ease;
+            z-index: 1000;
+        }
+
+        /* Slide Container */
         .slide-container {
             position: relative;
             width: 100vw;
@@ -43,271 +57,264 @@
 
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 100%;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 80px;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            background: var(--cream);
         }
 
         .slide.active {
+            left: 0;
             opacity: 1;
-            transform: translateX(0);
         }
 
-        /* Navigation */
-        .nav-controls {
+        .slide.prev {
+            left: -100%;
+            opacity: 0;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            display: flex;
-            gap: 16px;
-            z-index: 1000;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 1rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+            z-index: 100;
         }
 
-        .nav-btn {
-            width: 50px;
-            height: 50px;
+        /* Logo Treatment */
+        .logo {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-circle {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 2px solid var(--golden-yellow);
-            background: rgba(255, 209, 102, 0.1);
-            color: var(--golden-yellow);
-            cursor: pointer;
+            background: var(--primary-gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--espresso);
         }
 
-        .nav-btn:hover {
-            background: var(--golden-yellow);
-            color: var(--dark-espresso);
-            transform: scale(1.1);
+        .logo-text {
+            display: flex;
+            flex-direction: column;
         }
 
-        .slide-counter {
-            position: fixed;
-            bottom: 40px;
-            left: 40px;
-            font-size: 16px;
-            color: rgba(255, 248, 240, 0.6);
-            z-index: 1000;
-            font-weight: 500;
-        }
-
-        /* Typography */
-        h1 {
-            font-size: 72px;
-            font-weight: 800;
-            margin-bottom: 24px;
-            background: var(--gradient-morning);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 56px;
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 32px;
+            color: var(--espresso);
+            line-height: 1;
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        /* Slide 1: Cover */
+        #slide1 {
+            background: linear-gradient(rgba(59, 31, 10, 0.7), rgba(59, 31, 10, 0.7)), url('https://images.pexels.com/photos/5706181/pexels-photo-5706181.jpeg?auto=compress&cs=tinysrgb&h=650&w=940');
+            background-size: cover;
+            background-position: center;
+            color: var(--cream);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #slide1 .logo-main,
+        #slide1 .logo-circle {
+            color: var(--cream);
+            border: 2px solid var(--primary-gold);
+        }
+
+        #slide1 h1 {
+            font-size: 4.5rem;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 1rem;
             color: var(--cream);
         }
 
-        h3 {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--golden-yellow);
-        }
-
-        p {
-            font-size: 24px;
-            line-height: 1.6;
-            color: rgba(255, 248, 240, 0.9);
-            max-width: 900px;
-        }
-
-        /* Cover Slide */
-        .cover-slide {
-            background: radial-gradient(circle at 30% 50%, rgba(255, 140, 66, 0.2), transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(6, 214, 160, 0.2), transparent 50%),
-                        var(--dark-espresso);
+        #slide1 .subline {
+            font-size: 1.5rem;
             text-align: center;
+            color: var(--primary-gold);
+            margin-bottom: 3rem;
+            font-weight: 400;
         }
 
-        .cover-slide h1 {
-            font-size: 96px;
-            margin-bottom: 32px;
+        #slide1 .footer-info {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            font-weight: 600;
         }
 
-        .cover-slide .tagline {
-            font-size: 36px;
-            color: var(--golden-yellow);
-            margin-bottom: 48px;
-            font-weight: 300;
+        /* Slide 2: Problem */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
         }
 
-        .cover-slide .subtitle {
-            font-size: 20px;
-            color: rgba(255, 248, 240, 0.6);
-            margin-top: 64px;
+        .problem-side h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--coral);
         }
 
-        /* Feature Grid */
+        .pain-point {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .pain-point .emoji {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Slide 3: Who We Are */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 8px 24px rgba(59, 31, 10, 0.1);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--espresso);
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Slide 4: Built for Your Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(59, 31, 10, 0.1);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-card-content {
+            padding: 1.5rem;
+        }
+
+        .menu-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--espresso);
+        }
+
+        .menu-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        /* Slide 5: 5 Things Gary Does */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 209, 102, 0.2);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(59, 31, 10, 0.1);
+            border: 2px solid var(--primary-gold);
         }
 
-        .feature-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--golden-yellow);
-            transform: translateY(-4px);
+        .feature-card .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
         }
 
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .feature-card h3 {
-            font-size: 28px;
-            margin-bottom: 12px;
+        .feature-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--espresso);
         }
 
         .feature-card p {
-            font-size: 18px;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: var(--text-dark);
         }
 
-        /* Value Prop */
-        .value-list {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 40px;
-        }
-
-        .value-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--sunrise-orange);
-            border-radius: 8px;
-        }
-
-        .value-number {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--sunrise-orange);
-            min-width: 60px;
-        }
-
-        .value-content h3 {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .value-content p {
-            font-size: 18px;
-            color: rgba(255, 248, 240, 0.8);
-        }
-
-        /* Process Steps */
-        .process-steps {
+        /* Slide 6: ROI */
+        .stat-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 40px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--gradient-morning);
-            color: var(--dark-espresso);
-            font-size: 36px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-        }
-
-        .step h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-        }
-
-        .step p {
-            font-size: 16px;
-        }
-
-        /* CTA */
-        .cta-button {
-            display: inline-block;
-            max-width: 400px;
-            padding: 20px 48px;
-            border: 2px solid var(--golden-yellow);
-            background: transparent;
-            color: var(--golden-yellow);
-            border-radius: 12px;
-            font-size: 24px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            margin-top: 40px;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background: var(--golden-yellow);
-            color: var(--dark-espresso);
-            transform: scale(1.05);
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 48px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 40px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .stat {
@@ -315,447 +322,592 @@
         }
 
         .stat-number {
-            font-size: 64px;
-            font-weight: 800;
-            background: var(--gradient-fresh);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--primary-gold);
+            font-weight: 900;
+            line-height: 1;
         }
 
         .stat-label {
-            font-size: 18px;
-            color: rgba(255, 248, 240, 0.7);
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+            color: var(--espresso);
+            font-weight: 600;
         }
 
-        /* Contact */
+        .stat-note {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--coral);
+        }
+
+        /* Slide 7: How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            color: var(--espresso);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--espresso);
+        }
+
+        .step p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Slide 8: Social Proof */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .social-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .social-stat {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .social-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-gold);
+            font-weight: 900;
+        }
+
+        .social-stat-label {
+            font-size: 1.2rem;
+            color: var(--espresso);
+        }
+
+        .reviews {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .review {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--coral);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .instagram-handle {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--coral);
+            font-weight: 600;
+        }
+
+        /* Slide 9: CTA */
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cta-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(59, 31, 10, 0.1);
+            border: 3px solid var(--primary-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .cta-card .emoji {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .cta-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--espresso);
+        }
+
+        .cta-card p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
         .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-top: 40px;
-            font-size: 20px;
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--espresso);
+            font-weight: 600;
         }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .contact-info a {
+            color: var(--coral);
+            text-decoration: none;
         }
 
-        .contact-icon {
-            font-size: 32px;
+        .dm-cta {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            font-style: italic;
         }
 
-        /* Pain Points */
-        .pain-points {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 40px;
+        /* Common Slide Elements */
+        .slide h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: var(--espresso);
+            line-height: 1.2;
         }
 
-        .pain-point {
-            background: rgba(255, 140, 66, 0.1);
-            border: 2px solid rgba(255, 140, 66, 0.3);
-            border-radius: 12px;
-            padding: 24px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem;
+            }
 
-        .pain-icon {
-            font-size: 32px;
-            margin-top: 4px;
-        }
+            #slide1 h1 {
+                font-size: 2.5rem;
+            }
 
-        .pain-point h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--sunrise-orange);
-        }
+            #slide1 .subline {
+                font-size: 1rem;
+            }
 
-        .pain-point p {
-            font-size: 16px;
-            color: rgba(255, 248, 240, 0.8);
-        }
+            .problem-grid,
+            .card-grid,
+            .menu-grid,
+            .feature-grid,
+            .stat-grid,
+            .steps,
+            .social-grid,
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
 
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 40px;
-        }
+            .slide h2 {
+                font-size: 2rem;
+            }
 
-        .service-card {
-            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(6, 214, 160, 0.1) 100%);
-            border: 2px solid rgba(255, 209, 102, 0.2);
-            border-radius: 16px;
-            padding: 32px;
-        }
+            .logo {
+                top: 1rem;
+                left: 1rem;
+            }
 
-        .service-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
+            .logo-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
 
-        .service-icon {
-            font-size: 40px;
-        }
+            .logo-main {
+                font-size: 1rem;
+            }
 
-        .service-card h3 {
-            font-size: 26px;
-        }
+            .logo-sub {
+                font-size: 0.6rem;
+            }
 
-        .service-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .service-list li {
-            font-size: 18px;
-            color: rgba(255, 248, 240, 0.9);
-            padding-left: 28px;
-            position: relative;
-        }
-
-        .service-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--fresh-green);
-            font-weight: 700;
-            font-size: 20px;
+            .slide-counter {
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div id="progress-bar"></div>
+    <div class="slide-counter"><span id="current-slide">1</span> / 9</div>
+
     <div class="slide-container">
         <!-- Slide 1: Cover -->
-        <div class="slide active cover-slide">
-            <h1>Smart Front Office<br>for The Breakfast Club</h1>
-            <div class="tagline">AI-Powered Customer Engagement & Operations</div>
-            <p>Transforming how you serve, schedule, and scale your Livermore breakfast destination</p>
-            <div class="subtitle">Powered by Gary AI + bizpleaser.ai</div>
-        </div>
-
-        <!-- Slide 2: The Opportunity -->
-        <div class="slide">
-            <h2>The Breakfast Club Is Thriving</h2>
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-number">30+</div>
-                    <div class="stat-label">Years of Excellence</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">207</div>
-                    <div class="stat-label">Yelp Reviews</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">7:30am</div>
-                    <div class="stat-label">Early Start Daily</div>
+        <div id="slide1" class="slide active">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
                 </div>
             </div>
-            <p style="margin-top: 48px; text-align: center;">You've built a beloved local destination at 1960 First St.<br>Now let's make your operations as exceptional as your food.</p>
+            <h1>More Tables. Less Chaos.<br>More Regulars.</h1>
+            <div class="subline">AI-powered front office built for The Breakfast Club at Midtown</div>
+            <div class="footer-info">
+                1960 First St, Livermore, CA 94550 · Daily 7:30am–3:00pm · (925) 495-4112
+            </div>
         </div>
 
-        <!-- Slide 3: Pain Points -->
-        <div class="slide">
-            <h2>Challenges We Can Solve</h2>
-            <div class="pain-points">
-                <div class="pain-point">
-                    <div class="pain-icon">📞</div>
-                    <div>
-                        <h3>Phone Overload</h3>
-                        <p>Reservations, walk-in questions, and takeout orders flood your phone lines during peak breakfast rush</p>
+        <!-- Slide 2: The Problem -->
+        <div id="slide2" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>7:30am hits different.</h2>
+            <div class="problem-grid">
+                <div class="problem-side">
+                    <h3>The Morning Rush Reality</h3>
+                    <div class="pain-point">
+                        <span class="emoji">📞</span>
+                        Phones ringing during peak hours — staff can't cook AND answer
+                    </div>
+                    <div class="pain-point">
+                        <span class="emoji">📅</span>
+                        Reservation gaps and walk-in overload
+                    </div>
+                    <div class="pain-point">
+                        <span class="emoji">👥</span>
+                        Staff scheduling done on paper or group texts
                     </div>
                 </div>
-                <div class="pain-point">
-                    <div class="pain-icon">📅</div>
-                    <div>
-                        <h3>Staff Scheduling</h3>
-                        <p>Coordinating shifts, managing time-off requests, and ensuring proper coverage across 7 days a week</p>
+                <div class="problem-side">
+                    <h3>Hidden Revenue Leaks</h3>
+                    <div class="pain-point">
+                        <span class="emoji">🔁</span>
+                        Regular customers not coming back because no follow-up
                     </div>
-                </div>
-                <div class="pain-point">
-                    <div class="pain-icon">👥</div>
-                    <div>
-                        <h3>Customer Follow-Up</h3>
-                        <p>No time to build loyalty programs, send thank-you messages, or gather feedback systematically</p>
+                    <div class="pain-point">
+                        <span class="emoji">📱</span>
+                        Social media posts go dark during busy weeks
                     </div>
-                </div>
-                <div class="pain-point">
-                    <div class="pain-icon">🚚</div>
-                    <div>
-                        <h3>Vendor Coordination</h3>
-                        <p>Tracking deliveries, managing supplier communications, and maintaining inventory relationships</p>
-                    </div>
-                </div>
-                <div class="pain-point">
-                    <div class="pain-icon">📱</div>
-                    <div>
-                        <h3>Social Media Silence</h3>
-                        <p>No bandwidth to keep Instagram and social channels active with daily specials and community engagement</p>
-                    </div>
-                </div>
-                <div class="pain-point">
-                    <div class="pain-icon">⏰</div>
-                    <div>
-                        <h3>Admin Time Drain</h3>
-                        <p>Hours spent on email, paperwork, and coordination instead of serving customers and improving operations</p>
+                    <div class="pain-point">
+                        <span class="emoji">📦</span>
+                        Vendor calls eating into kitchen prep time
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Our Solution -->
-        <div class="slide">
-            <h2>Meet Your AI Front Office Team</h2>
+        <!-- Slide 3: Who We Are -->
+        <div id="slide3" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>Meet Gary + bizpleaser.ai</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">☕</div>
+                    <h3>Gary (AI Chief of Staff)</h3>
+                    <p>Handles scheduling, email triage, vendor follow-up, daily briefings, and staff coordination. Works 24/7 so you don't have to.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>bizpleaser.ai</h3>
+                    <p>Customer-facing AI that manages reservation handling, loyalty follow-ups, review responses, and social automation. Your front office, always on.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Built for Your Menu -->
+        <div id="slide4" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>We know your S'mores Pancakes are a hit.<br>Let's make sure everyone else does too.</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <img src="https://images.pexels.com/photos/5317627/pexels-photo-5317627.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="S'mores Pancakes">
+                    <div class="menu-card-content">
+                        <h4>S'mores Pancakes</h4>
+                        <p>Gary auto-posts your food specials on Instagram the morning of. No more dark weeks.</p>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="https://images.pexels.com/photos/7708514/pexels-photo-7708514.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Eggs Benedict">
+                    <div class="menu-card-content">
+                        <h4>Build-Your-Own Benedict</h4>
+                        <p>Customers who ordered Benedict get a personal follow-up. "Come back Sunday — we saved you a table."</p>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <img src="https://images.pexels.com/photos/1772974/pexels-photo-1772974.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Mimosas">
+                    <div class="menu-card-content">
+                        <h4>Mimosa Bar</h4>
+                        <p>Bottomless brunch bookings handled 24/7. No one picks up the phone at 8am — Gary does.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: 5 Things Gary Does -->
+        <div id="slide5" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>What Gary handles from day one</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>Gary AI</h3>
-                    <p>Your native AI Chief of Staff. Handles scheduling, email triage, task management, vendor coordination, daily briefings, and proactive follow-ups. Works 24/7, never takes a day off.</p>
+                    <span class="emoji">🗓</span>
+                    <h4>Smart Reservations</h4>
+                    <p>Online + phone handled automatically, walk-in overflow managed</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💬</div>
-                    <h3>bizpleaser.ai</h3>
-                    <p>AI-powered customer engagement platform. Manages phone inquiries, reservation confirmations, loyalty programs, feedback collection, and personalized guest communication at scale.</p>
+                    <span class="emoji">👨‍🍳</span>
+                    <h4>Staff Scheduling</h4>
+                    <p>Shift reminders, no-show alerts, coverage gaps flagged before service</p>
                 </div>
-            </div>
-            <p style="margin-top: 48px; text-align: center;">Two systems, one seamless front-of-house experience.<br>Built to handle the unique demands of a high-volume breakfast restaurant.</p>
-        </div>
-
-        <!-- Slide 5: Services For You -->
-        <div class="slide">
-            <h2>What Gary + bizpleaser.ai Do For You</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">📞</div>
-                        <h3>Smart Reservations</h3>
-                    </div>
-                    <ul class="service-list">
-                        <li>AI phone answering for reservation requests</li>
-                        <li>Automated confirmation texts and reminders</li>
-                        <li>Waitlist management during peak hours</li>
-                        <li>Special occasion flagging (birthdays, anniversaries)</li>
-                    </ul>
+                <div class="feature-card">
+                    <span class="emoji">💬</span>
+                    <h4>Customer Follow-Up</h4>
+                    <p>Post-visit texts, birthday rewards, loyalty nudges for regulars</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">👥</div>
-                        <h3>Staff Operations</h3>
-                    </div>
-                    <ul class="service-list">
-                        <li>Automated shift scheduling and swap coordination</li>
-                        <li>Time-off request management</li>
-                        <li>Daily briefings for staff on specials and events</li>
-                        <li>Vendor delivery tracking and alerts</li>
-                    </ul>
+                <div class="feature-card">
+                    <span class="emoji">📲</span>
+                    <h4>Social Autopilot</h4>
+                    <p>Daily specials, weekend promos posted to Instagram automatically</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">💌</div>
-                        <h3>Customer Loyalty</h3>
-                    </div>
-                    <ul class="service-list">
-                        <li>Personalized thank-you messages after visits</li>
-                        <li>Birthday and anniversary outreach</li>
-                        <li>Feedback collection and response drafting</li>
-                        <li>VIP customer tracking and recognition</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">📱</div>
-                        <h3>Marketing Automation</h3>
-                    </div>
-                    <ul class="service-list">
-                        <li>Daily social media post suggestions</li>
-                        <li>Email campaigns for special events</li>
-                        <li>Google/Yelp review response drafts</li>
-                        <li>Weekly digest of customer sentiment</li>
-                    </ul>
+                <div class="feature-card">
+                    <span class="emoji">🚚</span>
+                    <h4>Vendor Coordination</h4>
+                    <p>Reorder reminders, vendor replies, supply chain comms handled</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: How It Works -->
-        <div class="slide">
-            <h2>How It Works</h2>
-            <div class="process-steps">
+        <!-- Slide 6: ROI -->
+        <div id="slide6" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>Hours back. Every week.</h2>
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">hours/week saved on admin,<br>scheduling, and phone calls</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">30%</div>
+                    <div class="stat-label">increase in repeat customer<br>visits with loyalty follow-ups</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Zero missed reservations —<br>Gary answers always</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$0</div>
+                    <div class="stat-label">in missed reviews — negative<br>Yelp trends caught before they hit</div>
+                </div>
+            </div>
+            <div class="stat-note">You opened at 7:30am. Gary was already working at 6.</div>
+        </div>
+
+        <!-- Slide 7: How It Works -->
+        <div id="slide7" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>Up and running in a week</h2>
+            <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Setup Week</h3>
-                    <p>We integrate with your existing Toast POS, phone system, and communication channels. Train the AI on your menu, policies, and preferences.</p>
+                    <h4>Connect</h4>
+                    <p>Day 1-2: We link Gary to your phone, Toast POS, Instagram, and Google</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Soft Launch</h3>
-                    <p>Gary handles back-office tasks (scheduling, vendor emails, daily briefs). bizpleaser.ai starts with reservation confirmations and simple inquiries.</p>
+                    <h4>Train</h4>
+                    <p>Day 3-5: Gary learns your menu, your regulars, your staff names, your vibe</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Full Automation</h3>
-                    <p>After 2-4 weeks of learning your patterns, the system runs autonomously. You review weekly summaries and make adjustments as needed.</p>
-                </div>
-            </div>
-            <p style="margin-top: 48px; text-align: center;">No hardware installations. No staff retraining nightmares.<br>Just smarter operations starting day one.</p>
-        </div>
-
-        <!-- Slide 7: ROI & Value -->
-        <div class="slide">
-            <h2>The Real Return</h2>
-            <div class="value-list">
-                <div class="value-item">
-                    <div class="value-number">15+</div>
-                    <div class="value-content">
-                        <h3>Hours Back Per Week</h3>
-                        <p>Time saved on phone calls, emails, scheduling coordination, and administrative tasks. Redirect those hours to menu development, staff training, or actually enjoying your success.</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-number">30%</div>
-                    <div class="value-content">
-                        <h3>Repeat Customer Increase</h3>
-                        <p>Automated follow-ups and personalized outreach turn one-time visitors into regulars. Loyalty programs that actually work because they run on autopilot.</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-number">Zero</div>
-                    <div class="value-content">
-                        <h3>Missed Reservations</h3>
-                        <p>Automated confirmations, reminders, and waitlist management mean every table is filled, every shift. No more no-shows or empty seats during peak hours.</p>
-                    </div>
-                </div>
-                <div class="value-item">
-                    <div class="value-number">24/7</div>
-                    <div class="value-content">
-                        <h3>Customer Service</h3>
-                        <p>AI responds to reservation requests, menu questions, and special requests even when you're closed. Capture bookings that would otherwise go to competitors.</p>
-                    </div>
+                    <h4>Automate</h4>
+                    <p>Week 2: Gary handles the front office. You handle the food.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: Next Steps -->
-        <div class="slide">
-            <h2>Let's Talk</h2>
-            <p style="text-align: center; margin-bottom: 32px;">We'd love to show you a live demo tailored to The Breakfast Club's specific needs.</p>
+        <!-- Slide 8: Social Proof -->
+        <div id="slide8" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>Your customers are already talking.</h2>
+            <div class="social-grid">
+                <div class="social-stats">
+                    <div class="social-stat">
+                        <div class="social-stat-number">207</div>
+                        <div class="social-stat-label">Yelp Reviews</div>
+                    </div>
+                    <div class="social-stat">
+                        <div class="social-stat-number">329</div>
+                        <div class="social-stat-label">Customer Photos</div>
+                    </div>
+                    <div class="social-stat">
+                        <div class="social-stat-number">1,880</div>
+                        <div class="social-stat-label">Instagram Followers</div>
+                    </div>
+                </div>
+                <div class="reviews">
+                    <div class="review">
+                        "The S'mores Pancakes alone are worth the drive from Pleasanton."
+                    </div>
+                    <div class="review">
+                        "Staff is always warm and the wait is totally worth it."
+                    </div>
+                    <div class="review">
+                        "Best brunch spot to open in Livermore in years."
+                    </div>
+                </div>
+            </div>
+            <div class="instagram-handle">@thebreakfastclublivermore — and growing</div>
+        </div>
+
+        <!-- Slide 9: CTA -->
+        <div id="slide9" class="slide">
+            <div class="logo">
+                <div class="logo-circle">BC</div>
+                <div class="logo-text">
+                    <div class="logo-main">The Breakfast Club</div>
+                    <div class="logo-sub">at Midtown · Livermore</div>
+                </div>
+            </div>
+            <h2>Let's talk over coffee.</h2>
+            <div class="cta-grid">
+                <div class="cta-card">
+                    <span class="emoji">☕</span>
+                    <h4>15-min coffee chat</h4>
+                    <p>We'll show you Gary live over a cup</p>
+                </div>
+                <div class="cta-card">
+                    <span class="emoji">📋</span>
+                    <h4>Free audit</h4>
+                    <p>We map your top 5 pain points, no strings</p>
+                </div>
+                <div class="cta-card">
+                    <span class="emoji">🚀</span>
+                    <h4>Pilot week</h4>
+                    <p>Try Gary for 7 days, see the ROI yourself</p>
+                </div>
+            </div>
             <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div>Email: willie@bizpleaser.ai</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🌐</div>
-                    <div>Web: bizpleaser.ai</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🗓️</div>
-                    <div>Meeting: Next Friday (you pick the time)</div>
-                </div>
+                Willie Kopp · <a href="mailto:willie@bizpleaser.ai">willie@bizpleaser.ai</a><br>
+                <a href="https://bizpleaser.ai">bizpleaser.ai</a>
             </div>
-            <a href="mailto:willie@bizpleaser.ai?subject=Breakfast Club Demo Request" class="cta-button">Schedule Our Demo</a>
-            <p style="margin-top: 48px; font-size: 18px; color: rgba(255, 248, 240, 0.6); text-align: center;">No contracts. No commitments. Just a conversation about making<br>your breakfast club even better.</p>
+            <div class="dm-cta">Slide into our DMs @bizpleaserai</div>
         </div>
-
-        <!-- Slide 9: Thank You -->
-        <div class="slide cover-slide">
-            <h1 style="font-size: 80px;">Thank You</h1>
-            <p style="font-size: 28px; margin-top: 32px;">Looking forward to serving The Breakfast Club</p>
-            <div style="margin-top: 64px; display: flex; gap: 48px; font-size: 48px;">
-                <span>☕</span>
-                <span>🥞</span>
-                <span>🤖</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">9</span>
-    </div>
-
-    <div class="nav-controls">
-        <button class="nav-btn" id="prev-btn" aria-label="Previous slide">←</button>
-        <button class="nav-btn" id="next-btn" aria-label="Next slide">→</button>
     </div>
 
     <script>
-        let currentSlide = 0;
-        let isTransitioning = false;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        const currentSlideSpan = document.getElementById('current-slide');
-        const totalSlidesSpan = document.getElementById('total-slides');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
+        let currentSlide = 1;
+        const totalSlides = 9;
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('current-slide');
 
-        totalSlidesSpan.textContent = totalSlides;
+        function updateProgressBar() {
+            const progress = (currentSlide / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+            slideCounter.textContent = currentSlide;
+        }
 
-        function goToSlide(index) {
-            if (isTransitioning) return;
-            if (index < 0 || index >= totalSlides) return;
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
 
-            isTransitioning = true;
+            if (n > totalSlides) { currentSlide = totalSlides; }
+            if (n < 1) { currentSlide = 1; }
 
-            const current = slides[currentSlide];
-            const next = slides[index];
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
 
-            const direction = index > currentSlide ? 1 : -1;
+                if (index + 1 === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index + 1 < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
 
-            // Setup next slide
-            next.style.transform = `translateX(${direction * 100}%)`;
-            next.style.opacity = '0';
-
-            setTimeout(() => {
-                // Animate out current
-                current.classList.remove('active');
-                current.style.transform = `translateX(${-direction * 100}%)`;
-                current.style.opacity = '0';
-
-                // Animate in next
-                next.classList.add('active');
-                next.style.transform = 'translateX(0)';
-                next.style.opacity = '1';
-            }, 50);
-
-            currentSlide = index;
-            currentSlideSpan.textContent = currentSlide + 1;
-
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 700);
+            updateProgressBar();
         }
 
         function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                goToSlide(currentSlide + 1);
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
             }
         }
 
         function prevSlide() {
-            if (currentSlide > 0) {
-                goToSlide(currentSlide - 1);
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
             }
         }
 
-        // Event listeners
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -766,7 +918,7 @@
             }
         });
 
-        // Touch support for mobile
+        // Touch/swipe navigation
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -780,14 +932,28 @@
         });
 
         function handleSwipe() {
-            if (touchEndX < touchStartX - 50) nextSlide();
-            if (touchEndX > touchStartX + 50) prevSlide();
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
         }
 
-        // Initialize first slide
-        slides[0].classList.add('active');
-        slides[0].style.transform = 'translateX(0)';
-        slides[0].style.opacity = '1';
+        // Click navigation (left/right thirds)
+        document.addEventListener('click', (e) => {
+            const windowWidth = window.innerWidth;
+            const clickX = e.clientX;
+
+            if (clickX > windowWidth * 0.66) {
+                nextSlide();
+            } else if (clickX < windowWidth * 0.33) {
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(currentSlide);
     </script>
 </body>
 </html>
