@@ -551,6 +551,23 @@
       "prompt_file": null,
       "depends_on": [],
       "notes": "Feature idea from Joe (PR #8)."
+    },
+    {
+      "id": "pptx-verticalization-v2",
+      "title": "PPTX Verticalization Skill — V2 ZIP-Surgery Method",
+      "description": "Complete rewrite of pptx-verticalization skill using ZIP-level binary surgery (NEVER python-pptx open/save). Replaces images (Pexels API, dimension-exact) and text (XML <a:t> tags only) while preserving all layout, formatting, animations. Proven at enterprise scale: ServiceNow Sports→Healthcare for MD Anderson (41 images, 50 text changes, 19 slides, 94.7MB output). Reference implementation: /Users/vault/spence-deck/surgical_replace.py",
+      "status": "done",
+      "owner": "willie",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        ".claude/skills/pptx-verticalization/SKILL.md",
+        ".claude/skills/INDEX.md",
+        "willieos-mcp-server/prompt/dispatch-routing.js"
+      ],
+      "prompt_file": null,
+      "depends_on": [],
+      "notes": "Installed alongside 15 ecosystem skills (01-self-improving-agent through 15-agent-designer). All ecosystem skills were already present. V2 method replaces the old python-pptx edit-in-place approach that corrupted formatting. Gary routing updated to always dispatch to Claude Code (requires Python execution)."
     }
   ]
 }
