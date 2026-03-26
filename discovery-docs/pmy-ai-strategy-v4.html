@@ -1299,7 +1299,7 @@
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
-    canvas.height = document.body.scrollHeight;
+    canvas.height = window.innerHeight;
 
     const nodes = [];
     const nodeCount = 50;
@@ -1356,7 +1356,7 @@
 
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
-      canvas.height = document.body.scrollHeight;
+      canvas.height = window.innerHeight;
     });
 
     // Scroll progress bar
