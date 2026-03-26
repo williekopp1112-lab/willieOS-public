@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Competitive analysis: Paperclip vs Gary multi-agent architectures">
+    <meta property="og:title" content="Paperclip vs Gary | Multi-Agent Architecture Analysis">
+    <meta property="og:description" content="Deep architectural comparison of two leading AI agent frameworks with actionable recommendations">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect fill='%230a0a0a' width='1200' height='630'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='64' fill='%23fff'%3EPaperclip vs Gary%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2'%3E%3Cpath d='M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48'/%3E%3C/svg%3E">
+    <title>Paperclip vs Gary: Competitive Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --accent: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --muted: #71717a;
+            --surface: #18181b;
+            --border: #27272a;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --red: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            line-height: 1.6;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--muted);
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .card p, .card ul {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #d4d4d8;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding-left: 24px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .comparison-table th {
+            background: var(--surface);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.paperclip {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--red);
+        }
+
+        .badge.gary {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+        }
+
+        .badge.both {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--green);
+        }
+
+        .priority-item {
+            background: var(--surface);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+        }
+
+        .priority-item h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .priority-badge {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .p0 { background: var(--red); color: white; }
+        .p1 { background: var(--orange); color: white; }
+        .p2 { background: var(--green); color: white; }
+
+        .complexity {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: var(--accent);
+            transform: scale(1.4);
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            color: var(--muted);
+            font-size: 14px;
+            z-index: 100;
+        }
+
+        .key-insight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .advantage-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .advantage-card h4 {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .advantage-card p {
+            font-size: 14px;
+            color: #d4d4d8;
+            line-height: 1.6;
+        }
+
+        .roadmap-phase {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .roadmap-phase h4 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .roadmap-phase ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .roadmap-phase li {
+            padding-left: 24px;
+            position: relative;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #d4d4d8;
+        }
+
+        .roadmap-phase li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .scrollable-content {
+            max-height: calc(100vh - 280px);
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+
+        .scrollable-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: var(--surface);
+            border-radius: 4px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 1200px) {
+            .slide {
+                padding: 40px;
+            }
+            h1 { font-size: 48px; }
+            h2 { font-size: 36px; }
+            .subtitle { font-size: 18px; }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Paperclip vs Gary</h1>
+            <p class="subtitle">A Competitive Analysis of Multi-Agent Architectures</p>
+            <div class="key-insight" style="margin-top: 60px; max-width: 900px;">
+                Paperclip is a control plane for autonomous AI companies.<br>
+                Gary is a deeply integrated AI Chief of Staff.<br><br>
+                Both orchestrate multiple agents. Both excel at different things.<br>
+                This deck identifies exactly what to steal.
+            </div>
+            <p class="subtitle" style="margin-top: 40px; color: var(--muted);">March 26, 2026 • Willie Kopp</p>
+        </div>
+
+        <!-- Slide 2: Executive Summary -->
+        <div class="slide">
+            <h2>Executive Summary</h2>
+            <div class="content">
+                <div class="two-column">
+                    <div class="column">
+                        <div class="card">
+                            <h3>Paperclip</h3>
+                            <p><strong>Philosophy:</strong> Multi-company control plane with strict hierarchical delegation</p>
+                            <p style="margin-top: 16px;"><strong>Target Use Case:</strong> Running autonomous AI companies with CEO agents, formal org charts, and task ancestry chains</p>
+                            <p style="margin-top: 16px;"><strong>Core Strength:</strong> Governance, delegation, and multi-tenant architecture with budget controls and audit trails</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <h3>Gary (WillieOS)</h3>
+                            <p><strong>Philosophy:</strong> Single-CEO personal chief of staff with rich contextual memory</p>
+                            <p style="margin-top: 16px;"><strong>Target Use Case:</strong> Deep personal integration with calendar, email, relationships, and knowledge — orchestrating specialist agents when needed</p>
+                            <p style="margin-top: 16px;"><strong>Core Strength:</strong> Context richness, learning systems, real-world integrations, and proactive intelligence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Architecture Comparison Matrix -->
+        <div class="slide">
+            <h2>Architecture Comparison</h2>
+            <div class="content scrollable-content">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th>Paperclip</th>
+                            <th>Gary</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Agent Hierarchy</strong></td>
+                            <td>Strict org tree with CEO → VPs → specialists</td>
+                            <td>Single CEO with specialist dispatch</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Task Decomposition</strong></td>
+                            <td>6-level hierarchy (Workspace → Initiative → Project → Milestone → Issue → Sub-issue)</td>
+                            <td>Loops with parent/child + dispatch chains</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory Architecture</strong></td>
+                            <td>Pluggable provider abstraction (provider-agnostic control plane)</td>
+                            <td>Multi-layer (loops, notes, contacts, knowledge graph, dispatch memories, settings)</td>
+                            <td><span class="badge gary">Gary</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inter-Agent Communication</strong></td>
+                            <td>Task-based only (no separate chat)</td>
+                            <td>Gary orchestrates all — no peer-to-peer</td>
+                            <td><span class="badge both">Both</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Budget/Cost Controls</strong></td>
+                            <td>Monthly budgets per agent with hard-stop auto-pause</td>
+                            <td>Basic cost tracking, no per-agent limits</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Governance</strong></td>
+                            <td>Board approval gates, config rollback, full audit trail</td>
+                            <td>Single human operator with autonomous contacts</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agent Discovery</strong></td>
+                            <td>Capabilities-based (agents describe what they can do)</td>
+                            <td>Keyword-based routing with confidence scoring</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heartbeat/Scheduling</strong></td>
+                            <td>Agent lifecycle with CEO review cycles</td>
+                            <td>Cron-based scheduled tasks + event-driven jobs</td>
+                            <td><span class="badge both">Both</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multi-Tenancy</strong></td>
+                            <td>One instance = multiple companies</td>
+                            <td>Single user, single company</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Extensibility</strong></td>
+                            <td>Adapter pattern for agent types</td>
+                            <td>MCP server with 110+ registered tools</td>
+                            <td><span class="badge gary">Gary</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Human-in-the-Loop</strong></td>
+                            <td>Board approval for strategic decisions</td>
+                            <td>Autonomous with notification system</td>
+                            <td><span class="badge both">Both</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Audit Trail</strong></td>
+                            <td>Immutable ticket history with tool-call tracing</td>
+                            <td>Dispatch memories, loop history, learning records</td>
+                            <td><span class="badge paperclip">Paperclip</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real-World Integrations</strong></td>
+                            <td>Agent-to-agent (no external services)</td>
+                            <td>Calendar, Gmail, iMessage, Drive, GitHub Pages</td>
+                            <td><span class="badge gary">Gary</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Context Richness</strong></td>
+                            <td>Task-centric only</td>
+                            <td>Personal relationships, energy, sentiment, preferences</td>
+                            <td><span class="badge gary">Gary</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 4: What Paperclip Does Better -->
+        <div class="slide">
+            <h2>What Paperclip Does Better</h2>
+            <div class="content scrollable-content">
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <h4>1. Goal Ancestry Chains</h4>
+                        <p>Every task traces back to the company's top-level mission. "If you can't explain why a task matters to the company goal, it shouldn't exist." This prevents work that doesn't ladder up to strategic objectives.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>2. Agent Capabilities Discovery</h4>
+                        <p>Agents describe their capabilities in a structured format. Other agents query "who can help with X?" instead of hardcoded routing. Enables dynamic team composition and specialization discovery.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>3. Atomic Task Checkout</h4>
+                        <p>Single-assignee model with checkout semantics prevents race conditions. Two agents can't accidentally work on the same task simultaneously. Critical for coordination at scale.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>4. Formal Delegation Cascades</h4>
+                        <p>CEO → CTO/CMO/CFO → specialists. Each agent has a reports_to field. Enables proper responsibility chains and escalation paths in complex organizations.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>5. Pluggable Memory Abstraction</h4>
+                        <p>Memory provider interface supports swapping backends (mem0, supermemory, Memori, etc.). Different agents can use different memory systems. Enables best-of-breed memory solutions per use case.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>6. Budget Hard-Stop Auto-Pause</h4>
+                        <p>Monthly UTC budgets per agent with automatic pause when limit hit. Prevents runaway costs. Soft alerts before hard limits. Critical for production deployment confidence.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>7. Immutable Audit Trails</h4>
+                        <p>Every action logged with tool-call tracing. Config changes are versioned with rollback. Ticket-based communication creates permanent records. Essential for compliance and debugging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: What Gary Already Does Better -->
+        <div class="slide">
+            <h2>What Gary Already Does Better</h2>
+            <div class="content scrollable-content">
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <h4>1. Deep Personal Context</h4>
+                        <p>Willie Knowledge Graph tracks people, projects, priorities, blockers, goals, concerns, decisions, energy levels, family, sentiment, follow-up needs. Relationship intelligence with aliases and how_known fields. Paperclip has none of this.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>2. Learning Engine</h4>
+                        <p>teach_gary for preferences, correction recording, confidence scoring, knowledge gap detection. Gary gets smarter over time. Paperclip agents are stateless between tasks.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>3. Memory Diversity</h4>
+                        <p>Loops, notes, contacts, dispatch memories, settings, check-in data. Paperclip only has tasks + comments. Gary's memory is richer across more dimensions of human life and work.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>4. Real Integrations</h4>
+                        <p>Google Calendar, Gmail, iMessage, Drive, GitHub Pages. Gary touches the real world. Paperclip agents only talk to each other. This is a fundamental architectural difference.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>5. Dispatch Chains with Handoff Packets</h4>
+                        <p>Multi-step dependency chains auto-trigger on completion. get_handoff_packet assembles context from prior dispatches. Project tagging for cross-session recall. Continuity across complex workflows.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>6. Proactive Intelligence</h4>
+                        <p>Daily check-ins, knowledge gap detection, self-assessment metrics, nightly performance trends, weekly improvement reports. Gary doesn't wait to be asked — he surfaces what matters.</p>
+                    </div>
+                    <div class="advantage-card">
+                        <h4>7. Workflow Automation</h4>
+                        <p>Playbooks chain MCP tools (morning_autopilot, meeting_prep_full). Scheduled tasks with guardrails (debounce, cooldown, daily caps, concurrency limits). Email triage, stale loop sweep, proactive scan all automated.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Top 5 Improvements to Steal -->
+        <div class="slide">
+            <h2>Top 5 Improvements to Steal</h2>
+            <div class="content scrollable-content">
+                <div class="priority-item" style="border-left-color: var(--red);">
+                    <h4>
+                        <span class="priority-badge p0">P0</span>
+                        1. Goal Ancestry Chains
+                        <span class="complexity">Complexity: Medium</span>
+                    </h4>
+                    <p><strong>What:</strong> Every dispatch/loop must trace back to a strategic objective. Six-level hierarchy: Vision → OKR → Initiative → Project → Milestone → Task.</p>
+                    <p style="margin-top: 12px;"><strong>Why it matters:</strong> Prevents busywork. If Gary can't explain why a task ladders up to Willie's goals, it shouldn't exist. Forces ruthless prioritization.</p>
+                    <p style="margin-top: 12px;"><strong>How to adapt:</strong> Add `goal_id` foreign key to loops table. New `goals` table with parent_goal_id for hierarchy. UI shows goal path for every loop. Gary's system prompt enforces "no orphan tasks."</p>
+                </div>
+
+                <div class="priority-item" style="border-left-color: var(--red);">
+                    <h4>
+                        <span class="priority-badge p0">P0</span>
+                        2. Agent Capabilities Registry
+                        <span class="complexity">Complexity: Low</span>
+                    </h4>
+                    <p><strong>What:</strong> Agents describe capabilities in structured format. Other agents query "who can help with X?" Discovery-based routing replaces hardcoded keywords.</p>
+                    <p style="margin-top: 12px;"><strong>Why it matters:</strong> Current agentRegistry.js uses brittle keyword matching. As agent count grows, keyword collisions and coverage gaps multiply. Capabilities enable dynamic discovery.</p>
+                    <p style="margin-top: 12px;"><strong>How to adapt:</strong> Extend agentRegistry.js schema: add `capabilities: []` array (structured tags like {domain: "presentation", format: "pptx", actions: ["edit", "verticalize"]}). Add `query_agent_capabilities(query)` MCP tool. Gary uses semantic matching instead of keywords.</p>
+                </div>
+
+                <div class="priority-item" style="border-left-color: var(--orange);">
+                    <h4>
+                        <span class="priority-badge p1">P1</span>
+                        3. Budget Tracking Per Dispatch Target
+                        <span class="complexity">Complexity: Medium</span>
+                    </h4>
+                    <p><strong>What:</strong> Monthly budgets per agent with soft alerts at 75% and hard auto-pause at 100%. Cost tracking per dispatch target (Claude Code vs Cowork vs background jobs).</p>
+                    <p style="margin-top: 12px;"><strong>Why it matters:</strong> Gary's cost tracking is global. Can't answer "how much does Cowork cost per month?" or "is this dispatch target worth the spend?" Need per-agent cost visibility for optimization.</p>
+                    <p style="margin-top: 12px;"><strong>How to adapt:</strong> Add `dispatch_target_budgets` table with monthly limits. Extend costTracker.js to track spend by target. Add `check_budget_before_dispatch()` gate. Notification at 75%, auto-pause at 100% with human override.</p>
+                </div>
+
+                <div class="priority-item" style="border-left-color: var(--orange);">
+                    <h4>
+                        <span class="priority-badge p1">P1</span>
+                        4. Atomic Task Checkout
+                        <span class="complexity">Complexity: Low</span>
+                    </h4>
+                    <p><strong>What:</strong> Single-assignee model with checkout semantics. Before working on a loop/dispatch, agent must acquire exclusive lock. Prevents double-dispatch of same work.</p>
+                    <p style="margin-top: 12px;"><strong>Why it matters:</strong> Currently Gary can dispatch the same task twice if triggered by multiple events (email + calendar + proactive scan). Wastes money and creates conflicts.</p>
+                    <p style="margin-top: 12px;"><strong>How to adapt:</strong> Add `checked_out_by` and `checked_out_at` to gary_actions table. Before dispatch: `SELECT FOR UPDATE` to check availability. Release lock on completion or timeout (2 hours). UI shows locked tasks with owner.</p>
+                </div>
+
+                <div class="priority-item" style="border-left-color: var(--green);">
+                    <h4>
+                        <span class="priority-badge p2">P2</span>
+                        5. Formal Delegation Hierarchy
+                        <span class="complexity">Complexity: High</span>
+                    </h4>
+                    <p><strong>What:</strong> Agents have reports_to field creating org tree. CEO reviews VPs, VPs review specialists. Enables escalation paths and delegation cascades.</p>
+                    <p style="margin-top: 12px;"><strong>Why it matters:</strong> Long-term vision for Gary is managing an executive team (CTO, CMO, CFO). Need formal reporting structure for delegation. "CEO Gary delegates to CTO Gary who dispatches to Code."</p>
+                    <p style="margin-top: 12px;"><strong>How to adapt:</strong> Extend agentRegistry.js: add `reports_to` field. Create "VP-level" agents (CTO, CMO, CFO) that sit between CEO Gary and specialist agents. Routing logic: Gary → VP → specialist. Each VP has review cycles checking subordinate work.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Recommended Roadmap -->
+        <div class="slide">
+            <h2>Recommended Roadmap</h2>
+            <div class="content scrollable-content">
+                <div class="roadmap-phase">
+                    <h4>
+                        <span class="badge" style="background: var(--green); color: white;">Phase 1: Quick Wins</span>
+                        1-2 Weeks
+                    </h4>
+                    <ul>
+                        <li><strong>Agent Capabilities Registry:</strong> Extend agentRegistry.js with capabilities array, add query_agent_capabilities MCP tool, update dispatch routing to use semantic matching</li>
+                        <li><strong>Atomic Task Checkout:</strong> Add checkout fields to gary_actions table, implement SELECT FOR UPDATE locking, add timeout release (2 hours), show locked tasks in UI</li>
+                        <li><strong>Basic Goal Tracking:</strong> Create goals table with parent_goal_id, add goal_id to loops, UI shows goal path, no enforcement yet</li>
+                    </ul>
+                    <p style="margin-top: 16px; color: var(--muted); font-size: 14px;">These slot into existing architecture without breaking changes. Low risk, immediate value.</p>
+                </div>
+
+                <div class="roadmap-phase">
+                    <h4>
+                        <span class="badge" style="background: var(--orange); color: white;">Phase 2: Medium-Term</span>
+                        1 Month
+                    </h4>
+                    <ul>
+                        <li><strong>Budget Tracking Per Target:</strong> Create dispatch_target_budgets table, extend costTracker.js for per-target tracking, implement soft alerts (75%) and hard limits (100%), add budget dashboard in Settings</li>
+                        <li><strong>Goal Ancestry Enforcement:</strong> Gary's system prompt requires goal_id on all new loops, no orphan tasks allowed, weekly review surfaces goalless work, migration tool to backfill existing loops</li>
+                        <li><strong>Dispatch Chain Improvements:</strong> Formal handoff contract schema (what gets passed between steps), validation gates before fan-in, cost/context budgets per chain</li>
+                    </ul>
+                    <p style="margin-top: 16px; color: var(--muted); font-size: 14px;">Requires schema changes and new enforcement logic. Some behavior changes for users.</p>
+                </div>
+
+                <div class="roadmap-phase">
+                    <h4>
+                        <span class="badge" style="background: var(--accent); color: white;">Phase 3: Long-Term</span>
+                        2-3 Months
+                    </h4>
+                    <ul>
+                        <li><strong>Formal Delegation Hierarchy:</strong> Add reports_to to agentRegistry.js, create VP-level agents (CTO/CMO/CFO), implement delegation cascades (CEO → VP → specialist), VP review cycles checking subordinate work</li>
+                        <li><strong>Pluggable Memory Providers:</strong> Abstract memory interface layer, support multiple backends (current SQLite + optional Turso + optional vector DB), per-agent memory provider overrides, cost/latency observability</li>
+                        <li><strong>Heartbeat-Driven Agent Lifecycle:</strong> Beyond cron — agents wake on schedule, review their domain, report status to CEO Gary, surface proactive opportunities, adaptive scheduling based on workload</li>
+                    </ul>
+                    <p style="margin-top: 16px; color: var(--muted); font-size: 14px;">Fundamental architecture evolution. Enables true executive team model. High complexity, high payoff.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Key Takeaways -->
+        <div class="slide">
+            <h2>Key Takeaways</h2>
+            <div class="content">
+                <div class="key-insight" style="font-size: 20px; margin-bottom: 32px;">
+                    Paperclip and Gary solve different problems exceptionally well.<br>
+                    Paperclip = control plane for AI companies.<br>
+                    Gary = deeply integrated AI chief of staff.
+                </div>
+
+                <div class="two-column">
+                    <div class="column">
+                        <div class="card">
+                            <h3>Steal from Paperclip</h3>
+                            <ul>
+                                <li>Goal ancestry chains (no orphan tasks)</li>
+                                <li>Agent capabilities discovery (semantic routing)</li>
+                                <li>Atomic task checkout (prevent double-work)</li>
+                                <li>Budget controls per dispatch target</li>
+                                <li>Formal delegation hierarchy (long-term)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <h3>Keep Gary's Strengths</h3>
+                            <ul>
+                                <li>Deep personal context (knowledge graph)</li>
+                                <li>Learning engine (preferences, corrections)</li>
+                                <li>Real-world integrations (Calendar, Gmail, etc.)</li>
+                                <li>Proactive intelligence (gap detection, self-assessment)</li>
+                                <li>Workflow automation (playbooks, guardrails)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-insight" style="font-size: 18px; margin-top: 32px;">
+                    <strong>Next Step:</strong> Start with Phase 1 quick wins (capabilities registry + atomic checkout + basic goal tracking). Ship in 1-2 weeks. Validate before Phase 2.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-indicator">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+    </div>
+
+    <div class="slide-number">
+        <span id="current-slide">1</span> / 8
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const currentSlideNumber = document.getElementById('current-slide');
+        let isTransitioning = false;
+
+        function goToSlide(index) {
+            if (isTransitioning) return;
+            if (index < 0 || index >= totalSlides) return;
+
+            isTransitioning = true;
+
+            const current = slides[currentSlide];
+            const next = slides[index];
+
+            current.classList.remove('active');
+            next.classList.add('active');
+
+            progressDots[currentSlide].classList.remove('active');
+            progressDots[index].classList.add('active');
+
+            currentSlide = index;
+            currentSlideNumber.textContent = currentSlide + 1;
+
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 600);
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                goToSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                goToSlide(totalSlides - 1);
+            }
+        });
+
+        // Click navigation
+        document.addEventListener('click', (e) => {
+            const clickX = e.clientX;
+            const screenWidth = window.innerWidth;
+
+            if (clickX > screenWidth * 0.7) {
+                nextSlide();
+            } else if (clickX < screenWidth * 0.3) {
+                prevSlide();
+            }
+        });
+
+        // Touch navigation for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide();
+            }
+        }
+
+        // Progress dot click navigation
+        progressDots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                goToSlide(index);
+            });
+        });
+    </script>
+</body>
+</html>
