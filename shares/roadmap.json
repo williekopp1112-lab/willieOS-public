@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-03-12",
+  "updated": "2026-03-25",
   "developers": {
     "willie": { "name": "Willie Kopp", "github": "williekopp1112-lab" },
     "joe": { "name": "Joe Ortega", "github": "Joeortega1085" },
@@ -511,8 +511,8 @@
       "id": "imessage-integration",
       "title": "iMessage Integration — Text Message Triage & Loop Creation",
       "description": "Read iMessages from the local macOS chat.db, surface actionable texts in Gary's context, and auto-create Open Loops from them — mirroring the email triage pipeline. Phase 1: read-only connector that queries ~/Library/Messages/chat.db (SQLite) for recent messages, extracts sender/body/timestamp, and feeds them to Gary for triage. Phase 2: AI triage job that scans new messages, detects action items, and creates Open Loops with source_type='imessage'. Phase 3: optional Telegram push notifications for important texts.",
-      "status": "planned",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "willie",
       "branch": null,
       "priority": "high",
       "files": [
@@ -524,7 +524,7 @@
       ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "macOS stores iMessages in ~/Library/Messages/chat.db (SQLite). Requires Full Disk Access permission for the app to read it. Read-only — no sending. Similar pattern to gmailConnector.js but local DB instead of API. Could extend to SMS if iPhone is linked via iMessage forwarding."
+      "notes": "Full iMessage UI built: ConversationList, ThreadView, DraftCard, Rust imessage.rs connector. Read-only from ~/Library/Messages/chat.db. Gary auto-drafts replies with reasoning. Conversation highlight, compose auto-grow, reasoning stripping at consumption. Remaining: AI triage job for auto-loop creation, Telegram push for important texts."
     },
     {
       "id": "email-loop-ui",
@@ -541,16 +541,19 @@
     },
     {
       "id": "gary-image-uploads",
-      "title": "Allow image/screenshot uploads in Gary chat",
-      "description": "Support drag-drop or paste of images/screenshots in Gary chat UI, same as Claude/ChatGPT. Pass image to Gary vision context.",
-      "status": "planned",
-      "owner": "joe",
+      "title": "Image & File Uploads in Gary Chat",
+      "description": "Support drag-drop, paste, or paperclip button for images and text-based documents (.md, .txt, .json, .csv, etc.) in Gary chat. Images sent via base64 vision, documents read as text and prepended to message.",
+      "status": "done",
+      "owner": "willie",
       "branch": null,
       "priority": "medium",
-      "files": [],
+      "files": [
+        "src/components/ai-assistant/AiAssistantWindow.jsx",
+        "src/utils/imageAttachments.js"
+      ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "Feature idea from Joe (PR #8)."
+      "notes": "Originally Joe's idea (PR #8). Image support built earlier, text file attachment support added March 25, 2026. Supports paste, drag-drop, and file picker."
     },
     {
       "id": "pptx-verticalization-v2",
