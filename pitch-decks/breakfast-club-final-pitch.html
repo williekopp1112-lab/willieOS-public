@@ -6,12 +6,12 @@
     <meta name="description" content="Bizpleaser × The Breakfast Club - AI-Powered Operations Pitch Deck">
     <meta property="og:title" content="Bizpleaser × The Breakfast Club | Partnership Proposal">
     <meta property="og:description" content="AI-powered operational intelligence for multi-location restaurant groups">
-    <meta property="og:image" content="https://williekopp1112-lab.github.io/willieOS-public/pitch-decks/breakfast-club-og.png">
+    <meta property="og:image" content="https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/9300Breakfast-Club-Logo-HQ.png?w=1200&fit=fill&auto=compress,format&cs=origin&h=600&bg=EDEDF1&pad=100">
     <title>Bizpleaser × The Breakfast Club</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🍳</text></svg>">
+    <link rel="icon" href="https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/9300Breakfast-Club-Logo-HQ.png?w=100&fit=max&auto=compress,format">
     <style>
         :root {
             --egg-yolk: #F4A259;
@@ -21,6 +21,8 @@
             --warm-white: #FFFEF9;
             --gold-accent: #C89F3F;
             --espresso: #2C2416;
+            --bc-navy: #1c2b5f;
+            --bc-blue-light: #94bedc;
         }
 
         * {
@@ -66,6 +68,20 @@
             transform: translateX(-100%);
         }
 
+        /* Logo watermark on all slides */
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/9300Breakfast-Club-Logo-HQ.png?w=200&fit=max&auto=compress,format') center/contain no-repeat;
+            opacity: 0.15;
+            z-index: 1;
+            pointer-events: none;
+        }
+
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -83,18 +99,14 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
-            opacity: 0.1;
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.1; }
-            50% { transform: scale(1.1); opacity: 0.15; }
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(rgba(44, 36, 22, 0.85), rgba(44, 36, 22, 0.85)),
+                url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/79983BC_BreakfastClub_FoodDrink14xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
+            opacity: 0.4;
         }
 
         .hero-content {
@@ -103,30 +115,53 @@
             max-width: 900px;
         }
 
+        .hero-logo {
+            margin-bottom: 40px;
+        }
+
+        .hero-logo img {
+            max-width: 450px;
+            width: 90%;
+            height: auto;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+        }
+
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2rem, 6vw, 4.5rem);
             margin-bottom: 20px;
-            line-height: 1.1;
-            letter-spacing: -2px;
+            line-height: 1.2;
+            letter-spacing: -1px;
         }
 
         .hero .brand-sep {
             font-size: clamp(2rem, 5vw, 4rem);
             color: var(--egg-yolk);
-            margin: 0 20px;
+            margin: 0 15px;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 300;
+            color: var(--cream);
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
         }
 
         .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-weight: 300;
-            color: var(--cream);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 400;
+            color: var(--warm-white);
             margin-top: 30px;
             letter-spacing: 0.5px;
         }
 
         /* Slide 2: Pain Points */
         .pain-points {
-            background: var(--cream);
+            background:
+                linear-gradient(rgba(250, 247, 242, 0.95), rgba(250, 247, 242, 0.95)),
+                url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/17528BC_BreakfastClub_Bar4xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
         }
 
         .section-title {
@@ -150,6 +185,7 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--bc-navy);
             transition: all 0.3s ease;
         }
 
@@ -222,7 +258,9 @@
 
         /* Slide 4: Use Cases */
         .use-cases {
-            background: var(--warm-white);
+            background:
+                linear-gradient(rgba(255, 254, 249, 0.93), rgba(255, 254, 249, 0.93)),
+                url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/20010BC_BreakfastClub_FoodDrink11xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
         }
 
         .use-case-grid {
@@ -243,7 +281,7 @@
         }
 
         .use-case-card:hover {
-            border-left-color: var(--amber);
+            border-left-color: var(--bc-navy);
             transform: translateX(5px);
         }
 
@@ -269,7 +307,59 @@
             color: var(--espresso);
         }
 
-        /* Slide 5: How It Works */
+        /* Slide 5: Your Breakfast Club */
+        .showcase {
+            background:
+                linear-gradient(rgba(28, 43, 95, 0.85), rgba(28, 43, 95, 0.85)),
+                url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/Y81eKbW2RGbbpYSYOROQ_MSH_LeopoldoMacaya-5N2A9889.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
+            color: var(--warm-white);
+            text-align: center;
+        }
+
+        .showcase .section-title {
+            color: var(--warm-white);
+            margin-bottom: 40px;
+        }
+
+        .showcase-logo {
+            margin-bottom: 50px;
+        }
+
+        .showcase-logo img {
+            max-width: 500px;
+            width: 90%;
+            height: auto;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
+        }
+
+        .showcase-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .showcase-stats p {
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .showcase-stats .highlight {
+            color: var(--egg-yolk);
+            font-weight: 600;
+        }
+
+        .showcase-tagline {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin-top: 50px;
+            color: var(--bc-blue-light);
+        }
+
+        /* Slide 6: How It Works */
         .how-it-works {
             background: var(--cream);
         }
@@ -293,6 +383,7 @@
             flex: 1;
             min-width: 200px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 3px solid var(--bc-navy);
         }
 
         .workflow-step h4 {
@@ -319,7 +410,7 @@
             text-align: center;
         }
 
-        /* Slide 6: The Proposal */
+        /* Slide 7: The Proposal */
         .proposal {
             background: linear-gradient(135deg, var(--coffee) 0%, var(--espresso) 100%);
             color: var(--warm-white);
@@ -370,7 +461,7 @@
             line-height: 1.6;
         }
 
-        /* Slide 7: Why This Works */
+        /* Slide 8: Why This Works */
         .why-works {
             background: var(--warm-white);
         }
@@ -389,6 +480,7 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--bc-navy);
         }
 
         .column h3 {
@@ -419,7 +511,7 @@
             font-size: 1.2rem;
         }
 
-        /* Slide 8: About Us */
+        /* Slide 9: About Us */
         .about {
             background: var(--cream);
         }
@@ -479,7 +571,7 @@
             color: var(--espresso);
         }
 
-        /* Slide 9: Next Steps */
+        /* Slide 10: Next Steps */
         .next-steps {
             background: var(--warm-white);
         }
@@ -547,7 +639,7 @@
             font-weight: 600;
         }
 
-        /* Slide 10: Contact */
+        /* Slide 11: Contact */
         .contact {
             background: linear-gradient(135deg, var(--espresso) 0%, var(--coffee) 100%);
             color: var(--warm-white);
@@ -653,6 +745,13 @@
                 padding: 60px 20px;
             }
 
+            .slide::after {
+                width: 60px;
+                height: 60px;
+                bottom: 10px;
+                right: 10px;
+            }
+
             .pain-grid, .stats-grid, .use-case-grid, .two-column {
                 grid-template-columns: 1fr;
             }
@@ -673,6 +772,10 @@
                 font-size: 0.75rem;
                 padding: 8px 12px;
             }
+
+            .hero-logo img, .showcase-logo img {
+                max-width: 300px;
+            }
         }
 
         /* Print Styles */
@@ -685,6 +788,10 @@
                 min-height: auto;
             }
 
+            .slide::after {
+                opacity: 0.3;
+            }
+
             .nav-hint, .slide-counter {
                 display: none;
             }
@@ -692,19 +799,24 @@
     </style>
 </head>
 <body>
-    <div class="slide-counter">Slide <span id="current-slide">1</span> / 10</div>
+    <div class="slide-counter">Slide <span id="current-slide">1</span> / 11</div>
     <div class="nav-hint">Use arrow keys to navigate</div>
 
     <div class="slide-container">
         <!-- Slide 1: Hero -->
         <section class="slide hero active" id="slide-1">
             <div class="hero-content fade-in-up">
+                <div class="hero-logo">
+                    <img src="https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/9300Breakfast-Club-Logo-HQ.png?w=600&fit=max&auto=compress,format"
+                         alt="The Breakfast Club at Midtown">
+                </div>
                 <h1>
                     Bizpleaser
                     <span class="brand-sep">×</span>
                     The Breakfast Club
                 </h1>
-                <p class="hero-subtitle">AI-Powered Operations for Livermore's Favorite Brunch Spot</p>
+                <p class="hero-tagline">"Where Meals and Memories Come Together"</p>
+                <p class="hero-subtitle">AI-Powered Operations for the Bay Area's Beloved Brunch Destination</p>
             </div>
         </section>
 
@@ -715,7 +827,7 @@
                 <div class="pain-card">
                     <span class="pain-icon">📅</span>
                     <h3>Staffing Chaos</h3>
-                    <p>Your Saturday brunch peaks at 10:30am but full staff arrives at opening. Group text scheduling across 5 Breakfast Club locations plus 3 Opa! locations means dropped shifts and overstaffing.</p>
+                    <p>Your Saturday brunch peaks at 10:30am but full staff arrives at opening. Group text scheduling across 8 locations means dropped shifts and overstaffing.</p>
                 </div>
                 <div class="pain-card">
                     <span class="pain-icon">📊</span>
@@ -736,19 +848,19 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" data-target="8">0</div>
-                    <div class="stat-label">Active Locations<br>(across 2 concepts)</div>
+                    <div class="stat-label">Active Locations<br>(+ franchise expansion)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" data-target="4400">0</div>
-                    <div class="stat-label">Yelp Reviews<br>(San Jose alone)</div>
+                    <div class="stat-number" data-target="4412">0</div>
+                    <div class="stat-label">Yelp Reviews<br>(San Jose Midtown)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">Facebook<br>Recommendation Rate</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">$8-12M+</div>
                     <div class="stat-label">Est. Annual Revenue<br>(multi-location group)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-target="19">0</div>
-                    <div class="stat-label">Years in the<br>Restaurant Game</div>
                 </div>
             </div>
             <p class="stats-note">Revenue estimated based on industry benchmarks for multi-location breakfast/brunch groups your size</p>
@@ -775,14 +887,30 @@
                 </div>
                 <div class="use-case-card">
                     <h3>Customer Sentiment Dashboard</h3>
-                    <p>AI analysis of 4,400+ Yelp reviews plus Google reviews across every location.</p>
+                    <p>AI analysis of 4,412 Yelp reviews plus Google reviews across every location.</p>
                     <div class="quote">"Wait times are mentioned negatively 3x more at your San Jose location vs. others."</div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 5: How It Works -->
-        <section class="slide how-it-works" id="slide-5">
+        <!-- Slide 5: Your Breakfast Club -->
+        <section class="slide showcase" id="slide-5">
+            <h2 class="section-title">Your Breakfast Club</h2>
+            <div class="showcase-logo">
+                <img src="https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/9300Breakfast-Club-Logo-HQ.png?w=700&fit=max&auto=compress,format"
+                     alt="The Breakfast Club">
+            </div>
+            <div class="showcase-stats">
+                <p><span class="highlight">8 locations</span> across the Bay Area</p>
+                <p><span class="highlight">From Livermore to San Mateo</span> — loyal customers everywhere</p>
+                <p><span class="highlight">Franchise opportunities</span> opening new doors</p>
+                <p><span class="highlight">Growing fast</span> and ready for AI-powered intelligence that scales with you</p>
+            </div>
+            <p class="showcase-tagline">"Where Meals and Memories Come Together"</p>
+        </section>
+
+        <!-- Slide 6: How It Works -->
+        <section class="slide how-it-works" id="slide-6">
             <h2 class="section-title">How It Works — Toast Integration</h2>
             <div class="workflow">
                 <div class="workflow-step">
@@ -808,8 +936,8 @@
             <p class="workflow-tagline">We don't replace your tools. We make them smarter.</p>
         </section>
 
-        <!-- Slide 6: The Proposal -->
-        <section class="slide proposal" id="slide-6">
+        <!-- Slide 7: The Proposal -->
+        <section class="slide proposal" id="slide-7">
             <h2 class="section-title">The Proposal — Zero Risk</h2>
             <div class="proposal-box">
                 <ul class="proposal-points">
@@ -820,12 +948,12 @@
                     <li>Walk away if we don't deliver value</li>
                 </ul>
                 <p class="proposal-quote">"We're not selling software. We're asking to earn our way in."</p>
-                <p class="proposal-fine-print">What we ask: Read-only Toast POS access, weekly 15-min check-in with Spiro, access to one location's managers.</p>
+                <p class="proposal-fine-print">What we ask: Read-only Toast POS access, weekly 15-min check-in with Spiro, access to one location's managers. And as you scale to franchising, the intelligence scales with you — no additional overhead.</p>
             </div>
         </section>
 
-        <!-- Slide 7: Why This Works -->
-        <section class="slide why-works" id="slide-7">
+        <!-- Slide 8: Why This Works -->
+        <section class="slide why-works" id="slide-8">
             <h2 class="section-title">Why This Works For Both Sides</h2>
             <div class="two-column">
                 <div class="column">
@@ -834,7 +962,7 @@
                         <li>Free operational intelligence worth $50K+ in consulting</li>
                         <li>No contracts, no commitment</li>
                         <li>Real data on your actual operations, not generic reports</li>
-                        <li>Competitive edge over other multi-location groups</li>
+                        <li>Competitive edge for franchise expansion — differentiate from competitors with AI-powered ops intelligence</li>
                     </ul>
                 </div>
                 <div class="column">
@@ -848,8 +976,8 @@
             </div>
         </section>
 
-        <!-- Slide 8: About Us -->
-        <section class="slide about" id="slide-8">
+        <!-- Slide 9: About Us -->
+        <section class="slide about" id="slide-9">
             <h2 class="section-title">About Us</h2>
             <div class="team-grid">
                 <div class="team-card">
@@ -868,8 +996,8 @@
             </div>
         </section>
 
-        <!-- Slide 9: Next Steps -->
-        <section class="slide next-steps" id="slide-9">
+        <!-- Slide 10: Next Steps -->
+        <section class="slide next-steps" id="slide-10">
             <h2 class="section-title">Next Steps</h2>
             <div class="steps-timeline">
                 <div class="step">
@@ -899,8 +1027,8 @@
             </div>
         </section>
 
-        <!-- Slide 10: Contact -->
-        <section class="slide contact" id="slide-10">
+        <!-- Slide 11: Contact -->
+        <section class="slide contact" id="slide-11">
             <h2 class="section-title">Let's Talk</h2>
             <div class="contact-grid">
                 <div class="contact-card">
@@ -913,7 +1041,7 @@
                     <p><a href="mailto:jortega1085@gmail.com">jortega1085@gmail.com</a></p>
                 </div>
             </div>
-            <p class="contact-tagline">Bizpleaser × The Breakfast Club<br>Let's Cook Something Up</p>
+            <p class="contact-tagline">Bizpleaser × The Breakfast Club<br>Let's Cook Something Up 🍳</p>
         </section>
     </div>
 
@@ -989,7 +1117,7 @@
                         counter.textContent = Math.floor(current).toLocaleString();
                         requestAnimationFrame(updateCounter);
                     } else {
-                        counter.textContent = target.toLocaleString() + '+';
+                        counter.textContent = target.toLocaleString() + (target === 8 ? '' : '+');
                     }
                 };
 
