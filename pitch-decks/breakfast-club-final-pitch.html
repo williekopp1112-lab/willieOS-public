@@ -51,7 +51,7 @@
             padding: 80px 40px;
             opacity: 0;
             transform: translateX(100%);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -85,6 +85,27 @@
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
+        }
+
+        /* Breakfast SVG Accent Illustrations */
+        .breakfast-accent {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .accent-coffee-cup {
+            top: 10%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+        }
+
+        .accent-egg {
+            bottom: 15%;
+            right: 8%;
+            width: 70px;
+            height: 70px;
         }
 
         /* Slide 1: Hero */
@@ -162,11 +183,13 @@
             background:
                 linear-gradient(rgba(250, 247, 242, 0.95), rgba(250, 247, 242, 0.95)),
                 url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/17528BC_BreakfastClub_Bar4xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
+            min-height: auto;
+            padding: 60px 40px;
         }
 
         .section-title {
             font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             text-align: center;
             color: var(--coffee);
             max-width: 800px;
@@ -195,7 +218,8 @@
         }
 
         .pain-icon {
-            font-size: 3rem;
+            width: 48px;
+            height: 48px;
             margin-bottom: 20px;
             display: block;
         }
@@ -216,6 +240,8 @@
         /* Slide 3: By The Numbers */
         .numbers {
             background: linear-gradient(to bottom, var(--warm-white) 0%, var(--cream) 100%);
+            min-height: auto;
+            padding: 60px 40px;
         }
 
         .stats-grid {
@@ -224,7 +250,7 @@
             gap: 50px;
             max-width: 1200px;
             width: 100%;
-            margin-top: 60px;
+            margin-top: 50px;
         }
 
         .stat-card {
@@ -247,7 +273,7 @@
         }
 
         .stats-note {
-            margin-top: 50px;
+            margin-top: 40px;
             font-size: 0.9rem;
             color: var(--coffee);
             opacity: 0.7;
@@ -261,6 +287,8 @@
             background:
                 linear-gradient(rgba(255, 254, 249, 0.93), rgba(255, 254, 249, 0.93)),
                 url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/20010BC_BreakfastClub_FoodDrink11xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
+            min-height: auto;
+            padding: 60px 40px;
         }
 
         .use-case-grid {
@@ -368,10 +396,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             max-width: 1200px;
             width: 100%;
-            margin-top: 60px;
+            margin-top: 50px;
             flex-wrap: wrap;
         }
 
@@ -398,8 +426,9 @@
         }
 
         .workflow-arrow {
-            font-size: 2rem;
-            color: var(--gold-accent);
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
         }
 
         .workflow-tagline {
@@ -472,7 +501,7 @@
             gap: 50px;
             max-width: 1200px;
             width: 100%;
-            margin-top: 60px;
+            margin-top: 50px;
         }
 
         .column {
@@ -582,7 +611,7 @@
             gap: 40px;
             max-width: 800px;
             width: 100%;
-            margin-top: 60px;
+            margin-top: 50px;
         }
 
         .step {
@@ -623,7 +652,7 @@
         }
 
         .cta {
-            margin-top: 60px;
+            margin-top: 50px;
             padding: 40px;
             background: var(--cream);
             border-radius: 12px;
@@ -805,6 +834,14 @@
     <div class="slide-container">
         <!-- Slide 1: Hero -->
         <section class="slide hero active" id="slide-1">
+            <!-- SVG Breakfast Accent: Coffee Cup -->
+            <svg class="breakfast-accent accent-coffee-cup" viewBox="0 0 100 100" fill="none">
+                <path d="M20 30 Q20 25 25 25 L65 25 Q70 25 70 30 L70 65 Q70 75 60 75 L30 75 Q20 75 20 65 Z" fill="var(--egg-yolk)" opacity="0.3"/>
+                <path d="M72 35 Q82 35 82 45 Q82 55 72 55" stroke="var(--egg-yolk)" stroke-width="3" fill="none" opacity="0.3"/>
+                <ellipse cx="45" cy="80" rx="25" ry="5" fill="var(--coffee)" opacity="0.2"/>
+                <path d="M30 30 Q35 40 40 30 M50 30 Q55 40 60 30" stroke="var(--warm-white)" stroke-width="2" opacity="0.4"/>
+            </svg>
+
             <div class="hero-content fade-in-up">
                 <div class="hero-logo">
                     <img src="https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/9300Breakfast-Club-Logo-HQ.png?w=600&fit=max&auto=compress,format"
@@ -825,17 +862,40 @@
             <h2 class="section-title">We See What You're Dealing With</h2>
             <div class="pain-grid">
                 <div class="pain-card">
-                    <span class="pain-icon">📅</span>
+                    <!-- SVG Icon: Calendar -->
+                    <svg class="pain-icon" viewBox="0 0 48 48" fill="none">
+                        <rect x="8" y="10" width="32" height="32" rx="3" stroke="var(--amber)" stroke-width="2.5"/>
+                        <line x1="8" y1="18" x2="40" y2="18" stroke="var(--amber)" stroke-width="2.5"/>
+                        <line x1="16" y1="6" x2="16" y2="14" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="32" y1="6" x2="32" y2="14" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="16" cy="26" r="2" fill="var(--egg-yolk)"/>
+                        <circle cx="24" cy="26" r="2" fill="var(--egg-yolk)"/>
+                        <circle cx="32" cy="26" r="2" fill="var(--egg-yolk)"/>
+                        <circle cx="16" cy="34" r="2" fill="var(--egg-yolk)"/>
+                        <circle cx="24" cy="34" r="2" fill="var(--egg-yolk)"/>
+                    </svg>
                     <h3>Staffing Chaos</h3>
                     <p>Your Saturday brunch peaks at 10:30am but full staff arrives at opening. Group text scheduling across 8 locations means dropped shifts and overstaffing.</p>
                 </div>
                 <div class="pain-card">
-                    <span class="pain-icon">📊</span>
+                    <!-- SVG Icon: Bar Chart -->
+                    <svg class="pain-icon" viewBox="0 0 48 48" fill="none">
+                        <rect x="8" y="28" width="8" height="14" fill="var(--amber)" rx="2"/>
+                        <rect x="20" y="18" width="8" height="24" fill="var(--egg-yolk)" rx="2"/>
+                        <rect x="32" y="12" width="8" height="30" fill="var(--gold-accent)" rx="2"/>
+                        <line x1="6" y1="42" x2="42" y2="42" stroke="var(--coffee)" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="6" y1="42" x2="6" y2="8" stroke="var(--coffee)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <h3>Menu Blind Spots</h3>
                     <p>S'mores Pancakes crush it in San Jose but underperform in Walnut Creek. Why? You shouldn't need a spreadsheet to find out.</p>
                 </div>
                 <div class="pain-card">
-                    <span class="pain-icon">💰</span>
+                    <!-- SVG Icon: Dollar Trending Up -->
+                    <svg class="pain-icon" viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="18" stroke="var(--amber)" stroke-width="2.5" fill="none"/>
+                        <path d="M24 14 V34 M20 18 L24 14 L28 18 M20 30 L24 34 L28 30" stroke="var(--egg-yolk)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 28 L18 20 L26 24 L38 12" stroke="var(--gold-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+                    </svg>
                     <h3>Vendor Cost Creep</h3>
                     <p>Are you paying 15% more for eggs at your Lafayette location than Morgan Hill from the same distributor? With 8 locations, price creep is invisible until it's expensive.</p>
                 </div>
@@ -844,14 +904,20 @@
 
         <!-- Slide 3: By The Numbers -->
         <section class="slide numbers" id="slide-3">
+            <!-- SVG Breakfast Accent: Fried Egg -->
+            <svg class="breakfast-accent accent-egg" viewBox="0 0 100 100" fill="none">
+                <ellipse cx="50" cy="55" rx="35" ry="30" fill="var(--warm-white)" opacity="0.3"/>
+                <circle cx="50" cy="50" r="15" fill="var(--egg-yolk)" opacity="0.5"/>
+            </svg>
+
             <h2 class="section-title">Your Breakfast Club By The Numbers</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-number">8</div>
                     <div class="stat-label">Active Locations<br>(+ franchise expansion)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" data-target="4412">0</div>
+                    <div class="stat-number">4,412</div>
                     <div class="stat-label">Yelp Reviews<br>(San Jose Midtown)</div>
                 </div>
                 <div class="stat-card">
@@ -917,17 +983,24 @@
                     <h4>Toast POS</h4>
                     <p>Your existing system</p>
                 </div>
-                <div class="workflow-arrow">→</div>
+                <!-- SVG Arrow -->
+                <svg class="workflow-arrow" viewBox="0 0 40 40" fill="none">
+                    <path d="M5 20 L30 20 M30 20 L23 13 M30 20 L23 27" stroke="var(--gold-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <div class="workflow-step">
                     <h4>Data Feed</h4>
                     <p>Read-only access</p>
                 </div>
-                <div class="workflow-arrow">→</div>
+                <svg class="workflow-arrow" viewBox="0 0 40 40" fill="none">
+                    <path d="M5 20 L30 20 M30 20 L23 13 M30 20 L23 27" stroke="var(--gold-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <div class="workflow-step">
                     <h4>AI Analysis</h4>
                     <p>Pattern detection</p>
                 </div>
-                <div class="workflow-arrow">→</div>
+                <svg class="workflow-arrow" viewBox="0 0 40 40" fill="none">
+                    <path d="M5 20 L30 20 M30 20 L23 13 M30 20 L23 27" stroke="var(--gold-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <div class="workflow-step">
                     <h4>Actionable Insights</h4>
                     <p>Your dashboard</p>
@@ -1083,14 +1156,9 @@
             currentSlide = index;
             slideCounter.textContent = currentSlide + 1;
 
-            // Animate counters if on numbers slide
-            if (index === 2) {
-                animateCounters();
-            }
-
             setTimeout(() => {
                 isTransitioning = false;
-            }, 800);
+            }, 600);
         }
 
         // Keyboard navigation
@@ -1101,29 +1169,6 @@
                 goToSlide(currentSlide - 1);
             }
         });
-
-        // Counter animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number[data-target]');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                let current = 0;
-
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current).toLocaleString();
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target.toLocaleString() + (target === 8 ? '' : '+');
-                    }
-                };
-
-                updateCounter();
-            });
-        }
 
         // Initialize
         slideCounter.textContent = '1';
