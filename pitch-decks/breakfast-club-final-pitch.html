@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bizpleaser × The Breakfast Club - AI-Powered Operations Pitch Deck">
+    <meta property="og:title" content="Bizpleaser × The Breakfast Club | Partnership Proposal">
+    <meta property="og:description" content="AI-powered operational intelligence for multi-location restaurant groups">
+    <meta property="og:image" content="https://williekopp1112-lab.github.io/willieOS-public/pitch-decks/breakfast-club-og.png">
+    <title>Bizpleaser × The Breakfast Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🍳</text></svg>">
+    <style>
+        :root {
+            --egg-yolk: #F4A259;
+            --amber: #D97757;
+            --coffee: #4A3F35;
+            --cream: #FAF7F2;
+            --warm-white: #FFFEF9;
+            --gold-accent: #C89F3F;
+            --espresso: #2C2416;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--warm-white);
+            color: var(--espresso);
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            min-height: 100vh;
+            padding: 80px 40px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Slide 1: Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--espresso) 0%, var(--coffee) 100%);
+            color: var(--warm-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .hero .brand-sep {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--egg-yolk);
+            margin: 0 20px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: var(--cream);
+            margin-top: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Slide 2: Pain Points */
+        .pain-points {
+            background: var(--cream);
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--coffee);
+            max-width: 800px;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .pain-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .pain-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .pain-card h3 {
+            font-size: 1.5rem;
+            color: var(--amber);
+            margin-bottom: 16px;
+        }
+
+        .pain-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--coffee);
+            font-weight: 400;
+        }
+
+        /* Slide 3: By The Numbers */
+        .numbers {
+            background: linear-gradient(to bottom, var(--warm-white) 0%, var(--cream) 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--amber);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--coffee);
+            font-weight: 500;
+        }
+
+        .stats-note {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: var(--coffee);
+            opacity: 0.7;
+            font-style: italic;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* Slide 4: Use Cases */
+        .use-cases {
+            background: var(--warm-white);
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 35px;
+            border-left: 4px solid var(--egg-yolk);
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            border-left-color: var(--amber);
+            transform: translateX(5px);
+        }
+
+        .use-case-card h3 {
+            font-size: 1.3rem;
+            color: var(--coffee);
+            margin-bottom: 15px;
+        }
+
+        .use-case-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--coffee);
+        }
+
+        .quote {
+            margin-top: 12px;
+            padding: 15px;
+            background: var(--cream);
+            border-radius: 6px;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--espresso);
+        }
+
+        /* Slide 5: How It Works */
+        .how-it-works {
+            background: var(--cream);
+        }
+
+        .workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .workflow-step {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .workflow-step h4 {
+            font-size: 1.2rem;
+            color: var(--amber);
+            margin-bottom: 10px;
+        }
+
+        .workflow-step p {
+            font-size: 0.9rem;
+            color: var(--coffee);
+        }
+
+        .workflow-arrow {
+            font-size: 2rem;
+            color: var(--gold-accent);
+        }
+
+        .workflow-tagline {
+            margin-top: 50px;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--coffee);
+            text-align: center;
+        }
+
+        /* Slide 6: The Proposal */
+        .proposal {
+            background: linear-gradient(135deg, var(--coffee) 0%, var(--espresso) 100%);
+            color: var(--warm-white);
+        }
+
+        .proposal .section-title {
+            color: var(--warm-white);
+        }
+
+        .proposal-box {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--egg-yolk);
+            padding: 60px;
+            border-radius: 16px;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .proposal-points {
+            list-style: none;
+            margin: 40px 0;
+        }
+
+        .proposal-points li {
+            font-size: 1.5rem;
+            font-weight: 500;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .proposal-points li:last-child {
+            border-bottom: none;
+        }
+
+        .proposal-quote {
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin: 40px 0 20px;
+            color: var(--egg-yolk);
+        }
+
+        .proposal-fine-print {
+            font-size: 0.9rem;
+            color: var(--cream);
+            opacity: 0.8;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+
+        /* Slide 7: Why This Works */
+        .why-works {
+            background: var(--warm-white);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .column {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .column h3 {
+            font-size: 1.8rem;
+            color: var(--amber);
+            margin-bottom: 25px;
+        }
+
+        .column ul {
+            list-style: none;
+        }
+
+        .column li {
+            padding: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--coffee);
+        }
+
+        .column li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--egg-yolk);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Slide 8: About Us */
+        .about {
+            background: var(--cream);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem;
+            color: var(--coffee);
+            margin-bottom: 10px;
+        }
+
+        .team-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--coffee);
+        }
+
+        .company-info {
+            margin-top: 60px;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .company-info h3 {
+            font-size: 2rem;
+            color: var(--amber);
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--coffee);
+        }
+
+        .company-quote {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--espresso);
+        }
+
+        /* Slide 9: Next Steps */
+        .next-steps {
+            background: var(--warm-white);
+        }
+
+        .steps-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--egg-yolk);
+            line-height: 1;
+            min-width: 60px;
+        }
+
+        .step-content h4 {
+            font-size: 1.4rem;
+            color: var(--coffee);
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--coffee);
+        }
+
+        .cta {
+            margin-top: 60px;
+            padding: 40px;
+            background: var(--cream);
+            border-radius: 12px;
+            text-align: center;
+            max-width: 700px;
+            border: 2px solid var(--amber);
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--espresso);
+            font-weight: 600;
+        }
+
+        /* Slide 10: Contact */
+        .contact {
+            background: linear-gradient(135deg, var(--espresso) 0%, var(--coffee) 100%);
+            color: var(--warm-white);
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 900px;
+            width: 100%;
+            margin: 60px 0;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            color: var(--egg-yolk);
+            margin-bottom: 15px;
+        }
+
+        .contact-card p {
+            font-size: 1rem;
+            color: var(--cream);
+            margin: 8px 0;
+        }
+
+        .contact-card a {
+            color: var(--egg-yolk);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: var(--warm-white);
+        }
+
+        .contact-tagline {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--egg-yolk);
+            margin-top: 40px;
+        }
+
+        /* Navigation */
+        .nav-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-hint:hover {
+            opacity: 1;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 60px 20px;
+            }
+
+            .pain-grid, .stats-grid, .use-case-grid, .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .proposal-box {
+                padding: 40px 30px;
+            }
+
+            .nav-hint, .slide-counter {
+                font-size: 0.75rem;
+                padding: 8px 12px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .slide {
+                position: relative;
+                transform: none;
+                opacity: 1;
+                page-break-after: always;
+                min-height: auto;
+            }
+
+            .nav-hint, .slide-counter {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter">Slide <span id="current-slide">1</span> / 10</div>
+    <div class="nav-hint">Use arrow keys to navigate</div>
+
+    <div class="slide-container">
+        <!-- Slide 1: Hero -->
+        <section class="slide hero active" id="slide-1">
+            <div class="hero-content fade-in-up">
+                <h1>
+                    Bizpleaser
+                    <span class="brand-sep">×</span>
+                    The Breakfast Club
+                </h1>
+                <p class="hero-subtitle">AI-Powered Operations for Livermore's Favorite Brunch Spot</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: Pain Points -->
+        <section class="slide pain-points" id="slide-2">
+            <h2 class="section-title">We See What You're Dealing With</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <span class="pain-icon">📅</span>
+                    <h3>Staffing Chaos</h3>
+                    <p>Your Saturday brunch peaks at 10:30am but full staff arrives at opening. Group text scheduling across 5 Breakfast Club locations plus 3 Opa! locations means dropped shifts and overstaffing.</p>
+                </div>
+                <div class="pain-card">
+                    <span class="pain-icon">📊</span>
+                    <h3>Menu Blind Spots</h3>
+                    <p>S'mores Pancakes crush it in San Jose but underperform in Walnut Creek. Why? You shouldn't need a spreadsheet to find out.</p>
+                </div>
+                <div class="pain-card">
+                    <span class="pain-icon">💰</span>
+                    <h3>Vendor Cost Creep</h3>
+                    <p>Are you paying 15% more for eggs at your Lafayette location than Morgan Hill from the same distributor? With 8 locations, price creep is invisible until it's expensive.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: By The Numbers -->
+        <section class="slide numbers" id="slide-3">
+            <h2 class="section-title">Your Breakfast Club By The Numbers</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Active Locations<br>(across 2 concepts)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="4400">0</div>
+                    <div class="stat-label">Yelp Reviews<br>(San Jose alone)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$8-12M+</div>
+                    <div class="stat-label">Est. Annual Revenue<br>(multi-location group)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="19">0</div>
+                    <div class="stat-label">Years in the<br>Restaurant Game</div>
+                </div>
+            </div>
+            <p class="stats-note">Revenue estimated based on industry benchmarks for multi-location breakfast/brunch groups your size</p>
+        </section>
+
+        <!-- Slide 4: Use Cases -->
+        <section class="slide use-cases" id="slide-4">
+            <h2 class="section-title">What AI Could Surface — In Your First 30 Days</h2>
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <h3>Shift Pattern Optimization</h3>
+                    <p>We analyze your Toast POS data and scheduling patterns.</p>
+                    <div class="quote">"Your Livermore location is overstaffed by 2 servers on Tuesday mornings — $800/month savings."</div>
+                </div>
+                <div class="use-case-card">
+                    <h3>Menu Performance Intelligence</h3>
+                    <p>Cross-location comparison reveals hidden opportunities.</p>
+                    <div class="quote">"Build-Your-Own Benedict has 40% higher margin at Castro Valley vs. San Jose — here's why."</div>
+                </div>
+                <div class="use-case-card">
+                    <h3>Vendor Cost Tracking</h3>
+                    <p>We flag price creep across all 8 locations.</p>
+                    <div class="quote">"Your egg supplier charges $2.40/dozen in Morgan Hill but $2.76 in Lafayette — same distributor."</div>
+                </div>
+                <div class="use-case-card">
+                    <h3>Customer Sentiment Dashboard</h3>
+                    <p>AI analysis of 4,400+ Yelp reviews plus Google reviews across every location.</p>
+                    <div class="quote">"Wait times are mentioned negatively 3x more at your San Jose location vs. others."</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: How It Works -->
+        <section class="slide how-it-works" id="slide-5">
+            <h2 class="section-title">How It Works — Toast Integration</h2>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <h4>Toast POS</h4>
+                    <p>Your existing system</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <h4>Data Feed</h4>
+                    <p>Read-only access</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <h4>AI Analysis</h4>
+                    <p>Pattern detection</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <h4>Actionable Insights</h4>
+                    <p>Your dashboard</p>
+                </div>
+            </div>
+            <p class="workflow-tagline">We don't replace your tools. We make them smarter.</p>
+        </section>
+
+        <!-- Slide 6: The Proposal -->
+        <section class="slide proposal" id="slide-6">
+            <h2 class="section-title">The Proposal — Zero Risk</h2>
+            <div class="proposal-box">
+                <ul class="proposal-points">
+                    <li>ONE Breakfast Club location (your choice)</li>
+                    <li>30-60 days</li>
+                    <li>$0 cost</li>
+                    <li>No disruption to your operation</li>
+                    <li>Walk away if we don't deliver value</li>
+                </ul>
+                <p class="proposal-quote">"We're not selling software. We're asking to earn our way in."</p>
+                <p class="proposal-fine-print">What we ask: Read-only Toast POS access, weekly 15-min check-in with Spiro, access to one location's managers.</p>
+            </div>
+        </section>
+
+        <!-- Slide 7: Why This Works -->
+        <section class="slide why-works" id="slide-7">
+            <h2 class="section-title">Why This Works For Both Sides</h2>
+            <div class="two-column">
+                <div class="column">
+                    <h3>For Spiro & The Breakfast Club</h3>
+                    <ul>
+                        <li>Free operational intelligence worth $50K+ in consulting</li>
+                        <li>No contracts, no commitment</li>
+                        <li>Real data on your actual operations, not generic reports</li>
+                        <li>Competitive edge over other multi-location groups</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>For Us</h3>
+                    <ul>
+                        <li>Real-world validation with a growing restaurant group</li>
+                        <li>A reference customer we'd be proud of</li>
+                        <li>Proof that AI works in the breakfast/brunch vertical</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: About Us -->
+        <section class="slide about" id="slide-8">
+            <h2 class="section-title">About Us</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <h3>Willie Kopp</h3>
+                    <p>Enterprise tech background, Livermore local, AI specialist. Built systems for Fortune 500 companies, now focused on bringing that intelligence to restaurants.</p>
+                </div>
+                <div class="team-card">
+                    <h3>Joe Ortega</h3>
+                    <p>Co-presenter and operations strategist. Deep experience in multi-location business operations and data-driven decision making.</p>
+                </div>
+            </div>
+            <div class="company-info">
+                <h3>Bizpleaser</h3>
+                <p>AI-powered front office services for restaurants. We help multi-location groups see what's working, what's not, and why.</p>
+                <p class="company-quote">"We're not a tech company that thinks it knows restaurants. We're restaurant people who happen to build great technology."</p>
+            </div>
+        </section>
+
+        <!-- Slide 9: Next Steps -->
+        <section class="slide next-steps" id="slide-9">
+            <h2 class="section-title">Next Steps</h2>
+            <div class="steps-timeline">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>This Week</h4>
+                        <p>Pick your pilot location. We recommend starting with one that has clean data and an engaged manager.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Week 1-2</h4>
+                        <p>We connect to your Toast POS (read-only) and begin analysis. No changes to your operations, no training required.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Day 30</h4>
+                        <p>We present findings. You decide if there's value. If not, you've lost nothing.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cta">
+                <p>Let's start with one location. If we don't deliver, you've lost nothing.</p>
+            </div>
+        </section>
+
+        <!-- Slide 10: Contact -->
+        <section class="slide contact" id="slide-10">
+            <h2 class="section-title">Let's Talk</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Willie Kopp</h3>
+                    <p><a href="mailto:willie@bizpleaser.com">willie@bizpleaser.com</a></p>
+                    <p>(925) 555-0123</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Joe Ortega</h3>
+                    <p><a href="mailto:jortega1085@gmail.com">jortega1085@gmail.com</a></p>
+                </div>
+            </div>
+            <p class="contact-tagline">Bizpleaser × The Breakfast Club<br>Let's Cook Something Up</p>
+        </section>
+    </div>
+
+    <script>
+        // Slide navigation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slideCounter = document.getElementById('current-slide');
+        let isTransitioning = false;
+
+        function goToSlide(index) {
+            if (isTransitioning || index < 0 || index >= totalSlides || index === currentSlide) {
+                return;
+            }
+
+            isTransitioning = true;
+
+            const current = slides[currentSlide];
+            const next = slides[index];
+
+            // Remove active from current
+            current.classList.remove('active');
+
+            // Determine direction
+            if (index > currentSlide) {
+                current.classList.add('prev');
+                next.classList.remove('prev');
+            } else {
+                next.classList.add('prev');
+                setTimeout(() => {
+                    next.classList.remove('prev');
+                }, 50);
+            }
+
+            // Activate next
+            next.classList.add('active');
+
+            currentSlide = index;
+            slideCounter.textContent = currentSlide + 1;
+
+            // Animate counters if on numbers slide
+            if (index === 2) {
+                animateCounters();
+            }
+
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 800);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                goToSlide(currentSlide - 1);
+            }
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number[data-target]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString() + '+';
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Initialize
+        slideCounter.textContent = '1';
+    </script>
+</body>
+</html>
