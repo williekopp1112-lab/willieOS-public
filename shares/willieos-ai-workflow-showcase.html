@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WillieOS — Enterprise AI Workflow Engine. Showcase of AI-powered document generation, intelligent email handling, and task orchestration for modern executives.">
+    <meta property="og:title" content="WillieOS — AI Workflow Engine">
+    <meta property="og:description" content="Enterprise AI That Actually Works. Interactive showcase of Willie Kopp's personal AI operating system.">
+    <title>WillieOS — AI Workflow Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0e1a;
+            --dark-surface: #131926;
+            --dark-elevated: #1a2332;
+            --accent-blue: #00d4ff;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff006e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b8d4;
+            --text-muted: #6b7494;
+            --glow-blue: rgba(0, 212, 255, 0.3);
+            --glow-magenta: rgba(255, 0, 110, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+        }
+
+        nav .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-blue);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(10deg); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--accent-blue);
+            background: transparent;
+            color: var(--accent-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px var(--glow-blue);
+            transform: translateY(-2px);
+        }
+
+        section {
+            position: relative;
+            z-index: 10;
+            padding: 8rem 2rem;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: rgba(26, 35, 50, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px var(--glow-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .glass-card .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            animation: icon-float 3s ease-in-out infinite;
+        }
+
+        @keyframes icon-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .glass-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .glass-card ul {
+            list-style: none;
+            margin-top: 1rem;
+            padding-left: 0;
+        }
+
+        .glass-card ul li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .glass-card ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        .architecture-diagram {
+            position: relative;
+            padding: 4rem 2rem;
+            background: rgba(26, 35, 50, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 24px;
+            margin-top: 3rem;
+        }
+
+        .arch-nodes {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .arch-node {
+            background: rgba(26, 35, 50, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .arch-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--glow-blue);
+            border-color: var(--accent-cyan);
+        }
+
+        .arch-node.center {
+            border-color: var(--accent-magenta);
+            box-shadow: 0 0 30px var(--glow-magenta);
+            transform: scale(1.1);
+        }
+
+        .arch-node .node-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .arch-node .node-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-node .node-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .arch-flow {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(26, 35, 50, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+        }
+
+        .flow-step:not(:last-child):after {
+            content: "→";
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--accent-blue);
+        }
+
+        .flow-step h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-cyan);
+        }
+
+        .flow-step p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(26, 35, 50, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px var(--glow-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
+        }
+
+        .divider-mesh {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.2), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255, 0, 110, 0.2), transparent 50%);
+            animation: mesh-float 8s ease-in-out infinite;
+        }
+
+        @keyframes mesh-float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .tech-pill {
+            padding: 0.5rem 1.25rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tech-pill:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .scroll-indicator span:before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: scroll-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-dot {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px var(--glow-blue); }
+            50% { box-shadow: 0 0 40px var(--glow-blue), 0 0 60px var(--glow-magenta); }
+        }
+
+        .glow-pulse {
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.25rem; }
+            .hero .tagline { font-size: 1rem; }
+            .section-header h2 { font-size: 2rem; }
+            .section-header p { font-size: 1rem; }
+            nav ul { gap: 1rem; }
+            section { padding: 4rem 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .flow-steps { flex-direction: column; }
+            .flow-step:not(:last-child):after {
+                content: "↓";
+                right: auto;
+                bottom: -1.5rem;
+                top: auto;
+            }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">WillieOS</div>
+            <ul>
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#documents" class="nav-link">Documents</a></li>
+                <li><a href="#web" class="nav-link">Web</a></li>
+                <li><a href="#email" class="nav-link">Email</a></li>
+                <li><a href="#calendar" class="nav-link">Calendar</a></li>
+                <li><a href="#tasks" class="nav-link">Tasks</a></li>
+                <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li><a href="#stats" class="nav-link">Impact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero visible">
+        <div class="hero-content">
+            <h1>WillieOS — AI Workflow Engine</h1>
+            <p class="subtitle">Enterprise AI That Actually Works</p>
+            <p class="tagline">
+                A personal AI operating system built by Willie Kopp for high-velocity executives.
+                Gary orchestrates Claude Code, Cowork, and specialist agents to automate document generation,
+                intelligent email handling, meeting prep, and task orchestration.
+            </p>
+            <a href="#documents" class="cta-button">Explore Capabilities</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="documents">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Document Generation</h2>
+                <p>AI-powered creation of Word docs, Excel spreadsheets, and PowerPoint decks on demand</p>
+            </div>
+            <div class="card-grid">
+                <div class="glass-card">
+                    <div class="card-icon">📄</div>
+                    <h3>Word Documents</h3>
+                    <p>Generate executive summaries, status reports, project proposals, and client deliverables with proper formatting, headers, and corporate styling.</p>
+                    <ul>
+                        <li>Auto-formatted templates</li>
+                        <li>Context-aware content</li>
+                        <li>Version control integration</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📊</div>
+                    <h3>Excel Spreadsheets</h3>
+                    <p>Build financial models, data analysis reports, budget trackers, and project timelines with formulas, conditional formatting, and pivot tables.</p>
+                    <ul>
+                        <li>Dynamic formulas</li>
+                        <li>Chart generation</li>
+                        <li>Data validation</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📈</div>
+                    <h3>PowerPoint Decks</h3>
+                    <p>Create pitch decks, quarterly reviews, training materials, and client presentations with professional layouts, animations, and speaker notes.</p>
+                    <ul>
+                        <li>Template library</li>
+                        <li>Smart animations</li>
+                        <li>Brand consistency</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tech-pills">
+                <span class="tech-pill">Cowork Dispatch</span>
+                <span class="tech-pill">OpenAI Models</span>
+                <span class="tech-pill">Template Engine</span>
+                <span class="tech-pill">Auto-formatting</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="web">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Interactive Web Experiences</h2>
+                <p>Build HTML sites, dashboards, animated pitch decks, and web apps — this page is proof</p>
+            </div>
+            <div class="card-grid">
+                <div class="glass-card">
+                    <div class="card-icon">🌐</div>
+                    <h3>HTML Sites</h3>
+                    <p>Single-page marketing sites, portfolio pages, product showcases, and landing pages with responsive design and modern aesthetics.</p>
+                    <ul>
+                        <li>Self-contained files</li>
+                        <li>Mobile responsive</li>
+                        <li>SEO optimized</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📊</div>
+                    <h3>Data Dashboards</h3>
+                    <p>Real-time analytics dashboards, KPI trackers, and interactive data visualizations with charts, graphs, and dynamic filtering.</p>
+                    <ul>
+                        <li>Live data updates</li>
+                        <li>Interactive charts</li>
+                        <li>Custom metrics</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">🎬</div>
+                    <h3>Animated Presentations</h3>
+                    <p>Interactive slide decks with keyboard navigation, smooth transitions, scroll-triggered animations, and particle effects.</p>
+                    <ul>
+                        <li>60fps animations</li>
+                        <li>Scroll triggers</li>
+                        <li>Glassmorphism UI</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tech-pills">
+                <span class="tech-pill">Claude Code</span>
+                <span class="tech-pill">React 19</span>
+                <span class="tech-pill">Tailwind CSS 4</span>
+                <span class="tech-pill">Canvas API</span>
+                <span class="tech-pill">Intersection Observer</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="email">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Intelligent Email & Communications</h2>
+                <p>Context-aware email drafting with calendar, contacts, and thread history</p>
+            </div>
+            <div class="card-grid">
+                <div class="glass-card">
+                    <div class="card-icon">✉️</div>
+                    <h3>Smart Email Drafting</h3>
+                    <p>Gary drafts emails with full context awareness — your calendar availability, relationship history, ongoing projects, and communication style.</p>
+                    <ul>
+                        <li>Context injection</li>
+                        <li>Style matching</li>
+                        <li>Template suggestions</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">🤖</div>
+                    <h3>Autonomous Triage</h3>
+                    <p>Automatic email categorization, priority scoring, action item extraction, and suggested responses for routine inquiries.</p>
+                    <ul>
+                        <li>Priority detection</li>
+                        <li>Action extraction</li>
+                        <li>Auto-categorization</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📝</div>
+                    <h3>Thread Intelligence</h3>
+                    <p>Understand full email threads, track commitments, detect missed follow-ups, and surface important messages buried in long chains.</p>
+                    <ul>
+                        <li>Commitment tracking</li>
+                        <li>Follow-up reminders</li>
+                        <li>Thread summarization</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tech-pills">
+                <span class="tech-pill">Gmail API</span>
+                <span class="tech-pill">Claude Haiku 4.5</span>
+                <span class="tech-pill">Context Engine</span>
+                <span class="tech-pill">NLP Processing</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="calendar">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Calendar & Meeting Intelligence</h2>
+                <p>Automated meeting prep with attendee research, related emails, and open tasks</p>
+            </div>
+            <div class="card-grid">
+                <div class="glass-card">
+                    <div class="card-icon">📅</div>
+                    <h3>Meeting Prep Briefs</h3>
+                    <p>Before every meeting, Gary generates a brief with attendee backgrounds, recent email threads, relevant tasks, and suggested talking points.</p>
+                    <ul>
+                        <li>Attendee profiles</li>
+                        <li>Email context</li>
+                        <li>Task alignment</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">🔔</div>
+                    <h3>Smart Scheduling</h3>
+                    <p>Conflict detection, optimal time suggestions based on your energy patterns, automatic buffer time, and coordination with external calendars.</p>
+                    <ul>
+                        <li>Conflict resolution</li>
+                        <li>Energy optimization</li>
+                        <li>Buffer management</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📋</div>
+                    <h3>Action Item Tracking</h3>
+                    <p>Automatically extract action items from meeting invites, track commitments across calendar events, and surface pre-meeting to-dos.</p>
+                    <ul>
+                        <li>Auto-extraction</li>
+                        <li>Commitment tracking</li>
+                        <li>Deadline alerts</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tech-pills">
+                <span class="tech-pill">Google Calendar API</span>
+                <span class="tech-pill">Gemini 2.5 Flash Lite</span>
+                <span class="tech-pill">SQLite FTS5</span>
+                <span class="tech-pill">Context Builder</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="tasks">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Task & Project Orchestration</h2>
+                <p>GTD-inspired task system with context, urgency, nesting, and intelligent routing</p>
+            </div>
+            <div class="card-grid">
+                <div class="glass-card">
+                    <div class="card-icon">✅</div>
+                    <h3>Open Loops System</h3>
+                    <p>Capture every commitment as an "open loop" with context tags, urgency levels, ownership, due dates, and source tracking (email, meeting, chat).</p>
+                    <ul>
+                        <li>Context tagging</li>
+                        <li>Urgency scoring</li>
+                        <li>Source linking</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Stale Task Detection</h3>
+                    <p>Gary surfaces tasks that have gone stale, identifies blockers, suggests next actions, and prompts for status updates or delegation.</p>
+                    <ul>
+                        <li>Age tracking</li>
+                        <li>Blocker detection</li>
+                        <li>Nudge automation</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">📊</div>
+                    <h3>Project Dashboards</h3>
+                    <p>Aggregate view of all tasks by project, client, or context. Track progress, identify bottlenecks, and generate status reports on demand.</p>
+                    <ul>
+                        <li>Multi-view filtering</li>
+                        <li>Progress tracking</li>
+                        <li>Report generation</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tech-pills">
+                <span class="tech-pill">SQLite</span>
+                <span class="tech-pill">Zustand State</span>
+                <span class="tech-pill">GTD Methodology</span>
+                <span class="tech-pill">Smart Routing</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="architecture">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Willie → Gary → Specialist Agents → Delivered Results</p>
+            </div>
+            <div class="architecture-diagram">
+                <div class="arch-nodes">
+                    <div class="arch-node">
+                        <div class="node-icon">👤</div>
+                        <div class="node-label">Willie</div>
+                        <div class="node-desc">Natural language request</div>
+                    </div>
+                    <div class="arch-node center glow-pulse">
+                        <div class="node-icon">🤖</div>
+                        <div class="node-label">Gary</div>
+                        <div class="node-desc">AI Chief of Staff</div>
+                    </div>
+                    <div class="arch-node">
+                        <div class="node-icon">💻</div>
+                        <div class="node-label">Claude Code</div>
+                        <div class="node-desc">Code & web builds</div>
+                    </div>
+                    <div class="arch-node">
+                        <div class="node-icon">📄</div>
+                        <div class="node-label">Cowork</div>
+                        <div class="node-desc">Document generation</div>
+                    </div>
+                    <div class="arch-node">
+                        <div class="node-icon">🔍</div>
+                        <div class="node-label">Search</div>
+                        <div class="node-desc">Web & data search</div>
+                    </div>
+                    <div class="arch-node">
+                        <div class="node-icon">📅</div>
+                        <div class="node-label">Calendar</div>
+                        <div class="node-desc">Meeting intelligence</div>
+                    </div>
+                    <div class="arch-node">
+                        <div class="node-icon">✉️</div>
+                        <div class="node-label">Email</div>
+                        <div class="node-desc">Smart drafting</div>
+                    </div>
+                </div>
+
+                <div class="arch-flow">
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <h4>Request</h4>
+                            <p>Willie asks Gary via chat, email, or voice</p>
+                        </div>
+                        <div class="flow-step">
+                            <h4>Route</h4>
+                            <p>Gary analyzes intent and routes to specialist</p>
+                        </div>
+                        <div class="flow-step">
+                            <h4>Execute</h4>
+                            <p>Specialist agent performs the task autonomously</p>
+                        </div>
+                        <div class="flow-step">
+                            <h4>Deliver</h4>
+                            <p>Result returned with summary and next actions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-pills" style="margin-top: 3rem;">
+                <span class="tech-pill">Tauri 2</span>
+                <span class="tech-pill">React 19</span>
+                <span class="tech-pill">SQLite</span>
+                <span class="tech-pill">Node.js MCP Server</span>
+                <span class="tech-pill">Claude Haiku 4.5</span>
+                <span class="tech-pill">Gemini 2.5 Flash Lite</span>
+                <span class="tech-pill">Claude Sonnet 4.6</span>
+                <span class="tech-pill">Zustand</span>
+                <span class="tech-pill">Tailwind CSS 4</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section id="stats">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Impact at Scale</h2>
+                <p>Real metrics from Willie's personal deployment</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" data-target="500">0</span>
+                    <div class="stat-label">Dispatches Completed</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="50">0</span>
+                    <div class="stat-label">Active Workflows</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="1000">0</span>
+                    <div class="stat-label">Emails Triaged</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-target="100">0</span>
+                    <div class="stat-label">Documents Generated</div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">Cost Efficiency</h3>
+                <p style="text-align: center; font-size: 1.1rem; color: var(--text-secondary);">
+                    Running at <strong style="color: var(--accent-blue);">$10-15/week</strong> steady-state cost.
+                    Claude Code dispatches are <strong style="color: var(--accent-cyan);">$0 (Max-covered)</strong>.
+                    Background jobs use <strong>Gemini 2.5 Flash Lite</strong> via OpenRouter for pennies.
+                </p>
+                <div class="tech-pills" style="margin-top: 1.5rem;">
+                    <span class="tech-pill">Chat: Claude Haiku 4.5</span>
+                    <span class="tech-pill">Background: Gemini Flash Lite</span>
+                    <span class="tech-pill">Summaries: Claude Sonnet 4.6</span>
+                    <span class="tech-pill">Code: $0 via CLI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-mesh"></div>
+    </div>
+
+    <section style="padding: 6rem 2rem; text-align: center;">
+        <div class="section-container">
+            <h2 style="font-size: 3rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Ready to See Gary in Action?
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem;">
+                This showcase is just the surface. Let's demo the live interface, review real dispatches,
+                and explore how WillieOS can scale to enterprise teams.
+            </p>
+            <a href="#hero" class="cta-button">Back to Top</a>
+        </div>
+    </section>
+
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationFrameId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 212, 255, 0.6)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = 80;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${0.2 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        resizeCanvas();
+        initParticles();
+        animate();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            if (!section.classList.contains('visible')) {
+                observer.observe(section);
+            }
+        });
+
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target;
+                    const target = parseInt(statNumber.getAttribute('data-target'));
+                    let current = 0;
+                    const increment = target / 60;
+                    const suffix = '+';
+
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            statNumber.textContent = Math.floor(current) + suffix;
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            statNumber.textContent = target + suffix;
+                        }
+                    };
+
+                    updateCounter();
+                    statObserver.unobserve(statNumber);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            statObserver.observe(stat);
+        });
+
+        console.log('%cWillieOS — AI Workflow Engine', 'color: #00d4ff; font-size: 24px; font-weight: bold;');
+        console.log('%cBuilt with Claude Code', 'color: #00ffff; font-size: 14px;');
+        console.log('%cProduction-grade autonomous dispatch deliverable', 'color: #ff006e; font-size: 12px;');
+    </script>
+</body>
+</html>
