@@ -47,8 +47,8 @@
         .slide {
             position: absolute;
             width: 100%;
-            min-height: 100vh;
-            padding: 80px 40px;
+            height: 100vh;
+            padding: 3vh 5vw;
             opacity: 0;
             transform: translateX(100%);
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -56,6 +56,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
         .slide.active {
@@ -183,13 +185,11 @@
             background:
                 linear-gradient(rgba(250, 247, 242, 0.95), rgba(250, 247, 242, 0.95)),
                 url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/17528BC_BreakfastClub_Bar4xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
-            min-height: auto;
-            padding: 60px 40px;
         }
 
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 50px;
+            font-size: clamp(1.5rem, 3.5vh, 2.5rem);
+            margin-bottom: 2vh;
             text-align: center;
             color: var(--coffee);
             max-width: 800px;
@@ -197,42 +197,43 @@
 
         .pain-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2vh;
             max-width: 1200px;
             width: 100%;
+            max-height: 65vh;
         }
 
         .pain-card {
             background: white;
-            padding: 40px;
-            border-radius: 12px;
+            padding: 2vh 2vw;
+            border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--bc-navy);
+            border-top: 3px solid var(--bc-navy);
             transition: all 0.3s ease;
         }
 
         .pain-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
         .pain-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 20px;
+            width: clamp(32px, 4vh, 40px);
+            height: clamp(32px, 4vh, 40px);
+            margin-bottom: 1vh;
             display: block;
         }
 
         .pain-card h3 {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2vh, 1.3rem);
             color: var(--amber);
-            margin-bottom: 16px;
+            margin-bottom: 0.5vh;
         }
 
         .pain-card p {
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: clamp(0.75rem, 1.6vh, 0.95rem);
+            line-height: 1.4;
             color: var(--coffee);
             font-weight: 400;
         }
@@ -240,17 +241,16 @@
         /* Slide 3: By The Numbers */
         .numbers {
             background: linear-gradient(to bottom, var(--warm-white) 0%, var(--cream) 100%);
-            min-height: auto;
-            padding: 60px 40px;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3vh;
             max-width: 1200px;
             width: 100%;
-            margin-top: 50px;
+            margin-top: 3vh;
+            max-height: 50vh;
         }
 
         .stat-card {
@@ -258,23 +258,24 @@
         }
 
         .stat-number {
-            font-size: clamp(3rem, 6vw, 5rem);
+            font-size: clamp(2rem, 5vh, 3.5rem);
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--amber);
             line-height: 1;
-            margin-bottom: 10px;
+            margin-bottom: 0.5vh;
         }
 
         .stat-label {
-            font-size: 1.1rem;
+            font-size: clamp(0.8rem, 1.8vh, 1rem);
             color: var(--coffee);
             font-weight: 500;
+            line-height: 1.3;
         }
 
         .stats-note {
-            margin-top: 40px;
-            font-size: 0.9rem;
+            margin-top: 2vh;
+            font-size: clamp(0.7rem, 1.5vh, 0.85rem);
             color: var(--coffee);
             opacity: 0.7;
             font-style: italic;
@@ -287,23 +288,22 @@
             background:
                 linear-gradient(rgba(255, 254, 249, 0.93), rgba(255, 254, 249, 0.93)),
                 url('https://images.getbento.com/accounts/1ef93e3fc8865d33ecc57227bbb3d012/media/images/20010BC_BreakfastClub_FoodDrink11xF.jpg?w=1200&fit=crop&auto=compress,format') center/cover;
-            min-height: auto;
-            padding: 60px 40px;
         }
 
         .use-case-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2vh 2vw;
+            max-width: 1300px;
             width: 100%;
+            max-height: 70vh;
         }
 
         .use-case-card {
             background: white;
-            padding: 35px;
-            border-left: 4px solid var(--egg-yolk);
-            border-radius: 8px;
+            padding: 1.5vh 1.5vw;
+            border-left: 3px solid var(--egg-yolk);
+            border-radius: 6px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.06);
             transition: all 0.3s ease;
         }
@@ -314,25 +314,26 @@
         }
 
         .use-case-card h3 {
-            font-size: 1.3rem;
+            font-size: clamp(0.9rem, 1.9vh, 1.1rem);
             color: var(--coffee);
-            margin-bottom: 15px;
+            margin-bottom: 0.5vh;
         }
 
         .use-case-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: clamp(0.7rem, 1.5vh, 0.85rem);
+            line-height: 1.4;
             color: var(--coffee);
         }
 
         .quote {
-            margin-top: 12px;
-            padding: 15px;
+            margin-top: 0.5vh;
+            padding: 1vh 1vw;
             background: var(--cream);
-            border-radius: 6px;
+            border-radius: 4px;
             font-style: italic;
-            font-size: 0.9rem;
+            font-size: clamp(0.65rem, 1.4vh, 0.8rem);
             color: var(--espresso);
+            line-height: 1.3;
         }
 
         /* Slide 5: Your Breakfast Club */
@@ -452,21 +453,23 @@
         .proposal-box {
             background: rgba(255,255,255,0.05);
             border: 2px solid var(--egg-yolk);
-            padding: 60px;
-            border-radius: 16px;
+            padding: 3vh 4vw;
+            border-radius: 12px;
             max-width: 700px;
             text-align: center;
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
         .proposal-points {
             list-style: none;
-            margin: 40px 0;
+            margin: 2vh 0;
         }
 
         .proposal-points li {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2.2vh, 1.3rem);
             font-weight: 500;
-            padding: 15px 0;
+            padding: 1vh 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -475,19 +478,19 @@
         }
 
         .proposal-quote {
-            font-size: 1.3rem;
+            font-size: clamp(0.95rem, 2vh, 1.2rem);
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            margin: 40px 0 20px;
+            margin: 2vh 0 1vh;
             color: var(--egg-yolk);
         }
 
         .proposal-fine-print {
-            font-size: 0.9rem;
+            font-size: clamp(0.7rem, 1.5vh, 0.85rem);
             color: var(--cream);
             opacity: 0.8;
-            margin-top: 30px;
-            line-height: 1.6;
+            margin-top: 2vh;
+            line-height: 1.5;
         }
 
         /* Slide 8: Why This Works */
@@ -497,25 +500,26 @@
 
         .two-column {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3vh 3vw;
             max-width: 1200px;
             width: 100%;
-            margin-top: 50px;
+            margin-top: 3vh;
+            max-height: 65vh;
         }
 
         .column {
             background: white;
-            padding: 40px;
-            border-radius: 12px;
+            padding: 2vh 2vw;
+            border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-left: 5px solid var(--bc-navy);
+            border-left: 4px solid var(--bc-navy);
         }
 
         .column h3 {
-            font-size: 1.8rem;
+            font-size: clamp(1.1rem, 2.2vh, 1.5rem);
             color: var(--amber);
-            margin-bottom: 25px;
+            margin-bottom: 1.5vh;
         }
 
         .column ul {
@@ -523,11 +527,11 @@
         }
 
         .column li {
-            padding: 15px 0;
-            padding-left: 30px;
+            padding: 0.8vh 0;
+            padding-left: 25px;
             position: relative;
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: clamp(0.75rem, 1.6vh, 0.9rem);
+            line-height: 1.4;
             color: var(--coffee);
         }
 
@@ -537,7 +541,7 @@
             left: 0;
             color: var(--egg-yolk);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 1.8vh, 1.1rem);
         }
 
         /* Slide 9: About Us */
@@ -547,54 +551,54 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2vh 2vw;
+            max-width: 900px;
             width: 100%;
-            margin-top: 40px;
+            margin-top: 2vh;
         }
 
         .team-card {
             background: white;
-            padding: 35px;
-            border-radius: 12px;
+            padding: 2vh 2vw;
+            border-radius: 10px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
         .team-card h3 {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2vh, 1.3rem);
             color: var(--coffee);
-            margin-bottom: 10px;
+            margin-bottom: 0.5vh;
         }
 
         .team-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: clamp(0.7rem, 1.5vh, 0.85rem);
+            line-height: 1.4;
             color: var(--coffee);
         }
 
         .company-info {
-            margin-top: 60px;
+            margin-top: 3vh;
             text-align: center;
             max-width: 700px;
         }
 
         .company-info h3 {
-            font-size: 2rem;
+            font-size: clamp(1.2rem, 2.5vh, 1.7rem);
             color: var(--amber);
-            margin-bottom: 20px;
+            margin-bottom: 1vh;
         }
 
         .company-info p {
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: clamp(0.8rem, 1.7vh, 1rem);
+            line-height: 1.5;
             color: var(--coffee);
         }
 
         .company-quote {
-            margin-top: 30px;
-            font-size: 1.2rem;
+            margin-top: 1.5vh;
+            font-size: clamp(0.85rem, 1.8vh, 1.1rem);
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--espresso);
@@ -608,61 +612,62 @@
         .steps-timeline {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 2vh;
             max-width: 800px;
             width: 100%;
-            margin-top: 50px;
+            margin-top: 2vh;
+            max-height: 60vh;
         }
 
         .step {
             display: flex;
             align-items: flex-start;
-            gap: 30px;
+            gap: 2vw;
             background: white;
-            padding: 35px;
-            border-radius: 12px;
+            padding: 2vh 2vw;
+            border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
         }
 
         .step:hover {
-            transform: translateX(10px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transform: translateX(8px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
         .step-number {
-            font-size: 3rem;
+            font-size: clamp(2rem, 4vh, 2.8rem);
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--egg-yolk);
             line-height: 1;
-            min-width: 60px;
+            min-width: 50px;
         }
 
         .step-content h4 {
-            font-size: 1.4rem;
+            font-size: clamp(1rem, 2vh, 1.3rem);
             color: var(--coffee);
-            margin-bottom: 10px;
+            margin-bottom: 0.5vh;
         }
 
         .step-content p {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: clamp(0.75rem, 1.6vh, 0.9rem);
+            line-height: 1.4;
             color: var(--coffee);
         }
 
         .cta {
-            margin-top: 50px;
-            padding: 40px;
+            margin-top: 2vh;
+            padding: 2vh 2vw;
             background: var(--cream);
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
             max-width: 700px;
             border: 2px solid var(--amber);
         }
 
         .cta p {
-            font-size: 1.3rem;
+            font-size: clamp(0.9rem, 2vh, 1.2rem);
             font-family: 'Playfair Display', serif;
             color: var(--espresso);
             font-weight: 600;
@@ -771,7 +776,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .slide {
-                padding: 60px 20px;
+                padding: 2vh 3vw;
             }
 
             .slide::after {
@@ -781,8 +786,9 @@
                 right: 10px;
             }
 
-            .pain-grid, .stats-grid, .use-case-grid, .two-column {
+            .pain-grid, .stats-grid, .use-case-grid, .two-column, .team-grid {
                 grid-template-columns: 1fr;
+                max-height: 75vh;
             }
 
             .workflow {
@@ -794,16 +800,16 @@
             }
 
             .proposal-box {
-                padding: 40px 30px;
+                padding: 2vh 3vw;
             }
 
             .nav-hint, .slide-counter {
-                font-size: 0.75rem;
-                padding: 8px 12px;
+                font-size: 0.7rem;
+                padding: 6px 10px;
             }
 
             .hero-logo img, .showcase-logo img {
-                max-width: 300px;
+                max-width: 280px;
             }
         }
 
