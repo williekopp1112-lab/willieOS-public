@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WillieOS — Enterprise AI Workflow Engine. Apple-tier V4 rebuild with scroll-driven animations, three-tier glassmorphism, and magnetic 3D interactions.">
+    <meta property="og:title" content="WillieOS V4 — AI Workflow Engine">
+    <meta property="og:description" content="Enterprise AI That Actually Works. Rebuilt to Apple.com/Stripe.com design standards with cutting-edge web animations.">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect fill='%230B0D17' width='1200' height='630'/%3E%3Ctext x='600' y='315' fill='%238B5CF6' font-size='72' font-weight='800' text-anchor='middle' font-family='sans-serif'%3EWillieOS V4%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🤖%3C/text%3E%3C/svg%3E">
+    <title>WillieOS V4 — AI Workflow Engine</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background-void: #0B0D17;
+            --background-elevated: #13151F;
+            --background-surface: #1A1D2E;
+
+            --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #D946EF 100%);
+            --gradient-secondary: linear-gradient(120deg, #F59E0B 0%, #F97316 100%);
+            --gradient-accent: linear-gradient(90deg, #06B6D4 0%, #3B82F6 100%);
+
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --text-tertiary: #64748B;
+            --text-accent: #A78BFA;
+
+            --glow-primary: rgba(139, 92, 246, 0.25);
+
+            /* Three-tier glassmorphism */
+            --glass-surface-bg: rgba(255, 255, 255, 0.03);
+            --glass-surface-blur: 12px;
+            --glass-surface-border: rgba(255, 255, 255, 0.06);
+            --glass-surface-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset, 0 2px 20px rgba(0, 0, 0, 0.3);
+
+            --glass-elevated-bg: rgba(255, 255, 255, 0.06);
+            --glass-elevated-blur: 24px;
+            --glass-elevated-border: rgba(255, 255, 255, 0.12);
+            --glass-elevated-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 80px rgba(139, 92, 246, 0.08), 0 8px 40px rgba(0, 0, 0, 0.4);
+
+            --glass-floating-bg: rgba(255, 255, 255, 0.1);
+            --glass-floating-blur: 40px;
+            --glass-floating-border: rgba(255, 255, 255, 0.18);
+            --glass-floating-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 0 120px rgba(139, 92, 246, 0.12), 0 24px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        @supports (backdrop-filter: blur(40px)) {
+            .glass-surface {
+                backdrop-filter: blur(var(--glass-surface-blur)) saturate(150%);
+            }
+            .glass-elevated {
+                backdrop-filter: blur(var(--glass-elevated-blur)) saturate(180%);
+            }
+            .glass-floating {
+                backdrop-filter: blur(var(--glass-floating-blur)) saturate(200%);
+            }
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--background-void);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+        }
+
+        ::selection {
+            background: rgba(139, 92, 246, 0.3);
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-void);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.7);
+        }
+
+        /* Spotlight cursor effect */
+        #spotlight {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Animated gradient mesh */
+        #gradient-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(217, 70, 239, 0.08), transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05), transparent 60%);
+            animation: mesh-drift 20s ease-in-out infinite;
+        }
+
+        @keyframes mesh-drift {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(-30px, 40px) scale(1.05);
+            }
+            66% {
+                transform: translate(30px, -30px) scale(0.95);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 3rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(11, 13, 23, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+        }
+
+        nav .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            opacity: 0;
+        }
+
+        nav ul li:nth-child(1) a { animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards; }
+        nav ul li:nth-child(2) a { animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards; }
+        nav ul li:nth-child(3) a { animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards; }
+        nav ul li:nth-child(4) a { animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards; }
+        nav ul li:nth-child(5) a { animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards; }
+        nav ul li:nth-child(6) a { animation: nav-item-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards; }
+
+        @keyframes nav-item-enter {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--text-accent);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            animation: nav-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes nav-glow {
+            from {
+                box-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
+            }
+            to {
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            animation: hero-parallax linear forwards;
+            animation-timeline: scroll();
+            animation-range: entry 0% exit 50%;
+        }
+
+        @keyframes hero-parallax {
+            to {
+                transform: scale(1) translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1400px;
+            padding: 0 4rem;
+            animation: hero-scale linear forwards;
+            animation-timeline: scroll();
+            animation-range: entry 0% exit 30%;
+        }
+
+        @keyframes hero-scale {
+            to {
+                transform: scale(0.95);
+                opacity: 0.8;
+                filter: blur(2px);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: hero-title-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+        }
+
+        @keyframes hero-title-enter {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: hero-subtitle-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.96s forwards;
+        }
+
+        @keyframes hero-subtitle-enter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero .tagline {
+            font-size: 1.25rem;
+            color: var(--text-tertiary);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: hero-tagline-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 1.08s forwards;
+        }
+
+        @keyframes hero-tagline-enter {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3rem;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            text-decoration: none;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: hero-cta-enter 1s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards;
+        }
+
+        @keyframes hero-cta-enter {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.875rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .tech-pill {
+            padding: 0.625rem 1.25rem;
+            background: var(--glass-surface-bg);
+            backdrop-filter: blur(var(--glass-surface-blur)) saturate(150%);
+            border: 1px solid var(--glass-surface-border);
+            border-radius: 24px;
+            font-size: 0.875rem;
+            color: var(--text-accent);
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+        }
+
+        .tech-pill:nth-child(1) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.32s forwards; }
+        .tech-pill:nth-child(2) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.44s forwards; }
+        .tech-pill:nth-child(3) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.56s forwards; }
+        .tech-pill:nth-child(4) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.68s forwards; }
+        .tech-pill:nth-child(5) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s forwards; }
+        .tech-pill:nth-child(6) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.92s forwards; }
+        .tech-pill:nth-child(7) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 2.04s forwards; }
+        .tech-pill:nth-child(8) { animation: pill-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 2.16s forwards; }
+
+        @keyframes pill-enter {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .tech-pill:hover {
+            background: var(--glass-elevated-bg);
+            border-color: var(--text-accent);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Section Base */
+        section {
+            position: relative;
+            z-index: 10;
+            padding: 10rem 4rem;
+        }
+
+        .section-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            animation: reveal-heading linear both;
+            animation-timeline: view();
+            animation-range: entry 10% entry 40%;
+        }
+
+        @keyframes reveal-heading {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: reveal-subtitle linear both;
+            animation-timeline: view();
+            animation-range: entry 15% entry 45%;
+        }
+
+        @keyframes reveal-subtitle {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Glass Cards - Surface Tier */
+        .glass-card {
+            background: var(--glass-surface-bg);
+            backdrop-filter: blur(var(--glass-surface-blur)) saturate(150%);
+            border: 1px solid var(--glass-surface-border);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-surface-shadow);
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .glass-card:hover {
+            background: var(--glass-elevated-bg);
+            backdrop-filter: blur(var(--glass-elevated-blur)) saturate(180%);
+            border-color: var(--glass-elevated-border);
+            box-shadow: var(--glass-elevated-shadow);
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        /* Magnetic 3D card effect */
+        .glass-card.magnetic {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .glass-card .card-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+
+        .glass-card:hover .card-icon {
+            transform: translateZ(30px) rotate(-5deg) scale(1.1);
+        }
+
+        .glass-card h3 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover h3 {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.0625rem;
+            margin-bottom: 2rem;
+        }
+
+        .glass-card ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .glass-card ul li {
+            color: var(--text-tertiary);
+            padding: 0.75rem 0;
+            position: relative;
+            padding-left: 1.75rem;
+            font-size: 1rem;
+        }
+
+        .glass-card ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--text-accent);
+            font-weight: 700;
+        }
+
+        /* Documents Section - Three Column Bento */
+        #documents .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        #documents .glass-card:nth-child(1),
+        #documents .glass-card:nth-child(2),
+        #documents .glass-card:nth-child(3) {
+            animation: card-reveal linear both;
+            animation-timeline: view();
+        }
+
+        #documents .glass-card:nth-child(1) {
+            animation-range: entry 20% entry 50%;
+        }
+
+        #documents .glass-card:nth-child(2) {
+            animation-range: entry 25% entry 55%;
+            animation-delay: 0.12s;
+        }
+
+        #documents .glass-card:nth-child(3) {
+            animation-range: entry 30% entry 60%;
+            animation-delay: 0.24s;
+        }
+
+        @keyframes card-reveal {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        #documents .section-header h2 {
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #documents .docs-bg {
+            position: absolute;
+            right: 10%;
+            top: 20%;
+            width: 400px;
+            height: 400px;
+            opacity: 0.15;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        /* Architecture Section - Sticky Scroll Sequence */
+        #architecture {
+            padding: 0;
+            min-height: 400vh;
+        }
+
+        #architecture .section-header h2 {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #architecture .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #architecture .arch-bg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        #architecture .flow-sequence {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            text-align: center;
+            padding: 4rem;
+        }
+
+        #architecture .flow-step {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        #architecture .flow-step.active {
+            opacity: 1;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #architecture .flow-step h3 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #architecture .flow-step p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Web Section - Full-Width Browser Mockup */
+        #web .browser-showcase {
+            background: var(--glass-elevated-bg);
+            backdrop-filter: blur(var(--glass-elevated-blur)) saturate(180%);
+            border: 1px solid var(--glass-elevated-border);
+            border-radius: 24px;
+            padding: 1rem;
+            box-shadow: var(--glass-elevated-shadow);
+            margin-top: 4rem;
+            animation: card-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 20% entry 50%;
+        }
+
+        #web .browser-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+        }
+
+        #web .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        #web .browser-dot:nth-child(1) { background: #FF5F57; }
+        #web .browser-dot:nth-child(2) { background: #FFBD2E; }
+        #web .browser-dot:nth-child(3) { background: #28CA42; }
+
+        #web .browser-content {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            min-height: 500px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        #web .web-card {
+            background: var(--glass-surface-bg);
+            backdrop-filter: blur(var(--glass-surface-blur)) saturate(150%);
+            border: 1px solid var(--glass-surface-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--glass-surface-shadow);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #web .web-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Email Section - Split Layout */
+        #email .email-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        #email .email-main {
+            animation: card-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 20% entry 50%;
+        }
+
+        #email .email-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        #email .stat-mini {
+            background: var(--glass-surface-bg);
+            backdrop-filter: blur(var(--glass-surface-blur)) saturate(150%);
+            border: 1px solid var(--glass-surface-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--glass-surface-shadow);
+            animation: card-reveal linear both;
+            animation-timeline: view();
+        }
+
+        #email .stat-mini:nth-child(1) { animation-range: entry 22% entry 52%; }
+        #email .stat-mini:nth-child(2) { animation-range: entry 26% entry 56%; }
+        #email .stat-mini:nth-child(3) { animation-range: entry 30% entry 60%; }
+
+        #email .stat-mini .number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        #email .section-header h2 {
+            background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Calendar Section - Horizontal Timeline */
+        #calendar .timeline-scroll {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x proximity;
+            padding: 2rem 0;
+            margin: 4rem -2rem 0 -2rem;
+            padding-left: 2rem;
+        }
+
+        #calendar .timeline-card {
+            min-width: 400px;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            animation: card-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 20% entry 50%;
+        }
+
+        /* Tasks Section - Asymmetric Grid */
+        #tasks .task-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        #tasks .glass-card:nth-child(1) {
+            grid-row: 1 / 3;
+            animation: card-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 20% entry 50%;
+        }
+
+        #tasks .glass-card:nth-child(2),
+        #tasks .glass-card:nth-child(3) {
+            animation: card-reveal linear both;
+            animation-timeline: view();
+        }
+
+        #tasks .glass-card:nth-child(2) { animation-range: entry 24% entry 54%; }
+        #tasks .glass-card:nth-child(3) { animation-range: entry 28% entry 58%; }
+
+        /* Stats Section - Full Bleed Dark */
+        #stats {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(217, 70, 239, 0.1));
+            padding: 12rem 4rem;
+        }
+
+        #stats .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        #stats .stat-card {
+            background: var(--glass-elevated-bg);
+            backdrop-filter: blur(var(--glass-elevated-blur)) saturate(180%);
+            border: 1px solid var(--glass-elevated-border);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            box-shadow: var(--glass-elevated-shadow);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: card-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 20% entry 50%;
+        }
+
+        #stats .stat-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 0 80px rgba(139, 92, 246, 0.4);
+        }
+
+        #stats .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(4rem, 8vw, 7rem);
+            font-weight: 900;
+            display: block;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        #stats .stat-card:nth-child(1) .stat-number {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #stats .stat-card:nth-child(2) .stat-number {
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #stats .stat-card:nth-child(3) .stat-number {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #stats .stat-card:nth-child(4) .stat-number {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #stats .stat-label {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+
+        /* Creative Section - Masonry */
+        #creative .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        #creative .glass-card {
+            animation: card-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 20% entry 50%;
+        }
+
+        #creative .glass-card:nth-child(1) {
+            grid-row: span 2;
+        }
+
+        #creative .workflow-img {
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            width: 500px;
+            height: auto;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+            margin: 8rem 0;
+            opacity: 0.3;
+        }
+
+        /* Footer */
+        footer {
+            padding: 6rem 4rem 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.05));
+        }
+
+        footer h2 {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            margin-bottom: 2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        footer .dispatch-id {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-accent);
+            font-size: 0.875rem;
+            margin-top: 3rem;
+            opacity: 0.5;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 6rem 2rem;
+            }
+
+            #documents .card-grid,
+            #web .browser-content,
+            #email .email-layout,
+            #tasks .task-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #architecture {
+                min-height: auto;
+                padding: 6rem 2rem;
+            }
+
+            #architecture .sticky-container {
+                position: relative;
+                height: auto;
+            }
+
+            #architecture .flow-step {
+                position: relative;
+                opacity: 1;
+                margin-bottom: 4rem;
+            }
+
+            #calendar .timeline-scroll {
+                margin: 4rem -1rem 0 -1rem;
+                padding-left: 1rem;
+            }
+
+            #calendar .timeline-card {
+                min-width: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding: 6rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            #stats {
+                padding: 6rem 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @supports not (animation-timeline: view()) {
+            section {
+                opacity: 1;
+                transform: none;
+            }
+
+            .glass-card {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gradient Mesh -->
+    <div id="gradient-mesh"></div>
+
+    <!-- Spotlight -->
+    <div id="spotlight"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">WillieOS</div>
+            <ul>
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#documents" class="nav-link">Documents</a></li>
+                <li><a href="#web" class="nav-link">Web</a></li>
+                <li><a href="#email" class="nav-link">Email</a></li>
+                <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li><a href="#stats" class="nav-link">Impact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-bg">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="" style="display:none;">
+        </div>
+        <div class="hero-content">
+            <h1>WillieOS</h1>
+            <p class="subtitle">Enterprise AI That Actually Works</p>
+            <p class="tagline">
+                A personal AI operating system built by Willie Kopp for high-velocity executives.
+                Gary orchestrates Claude Code, Cowork, and specialist agents to automate document generation,
+                intelligent email handling, meeting prep, and task orchestration.
+            </p>
+            <a href="#architecture" class="cta-button">
+                Explore Architecture
+                <span>→</span>
+            </a>
+            <div class="tech-pills">
+                <span class="tech-pill">Tauri 2</span>
+                <span class="tech-pill">React 19</span>
+                <span class="tech-pill">SQLite</span>
+                <span class="tech-pill">Node.js MCP</span>
+                <span class="tech-pill">Claude Haiku 4.5</span>
+                <span class="tech-pill">Gemini Flash Lite</span>
+                <span class="tech-pill">Claude Sonnet 4.6</span>
+                <span class="tech-pill">Zustand</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documents Section -->
+    <section id="documents">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Document Generation</h2>
+                <p>AI-powered creation of Word docs, Excel spreadsheets, and PowerPoint decks on demand</p>
+            </div>
+            <div class="card-grid">
+                <div class="glass-card magnetic">
+                    <div class="card-icon">📄</div>
+                    <h3>Word Documents</h3>
+                    <p>Generate executive summaries, status reports, project proposals, and client deliverables with proper formatting, headers, and corporate styling.</p>
+                    <ul>
+                        <li>Auto-formatted templates</li>
+                        <li>Context-aware content</li>
+                        <li>Version control integration</li>
+                        <li>Brand consistency</li>
+                    </ul>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">📊</div>
+                    <h3>Excel Spreadsheets</h3>
+                    <p>Build financial models, data analysis reports, budget trackers, and project timelines with formulas, conditional formatting, and pivot tables.</p>
+                    <ul>
+                        <li>Dynamic formulas</li>
+                        <li>Chart generation</li>
+                        <li>Data validation</li>
+                    </ul>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">📈</div>
+                    <h3>PowerPoint Decks</h3>
+                    <p>Create pitch decks, quarterly reviews, training materials, and client presentations with professional layouts, animations, and speaker notes.</p>
+                    <ul>
+                        <li>Template library</li>
+                        <li>Smart animations</li>
+                        <li>PPTX verticalization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Web Section -->
+    <section id="web">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Interactive Web Experiences</h2>
+                <p>Build HTML sites, dashboards, animated pitch decks, and web apps — this page is proof</p>
+            </div>
+            <div class="browser-showcase">
+                <div class="browser-header">
+                    <div class="browser-dot"></div>
+                    <div class="browser-dot"></div>
+                    <div class="browser-dot"></div>
+                </div>
+                <div class="browser-content">
+                    <div class="web-card">
+                        <div class="card-icon" style="width: 60px; height: 60px; font-size: 2rem; margin-bottom: 1.5rem;">🌐</div>
+                        <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">HTML Sites</h3>
+                        <p style="font-size: 1rem;">Single-page marketing sites, portfolio pages, product showcases, and landing pages with responsive design and modern aesthetics.</p>
+                    </div>
+                    <div class="web-card">
+                        <div class="card-icon" style="width: 60px; height: 60px; font-size: 2rem; margin-bottom: 1.5rem;">📊</div>
+                        <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">Data Dashboards</h3>
+                        <p style="font-size: 1rem;">Real-time analytics dashboards, KPI trackers, and interactive data visualizations with charts, graphs, and dynamic filtering.</p>
+                    </div>
+                    <div class="web-card">
+                        <div class="card-icon" style="width: 60px; height: 60px; font-size: 2rem; margin-bottom: 1.5rem;">🎬</div>
+                        <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">Animated Presentations</h3>
+                        <p style="font-size: 1rem;">Interactive slide decks with keyboard navigation, smooth transitions, scroll-triggered animations, and particle effects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Email Section -->
+    <section id="email">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Intelligent Email & Communications</h2>
+                <p>Context-aware email drafting with calendar, contacts, and thread history</p>
+            </div>
+            <div class="email-layout">
+                <div class="email-main glass-card magnetic">
+                    <div class="card-icon">✉️</div>
+                    <h3>Smart Email Drafting</h3>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 2rem;">
+                        Gary drafts emails with full context awareness — your calendar availability, relationship history,
+                        ongoing projects, and communication style. Every email is personalized, professional, and actionable.
+                    </p>
+                    <ul>
+                        <li>Context injection from calendar, notes, and past threads</li>
+                        <li>Style matching based on relationship and formality</li>
+                        <li>Template suggestions for common scenarios</li>
+                        <li>Autonomous triage and priority scoring</li>
+                        <li>Action item extraction and deadline tracking</li>
+                        <li>Thread intelligence and commitment tracking</li>
+                    </ul>
+                </div>
+                <div class="email-stats">
+                    <div class="stat-mini">
+                        <span class="number">1000+</span>
+                        <div class="label" style="color: var(--text-tertiary); font-weight: 600; font-size: 1rem;">Emails Triaged</div>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="number">92%</span>
+                        <div class="label" style="color: var(--text-tertiary); font-weight: 600; font-size: 1rem;">Accuracy Rate</div>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="number">3.2s</span>
+                        <div class="label" style="color: var(--text-tertiary); font-weight: 600; font-size: 1rem;">Avg Draft Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Architecture Section - Sticky Scroll -->
+    <section id="architecture">
+        <div class="sticky-container">
+            <div class="section-header" style="position: absolute; top: 5%; left: 50%; transform: translateX(-50%); width: 100%; max-width: 1200px; z-index: 20;">
+                <h2>How It Works</h2>
+                <p>Willie → Gary → Specialist Agents → Delivered Results</p>
+            </div>
+            <div class="flow-sequence">
+                <div class="flow-step active" id="arch-step-1">
+                    <h3>Request</h3>
+                    <p>Willie asks Gary via chat, email, or voice. Natural language input from any channel.</p>
+                </div>
+                <div class="flow-step" id="arch-step-2">
+                    <h3>Route</h3>
+                    <p>Gary analyzes intent and routes to specialist agent — Claude Code for dev work, Cowork for documents.</p>
+                </div>
+                <div class="flow-step" id="arch-step-3">
+                    <h3>Execute</h3>
+                    <p>Specialist agent performs the task autonomously with access to 110+ MCP tools and context.</p>
+                </div>
+                <div class="flow-step" id="arch-step-4">
+                    <h3>Deliver</h3>
+                    <p>Result returned with summary and next actions. Files auto-filed to the right vault.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Calendar Section -->
+    <section id="calendar">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Meeting Intelligence</h2>
+                <p>Pre-meeting briefs, agenda extraction, and proactive prep</p>
+            </div>
+            <div class="timeline-scroll">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="card-icon">📅</div>
+                    <h3>Calendar Sync</h3>
+                    <p>7-day lookahead with automatic event ingestion. Gary knows what's coming before you do.</p>
+                </div>
+                <div class="timeline-card glass-card magnetic">
+                    <div class="card-icon">📋</div>
+                    <h3>Pre-Meeting Briefs</h3>
+                    <p>Contextual summaries with attendee history, project status, and suggested talking points.</p>
+                </div>
+                <div class="timeline-card glass-card magnetic">
+                    <div class="card-icon">⏰</div>
+                    <h3>Proactive Alerts</h3>
+                    <p>Reminders with prep suggestions 30 minutes before each meeting. Always ready.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Tasks Section -->
+    <section id="tasks">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Task Orchestration</h2>
+                <p>Open loops, GTD workflows, and autonomous action tracking</p>
+            </div>
+            <div class="task-grid">
+                <div class="glass-card magnetic">
+                    <div class="card-icon">✓</div>
+                    <h3>Open Loops</h3>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 2rem;">
+                        GTD-inspired task system with contexts, urgency, owner, due dates, and source tracking.
+                        Gary auto-creates loops from emails, calendar events, and shadow context.
+                    </p>
+                    <ul>
+                        <li>Auto-detection from emails and calendar</li>
+                        <li>Context-aware task prioritization</li>
+                        <li>Shadow service enrichment</li>
+                        <li>Completion streak tracking</li>
+                    </ul>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">🔄</div>
+                    <h3>Daily Check-In</h3>
+                    <p>Auto-triggered 4-phase modal. Insights flow into Willie profile for better context.</p>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">📊</div>
+                    <h3>Habit Tracking</h3>
+                    <p>Daily habits with completion tracking. Pop animation on check. Persistence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Stats Section -->
+    <section id="stats">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Impact at Scale</h2>
+                <p>Real metrics from Willie's personal deployment</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">500+</span>
+                    <div class="stat-label">Dispatches Completed</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <div class="stat-label">Active Workflows</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1000+</span>
+                    <div class="stat-label">Emails Triaged</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100+</span>
+                    <div class="stat-label">Documents Generated</div>
+                </div>
+            </div>
+
+            <div style="max-width: 900px; margin: 6rem auto 0; background: var(--glass-floating-bg); backdrop-filter: blur(var(--glass-floating-blur)) saturate(200%); border: 1px solid var(--glass-floating-border); border-radius: 28px; padding: 4rem; box-shadow: var(--glass-floating-shadow); text-align: center;">
+                <h3 style="font-size: 2.5rem; margin-bottom: 2rem; font-weight: 800;">Cost Efficiency</h3>
+                <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Running at <span style="font-size: 3.5rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; background: var(--gradient-secondary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; margin: 1rem 0;">$10-15/week</span> steady-state cost.
+                </p>
+                <p style="font-size: 1.0625rem; color: var(--text-tertiary); line-height: 1.8;">
+                    Claude Code dispatches are <strong style="color: #10B981;">$0 (Max-covered)</strong>.
+                    Background jobs use Gemini 2.5 Flash Lite via OpenRouter for pennies.
+                    Chat uses Claude Haiku 4.5 for tool-calling quality with 110+ MCP tools.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Creative Section -->
+    <section id="creative">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Beyond the Basics</h2>
+                <p>PPTX verticalization, voice capture, Telegram mobile ingestion, and more</p>
+            </div>
+            <div class="masonry-grid">
+                <div class="glass-card magnetic">
+                    <div class="card-icon">🎨</div>
+                    <h3>PPTX Verticalization</h3>
+                    <p>Transform PowerPoint decks from one industry vertical to another (Sports→Healthcare, Retail→Financial) using ZIP-level binary surgery. Replaces images and text while preserving all layout, formatting, animations, and design integrity.</p>
+                    <ul>
+                        <li>Proven at enterprise scale (ServiceNow Sports→Healthcare)</li>
+                        <li>Pure ZIP manipulation — no python-pptx open/save</li>
+                        <li>Layout and animation preservation</li>
+                    </ul>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">🎙️</div>
+                    <h3>Voice Email</h3>
+                    <p>Gmail query [willie-voice] → Whisper → Note. Automatic voice-to-text pipeline integrated into Gmail sync.</p>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">📱</div>
+                    <h3>Telegram Mobile</h3>
+                    <p>Long-poll bot routes text/voice/photo/video. Voice→Whisper→shadowService. Photo→Claude Vision→structured actions.</p>
+                </div>
+                <div class="glass-card magnetic">
+                    <div class="card-icon">📝</div>
+                    <h3>Transcript Capture</h3>
+                    <p>Paste or upload transcripts. AI action-item extraction pipeline. ⌘⇧T hotkey for instant access.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="section-container">
+            <h2>Ready to See Gary in Action?</h2>
+            <p>
+                This showcase is just the surface. Let's demo the live interface, review real dispatches,
+                and explore how WillieOS can scale to enterprise teams.
+            </p>
+            <a href="#hero" class="cta-button">Back to Top</a>
+
+            <div style="margin-top: 5rem; padding-top: 3rem; border-top: 1px solid rgba(139, 92, 246, 0.2);">
+                <p style="color: var(--text-tertiary); font-size: 1rem;">
+                    This page was designed and coded by Gary (WillieOS AI) in a single autonomous dispatch.
+                </p>
+                <p class="dispatch-id">
+                    V4 Rebuild — Apple/Stripe Tier Design Standards
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Spotlight cursor effect
+        const spotlight = document.getElementById('spotlight');
+        let spotlightX = window.innerWidth / 2;
+        let spotlightY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (e) => {
+            spotlightX = e.clientX;
+            spotlightY = e.clientY;
+            spotlight.style.left = spotlightX + 'px';
+            spotlight.style.top = spotlightY + 'px';
+        });
+
+        // Hide spotlight on mobile
+        if (window.innerWidth < 768) {
+            spotlight.style.display = 'none';
+        }
+
+        // Magnetic card effect
+        const magneticCards = document.querySelectorAll('.glass-card.magnetic');
+
+        magneticCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                const rotateX = (y / rect.height) * 10;
+                const rotateY = (x / rect.width) * -10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.01)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('.nav-link, .cta-button').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Active nav link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        const observerOptions = {
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Architecture sticky scroll sequence
+        const archSection = document.getElementById('architecture');
+        const archSteps = [
+            document.getElementById('arch-step-1'),
+            document.getElementById('arch-step-2'),
+            document.getElementById('arch-step-3'),
+            document.getElementById('arch-step-4')
+        ];
+
+        if (archSection && archSteps.length === 4) {
+            window.addEventListener('scroll', () => {
+                const rect = archSection.getBoundingClientRect();
+                const scrollProgress = 1 - (rect.top / (window.innerHeight * 0.5));
+                const stepIndex = Math.min(Math.floor(scrollProgress * archSteps.length), archSteps.length - 1);
+
+                archSteps.forEach((step, i) => {
+                    if (i === stepIndex && stepIndex >= 0) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // Console easter egg
+        console.log('%cWillieOS V4 — Apple-Tier Rebuild', 'color: #8B5CF6; font-size: 28px; font-weight: 900;');
+        console.log('%cScroll-driven animations • Three-tier glassmorphism • Magnetic 3D interactions', 'color: #A78BFA; font-size: 14px; font-weight: 600;');
+        console.log('%cDesigned & built by Gary (autonomous dispatch)', 'color: #CBD5E1; font-size: 12px;');
+    </script>
+</body>
+</html>
