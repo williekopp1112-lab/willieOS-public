@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-03-25",
+  "updated": "2026-03-30",
   "developers": {
     "willie": { "name": "Willie Kopp", "github": "williekopp1112-lab" },
     "joe": { "name": "Joe Ortega", "github": "Joeortega1085" },
@@ -167,7 +167,7 @@
       "description": "Auto-generate draft replies using thread context and relationship data.",
       "status": "done",
       "owner": "willie",
-      "branch": "willie/ui-refresh",
+      "branch": null,
       "priority": "medium",
       "files": [
         "willieos-mcp-server/tools/email.js",
@@ -183,7 +183,7 @@
       "id": "meeting-prep-autopilot",
       "title": "Predictive Meeting Prep Autopilot",
       "description": "Auto-trigger meeting prep 60 minutes before events with attendee intel.",
-      "status": "review",
+      "status": "in_progress",
       "owner": "willie",
       "branch": null,
       "priority": "medium",
@@ -194,13 +194,13 @@
       ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "80% built. Missing auto-trigger and Telegram push."
+      "notes": "80% built. Brief generation works. Missing: 60-minute pre-meeting cron trigger in cronEngine + Telegram push notification."
     },
     {
       "id": "ambient-intelligence",
       "title": "Ambient Intelligence & Proactive Push",
       "description": "Pattern detection on email velocity, loop staleness, calendar density.",
-      "status": "review",
+      "status": "in_progress",
       "owner": "willie",
       "branch": null,
       "priority": "medium",
@@ -211,13 +211,13 @@
       ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "40% built. gary_take and proactive_scan exist."
+      "notes": "40% built. gary_take and proactive_scan exist. Missing: email velocity analysis, calendar density warnings, proactive Telegram push, ambient background job scheduling."
     },
     {
       "id": "weekly-digest-polish",
       "title": "Weekly Digest Polish",
       "description": "Polish output format and add trend comparison to previous weeks.",
-      "status": "review",
+      "status": "done",
       "owner": "willie",
       "branch": null,
       "priority": "low",
@@ -227,7 +227,7 @@
       ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "90% built. Close to shippable."
+      "notes": "Shipped. Context builder, trend comparison, Cowork export, Telegram notifications all wired."
     },
     {
       "id": "knowledge-graph",
@@ -397,7 +397,7 @@
       "description": "Comprehensive audit and redesign of Gary's system prompt, personality, and behavioral constraints. Cowork audit found 19 system prompts across 14 files with 'Willie Kopp' hardcoded in 13 of them, 8 different personality definitions, and 60% of the main chat prompt consumed by operational procedures instead of personality. Goal: centralize identity into a shared garyIdentity.js module, trim chat prompt to personality-first with conditional operational blocks, standardize tone across all services, and make every prompt settings-driven for product readiness.",
       "status": "in_progress",
       "owner": "willie",
-      "branch": "willie/ui-refresh",
+      "branch": null,
       "priority": "high",
       "files": [
         "src/stores/aiStore.js",
@@ -463,7 +463,7 @@
       "description": "Complete UI overhaul: new AppShell with icon-rail SidebarNav, fixed-layout HomeView (greeting, FocusCard, GarySuggestions, Timeline, InboxSummary), redesigned IntelligencePanel with active agents dock + activity feed + daily spend sparkline + quick actions, navigation store for tab routing, shared Card/SectionHeader components. Matches v0.dev reference designs.",
       "status": "in_progress",
       "owner": "willie",
-      "branch": "willie/ui-refresh",
+      "branch": null,
       "priority": "high",
       "files": [
         "src/components/shell/AppShell.jsx",
@@ -492,9 +492,9 @@
       "id": "dispatch-workflow-fixes",
       "title": "Dispatch Chain Auto-Trigger & Workflow Fixes",
       "description": "Fix dispatch chains not auto-triggering after completion. Root cause: ingestResult() never called saveDispatchMemory(), so checkDependencyChain() never fired. Also implement chain_dispatch post-completion action and verify result delivery to AI chat.",
-      "status": "in_progress",
+      "status": "done",
       "owner": "willie",
-      "branch": "willie/ui-refresh",
+      "branch": null,
       "priority": "high",
       "files": [
         "willieos-mcp-server/resultIngestion.js",
@@ -505,7 +505,7 @@
       ],
       "prompt_file": null,
       "depends_on": [],
-      "notes": "Auto-memory save added to ingestResult() so chains trigger. chain_dispatch action implemented with ${parent.summary}/${parent.result} interpolation. Result delivery to AI chat was already working via gary:dispatch-completed event listener. publish_to_github_pages still stubbed."
+      "notes": "Shipped on main. Auto-memory save, chain_dispatch action with interpolation, result delivery, dynamic chain composition, deliverable links all working. publish_to_github_pages still stubbed."
     },
     {
       "id": "imessage-integration",
