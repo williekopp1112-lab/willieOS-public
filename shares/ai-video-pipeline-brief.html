@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Pipeline: From Script to Screen</title>
+    <meta name="description" content="A Technical Blueprint for Automated Animated Video Production using Grok Imagine and Kling APIs">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.6);
+            --accent-blue: #00d4ff;
+            --accent-magenta: #ff00ff;
+            --accent-amber: #ffb800;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.08) 0%, transparent 50%);
+            animation: gradientShift 20s ease infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Particle effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta), var(--accent-amber));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 6s ease infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-context {
+            max-width: 700px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-magenta));
+            transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+        }
+
+        section.visible .section-title::after {
+            width: 100%;
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Pipeline Diagram */
+        .pipeline-container {
+            margin: 4rem 0;
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        section.visible .pipeline-step {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        section.visible .pipeline-step:nth-child(1) { transition-delay: 0.1s; }
+        section.visible .pipeline-step:nth-child(2) { transition-delay: 0.2s; }
+        section.visible .pipeline-step:nth-child(3) { transition-delay: 0.3s; }
+        section.visible .pipeline-step:nth-child(4) { transition-delay: 0.4s; }
+        section.visible .pipeline-step:nth-child(5) { transition-delay: 0.5s; }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-right: 2rem;
+            position: relative;
+        }
+
+        .step-number::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--accent-blue), transparent);
+        }
+
+        .pipeline-step:last-child .step-number::after {
+            display: none;
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-blue);
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'Python';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: var(--accent-amber);
+            font-weight: 600;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .code-keyword { color: #ff00ff; }
+        .code-string { color: #00ff88; }
+        .code-comment { color: #666; }
+        .code-function { color: #00d4ff; }
+        .code-variable { color: #ffb800; }
+
+        /* Action Plan */
+        .action-plan {
+            counter-reset: action-counter;
+        }
+
+        .action-item {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 5rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        section.visible .action-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        section.visible .action-item:nth-child(1) { transition-delay: 0.1s; }
+        section.visible .action-item:nth-child(2) { transition-delay: 0.2s; }
+        section.visible .action-item:nth-child(3) { transition-delay: 0.3s; }
+        section.visible .action-item:nth-child(4) { transition-delay: 0.4s; }
+        section.visible .action-item:nth-child(5) { transition-delay: 0.5s; }
+        section.visible .action-item:nth-child(6) { transition-delay: 0.6s; }
+        section.visible .action-item:nth-child(7) { transition-delay: 0.7s; }
+        section.visible .action-item:nth-child(8) { transition-delay: 0.8s; }
+
+        .action-item::before {
+            counter-increment: action-counter;
+            content: counter(action-counter);
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .action-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(10px);
+        }
+
+        .action-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-amber);
+        }
+
+        .action-item p {
+            color: var(--text-secondary);
+        }
+
+        /* Architecture Diagram */
+        .arch-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .arch-node {
+            flex: 1;
+            min-width: 150px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        section.visible .arch-node {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        section.visible .arch-node:nth-child(1) { transition-delay: 0.1s; }
+        section.visible .arch-node:nth-child(2) { transition-delay: 0.2s; }
+        section.visible .arch-node:nth-child(3) { transition-delay: 0.3s; }
+        section.visible .arch-node:nth-child(4) { transition-delay: 0.4s; }
+        section.visible .arch-node:nth-child(5) { transition-delay: 0.5s; }
+        section.visible .arch-node:nth-child(6) { transition-delay: 0.6s; }
+
+        .arch-node:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .arch-node::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--accent-blue);
+            opacity: 0.5;
+        }
+
+        .arch-node:last-child::after {
+            display: none;
+        }
+
+        .arch-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .arch-node h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-node p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Cost Table */
+        .cost-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 1rem;
+            margin: 2rem 0;
+        }
+
+        .cost-table th {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta));
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .cost-table th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .cost-table th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .cost-table td {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1.5rem;
+        }
+
+        .cost-table td:first-child {
+            border-left: 1px solid var(--glass-border);
+            border-radius: 10px 0 0 10px;
+        }
+
+        .cost-table td:last-child {
+            border-right: 1px solid var(--glass-border);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .cost-table tr {
+            transition: all 0.3s ease;
+        }
+
+        .cost-table tbody tr:hover td {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        /* Stat Counter */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Character Consistency */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        section.visible .strategy-card {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        section.visible .strategy-card:nth-child(1) { transition-delay: 0.1s; }
+        section.visible .strategy-card:nth-child(2) { transition-delay: 0.2s; }
+        section.visible .strategy-card:nth-child(3) { transition-delay: 0.3s; }
+        section.visible .strategy-card:nth-child(4) { transition-delay: 0.4s; }
+
+        .strategy-card:hover {
+            border-color: var(--accent-magenta);
+            box-shadow: 0 15px 50px rgba(255, 0, 255, 0.3);
+        }
+
+        .strategy-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-amber));
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-magenta);
+        }
+
+        .strategy-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-blue);
+        }
+
+        .footer-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-magenta);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pipeline-step {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .step-number {
+                margin-bottom: 1rem;
+            }
+
+            .step-number::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .arch-diagram {
+                flex-direction: column;
+            }
+
+            .arch-node::after {
+                content: '↓';
+                right: 50%;
+                transform: translateX(50%);
+                top: auto;
+                bottom: -1.5rem;
+            }
+
+            .action-item {
+                padding-left: 2rem;
+            }
+
+            .action-item::before {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 20px;
+            opacity: 0.6;
+            animation: scrollBounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: scrollDot 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes scrollDot {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 30px; }
+        }
+
+        /* Pro tip callout */
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.1), rgba(255, 0, 255, 0.1));
+            border-left: 4px solid var(--accent-amber);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .pro-tip strong {
+            color: var(--accent-amber);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="hero-title">AI Video Pipeline: From Script to Screen</h1>
+        <p class="hero-subtitle">A Technical Blueprint for Automated Animated Video Production</p>
+        <p class="hero-context">
+            Willie and Joe are exploring automated animated video creation using xAI's Grok Imagine and Kling AI APIs.
+            This brief provides the technical foundation, API details, and concrete implementation steps to build a
+            production-grade pipeline that transforms scripts into high-quality animated videos.
+        </p>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Pipeline Overview -->
+    <section id="pipeline">
+        <div class="container">
+            <h2 class="section-title">The 5-Step Pipeline</h2>
+            <div class="pipeline-container">
+                <div class="pipeline-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Script → Scene Breakdown</h3>
+                        <p>Use Claude or Grok to decompose scripts into structured scene data: setting, character actions, camera direction, mood, dialogue. Output as JSON for programmatic processing.</p>
+                    </div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Character Reference Generation</h3>
+                        <p>Generate 1-2 master reference images per character via grok-imagine-image. These become the consistency anchors for all subsequent scene generation.</p>
+                    </div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Scene Still Generation</h3>
+                        <p>Create per-scene images using grok-imagine-image with reference_image_urls parameter. Pass character references to maintain visual consistency across scenes.</p>
+                    </div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Image-to-Video Animation</h3>
+                        <p>Animate scene stills using grok-imagine-video (primary) or Kling 3.0 (fallback). Add motion, camera movement, and character animation to bring scenes to life.</p>
+                    </div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Assembly & Post-Production</h3>
+                        <p>Stitch video clips with FFmpeg, add crossfades, overlay audio/music, apply color grading, and render final MP4 output.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grok Imagine Deep Dive -->
+    <section id="grok">
+        <div class="container">
+            <h2 class="section-title">Grok Imagine: The Primary Engine</h2>
+
+            <div class="glass-card">
+                <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 1rem;">API Overview</h3>
+                <p style="margin-bottom: 1rem;">Grok Imagine offers two models via the xAI API:</p>
+                <ul style="list-style: none; padding-left: 0; color: var(--text-secondary); line-height: 2;">
+                    <li>📷 <strong style="color: var(--accent-blue);">grok-imagine-image</strong> — Text-to-image generation with reference image support</li>
+                    <li>🎬 <strong style="color: var(--accent-blue);">grok-imagine-video</strong> — Image-to-video animation (5-10 second clips)</li>
+                    <li>🔗 <strong>Endpoint:</strong> api.x.ai</li>
+                    <li>⚡ <strong>Speed:</strong> 720p video in 30-60 seconds</li>
+                    <li>📐 <strong>Output:</strong> 16:9 aspect ratio, 720p resolution</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="color: var(--accent-magenta); font-size: 1.8rem; margin-bottom: 1rem;">The Secret Weapon: reference_image_urls</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    The <code style="color: var(--accent-amber); background: rgba(255, 184, 0, 0.1); padding: 0.2rem 0.5rem; border-radius: 5px;">reference_image_urls</code> parameter is the key to character consistency.
+                    Pass up to 3 reference images to anchor visual style and character appearance across all scene generations.
+                </p>
+            </div>
+
+            <div class="code-block">
+                <pre><code><span class="code-keyword">import</span> xai_sdk
+
+<span class="code-comment"># Initialize client</span>
+client = xai_sdk.<span class="code-function">Client</span>(api_key=<span class="code-string">"YOUR_XAI_API_KEY"</span>)
+
+<span class="code-comment"># Step 1: Generate character reference image</span>
+character_ref = client.images.<span class="code-function">generate</span>(
+    model=<span class="code-string">"grok-imagine-image"</span>,
+    prompt=<span class="code-string">"detailed character: young woman, curly red hair, green eyes, "</span>
+           <span class="code-string">"wearing blue jacket, confident pose, Pixar animation style, "</span>
+           <span class="code-string">"studio lighting, front view"</span>
+)
+
+<span class="code-comment"># Step 2: Generate scene with character consistency</span>
+scene_image = client.images.<span class="code-function">generate</span>(
+    model=<span class="code-string">"grok-imagine-image"</span>,
+    prompt=<span class="code-string">"woman walking through futuristic city at sunset, "</span>
+           <span class="code-string">"neon lights, cinematic wide shot, Pixar style"</span>,
+    reference_image_urls=[character_ref.url]
+)
+
+<span class="code-comment"># Step 3: Animate the scene</span>
+video_clip = client.video.<span class="code-function">generate</span>(
+    model=<span class="code-string">"grok-imagine-video"</span>,
+    prompt=<span class="code-string">"smooth forward camera movement, woman walking confidently, "</span>
+           <span class="code-string">"city lights glowing, cinematic motion"</span>,
+    reference_image_urls=[character_ref.url, scene_image.url],
+    duration=<span class="code-variable">10</span>,
+    aspect_ratio=<span class="code-string">"16:9"</span>,
+    resolution=<span class="code-string">"720p"</span>
+)
+
+<span class="code-keyword">print</span>(<span class="code-string">f"Video URL: </span><span class="code-variable">{video_clip.url}</span><span class="code-string">"</span>)</code></pre>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="720">720</div>
+                    <div class="stat-label">Resolution (p)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="10">10</div>
+                    <div class="stat-label">Max Clip Length (sec)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="45">45</div>
+                    <div class="stat-label">Avg Generation Time (sec)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="3">3</div>
+                    <div class="stat-label">Max Reference Images</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kling AI -->
+    <section id="kling">
+        <div class="container">
+            <h2 class="section-title">Kling AI: The Fallback & Extended Capabilities</h2>
+
+            <div class="glass-card">
+                <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 1rem;">When to Use Kling</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Kling 3.0 excels where Grok has limitations: longer clips, complex motion, specific cinematic effects,
+                    and more granular control over camera movement and character animation.
+                </p>
+                <ul style="list-style: none; padding-left: 0; color: var(--text-secondary); line-height: 2.2;">
+                    <li>⏱️ <strong style="color: var(--accent-magenta);">Extended duration:</strong> Up to 2 minutes of video (vs Grok's 10 seconds)</li>
+                    <li>🎭 <strong style="color: var(--accent-magenta);">Complex motion:</strong> Advanced character animation and camera dynamics</li>
+                    <li>🎨 <strong style="color: var(--accent-magenta);">Style specificity:</strong> Fine-tuned control over artistic direction</li>
+                    <li>💰 <strong style="color: var(--accent-magenta);">Pricing:</strong> $0.07-$0.14 per second of video</li>
+                    <li>🔌 <strong style="color: var(--accent-magenta);">API Access:</strong> Direct API or third-party providers (PiAPI, fal.ai)</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="color: var(--accent-amber); font-size: 1.8rem; margin-bottom: 1rem;">Third-Party Providers</h3>
+                <p style="color: var(--text-secondary);">
+                    PiAPI and fal.ai often offer Kling access at lower rates than the official API. They provide
+                    unified interfaces, batch processing capabilities, and competitive pricing for high-volume generation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Consistency -->
+    <section id="consistency">
+        <div class="container">
+            <h2 class="section-title">Character Consistency: The Core Challenge</h2>
+
+            <div class="glass-card">
+                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                    The biggest hurdle in AI video is maintaining character appearance across scenes.
+                    Without consistency, characters morph between shots, breaking immersion. Here are four proven strategies:
+                </p>
+            </div>
+
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <div class="strategy-number">1</div>
+                    <h3>Reference Image Anchoring</h3>
+                    <p>
+                        Generate high-quality master character images (front, side, 3/4 view). Pass these via
+                        reference_image_urls in every API call. This is the most reliable method for visual consistency.
+                    </p>
+                </div>
+                <div class="strategy-card">
+                    <div class="strategy-number">2</div>
+                    <h3>Detailed Character Prompts</h3>
+                    <p>
+                        Include specific physical attributes in every scene prompt: hair color/style, eye color,
+                        clothing details, body type, distinguishing features. Redundancy reinforces consistency.
+                    </p>
+                </div>
+                <div class="strategy-card">
+                    <div class="strategy-number">3</div>
+                    <h3>Seed Locking</h3>
+                    <p>
+                        Use consistent seed values where supported to anchor randomization patterns.
+                        Combine with reference images for maximum stability across generations.
+                    </p>
+                </div>
+                <div class="strategy-card">
+                    <div class="strategy-number">4</div>
+                    <h3>Video-to-Video Continuity</h3>
+                    <p>
+                        Extract the last frame of the previous scene as input for the next. Creates smooth
+                        transitions and maintains character appearance across scene boundaries.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <p><strong>Pro Tip:</strong> Generate character sheets (front, side, 3/4 view, expression variants)
+                as reference images before starting scene generation. This library becomes your consistency foundation
+                for the entire project.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Plan -->
+    <section id="action-plan">
+        <div class="container">
+            <h2 class="section-title">Concrete Next Steps for Joe</h2>
+
+            <div class="action-plan">
+                <div class="action-item">
+                    <h3>Get API Keys</h3>
+                    <p>
+                        Sign up at x.ai for Grok Imagine API access (no waitlist). Get Kling API key at
+                        klingai.com/global/dev. Store keys securely in environment variables.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Build the Script Parser</h3>
+                    <p>
+                        Create a module that takes a story script and outputs structured scene data (JSON):
+                        scene number, setting description, character actions, camera direction, mood/lighting, dialogue.
+                        Use Claude or Grok for natural language → structured data conversion.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Build the Character Generator</h3>
+                    <p>
+                        Module that generates master reference images for each character. Prompt engineering is critical:
+                        include physical description, clothing, art style (Pixar/anime/realistic), lighting, multiple
+                        pose variations. Generate character sheets with front/side/3-4 views.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Build the Scene Renderer</h3>
+                    <p>
+                        Module that takes scene JSON + character references → generates scene stills via Grok Imagine
+                        API with reference_image_urls. Batch process scenes in parallel for speed. Cache outputs.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Build the Animator</h3>
+                    <p>
+                        Module that takes scene stills → generates video clips via grok-imagine-video (primary) or
+                        Kling API (fallback for longer/complex shots). Include motion prompts: camera movement,
+                        character animation, environmental effects.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Build the Assembler</h3>
+                    <p>
+                        Use FFmpeg to stitch clips, add crossfades (0.5-1 sec), overlay audio/music tracks, apply
+                        color grading LUTs, add subtitles if needed, and render final MP4. Include quality control
+                        checks for dropped frames or audio sync issues.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Prototype Test</h3>
+                    <p>
+                        Create a simple 3-4 scene test story (20-40 seconds final video). Run through the full
+                        pipeline end-to-end. Evaluate character consistency, motion quality, transition smoothness,
+                        and overall production value. Document failure modes.
+                    </p>
+                </div>
+                <div class="action-item">
+                    <h3>Iterate on Prompts</h3>
+                    <p>
+                        Quality lives in the prompts. Build a prompt library for different visual styles
+                        (Pixar-style 3D, anime 2D, realistic CGI, claymation, hand-drawn). A/B test prompts,
+                        track which patterns yield best consistency and aesthetic quality.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section id="architecture">
+        <div class="container">
+            <h2 class="section-title">Technical Architecture</h2>
+
+            <div class="arch-diagram">
+                <div class="arch-node">
+                    <div class="arch-icon">📝</div>
+                    <h4>Script Input</h4>
+                    <p>Story text</p>
+                </div>
+                <div class="arch-node">
+                    <div class="arch-icon">🧠</div>
+                    <h4>LLM Parser</h4>
+                    <p>Scene JSON</p>
+                </div>
+                <div class="arch-node">
+                    <div class="arch-icon">🖼️</div>
+                    <h4>Image Gen</h4>
+                    <p>Grok API</p>
+                </div>
+                <div class="arch-node">
+                    <div class="arch-icon">🎬</div>
+                    <h4>Video Gen</h4>
+                    <p>Grok/Kling</p>
+                </div>
+                <div class="arch-node">
+                    <div class="arch-icon">🎞️</div>
+                    <h4>Assembly</h4>
+                    <p>FFmpeg</p>
+                </div>
+                <div class="arch-node">
+                    <div class="arch-icon">✅</div>
+                    <h4>Output</h4>
+                    <p>Final MP4</p>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top: 3rem;">
+                <h3 style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 1rem;">Data Flow</h3>
+                <ul style="list-style: none; padding-left: 0; color: var(--text-secondary); line-height: 2.2;">
+                    <li>📄 <strong>Script</strong> → Plain text or structured format (JSON/YAML)</li>
+                    <li>🗂️ <strong>Scene JSON</strong> → Array of scene objects with metadata</li>
+                    <li>🔗 <strong>Image URLs</strong> → Hosted URLs from Grok/Kling responses</li>
+                    <li>🎥 <strong>Video URLs</strong> → Hosted video clip URLs (download for assembly)</li>
+                    <li>🎬 <strong>Final MP4</strong> → Assembled, graded, audio-mixed output file</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Estimates -->
+    <section id="costs">
+        <div class="container">
+            <h2 class="section-title">Cost Analysis</h2>
+
+            <div class="glass-card">
+                <h3 style="color: var(--accent-amber); font-size: 1.8rem; margin-bottom: 1.5rem;">Per-Minute Video Breakdown</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    Assuming 12 scenes × 5 seconds each = 60 seconds of final video. Costs vary based on provider
+                    choice and generation parameters. These are ballpark estimates — always check current API pricing.
+                </p>
+            </div>
+
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Cost/Image</th>
+                        <th>Cost/Video Sec</th>
+                        <th>Est. Total (1min video)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Grok Imagine</strong></td>
+                        <td>TBD (check x.ai/api)</td>
+                        <td>TBD (check x.ai/api)</td>
+                        <td>$X-XX (pending pricing)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kling Official</strong></td>
+                        <td>~$0.03-$0.05</td>
+                        <td>$0.07-$0.14</td>
+                        <td>$4.20-$8.40</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kling (PiAPI)</strong></td>
+                        <td>~$0.02-$0.04</td>
+                        <td>$0.05-$0.10</td>
+                        <td>$3.00-$6.00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Runway Gen-3</strong></td>
+                        <td>$0.05</td>
+                        <td>$0.20-$0.30</td>
+                        <td>$12.00-$18.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="glass-card" style="margin-top: 3rem;">
+                <h3 style="color: var(--accent-magenta); font-size: 1.8rem; margin-bottom: 1rem;">Cost Optimization Strategies</h3>
+                <ul style="list-style: none; padding-left: 0; color: var(--text-secondary); line-height: 2.2;">
+                    <li>🎯 <strong>Batch generation:</strong> Generate multiple scenes in parallel to reduce overhead</li>
+                    <li>♻️ <strong>Reuse references:</strong> Same character reference across multiple scenes reduces image gen costs</li>
+                    <li>⚡ <strong>Fallback tiers:</strong> Start with Grok, fallback to Kling only for complex shots</li>
+                    <li>🗜️ <strong>Resolution strategy:</strong> Generate at 720p, upscale in post if needed (cheaper than native 1080p)</li>
+                    <li>📦 <strong>Caching:</strong> Store generated assets to avoid regenerating identical prompts</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-title">Prepared by Gary | Willie's AI Chief of Staff</p>
+                <p class="footer-subtitle">For Joe Ortega — April 2026</p>
+                <div class="footer-links">
+                    <a href="https://x.ai/api" class="footer-link" target="_blank">x.ai/api</a>
+                    <a href="https://klingai.com/global/dev" class="footer-link" target="_blank">klingai.com/global/dev</a>
+                    <a href="https://docs.x.ai" class="footer-link" target="_blank">xAI Documentation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particle system
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        function setupScrollAnimations() {
+            const sections = document.querySelectorAll('section');
+            const observerOptions = {
+                threshold: 0.05,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Fallback for immediate visibility
+            setTimeout(() => {
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        section.classList.add('visible');
+                    }
+                });
+            }, 2000);
+        }
+
+        // Animated counters - show final values immediately, no animation
+        function setupCounters() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                stat.textContent = target;
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setupScrollAnimations();
+            setupCounters();
+        });
+
+        // Smooth scroll for anchor links (if any)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
