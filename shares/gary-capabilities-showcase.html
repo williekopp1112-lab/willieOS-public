@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gary — AI Chief of Staff | Built on Claude</title>
+    <meta name="description" content="Gary is an AI Chief of Staff built on Claude, powered by 110+ tools and a multi-agent dispatch system. Learns how you work, automates workflows, and delivers exceptional results.">
+    <meta property="og:title" content="Gary — AI Chief of Staff">
+    <meta property="og:description" content="Built on Claude. Powered by 110+ tools. Learns how you work.">
+    <meta property="og:image" content="https://williekopp1112-lab.github.io/willieOS/assets/gary-og.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>⚡</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0B0F1A;
+            --surface: #131927;
+            --surface-2: #1C2333;
+            --border: #1E293B;
+            --primary: #6366F1;
+            --accent: #22D3EE;
+            --success: #34D399;
+            --warning: #FBBF24;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(34, 211, 238, 0.1), transparent 40%);
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-10%, 5%) scale(1.1); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s var(--spring);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 72px);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: clamp(20px, 3vw, 28px);
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s var(--spring);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+            background: #7C7FF5;
+        }
+
+        /* Section Container */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: rgba(28, 35, 51, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 48px);
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* Capabilities Grid */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .capability-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s var(--spring);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: cardEnter 0.6s var(--spring) forwards;
+        }
+
+        .capability-card:nth-child(1) { animation-delay: 0.1s; }
+        .capability-card:nth-child(2) { animation-delay: 0.2s; }
+        .capability-card:nth-child(3) { animation-delay: 0.3s; }
+        .capability-card:nth-child(4) { animation-delay: 0.4s; }
+        .capability-card:nth-child(5) { animation-delay: 0.5s; }
+        .capability-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .capability-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .capability-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .capability-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* v0 Platform Section */
+        .v0-platform {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(34, 211, 238, 0.05));
+            padding: 100px 20px;
+        }
+
+        .v0-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .v0-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .v0-visual {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tier-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--surface-2);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .tier-row:hover {
+            transform: translateX(8px);
+            border-left-color: var(--accent);
+        }
+
+        .tier-label {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 100px;
+        }
+
+        .tier-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Stats Section */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat-box {
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: statPop 0.6s var(--spring) forwards;
+        }
+
+        .stat-box:nth-child(1) { animation-delay: 0.1s; }
+        .stat-box:nth-child(2) { animation-delay: 0.2s; }
+        .stat-box:nth-child(3) { animation-delay: 0.3s; }
+        .stat-box:nth-child(4) { animation-delay: 0.4s; }
+        .stat-box:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes statPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .stat-number {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Built Different Section */
+        .built-different-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-pill {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-pill:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .feature-bullet {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        .feature-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        /* How It Works Section */
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .workflow-steps {
+                flex-direction: column;
+            }
+        }
+
+        .workflow-step {
+            flex: 1;
+            text-align: center;
+            padding: 40px 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .workflow-step h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .workflow-step p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .workflow-arrow {
+            font-size: 32px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--surface-2);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Intersection Observer Animation */
+        .observe {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s var(--spring);
+        }
+
+        .observe.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo">⚡</div>
+            <h1>Meet Gary</h1>
+            <p class="tagline">Your AI Chief of Staff</p>
+            <p class="subtitle">Built on Claude. Powered by 110+ tools. Learns how you work.</p>
+            <button class="cta-button" onclick="window.scrollTo({ top: document.querySelector('.capabilities').offsetTop, behavior: 'smooth' })">
+                See What Gary Can Do
+            </button>
+        </div>
+    </section>
+
+    <!-- Capabilities Grid -->
+    <section class="capabilities">
+        <div class="container">
+            <h2 class="section-title">Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <span class="capability-icon">📧</span>
+                    <h3>Email Intelligence</h3>
+                    <p>Auto-triage, smart context-aware replies, noise filtering, autonomous responses for trusted contacts. Gary doesn't just read your email — he understands what needs action and what can wait.</p>
+                </div>
+                <div class="capability-card">
+                    <span class="capability-icon">📅</span>
+                    <h3>Calendar & Scheduling</h3>
+                    <p>Conflict detection, meeting prep briefs, free time analysis, attendee lookup. Know who you're meeting before you walk in the room.</p>
+                </div>
+                <div class="capability-card">
+                    <span class="capability-icon">✅</span>
+                    <h3>Task Management</h3>
+                    <p>Open loops with urgency tracking, parent-child grouping, recurring tasks, stale loop detection. GTD methodology meets AI-powered prioritization.</p>
+                </div>
+                <div class="capability-card">
+                    <span class="capability-icon">🚀</span>
+                    <h3>Multi-Agent Dispatch</h3>
+                    <p>Routes to Claude Code (engineering), Cowork (research/docs), v0 (design) — auto-chains researcher→engineer for complex tasks. One request, multiple specialists.</p>
+                </div>
+                <div class="capability-card">
+                    <span class="capability-icon">🧠</span>
+                    <h3>Knowledge Graph</h3>
+                    <p>Learns about you over time — goals, concerns, energy levels, family context, relationships. Gets smarter every interaction.</p>
+                </div>
+                <div class="capability-card">
+                    <span class="capability-icon">⚡</span>
+                    <h3>Workflow Automation</h3>
+                    <p>Morning autopilot, pre-meeting briefs, weekly digests, proactive inbox scans, scheduled tasks. Wake up to a prioritized day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- v0 Design Platform -->
+    <section class="v0-platform observe">
+        <div class="container">
+            <h2 class="section-title">The v0 Design Platform</h2>
+            <div class="v0-content">
+                <div class="v0-visual">
+                    <h3 style="margin-bottom: 24px; color: var(--text-primary);">Three-Tier Prompt Architecture</h3>
+                    <div class="tier-row">
+                        <span class="tier-label">Instant</span>
+                        <span class="tier-desc">Quick follow-ups, minor tweaks. No context assembly. Fastest.</span>
+                    </div>
+                    <div class="tier-row">
+                        <span class="tier-label">Standard</span>
+                        <span class="tier-desc">Default. Assembles design tokens, project history, learned patterns.</span>
+                    </div>
+                    <div class="tier-row">
+                        <span class="tier-label">Deep</span>
+                        <span class="tier-desc">Research-grade. Pre-flight analysis + full context. For client deliverables.</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 24px; font-size: 28px;">Gary's Design System Integration</h3>
+                    <ul class="feature-list">
+                        <li><strong>Brand token injection</strong> — per-client design systems automatically applied</li>
+                        <li><strong>Prompt learning loop</strong> — rates outputs, learns what works, improves over time</li>
+                        <li><strong>Two-track deploy</strong> — Quick Publish (v0 native) vs Engineered Publish (Claude Code + GitHub Pages)</li>
+                        <li><strong>Persistent projects</strong> — vault-aligned v0 projects keep all client work organized</li>
+                        <li><strong>Version tracking</strong> — iterate on designs without losing previous versions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Stats -->
+    <section class="observe">
+        <div class="container">
+            <h2 class="section-title">Architecture at a Glance</h2>
+            <div class="stats-row">
+                <div class="stat-box">
+                    <span class="stat-number" data-target="110">110</span>
+                    <span class="stat-label">MCP Tools</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="10">10</span>
+                    <span class="stat-label">v0 Platform Tools</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Prompt Tiers</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="50">50</span>
+                    <span class="stat-label">Automated Workflows</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Agent Types</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built Different -->
+    <section class="observe">
+        <div class="container">
+            <h2 class="section-title">Built Different</h2>
+            <div class="built-different-list">
+                <div class="feature-pill">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-text">Acts, doesn't narrate — calls tools immediately, shows results not process</div>
+                </div>
+                <div class="feature-pill">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-text">Learns from corrections — every edit teaches Gary your preferences</div>
+                </div>
+                <div class="feature-pill">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-text">Never apologizes — just fixes it</div>
+                </div>
+                <div class="feature-pill">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-text">Picks the best path — no "would you prefer?" menus</div>
+                </div>
+                <div class="feature-pill">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-text">One round execution — all tools in the same turn</div>
+                </div>
+                <div class="feature-pill">
+                    <div class="feature-bullet"></div>
+                    <div class="feature-text">Context-aware — checks what it knows before searching externally</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="observe">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <h3>You Talk to Gary</h3>
+                    <p>Natural language, any channel — chat, email, text, voice</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <h3>Gary Routes to the Right Agent</h3>
+                    <p>Or handles directly — Claude Code for code, Cowork for research, v0 for design</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <h3>Results Delivered</h3>
+                    <p>Emails sent, meetings booked, pages built, research compiled</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 18px; margin-bottom: 12px; color: var(--text-primary);">
+            Built by <a href="https://github.com/williekopp1112-lab" target="_blank">Willie Kopp</a>
+        </p>
+        <p style="font-size: 14px; color: var(--text-secondary);">
+            <a href="https://williekopp1112-lab.github.io/willieOS" target="_blank">willieOS</a> | Powered by Claude 4.5
+        </p>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Fallback timeout for slow observers
+        setTimeout(() => {
+            document.querySelectorAll('.observe').forEach(el => {
+                if (!el.classList.contains('visible')) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }, 2000);
+
+        document.querySelectorAll('.observe').forEach(el => observer.observe(el));
+
+        // Animated counter for stats
+        function animateCounter(element, target) {
+            const duration = 2000;
+            const start = 0;
+            const startTime = Date.now();
+
+            function update() {
+                const now = Date.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + (target - start) * easeOutQuart);
+                element.textContent = current + (target > 10 ? '+' : '');
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = target + (target > 10 ? '+' : '');
+                }
+            }
+
+            update();
+        }
+
+        // Trigger counters on scroll
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const target = parseInt(entry.target.dataset.target) || parseInt(entry.target.textContent);
+                    animateCounter(entry.target, target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(el => {
+            // Set default text content immediately (no flash)
+            const target = parseInt(el.dataset.target) || parseInt(el.textContent);
+            el.textContent = target;
+            statsObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
