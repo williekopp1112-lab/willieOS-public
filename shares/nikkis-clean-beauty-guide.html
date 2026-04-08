@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikki's Clean Beauty Guide — Skincare & Makeup</title>
+    <meta name="description" content="A comprehensive guide to clean, non-toxic skincare and makeup brands including Typology, Glo Skin Beauty, Ogee, ILIA, RMS Beauty, Kosas, Tower 28, and Tata Harper.">
+    <meta property="og:title" content="Nikki's Clean Beauty Guide — Skincare & Makeup">
+    <meta property="og:description" content="A comprehensive guide to clean, non-toxic skincare and makeup brands including Typology, Glo Skin Beauty, Ogee, ILIA, RMS Beauty, Kosas, Tower 28, and Tata Harper.">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌿</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blush: '#f4c5c5',
+                        'blush-light': '#fce8e8',
+                        'blush-dark': '#e5a5a5',
+                        sage: '#9caf88',
+                        'sage-light': '#c5d4b8',
+                        'sage-dark': '#7a8f6e',
+                        cream: '#faf9f5',
+                        'warm-gray': '#e8e6dc',
+                        'warm-gray-dark': '#b0aea5',
+                    },
+                    fontFamily: {
+                        display: ['Cormorant', 'Georgia', 'serif'],
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #faf9f5 0%, #fce8e8 100%);
+            color: #2d2d2d;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant', Georgia, serif;
+            font-weight: 600;
+        }
+
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .fade-in.hidden {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .brand-card {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(244, 197, 197, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .brand-link {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-link-primary {
+            background: linear-gradient(135deg, #f4c5c5 0%, #e5a5a5 100%);
+            color: #fff;
+        }
+
+        .brand-link-primary:hover {
+            background: linear-gradient(135deg, #e5a5a5 0%, #d89595 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(244, 197, 197, 0.4);
+        }
+
+        .brand-link-secondary {
+            background: linear-gradient(135deg, #9caf88 0%, #7a8f6e 100%);
+            color: #fff;
+        }
+
+        .brand-link-secondary:hover {
+            background: linear-gradient(135deg, #7a8f6e 0%, #6a7f5e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(156, 175, 136, 0.4);
+        }
+
+        .brand-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+            }
+
+            h2 {
+                font-size: 2rem !important;
+            }
+
+            h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .brand-links {
+                width: 100%;
+            }
+
+            .brand-link {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
+
+            section {
+                padding-top: 40px !important;
+                padding-bottom: 40px !important;
+            }
+
+            .hero-section {
+                padding-top: 60px !important;
+                padding-bottom: 60px !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Hero Section -->
+    <section class="hero-section relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-blush blur-3xl float-animation"></div>
+            <div class="absolute bottom-10 right-10 w-64 h-64 rounded-full bg-sage blur-3xl float-animation" style="animation-delay: 1.5s;"></div>
+        </div>
+
+        <div class="relative text-center max-w-4xl mx-auto w-full">
+            <div class="inline-block mb-4 sm:mb-6">
+                <span class="text-5xl sm:text-6xl">🌿</span>
+            </div>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-gray-800 mb-4 sm:mb-6 leading-tight">
+                Nikki's<br>Clean Beauty Guide
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
+                Your comprehensive guide to non-toxic, clean skincare and makeup brands
+            </p>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 px-4">
+                <span class="px-3 sm:px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full whitespace-nowrap">🚫 No Parabens</span>
+                <span class="px-3 sm:px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full whitespace-nowrap">🌱 Organic Ingredients</span>
+                <span class="px-3 sm:px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full whitespace-nowrap">🐰 Cruelty-Free</span>
+                <span class="px-3 sm:px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full whitespace-nowrap">✨ Clean Certifications</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Guide -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white/40 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-center text-gray-800 mb-3 sm:mb-4 fade-in hidden px-4">
+                Understanding Clean Beauty
+            </h2>
+            <p class="text-center text-gray-600 mb-12 sm:mb-16 max-w-2xl mx-auto fade-in hidden px-4">
+                These certifications ensure the highest standards in ingredient safety, cruelty-free practices, and environmental responsibility.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-3xl mb-3">🔬</div>
+                    <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">EWG Verified</h3>
+                    <p class="text-gray-600 text-sm">Strictest ingredient screening for safety and transparency</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-3xl mb-3">🌾</div>
+                    <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">USDA Organic</h3>
+                    <p class="text-gray-600 text-sm">95%+ organic ingredients certified by USDA standards</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-3xl mb-3">🐰</div>
+                    <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Leaping Bunny</h3>
+                    <p class="text-gray-600 text-sm">Gold standard for cruelty-free certification</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-3xl mb-3">🌍</div>
+                    <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">B Corp</h3>
+                    <p class="text-gray-600 text-sm">Certified social and environmental responsibility</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-3xl mb-3">🏪</div>
+                    <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Clean at Sephora</h3>
+                    <p class="text-gray-600 text-sm">Excludes 50+ restricted ingredient categories</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-3xl mb-3">🩹</div>
+                    <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">NEA Approved</h3>
+                    <p class="text-gray-600 text-sm">National Eczema Association seal for sensitive skin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Primary Brands -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-center text-gray-800 mb-3 sm:mb-4 fade-in hidden px-4">
+                Your Shortlist
+            </h2>
+            <p class="text-center text-gray-600 mb-12 sm:mb-16 max-w-2xl mx-auto fade-in hidden px-4">
+                Deep dive into the three brands you're considering
+            </p>
+
+            <!-- Typology -->
+            <div class="brand-card bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl mb-6 sm:mb-8 fade-in hidden">
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
+                    <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800">Typology</h3>
+                    <span class="px-3 py-1 bg-blush-light text-blush-dark text-xs font-medium rounded-full whitespace-nowrap">French Minimalist</span>
+                </div>
+
+                <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                    B Corp certified French skincare brand focusing on minimalist formulations with nearly 100% natural/organic ingredients. Transparent ingredient lists, vegan formulas, and PETA cruelty-free certified.
+                </p>
+
+                <div class="mb-6">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Certifications</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">B Corp</span>
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">PETA Cruelty-Free</span>
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Vegan</span>
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Made in France</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Hero Products</h4>
+                    <ul class="space-y-2 text-gray-600 text-sm sm:text-base">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blush mt-1 flex-shrink-0">•</span>
+                            <span><strong>Tinted Serum T10</strong> — $47.90</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blush mt-1 flex-shrink-0">•</span>
+                            <span><strong>9-Ingredient Moisturizer D41</strong></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blush mt-1 flex-shrink-0">•</span>
+                            <span><strong>Radiance Serum L32</strong> (15% Vitamin C + 1% Vitamin E) — from $30.50</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Price Range</h4>
+                        <p class="text-gray-600 text-sm sm:text-base">$30 - $48</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Category</h4>
+                        <p class="text-gray-600 text-sm sm:text-base">Skincare</p>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-green-800 mb-2">✓ Pros</h4>
+                        <ul class="text-sm text-green-700 space-y-1">
+                            <li>• Transparent formulations</li>
+                            <li>• Minimalist approach</li>
+                            <li>• Affordable luxury</li>
+                            <li>• EU safety standards</li>
+                        </ul>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-orange-800 mb-2">! Considerations</h4>
+                        <ul class="text-sm text-orange-700 space-y-1">
+                            <li>• Skincare only, no makeup</li>
+                            <li>• Limited retail availability</li>
+                            <li>• Some fragranced products</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand-links">
+                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                        Shop at Typology
+                    </a>
+                </div>
+            </div>
+
+            <!-- Glo Skin Beauty -->
+            <div class="brand-card bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl mb-6 sm:mb-8 fade-in hidden">
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
+                    <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800">Glo Skin Beauty</h3>
+                    <span class="px-3 py-1 bg-blush-light text-blush-dark text-xs font-medium rounded-full whitespace-nowrap">Mineral Makeup</span>
+                </div>
+
+                <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                    Dermatologist-recommended brand focusing on mineral makeup and clinical skincare. Their "skin-first" philosophy combines clean mineral formulations with skincare benefits.
+                </p>
+
+                <div class="mb-6">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Certifications</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Cruelty-Free</span>
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Dermatologist-Recommended</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Hero Products</h4>
+                    <ul class="space-y-2 text-gray-600 text-sm sm:text-base">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blush mt-1 flex-shrink-0">•</span>
+                            <span><strong>Pressed Base</strong> (award-winning mineral foundation) — $52</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blush mt-1 flex-shrink-0">•</span>
+                            <span><strong>Bio-Renew EGF Cream</strong> — $178</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Price Range</h4>
+                        <p class="text-gray-600 text-sm sm:text-base">$42 - $178</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Category</h4>
+                        <p class="text-gray-600 text-sm sm:text-base">Makeup & Skincare</p>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-green-800 mb-2">✓ Pros</h4>
+                        <ul class="text-sm text-green-700 space-y-1">
+                            <li>• Clinical-grade formulations</li>
+                            <li>• Mineral-based makeup</li>
+                            <li>• Professional backing</li>
+                            <li>• Wide shade ranges</li>
+                        </ul>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-orange-800 mb-2">! Considerations</h4>
+                        <ul class="text-sm text-orange-700 space-y-1">
+                            <li>• Higher price point</li>
+                            <li>• Less organic focus</li>
+                            <li>• Professional channel brand</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand-links">
+                    <a href="https://www.gloskinbeauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                        Shop at Glo Skin Beauty
+                    </a>
+                </div>
+            </div>
+
+            <!-- Ogee -->
+            <div class="brand-card bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl mb-6 sm:mb-8 fade-in hidden">
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
+                    <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800">Ogee</h3>
+                    <span class="px-3 py-1 bg-blush-light text-blush-dark text-xs font-medium rounded-full whitespace-nowrap">Organic Luxury</span>
+                </div>
+
+                <p class="text-gray-600 mb-6 text-sm sm:text-base">
+                    Luxury organic brand offering both makeup and skincare with USDA Organic certification. Their philosophy centers on "sculptured organics" — elegant products with clean ingredients.
+                </p>
+
+                <div class="mb-6">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Certifications</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">USDA Organic</span>
+                        <span class="px-3 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Clean Beauty</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">What They Exclude</h4>
+                    <p class="text-gray-600 text-sm">Parabens, sulfates, phthalates, synthetic fragrances, mineral oil, and over 1,000 questionable ingredients</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Category</h4>
+                        <p class="text-gray-600 text-sm sm:text-base">Makeup & Skincare</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">Focus</h4>
+                        <p class="text-gray-600 text-sm sm:text-base">Organic luxury</p>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-green-800 mb-2">✓ Pros</h4>
+                        <ul class="text-sm text-green-700 space-y-1">
+                            <li>• USDA Organic certified</li>
+                            <li>• Makeup + skincare range</li>
+                            <li>• Luxurious formulations</li>
+                            <li>• Beautiful packaging</li>
+                        </ul>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-orange-800 mb-2">! Considerations</h4>
+                        <ul class="text-sm text-orange-700 space-y-1">
+                            <li>• Premium pricing</li>
+                            <li>• Smaller product range</li>
+                            <li>• Limited shade options</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brand-links">
+                    <a href="https://ogee.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                        Shop at Ogee
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Recommendations -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-transparent to-white/60">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-center text-gray-800 mb-3 sm:mb-4 fade-in hidden px-4">
+                More Clean Brands to Explore
+            </h2>
+            <p class="text-center text-gray-600 mb-12 sm:mb-16 max-w-2xl mx-auto fade-in hidden px-4">
+                Five additional brands that combine clean ingredients with exceptional performance
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                <!-- ILIA Beauty -->
+                <div class="brand-card bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden">
+                    <h3 class="text-xl sm:text-2xl font-display font-bold text-gray-800 mb-2">ILIA Beauty</h3>
+                    <p class="text-sm text-blush-dark font-medium mb-3">Makeup for Skincare Freaks</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Award-winning brand combining makeup with active skincare ingredients. Clean at Sephora and Leaping Bunny certified.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-700 mb-1">Hero Product</p>
+                        <p class="text-sm text-gray-600">Super Serum Skin Tint SPF 40</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Clean at Sephora</span>
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Leaping Bunny</span>
+                    </div>
+                    <div class="brand-links">
+                        <a href="https://iliabeauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                            Shop at ILIA
+                        </a>
+                        <a href="https://www.sephora.com/brand/ilia" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                            View on Sephora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RMS Beauty -->
+                <div class="brand-card bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden">
+                    <h3 class="text-xl sm:text-2xl font-display font-bold text-gray-800 mb-2">RMS Beauty</h3>
+                    <p class="text-sm text-blush-dark font-medium mb-3">Pioneering Clean Beauty Since 2009</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Industry pioneer using organic, raw, and food-grade ingredients. The original clean makeup brand.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-700 mb-1">Hero Products</p>
+                        <p class="text-sm text-gray-600">ReDimension Hydra Powder Blush (sold out 10x), Legendary Lip Oil ($26)</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Organic Ingredients</span>
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Pioneering Brand</span>
+                    </div>
+                    <div class="brand-links">
+                        <a href="https://www.rmsbeauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                            Shop at RMS Beauty
+                        </a>
+                        <a href="https://www.sephora.com/brand/rms-beauty" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                            View on Sephora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kosas -->
+                <div class="brand-card bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden">
+                    <h3 class="text-xl sm:text-2xl font-display font-bold text-gray-800 mb-2">Kosas</h3>
+                    <p class="text-sm text-blush-dark font-medium mb-3">Clean, Vegan Makeup</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        EWG Verified modern makeup with skincare-level ingredients. Cult-favorite products with impressive performance.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-700 mb-1">Hero Product</p>
+                        <p class="text-sm text-gray-600">Revealer Concealer</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">EWG Verified</span>
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Vegan</span>
+                    </div>
+                    <div class="brand-links">
+                        <a href="https://kosas.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                            Shop at Kosas
+                        </a>
+                        <a href="https://www.sephora.com/brand/kosas" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                            View on Sephora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tower 28 -->
+                <div class="brand-card bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden">
+                    <h3 class="text-xl sm:text-2xl font-display font-bold text-gray-800 mb-2">Tower 28</h3>
+                    <p class="text-sm text-blush-dark font-medium mb-3">Made for Sensitive Skin</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        National Eczema Association approved, vegan, and cruelty-free. Perfect for reactive skin. Accessible price range $18-$24.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-700 mb-1">Price Range</p>
+                        <p class="text-sm text-gray-600">$18 - $24</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">NEA Approved</span>
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Vegan</span>
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Cruelty-Free</span>
+                    </div>
+                    <div class="brand-links">
+                        <a href="https://www.tower28beauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                            Shop at Tower 28
+                        </a>
+                        <a href="https://www.sephora.com/brand/tower-28" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                            View on Sephora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tata Harper -->
+                <div class="brand-card bg-white rounded-2xl p-5 sm:p-6 shadow-lg fade-in hidden">
+                    <h3 class="text-xl sm:text-2xl font-display font-bold text-gray-800 mb-2">Tata Harper</h3>
+                    <p class="text-sm text-blush-dark font-medium mb-3">100% Natural Vermont Farm-to-Face</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Luxury natural skincare made on their Vermont farm. Every product is 100% natural with no synthetic ingredients.
+                    </p>
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-700 mb-1">Price Range</p>
+                        <p class="text-sm text-gray-600">$68 - $350</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">100% Natural</span>
+                        <span class="px-2 py-1 bg-sage-light text-sage-dark text-xs rounded-full">Farm-Made</span>
+                    </div>
+                    <div class="brand-links">
+                        <a href="https://www.tataharperskincare.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                            Shop at Tata Harper
+                        </a>
+                        <a href="https://www.sephora.com/brand/tata-harper" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                            View on Sephora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Starter Kit -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-white/60 to-blush-light/30">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10 sm:mb-12">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-gray-800 mb-3 sm:mb-4 fade-in hidden px-4">
+                    Nikki's Clean Beauty Starter Kit
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto fade-in hidden px-4">
+                    Your curated routine — which brand to use for what
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl fade-in hidden">
+                <div class="space-y-6 sm:space-y-8">
+                    <div class="flex gap-4 sm:gap-6 items-start">
+                        <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blush-light flex items-center justify-center text-xl sm:text-2xl">
+                            🧴
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Daily Skincare</h3>
+                            <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                                <strong class="text-gray-800">Typology</strong> — French minimalist approach with transparent formulations. Perfect for everyday cleansing, serums, and moisturizers.
+                            </p>
+                            <p class="text-xs sm:text-sm text-gray-500">Try: 9-Ingredient Moisturizer D41, Radiance Serum L32</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 sm:gap-6 items-start">
+                        <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-sage-light flex items-center justify-center text-xl sm:text-2xl">
+                            💄
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Everyday Makeup</h3>
+                            <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                                <strong class="text-gray-800">Ogee</strong> — USDA Organic luxury makeup for daily wear. Beautiful formulations that feel luxurious.
+                            </p>
+                            <p class="text-xs sm:text-sm text-gray-500">Perfect for natural, everyday looks</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 sm:gap-6 items-start">
+                        <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blush-light flex items-center justify-center text-xl sm:text-2xl">
+                            ✨
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Foundation & Complexion</h3>
+                            <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                                <strong class="text-gray-800">ILIA Beauty</strong> — Super Serum Skin Tint SPF 40 combines skincare with makeup. Clean, effective, and easy to wear.
+                            </p>
+                            <p class="text-xs sm:text-sm text-gray-500">For buildable coverage with skincare benefits</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 sm:gap-6 items-start">
+                        <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-sage-light flex items-center justify-center text-xl sm:text-2xl">
+                            🎨
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Color Cosmetics</h3>
+                            <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                                <strong class="text-gray-800">RMS Beauty</strong> — For blushes, lip products, and cream colors. Pioneering clean formulas with gorgeous textures.
+                            </p>
+                            <p class="text-xs sm:text-sm text-gray-500">Try: ReDimension Hydra Powder Blush, Legendary Lip Oil</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 sm:gap-6 items-start">
+                        <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blush-light flex items-center justify-center text-xl sm:text-2xl">
+                            🩹
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Sensitive Skin Days</h3>
+                            <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                                <strong class="text-gray-800">Tower 28</strong> — When your skin is reactive or you want minimal ingredients. NEA-approved and gentle.
+                            </p>
+                            <p class="text-xs sm:text-sm text-gray-500">Great backup for sensitive moments</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 sm:gap-6 items-start">
+                        <div class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-sage-light flex items-center justify-center text-xl sm:text-2xl">
+                            🌟
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg sm:text-xl font-display font-semibold text-gray-800 mb-2">Special Occasion Skincare</h3>
+                            <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                                <strong class="text-gray-800">Tata Harper</strong> — For when you want to splurge on luxurious, 100% natural treatments. Farm-to-face Vermont luxury.
+                            </p>
+                            <p class="text-xs sm:text-sm text-gray-500">Perfect for pre-event glow or special self-care</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-gray-200">
+                    <h4 class="text-base sm:text-lg font-display font-semibold text-gray-800 mb-4">Quick Shopping List</h4>
+                    <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="font-medium text-gray-700 mb-2">Start Here (Budget-Friendly):</p>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• Typology 9-Ingredient Moisturizer</li>
+                                <li>• Tower 28 BeachPlease Cream Blush</li>
+                                <li>• RMS Lip Oil ($26)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700 mb-2">Level Up:</p>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• ILIA Super Serum Skin Tint</li>
+                                <li>• Ogee Sculpted Lipstick</li>
+                                <li>• Kosas Revealer Concealer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 sm:py-12 px-4 sm:px-6 bg-white/60 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-600 mb-4 text-sm sm:text-base">
+                🌿 Clean beauty guide curated for Nikki — 2026
+            </p>
+            <p class="text-xs sm:text-sm text-gray-500 max-w-2xl mx-auto px-4">
+                All product information, certifications, and prices sourced from official brand websites and verified clean beauty databases. Always patch test new products and consult dermatologists for specific skin concerns.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.remove('hidden');
+                    }, 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Fallback: reveal all after 2s
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in.hidden').forEach(el => {
+                el.style.opacity = '1';
+                el.classList.remove('hidden');
+            });
+        }, 2000);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
