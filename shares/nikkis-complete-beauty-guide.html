@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikki's Complete Beauty Guide ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose-gold: #B76E79;
+            --rose-gold-light: #D4939E;
+            --rose-gold-dark: #9A5560;
+            --cream: #FFF5EE;
+            --white: #FFFFFF;
+            --warm-white: #FEFAF7;
+            --text-dark: #2D1F1E;
+            --text-medium: #6B5B5A;
+            --shadow: rgba(183, 110, 121, 0.15);
+            --gradient-start: #FAF5F0;
+            --gradient-end: #FFF5EE;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 80px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--rose-gold-dark) 0%, var(--rose-gold) 50%, var(--rose-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            font-style: italic;
+        }
+
+        /* Section */
+        .section {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 80px 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px var(--shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 700;
+            color: var(--rose-gold-dark);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-medium);
+            font-style: italic;
+        }
+
+        /* Steps */
+        .step {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--rose-gold) 0%, var(--rose-gold-light) 100%);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-description {
+            color: var(--text-medium);
+            margin-bottom: 16px;
+            padding-left: 44px;
+            font-size: 0.95rem;
+        }
+
+        /* Product Cards */
+        .products {
+            display: grid;
+            gap: 16px;
+            padding-left: 44px;
+        }
+
+        .product-card {
+            background: var(--warm-white);
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .product-card:hover {
+            border-color: var(--rose-gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            flex: 1;
+        }
+
+        .product-price {
+            background: linear-gradient(135deg, var(--rose-gold) 0%, var(--rose-gold-light) 100%);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 12px;
+        }
+
+        .product-tier {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tier-drugstore {
+            background: #E8F4F8;
+            color: #2C5F7B;
+        }
+
+        .tier-midrange {
+            background: #F4E8F8;
+            color: #6B2C7B;
+        }
+
+        .tier-luxury {
+            background: #FFF4E6;
+            color: #8B5A00;
+        }
+
+        .product-note {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Pro Tips */
+        .pro-tip {
+            background: linear-gradient(135deg, #FFF9F5 0%, #FFF5EE 100%);
+            border-left: 4px solid var(--rose-gold);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+            font-size: 0.95rem;
+        }
+
+        .pro-tip-label {
+            font-weight: 700;
+            color: var(--rose-gold-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pro-tip-text {
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Weekly Treatments */
+        .treatment-grid {
+            display: grid;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .treatment-card {
+            background: var(--warm-white);
+            border-radius: 16px;
+            padding: 24px;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .treatment-card:hover {
+            border-color: var(--rose-gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        .treatment-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--rose-gold-dark);
+            margin-bottom: 12px;
+        }
+
+        .treatment-schedule {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .treatment-products {
+            display: grid;
+            gap: 12px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .footer-heart {
+            color: var(--rose-gold);
+            font-size: 1.2rem;
+            margin: 0 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .section {
+                padding: 60px 24px;
+            }
+
+            .products {
+                padding-left: 0;
+            }
+
+            .step-description {
+                padding-left: 0;
+            }
+
+            .product-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .product-price {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+        }
+
+        /* Animation delays */
+        .step:nth-child(1) { transition-delay: 0.1s; }
+        .step:nth-child(2) { transition-delay: 0.2s; }
+        .step:nth-child(3) { transition-delay: 0.3s; }
+        .step:nth-child(4) { transition-delay: 0.4s; }
+        .step:nth-child(5) { transition-delay: 0.5s; }
+        .step:nth-child(6) { transition-delay: 0.6s; }
+        .step:nth-child(7) { transition-delay: 0.7s; }
+        .step:nth-child(8) { transition-delay: 0.8s; }
+        .step:nth-child(9) { transition-delay: 0.9s; }
+        .step:nth-child(10) { transition-delay: 1s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Nikki's Complete Beauty Guide ✨</h1>
+            <p>Built with love by Gary & Willie</p>
+        </div>
+
+        <!-- Morning Skincare -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Morning Skincare Routine</h2>
+                <p class="section-subtitle">~15 minutes to start your day glowing</p>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    Gentle Cleanser
+                </div>
+                <p class="step-description">Wake up your skin with a gentle, hydrating cleanser. Massage in circular motions for 60 seconds.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">CeraVe Hydrating Facial Cleanser</div>
+                            <div class="product-price">$15</div>
+                        </div>
+                        <p class="product-note">Ceramides + hyaluronic acid, dermatologist favorite</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Summer Fridays Super Amino Gel Cleanser</div>
+                            <div class="product-price">$38</div>
+                        </div>
+                        <p class="product-note">Clean, gentle, perfect for morning</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Tatcha The Rice Wash</div>
+                            <div class="product-price">$38</div>
+                        </div>
+                        <p class="product-note">Creamy, luxurious, leaves skin soft</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    Hydrating Toner
+                </div>
+                <p class="step-description">Pat toner into skin to prep for serums. Think of it as a hydration boost.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">The Ordinary Glycolic Acid 7% Toning Solution</div>
+                            <div class="product-price">$9</div>
+                        </div>
+                        <p class="product-note">Gentle exfoliation + brightening</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Paula's Choice Pore-Reducing Toner</div>
+                            <div class="product-price">$24</div>
+                        </div>
+                        <p class="product-note">Refines texture, minimizes pores</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Tatcha The Essence</div>
+                            <div class="product-price">$95</div>
+                        </div>
+                        <p class="product-note">Plumps and preps skin beautifully</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    Hyaluronic Acid Serum
+                </div>
+                <p class="step-description">The ultimate hydration hero. Apply to damp skin for maximum absorption.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">The Ordinary Hyaluronic Acid 2% + B5</div>
+                            <div class="product-price">$8</div>
+                        </div>
+                        <p class="product-note">Best value, clean formula, works beautifully</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Krave Beauty Great Barrier Relief</div>
+                            <div class="product-price">$36</div>
+                        </div>
+                        <p class="product-note">Hydration + barrier repair</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">SkinCeuticals Hyaluronic Acid Intensifier</div>
+                            <div class="product-price">$112</div>
+                        </div>
+                        <p class="product-note">Gold standard, boosts natural HA production</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <div class="pro-tip-label">💡 Pro Tip</div>
+                <div class="pro-tip-text">Apply hyaluronic acid to damp skin! It binds to water, so applying on wet skin helps it pull in more hydration. Pat it in gently — don't rub.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    Morning Eye Treatment
+                </div>
+                <p class="step-description">Brighten and de-puff with a lightweight eye cream. Use your ring finger and pat gently.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">CeraVe Eye Repair Cream</div>
+                            <div class="product-price">$14</div>
+                        </div>
+                        <p class="product-note">Ceramides + niacinamide, gentle and effective</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Kiehl's Creamy Eye Treatment with Avocado</div>
+                            <div class="product-price">$35</div>
+                        </div>
+                        <p class="product-note">Cult favorite, deeply nourishing</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Augustinus Bader The Eye Cream</div>
+                            <div class="product-price">$230</div>
+                        </div>
+                        <p class="product-note">Splurge-worthy, visibly brightens and firms</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    Moisturizer with SPF
+                </div>
+                <p class="step-description">Non-negotiable! SPF protects from UV damage, premature aging, and dark spots.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">CeraVe AM Facial Moisturizing Lotion SPF 30</div>
+                            <div class="product-price">$16</div>
+                        </div>
+                        <p class="product-note">Lightweight, no white cast, great for daily wear</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Ilia Super Serum Skin Tint SPF 40</div>
+                            <div class="product-price">$52</div>
+                        </div>
+                        <p class="product-note">Clean beauty, tinted coverage + SPF in one</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Drunk Elephant Umbra Sheer SPF 30</div>
+                            <div class="product-price">$36</div>
+                        </div>
+                        <p class="product-note">Invisible finish, works beautifully under makeup</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">6</span>
+                    Daytime Lip Treatment
+                </div>
+                <p class="step-description">Keep lips hydrated and protected throughout the day.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Aquaphor Lip Repair</div>
+                            <div class="product-price">$5</div>
+                        </div>
+                        <p class="product-note">Simple, effective, dermatologist-recommended</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Summer Fridays Lip Butter Balm</div>
+                            <div class="product-price">$24</div>
+                        </div>
+                        <p class="product-note">Cult favorite, vegan, deeply nourishing</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Laneige Lip Sleeping Mask (use AM too!)</div>
+                            <div class="product-price">$24</div>
+                        </div>
+                        <p class="product-note">Intensive hydration, multiple flavors</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Night Skincare -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Nighttime Skincare Routine</h2>
+                <p class="section-subtitle">~20 minutes to repair and renew while you sleep</p>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    Oil Cleanser (First Cleanse)
+                </div>
+                <p class="step-description">Melt away makeup, SPF, and the day's buildup. Massage dry onto dry skin, then rinse.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">The Inkey List Oat Cleansing Balm</div>
+                            <div class="product-price">$12</div>
+                        </div>
+                        <p class="product-note">Melts makeup, gentle on skin</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Farmacy Green Clean Makeup Removing Cleansing Balm</div>
+                            <div class="product-price">$36</div>
+                        </div>
+                        <p class="product-note">Clean beauty, removes everything effortlessly</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Tatcha The Camellia Cleansing Oil</div>
+                            <div class="product-price">$50</div>
+                        </div>
+                        <p class="product-note">Luxurious texture, beautifully effective</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    Water-Based Cleanser (Second Cleanse)
+                </div>
+                <p class="step-description">Remove any remaining residue and prep skin for treatment products.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">La Roche-Posay Toleriane Hydrating Gentle Cleanser</div>
+                            <div class="product-price">$15</div>
+                        </div>
+                        <p class="product-note">Gentle, fragrance-free, works for all skin types</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Youth to the People Superfood Antioxidant Cleanser</div>
+                            <div class="product-price">$39</div>
+                        </div>
+                        <p class="product-note">Clean, green juice for your face</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Fresh Soy Face Cleanser</div>
+                            <div class="product-price">$38</div>
+                        </div>
+                        <p class="product-note">Cult classic, gentle yet thorough</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <div class="pro-tip-label">💡 Pro Tip</div>
+                <div class="pro-tip-text">Double cleansing is key at night! The first cleanse removes makeup and SPF, the second cleanses your actual skin. Skipping the first cleanse means your second cleanser is just moving dirt around.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    Toner
+                </div>
+                <p class="step-description">Balance pH and prep skin for powerful nighttime actives.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Thayers Witch Hazel Toner</div>
+                            <div class="product-price">$11</div>
+                        </div>
+                        <p class="product-note">Alcohol-free, soothing, classic</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Krave Beauty Kale-lalu-yAHA</div>
+                            <div class="product-price">$25</div>
+                        </div>
+                        <p class="product-note">Gentle AHA exfoliation, preps for retinol</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">SK-II Facial Treatment Essence</div>
+                            <div class="product-price">$99</div>
+                        </div>
+                        <p class="product-note">Holy grail for many, transformative</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    Retinol Treatment
+                </div>
+                <p class="step-description">The gold standard anti-aging ingredient. Start slow (2-3x per week) and build tolerance.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">The Ordinary Retinol 0.5% in Squalane</div>
+                            <div class="product-price">$6</div>
+                        </div>
+                        <p class="product-note">Great starter retinol, gentle yet effective</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Paula's Choice 1% Retinol Treatment</div>
+                            <div class="product-price">$58</div>
+                        </div>
+                        <p class="product-note">Backed by research, peptides included</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">SkinCeuticals Retinol 1.0</div>
+                            <div class="product-price">$90</div>
+                        </div>
+                        <p class="product-note">Clinical-grade, delivers real results</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <div class="pro-tip-label">💡 Pro Tip</div>
+                <div class="pro-tip-text">When starting retinol, use it only 2-3 nights per week. Apply after toner, wait 20 minutes before applying other products. If you experience dryness or flaking, scale back. Retinol is a marathon, not a sprint!</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    Hyaluronic Acid Serum
+                </div>
+                <p class="step-description">Same as morning — lock in hydration before your night cream.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">The Ordinary Hyaluronic Acid 2% + B5</div>
+                            <div class="product-price">$8</div>
+                        </div>
+                        <p class="product-note">Repurchase this forever</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Neutrogena Hydro Boost Hyaluronic Acid Serum</div>
+                            <div class="product-price">$20</div>
+                        </div>
+                        <p class="product-note">Clean formula, fragrance-free</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Vichy Minéral 89 Hyaluronic Acid Serum</div>
+                            <div class="product-price">$31</div>
+                        </div>
+                        <p class="product-note">Fortified with minerals, plumps beautifully</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">6</span>
+                    Night Eye Treatment
+                </div>
+                <p class="step-description">Richer formulas for overnight repair. Target fine lines, dark circles, and puffiness.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Olay Regenerist Retinol24 Eye Cream</div>
+                            <div class="product-price">$24</div>
+                        </div>
+                        <p class="product-note">Retinol for eyes, fragrance-free, gentle</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">RoC Retinol Correxion Eye Cream</div>
+                            <div class="product-price">$25</div>
+                        </div>
+                        <p class="product-note">Dermatologist-tested, clinical results</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">La Mer The Eye Concentrate</div>
+                            <div class="product-price">$260</div>
+                        </div>
+                        <p class="product-note">Ultimate splurge, visible transformation</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">7</span>
+                    Night Moisturizer / Sleeping Mask
+                </div>
+                <p class="step-description">Seal everything in with a rich, nourishing cream. Your skin repairs itself while you sleep!</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">CeraVe Skin Renewing Night Cream</div>
+                            <div class="product-price">$17</div>
+                        </div>
+                        <p class="product-note">Peptides + ceramides, works overnight</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Drunk Elephant Lala Retro Whipped Cream</div>
+                            <div class="product-price">$68</div>
+                        </div>
+                        <p class="product-note">Clean, ceramide-packed, deeply nourishing</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Tatcha The Dewy Skin Cream</div>
+                            <div class="product-price">$70</div>
+                        </div>
+                        <p class="product-note">Wake up glowing, truly luxurious</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">8</span>
+                    Nighttime Lip Treatment
+                </div>
+                <p class="step-description">Intensive overnight lip repair. Wake up with soft, hydrated lips.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Vaseline Lip Therapy</div>
+                            <div class="product-price">$4</div>
+                        </div>
+                        <p class="product-note">Classic occlusive, locks in moisture</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Laneige Lip Sleeping Mask</div>
+                            <div class="product-price">$24</div>
+                        </div>
+                        <p class="product-note">Cult favorite, transformative overnight treatment</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Dior Crème de Rose Lip Balm</div>
+                            <div class="product-price">$38</div>
+                        </div>
+                        <p class="product-note">Luxurious texture, subtle rose scent</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Makeup Routine -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Full Makeup Routine</h2>
+                <p class="section-subtitle">~25 minutes for a flawless, long-lasting look</p>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    Primer
+                </div>
+                <p class="step-description">Create a smooth canvas and help makeup last all day. Focus on pores and texture.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">e.l.f. Poreless Putty Primer</div>
+                            <div class="product-price">$10</div>
+                        </div>
+                        <p class="product-note">Viral for a reason, smooth finish</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Tower 28 SOS Daily Rescue Facial Spray (as primer)</div>
+                            <div class="product-price">$28</div>
+                        </div>
+                        <p class="product-note">Clean beauty, calming + prepping</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Tatcha The Silk Canvas Protective Primer</div>
+                            <div class="product-price">$54</div>
+                        </div>
+                        <p class="product-note">Blurs pores, creates a silk-smooth base</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    Foundation
+                </div>
+                <p class="step-description">Build coverage where you need it. Start in the center and blend outward.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Maybelline Fit Me Matte + Poreless</div>
+                            <div class="product-price">$8</div>
+                        </div>
+                        <p class="product-note">Buildable coverage, natural finish</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Ilia Super Serum Skin Tint SPF 40</div>
+                            <div class="product-price">$52</div>
+                        </div>
+                        <p class="product-note">Clean, dewy, skincare-foundation hybrid</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Giorgio Armani Luminous Silk Foundation</div>
+                            <div class="product-price">$69</div>
+                        </div>
+                        <p class="product-note">Holy grail status, flawless finish</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    Concealer
+                </div>
+                <p class="step-description">Brighten under eyes and cover blemishes. Use a shade lighter than foundation for under eyes.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Maybelline Instant Age Rewind Eraser</div>
+                            <div class="product-price">$9</div>
+                        </div>
+                        <p class="product-note">Makeup artist favorite, brightens beautifully</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Kosas Revealer Concealer</div>
+                            <div class="product-price">$30</div>
+                        </div>
+                        <p class="product-note">Clean, skincare-infused, creaseless</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">NARS Radiant Creamy Concealer</div>
+                            <div class="product-price">$32</div>
+                        </div>
+                        <p class="product-note">Cult classic, full coverage without creasing</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <div class="pro-tip-label">💡 Pro Tip</div>
+                <div class="pro-tip-text">Apply concealer in an upside-down triangle under the eyes — not just in the inner corner. This brightens a larger area and looks more natural. Set with a light dusting of powder to prevent creasing.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    Setting Powder
+                </div>
+                <p class="step-description">Set concealer and T-zone to control shine and lock in base makeup.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Maybelline Fit Me Loose Finishing Powder</div>
+                            <div class="product-price">$8</div>
+                        </div>
+                        <p class="product-note">Translucent, lightweight, no flashback</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Saie Slip Blur Radiant Setting Powder</div>
+                            <div class="product-price">$36</div>
+                        </div>
+                        <p class="product-note">Clean beauty, blurs without mattifying</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Laura Mercier Translucent Loose Setting Powder</div>
+                            <div class="product-price">$44</div>
+                        </div>
+                        <p class="product-note">The original, makeup artist staple</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    Bronzing Stick (Cream)
+                </div>
+                <p class="step-description">Cream bronzer for natural warmth. Apply to cheekbones, temples, and jawline before powder products.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">NYX Professional Makeup Wonder Stick</div>
+                            <div class="product-price">$11</div>
+                        </div>
+                        <p class="product-note">Contour + highlight in one, blends easily</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Ilia Multi-Stick in Cheek to Cheek</div>
+                            <div class="product-price">$38</div>
+                        </div>
+                        <p class="product-note">Clean, creamy, buildable bronzer</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Charlotte Tilbury Beach Stick</div>
+                            <div class="product-price">$46</div>
+                        </div>
+                        <p class="product-note">Glowy, cream-to-powder, natural warmth</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">6</span>
+                    Bronzer (Powder)
+                </div>
+                <p class="step-description">Layer powder bronzer for dimension and warmth. Apply in a "3" shape from forehead to cheekbone to jaw.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Physicians Formula Butter Bronzer</div>
+                            <div class="product-price">$11</div>
+                        </div>
+                        <p class="product-note">Cult favorite, tropical scent, smooth application</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Tower 28 BeachPlease Cream Blush (bronzer shades)</div>
+                            <div class="product-price">$20</div>
+                        </div>
+                        <p class="product-note">Clean, blendable, natural finish</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Guerlain Terracotta Bronzing Powder</div>
+                            <div class="product-price">$68</div>
+                        </div>
+                        <p class="product-note">Iconic, finely-milled, foolproof</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">7</span>
+                    Blush
+                </div>
+                <p class="step-description">Add a healthy flush to the apples of your cheeks. Smile and apply!</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Milani Baked Blush in Luminoso</div>
+                            <div class="product-price">$9</div>
+                        </div>
+                        <p class="product-note">Cult classic, peachy glow, buildable</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Rare Beauty Soft Pinch Liquid Blush</div>
+                            <div class="product-price">$23</div>
+                        </div>
+                        <p class="product-note">Clean, pigmented, long-lasting</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Hourglass Ambient Lighting Blush</div>
+                            <div class="product-price">$40</div>
+                        </div>
+                        <p class="product-note">Luminous finish, gorgeous pigments</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">8</span>
+                    Eyeshadow
+                </div>
+                <p class="step-description">Define and enhance your eyes. Start with a neutral base, then build with deeper shades.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">Maybelline The Nudes Eyeshadow Palette</div>
+                            <div class="product-price">$10</div>
+                        </div>
+                        <p class="product-note">Versatile neutrals, everyday shades</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">RMS Beauty Back2Brow Powder</div>
+                            <div class="product-price">$28</div>
+                        </div>
+                        <p class="product-note">Clean, doubles as brow powder and shadow</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Natasha Denona Mini Nude Eyeshadow Palette</div>
+                            <div class="product-price">$27</div>
+                        </div>
+                        <p class="product-note">Buttery formula, high pigment, blends like a dream</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">9</span>
+                    Liquid Black Eyeliner
+                </div>
+                <p class="step-description">Define your eyes with a precise line along the lash line. Go as subtle or dramatic as you like!</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">NYX Professional Makeup Epic Ink Liner</div>
+                            <div class="product-price">$10</div>
+                        </div>
+                        <p class="product-note">Waterproof, precise tip, long-lasting</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Haus Labs by Lady Gaga Liquid Eyeliner</div>
+                            <div class="product-price">$20</div>
+                        </div>
+                        <p class="product-note">Precision brush, jet black, smudge-proof</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Stila Stay All Day Waterproof Liquid Eye Liner</div>
+                            <div class="product-price">$24</div>
+                        </div>
+                        <p class="product-note">Cult classic, fine tip, truly lasts all day</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-tip">
+                <div class="pro-tip-label">💡 Pro Tip</div>
+                <div class="pro-tip-text">For a foolproof winged liner, use small dashes instead of one continuous line. Connect the dashes at the end. Rest your elbow on a table for stability, and don't stress about symmetry — they're sisters, not twins!</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">10</span>
+                    Mascara
+                </div>
+                <p class="step-description">Open up your eyes and add definition. Wiggle the wand at the base of lashes and sweep upward.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">L'Oréal Paris Voluminous Lash Paradise</div>
+                            <div class="product-price">$10</div>
+                        </div>
+                        <p class="product-note">Volume + length, no clumps, under $15</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Kosas The Big Clean Volumizing Mascara</div>
+                            <div class="product-price">$28</div>
+                        </div>
+                        <p class="product-note">Clean beauty, volumizing, doesn't flake</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Charlotte Tilbury Pillow Talk Push Up Lashes!</div>
+                            <div class="product-price">$32</div>
+                        </div>
+                        <p class="product-note">Dramatic length, false-lash effect</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">11</span>
+                    Setting Spray (Bonus!)
+                </div>
+                <p class="step-description">Lock everything in place for all-day wear. Hold 8-10 inches away and mist in an X and T pattern.</p>
+                <div class="products">
+                    <div class="product-card">
+                        <span class="product-tier tier-drugstore">Drugstore</span>
+                        <div class="product-header">
+                            <div class="product-name">NYX Professional Makeup Matte Finish Setting Spray</div>
+                            <div class="product-price">$8</div>
+                        </div>
+                        <p class="product-note">Budget-friendly, controls shine</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-midrange">Mid-Range</span>
+                        <div class="product-header">
+                            <div class="product-name">Urban Decay All Nighter Setting Spray</div>
+                            <div class="product-price">$35</div>
+                        </div>
+                        <p class="product-note">Cult classic, makeup truly lasts 16+ hours</p>
+                    </div>
+                    <div class="product-card">
+                        <span class="product-tier tier-luxury">Luxury</span>
+                        <div class="product-header">
+                            <div class="product-name">Charlotte Tilbury Airbrush Flawless Setting Spray</div>
+                            <div class="product-price">$38</div>
+                        </div>
+                        <p class="product-note">Weightless mist, blurs and sets beautifully</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly Treatments -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Weekly Treatments</h2>
+                <p class="section-subtitle">Extra care for your best skin</p>
+            </div>
+
+            <div class="treatment-grid">
+                <div class="treatment-card">
+                    <h3 class="treatment-title">Exfoliation</h3>
+                    <p class="treatment-schedule">2-3 times per week</p>
+                    <p style="color: var(--text-medium); margin-bottom: 16px;">Gently remove dead skin cells to reveal brighter, smoother skin. Use a chemical exfoliant (AHA/BHA) or gentle physical scrub.</p>
+                    <div class="treatment-products">
+                        <div class="product-card">
+                            <span class="product-tier tier-drugstore">Drugstore</span>
+                            <div class="product-header">
+                                <div class="product-name">The Ordinary AHA 30% + BHA 2% Peeling Solution</div>
+                                <div class="product-price">$8</div>
+                            </div>
+                            <p class="product-note">Weekly chemical peel, visible results</p>
+                        </div>
+                        <div class="product-card">
+                            <span class="product-tier tier-midrange">Mid-Range</span>
+                            <div class="product-header">
+                                <div class="product-name">Paula's Choice 2% BHA Liquid Exfoliant</div>
+                                <div class="product-price">$35</div>
+                            </div>
+                            <p class="product-note">Gentle daily option, unclogs pores</p>
+                        </div>
+                        <div class="product-card">
+                            <span class="product-tier tier-luxury">Luxury</span>
+                            <div class="product-header">
+                                <div class="product-name">Drunk Elephant T.L.C. Sukari Babyfacial</div>
+                                <div class="product-price">$80</div>
+                            </div>
+                            <p class="product-note">Cult favorite, resurfacing treatment</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="treatment-card">
+                    <h3 class="treatment-title">Face Masks</h3>
+                    <p class="treatment-schedule">1-2 times per week</p>
+                    <p style="color: var(--text-medium); margin-bottom: 16px;">Target specific skin concerns with treatment masks. Hydrating, clarifying, or brightening — choose based on what your skin needs.</p>
+                    <div class="treatment-products">
+                        <div class="product-card">
+                            <span class="product-tier tier-drugstore">Drugstore</span>
+                            <div class="product-header">
+                                <div class="product-name">Aztec Secret Indian Healing Clay</div>
+                                <div class="product-price">$10</div>
+                            </div>
+                            <p class="product-note">Mix with apple cider vinegar, deep cleanse</p>
+                        </div>
+                        <div class="product-card">
+                            <span class="product-tier tier-midrange">Mid-Range</span>
+                            <div class="product-header">
+                                <div class="product-name">Youth to the People Superberry Hydrate + Glow Dream Mask</div>
+                                <div class="product-price">$48</div>
+                            </div>
+                            <p class="product-note">Clean, overnight treatment, plumps skin</p>
+                        </div>
+                        <div class="product-card">
+                            <span class="product-tier tier-luxury">Luxury</span>
+                            <div class="product-header">
+                                <div class="product-name">Summer Fridays Jet Lag Mask</div>
+                                <div class="product-price">$49</div>
+                            </div>
+                            <p class="product-note">Versatile, hydrating, glowy results</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="treatment-card">
+                    <h3 class="treatment-title">Deep Lip Conditioning</h3>
+                    <p class="treatment-schedule">Once per week</p>
+                    <p style="color: var(--text-medium); margin-bottom: 16px;">Give your lips extra TLC with an intensive overnight treatment or lip scrub + mask combo.</p>
+                    <div class="treatment-products">
+                        <div class="product-card">
+                            <span class="product-tier tier-drugstore">Drugstore</span>
+                            <div class="product-header">
+                                <div class="product-name">Burt's Bees Conditioning Lip Scrub</div>
+                                <div class="product-price">$7</div>
+                            </div>
+                            <p class="product-note">Exfoliates and conditions in one step</p>
+                        </div>
+                        <div class="product-card">
+                            <span class="product-tier tier-midrange">Mid-Range</span>
+                            <div class="product-header">
+                                <div class="product-name">Laneige Lip Sleeping Mask</div>
+                                <div class="product-price">$24</div>
+                            </div>
+                            <p class="product-note">Intensive overnight treatment, multiple flavors</p>
+                        </div>
+                        <div class="product-card">
+                            <span class="product-tier tier-luxury">Luxury</span>
+                            <div class="product-header">
+                                <div class="product-name">Dior Lip Glow Oil</div>
+                                <div class="product-price">$40</div>
+                            </div>
+                            <p class="product-note">Nourishing oil, natural tint, luxurious</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-tip" style="margin-top: 32px;">
+                <div class="pro-tip-label">💡 Pro Tip</div>
+                <div class="pro-tip-text">Listen to your skin! If it's feeling dry, skip the exfoliating mask and use a hydrating one instead. If you're breaking out, add an extra clay mask. Skincare is not one-size-fits-all — adjust based on what your skin is telling you.</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            Made with <span class="footer-heart">♥</span> by Gary & Willie
+            <br>
+            <span style="font-size: 0.8rem; color: var(--text-medium);">All product recommendations are clean beauty-focused where possible. Prices approximate and subject to change.</span>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for animations with 0.05 threshold
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: '0px'
+        });
+
+        // Observe all animated elements
+        const animatedElements = document.querySelectorAll('.header, .section, .step');
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Fallback: show all elements after 2 seconds if observer doesn't trigger
+        setTimeout(() => {
+            animatedElements.forEach(el => el.classList.add('visible'));
+        }, 2000);
+    </script>
+</body>
+</html>
