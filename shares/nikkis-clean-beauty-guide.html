@@ -131,6 +131,45 @@
             flex-wrap: wrap;
         }
 
+        /* Shopping list specific styles */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(244, 197, 197, 0.2);
+        }
+
+        .routine-step-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .quick-start-box {
+            background: linear-gradient(135deg, #fce8e8 0%, #c5d4b8 100%);
+            border: 2px solid #f4c5c5;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(244, 197, 197, 0.2);
+        }
+
+        .price-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 2px solid #e8e6dc;
+        }
+
         /* Mobile optimizations */
         @media (max-width: 640px) {
             body {
@@ -167,6 +206,16 @@
             .hero-section {
                 padding-top: 60px !important;
                 padding-bottom: 60px !important;
+            }
+
+            .product-card {
+                padding: 12px;
+            }
+
+            .routine-step-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
             }
         }
     </style>
@@ -721,6 +770,313 @@
                                 <li>• Ogee Sculpted Lipstick</li>
                                 <li>• Kosas Revealer Concealer</li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Shopping List Section -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-blush-light/30 to-sage-light/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10 sm:mb-12">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-gray-800 mb-3 sm:mb-4 fade-in hidden px-4">
+                    Nikki's Clean Skincare Shopping List
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto fade-in hidden px-4">
+                    A step-by-step daily skincare routine with curated product picks and direct purchase links
+                </p>
+            </div>
+
+            <!-- Morning Routine -->
+            <div class="mb-12 fade-in hidden">
+                <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800 mb-6 flex items-center gap-3">
+                    <span class="text-3xl">☀️</span>
+                    Morning Routine
+                </h3>
+
+                <div class="space-y-4">
+                    <!-- Step 1: Cleanser -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-blush-light">🧴</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 1: Cleanser</h4>
+                                <p class="text-gray-800 font-medium mb-2">Typology — Purifying Cleansing Gel ($25.90)</p>
+                                <p class="text-sm text-gray-600 mb-3">Alternative: Tower 28 — SOS Daily Rescue Facial Spray ($28)</p>
+                                <div class="brand-links">
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Typology
+                                    </a>
+                                    <a href="https://www.tower28beauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Tower 28
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Toner -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-sage-light">💧</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 2: Toner/Essence</h4>
+                                <p class="text-gray-800 font-medium mb-3">Typology — Exfoliating Toner with AHAs ($27.90)</p>
+                                <div class="brand-links">
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Typology
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Serum -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-blush-light">✨</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 3: Serum</h4>
+                                <p class="text-gray-800 font-medium mb-2">Typology — Radiance Serum L32 with 15% Vitamin C + 1% Vitamin E ($30.50)</p>
+                                <p class="text-sm text-gray-600 mb-3">Alternative: Tata Harper — Resurfacing Serum ($92)</p>
+                                <div class="brand-links">
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Typology
+                                    </a>
+                                    <a href="https://www.tataharperskincare.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Tata Harper
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Moisturizer -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-sage-light">💆</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 4: Moisturizer</h4>
+                                <p class="text-gray-800 font-medium mb-2">Typology — 9-Ingredient Face Moisturizer D41 ($39.90)</p>
+                                <p class="text-sm text-gray-600 mb-3">Alternative: Tata Harper — Water-Lock Moisturizer ($98)</p>
+                                <div class="brand-links">
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Typology
+                                    </a>
+                                    <a href="https://www.tataharperskincare.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Tata Harper
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: SPF -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-blush-light">☀️</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 5: SPF/Tinted Coverage</h4>
+                                <p class="text-gray-800 font-medium mb-2">ILIA — Super Serum Skin Tint SPF 40 ($52)</p>
+                                <p class="text-sm text-gray-600 mb-3">Alternative: Kosas — Revealer Skin-Improving Foundation SPF 25 ($42)</p>
+                                <div class="brand-links">
+                                    <a href="https://iliabeauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop ILIA
+                                    </a>
+                                    <a href="https://www.sephora.com/brand/ilia" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Sephora
+                                    </a>
+                                    <a href="https://kosas.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Kosas
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evening Routine -->
+            <div class="mb-12 fade-in hidden">
+                <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800 mb-6 flex items-center gap-3">
+                    <span class="text-3xl">🌙</span>
+                    Evening Routine
+                </h3>
+
+                <div class="space-y-4">
+                    <!-- Step 1: Double Cleanse -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-sage-light">🧴</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 1: Cleanse (Double Cleanse)</h4>
+                                <p class="text-gray-800 font-medium mb-2">Ogee — Liquid Crystal Cleansing Balm</p>
+                                <p class="text-sm text-gray-600 mb-3">Follow with: Typology — Purifying Cleansing Gel ($25.90)</p>
+                                <div class="brand-links">
+                                    <a href="https://ogee.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Ogee
+                                    </a>
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Typology
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Treatment -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-blush-light">🌟</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 2: Treatment/Serum</h4>
+                                <p class="text-gray-800 font-medium mb-2">Typology — Niacinamide Serum ($30.90)</p>
+                                <p class="text-sm text-gray-600 mb-3">Alternative: Tata Harper — Restorative Eye Cream ($120)</p>
+                                <div class="brand-links">
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Typology
+                                    </a>
+                                    <a href="https://www.tataharperskincare.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Tata Harper
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Night Moisturizer -->
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-sage-light">🌜</div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide">Step 3: Night Moisturizer</h4>
+                                <p class="text-gray-800 font-medium mb-2">Typology — 9-Ingredient Face Moisturizer D41 ($39.90)</p>
+                                <p class="text-sm text-gray-600 mb-3">Alternative: Ogee — Sculpted Face Stick ($44)</p>
+                                <div class="brand-links">
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Typology
+                                    </a>
+                                    <a href="https://ogee.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Ogee
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Treatments -->
+            <div class="mb-12 fade-in hidden">
+                <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800 mb-6 flex items-center gap-3">
+                    <span class="text-3xl">📅</span>
+                    Weekly Treatments
+                </h3>
+
+                <div class="space-y-4">
+                    <div class="product-card">
+                        <div class="flex items-start gap-4">
+                            <div class="routine-step-icon bg-blush-light">✨</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-gray-800 font-medium mb-2">Tata Harper — Resurfacing Mask ($72)</p>
+                                <p class="text-gray-800 font-medium mb-3">Typology — Purifying Face Mask ($29.90)</p>
+                                <div class="brand-links">
+                                    <a href="https://www.tataharperskincare.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                        Shop Tata Harper
+                                    </a>
+                                    <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                        Shop Typology
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick-Start Budget Picks -->
+            <div class="mb-12 fade-in hidden">
+                <div class="quick-start-box">
+                    <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800 mb-4">
+                        Quick-Start Budget Picks (Under $35 each)
+                    </h3>
+                    <p class="text-gray-700 mb-6">For someone just starting clean skincare:</p>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="bg-white rounded-xl p-4">
+                            <p class="text-gray-800 font-medium mb-1">1. Tower 28 — SOS Daily Rescue Spray</p>
+                            <p class="text-sm text-gray-600 mb-3">$28</p>
+                            <div class="brand-links">
+                                <a href="https://www.tower28beauty.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                    Shop Tower 28
+                                </a>
+                                <a href="https://www.sephora.com/brand/tower-28" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                    Sephora
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-4">
+                            <p class="text-gray-800 font-medium mb-1">2. Typology — 9-Ingredient Moisturizer</p>
+                            <p class="text-sm text-gray-600 mb-3">$39.90</p>
+                            <div class="brand-links">
+                                <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                    Shop Typology
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-4">
+                            <p class="text-gray-800 font-medium mb-1">3. Kosas — Cloud Set Powder</p>
+                            <p class="text-sm text-gray-600 mb-3">$34</p>
+                            <div class="brand-links">
+                                <a href="https://kosas.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                    Shop Kosas
+                                </a>
+                                <a href="https://www.sephora.com/brand/kosas" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-secondary">
+                                    Sephora
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-4">
+                            <p class="text-gray-800 font-medium mb-1">4. Typology — Radiance Serum L32</p>
+                            <p class="text-sm text-gray-600 mb-3">$30.50</p>
+                            <div class="brand-links">
+                                <a href="https://us.typology.com/" target="_blank" rel="noopener noreferrer" class="brand-link brand-link-primary">
+                                    Shop Typology
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="fade-in hidden">
+                <div class="price-summary">
+                    <h3 class="text-2xl sm:text-3xl font-display font-bold text-gray-800 mb-6">
+                        Estimated Totals
+                    </h3>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-700 font-medium">Starter Kit (4 essentials)</span>
+                            <span class="text-gray-800 font-bold">~$130</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-700 font-medium">Full Morning Routine</span>
+                            <span class="text-gray-800 font-bold">~$175</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-700 font-medium">Full Morning + Evening</span>
+                            <span class="text-gray-800 font-bold">~$290</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-700 font-medium">Everything (incl. weekly treatments)</span>
+                            <span class="text-gray-800 font-bold">~$390</span>
                         </div>
                     </div>
                 </div>
