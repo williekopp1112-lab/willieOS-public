@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brad Owen Interview Prep - ServiceNow OT Sales</title>
+    <meta name="description" content="Comprehensive interview briefing for Willie Kopp's meeting with Brad Owen, Director of Americas Sales Leader - Operational Technology at ServiceNow">
+    <meta property="og:title" content="Brad Owen Interview Prep - ServiceNow OT Sales">
+    <meta property="og:description" content="Executive briefing for ServiceNow OT sales leadership interview">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0f1a;
+            --bg-card: #121820;
+            --bg-card-hover: #1a2030;
+            --accent: #00d4aa;
+            --accent-dim: rgba(0, 212, 170, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.1);
+            --gradient: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 15, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 6rem 0 4rem;
+            background: var(--gradient);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .meeting-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .detail-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .detail-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-card p {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        #countdown {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+        }
+
+        .key-points {
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .key-points h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .key-points ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .key-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .key-points li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.0625rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -2.5rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .timeline-item h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-item .date {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .accordion-header h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .accordion-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .accordion-content-inner {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .accordion-content ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .accordion-content li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .accordion-content li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-yellow {
+            background: rgba(234, 179, 8, 0.1);
+            color: #eab308;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footnotes h3 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .footnotes ol {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footnotes a {
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .footnotes a:hover {
+            text-decoration: underline;
+        }
+
+        .checklist {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .checklist ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            nav { display: none; }
+            section { page-break-inside: avoid; padding: 2rem 0; }
+            .card, .detail-card, .accordion-item { page-break-inside: avoid; }
+            .accordion-content { max-height: none !important; }
+            .accordion-icon { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2rem; }
+            section { padding: 3rem 0; }
+            section h2 { font-size: 1.75rem; }
+            nav ul { display: none; }
+            .meeting-details { grid-template-columns: 1fr; }
+            #countdown { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h1>Interview Prep</h1>
+            <ul>
+                <li><a href="#dossier">Brad Owen</a></li>
+                <li><a href="#market">Market Context</a></li>
+                <li><a href="#fit">Willie's Fit</a></li>
+                <li><a href="#questions">Questions</a></li>
+                <li><a href="#checklist">Checklist</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h2>Brad Owen Interview Prep</h2>
+            <p style="font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2rem;">ServiceNow | Director, Americas Sales Leader - Operational Technology</p>
+
+            <div class="meeting-details">
+                <div class="detail-card">
+                    <h3>Date & Time</h3>
+                    <p>Friday, April 10, 2026<br>4:00 PM ET</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Format</h3>
+                    <p>30-minute Zoom<br>Interview</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Countdown</h3>
+                    <p id="countdown">--:--:--</p>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h3>Hit These 3 Points in the First 5 Minutes</h3>
+                <ul>
+                    <li>15+ years selling OT platforms (Cisco IoT, Nokia Private 5G) into the same verticals ServiceNow targets</li>
+                    <li>Understand ServiceNow's CMDB-centric differentiation vs. point-solution competitors (Claroty, Dragos)</li>
+                    <li>Excited about the $7.75B Armis acquisition — shows ServiceNow is doubling down on OT as a strategic growth pillar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section id="dossier">
+        <div class="container">
+            <h2>Brad Owen Dossier</h2>
+
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="width: 80px; height: 80px; background: var(--accent-dim); border-radius: 50%; border: 2px solid var(--accent);"></div>
+                    <div>
+                        <h3 style="margin: 0;">Bradley Owen</h3>
+                        <p style="margin: 0; color: var(--text-muted);">Director, Americas Sales Leader - Operational Technology</p>
+                        <a href="https://www.linkedin.com/search/results/all/?keywords=bradley%20owen%20servicenow" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.875rem;">LinkedIn Profile →</a>
+                    </div>
+                </div>
+
+                <h3>Career Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>ServiceNow - Director, Americas Sales Leader (OT)</h4>
+                        <p class="date">Current Role<sup>1</sup></p>
+                        <p>Leading sales organization for ServiceNow's Operational Technology business across Americas. Responsible for quota attainment, team building, and executive customer relationships in manufacturing, energy, utilities, and critical infrastructure verticals.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>ServiceNow - Director of OT Product</h4>
+                        <p class="date">Previous Role<sup>2</sup></p>
+                        <p>Product leadership for ServiceNow OT Management. Transitioned from product to sales leadership — valuable context: Brad knows the product roadmap intimately and likely has strong opinions on competitive positioning.</p>
+                    </div>
+                </div>
+
+                <h3>What Brad Likely Cares About</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Quota & Pipeline:</strong> Building a high-performing team that consistently hits revenue targets in a high-growth market</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>OT Domain Credibility:</strong> Sellers who understand OT/ICS buyers (plant managers, OT engineers) vs. traditional IT buyers</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Platform Story:</strong> Articulating how OT Management integrates with CMDB, ITOM, and SecOps — not selling it as standalone</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Armis Integration:</strong> Post-acquisition strategy — how to position the combined solution vs. Claroty/Dragos</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>AI/Now Assist:</strong> Incorporating GenAI workflows into OT asset management and security use cases</span>
+                    </li>
+                </ul>
+
+                <h3>Communication Style Read</h3>
+                <p><span class="badge badge-yellow">Product-Minded</span> Product-to-sales background suggests he's technical, detail-oriented, and values deep product knowledge. Expect questions about specific OT use cases and competitive differentiation.</p>
+                <p><strong>Recommended Approach:</strong> Lead with business outcomes but be ready to dive deep on technical architecture (Purdue Model, ISA-95, Service Graph Connectors). Show you can speak both languages — executive and practitioner.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="market">
+        <div class="container">
+            <h2>ServiceNow OT Market Context</h2>
+
+            <div class="card">
+                <h3>The Market Opportunity</h3>
+                <p>The OT security and asset management market is projected to grow from <strong>$23.47 billion in 2025 to $50.29 billion by 2030</strong> at a 16.5% CAGR.<sup>3</sup> Driving factors: increasing cyber threats to industrial systems, IT/OT convergence mandates, regulatory requirements (TSA, NERC CIP), and digital transformation in manufacturing and energy sectors.</p>
+
+                <h3>ServiceNow's Unique Angle</h3>
+                <p>ServiceNow positions OT Management as <strong>asset visibility + workflow orchestration on the Now Platform</strong>, not standalone security. Key differentiators:</p>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>CMDB as System of Record:</strong> OT assets visualized alongside IT assets following ISA-95 Purdue Model<sup>4</sup></span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Service Graph Connectors:</strong> Integrates with Claroty, Dragos, Nozomi for asset discovery<sup>5</sup></span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Platform Leverage:</strong> Workflows for vulnerability remediation, change management, incident response built on existing ITOM/SecOps investments</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Armis Acquisition ($7.75B):</strong> Adds cyber exposure management across IT, OT, IoT, and medical devices<sup>6</sup></span>
+                    </li>
+                </ul>
+
+                <h3>Competitive Landscape</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div class="card">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Claroty</h4>
+                        <p style="font-size: 0.9375rem; margin: 0;">Pure-play OT security platform. Strong in asset discovery and vulnerability management. <strong>Positioning:</strong> "We do OT security; ServiceNow does workflow."</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Dragos</h4>
+                        <p style="font-size: 0.9375rem; margin: 0;">ICS threat detection and incident response. Strong in utilities and energy. <strong>Positioning:</strong> "We're purpose-built for OT; ServiceNow is IT-centric."</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Nozomi Networks</h4>
+                        <p style="font-size: 0.9375rem; margin: 0;">Real-time OT/IoT visibility and anomaly detection. Strong in manufacturing. <strong>Positioning:</strong> "We're agentless and passive; ServiceNow requires integration."</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Armis (being acquired)</h4>
+                        <p style="font-size: 0.9375rem; margin: 0;">Cyber exposure across IT/OT/IoT/medical. ServiceNow acquiring for $7.75B (H2 2026 close). <strong>Impact:</strong> Deepens OT asset discovery and risk scoring.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Tenable OT</h4>
+                        <p style="font-size: 0.9375rem; margin: 0;">Vulnerability management extended to OT. <strong>Positioning:</strong> "We're vulnerability-first; ServiceNow is workflow-first."</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Microsoft Defender for IoT</h4>
+                        <p style="font-size: 0.9375rem; margin: 0;">Bundled with Azure. <strong>Positioning:</strong> "We're cloud-native; ServiceNow is hybrid and on-prem friendly."</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Why OT is Strategic for ServiceNow</h3>
+                <p>Security & Risk business crossed <strong>$1 billion ACV in Q3 2025</strong>.<sup>7</sup> OT is a key growth driver alongside vulnerability response and threat intelligence. Bill McDermott's thesis: enterprises want <strong>one system of action</strong> for IT and OT, not point tools. Now Assist (AI) adds intelligent automation for OT workflows — exceeded <strong>$600M ACV in Q4 2025</strong>, more than doubling YoY.<sup>8</sup></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fit">
+        <div class="container">
+            <h2>Willie's Story → ServiceNow Fit</h2>
+
+            <div class="card">
+                <h3>Willie Kopp Background</h3>
+                <p><strong>Current Role:</strong> Head of Edge Campus Enterprise Sales - North America at Nokia<sup>9</sup></p>
+                <p><strong>Previous Role:</strong> Led Americas Industrial IoT Sales at Cisco<sup>10</sup></p>
+                <p><strong>Total Experience:</strong> 15+ years selling OT/industrial platforms into manufacturing, energy, transportation, and smart infrastructure verticals<sup>11</sup></p>
+
+                <h3>Why Willie → ServiceNow Makes Sense</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">1.</span>
+                        <div>
+                            <strong>OT Domain Fluency:</strong> Willie has been selling to plant managers, OT engineers, and CISOs in industrial environments for 15+ years. He speaks the language of Purdue Model, ISA-95, SCADA, and industrial protocols — the same buyers Brad's team sells to.
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">2.</span>
+                        <div>
+                            <strong>Platform Selling Experience:</strong> At Cisco and Nokia, Willie sold platforms (IoT, Private 5G) with ecosystem integration — not point products. This maps directly to ServiceNow's platform story: OT Management integrates with CMDB, ITOM, SecOps, and Now Assist.
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">3.</span>
+                        <div>
+                            <strong>Enterprise Sales at Scale:</strong> Nokia and Cisco are multi-billion-dollar enterprises. Willie has experience navigating complex, multi-stakeholder deals with long sales cycles — exactly what ServiceNow OT deals look like.
+                        </div>
+                    </li>
+                </ul>
+
+                <h3>The 60-Second Pitch</h3>
+                <div style="background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 8px; padding: 1.5rem; margin-top: 1rem;">
+                    <p style="font-style: italic; margin: 0;">"I've spent 15 years selling OT platforms at Cisco and Nokia into manufacturing, energy, and critical infrastructure — the same verticals you're targeting. I led Cisco's Americas Industrial IoT business, where I learned to sell into plant floors, not just data centers. What excites me about ServiceNow is that you're not building another OT security point tool — you're making OT asset visibility and workflow orchestration part of the Now Platform. The $7.75 billion Armis acquisition shows ServiceNow is all-in on OT. I want to be part of that growth story. I know how to sell platforms, navigate multi-stakeholder OT deals, and position against Claroty and Dragos. I'm ready to build pipeline and hit quota from day one."</p>
+                </div>
+
+                <h3>3 Accomplishments to Weave In</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <div>
+                            <strong>Accomplishment #1:</strong> Led multi-million-dollar IoT platform deal at Cisco into a Fortune 500 manufacturing customer, navigating IT, OT, and executive stakeholders across a 12-month sales cycle.
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <div>
+                            <strong>Accomplishment #2:</strong> Built and scaled Nokia's Enterprise Edge business in North America, establishing go-to-market motion for Private 5G in industrial use cases.
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <div>
+                            <strong>Accomplishment #3:</strong> Developed deep relationships with C-suite executives in energy and utilities verticals, positioning platform solutions as strategic transformation initiatives, not tactical tech purchases.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="questions">
+        <div class="container">
+            <h2>Questions Willie Should Ask Brad</h2>
+
+            <div class="accordion-item active">
+                <div class="accordion-header">
+                    <h4>About the Team & Org Structure</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>What does your Americas OT sales team look like today — size, structure, coverage model?</li>
+                            <li>Are you hiring AEs, SEs, sales leaders, or specialist overlay sellers?</li>
+                            <li>How does the OT team collaborate with the broader Security & Risk organization?</li>
+                            <li>What's the split between new customer acquisition vs. expansion within the existing ServiceNow base?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>About the OT Go-To-Market Motion</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>What's the typical sales cycle for an OT Management deal? 6 months? 12 months?</li>
+                            <li>Who are the primary buyers — CISOs, OT directors, plant managers, or all three?</li>
+                            <li>How do you position OT Management to customers who already have Claroty or Dragos deployed?</li>
+                            <li>What verticals are the biggest opportunities right now — manufacturing, energy, utilities, transportation?</li>
+                            <li>How do you land OT deals: start with CMDB/ITOM and expand, or sell OT Management standalone?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>About Brad's Leadership Style & Success Metrics</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>What does success look like for someone in this role in the first 90 days? First year?</li>
+                            <li>How do you measure performance — quota attainment, pipeline generation, win rate, deal size?</li>
+                            <li>What's your coaching style? Do you prefer hands-on or high-level direction?</li>
+                            <li>What's the biggest challenge your team is facing right now that you'd want this hire to help solve?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>About ServiceNow OT Product Roadmap</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>How is the Armis acquisition changing the OT story? What new capabilities will the combined solution unlock?</li>
+                            <li>What's the roadmap for Now Assist (AI) integration with OT workflows?</li>
+                            <li>Are there plans to build more native OT discovery, or will ServiceNow continue to integrate with Claroty/Dragos/Nozomi via Service Graph Connectors?</li>
+                            <li>What feedback are you hearing from customers about the current OT Management product?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>About the Competitive Landscape</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>How do you position against Claroty when they claim ServiceNow is too IT-centric for OT environments?</li>
+                            <li>What's the best response when Dragos says they're purpose-built for ICS and ServiceNow isn't?</li>
+                            <li>How do you handle deals where the customer already has Nozomi or Tenable OT deployed?</li>
+                            <li>What's your take on Microsoft Defender for IoT as a competitor — real threat or just noise?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>About Partner Ecosystem</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>How do the Service Graph Connectors work with Claroty, Dragos, and Nozomi? Are these partners or frenemies?</li>
+                            <li>Is there a systems integrator (SI) play for OT deals — Accenture, Deloitte, etc.?</li>
+                            <li>What role do channel partners play in the OT sales motion?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>Closing Questions</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>What's the timeline for this hire? When do you want someone to start?</li>
+                            <li>What are the next steps in the interview process?</li>
+                            <li>Is there anything about my background that gives you pause or that I can clarify?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="answers">
+        <div class="container">
+            <h2>Likely Questions Brad Will Ask + Answer Frameworks</h2>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"Tell me about yourself" (90-second arc)</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p><strong>Framework:</strong></p>
+                        <ul>
+                            <li><strong>Start:</strong> "I've spent 15 years selling OT platforms at Cisco and Nokia into the same verticals you're targeting — manufacturing, energy, critical infrastructure."</li>
+                            <li><strong>Middle:</strong> "At Cisco, I led Americas Industrial IoT, where I learned to sell to plant managers and OT engineers, not just IT buyers. At Nokia, I scaled the Enterprise Edge business with Private 5G."</li>
+                            <li><strong>End:</strong> "What excites me about ServiceNow is you're not building another OT security point tool — you're embedding OT asset visibility and workflow into the Now Platform. The $7.75B Armis acquisition shows you're all-in. I want to be part of that."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"Why ServiceNow? Why now?"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li><strong>Why ServiceNow:</strong> "Because you're the only player positioning OT as part of a broader platform story — CMDB, ITOM, SecOps, AI. Claroty and Dragos are point tools. ServiceNow is workflow automation."</li>
+                            <li><strong>Why now:</strong> "The Armis acquisition is a signal that ServiceNow is doubling down on OT. Security & Risk crossed $1B ACV. This is the inflection point. I want to be part of the growth story, not join after it's already won."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"What do you know about our OT business?"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li>OT Management provides asset visibility following ISA-95 Purdue Model, integrated with CMDB as the system of record</li>
+                            <li>Service Graph Connectors integrate with Claroty, Dragos, Nozomi for OT asset discovery</li>
+                            <li>Armis acquisition ($7.75B, closing H2 2026) expands cyber exposure across IT/OT/IoT/medical devices</li>
+                            <li>Target verticals: manufacturing, energy, utilities, transportation, critical infrastructure</li>
+                            <li>Differentiation: workflow orchestration on the Now Platform vs. standalone security tools</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"Walk me through a complex deal you closed"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p><strong>Framework (STAR method):</strong></p>
+                        <ul>
+                            <li><strong>Situation:</strong> "At Cisco, I was working with a Fortune 500 manufacturing customer who wanted to deploy Industrial IoT across 20 plants."</li>
+                            <li><strong>Task:</strong> "The challenge was navigating three stakeholders: IT (who owned the budget), OT (who controlled plant access), and the CFO (who wanted ROI in 18 months)."</li>
+                            <li><strong>Action:</strong> "I built a multi-phase proposal: Phase 1 was a pilot in one plant to prove ROI. Phase 2 was scaling to 5 plants. Phase 3 was the full 20-plant rollout. I brought in Cisco SEs, partners, and executives to align each stakeholder group."</li>
+                            <li><strong>Result:</strong> "We closed a $X million deal over 12 months. The pilot showed 15% reduction in unplanned downtime, which unlocked the full rollout. The customer is now a reference account."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"How do you sell to OT buyers vs. IT buyers?"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li><strong>IT buyers care about:</strong> Integration with existing ITSM, CMDB, and security tools. They want to avoid tool sprawl.</li>
+                            <li><strong>OT buyers care about:</strong> Uptime, safety, and not breaking production. They're skeptical of IT-driven solutions. They want passive monitoring and air-gap friendly deployment.</li>
+                            <li><strong>Willie's approach:</strong> "I start by listening to OT concerns — 'Will this disrupt production?' — and position the solution as OT-friendly but IT-integrated. I bring OT engineers into the sales cycle early to validate the approach."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"What's your take on the competitive landscape?"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li><strong>Claroty:</strong> "Strong asset discovery, but it's a point tool. They don't have the workflow orchestration or CMDB integration that ServiceNow offers."</li>
+                            <li><strong>Dragos:</strong> "Purpose-built for ICS threat detection, but they're security-focused. ServiceNow addresses asset visibility + workflow + compliance in one platform."</li>
+                            <li><strong>Nozomi:</strong> "Good real-time monitoring, but they lack the broader Now Platform tie-ins — ITOM, SecOps, AI."</li>
+                            <li><strong>Armis (post-acquisition):</strong> "Game-changer. Armis brings cyber exposure across IT/OT/IoT/medical. Combined with ServiceNow's workflow, it's unbeatable."</li>
+                            <li><strong>Microsoft Defender for IoT:</strong> "Bundled play. Customers who are all-in on Azure might choose it. But for hybrid and on-prem environments, ServiceNow is the better fit."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"Why should we hire you?"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ul>
+                            <li><strong>OT Credibility:</strong> "I've been selling to OT buyers for 15 years. I speak their language — ISA-95, SCADA, Purdue Model."</li>
+                            <li><strong>Platform Selling:</strong> "At Cisco and Nokia, I sold platforms with ecosystem integration, not point products. That's exactly what ServiceNow OT is."</li>
+                            <li><strong>Day-One Productivity:</strong> "I have relationships in manufacturing, energy, and utilities. I can start building pipeline immediately."</li>
+                            <li><strong>Competitive Positioning:</strong> "I've competed against Claroty, Dragos, and Nozomi in the field. I know how to position ServiceNow's workflow and platform story."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4>"What questions do you have for me?"</h4>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p><strong>Redirect to the strategic questions above.</strong> Prioritize:</p>
+                        <ul>
+                            <li>What does success look like in Year 1?</li>
+                            <li>How do you position against Claroty when they say ServiceNow is too IT-centric?</li>
+                            <li>What's the Armis acquisition roadmap?</li>
+                            <li>What are the next steps?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="talk-tracks">
+        <div class="container">
+            <h2>Talk Tracks / Memorable One-Liners</h2>
+
+            <div class="card">
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.5rem;">
+                    <li style="padding-left: 1.5rem; border-left: 3px solid var(--accent);">
+                        <strong style="color: var(--accent);">Zinger #1:</strong> "Claroty and Dragos are great at finding OT assets and vulnerabilities. But they don't help you *do* anything about it. ServiceNow turns asset visibility into workflow orchestration."
+                    </li>
+                    <li style="padding-left: 1.5rem; border-left: 3px solid var(--accent);">
+                        <strong style="color: var(--accent);">Zinger #2:</strong> "The $7.75 billion Armis acquisition isn't just M&A — it's a statement. ServiceNow is positioning OT as a strategic pillar, not a side bet."
+                    </li>
+                    <li style="padding-left: 1.5rem; border-left: 3px solid var(--accent);">
+                        <strong style="color: var(--accent);">Zinger #3:</strong> "OT buyers don't want another dashboard. They want workflows that integrate with their existing CMDB, ITOM, and SecOps investments. That's ServiceNow's unfair advantage."
+                    </li>
+                    <li style="padding-left: 1.5rem; border-left: 3px solid var(--accent);">
+                        <strong style="color: var(--accent);">Zinger #4:</strong> "The OT security market is growing at 16.5% CAGR. ServiceNow is positioned to capture workflow and platform share, not just point-solution security."
+                    </li>
+                    <li style="padding-left: 1.5rem; border-left: 3px solid var(--accent);">
+                        <strong style="color: var(--accent);">Zinger #5:</strong> "I've sold IoT platforms at Cisco and Private 5G at Nokia into the same plant floors ServiceNow is targeting. I know how to navigate OT skepticism and position platform value."
+                    </li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">Product Names to Use Naturally</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>ServiceNow OT Management</strong> — the core product</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Service Graph Connectors</strong> — integrations with Claroty, Dragos, Nozomi</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>CMDB (Configuration Management Database)</strong> — system of record for IT + OT assets</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Now Platform</strong> — the underlying workflow engine</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>Now Assist</strong> — AI/GenAI workflows</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="color: var(--accent); font-weight: 700;">•</span>
+                        <span><strong>ISA-95 Purdue Model</strong> — industry standard for OT architecture (shows you know OT)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="red-flags">
+        <div class="container">
+            <h2>Red Flags / Watch-Outs</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="card" style="border-left: 3px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Don't Confuse OT with IoT</h3>
+                    <p style="font-size: 0.9375rem; margin: 0;"><strong>OT (Operational Technology)</strong> = industrial control systems (SCADA, PLCs, DCS) in factories, plants, utilities. <strong>IoT (Internet of Things)</strong> = connected consumer/enterprise devices. They overlap but are not the same. Brad will notice if you conflate them.</p>
+                </div>
+
+                <div class="card" style="border-left: 3px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Don't Position ServiceNow as Pure OT Security</h3>
+                    <p style="font-size: 0.9375rem; margin: 0;">ServiceNow is <strong>asset visibility + workflow orchestration</strong>, not standalone security. Claroty and Dragos are security tools. ServiceNow integrates with them via Service Graph Connectors. The value prop is workflow, not threat detection.</p>
+                </div>
+
+                <div class="card" style="border-left: 3px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Don't Bad-Mouth Competitors</h3>
+                    <p style="font-size: 0.9375rem; margin: 0;">Claroty, Dragos, and Nozomi are partners (via Service Graph Connectors) as much as competitors. Be respectful. The positioning is: "They're great at OT security. ServiceNow adds workflow and platform integration on top."</p>
+                </div>
+
+                <div class="card" style="border-left: 3px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Don't Overpromise on Day-One Productivity</h3>
+                    <p style="font-size: 0.9375rem; margin: 0;">You have OT domain credibility, but you'll need to ramp on ServiceNow's product, messaging, and internal processes. Be confident but realistic: "I can leverage my OT relationships to build pipeline quickly, but I'll need to learn your competitive positioning and product roadmap."</p>
+                </div>
+
+                <div class="card" style="border-left: 3px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Don't Assume You Know the Role</h3>
+                    <p style="font-size: 0.9375rem; margin: 0;">Brad is interviewing you, but the specific role isn't confirmed (AE? SE? Sales leader?). Ask early in the conversation: "Before we dive in, can you clarify the role you're hiring for? I want to make sure I'm addressing the right responsibilities."</p>
+                </div>
+
+                <div class="card" style="border-left: 3px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Don't Skip the 'Why ServiceNow?' Question</h3>
+                    <p style="font-size: 0.9375rem; margin: 0;">This is a layup. Have a crisp answer ready: platform story + Armis acquisition + Security & Risk crossing $1B ACV + Now Assist AI integration. Don't wing it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="checklist">
+        <div class="container">
+            <h2>15-Minute Pre-Meeting Checklist</h2>
+
+            <div class="checklist">
+                <h3 style="margin-bottom: 1rem;">Technical Setup</h3>
+                <ul>
+                    <li><div class="checkbox"></div><span>Test Zoom audio and video</span></li>
+                    <li><div class="checkbox"></div><span>Close all unnecessary browser tabs and apps</span></li>
+                    <li><div class="checkbox"></div><span>Check lighting — face should be well-lit, not backlit</span></li>
+                    <li><div class="checkbox"></div><span>Neutral background (no clutter, no virtual background)</span></li>
+                    <li><div class="checkbox"></div><span>Phone on silent, notifications off</span></li>
+                </ul>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Pre-Meeting Prep</h3>
+                <ul>
+                    <li><div class="checkbox"></div><span>Refresh Brad Owen's LinkedIn profile one more time</span></li>
+                    <li><div class="checkbox"></div><span>Review ServiceNow's latest earnings call highlights</span></li>
+                    <li><div class="checkbox"></div><span>Print or open this briefing on a second screen</span></li>
+                    <li><div class="checkbox"></div><span>Have 3-5 questions written down and visible</span></li>
+                    <li><div class="checkbox"></div><span>Water nearby (stay hydrated, avoid dry mouth)</span></li>
+                </ul>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Mental Prep</h3>
+                <ul>
+                    <li><div class="checkbox"></div><span>Review the 60-second pitch out loud</span></li>
+                    <li><div class="checkbox"></div><span>Recall 3 specific accomplishments to weave in</span></li>
+                    <li><div class="checkbox"></div><span>Visualize a confident, warm tone — not overly formal, not too casual</span></li>
+                    <li><div class="checkbox"></div><span>Deep breath: you've done this before, and you're ready</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section style="border-bottom: none;">
+        <div class="container">
+            <div class="footnotes">
+                <h3>Sources & Citations</h3>
+                <ol>
+                    <li>ServiceNow Careers - Director, Americas Sales Leader - Operational Technology: <a href="https://careers.servicenow.com/jobs/744000108285605/director-americas-sales-leader-operational-technology/" target="_blank">https://careers.servicenow.com/jobs/744000108285605/director-americas-sales-leader-operational-technology/</a></li>
+                    <li>Clay.earth Profile - Bradley Owen: <a href="https://clay.earth/profile/bradley-owen" target="_blank">https://clay.earth/profile/bradley-owen</a></li>
+                    <li>MarketsandMarkets - OT Security Market Report: <a href="https://www.marketsandmarkets.com/PressReleases/operational-technology-ot-security.asp" target="_blank">https://www.marketsandmarkets.com/PressReleases/operational-technology-ot-security.asp</a></li>
+                    <li>ServiceNow Data Sheet - Operational Technology Management: <a href="https://www.servicenow.com/standard/resource-center/data-sheet/ds-operational-technology-management.html" target="_blank">https://www.servicenow.com/standard/resource-center/data-sheet/ds-operational-technology-management.html</a></li>
+                    <li>ServiceNow Store - OT Certified Service Graph Connectors: <a href="https://store.servicenow.com/store/app/6eb927621b246a50a85b16db234bcbfc" target="_blank">https://store.servicenow.com/store/app/6eb927621b246a50a85b16db234bcbfc</a></li>
+                    <li>ServiceNow Press Release - Armis Acquisition: <a href="https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-to-acquire-Armis-to-expand-cyber-exposure-and-security-across-the-full-attack-surface-in-IT-OT-and-medical-devices-for-companies-governments-and-critical-infrastructure-worldwide/default.aspx" target="_blank">https://newsroom.servicenow.com/press-releases/details/2025/ServiceNow-to-acquire-Armis-to-expand-cyber-exposure-and-security-across-the-full-attack-surface-in-IT-OT-and-medical-devices-for-companies-governments-and-critical-infrastructure-worldwide/default.aspx</a></li>
+                    <li>ServiceNow Investor Relations - Security & Risk $1B ACV: <a href="https://investor.servicenow.com/news/news-details/2025/ServiceNow-to-acquire-Armis-to-expand-cyber-exposure-and-security-across-the-full-attack-surface-in-IT-OT-and-medical-devices-for-companies-governments-and-critical-infrastructure-worldwide/default.aspx" target="_blank">https://investor.servicenow.com/news/news-details/2025/ServiceNow-to-acquire-Armis-to-expand-cyber-exposure-and-security-across-the-full-attack-surface-in-IT-OT-and-medical-devices-for-companies-governments-and-critical-infrastructure-worldwide/default.aspx</a></li>
+                    <li>The Motley Fool - ServiceNow Q4 2025 Earnings Call Transcript: <a href="https://www.fool.com/earnings/call-transcripts/2026/01/28/servicenow-now-q4-2025-earnings-call-transcript/" target="_blank">https://www.fool.com/earnings/call-transcripts/2026/01/28/servicenow-now-q4-2025-earnings-call-transcript/</a></li>
+                    <li>Nokia People - Willie Kopp: <a href="https://www.nokia.com/people/willie-kopp/" target="_blank">https://www.nokia.com/people/willie-kopp/</a></li>
+                    <li>Nokia People - Willie Kopp Career Background: <a href="https://www.nokia.com/people/willie-kopp/" target="_blank">https://www.nokia.com/people/willie-kopp/</a></li>
+                    <li>Nokia People + LinkedIn - Willie Kopp Experience Summary: <a href="https://www.nokia.com/people/willie-kopp/" target="_blank">https://www.nokia.com/people/willie-kopp/</a></li>
+                    <li>Elisity Blog - Leading OT Security Vendors 2026: <a href="https://www.elisity.com/blog/leading-vendors-for-securing-ot-and-industrial-control-systems-in-2026" target="_blank">https://www.elisity.com/blog/leading-vendors-for-securing-ot-and-industrial-control-systems-in-2026</a></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const meetingDate = new Date('April 10, 2026 16:00:00 EDT').getTime();
+            const now = new Date().getTime();
+            const distance = meetingDate - now;
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const countdownEl = document.getElementById('countdown');
+            if (distance < 0) {
+                countdownEl.textContent = 'LIVE NOW';
+                countdownEl.style.color = '#22c55e';
+            } else {
+                countdownEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Accordion
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+                const isActive = item.classList.contains('active');
+
+                // Close all accordions
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.accordion-content').style.maxHeight = '0';
+                });
+
+                // Open clicked accordion if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Open first accordion by default
+        const firstAccordion = document.querySelector('.accordion-item');
+        if (firstAccordion) {
+            const content = firstAccordion.querySelector('.accordion-content');
+            content.style.maxHeight = content.scrollHeight + 'px';
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer with fallback (content visible by default)
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Fallback timeout to ensure content is visible
+        setTimeout(() => {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            });
+        }, 2000);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
