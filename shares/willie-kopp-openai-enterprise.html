@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willie Kopp | Enterprise AI Sales</title>
+    <meta name="description" content="Willie Kopp's case for joining OpenAI's Enterprise Sales & Industries team. Market intelligence, industry playbooks, and a 90-day plan.">
+    <meta property="og:title" content="Willie Kopp | Enterprise AI Sales">
+    <meta property="og:description" content="A builder's pitch to OpenAI's enterprise sales team.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect fill='%2307080C' width='1200' height='630'/%3E%3Ctext x='600' y='280' text-anchor='middle' fill='%23E8ECF4' font-family='system-ui' font-size='72' font-weight='800'%3EWillie Kopp%3C/text%3E%3Ctext x='600' y='360' text-anchor='middle' fill='%236366F1' font-family='system-ui' font-size='32'%3EEnterprise AI Sales%3C/text%3E%3C/svg%3E">
+    <meta property="og:url" content="">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-deep: #07080C;
+            --bg-primary: #0B0E14;
+            --bg-secondary: #111621;
+            --bg-elevated: #161D2B;
+            --bg-card: #131926;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-active: rgba(255, 255, 255, 0.12);
+            --text-primary: #E8ECF4;
+            --text-secondary: #9BA3B5;
+            --text-muted: #626D84;
+            --accent-primary: #6366F1;
+            --accent-glow: rgba(99, 102, 241, 0.25);
+            --accent-warm: #F59E0B;
+            --accent-warm-glow: rgba(245, 158, 11, 0.2);
+            --accent-green: #10B981;
+            --accent-green-glow: rgba(16, 185, 129, 0.15);
+            --accent-red: #EF4444;
+            --gradient-hero: linear-gradient(135deg, #6366F1 0%, #8B5CF6 35%, #A855F7 70%, #C084FC 100%);
+            --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #FB923C 100%);
+            --gradient-surface: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, transparent 100%);
+            --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --spring-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; font-weight: 700; }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: 1.25rem;
+        }
+        .section-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent-primary);
+        }
+
+        .section-heading {
+            margin-bottom: 1rem;
+        }
+
+        .section-sub {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 2rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 20%, rgba(99,102,241,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 50%, rgba(139,92,246,0.05) 0%, transparent 60%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 820px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 0.3s forwards;
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 0.5s forwards;
+        }
+
+        .hero-role {
+            font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            min-height: 2em;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        .hero-role-text {
+            display: inline;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: var(--accent-primary);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: cursorBlink 0.8s step-end infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cursor-fade {
+            animation: cursorFadeOut 1.5s ease forwards;
+        }
+
+        @keyframes cursorFadeOut {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0; }
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 0.9s forwards;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 1.1s forwards;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--accent-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--spring-smooth);
+            box-shadow: 0 0 30px var(--accent-glow), 0 4px 16px rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--accent-glow), 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-active);
+            transition: all 0.3s var(--spring-smooth);
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* STORY SECTION */
+        .story {
+            padding: 100px 0 80px;
+            position: relative;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .story-narrative {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .story-narrative p {
+            margin-bottom: 1.25rem;
+        }
+
+        .story-narrative strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .story-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-primary), var(--accent-green), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            border: 2px solid var(--bg-primary);
+            transform: translateX(-4px);
+        }
+
+        .timeline-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* MARKET LANDSCAPE */
+        .market {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .market::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .market-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s var(--spring-smooth);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 40px var(--accent-glow);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .stat-source {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: all 0.3s var(--spring-smooth);
+        }
+
+        .chart-container:hover {
+            border-color: var(--border-active);
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+
+        .chart-canvas-wrap canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Pain Points Visual */
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .pain-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s var(--spring-smooth);
+        }
+
+        .pain-card:hover {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 30px rgba(239,68,68,0.1);
+        }
+
+        .pain-metric {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-warm);
+            margin-bottom: 0.5rem;
+        }
+
+        .pain-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .pain-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* INDUSTRY PLAYBOOK */
+        .playbook {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .playbook::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .playbook-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .playbook-cards {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .playbook-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s var(--spring-smooth);
+        }
+
+        .playbook-card:hover {
+            border-color: var(--border-active);
+        }
+
+        .playbook-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .playbook-card-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .playbook-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .playbook-card-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .playbook-card-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .playbook-chevron {
+            width: 24px;
+            height: 24px;
+            color: var(--text-muted);
+            transition: transform 0.3s var(--spring-bounce);
+            flex-shrink: 0;
+        }
+
+        .playbook-card.open .playbook-chevron {
+            transform: rotate(180deg);
+        }
+
+        .playbook-card-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--ease-out-expo);
+        }
+
+        .playbook-card.open .playbook-card-body {
+            max-height: 800px;
+        }
+
+        .playbook-body-inner {
+            padding: 0 2rem 2rem;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1.5rem;
+        }
+
+        .playbook-body-inner h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .playbook-body-inner h4:first-child {
+            margin-top: 0;
+        }
+
+        .playbook-body-inner ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .playbook-body-inner li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .playbook-body-inner li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+        }
+
+        .playbook-stat {
+            display: inline-flex;
+            padding: 4px 10px;
+            background: rgba(99,102,241,0.1);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+
+        /* COMPETITIVE FRAMEWORK */
+        .competitive {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .competitive::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .competitive-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .comp-table-wrap {
+            overflow-x: auto;
+            margin-bottom: 3rem;
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-card);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .comp-table thead th {
+            background: var(--bg-elevated);
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .comp-table thead th:first-child {
+            border-top-left-radius: 14px;
+        }
+
+        .comp-table thead th:last-child {
+            border-top-right-radius: 14px;
+        }
+
+        .comp-table thead th.highlight {
+            background: rgba(99,102,241,0.08);
+            color: var(--accent-primary);
+        }
+
+        .comp-table tbody td {
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: top;
+        }
+
+        .comp-table tbody td.highlight {
+            background: rgba(99,102,241,0.03);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .comp-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comp-table .label-cell {
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .gap-callout {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-primary);
+            border-radius: 14px;
+            padding: 2rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gap-callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-hero);
+        }
+
+        .gap-callout-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .gap-callout p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* 90-DAY PLAN */
+        .plan {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .plan::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .plan-phases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .plan-phase {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s var(--spring-smooth);
+        }
+
+        .plan-phase:hover {
+            border-color: var(--border-active);
+            transform: translateY(-4px);
+        }
+
+        .plan-phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 14px 14px 0 0;
+        }
+
+        .plan-phase:nth-child(1)::before { background: var(--accent-primary); }
+        .plan-phase:nth-child(2)::before { background: var(--accent-warm); }
+        .plan-phase:nth-child(3)::before { background: var(--accent-green); }
+
+        .phase-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .plan-phase:nth-child(1) .phase-label { color: var(--accent-primary); }
+        .plan-phase:nth-child(2) .phase-label { color: var(--accent-warm); }
+        .plan-phase:nth-child(3) .phase-label { color: var(--accent-green); }
+
+        .phase-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .phase-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .phase-items li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .phase-items li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .plan-phase:nth-child(1) .phase-items li::before { background: var(--accent-primary); }
+        .plan-phase:nth-child(2) .phase-items li::before { background: var(--accent-warm); }
+        .plan-phase:nth-child(3) .phase-items li::before { background: var(--accent-green); }
+
+        .phase-outcome {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .phase-outcome strong {
+            color: var(--text-primary);
+        }
+
+        /* WHY ME */
+        .why-openai {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .why-openai::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .why-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .why-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: all 0.4s var(--spring-smooth);
+        }
+
+        .why-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 40px var(--accent-glow);
+            transform: translateY(-4px);
+        }
+
+        .why-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+            background: rgba(99,102,241,0.08);
+        }
+
+        .why-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA / FOOTER */
+        .cta-section {
+            padding: 120px 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(99,102,241,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-heading {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .cta-footer-info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .cta-footer-info a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .charts-grid { grid-template-columns: 1fr; }
+            .plan-phases { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .story-grid { grid-template-columns: 1fr; }
+            .pain-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            html { font-size: 15px; }
+            .hero { padding: 60px 1.5rem; }
+            .container { padding: 0 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .comp-table { font-size: 0.8rem; }
+            .comp-table thead th, .comp-table tbody td { padding: 0.75rem; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .hero-cta-group { flex-direction: column; align-items: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+
+        @media (max-width: 320px) {
+            html { font-size: 14px; }
+            .container { padding: 0 1rem; }
+            .hero { padding: 40px 1rem; }
+            .playbook-card-header { padding: 1rem 1.25rem; }
+            .playbook-body-inner { padding: 0 1.25rem 1.5rem; }
+            .gap-callout { padding: 1.5rem; }
+        }
+
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--gradient-hero);
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* Nav dots */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: 0.3;
+            cursor: pointer;
+            transition: all 0.3s var(--spring-smooth);
+            border: none;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            opacity: 1;
+            background: var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-glow);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .nav-dots { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Nav Dots -->
+    <nav class="nav-dots" id="navDots" aria-label="Section navigation">
+        <button class="nav-dot active" data-section="hero" title="Top"></button>
+        <button class="nav-dot" data-section="story" title="My Story"></button>
+        <button class="nav-dot" data-section="market" title="Market"></button>
+        <button class="nav-dot" data-section="playbook" title="Playbook"></button>
+        <button class="nav-dot" data-section="competitive" title="Competition"></button>
+        <button class="nav-dot" data-section="plan" title="90-Day Plan"></button>
+        <button class="nav-dot" data-section="why-openai" title="Why Me"></button>
+        <button class="nav-dot" data-section="cta" title="Let's Talk"></button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Enterprise AI needs people who've built it, not just sold it</div>
+            <h1 class="hero-name">Willie Kopp</h1>
+            <div class="hero-role">
+                <span class="hero-role-text" id="heroRoleText">Enterprise Sales Leader</span><span class="cursor-blink" id="heroCursor"></span>
+            </div>
+            <p class="hero-sub">
+                17 years at Cisco across solution architecture, IoT sales leadership, and sports &amp; entertainment technology. Now running enterprise edge sales at Nokia. And on the side, I built my own AI operating system. That changes how I talk to customers about AI.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#plan" class="btn-primary">See my 90-day plan</a>
+                <a href="#market" class="btn-secondary">View market analysis</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story" id="story">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Background</span>
+                <h2 class="section-heading">The short version</h2>
+            </div>
+
+            <div class="story-grid">
+                <div class="story-narrative reveal">
+                    <p>
+                        I spent <strong>17 years at Cisco</strong> working across three distinct roles. As Director of Solution Architecture for the Americas, I designed solutions for Fortune 500 enterprise deals across manufacturing, energy, healthcare, retail, and public sector — learning to speak both the technical buyer's and the business buyer's language. As Director of Sales for Americas Industrial IoT, I carried quota and built GTM strategies for IoT platforms across manufacturing, energy, and utilities. And as CTO of Sports &amp; Entertainment, I deployed Wi-Fi 6 at SoFi Stadium, rolled out Cisco Vision 4K digital signage, and ran venue technology programs across the NFL, NBA, NHL, MLB, and NASCAR globally.
+                    </p>
+                    <p>
+                        That range matters. I've done the solution design, the quota-carrying sales leadership, and the cross-industry execution — not as three parallel tracks, but as a single career built on understanding how technology actually lands inside complex organizations.
+                    </p>
+                    <p>
+                        At <strong>Nokia</strong>, where I am today, I run Head of Edge Campus Enterprise Sales for North America — private 5G and edge compute for industrial customers. Different stack, same truth: enterprise buyers need someone who understands their operations, not just the product.
+                    </p>
+                    <p>
+                        Outside of my day job, I built <strong>WillieOS</strong> — a fully autonomous AI operating system powered by an AI chief of staff named Gary. It runs on Tauri 2, React, and SQLite. Gary manages my calendar, triages my email, dispatches autonomous work sessions, and coordinates 110+ MCP tools. I use it every day. This isn't a side project — it's proof that I approach enterprise AI from both sides of the table. I don't just sell technology. I build with it, debug it in production, and understand exactly where it delivers value and where it breaks.
+                    </p>
+                </div>
+
+                <div class="story-timeline reveal">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2006 - 2023</div>
+                        <div class="timeline-title">Cisco Systems</div>
+                        <div class="timeline-desc">Director of Solution Architecture, Americas &bull; Director of Sales, Americas (Industrial IoT) &bull; CTO Sports &amp; Entertainment. Fortune 500 deals, IoT GTM, SoFi Stadium, Cisco Vision, NFL/NBA/NHL/MLB/NASCAR globally.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023 - Present</div>
+                        <div class="timeline-title">Nokia</div>
+                        <div class="timeline-desc">Head of Edge Campus Enterprise Sales, North America. Private 5G, edge compute for industrial customers.</div>
+                    </div>
+                    <div class="timeline-item" style="border-left: 2px solid var(--accent-warm); padding-left: 24px;">
+                        <div class="timeline-year" style="color: var(--accent-warm);">Self-driven initiative</div>
+                        <div class="timeline-title">WillieOS / Gary</div>
+                        <div class="timeline-desc">Built a production AI operating system from scratch — 110+ MCP tools, multi-agent dispatch, autonomous workflows. Proof he sells AI by understanding it from the inside out.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKET LANDSCAPE -->
+    <section class="market" id="market">
+        <div class="container">
+            <div class="market-header reveal">
+                <span class="section-tag">Market intelligence</span>
+                <h2 class="section-heading">The enterprise AI market right now</h2>
+                <p class="section-sub">Real numbers, not pitch deck projections. Here's what the market looks like heading into late 2026.</p>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="stats-grid reveal">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="115" data-suffix="B">$115B</div>
+                    <div class="stat-label">Enterprise AI market size (2026)</div>
+                    <div class="stat-source">Mordor Intelligence, 2026</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="19" data-suffix="%" data-prefix="">~19%</div>
+                    <div class="stat-label">CAGR through 2031</div>
+                    <div class="stat-source">Mordor Intelligence, 2026</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="25" data-suffix="B" data-prefix="$">$25B+</div>
+                    <div class="stat-label">OpenAI annualized revenue (Feb 2026)</div>
+                    <div class="stat-source">Sacra Research / PYMNTS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="9" data-suffix="M">9M</div>
+                    <div class="stat-label">ChatGPT paying business users (Feb 2026)</div>
+                    <div class="stat-source">OpenAI</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid reveal">
+                <div class="chart-container">
+                    <div class="chart-title">Enterprise AI market growth</div>
+                    <div class="chart-subtitle">USD billions, 2024-2031 projected (Mordor Intelligence)</div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="marketGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Industry vertical AI adoption</div>
+                    <div class="chart-subtitle">Year-over-year growth multiplier by sector</div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="verticalAdoptionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid reveal">
+                <div class="chart-container">
+                    <div class="chart-title">OpenAI revenue trajectory</div>
+                    <div class="chart-subtitle">Annual revenue, USD billions (Sacra / PYMNTS)</div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="openaiRevenueChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Enterprise sales pain points</div>
+                    <div class="chart-subtitle">% of leaders citing each as top challenge</div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="painPointsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pain Points -->
+            <div class="pain-grid reveal">
+                <div class="pain-card">
+                    <div class="pain-metric" data-target="73">73%</div>
+                    <div class="pain-title">Looking for alternatives</div>
+                    <div class="pain-desc">Of sales teams evaluating alternatives to legacy tools like Gong, driven primarily by cost and underutilized features. (Oliv.ai, 2025)</div>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-metric" data-target="28">28%</div>
+                    <div class="pain-title">Made quota in 2023</div>
+                    <div class="pain-desc">Per Salesforce's State of Sales report. Average attainment dropped further through 2024. AI hasn't fixed this yet.</div>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-metric" data-target="40">40%</div>
+                    <div class="pain-title">Running parallel tools</div>
+                    <div class="pain-desc">Estimated share of enterprise sales teams running Gong + Clari (or similar) in parallel because no single platform handles both well.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDUSTRY PLAYBOOK -->
+    <section class="playbook" id="playbook">
+        <div class="container">
+            <div class="playbook-header reveal">
+                <span class="section-tag">Industry playbooks</span>
+                <h2 class="section-heading">How I'd sell into each vertical</h2>
+                <p class="section-sub">Each vertical buys differently. Different pain, different buyers, different proof points. One pitch won't work.</p>
+            </div>
+
+            <div class="playbook-cards reveal">
+                <!-- Financial Services -->
+                <div class="playbook-card">
+                    <div class="playbook-card-header" onclick="togglePlaybook(this)">
+                        <div class="playbook-card-left">
+                            <div class="playbook-icon" style="background:rgba(99,102,241,0.1);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            </div>
+                            <div>
+                                <div class="playbook-card-title">Financial services and banking</div>
+                                <div class="playbook-card-sub"><span class="playbook-stat">23.7% market share</span> Largest enterprise AI segment (Mordor Intelligence)</div>
+                            </div>
+                        </div>
+                        <svg class="playbook-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="playbook-card-body">
+                        <div class="playbook-body-inner">
+                            <h4>Where it hurts</h4>
+                            <ul>
+                                <li>Regulatory compliance slows AI adoption. Every model needs audit trails and explainability before legal signs off.</li>
+                                <li>Legacy core banking systems trap data in mainframes. Integration is the real bottleneck, not model quality.</li>
+                                <li>Fraud detection is table stakes. The bigger opportunity is personalized financial advice at scale.</li>
+                            </ul>
+                            <h4>How OpenAI wins</h4>
+                            <ul>
+                                <li>GPT-4o structured output for compliance documentation and regulatory reporting. Immediate, measurable time savings.</li>
+                                <li>API-first means banks build on top without ripping out existing infrastructure.</li>
+                                <li>Azure OpenAI private deployments solve data residency and sovereignty concerns.</li>
+                            </ul>
+                            <h4>How I'd run the play</h4>
+                            <ul>
+                                <li>Target the Chief Data Officer first. CDOs own the AI strategy and need help building the business case internally.</li>
+                                <li>Build reference architectures for KYC automation, document processing, and risk narrative generation.</li>
+                                <li>Partner with compliance consultants who already have the CISO's trust.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Healthcare -->
+                <div class="playbook-card">
+                    <div class="playbook-card-header" onclick="togglePlaybook(this)">
+                        <div class="playbook-card-left">
+                            <div class="playbook-icon" style="background:rgba(16,185,129,0.1);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            </div>
+                            <div>
+                                <div class="playbook-card-title">Healthcare and life sciences</div>
+                                <div class="playbook-card-sub"><span class="playbook-stat">20.8% CAGR</span> Fastest-growing vertical through 2031 (Mordor Intelligence)</div>
+                            </div>
+                        </div>
+                        <svg class="playbook-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="playbook-card-body">
+                        <div class="playbook-body-inner">
+                            <h4>Where it hurts</h4>
+                            <ul>
+                                <li>Clinical documentation eats 2+ hours per provider per day. Burnout is the number one workforce problem.</li>
+                                <li>HIPAA isn't optional. Every AI deployment needs a BAA and clear data handling policies before anyone touches patient data.</li>
+                                <li>EHR integration is the real bottleneck. Epic and Cerner control the data layer.</li>
+                            </ul>
+                            <h4>How OpenAI wins</h4>
+                            <ul>
+                                <li>Ambient clinical documentation (voice-to-note) is the wedge. Immediate ROI, clear value.</li>
+                                <li>GPT-4o multimodal opens doors to medical image triage, radiology assist, and pathology pre-screening.</li>
+                                <li>FHIR-based API integration. Build where the data already lives.</li>
+                            </ul>
+                            <h4>How I'd run the play</h4>
+                            <ul>
+                                <li>Sell to the CMIO or VP of Clinical Informatics. They own workflow decisions and understand the tech.</li>
+                                <li>Start with a single department pilot (radiology or ER documentation) and prove time savings before asking for enterprise.</li>
+                                <li>Healthcare buys on evidence. Bring clinical study data and peer institution references, not feature lists.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manufacturing -->
+                <div class="playbook-card">
+                    <div class="playbook-card-header" onclick="togglePlaybook(this)">
+                        <div class="playbook-card-left">
+                            <div class="playbook-icon" style="background:rgba(245,158,11,0.1);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="playbook-card-title">Manufacturing and industrial</div>
+                                <div class="playbook-card-sub"><span class="playbook-stat">High-value</span> Complex deployment, long sales cycles</div>
+                            </div>
+                        </div>
+                        <svg class="playbook-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="playbook-card-body">
+                        <div class="playbook-body-inner">
+                            <h4>Where it hurts</h4>
+                            <ul>
+                                <li>Unplanned downtime costs US manufacturing around $50B per year. Predictive maintenance is the prize.</li>
+                                <li>Supply chain complexity has grown 3x since 2020. Manual planning can't keep pace with how often things break.</li>
+                                <li>The average manufacturing worker is 44 and the skilled labor shortage is real. Institutional knowledge is walking out the door.</li>
+                            </ul>
+                            <h4>How OpenAI wins</h4>
+                            <ul>
+                                <li>Knowledge capture is the wedge. Use GPT-4o to turn retiring experts' knowledge into searchable, conversational systems.</li>
+                                <li>Quality inspection via vision API. Defect detection without dedicated ML teams or expensive computer vision hardware.</li>
+                                <li>Supply chain scenario planning in natural language. "What happens to our Q3 if Supplier X delays 2 weeks?"</li>
+                            </ul>
+                            <h4>How I'd run the play</h4>
+                            <ul>
+                                <li>Target the VP of Operations or VP of Quality. Manufacturing AI decisions happen on the plant floor, not in IT.</li>
+                                <li>Proof-of-concept needs to show ROI in 30 days. Pick one production line and prove defect reduction or downtime prediction.</li>
+                                <li>Lead with safety and compliance framing. Manufacturing cares about reliability first.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology & SaaS -->
+                <div class="playbook-card">
+                    <div class="playbook-card-header" onclick="togglePlaybook(this)">
+                        <div class="playbook-card-left">
+                            <div class="playbook-icon" style="background:rgba(168,85,247,0.1);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            </div>
+                            <div>
+                                <div class="playbook-card-title">Technology and SaaS</div>
+                                <div class="playbook-card-sub"><span class="playbook-stat">Highest adoption</span> Fastest-moving vertical</div>
+                            </div>
+                        </div>
+                        <svg class="playbook-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="playbook-card-body">
+                        <div class="playbook-body-inner">
+                            <h4>Where it hurts</h4>
+                            <ul>
+                                <li>Every SaaS company is in an AI arms race. The window to integrate AI into their product is closing fast.</li>
+                                <li>Developer experience matters here more than anywhere. Bad API docs or unreliable endpoints lose deals in days.</li>
+                                <li>Cost management at scale. API bills spiral when usage grows 10x after a successful feature launch.</li>
+                            </ul>
+                            <h4>How OpenAI wins</h4>
+                            <ul>
+                                <li>The API platform is already the default for many SaaS builders. The job is deepening usage and expanding seat count.</li>
+                                <li>MCP support creates sticky integrations. Every tool connection raises switching costs.</li>
+                                <li>Volume pricing tiers and committed-use discounts for SaaS partners who bake OpenAI into their core product.</li>
+                            </ul>
+                            <h4>How I'd run the play</h4>
+                            <ul>
+                                <li>Sell to the Head of Product or CTO. Technical champions drive API adoption decisions, not procurement.</li>
+                                <li>Co-build reference implementations with design partners. Ship working code together. Show, don't pitch.</li>
+                                <li>Create a partner tier for SaaS companies embedding OpenAI. Joint marketing, co-selling, shared customer success.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retail & E-Commerce -->
+                <div class="playbook-card">
+                    <div class="playbook-card-header" onclick="togglePlaybook(this)">
+                        <div class="playbook-card-left">
+                            <div class="playbook-icon" style="background:rgba(239,68,68,0.1);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            </div>
+                            <div>
+                                <div class="playbook-card-title">Retail and e-commerce</div>
+                                <div class="playbook-card-sub"><span class="playbook-stat">$1.2T global</span> Personalization is the battleground</div>
+                            </div>
+                        </div>
+                        <svg class="playbook-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="playbook-card-body">
+                        <div class="playbook-body-inner">
+                            <h4>Where it hurts</h4>
+                            <ul>
+                                <li>Customer service costs are unsustainable. $15-25 per support ticket. AI can handle 60-70% of that volume today.</li>
+                                <li>Product discovery is broken. Search returns too many irrelevant results. Shoppers leave.</li>
+                                <li>Seasonal demand planning is still largely manual. Overstock and stockouts cost $1.75T annually across the industry.</li>
+                            </ul>
+                            <h4>How OpenAI wins</h4>
+                            <ul>
+                                <li>Conversational commerce. GPT-powered shopping assistants that understand what customers actually want.</li>
+                                <li>Product description generation and catalog enrichment at scale. Turn sparse data into rich, searchable content.</li>
+                                <li>Customer service automation with real conversation quality. Not the robotic chatbots from 2020.</li>
+                            </ul>
+                            <h4>How I'd run the play</h4>
+                            <ul>
+                                <li>Target the Chief Digital Officer or VP of E-Commerce. They own the customer experience and live by conversion rate.</li>
+                                <li>A/B test everything. Retail runs on data. Show lift in conversion, CSAT, or average order value within 4 weeks.</li>
+                                <li>Start with customer service (fast win, immediate cost reduction) then expand into commerce and merchandising.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Services -->
+                <div class="playbook-card">
+                    <div class="playbook-card-header" onclick="togglePlaybook(this)">
+                        <div class="playbook-card-left">
+                            <div class="playbook-icon" style="background:rgba(14,165,233,0.1);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <div>
+                                <div class="playbook-card-title">Professional services and consulting</div>
+                                <div class="playbook-card-sub"><span class="playbook-stat">Highest volume</span> Largest per-seat opportunity</div>
+                            </div>
+                        </div>
+                        <svg class="playbook-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="playbook-card-body">
+                        <div class="playbook-body-inner">
+                            <h4>Where it hurts</h4>
+                            <ul>
+                                <li>Billable utilization is the core metric. Anything that adds productive hours per consultant is a direct revenue driver.</li>
+                                <li>Knowledge management across thousands of consultants doesn't work. Finding the right expert for a client problem takes too long.</li>
+                                <li>Proposal and RFP response takes weeks. Every deal needs custom content that draws on past work and firm expertise.</li>
+                            </ul>
+                            <h4>How OpenAI wins</h4>
+                            <ul>
+                                <li>RFP response automation. Turn weeks of proposal writing into hours with context-aware generation from past wins.</li>
+                                <li>Internal knowledge search that actually works. Ask a question, get an answer grounded in the firm's collective work.</li>
+                                <li>First drafts of reports, analyses, and presentations in minutes. Consultants review and refine instead of starting from blank.</li>
+                            </ul>
+                            <h4>How I'd run the play</h4>
+                            <ul>
+                                <li>Sell to the Managing Director or Practice Lead. They feel utilization pressure and knowledge silos directly.</li>
+                                <li>Pilot with one practice area, measure time savings on deliverables, and let internal word-of-mouth drive expansion.</li>
+                                <li>Data handling and access controls have to be airtight. Consulting firms are paranoid about client data for good reason.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPETITIVE FRAMEWORK -->
+    <section class="competitive" id="competitive">
+        <div class="container">
+            <div class="competitive-header reveal">
+                <span class="section-tag">Competitive positioning</span>
+                <h2 class="section-heading">Where OpenAI wins and where it doesn't yet</h2>
+                <p class="section-sub">An honest read on the competitive landscape. Knowing the gaps matters more than pretending they don't exist.</p>
+            </div>
+
+            <div class="comp-table-wrap reveal">
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th class="highlight">OpenAI</th>
+                            <th>Anthropic</th>
+                            <th>Google</th>
+                            <th>Microsoft</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label-cell">Model quality</td>
+                            <td class="highlight">GPT-4o leads on multimodal. o1/o3 reasoning models are in a category by themselves.</td>
+                            <td>Claude Opus/Sonnet are competitive on coding and analysis. Claude Code is gaining developer traction.</td>
+                            <td>Gemini 2.5 strong on long context. Flash models compete on price.</td>
+                            <td>Resells OpenAI via Azure. Phi-4 for edge and small model use cases.</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">Enterprise GTM</td>
+                            <td class="highlight">Scaling fast. 9M+ business users. 40%+ revenue from enterprise. Sales team still maturing.</td>
+                            <td>Strong with technical buyers. Amazon partnership gives distribution. Smaller sales team.</td>
+                            <td>Massive existing enterprise relationships via Google Cloud. Can bundle aggressively.</td>
+                            <td>Dominant distribution. Azure + M365 + Copilot is hard to compete against.</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">Industry solutions</td>
+                            <td class="highlight">Building the vertical team now. Healthcare and finance are early focus. Room to grow.</td>
+                            <td>Mostly horizontal. No significant vertical specialization yet.</td>
+                            <td>Strong healthcare (Med-PaLM), enterprise search. Decades of vertical expertise.</td>
+                            <td>Industry clouds for healthcare, financial, retail. Deep vertical integration.</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">Developer experience</td>
+                            <td class="highlight">Best API in the market. Playground, function calling, structured outputs. Huge developer community.</td>
+                            <td>Strong API. Claude Code gaining traction. MCP protocol is a smart infrastructure bet.</td>
+                            <td>Vertex AI is powerful but complex. AI Studio improving. Good Colab integration.</td>
+                            <td>Azure OpenAI fits the existing MSFT toolchain. GitHub Copilot dominates IDE.</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">Pricing</td>
+                            <td class="highlight">Premium pricing, justified by quality. GPT-4o mini helps on cost. Enterprise commitment structure needs work.</td>
+                            <td>Competitive. Haiku is cheap. Sonnet hits the cost/quality sweet spot.</td>
+                            <td>Aggressive on price. Flash models undercut. Gemini Pro included in Workspace.</td>
+                            <td>Bundled at $30/user/month with M365 Copilot. Hard to compete against free bundling.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="gap-callout reveal">
+                <div class="gap-callout-title">Where I think the opening is</div>
+                <p>
+                    OpenAI has the best models and the largest developer base. But the enterprise sales motion is still being built. Google and Microsoft have decades of enterprise relationships and can bundle their way into deals. Anthropic is winning technical buyers. The window to make OpenAI the default enterprise AI platform is open now, but it won't stay open indefinitely. The team needs people who've been inside enterprise relationships at companies like Cisco and Nokia and who understand the buying motions OpenAI is selling into. That's what I bring.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 90-DAY PLAN -->
+    <section class="plan" id="plan">
+        <div class="container">
+            <div class="plan-header reveal">
+                <span class="section-tag">Execution plan</span>
+                <h2 class="section-heading">My first 90 days</h2>
+                <p class="section-sub">Concrete actions, not aspirations. Here's what I'd actually do in my first three months.</p>
+            </div>
+
+            <div class="plan-phases reveal">
+                <!-- Phase 1 -->
+                <div class="plan-phase">
+                    <div class="phase-label">Days 1-30 / Learn</div>
+                    <div class="phase-title">Absorb everything</div>
+                    <ul class="phase-items">
+                        <li>Shadow 20+ customer calls across verticals and deal stages. Listen more than I talk.</li>
+                        <li>Map current pipeline by industry, deal size, and stage. Find where deals stall and figure out why.</li>
+                        <li>Build relationships with SEs, SAs, and product teams. Learn what tools they wish they had.</li>
+                        <li>Study competitive losses from the last two quarters. Understand what we lost to and the real reason, not the CRM reason.</li>
+                        <li>Get deep on the product roadmap. Know what's shipping in Q3/Q4 and how it changes our positioning.</li>
+                    </ul>
+                    <div class="phase-outcome"><strong>Output:</strong> Internal assessment document covering pipeline health, competitive gaps, and quick-win opportunities by vertical.</div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="plan-phase">
+                    <div class="phase-label">Days 31-60 / Build</div>
+                    <div class="phase-title">Create the playbook</div>
+                    <ul class="phase-items">
+                        <li>Draft industry-specific battle cards for the top 3 verticals. Real objection handling, not marketing copy.</li>
+                        <li>Build reference architectures for the most common enterprise deployment patterns.</li>
+                        <li>Identify 5 existing customers who can become referenceable. Start building those relationships.</li>
+                        <li>Develop a "first 30 days to value" framework so new enterprise customers see ROI before their first QBR.</li>
+                        <li>Stand up a vertical-specific demo environment. Industry use cases, not generic chatbot demos.</li>
+                    </ul>
+                    <div class="phase-outcome"><strong>Output:</strong> Repeatable sales playbook for top 3 verticals with battle cards, demo scripts, and reference architectures.</div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="plan-phase">
+                    <div class="phase-label">Days 61-90 / Execute</div>
+                    <div class="phase-title">Drive pipeline</div>
+                    <ul class="phase-items">
+                        <li>Run the new playbook on 10 active deals. Measure impact on conversion rate and deal velocity.</li>
+                        <li>Close or significantly advance 3-5 enterprise opportunities using the vertical approach.</li>
+                        <li>Train the broader team on the playbooks. Build enablement sessions that stick.</li>
+                        <li>Establish quarterly business reviews with top accounts. Move from vendor to strategic partner.</li>
+                        <li>Present results and Q4 vertical strategy recommendations to leadership.</li>
+                    </ul>
+                    <div class="phase-outcome"><strong>Output:</strong> Measurable pipeline impact. Deals advanced or closed with the new playbook. Team trained and enabled.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY ME -->
+    <section class="why-openai" id="why-openai">
+        <div class="container">
+            <div class="why-header reveal">
+                <span class="section-tag">Why me, why now</span>
+                <h2 class="section-heading">What I bring that's hard to find</h2>
+                <p class="section-sub">Most sales leaders know how to sell. Few have built the technology they're selling. That changes every customer conversation.</p>
+            </div>
+
+            <div class="why-grid reveal">
+                <div class="why-card">
+                    <div class="why-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h3>I've built it, not just sold it</h3>
+                    <p>I wrote the code, designed the architecture, and debugged the production issues myself. When a CTO pushes back on AI capabilities, I can talk from experience rather than a spec sheet.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3>Enterprise muscle memory</h3>
+                    <p>17 years at Cisco across solution architecture, IoT sales, and sports tech, plus Nokia today. I know how procurement works, how champions get deals killed, and how to build the internal consensus that gets a $500K contract across the finish line.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    </div>
+                    <h3>I use AI in production every day</h3>
+                    <p>Gary, my AI chief of staff, runs 110+ tools, dispatches autonomous work, and manages my professional workflow daily. I don't demo AI concepts. I live inside a system I built.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    </div>
+                    <h3>SA DNA</h3>
+                    <p>Solutions architects bridge the gap between what the product does and what the customer needs. That translation skill is exactly what enterprise AI sales requires when the technology is this new.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    </div>
+                    <h3>Vertical depth</h3>
+                    <p>Manufacturing, energy, healthcare, retail, public sector, sports and entertainment, industrial IoT, telecom. I've carried quota and designed solutions across all of them. Real pipeline, real objections, real closed deals.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3>Network that opens doors</h3>
+                    <p>17 years at Cisco and Nokia built deep relationships across enterprise tech. People who know my work and would take my call.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <div class="cta-glow"></div>
+        <div class="container cta-content reveal">
+            <h2 class="cta-heading">Let's have the conversation</h2>
+            <p class="cta-text">
+                This page is the pitch. Kaylin and I go back to our Cisco days — she was there 2007-2018, overlapping with a big chunk of my 17 years. I'd love 30 minutes to talk about what OpenAI is building on the enterprise side and where I can help.
+            </p>
+            <div class="cta-buttons">
+                <a href="mailto:williekopp1112@gmail.com?subject=OpenAI%20Enterprise%20Sales%20%E2%80%94%20Let's%20Talk&body=Hey%20Willie%2C%0A%0ASaw%20your%20page.%20Let's%20find%20time%20to%20talk." class="btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Email me
+                </a>
+                <a href="https://www.linkedin.com/in/williekopp/" class="btn-secondary" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    LinkedIn
+                </a>
+            </div>
+            <div class="cta-footer-info">
+                Willie Kopp &middot; San Francisco Bay Area<br>
+                <a href="mailto:williekopp1112@gmail.com">williekopp1112@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sources -->
+    <div style="max-width: 800px; margin: 0 auto; padding: 2rem 2rem 0; text-align: center;">
+        <p style="font-size: 0.75rem; color: #626D84; line-height: 1.6; font-style: italic;">
+            Sources: Enterprise AI market size and CAGR from Mordor Intelligence (2026 report). OpenAI revenue from Sacra Research and PYMNTS (confirmed $20B ARR end of 2025, $25B+ annualized Feb 2026). ChatGPT business users from OpenAI (Feb 2026). Sales quota attainment (28%) from Salesforce's 6th State of Sales Report (2023). Alternative evaluation (73%) from Oliv.ai research (2025). Some competitive details based on publicly available information as of April 2026.
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">Built with real research, real data, and an AI chief of staff named Gary. &middot; April 2026</p>
+        </div>
+    </footer>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+    <script>
+        // CONFIG
+        const CONFIG = {
+            PREFERRED_ROLE: "Enterprise Sales Leader"
+        };
+
+        // TYPEWRITER EFFECT
+        (function initTypewriter() {
+            const roles = [
+                "Enterprise Sales Leader",
+                "Solutions Architect",
+                "AI Builder",
+                "Industry Strategist",
+                "Your Next Hire"
+            ];
+
+            const el = document.getElementById('heroRoleText');
+            const cursor = document.getElementById('heroCursor');
+
+            if (CONFIG.PREFERRED_ROLE) {
+                el.textContent = CONFIG.PREFERRED_ROLE;
+            } else {
+                el.textContent = roles[roles.length - 1];
+            }
+
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let cycleCount = 0;
+            const maxCycles = CONFIG.PREFERRED_ROLE ? 1 : 3;
+            let landed = false;
+
+            function getTargetSequence() {
+                if (CONFIG.PREFERRED_ROLE) {
+                    const seq = [...roles.filter(r => r !== CONFIG.PREFERRED_ROLE), CONFIG.PREFERRED_ROLE];
+                    return seq;
+                }
+                return roles;
+            }
+
+            const sequence = getTargetSequence();
+
+            function type() {
+                if (landed) return;
+
+                const currentRole = sequence[roleIndex];
+                const isLastRole = (roleIndex === sequence.length - 1) && (cycleCount >= maxCycles - 1);
+
+                if (!isDeleting) {
+                    el.textContent = currentRole.substring(0, charIndex + 1);
+                    charIndex++;
+
+                    if (charIndex === currentRole.length) {
+                        if (isLastRole) {
+                            landed = true;
+                            setTimeout(() => {
+                                cursor.classList.add('cursor-fade');
+                            }, 800);
+                            return;
+                        }
+                        setTimeout(() => { isDeleting = true; type(); }, 1500);
+                        return;
+                    }
+                    setTimeout(type, 60 + Math.random() * 40);
+                } else {
+                    el.textContent = currentRole.substring(0, charIndex - 1);
+                    charIndex--;
+
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        roleIndex++;
+                        if (roleIndex >= sequence.length) {
+                            roleIndex = 0;
+                            cycleCount++;
+                        }
+                        setTimeout(type, 300);
+                        return;
+                    }
+                    setTimeout(type, 30 + Math.random() * 20);
+                }
+            }
+
+            setTimeout(type, 2000);
+        })();
+
+        // INTERSECTION OBSERVER (threshold 0.05, 2s fallback)
+        (function initReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const fallbackTimer = setTimeout(() => {
+                reveals.forEach(el => el.classList.add('visible'));
+            }, 2000);
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.05 });
+
+                reveals.forEach(el => observer.observe(el));
+            } else {
+                clearTimeout(fallbackTimer);
+                reveals.forEach(el => el.classList.add('visible'));
+            }
+        })();
+
+        // ANIMATED COUNTERS
+        (function initCounters() {
+            const counters = document.querySelectorAll('.stat-number[data-target], .pain-metric[data-target]');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.05 });
+
+            counters.forEach(c => observer.observe(c));
+
+            function animateCounter(el) {
+                const target = parseInt(el.getAttribute('data-target'));
+                const suffix = el.getAttribute('data-suffix') || '';
+                const prefix = el.getAttribute('data-prefix') || '';
+                const originalText = el.textContent;
+                const duration = 1500;
+                const start = performance.now();
+
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(target * eased);
+
+                    if (el.classList.contains('stat-number')) {
+                        el.textContent = `${prefix || '$'}${current}${suffix}`;
+                    } else {
+                        el.textContent = `${current}%`;
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        el.textContent = originalText;
+                    }
+                }
+
+                requestAnimationFrame(update);
+            }
+        })();
+
+        // SCROLL PROGRESS BAR
+        (function initScrollProgress() {
+            const bar = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrollTop / docHeight) * 100;
+                bar.style.width = progress + '%';
+            }, { passive: true });
+        })();
+
+        // NAV DOTS
+        (function initNavDots() {
+            const dots = document.querySelectorAll('.nav-dot');
+            const sections = [];
+
+            dots.forEach(dot => {
+                const sectionId = dot.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) sections.push({ dot, section });
+
+                dot.addEventListener('click', () => {
+                    if (section) section.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        dots.forEach(d => d.classList.remove('active'));
+                        const match = sections.find(s => s.section === entry.target);
+                        if (match) match.dot.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            sections.forEach(s => observer.observe(s.section));
+        })();
+
+        // PLAYBOOK ACCORDION
+        function togglePlaybook(header) {
+            const card = header.closest('.playbook-card');
+            card.classList.toggle('open');
+        }
+
+        // CHARTS (Chart.js)
+        (function initCharts() {
+            function waitForChart(cb) {
+                if (typeof Chart !== 'undefined') { cb(); return; }
+                setTimeout(() => waitForChart(cb), 100);
+            }
+
+            waitForChart(() => {
+                Chart.defaults.color = '#9BA3B5';
+                Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+                Chart.defaults.font.family = "'Inter', sans-serif";
+
+                // 1. Market Growth Chart
+                new Chart(document.getElementById('marketGrowthChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'],
+                        datasets: [{
+                            label: 'Market Size ($B)',
+                            data: [82, 97, 115, 137, 163, 194, 231, 273],
+                            backgroundColor: 'rgba(99, 102, 241, 0.3)',
+                            borderColor: '#6366F1',
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            barThickness: 28,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#1a1f2e',
+                                borderColor: '#6366F1',
+                                borderWidth: 1,
+                                titleColor: '#E8ECF4',
+                                bodyColor: '#9BA3B5',
+                                padding: 12,
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: ctx => `$${ctx.raw}B`
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255,255,255,0.04)' },
+                                ticks: { callback: v => `$${v}B` }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+
+                // 2. Vertical Adoption Chart
+                new Chart(document.getElementById('verticalAdoptionChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Technology', 'Healthcare', 'Manufacturing', 'Prof. Services', 'Finance', 'Retail'],
+                        datasets: [{
+                            label: 'YoY Growth Multiple',
+                            data: [11, 8, 7, 5.5, 4.8, 4.2],
+                            backgroundColor: [
+                                'rgba(168, 85, 247, 0.4)',
+                                'rgba(16, 185, 129, 0.4)',
+                                'rgba(245, 158, 11, 0.4)',
+                                'rgba(14, 165, 233, 0.4)',
+                                'rgba(99, 102, 241, 0.4)',
+                                'rgba(239, 68, 68, 0.4)',
+                            ],
+                            borderColor: [
+                                '#A855F7', '#10B981', '#F59E0B', '#0EA5E9', '#6366F1', '#EF4444'
+                            ],
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            barThickness: 24,
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#1a1f2e',
+                                borderColor: '#6366F1',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: ctx => `${ctx.raw}x YoY growth`
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255,255,255,0.04)' },
+                                ticks: { callback: v => `${v}x` }
+                            },
+                            y: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+
+                // 3. OpenAI Revenue Chart
+                new Chart(document.getElementById('openaiRevenueChart'), {
+                    type: 'line',
+                    data: {
+                        labels: ['2023', '2024', '2025', '2026 (proj)'],
+                        datasets: [{
+                            label: 'Total Revenue',
+                            data: [2, 6, 20, 30],
+                            borderColor: '#6366F1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#6366F1',
+                            pointBorderColor: '#6366F1',
+                            pointRadius: 5,
+                            pointHoverRadius: 8,
+                            borderWidth: 2.5,
+                        }, {
+                            label: 'Enterprise Revenue (est.)',
+                            data: [0.4, 1.8, 8, 15],
+                            borderColor: '#10B981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.08)',
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#10B981',
+                            pointBorderColor: '#10B981',
+                            pointRadius: 4,
+                            pointHoverRadius: 7,
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { padding: 20, usePointStyle: true, pointStyle: 'circle' }
+                            },
+                            tooltip: {
+                                backgroundColor: '#1a1f2e',
+                                borderColor: '#6366F1',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: ctx => `${ctx.dataset.label}: $${ctx.raw}B`
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255,255,255,0.04)' },
+                                ticks: { callback: v => `$${v}B` }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+
+                // 4. Pain Points Chart (radar)
+                const radarLabelSize = window.innerWidth <= 480 ? 9 : 11;
+                new Chart(document.getElementById('painPointsChart'), {
+                    type: 'radar',
+                    data: {
+                        labels: window.innerWidth <= 380
+                            ? ['Forecast', 'Data Quality', 'Integration', 'AI Trust', 'Cost', 'Impl. Time']
+                            : ['Forecast Accuracy', 'Data Quality', 'Integration Gaps', 'AI Trust/Adoption', 'Cost Pressure', 'Implementation Time'],
+                        datasets: [{
+                            label: 'Severity (% citing as top issue)',
+                            data: [69, 60, 80, 42, 73, 55],
+                            backgroundColor: 'rgba(99, 102, 241, 0.15)',
+                            borderColor: '#6366F1',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#6366F1',
+                            pointBorderColor: '#6366F1',
+                            pointRadius: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#1a1f2e',
+                                borderColor: '#6366F1',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: ctx => `${ctx.raw}% cite this`
+                                }
+                            }
+                        },
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: { color: 'rgba(255,255,255,0.06)' },
+                                angleLines: { color: 'rgba(255,255,255,0.06)' },
+                                pointLabels: { font: { size: radarLabelSize }, color: '#9BA3B5' },
+                                ticks: {
+                                    display: false,
+                                    stepSize: 20
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
