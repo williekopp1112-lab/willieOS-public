@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Quantum Virtualization Platform — Investor Pitch Deck">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta property="og:title" content="Quantum Virtualization Platform | Investor Pitch">
+<meta property="og:description" content="The VMware of Quantum Computing — virtualizing qubits on GPU hardware to democratize quantum development today.">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='%230a0a1a'%3E%3Crect width='1200' height='630'/%3E%3Ctext x='600' y='315' text-anchor='middle' fill='%2300d4ff' font-size='48' font-family='system-ui'%3EQuantum Virtualization Platform%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%2300d4ff' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%2300d4ff'/%3E%3Cellipse cx='16' cy='16' rx='12' ry='5' fill='none' stroke='%237b61ff' stroke-width='1.5' transform='rotate(60 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='12' ry='5' fill='none' stroke='%237b61ff' stroke-width='1.5' transform='rotate(-60 16 16)'/%3E%3C/svg%3E">
+<title>Quantum Virtualization Platform — Investor Pitch</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #060613;
+  --bg-section: #0a0a1a;
+  --bg-card: #0f0f2a;
+  --bg-card-hover: #14143a;
+  --cyan: #00d4ff;
+  --purple: #7b61ff;
+  --magenta: #ff3d9a;
+  --teal: #00ffc8;
+  --blue: #3d7aff;
+  --text-primary: #f0f0ff;
+  --text-secondary: #a0a0c0;
+  --text-dim: #6a6a8a;
+  --gradient-hero: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 50%, #0a1a3e 100%);
+  --gradient-card: linear-gradient(135deg, rgba(123,97,255,0.08) 0%, rgba(0,212,255,0.08) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--cyan), var(--purple));
+  --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --spring-smooth: cubic-bezier(0.22, 0.68, 0, 1.71);
+  --spring-enter: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --spring-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .section-title, .hero h1, .big-number, .stat-number, .funding-number, .ask-amount, .team-name, .stat-highlight {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+}
+
+/* ── PARTICLE CANVAS ── */
+#particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6,6,19,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(123,97,255,0.1);
+  transition: all 0.4s var(--spring-soft);
+}
+.nav.scrolled { background: rgba(6,6,19,0.95); }
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+.nav-logo svg { width: 28px; height: 28px; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.3s var(--spring-soft);
+}
+.nav-links a:hover { color: var(--cyan); }
+
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 80px;
+  max-width: 100%;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--gradient-hero);
+  z-index: -1;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 800px; height: 800px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, rgba(123,97,255,0.04) 40%, transparent 70%);
+  animation: hero-pulse 8s ease-in-out infinite;
+}
+@keyframes hero-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: rgba(123,97,255,0.12);
+  border: 1px solid rgba(123,97,255,0.25);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.04em;
+  margin-bottom: 32px;
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.hero h1 {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  opacity: 1;
+}
+.hero h1 .gradient-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.5;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 1;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--gradient-accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s var(--spring-bounce), box-shadow 0.3s var(--spring-soft);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,212,255,0.25);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--spring-soft);
+}
+.btn-secondary:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,212,255,0.05);
+}
+
+/* ── ATOM ORBITAL ANIMATION ── */
+.hero-orbital {
+  position: relative;
+  width: 280px; height: 280px;
+  margin: 60px auto 0;
+  opacity: 1;
+}
+.orbital-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  border: 1.5px solid rgba(0,212,255,0.2);
+  border-radius: 50%;
+  transform-origin: center center;
+}
+.orbital-ring:nth-child(1) {
+  width: 200px; height: 80px;
+  margin: -40px 0 0 -100px;
+  animation: orbit-spin 6s linear infinite;
+}
+.orbital-ring:nth-child(2) {
+  width: 200px; height: 80px;
+  margin: -40px 0 0 -100px;
+  animation: orbit-spin 8s linear infinite;
+  transform: rotate(60deg);
+  border-color: rgba(123,97,255,0.2);
+}
+.orbital-ring:nth-child(3) {
+  width: 200px; height: 80px;
+  margin: -40px 0 0 -100px;
+  animation: orbit-spin 10s linear infinite reverse;
+  transform: rotate(-60deg);
+  border-color: rgba(255,61,154,0.15);
+}
+@keyframes orbit-spin {
+  from { transform: rotate(0deg) rotateX(70deg); }
+  to { transform: rotate(360deg) rotateX(70deg); }
+}
+.orbital-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 16px; height: 16px;
+  margin: -8px 0 0 -8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(0,212,255,0.5), 0 0 60px rgba(0,212,255,0.2);
+}
+.orbital-electron {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--purple);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(123,97,255,0.6);
+}
+.orbital-electron:nth-child(5) {
+  top: 50%; left: 0;
+  animation: electron-1 6s linear infinite;
+}
+.orbital-electron:nth-child(6) {
+  top: 0; left: 50%;
+  animation: electron-2 8s linear infinite;
+}
+.orbital-electron:nth-child(7) {
+  bottom: 0; right: 0;
+  animation: electron-3 10s linear infinite reverse;
+}
+@keyframes electron-1 {
+  0% { top: 50%; left: calc(50% - 100px); }
+  25% { top: calc(50% - 40px); left: 50%; }
+  50% { top: 50%; left: calc(50% + 100px); }
+  75% { top: calc(50% + 40px); left: 50%; }
+  100% { top: 50%; left: calc(50% - 100px); }
+}
+@keyframes electron-2 {
+  0% { top: calc(50% - 40px); left: calc(50% - 86px); }
+  25% { top: calc(50% + 40px); left: calc(50% - 86px); }
+  50% { top: calc(50% + 40px); left: calc(50% + 86px); }
+  75% { top: calc(50% - 40px); left: calc(50% + 86px); }
+  100% { top: calc(50% - 40px); left: calc(50% - 86px); }
+}
+@keyframes electron-3 {
+  0% { top: calc(50% + 40px); left: calc(50% - 86px); }
+  25% { top: calc(50% - 40px); left: calc(50% - 86px); }
+  50% { top: calc(50% - 40px); left: calc(50% + 86px); }
+  75% { top: calc(50% + 40px); left: calc(50% + 86px); }
+  100% { top: calc(50% + 40px); left: calc(50% - 86px); }
+}
+
+/* ── STAT ROW ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ── SECTION HEADERS ── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 16px;
+}
+.section-label::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--cyan);
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--gradient-card);
+  border: 1px solid rgba(123,97,255,0.1);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.4s var(--spring-enter);
+}
+.card:hover {
+  border-color: rgba(123,97,255,0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── PROBLEM SECTION ── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+}
+.problem-card .card-icon { background: rgba(255,61,154,0.1); }
+.problem-card .stat-highlight {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--magenta);
+  margin-bottom: 4px;
+}
+
+/* ── SOLUTION SECTION ── */
+.solution-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  width: 100%;
+  margin-top: 48px;
+  align-items: center;
+}
+.solution-features { display: flex; flex-direction: column; gap: 24px; }
+.solution-feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.solution-feature .feature-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+.solution-feature h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.solution-feature p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── ARCHITECTURE DIAGRAM ── */
+.arch-diagram {
+  background: rgba(10,10,30,0.6);
+  border: 1px solid rgba(123,97,255,0.15);
+  border-radius: 20px;
+  padding: 40px 32px;
+  position: relative;
+}
+.arch-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  position: relative;
+  text-align: center;
+}
+.arch-layer + .arch-connector {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+.arch-connector svg { width: 24px; height: 24px; }
+.arch-layer.gpu {
+  background: rgba(61,122,255,0.12);
+  border: 1px solid rgba(61,122,255,0.3);
+  color: var(--blue);
+}
+.arch-layer.virtual {
+  background: rgba(123,97,255,0.12);
+  border: 1px solid rgba(123,97,255,0.3);
+  color: var(--purple);
+}
+.arch-layer.qubit {
+  background: rgba(0,212,255,0.12);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: var(--cyan);
+}
+.arch-layer.app {
+  background: rgba(0,255,200,0.1);
+  border: 1px solid rgba(0,255,200,0.25);
+  color: var(--teal);
+}
+.arch-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+/* ── MARKET SECTION ── */
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+}
+.market-card {
+  text-align: center;
+  padding: 40px 24px;
+}
+.market-card .big-number {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.market-card .big-label {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 240px;
+  margin: 0 auto;
+}
+.market-card .source-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-dim);
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+}
+
+/* ── MARKET COMPARISON BAR ── */
+.comparison-bar {
+  margin-top: 48px;
+  padding: 32px;
+  background: rgba(10,10,30,0.5);
+  border-radius: 16px;
+  border: 1px solid rgba(123,97,255,0.1);
+}
+.comparison-bar h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-secondary);
+}
+.bar-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.bar-label {
+  width: 200px;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.bar-track {
+  flex: 1;
+  height: 32px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  width: 0%;
+  transition: width 1.5s var(--spring-enter);
+}
+.bar-fill.vmware { background: linear-gradient(90deg, rgba(61,122,255,0.3), var(--blue)); }
+.bar-fill.quantum { background: linear-gradient(90deg, rgba(0,212,255,0.3), var(--cyan)); }
+.bar-fill.gpu { background: linear-gradient(90deg, rgba(123,97,255,0.3), var(--purple)); }
+
+/* ── HOW IT WORKS ── */
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-top: 48px;
+  position: relative;
+}
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 44px;
+  left: 60px; right: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--cyan), var(--teal));
+  opacity: 0.3;
+}
+.how-step {
+  text-align: center;
+  position: relative;
+}
+.step-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 auto 16px;
+  position: relative;
+  z-index: 2;
+}
+.how-step:nth-child(1) .step-num { background: rgba(61,122,255,0.15); color: var(--blue); border: 2px solid rgba(61,122,255,0.3); }
+.how-step:nth-child(2) .step-num { background: rgba(123,97,255,0.15); color: var(--purple); border: 2px solid rgba(123,97,255,0.3); }
+.how-step:nth-child(3) .step-num { background: rgba(0,212,255,0.15); color: var(--cyan); border: 2px solid rgba(0,212,255,0.3); }
+.how-step:nth-child(4) .step-num { background: rgba(0,255,200,0.12); color: var(--teal); border: 2px solid rgba(0,255,200,0.25); }
+.how-step h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.how-step p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── ADVANTAGES ── */
+.advantage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+}
+.advantage-card .card-icon { background: rgba(0,212,255,0.08); font-size: 24px; }
+
+/* ── BUSINESS MODEL ── */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+}
+.model-card {
+  padding: 36px;
+}
+.model-card .pricing-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+.model-card:nth-child(1) .pricing-tag { background: rgba(0,212,255,0.12); color: var(--cyan); }
+.model-card:nth-child(2) .pricing-tag { background: rgba(123,97,255,0.12); color: var(--purple); }
+.model-card:nth-child(3) .pricing-tag { background: rgba(0,255,200,0.1); color: var(--teal); }
+.model-card:nth-child(4) .pricing-tag { background: rgba(255,61,154,0.1); color: var(--magenta); }
+
+/* ── USE CASES ── */
+.usecase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+}
+.usecase-card {
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.usecase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+.usecase-card:nth-child(1)::before { background: var(--cyan); }
+.usecase-card:nth-child(2)::before { background: var(--purple); }
+.usecase-card:nth-child(3)::before { background: var(--teal); }
+.usecase-card:nth-child(4)::before { background: var(--magenta); }
+.usecase-card:nth-child(5)::before { background: var(--blue); }
+.usecase-card .usecase-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.usecase-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.usecase-card .usecase-example {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-style: italic;
+}
+
+/* ── FUNDING MOMENTUM ── */
+.funding-highlight {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+}
+.funding-card {
+  text-align: center;
+  padding: 32px 24px;
+}
+.funding-card .funding-number {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.funding-card:nth-child(1) .funding-number { color: var(--teal); }
+.funding-card:nth-child(2) .funding-number { color: var(--cyan); }
+.funding-card:nth-child(3) .funding-number { color: var(--purple); }
+
+/* ── TEAM ── */
+.team-section {
+  text-align: center;
+}
+.team-card {
+  max-width: 500px;
+  margin: 48px auto 0;
+  text-align: center;
+  padding: 48px;
+}
+.team-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 0 40px rgba(0,212,255,0.2);
+}
+.team-name {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.team-role {
+  font-size: 14px;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.team-bio {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── THE ASK ── */
+.ask-section { text-align: center; }
+.ask-box {
+  max-width: 700px;
+  margin: 48px auto 0;
+  padding: 56px 48px;
+  background: linear-gradient(135deg, rgba(123,97,255,0.08) 0%, rgba(0,212,255,0.08) 100%);
+  border: 1px solid rgba(123,97,255,0.2);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.ask-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+}
+.ask-amount {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.ask-round {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+.ask-uses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  text-align: center;
+}
+.ask-use h4 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.ask-use p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 48px 40px 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.footer p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.footer a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 0.3s var(--spring-soft);
+}
+.footer a:hover { color: var(--purple); }
+.footer .divider {
+  width: 60px; height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 16px auto;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--spring-soft), transform 0.8s var(--spring-enter);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  section { padding: 80px 24px; }
+  .nav { padding: 12px 20px; }
+  .nav-links { display: none; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .solution-content { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: repeat(2, 1fr); }
+  .how-steps::before { display: none; }
+  .advantage-grid { grid-template-columns: 1fr; }
+  .model-grid { grid-template-columns: 1fr; }
+  .usecase-grid { grid-template-columns: 1fr; }
+  .funding-highlight { grid-template-columns: 1fr; }
+  .ask-uses { grid-template-columns: 1fr; gap: 16px; }
+  .bar-label { width: 120px; font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .hero-orbital { width: 200px; height: 200px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="14" stroke="#00d4ff" stroke-width="2"/>
+      <circle cx="16" cy="16" r="3" fill="#00d4ff"/>
+      <ellipse cx="16" cy="16" rx="12" ry="5" stroke="#7b61ff" stroke-width="1.5" transform="rotate(60 16 16)"/>
+      <ellipse cx="16" cy="16" rx="12" ry="5" stroke="#7b61ff" stroke-width="1.5" transform="rotate(-60 16 16)"/>
+    </svg>
+    QVP
+  </div>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#market">Market</a>
+    <a href="#how">How It Works</a>
+    <a href="#model">Business</a>
+    <a href="#ask">The Ask</a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span class="dot"></span> INVESTOR PRESENTATION</div>
+  <h1>The <span class="gradient-text">VMware</span><br>of Quantum Computing</h1>
+  <p class="hero-subtitle">Virtualizing qubits on standard GPU hardware so enterprises can build quantum-ready solutions today — no quantum hardware required.</p>
+  <div class="hero-cta-row">
+    <a href="#solution" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      See the Solution
+    </a>
+    <a href="#market" class="btn-secondary">Market Opportunity</a>
+  </div>
+
+  <div class="hero-orbital" aria-hidden="true">
+    <div class="orbital-ring"></div>
+    <div class="orbital-ring"></div>
+    <div class="orbital-ring"></div>
+    <div class="orbital-core"></div>
+    <div class="orbital-electron"></div>
+    <div class="orbital-electron"></div>
+    <div class="orbital-electron"></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-number" data-count="65">$65B+</div>
+      <div class="stat-label">Quantum Market by 2030</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="30">30%+</div>
+      <div class="stat-label">Software CAGR</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="61">$61B</div>
+      <div class="stat-label">VMware Acquisition Value</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="70">70%+</div>
+      <div class="stat-label">F500 Exploring Quantum <span style="font-size:10px;color:var(--text-dim);font-style:italic">(est.)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ THE PROBLEM ═══════ -->
+<section id="problem">
+  <div class="reveal hidden">
+    <span class="section-label">The Problem</span>
+    <h2 class="section-title">Quantum Is Coming.<br>Nobody Can Access It.</h2>
+    <p class="section-desc">Enterprises know quantum computing will reshape their industries. But the barriers to entry are enormous — and growing.</p>
+  </div>
+
+  <div class="problem-grid">
+    <div class="card problem-card reveal hidden">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3d9a" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <div class="stat-highlight">$5M–$100M+</div>
+      <h3>Prohibitive Hardware Costs</h3>
+      <p>A single commercial quantum system costs $5–15M to manufacture. Cutting-edge 1,000+ qubit systems require $100M+ in development and operations. Only a handful of organizations on Earth can afford access.</p>
+    </div>
+
+    <div class="card problem-card reveal hidden">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3d9a" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4V7"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="stat-highlight">3:1 Talent Gap</div>
+      <h3>Critical Workforce Shortage</h3>
+      <p>Three quantum job openings for every qualified candidate. McKinsey projects less than 50% of quantum roles filled by 2025. The industry needs 500,000+ new hires but 75% of applicants lack necessary skills.</p>
+    </div>
+
+    <div class="card problem-card reveal hidden">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3d9a" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div class="stat-highlight">99.9%+ Error</div>
+      <h3>Hardware Instability</h3>
+      <p>Current quantum hardware operates at near absolute zero, suffers from decoherence, and has error rates that make most real-world applications impractical. Fault-tolerant quantum is still years away.</p>
+    </div>
+
+    <div class="card problem-card reveal hidden">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3d9a" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="stat-highlight">5–10 Years</div>
+      <h3>The Readiness Gap</h3>
+      <p>Enterprises need to start building quantum capabilities now — algorithms, talent, workflows — or face a massive competitive disadvantage when practical quantum arrives. But they can't practice on hardware that doesn't exist at scale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ THE SOLUTION ═══════ -->
+<section id="solution">
+  <div class="reveal hidden">
+    <span class="section-label">The Solution</span>
+    <h2 class="section-title">Virtualized Qubits.<br><span class="gradient-text">Real Quantum Development.</span></h2>
+    <p class="section-desc">Our platform virtualizes qubits on standard GPU hardware — letting you develop, test, and validate quantum applications today. No quantum hardware required.</p>
+  </div>
+
+  <div class="solution-content">
+    <div class="solution-features reveal hidden">
+      <div class="solution-feature">
+        <div class="feature-dot" style="background: var(--cyan);"></div>
+        <div>
+          <h4>Full Quantum Simulation</h4>
+          <p>High-fidelity qubit virtualization that faithfully reproduces quantum behavior — superposition, entanglement, interference — on commodity GPU clusters.</p>
+        </div>
+      </div>
+      <div class="solution-feature">
+        <div class="feature-dot" style="background: var(--purple);"></div>
+        <div>
+          <h4>Runs on Existing Infrastructure</h4>
+          <p>Leverages the massive installed base of GPU hardware. No cryogenics, no clean rooms, no $100M investments. Deploy on NVIDIA GPUs you already own or rent from any cloud provider.</p>
+        </div>
+      </div>
+      <div class="solution-feature">
+        <div class="feature-dot" style="background: var(--teal);"></div>
+        <div>
+          <h4>Seamless Migration Path</h4>
+          <p>Algorithms developed on our platform port directly to real quantum hardware when it matures. Build once, run anywhere — the abstraction layer handles the rest.</p>
+        </div>
+      </div>
+      <div class="solution-feature">
+        <div class="feature-dot" style="background: var(--magenta);"></div>
+        <div>
+          <h4>Enterprise-Ready Today</h4>
+          <p>Familiar development paradigm, standard APIs, security compliance, team management. Your developers start writing quantum code this week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-diagram reveal hidden">
+      <div class="arch-label">PLATFORM ARCHITECTURE</div>
+      <div class="arch-layer app">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Quantum Applications
+      </div>
+      <div class="arch-connector">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,255,200,0.4)" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+      <div class="arch-layer qubit">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+        Virtual Qubits (Simulated Quantum States)
+      </div>
+      <div class="arch-connector">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.4)" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+      <div class="arch-layer virtual">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Virtualization Engine (Quantum Abstraction Layer)
+      </div>
+      <div class="arch-connector">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(123,97,255,0.4)" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+      <div class="arch-layer gpu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+        GPU Hardware (NVIDIA / AMD / Cloud)
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ MARKET OPPORTUNITY ═══════ -->
+<section id="market">
+  <div class="reveal hidden">
+    <span class="section-label">Market Opportunity</span>
+    <h2 class="section-title">A Multi-Billion Dollar<br><span class="gradient-text">Infrastructure Shift</span></h2>
+    <p class="section-desc">The quantum computing market is at an inflection point. VMware proved that virtualizing infrastructure creates massive value — the same opportunity exists for quantum.</p>
+  </div>
+
+  <div class="market-grid">
+    <div class="card market-card reveal hidden">
+      <div class="big-number" style="color: var(--cyan);" data-count="65">$65B+</div>
+      <div class="big-label">Projected global quantum computing market by 2030, growing 20–40% annually</div>
+      <div class="source-tag">BCG / McKinsey / Fortune Business Insights</div>
+    </div>
+    <div class="card market-card reveal hidden">
+      <div class="big-number" style="color: var(--purple);" data-count="2.5">$2.5B</div>
+      <div class="big-label">Quantum software market by 2030 at 18.5% CAGR — our direct addressable segment</div>
+      <div class="source-tag">Verified Market Research</div>
+    </div>
+    <div class="card market-card reveal hidden">
+      <div class="big-number" style="color: var(--teal);" data-count="3.8">$3.8B</div>
+      <div class="big-label">Raised in quantum startups in just the first 9 months of 2025 — nearly 3x all of 2024</div>
+      <div class="source-tag">PitchBook / Crunchbase</div>
+    </div>
+  </div>
+
+  <div class="comparison-bar reveal hidden">
+    <h4>Market Size Comparison — Why Virtualization Wins</h4>
+    <div class="bar-item">
+      <span class="bar-label">VMware Market (Compute Virtualization)</span>
+      <div class="bar-track">
+        <div class="bar-fill vmware" data-width="80">$61B acquisition</div>
+      </div>
+    </div>
+    <div class="bar-item">
+      <span class="bar-label">GPU Infrastructure (Installed Base)</span>
+      <div class="bar-track">
+        <div class="bar-fill gpu" data-width="95">$120B+ market</div>
+      </div>
+    </div>
+    <div class="bar-item">
+      <span class="bar-label">Quantum Computing (2030 TAM)</span>
+      <div class="bar-track">
+        <div class="bar-fill quantum" data-width="60">$65B+ projected</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="funding-highlight reveal hidden">
+    <div class="card funding-card">
+      <div class="funding-number" data-count="50">50%+</div>
+      <div class="stat-label">YoY increase in quantum VC investment (2023→2024)</div>
+    </div>
+    <div class="card funding-card">
+      <div class="funding-number" data-count="70">70%+</div>
+      <div class="stat-label">Fortune 500 actively exploring quantum strategies <span style="font-size:10px;color:var(--text-dim);font-style:italic">(est.)</span></div>
+    </div>
+    <div class="card funding-card">
+      <div class="funding-number" data-count="5">5x</div>
+      <div class="stat-label">Average seed round growth since 2018 ($2M → $10M)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ HOW IT WORKS ═══════ -->
+<section id="how">
+  <div class="reveal hidden">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">From GPU to <span class="gradient-text">Quantum-Ready</span><br>in Four Steps</h2>
+  </div>
+
+  <div class="how-steps">
+    <div class="how-step reveal hidden">
+      <div class="step-num">1</div>
+      <h4>Provision GPUs</h4>
+      <p>Use existing NVIDIA GPUs — on-prem or any major cloud. No specialized hardware or cryogenic infrastructure needed.</p>
+    </div>
+    <div class="how-step reveal hidden">
+      <div class="step-num">2</div>
+      <h4>Virtualize Qubits</h4>
+      <p>Our engine creates high-fidelity virtual qubits that simulate quantum behavior — superposition, entanglement, interference — with mathematical precision.</p>
+    </div>
+    <div class="how-step reveal hidden">
+      <div class="step-num">3</div>
+      <h4>Develop & Test</h4>
+      <p>Build quantum algorithms using standard APIs. Test with realistic noise models. Validate results against theoretical predictions.</p>
+    </div>
+    <div class="how-step reveal hidden">
+      <div class="step-num">4</div>
+      <h4>Deploy Anywhere</h4>
+      <p>Run in production on GPUs today. When quantum hardware matures, seamlessly migrate to physical qubits with zero code changes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ COMPETITIVE ADVANTAGE ═══════ -->
+<section id="advantages">
+  <div class="reveal hidden">
+    <span class="section-label">Why Us</span>
+    <h2 class="section-title">Built Different.<br><span class="gradient-text">Available Now.</span></h2>
+    <p class="section-desc">While competitors race to build better quantum hardware, we make quantum development possible on hardware that already exists everywhere.</p>
+  </div>
+
+  <div class="advantage-grid">
+    <div class="card advantage-card reveal hidden">
+      <div class="card-icon">⚡</div>
+      <h3>No Quantum Hardware Needed</h3>
+      <p>Zero dependency on scarce, fragile quantum processors. Our platform virtualizes quantum states entirely on GPU silicon — available today from every cloud provider.</p>
+    </div>
+    <div class="card advantage-card reveal hidden">
+      <div class="card-icon">💰</div>
+      <h3>100x Cost Reduction</h3>
+      <p>Access to quantum cloud services starts at $1–5 per QPU-hour. Our virtualized environment delivers comparable development capability at a fraction of the cost, on infrastructure you already pay for.</p>
+    </div>
+    <div class="card advantage-card reveal hidden">
+      <div class="card-icon">🔄</div>
+      <h3>Seamless Migration</h3>
+      <p>The abstraction layer means algorithms built today port directly to real quantum hardware tomorrow. Build once — our platform handles the translation.</p>
+    </div>
+    <div class="card advantage-card reveal hidden">
+      <div class="card-icon">🏢</div>
+      <h3>Enterprise Grade</h3>
+      <p>Role-based access, audit logging, compliance certifications, SLA guarantees. Built for regulated industries from day one — not bolted on after the fact.</p>
+    </div>
+    <div class="card advantage-card reveal hidden">
+      <div class="card-icon">🧠</div>
+      <h3>Familiar Paradigm</h3>
+      <p>Developers don't need physics PhDs. Our APIs feel like standard software development. Onboard existing engineering teams in days, not months.</p>
+    </div>
+    <div class="card advantage-card reveal hidden">
+      <div class="card-icon">🌐</div>
+      <h3>Validated Approach</h3>
+      <p>Microsoft's Azure Quantum already uses a "qubit-virtualization system" commercially. We're building the standalone, hardware-agnostic version of this same concept.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ BUSINESS MODEL ═══════ -->
+<section id="model">
+  <div class="reveal hidden">
+    <span class="section-label">Business Model</span>
+    <h2 class="section-title">Multiple Revenue<br><span class="gradient-text">Streams</span></h2>
+    <p class="section-desc">A SaaS-first model with strong expansion dynamics — every customer increases usage as they build more quantum applications.</p>
+  </div>
+
+  <div class="model-grid">
+    <div class="card model-card reveal hidden">
+      <div class="pricing-tag">CORE REVENUE</div>
+      <h3>Platform Licensing</h3>
+      <p>Annual subscription for the virtualization platform. Tiered by qubit capacity, user seats, and simulation fidelity. Net revenue retention driven by growing quantum workloads.</p>
+    </div>
+    <div class="card model-card reveal hidden">
+      <div class="pricing-tag">USAGE-BASED</div>
+      <h3>Compute Consumption</h3>
+      <p>Pay-per-use pricing for GPU compute hours consumed by quantum simulations. Scales naturally as customers move from experimentation to production workloads.</p>
+    </div>
+    <div class="card model-card reveal hidden">
+      <div class="pricing-tag">EXPANSION</div>
+      <h3>Enterprise Contracts</h3>
+      <p>Multi-year agreements with dedicated support, custom integrations, and priority access to new capabilities. High-touch model for Fortune 500 quantum teams.</p>
+    </div>
+    <div class="card model-card reveal hidden">
+      <div class="pricing-tag">ECOSYSTEM</div>
+      <h3>Training & Certification</h3>
+      <p>Quantum development curriculum for enterprise teams. Certification programs that validate quantum readiness. Addresses the 3:1 talent gap directly — and generates revenue doing it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ USE CASES ═══════ -->
+<section id="usecases">
+  <div class="reveal hidden">
+    <span class="section-label">Use Cases</span>
+    <h2 class="section-title">Where Quantum<br><span class="gradient-text">Changes Everything</span></h2>
+    <p class="section-desc">Our platform enables enterprises to start solving their hardest problems with quantum approaches — today, not in a decade.</p>
+  </div>
+
+  <div class="usecase-grid">
+    <div class="card usecase-card reveal hidden">
+      <div class="usecase-icon">📊</div>
+      <h3>Financial Services</h3>
+      <p>Portfolio optimization, risk modeling, derivative pricing, and fraud detection. BCG estimates $2–5B in operating income potential for financial institutions over the next decade.</p>
+      <div class="usecase-example">JPMorgan Chase is actively using quantum for portfolio optimization today</div>
+    </div>
+    <div class="card usecase-card reveal hidden">
+      <div class="usecase-icon">💊</div>
+      <h3>Pharmaceutical & Drug Discovery</h3>
+      <p>Molecular simulation for drug candidate screening, protein folding analysis, and material science. Quantum simulation represents 20%+ of all quantum use cases globally.</p>
+      <div class="usecase-example">IBM and Cleveland Clinic partnered on quantum-powered drug discovery</div>
+    </div>
+    <div class="card usecase-card reveal hidden">
+      <div class="usecase-icon">🚛</div>
+      <h3>Supply Chain & Logistics</h3>
+      <p>Route optimization across thousands of variables, warehouse placement, and demand forecasting. Quantum algorithms solve combinatorial problems exponentially faster.</p>
+      <div class="usecase-example">Volkswagen deployed quantum optimization for real-time traffic routing</div>
+    </div>
+    <div class="card usecase-card reveal hidden">
+      <div class="usecase-icon">🔐</div>
+      <h3>Cybersecurity</h3>
+      <p>Post-quantum encryption testing, cryptographic vulnerability analysis, and quantum key distribution simulation. Every organization needs to prepare for Q-Day.</p>
+      <div class="usecase-example">NIST finalized post-quantum encryption standards in 2024 — testing starts now</div>
+    </div>
+    <div class="card usecase-card reveal hidden">
+      <div class="usecase-icon">🤖</div>
+      <h3>AI & Machine Learning</h3>
+      <p>Quantum-enhanced optimization for neural network training, feature selection, and generative model sampling. The intersection of quantum and AI is the next frontier.</p>
+      <div class="usecase-example">Quantum ML research papers grew 400% from 2020 to 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TEAM ═══════ -->
+<section id="team" class="team-section">
+  <div class="reveal hidden">
+    <span class="section-label">Leadership</span>
+    <h2 class="section-title">Built by People Who<br><span class="gradient-text">Know Infrastructure</span></h2>
+  </div>
+
+  <div class="card team-card reveal hidden">
+    <div class="team-avatar">RT</div>
+    <div class="team-name">Ray Tseng</div>
+    <div class="team-role">Founder & CEO</div>
+    <div class="team-bio">Deep expertise at the intersection of quantum computing and enterprise infrastructure. Building the platform that bridges the gap between today's GPU hardware and tomorrow's quantum future.</div>
+  </div>
+</section>
+
+<!-- ═══════ THE ASK ═══════ -->
+<section id="ask" class="ask-section">
+  <div class="reveal hidden">
+    <span class="section-label">The Opportunity</span>
+    <h2 class="section-title">Join Us at the<br><span class="gradient-text">Inflection Point</span></h2>
+    <p class="section-desc" style="margin: 0 auto 0;">We're raising capital to scale the platform, expand our engineering team, and capture the enterprise market before the window closes.</p>
+  </div>
+
+  <div class="ask-box reveal hidden">
+    <div class="ask-amount">[Funding Amount]</div>
+    <div class="ask-round">Seed / Series A Round</div>
+    <div class="ask-uses">
+      <div class="ask-use">
+        <h4 style="color: var(--cyan);">40%</h4>
+        <p>Engineering & Product — expand the core virtualization engine and enterprise features</p>
+      </div>
+      <div class="ask-use">
+        <h4 style="color: var(--purple);">35%</h4>
+        <p>Go-to-Market — enterprise sales, partnerships with cloud providers and quantum ecosystems</p>
+      </div>
+      <div class="ask-use">
+        <h4 style="color: var(--teal);">25%</h4>
+        <p>Research & IP — advance simulation fidelity, noise modeling, and hardware migration tooling</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 40px;" class="reveal hidden">
+    <a href="mailto:ray@example.com" class="btn-primary" style="font-size: 16px; padding: 16px 40px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Let's Talk
+    </a>
+  </div>
+</section>
+
+<!-- ═══════ DISCLAIMER ═══════ -->
+<div style="max-width:800px;margin:0 auto;padding:0 40px 32px;position:relative;z-index:1;">
+  <p style="font-size:11px;color:var(--text-dim);line-height:1.6;text-align:center;opacity:0.7;">
+    <em>Note: Market projections cited represent ranges from multiple analyst sources (BCG, McKinsey, Fortune Business Insights, Verified Market Research, PitchBook). The $65B figure represents the upper-range estimate; conservative estimates begin at ~$7B. Fortune 500 adoption rates are estimated from industry survey data. Some competitive details could not be verified from primary sources.</em>
+  </p>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <p>This pitch deck was generated by <strong>Gary</strong>, Willie Kopp's AI Chief of Staff — an example of AI-powered business intelligence in action.</p>
+  <div class="divider"></div>
+  <p><a href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v5.html" target="_blank" rel="noopener">See what Gary can do →</a></p>
+  <p style="margin-top: 16px; font-size: 11px; color: var(--text-dim);">Confidential — For intended recipients only. April 2026.</p>
+</footer>
+
+<script>
+// ── PARTICLE SYSTEM ──
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight * 3;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 1.5 + 0.3;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.15;
+      this.alpha = Math.random() * 0.4 + 0.1;
+      this.color = Math.random() > 0.5 ? '0,212,255' : '123,97,255';
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < -10 || this.x > W + 10 || this.y < -10 || this.y > H + 10) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0,212,255,${0.06 * (1 - dist / 150)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ── NAV SCROLL EFFECT ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── SCROLL REVEAL ──
+(function() {
+  const reveals = document.querySelectorAll('.reveal.hidden');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Fallback: if any element still hidden after 2s, make it visible
+  setTimeout(() => {
+    reveals.forEach(el => {
+      if (!el.classList.contains('visible')) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
+    });
+  }, 2000);
+})();
+
+// ── ANIMATED COUNTERS ──
+(function() {
+  const counters = document.querySelectorAll('[data-count]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const finalText = el.textContent;
+        const target = parseFloat(el.dataset.count);
+        const duration = 2000;
+        const start = performance.now();
+        const isInt = Number.isInteger(target);
+
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = eased * target;
+
+          if (progress < 1) {
+            if (finalText.startsWith('$')) {
+              el.textContent = '$' + (isInt ? Math.floor(current) : current.toFixed(1)) + finalText.replace(/^[\$\d\.]+/, '');
+            } else if (finalText.endsWith('x')) {
+              el.textContent = Math.floor(current) + 'x';
+            } else {
+              el.textContent = Math.floor(current) + finalText.replace(/^\d+/, '');
+            }
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = finalText;
+          }
+        }
+        requestAnimationFrame(step);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  counters.forEach(el => observer.observe(el));
+})();
+
+// ── ANIMATED BARS ──
+(function() {
+  const bars = document.querySelectorAll('.bar-fill[data-width]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.width = entry.target.dataset.width + '%';
+        }, 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  bars.forEach(el => observer.observe(el));
+})();
+
+// ── SMOOTH SCROLL FOR NAV ──
+document.querySelectorAll('.nav-links a, .btn-primary[href^="#"], .btn-secondary[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
