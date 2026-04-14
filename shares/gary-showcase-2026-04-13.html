@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gary — Your AI Chief of Staff</title>
+  <meta name="description" content="Gary is an AI Chief of Staff desktop application that manages your email, calendar, tasks, and dispatches work to AI agents. Built on Claude with 110+ MCP tools.">
+  <meta property="og:title" content="Gary — Your AI Chief of Staff">
+  <meta property="og:description" content="Gary manages your email, calendar, tasks, and dispatches — so you can focus on what matters. Built on Claude, powered by 110+ tools.">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect fill='%230a0a1a' width='1200' height='630'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='600' y='290' fill='url(%23g)' font-size='96' font-weight='900' text-anchor='middle' font-family='Inter,sans-serif'%3EMeet Gary%3C/text%3E%3Ctext x='600' y='380' fill='%2394a3b8' font-size='36' text-anchor='middle' font-family='Inter,sans-serif'%3EYour AI Chief of Staff%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-size='60' font-weight='900' text-anchor='middle' fill='white' font-family='Inter,sans-serif'%3EG%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (typeof tailwindcss !== 'undefined') {
+      tailwindcss.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --background: #0a0a1a;
+      --foreground: #f0f4ff;
+      --blue: #3b82f6;
+      --violet: #8b5cf6;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: linear-gradient(160deg, #0a0a1a 0%, #0d0d22 40%, #111827 100%);
+      color: #f0f4ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: rgba(139, 92, 246, 0.3);
+      color: #fff;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a1a; }
+    ::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.4); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,0.6); }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card-blue {
+      background: rgba(59, 130, 246, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .gradient-border {
+      position: relative;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(139,92,246,0.5));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .glow-hero {
+      box-shadow: 0 0 80px rgba(59, 130, 246, 0.3), 0 0 160px rgba(139, 92, 246, 0.2), 0 30px 60px rgba(0,0,0,0.5);
+    }
+
+    .glow-blue {
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.1);
+    }
+
+    .glow-violet {
+      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.2), 0 0 0 1px rgba(139, 92, 246, 0.1);
+    }
+
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tech-badge {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.2s ease;
+    }
+    .tech-badge:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .tool-icon-cell {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.2s ease;
+    }
+    .tool-icon-cell:hover {
+      background: rgba(59,130,246,0.08);
+      border-color: rgba(59,130,246,0.25);
+      transform: translateY(-2px);
+    }
+
+    .step-circle {
+      transition: transform 0.3s ease;
+    }
+    .step-circle:hover {
+      transform: scale(1.1);
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: scale(1.03);
+    }
+
+    .problem-card {
+      transition: all 0.3s ease;
+    }
+    .problem-card:hover {
+      transform: scale(1.02);
+    }
+
+    .nav-scrolled {
+      background: rgba(10,10,26,0.85) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+
+    .nav-link {
+      color: #64748b;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #f0f4ff;
+    }
+
+    @keyframes pulse-soft {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .animate-pulse-soft {
+      animation: pulse-soft 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce-soft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+    .animate-bounce-soft {
+      animation: bounce-soft 2s ease-in-out infinite;
+    }
+
+    @media (max-width: 767px) {
+      .hero-heading { font-size: 3.5rem !important; }
+      .section-heading { font-size: 2rem !important; }
+      .feature-block { flex-direction: column !important; }
+      .mobile-menu { display: flex !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent; border-bottom: 1px solid transparent;">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; box-shadow: 0 0 16px rgba(59,130,246,0.35);">G</div>
+        <span class="font-bold text-base gradient-text">Gary</span>
+      </div>
+
+      <!-- Desktop nav -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li><a href="#problem" class="nav-link text-sm font-medium">Problem</a></li>
+        <li><a href="#features" class="nav-link text-sm font-medium">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link text-sm font-medium">How It Works</a></li>
+        <li><a href="#tech" class="nav-link text-sm font-medium">Tech</a></li>
+      </ul>
+
+      <!-- CTA -->
+      <div class="hidden md:flex items-center">
+        <a href="#features" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; box-shadow: 0 0 20px rgba(59,130,246,0.3);">
+          Learn More
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-toggle" class="md:hidden p-2 rounded-lg" aria-label="Toggle menu" style="color: #94a3b8;" onclick="toggleMobileMenu()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="5" x2="17" y2="5"/>
+          <line x1="3" y1="10" x2="17" y2="10"/>
+          <line x1="3" y1="15" x2="17" y2="15"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 pt-2 flex-col gap-4" style="background: rgba(10,10,26,0.97); border-top: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(20px);">
+      <a href="#problem" class="text-sm font-medium py-2 block" style="color: #94a3b8;" onclick="closeMobileMenu()">Problem</a>
+      <a href="#features" class="text-sm font-medium py-2 block" style="color: #94a3b8;" onclick="closeMobileMenu()">Features</a>
+      <a href="#how-it-works" class="text-sm font-medium py-2 block" style="color: #94a3b8;" onclick="closeMobileMenu()">How It Works</a>
+      <a href="#tech" class="text-sm font-medium py-2 block" style="color: #94a3b8;" onclick="closeMobileMenu()">Tech</a>
+      <a href="#features" class="mt-2 px-5 py-3 rounded-full text-sm font-semibold text-center block" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;" onclick="closeMobileMenu()">Learn More</a>
+    </div>
+  </header>
+
+
+  <!-- ============ HERO SECTION ============ -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+    <!-- Ambient glows -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.06) 50%, transparent 70%);"></div>
+    <div class="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);"></div>
+
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 pointer-events-none" style="opacity: 0.03; background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+    <div class="relative z-10 fade-in-up max-w-5xl mx-auto" data-reveal="hero">
+      <!-- Label -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 glass-card-blue text-sm font-medium tracking-wide" style="color: #93c5fd;">
+        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse-soft"></span>
+        AI-Powered Desktop Application
+      </div>
+
+      <!-- Main heading -->
+      <h1 class="hero-heading text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none mb-4">
+        <span class="gradient-text">Meet Gary</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-2xl md:text-3xl font-light mb-6" style="color: #94a3b8;">
+        Your AI Chief of Staff
+      </p>
+
+      <!-- Description -->
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed" style="color: #64748b;">
+        Gary manages your email, calendar, tasks, and dispatches work to the right AI agent &mdash; automatically.
+        Built on Claude with 110+ MCP tools, Gary learns how you work and acts before you have to ask.
+      </p>
+
+      <!-- CTA -->
+      <a href="#problem" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; box-shadow: 0 0 40px rgba(59,130,246,0.4), 0 0 80px rgba(139,92,246,0.2);">
+        See How It Works
+        <svg class="w-5 h-5 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+      </a>
+
+      <!-- Hero image -->
+      <div class="mt-16 relative">
+        <div class="absolute inset-0 rounded-2xl pointer-events-none" style="background: radial-gradient(ellipse 80% 60% at 50% 120%, rgba(59,130,246,0.35) 0%, rgba(139,92,246,0.2) 40%, transparent 70%); filter: blur(40px);"></div>
+        <div class="relative rounded-2xl overflow-hidden gradient-border glow-hero">
+          <img src="../images/showcase-hero-command-center.png" alt="Gary AI Command Center" class="w-full max-w-4xl mx-auto block rounded-2xl" style="aspect-ratio: 16/9; object-fit: cover; background: linear-gradient(135deg, #0d0d22 0%, #111827 100%); min-height: 300px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <a href="#problem" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 hover:opacity-70 transition-opacity" aria-label="Scroll down">
+      <span class="text-xs tracking-widest uppercase" style="color: #94a3b8;">Scroll</span>
+      <svg class="w-4 h-4 animate-bounce-soft" style="color: #94a3b8;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+    </a>
+  </section>
+
+
+  <!-- ============ PROBLEM SECTION ============ -->
+  <section id="problem" class="py-28 px-6">
+    <div class="max-w-6xl mx-auto fade-in-up" data-reveal>
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase mb-4" style="color: #3b82f6;">The Problem</p>
+        <h2 class="section-heading text-4xl md:text-5xl font-bold mb-6 leading-tight" style="color: #f0f4ff;">
+          Your workday is <span class="gradient-text">fighting against you</span>
+        </h2>
+        <p class="text-lg max-w-2xl mx-auto leading-relaxed" style="color: #64748b;">
+          Modern knowledge work is broken. You're buried in operational overhead instead of doing the work that actually matters.
+        </p>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="glass-card gradient-border rounded-2xl p-8 problem-card">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25);">
+            <svg class="w-7 h-7" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="mb-4">
+            <span class="text-3xl font-bold gradient-text">2+ hrs/day</span>
+            <span class="text-sm ml-2" style="color: #64748b;">lost to email</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: #f0f4ff;">Email Overload</h3>
+          <p class="leading-relaxed text-sm" style="color: #64748b;">You spend 2+ hours daily triaging your inbox &mdash; reading, sorting, drafting replies, and losing context between threads. Meanwhile, real work waits.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card gradient-border rounded-2xl p-8 problem-card">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25);">
+            <svg class="w-7 h-7" style="color: #8b5cf6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="mb-4">
+            <span class="text-3xl font-bold gradient-text">8+ tools</span>
+            <span class="text-sm ml-2" style="color: #64748b;">fragment attention</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: #f0f4ff;">Context Switching</h3>
+          <p class="leading-relaxed text-sm" style="color: #64748b;">8+ fragmented tools pull your attention in every direction &mdash; Slack, Notion, GitHub, Linear, email, calendar. Each switch costs 23 minutes of focus.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card gradient-border rounded-2xl p-8 problem-card">
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);">
+            <svg class="w-7 h-7" style="color: #06b6d4;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div class="mb-4">
+            <span class="text-3xl font-bold gradient-text">40%</span>
+            <span class="text-sm ml-2" style="color: #64748b;">of tasks forgotten</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3" style="color: #f0f4ff;">Task Tracking</h3>
+          <p class="leading-relaxed text-sm" style="color: #64748b;">Follow-ups slip through cracks. Action items from meetings vanish. Delegated work goes untracked. The things that matter most fall off the radar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ FEATURES SECTION ============ -->
+  <section id="features" class="py-28 px-6">
+    <div class="max-w-6xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-24 fade-in-up" data-reveal>
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase mb-4" style="color: #3b82f6;">What Gary Does</p>
+        <h2 class="section-heading text-4xl md:text-5xl font-bold leading-tight" style="color: #f0f4ff;">
+          Your work, on <span class="gradient-text">autopilot</span>
+        </h2>
+      </div>
+
+      <div class="space-y-28">
+
+        <!-- Feature 1: Intelligent Dispatch (image left, text right) -->
+        <div class="fade-in-up feature-block flex flex-col lg:flex-row gap-12 lg:gap-20 items-center" data-reveal>
+          <div class="flex-1 w-full">
+            <div class="relative">
+              <div class="absolute inset-0 rounded-2xl" style="background: radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.2) 0%, transparent 70%); filter: blur(30px);"></div>
+              <div class="relative rounded-2xl overflow-hidden gradient-border glow-blue">
+                <img src="../images/showcase-dispatch-parallel-agents.png" alt="Gary Dispatch Parallel Agents" class="w-full block rounded-2xl" style="aspect-ratio: 16/10; object-fit: cover; background: linear-gradient(135deg, #0d0d22 0%, #111827 100%); min-height: 220px;">
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 w-full">
+            <p class="text-sm font-semibold tracking-[0.15em] uppercase mb-4" style="color: #3b82f6;">Intelligent Dispatch</p>
+            <h3 class="text-3xl md:text-4xl font-bold mb-5 leading-tight" style="color: #f0f4ff;">One request. The right agent. Every time.</h3>
+            <p class="text-base leading-relaxed mb-8" style="color: #64748b;">Gary analyzes your natural language request, identifies the right AI agent from its roster, and dispatches parallel work streams &mdash; all without you managing the orchestration.</p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Analyzes intent and selects the optimal agent</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Dispatches parallel workstreams simultaneously</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Routes context and memory to each agent</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 2: Quality Review (text left, image right — reversed) -->
+        <div class="fade-in-up feature-block flex flex-col lg:flex-row-reverse gap-12 lg:gap-20 items-center" data-reveal>
+          <div class="flex-1 w-full">
+            <div class="relative">
+              <div class="absolute inset-0 rounded-2xl" style="background: radial-gradient(ellipse at 70% 50%, rgba(139,92,246,0.2) 0%, transparent 70%); filter: blur(30px);"></div>
+              <div class="relative rounded-2xl overflow-hidden gradient-border glow-violet">
+                <img src="../images/showcase-quality-review.png" alt="Gary Quality Review" class="w-full block rounded-2xl" style="aspect-ratio: 16/10; object-fit: cover; background: linear-gradient(135deg, #0d0d22 0%, #111827 100%); min-height: 220px;">
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 w-full">
+            <p class="text-sm font-semibold tracking-[0.15em] uppercase mb-4" style="color: #3b82f6;">Quality Review</p>
+            <h3 class="text-3xl md:text-4xl font-bold mb-5 leading-tight" style="color: #f0f4ff;">Nothing ships without Gary's sign-off.</h3>
+            <p class="text-base leading-relaxed mb-8" style="color: #64748b;">Gary and Atlas verify every deliverable against your standards before it reaches your outbox. Quality gates ensure you only see polished, ready-to-send work.</p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Dual-agent review before delivery</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Checks against your personal style guidelines</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Surfaces issues so you can approve or revise</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 3: Proactive Intelligence (image left, text right) -->
+        <div class="fade-in-up feature-block flex flex-col lg:flex-row gap-12 lg:gap-20 items-center" data-reveal>
+          <div class="flex-1 w-full">
+            <div class="relative">
+              <div class="absolute inset-0 rounded-2xl" style="background: radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.2) 0%, transparent 70%); filter: blur(30px);"></div>
+              <div class="relative rounded-2xl overflow-hidden gradient-border glow-blue">
+                <img src="../images/showcase-proactive-insights.png" alt="Gary Proactive Insights" class="w-full block rounded-2xl" style="aspect-ratio: 16/10; object-fit: cover; background: linear-gradient(135deg, #0d0d22 0%, #111827 100%); min-height: 220px;">
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 w-full">
+            <p class="text-sm font-semibold tracking-[0.15em] uppercase mb-4" style="color: #3b82f6;">Proactive Intelligence</p>
+            <h3 class="text-3xl md:text-4xl font-bold mb-5 leading-tight" style="color: #f0f4ff;">Surfaces insights before you think to ask.</h3>
+            <p class="text-base leading-relaxed mb-8" style="color: #64748b;">Gary scans your inbox, calendar, and task list in the background &mdash; preparing meeting briefs, flagging stale follow-ups, and surfacing context you'd otherwise miss.</p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Auto-generates meeting prep before every call</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Flags email threads needing follow-up</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff;">&#10003;</span>
+                <span class="text-sm leading-relaxed" style="color: #94a3b8;">Alerts on stale tasks and overdue items</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 4: 110+ MCP Tools (text left, tools grid right) -->
+        <div class="fade-in-up feature-block flex flex-col lg:flex-row gap-12 lg:gap-20 items-center" data-reveal>
+          <div class="flex-1 w-full">
+            <p class="text-sm font-semibold tracking-[0.15em] uppercase mb-4" style="color: #8b5cf6;">110+ MCP Tools</p>
+            <h3 class="text-3xl md:text-4xl font-bold mb-5 leading-tight" style="color: #f0f4ff;">
+              A tool for every task. <span class="gradient-text">All in one place.</span>
+            </h3>
+            <p class="text-base leading-relaxed mb-8" style="color: #64748b;">Gary ships with over 110 Model Context Protocol tools out of the box &mdash; covering web search, email, calendar, file management, code execution, databases, and more. New tools are added with every release.</p>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium" style="background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); color: #c4b5fd;">
+              <span class="w-2 h-2 rounded-full animate-pulse-soft" style="background: #a78bfa;"></span>
+              New tools added every release
+            </div>
+          </div>
+          <div class="flex-1 w-full">
+            <div class="glass-card gradient-border rounded-2xl p-8">
+              <div class="grid grid-cols-4 gap-4 mb-6">
+                <!-- Search -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Search</span>
+                </div>
+                <!-- Email -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Email</span>
+                </div>
+                <!-- Calendar -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Calendar</span>
+                </div>
+                <!-- Code -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Code</span>
+                </div>
+                <!-- Files -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Files</span>
+                </div>
+                <!-- Database -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Database</span>
+                </div>
+                <!-- Web -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Web</span>
+                </div>
+                <!-- Terminal -->
+                <div class="tool-icon-cell flex flex-col items-center gap-2 p-4 rounded-xl cursor-default">
+                  <svg class="w-6 h-6" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  <span class="text-xs" style="color: #64748b;">Terminal</span>
+                </div>
+              </div>
+              <div class="rounded-xl p-4 text-center" style="background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15);">
+                <span class="text-2xl font-bold gradient-text">110+</span>
+                <span class="text-sm ml-2" style="color: #64748b;">total tools available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how-it-works" class="py-28 px-6 relative overflow-hidden">
+    <!-- Ambient glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] pointer-events-none" style="background: radial-gradient(ellipse, rgba(139,92,246,0.08) 0%, transparent 70%); filter: blur(40px);"></div>
+
+    <div class="max-w-6xl mx-auto relative z-10 fade-in-up" data-reveal>
+      <!-- Header -->
+      <div class="text-center mb-20">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase mb-4" style="color: #3b82f6;">How It Works</p>
+        <h2 class="section-heading text-4xl md:text-5xl font-bold mb-5 leading-tight" style="color: #f0f4ff;">
+          Three steps to <span class="gradient-text">effortless execution</span>
+        </h2>
+        <p class="text-lg max-w-xl mx-auto" style="color: #64748b;">
+          From a single message to a completed deliverable &mdash; Gary handles everything in between.
+        </p>
+      </div>
+
+      <!-- Steps -->
+      <div class="relative">
+        <!-- Connector line (desktop) -->
+        <div class="hidden lg:block absolute top-[68px] left-[16.67%] right-[16.67%] h-[2px] z-0" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4); opacity: 0.3;"></div>
+
+        <div class="grid md:grid-cols-3 gap-8 relative z-10">
+          <!-- Step 1 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center mb-6 relative" style="background: rgba(59,130,246,0.1); border: 2px solid rgba(59,130,246,0.4); box-shadow: 0 0 30px rgba(59,130,246,0.2);">
+              <svg class="w-7 h-7" style="color: #3b82f6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <span class="text-xs font-bold tracking-[0.15em] uppercase mb-2" style="color: #3b82f6; opacity: 0.7;">Step 01</span>
+            <h3 class="text-2xl font-bold mb-3" style="color: #f0f4ff;">You Ask</h3>
+            <p class="text-sm leading-relaxed mb-6" style="color: #64748b;">Speak naturally. Type a request like you'd message a colleague. No commands, no syntax.</p>
+            <div class="w-full rounded-xl p-4 text-left" style="background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.15);">
+              <p class="text-xs leading-relaxed italic" style="color: #94a3b8;">"Schedule a debrief with the team for next week and prep an agenda based on this week's threads."</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center mb-6 relative" style="background: rgba(139,92,246,0.1); border: 2px solid rgba(139,92,246,0.4); box-shadow: 0 0 30px rgba(139,92,246,0.2);">
+              <svg class="w-7 h-7" style="color: #8b5cf6;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <span class="text-xs font-bold tracking-[0.15em] uppercase mb-2" style="color: #8b5cf6; opacity: 0.7;">Step 02</span>
+            <h3 class="text-2xl font-bold mb-3" style="color: #f0f4ff;">Gary Dispatches</h3>
+            <p class="text-sm leading-relaxed mb-6" style="color: #64748b;">Gary parses intent, selects the right agents, dispatches parallel tasks, and monitors progress.</p>
+            <div class="w-full rounded-xl p-4 text-left" style="background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.15);">
+              <p class="text-xs leading-relaxed italic" style="color: #94a3b8;">Routing &rarr; Calendar Agent, Email Agent, Context Agent running in parallel...</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center mb-6 relative" style="background: rgba(6,182,212,0.1); border: 2px solid rgba(6,182,212,0.4); box-shadow: 0 0 30px rgba(6,182,212,0.2);">
+              <svg class="w-7 h-7" style="color: #06b6d4;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+            </div>
+            <span class="text-xs font-bold tracking-[0.15em] uppercase mb-2" style="color: #06b6d4; opacity: 0.7;">Step 03</span>
+            <h3 class="text-2xl font-bold mb-3" style="color: #f0f4ff;">You Review</h3>
+            <p class="text-sm leading-relaxed mb-6" style="color: #64748b;">Polished deliverables land in your outbox. Approve, edit, or reject with a single action.</p>
+            <div class="w-full rounded-xl p-4 text-left" style="background: rgba(6,182,212,0.05); border: 1px solid rgba(6,182,212,0.15);">
+              <p class="text-xs leading-relaxed italic" style="color: #94a3b8;">Draft invite sent &#10003;&nbsp;&nbsp; Agenda prepared &#10003;&nbsp;&nbsp; Thread summary attached &#10003;</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ TECH STACK ============ -->
+  <section id="tech" class="py-28 px-6 relative overflow-hidden">
+    <!-- Grid bg -->
+    <div class="absolute inset-0 pointer-events-none" style="opacity: 0.03; background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <!-- Top/bottom accent lines -->
+    <div class="absolute top-0 left-0 right-0 h-px pointer-events-none" style="background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), rgba(139,92,246,0.4), transparent);"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-px pointer-events-none" style="background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), rgba(139,92,246,0.4), transparent);"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10 fade-in-up" data-reveal>
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase mb-4" style="color: #3b82f6;">Tech Stack</p>
+        <h2 class="section-heading text-4xl md:text-5xl font-bold mb-5" style="color: #f0f4ff;">
+          Built <span class="gradient-text">Different</span>
+        </h2>
+        <p class="text-lg max-w-xl mx-auto" style="color: #64748b;">
+          Gary is a native desktop application built with the best tools available. No browser tabs. No Electron bloat.
+        </p>
+      </div>
+
+      <!-- Badge grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); box-shadow: 0 0 16px rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">Tauri 2</span>
+          <span class="text-xs" style="color: #64748b;">Native desktop shell</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(139,92,246,0.1)); box-shadow: 0 0 16px rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">React 19</span>
+          <span class="text-xs" style="color: #64748b;">UI framework</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(6,182,212,0.1)); box-shadow: 0 0 16px rgba(6,182,212,0.2); border: 1px solid rgba(6,182,212,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">SQLite</span>
+          <span class="text-xs" style="color: #64748b;">Local-first database</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); box-shadow: 0 0 16px rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">Claude API</span>
+          <span class="text-xs" style="color: #64748b;">Anthropic intelligence</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(139,92,246,0.1)); box-shadow: 0 0 16px rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">110+ MCP Tools</span>
+          <span class="text-xs" style="color: #64748b;">Tool ecosystem</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(16,185,129,0.1)); box-shadow: 0 0 16px rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">Zustand</span>
+          <span class="text-xs" style="color: #64748b;">State management</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); box-shadow: 0 0 16px rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">Tailwind CSS</span>
+          <span class="text-xs" style="color: #64748b;">Styling system</span>
+        </div>
+        <div class="tech-badge rounded-xl p-5 flex flex-col gap-2 cursor-default">
+          <div class="w-8 h-8 rounded-lg mb-1" style="background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(245,158,11,0.1)); box-shadow: 0 0 16px rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.3);"></div>
+          <span class="font-bold text-sm" style="color: #f0f4ff;">Vite 7</span>
+          <span class="text-xs" style="color: #64748b;">Build tooling</span>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-sm" style="color: #475569;">All data stays on your machine. Gary is fully local-first &mdash; no cloud backend except AI APIs.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ STATS SECTION ============ -->
+  <section class="py-28 px-6 relative">
+    <!-- Ambient glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] pointer-events-none" style="background: radial-gradient(ellipse, rgba(59,130,246,0.06) 0%, transparent 70%); filter: blur(60px);"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10 fade-in-up" data-reveal>
+      <div class="text-center mb-16">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase mb-4" style="color: #3b82f6;">By The Numbers</p>
+        <h2 class="section-heading text-4xl md:text-5xl font-bold" style="color: #f0f4ff;">
+          Real numbers. <span class="gradient-text">Real results.</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 110+ -->
+        <div class="glass-card gradient-border rounded-2xl p-8 text-center stat-card" style="background: rgba(59,130,246,0.03);">
+          <div class="text-4xl md:text-5xl font-black mb-2 leading-none" style="background: linear-gradient(135deg, #3b82f6, rgba(255,255,255,0.5)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(59,130,246,0.4));">110+</div>
+          <div class="font-semibold text-sm mb-1" style="color: #f0f4ff;">MCP Tools</div>
+          <div class="text-xs" style="color: #475569;">Ready out of the box</div>
+        </div>
+        <!-- 25 -->
+        <div class="glass-card gradient-border rounded-2xl p-8 text-center stat-card" style="background: rgba(139,92,246,0.03);">
+          <div class="text-4xl md:text-5xl font-black mb-2 leading-none" style="background: linear-gradient(135deg, #8b5cf6, rgba(255,255,255,0.5)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(139,92,246,0.4));">25</div>
+          <div class="font-semibold text-sm mb-1" style="color: #f0f4ff;">DB Migrations</div>
+          <div class="text-xs" style="color: #475569;">Shipped and stable</div>
+        </div>
+        <!-- $0 -->
+        <div class="glass-card gradient-border rounded-2xl p-8 text-center stat-card" style="background: rgba(6,182,212,0.03);">
+          <div class="text-4xl md:text-5xl font-black mb-2 leading-none" style="background: linear-gradient(135deg, #06b6d4, rgba(255,255,255,0.5)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(6,182,212,0.4));">$0</div>
+          <div class="font-semibold text-sm mb-1" style="color: #f0f4ff;">Code Dispatch Cost</div>
+          <div class="text-xs" style="color: #475569;">Max plan covered</div>
+        </div>
+        <!-- <$15/wk -->
+        <div class="glass-card gradient-border rounded-2xl p-8 text-center stat-card" style="background: rgba(16,185,129,0.03);">
+          <div class="text-4xl md:text-5xl font-black mb-2 leading-none" style="background: linear-gradient(135deg, #10b981, rgba(255,255,255,0.5)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(16,185,129,0.4));">&lt;$15</div>
+          <div class="font-semibold text-sm mb-1" style="color: #f0f4ff;">Weekly AI Cost</div>
+          <div class="text-xs" style="color: #475569;">Incredibly efficient</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="py-16 px-6 relative overflow-hidden">
+    <!-- Top border -->
+    <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), rgba(139,92,246,0.3), transparent);"></div>
+
+    <!-- Subtle glow -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] pointer-events-none" style="background: radial-gradient(ellipse, rgba(59,130,246,0.05) 0%, transparent 70%); filter: blur(40px);"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10 flex flex-col items-center gap-6 text-center">
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; box-shadow: 0 0 20px rgba(59,130,246,0.4);">G</div>
+        <span class="text-xl font-bold gradient-text">Gary</span>
+      </div>
+
+      <!-- Credit -->
+      <p class="text-sm font-medium" style="color: #94a3b8;">
+        Built by <span class="gradient-text font-semibold">Willie &amp; Gary</span>
+      </p>
+
+      <!-- Stack note -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono" style="background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15); color: #64748b;">
+        <span style="color: #3b82f6;">WillieOS</span>
+        <span style="color: #1e293b;">&mdash;</span>
+        <span>Tauri 2</span>
+        <span style="color: #1e293b;">+</span>
+        <span>React</span>
+        <span style="color: #1e293b;">+</span>
+        <span>SQLite</span>
+      </div>
+
+      <!-- Copyright -->
+      <p class="text-xs" style="color: #334155;">
+        &copy; 2026 WillieOS. Gary is a personal AI chief of staff.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ============ SCRIPTS ============ -->
+  <script>
+    // Scroll reveal (IntersectionObserver)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Make hero visible immediately
+      var heroEl = document.querySelector('[data-reveal="hero"]');
+      if (heroEl) {
+        setTimeout(function() { heroEl.classList.add('visible'); }, 100);
+      }
+
+      // Observe other elements
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('[data-reveal]:not([data-reveal="hero"])').forEach(function(el) {
+        observer.observe(el);
+      });
+
+      // Navbar scroll effect
+      var navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+          navbar.classList.add('nav-scrolled');
+        } else {
+          navbar.classList.remove('nav-scrolled');
+        }
+      }, { passive: true });
+    });
+
+    // Mobile menu
+    function toggleMobileMenu() {
+      var menu = document.getElementById('mobile-menu');
+      if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'flex';
+      }
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
