@@ -101,6 +101,46 @@ body::before {
 .day-badge.on { background: var(--green-dim); color: var(--green); }
 .day-badge.off { background: var(--rest-bg); color: var(--rest-color); }
 
+/* Sync indicator */
+.sync-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  height: 18px;
+}
+.sync-bar .sync-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sync-dot.synced { background: var(--green); }
+.sync-dot.syncing { background: var(--amber); animation: syncPulse 1s infinite; }
+.sync-dot.error { background: var(--red); }
+.sync-dot.offline { background: var(--text-muted); }
+.sync-dot.local { background: var(--blue); }
+@keyframes syncPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.sync-bar button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.sync-bar button:hover { color: var(--text-secondary); }
+
 /* Nav */
 .nav {
   display: flex;
@@ -237,7 +277,9 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
 }
 .site-options {
@@ -259,19 +301,17 @@ body::before {
 }
 .site-btn:hover { border-color: rgba(255, 255, 255, 0.15); }
 .site-btn.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
-.site-btn.suggested {
-  position: relative;
-}
-.site-btn.suggested::after {
-  content: '← suggested';
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
+
+/* Suggested indicator — inline tag, not positioned pseudo-element */
+.suggested-tag {
+  display: inline-flex;
+  align-items: center;
   font-size: 0.55rem;
   color: var(--green);
-  white-space: nowrap;
   font-weight: 600;
+  padding: 3px 8px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
 /* Check-off button */
@@ -492,7 +532,7 @@ body::before {
   position: relative;
 }
 .bloodwork-items li::before {
-  content: '•';
+  content: '\2022';
   position: absolute;
   left: 4px;
   color: var(--text-muted);
@@ -615,6 +655,14 @@ body::before {
   border-color: rgba(255, 255, 255, 0.15);
   color: var(--text-primary);
 }
+.action-btn.google {
+  border-color: rgba(66, 133, 244, 0.3);
+  color: #8ab4f8;
+}
+.action-btn.google:hover {
+  border-color: rgba(66, 133, 244, 0.5);
+  background: rgba(66, 133, 244, 0.08);
+}
 
 /* Retroactive log modal */
 .modal-overlay {
@@ -716,6 +764,100 @@ body::before {
   transition: all 0.2s var(--spring);
 }
 .reset-btn:hover { background: var(--red-dim); }
+
+/* Google setup card */
+.setup-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(66, 133, 244, 0.2);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.setup-card .setup-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.setup-card .setup-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.setup-card input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.78rem;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.setup-card input[type="text"]:focus {
+  border-color: rgba(66, 133, 244, 0.5);
+}
+.setup-card input[type="text"]::placeholder {
+  color: var(--text-muted);
+}
+.setup-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #4285f4;
+  color: white;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s var(--spring);
+}
+.setup-btn:hover { background: #5a95f5; }
+.setup-btn:disabled {
+  background: rgba(66, 133, 244, 0.3);
+  cursor: not-allowed;
+}
+
+.disconnect-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+.disconnect-btn:hover { border-color: var(--red); color: var(--red); }
+
+/* Sync info area in stats */
+.sync-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.sync-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 0.72rem;
+}
+.sync-info-row .label { color: var(--text-muted); font-weight: 500; }
+.sync-info-row .value { color: var(--text-secondary); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -724,6 +866,10 @@ body::before {
     <h1>PEPTIDE PROTOCOL</h1>
     <div class="date" id="headerDate">April 15, 2026</div>
     <div class="day-badge" id="dayBadge">Injection Day</div>
+    <div class="sync-bar" id="syncBar">
+      <span class="sync-dot local" id="syncDot"></span>
+      <span id="syncText">Local only</span>
+    </div>
   </header>
 
   <nav class="nav">
@@ -739,10 +885,10 @@ body::before {
   <section class="section active" id="tab-today">
     <div class="card" id="glowCard">
       <div class="card-header">
-        <div class="card-icon glow">🧬</div>
+        <div class="card-icon glow">&#x1f9ec;</div>
         <div class="card-title-group">
           <div class="card-title">GLOW Blend</div>
-          <div class="card-subtitle">BPC-157 · TB-500 · GHK-Cu</div>
+          <div class="card-subtitle">BPC-157 &middot; TB-500 &middot; GHK-Cu</div>
         </div>
         <div class="card-status" id="glowStatus">Pending</div>
       </div>
@@ -771,7 +917,7 @@ body::before {
 
     <div class="card" id="cjcCard">
       <div class="card-header">
-        <div class="card-icon cjc">💎</div>
+        <div class="card-icon cjc">&#x1f48e;</div>
         <div class="card-title-group">
           <div class="card-title">CJC-1295 + Ipamorelin</div>
           <div class="card-subtitle">Growth Hormone Secretagogue</div>
@@ -789,7 +935,7 @@ body::before {
         </div>
         <div class="detail-item" style="grid-column: span 2">
           <div class="detail-label">Fasting Rule</div>
-          <div class="detail-value" style="font-size:0.75rem;font-weight:500">2+ hrs fasted before · No food 30 min after</div>
+          <div class="detail-value" style="font-size:0.75rem;font-weight:500">2+ hrs fasted before &middot; No food 30 min after</div>
         </div>
       </div>
       <div class="site-selector" id="cjcSiteSelector">
@@ -808,7 +954,7 @@ body::before {
 
     <div class="card">
       <div class="card-header" style="margin-bottom:10px">
-        <div class="card-icon glow">🧬</div>
+        <div class="card-icon glow">&#x1f9ec;</div>
         <div class="card-title-group">
           <div class="card-title">GLOW Blend Pen</div>
           <div class="card-subtitle">9 clicks per dose</div>
@@ -829,7 +975,7 @@ body::before {
 
     <div class="card">
       <div class="card-header" style="margin-bottom:10px">
-        <div class="card-icon cjc">💎</div>
+        <div class="card-icon cjc">&#x1f48e;</div>
         <div class="card-title-group">
           <div class="card-title">CJC/Ipa Pen</div>
           <div class="card-subtitle">5 clicks per dose</div>
@@ -887,6 +1033,9 @@ body::before {
     <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:10px;font-weight:500">Tap days to toggle ON/OFF</div>
     <div class="day-config" id="dayConfig"></div>
 
+    <div class="section-title">Google Drive Sync</div>
+    <div id="syncSetupArea"></div>
+
     <div class="section-title">Data</div>
     <div class="data-actions">
       <button class="action-btn" onclick="exportData()">Export JSON</button>
@@ -912,7 +1061,7 @@ body::before {
     <div class="accordion" id="acc-redflags">
       <button class="accordion-header" onclick="toggleAccordion('acc-redflags')">
         <span>Red Flags to Watch</span>
-        <span class="arrow">▼</span>
+        <span class="arrow">&#x25BC;</span>
       </button>
       <div class="accordion-body">
         <ul>
@@ -930,15 +1079,15 @@ body::before {
 
     <div class="accordion" id="acc-timeline">
       <button class="accordion-header" onclick="toggleAccordion('acc-timeline')">
-        <span>What to Expect — Timeline</span>
-        <span class="arrow">▼</span>
+        <span>What to Expect &mdash; Timeline</span>
+        <span class="arrow">&#x25BC;</span>
       </button>
       <div class="accordion-body">
         <div class="timeline-heading">Week 1-2: Ramp-Up</div>
         <ul>
           <li>Possible mild fatigue as body adjusts</li>
           <li>Improved sleep quality (from CJC/Ipa)</li>
-          <li>Slight water retention — normal and temporary</li>
+          <li>Slight water retention &mdash; normal and temporary</li>
         </ul>
         <div class="timeline-heading">Week 2-4: Early Benefits</div>
         <ul>
@@ -966,12 +1115,12 @@ body::before {
     <div class="accordion" id="acc-fasting">
       <button class="accordion-header" onclick="toggleAccordion('acc-fasting')">
         <span>Fasting Rules</span>
-        <span class="arrow">▼</span>
+        <span class="arrow">&#x25BC;</span>
       </button>
       <div class="accordion-body">
         <div class="timeline-heading">GLOW Blend (Morning)</div>
         <ul>
-          <li>Inject fasted — first thing in the morning</li>
+          <li>Inject fasted &mdash; first thing in the morning</li>
           <li>Wait 20-30 minutes before eating</li>
           <li>Water and black coffee are fine beforehand</li>
         </ul>
@@ -988,13 +1137,13 @@ body::before {
     <div class="accordion" id="acc-sites">
       <button class="accordion-header" onclick="toggleAccordion('acc-sites')">
         <span>Injection Site Rotation Guide</span>
-        <span class="arrow">▼</span>
+        <span class="arrow">&#x25BC;</span>
       </button>
       <div class="accordion-body">
         <ul>
           <li><strong>Abdomen:</strong> 2 inches from navel, alternate left/right. Most common site, fastest absorption.</li>
           <li><strong>Inner Thigh:</strong> Upper inner thigh, alternate legs. Good for those with less abdominal tissue.</li>
-          <li><strong>Near Injury:</strong> For GLOW blend — inject subcutaneously near the injury site for localized healing. Keep 1-2 inches away from the actual wound/inflammation.</li>
+          <li><strong>Near Injury:</strong> For GLOW blend &mdash; inject subcutaneously near the injury site for localized healing. Keep 1-2 inches away from the actual wound/inflammation.</li>
         </ul>
         <p style="margin-top:10px;font-weight:500;color:var(--text-secondary)">Rotate sites each day. Never inject the same exact spot two days in a row. The app tracks your last 3 sites and suggests the next rotation.</p>
       </div>
@@ -1018,7 +1167,339 @@ body::before {
 </div>
 
 <script>
-// ─── Data Layer ────────────────────────────────────────────────
+// =====================================================================
+//  GOOGLE DRIVE SYNC ENGINE
+// =====================================================================
+const DRIVE_FILE_NAME = 'peptide-tracker-data.json';
+const DRIVE_SCOPES = 'https://www.googleapis.com/auth/drive.file';
+const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+const CLIENT_ID_KEY = 'peptide-tracker-google-client-id';
+
+const DriveSync = {
+  clientId: null,
+  tokenClient: null,
+  accessToken: null,
+  fileId: null,
+  lastSyncTime: null,
+  syncState: 'local', // local | syncing | synced | error | offline
+  gapiLoaded: false,
+  gisLoaded: false,
+  initPromise: null,
+  _syncTimeout: null,
+
+  // Load client ID — hardcoded, no manual entry needed
+  loadClientId() {
+    this.clientId = '1098459920744-206e20ulpbfuc7pdfcpoqinhpgq978bf.apps.googleusercontent.com';
+    return this.clientId;
+  },
+
+  saveClientId(id) {
+    const cleaned = (id || '').trim();
+    if (cleaned) {
+      localStorage.setItem(CLIENT_ID_KEY, cleaned);
+      this.clientId = cleaned;
+    }
+  },
+
+  removeClientId() {
+    localStorage.removeItem(CLIENT_ID_KEY);
+    this.clientId = null;
+    this.accessToken = null;
+    this.fileId = null;
+    this.lastSyncTime = null;
+    this.syncState = 'local';
+    // Revoke token if possible
+    if (this.accessToken) {
+      try { google.accounts.oauth2.revoke(this.accessToken); } catch(e) {}
+    }
+  },
+
+  // Dynamically load the Google API + GIS scripts
+  loadScripts() {
+    if (this.initPromise) return this.initPromise;
+
+    this.initPromise = new Promise((resolve) => {
+      let loaded = 0;
+      const checkDone = () => { if (++loaded === 2) resolve(); };
+
+      // gapi
+      if (window.gapi) {
+        this.gapiLoaded = true;
+        checkDone();
+      } else {
+        const s1 = document.createElement('script');
+        s1.src = 'https://apis.google.com/js/api.js';
+        s1.onload = () => {
+          gapi.load('client', async () => {
+            await gapi.client.init({});
+            await gapi.client.load(DISCOVERY_DOC);
+            this.gapiLoaded = true;
+            checkDone();
+          });
+        };
+        s1.onerror = () => { this.gapiLoaded = false; checkDone(); };
+        document.head.appendChild(s1);
+      }
+
+      // GIS (Google Identity Services)
+      if (window.google && google.accounts) {
+        this.gisLoaded = true;
+        checkDone();
+      } else {
+        const s2 = document.createElement('script');
+        s2.src = 'https://accounts.google.com/gsi/client';
+        s2.onload = () => { this.gisLoaded = true; checkDone(); };
+        s2.onerror = () => { this.gisLoaded = false; checkDone(); };
+        document.head.appendChild(s2);
+      }
+    });
+
+    return this.initPromise;
+  },
+
+  // Initialize OAuth token client
+  initTokenClient() {
+    if (!this.gisLoaded || !this.clientId) return;
+    this.tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: this.clientId,
+      scope: DRIVE_SCOPES,
+      callback: '', // set at auth time
+    });
+  },
+
+  // Request access token (user interaction required)
+  async authenticate() {
+    if (!this.clientId) throw new Error('No Client ID configured');
+    await this.loadScripts();
+    if (!this.gapiLoaded || !this.gisLoaded) throw new Error('Google API failed to load');
+
+    this.initTokenClient();
+    if (!this.tokenClient) throw new Error('Failed to init token client');
+
+    return new Promise((resolve, reject) => {
+      this.tokenClient.callback = (resp) => {
+        if (resp.error) {
+          this.syncState = 'error';
+          reject(new Error(resp.error));
+          return;
+        }
+        this.accessToken = resp.access_token;
+        gapi.client.setToken({ access_token: resp.access_token });
+        resolve();
+      };
+      this.tokenClient.error_callback = (err) => {
+        this.syncState = 'error';
+        reject(err);
+      };
+
+      // If we already have a token, try silent refresh
+      if (gapi.client.getToken()) {
+        this.tokenClient.requestAccessToken({ prompt: '' });
+      } else {
+        this.tokenClient.requestAccessToken({ prompt: 'consent' });
+      }
+    });
+  },
+
+  // Find or create the tracker JSON file on Drive
+  async findOrCreateFile() {
+    // Search for existing file
+    const resp = await gapi.client.drive.files.list({
+      q: "name = '" + DRIVE_FILE_NAME + "' and trashed = false and mimeType = 'application/json'",
+      spaces: 'drive',
+      fields: 'files(id, name, modifiedTime)',
+      pageSize: 1,
+    });
+
+    const files = resp.result.files;
+    if (files && files.length > 0) {
+      this.fileId = files[0].id;
+      return this.fileId;
+    }
+
+    // Create new file
+    const createResp = await gapi.client.drive.files.create({
+      resource: {
+        name: DRIVE_FILE_NAME,
+        mimeType: 'application/json',
+      },
+      fields: 'id',
+    });
+    this.fileId = createResp.result.id;
+    return this.fileId;
+  },
+
+  // Read data from Drive
+  async readFromDrive() {
+    if (!this.fileId) await this.findOrCreateFile();
+
+    try {
+      const resp = await gapi.client.drive.files.get({
+        fileId: this.fileId,
+        alt: 'media',
+      });
+
+      // resp.body is the raw text, resp.result may be parsed
+      if (resp.result && typeof resp.result === 'object' && resp.result.logs) {
+        return resp.result;
+      }
+      // If body exists but result didn't parse right
+      if (resp.body) {
+        try {
+          const parsed = JSON.parse(resp.body);
+          if (parsed && parsed.logs) return parsed;
+        } catch(e) {}
+      }
+      return null; // empty/new file
+    } catch(e) {
+      // 404 means file was deleted, re-create
+      if (e.status === 404) {
+        this.fileId = null;
+        return null;
+      }
+      throw e;
+    }
+  },
+
+  // Write data to Drive
+  async writeToDrive(data) {
+    if (!this.fileId) await this.findOrCreateFile();
+
+    const boundary = '-------peptidetracker';
+    const delimiter = '\r\n--' + boundary + '\r\n';
+    const closeDelimiter = '\r\n--' + boundary + '--';
+
+    const metadata = JSON.stringify({
+      mimeType: 'application/json',
+    });
+
+    const body = JSON.stringify(data, null, 2);
+
+    const multipartRequestBody =
+      delimiter +
+      'Content-Type: application/json\r\n\r\n' +
+      metadata +
+      delimiter +
+      'Content-Type: application/json\r\n\r\n' +
+      body +
+      closeDelimiter;
+
+    const request = gapi.client.request({
+      path: '/upload/drive/v3/files/' + this.fileId,
+      method: 'PATCH',
+      params: { uploadType: 'multipart' },
+      headers: {
+        'Content-Type': 'multipart/related; boundary=' + boundary,
+      },
+      body: multipartRequestBody,
+    });
+
+    await request;
+    this.lastSyncTime = new Date();
+  },
+
+  // Full sync: read from Drive, merge with local, write back
+  async sync(localData) {
+    if (!this.clientId || !this.accessToken) return localData;
+
+    this.syncState = 'syncing';
+    updateSyncUI();
+
+    try {
+      if (!navigator.onLine) {
+        this.syncState = 'offline';
+        updateSyncUI();
+        return localData;
+      }
+
+      await this.findOrCreateFile();
+      const driveData = await this.readFromDrive();
+
+      let merged;
+      if (!driveData || !driveData.logs) {
+        // Drive is empty, upload local data (first-time migration)
+        merged = localData;
+        await this.writeToDrive(merged);
+      } else {
+        // Merge: union of logs by id, take latest pen values
+        merged = this.mergeData(localData, driveData);
+        await this.writeToDrive(merged);
+      }
+
+      this.syncState = 'synced';
+      this.lastSyncTime = new Date();
+      updateSyncUI();
+      return merged;
+    } catch(e) {
+      console.warn('Drive sync failed:', e);
+      // If auth expired, clear token
+      if (e.status === 401 || e.status === 403) {
+        gapi.client.setToken(null);
+        this.accessToken = null;
+      }
+      this.syncState = 'error';
+      updateSyncUI();
+      return localData;
+    }
+  },
+
+  // Merge local and remote data
+  mergeData(local, remote) {
+    // Union logs by id
+    const logMap = new Map();
+    (remote.logs || []).forEach(l => logMap.set(l.id, l));
+    (local.logs || []).forEach(l => logMap.set(l.id, l)); // local wins on conflict
+    const mergedLogs = Array.from(logMap.values())
+      .sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+
+    // Pen levels: recalculate from logs to be accurate
+    const merged = {
+      logs: mergedLogs,
+      pens: { ...local.pens },
+      activeDays: local.activeDays || remote.activeDays || [1,2,3,4,5],
+      protocolStart: local.protocolStart || remote.protocolStart || PROTOCOL_START,
+    };
+
+    return merged;
+  },
+
+  // Push-only write after a data change (debounced)
+  schedulePush(data) {
+    if (!this.clientId || !this.accessToken) return;
+    clearTimeout(this._syncTimeout);
+    this._syncTimeout = setTimeout(async () => {
+      this.syncState = 'syncing';
+      updateSyncUI();
+      try {
+        if (!navigator.onLine) {
+          this.syncState = 'offline';
+          updateSyncUI();
+          return;
+        }
+        await this.writeToDrive(data);
+        this.syncState = 'synced';
+        this.lastSyncTime = new Date();
+      } catch(e) {
+        console.warn('Drive push failed:', e);
+        if (e.status === 401 || e.status === 403) {
+          gapi.client.setToken(null);
+          this.accessToken = null;
+        }
+        this.syncState = 'error';
+      }
+      updateSyncUI();
+    }, 1500); // 1.5s debounce
+  },
+
+  isConnected() {
+    return !!(this.clientId && this.accessToken);
+  },
+};
+
+
+// =====================================================================
+//  DATA LAYER
+// =====================================================================
 const STORAGE_KEY = 'peptide-tracker-v1';
 const PEN_CAPACITY = 220;
 const GLOW_CLICKS = 9;
@@ -1032,7 +1513,7 @@ function defaultData() {
   return {
     logs: [],
     pens: { glow: PEN_CAPACITY, cjc: PEN_CAPACITY },
-    activeDays: [1, 2, 3, 4, 5], // Mon-Fri
+    activeDays: [1, 2, 3, 4, 5],
     protocolStart: PROTOCOL_START,
   };
 }
@@ -1042,7 +1523,6 @@ function loadData() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultData();
     const d = JSON.parse(raw);
-    // Migrate old data if needed
     if (!d.pens) d.pens = { glow: PEN_CAPACITY, cjc: PEN_CAPACITY };
     if (!d.activeDays) d.activeDays = [1, 2, 3, 4, 5];
     if (!d.protocolStart) d.protocolStart = PROTOCOL_START;
@@ -1050,14 +1530,180 @@ function loadData() {
   } catch { return defaultData(); }
 }
 
-function saveData(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+function saveData(d) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+  // Also push to Drive if connected
+  DriveSync.schedulePush(d);
 }
 
 let data = loadData();
 let lastAction = null;
 
-// ─── Utilities ─────────────────────────────────────────────────
+
+// =====================================================================
+//  SYNC UI
+// =====================================================================
+function updateSyncUI() {
+  const dot = document.getElementById('syncDot');
+  const text = document.getElementById('syncText');
+  if (!dot || !text) return;
+
+  const state = DriveSync.syncState;
+  dot.className = 'sync-dot ' + state;
+
+  switch(state) {
+    case 'synced':
+      text.textContent = DriveSync.lastSyncTime
+        ? 'Synced ' + formatTimeAgo(DriveSync.lastSyncTime)
+        : 'Synced';
+      break;
+    case 'syncing':
+      text.textContent = 'Syncing...';
+      break;
+    case 'error':
+      text.textContent = 'Sync error';
+      break;
+    case 'offline':
+      text.textContent = 'Offline (local)';
+      break;
+    default:
+      text.textContent = DriveSync.clientId ? 'Not signed in' : 'Local only';
+  }
+}
+
+function formatTimeAgo(date) {
+  const secs = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (secs < 10) return 'just now';
+  if (secs < 60) return secs + 's ago';
+  const mins = Math.floor(secs / 60);
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  return hrs + 'h ago';
+}
+
+// Update the "time ago" display every 30s
+setInterval(updateSyncUI, 30000);
+
+// Render the sync setup area in Stats tab
+function renderSyncSetup() {
+  const area = document.getElementById('syncSetupArea');
+  if (!area) return;
+
+  if (DriveSync.isConnected()) {
+    // Connected state
+    area.innerHTML =
+      '<div class="sync-info-card">' +
+        '<div class="sync-info-row">' +
+          '<span class="label">Status</span>' +
+          '<span class="value" style="color:var(--green)">Connected</span>' +
+        '</div>' +
+        '<div class="sync-info-row">' +
+          '<span class="label">Last Sync</span>' +
+          '<span class="value" id="syncInfoTime">' +
+            (DriveSync.lastSyncTime ? DriveSync.lastSyncTime.toLocaleTimeString() : 'Not yet') +
+          '</span>' +
+        '</div>' +
+        '<div class="sync-info-row">' +
+          '<span class="label">Drive File</span>' +
+          '<span class="value">' + DRIVE_FILE_NAME + '</span>' +
+        '</div>' +
+        '<button class="action-btn google" onclick="forceDriveSync()" style="width:100%;margin-top:10px">Sync Now</button>' +
+        '<button class="disconnect-btn" onclick="disconnectDrive()">Disconnect Google Drive</button>' +
+      '</div>';
+  } else if (DriveSync.clientId) {
+    // Has client ID but not signed in
+    area.innerHTML =
+      '<div class="setup-card">' +
+        '<div class="setup-title">&#x2601;&#xfe0f; Google Drive Sync</div>' +
+        '<div class="setup-desc">Sign in to sync your data across all devices.</div>' +
+        '<button class="setup-btn" onclick="signInDrive()">Sign in with Google</button>' +
+        '<button class="disconnect-btn" onclick="disconnectDrive()">Remove Client ID</button>' +
+      '</div>';
+  } else {
+    // No client ID configured
+    area.innerHTML =
+      '<div class="setup-card">' +
+        '<div class="setup-title">&#x2601;&#xfe0f; Google Drive Sync</div>' +
+        '<div class="setup-desc">' +
+          'Sync across devices using Google Drive. You need a Google Cloud OAuth Client ID.' +
+          '<br><br>' +
+          '<strong>Setup (one time):</strong><br>' +
+          '1. Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener" style="color:#8ab4f8">Google Cloud Console</a><br>' +
+          '2. Create OAuth 2.0 Client ID (Web application type)<br>' +
+          '3. Add your domain to Authorized JavaScript origins<br>' +
+          '4. Enable the Google Drive API<br>' +
+          '5. Paste the Client ID below' +
+        '</div>' +
+        '<input type="text" id="clientIdInput" placeholder="Paste your OAuth Client ID here...">' +
+        '<button class="setup-btn" id="saveClientIdBtn" onclick="saveAndConnectDrive()">Save &amp; Connect</button>' +
+      '</div>';
+  }
+}
+
+async function saveAndConnectDrive() {
+  const input = document.getElementById('clientIdInput');
+  const clientId = (input ? input.value : '').trim();
+  if (!clientId) {
+    alert('Please paste a valid OAuth Client ID.');
+    return;
+  }
+  if (!clientId.includes('.apps.googleusercontent.com')) {
+    alert('That doesn\'t look like a Google OAuth Client ID. It should end in .apps.googleusercontent.com');
+    return;
+  }
+
+  DriveSync.saveClientId(clientId);
+  renderSyncSetup();
+  await signInDrive();
+}
+
+async function signInDrive() {
+  try {
+    await DriveSync.loadScripts();
+    await DriveSync.authenticate();
+
+    // First sync: migrate localStorage data to Drive
+    data = await DriveSync.sync(data);
+    saveDataLocal(data); // save merged data locally
+    renderAll();
+    renderSyncSetup();
+  } catch(e) {
+    console.error('Sign in failed:', e);
+    DriveSync.syncState = 'error';
+    updateSyncUI();
+    renderSyncSetup();
+    // Don't alert on popup-closed; only alert real errors
+    if (e.type !== 'popup_closed') {
+      alert('Google sign-in failed. Check your Client ID and try again.');
+    }
+  }
+}
+
+function disconnectDrive() {
+  if (confirm('Disconnect Google Drive sync? Your local data will remain.')) {
+    DriveSync.removeClientId();
+    renderSyncSetup();
+    updateSyncUI();
+  }
+}
+
+async function forceDriveSync() {
+  if (!DriveSync.isConnected()) return;
+  data = await DriveSync.sync(data);
+  saveDataLocal(data);
+  renderAll();
+  renderSyncSetup();
+}
+
+// Save only to localStorage, no Drive push (used during merge)
+function saveDataLocal(d) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+}
+
+
+// =====================================================================
+//  UTILITIES
+// =====================================================================
 function todayStr() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -1102,14 +1748,15 @@ function suggestSite(type) {
   const sites = type === 'glow' ? SITES : CJC_SITES;
   const recent = getLast3Sites(type);
   if (recent.length === 0) return sites[0];
-  // Suggest a site not used recently
   for (const s of sites) {
     if (!recent.includes(s)) return s;
   }
   return sites[0];
 }
 
-// ─── Tab Navigation ────────────────────────────────────────────
+// =====================================================================
+//  TAB NAVIGATION
+// =====================================================================
 document.querySelectorAll('.nav button').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
@@ -1119,12 +1766,16 @@ document.querySelectorAll('.nav button').forEach(btn => {
   });
 });
 
-// ─── Accordion ─────────────────────────────────────────────────
+// =====================================================================
+//  ACCORDION
+// =====================================================================
 function toggleAccordion(id) {
   document.getElementById(id).classList.toggle('open');
 }
 
-// ─── Render: Header ────────────────────────────────────────────
+// =====================================================================
+//  RENDER: HEADER
+// =====================================================================
 function renderHeader() {
   const today = new Date();
   document.getElementById('headerDate').textContent = today.toLocaleDateString('en-US', {
@@ -1140,7 +1791,9 @@ function renderHeader() {
   }
 }
 
-// ─── Render: Today Cards ───────────────────────────────────────
+// =====================================================================
+//  RENDER: TODAY CARDS
+// =====================================================================
 function renderTodayCards() {
   const today = todayStr();
   const restDay = !isOnDay(today);
@@ -1162,7 +1815,7 @@ function renderPeptideCard(type, date, restDay) {
     status.textContent = 'Rest Day';
     status.className = 'card-status status-rest';
     btn.className = 'check-btn rest';
-    btn.innerHTML = 'Rest Day — No Injection';
+    btn.innerHTML = 'Rest Day &mdash; No Injection';
     btn.onclick = null;
     siteSelector.style.display = 'none';
   } else if (done) {
@@ -1170,8 +1823,8 @@ function renderPeptideCard(type, date, restDay) {
     status.textContent = 'Done';
     status.className = 'card-status status-done';
     btn.className = 'check-btn done';
-    btn.innerHTML = '<span class="check-icon">✓</span> Logged' +
-      '<span class="timestamp">' + formatTime(logs[0].timestamp) + ' · ' + logs[0].site + '</span>';
+    btn.innerHTML = '<span class="check-icon">\u2713</span> Logged' +
+      '<span class="timestamp">' + formatTime(logs[0].timestamp) + ' \u00b7 ' + logs[0].site + '</span>';
     btn.onclick = null;
     siteSelector.style.display = 'none';
   } else {
@@ -1192,15 +1845,23 @@ function renderSiteOptions(type) {
   container.innerHTML = '';
   sites.forEach(site => {
     const btn = document.createElement('button');
-    btn.className = 'site-btn' + (site === suggested ? ' active suggested' : '');
+    btn.className = 'site-btn' + (site === suggested ? ' active' : '');
     btn.textContent = site;
     btn.onclick = () => {
-      container.querySelectorAll('.site-btn').forEach(b => {
-        b.classList.remove('active', 'suggested');
-      });
+      container.querySelectorAll('.site-btn').forEach(b => b.classList.remove('active'));
+      // Remove any old suggested tags
+      container.querySelectorAll('.suggested-tag').forEach(t => t.remove());
       btn.classList.add('active');
     };
     container.appendChild(btn);
+
+    // Add suggested tag inline AFTER the button, not as a pseudo-element
+    if (site === suggested) {
+      const tag = document.createElement('span');
+      tag.className = 'suggested-tag';
+      tag.textContent = '\u2190 suggested';
+      container.appendChild(tag);
+    }
   });
 }
 
@@ -1209,7 +1870,9 @@ function getSelectedSite(type) {
   return active ? active.textContent : suggestSite(type);
 }
 
-// ─── Log Injection ─────────────────────────────────────────────
+// =====================================================================
+//  LOG INJECTION
+// =====================================================================
 function logInjection(type, date, site) {
   const logDate = date || todayStr();
   const logSite = site || getSelectedSite(type);
@@ -1231,7 +1894,6 @@ function logInjection(type, date, site) {
   lastAction = { entry, penDelta: clicks };
   showUndo(type === 'glow' ? 'GLOW' : 'CJC/Ipa');
 
-  // Animate the button
   const btn = document.getElementById(type + 'CheckBtn');
   if (btn) {
     btn.classList.add('animating');
@@ -1264,7 +1926,9 @@ function hideUndo() {
   document.getElementById('undoBar').classList.remove('visible');
 }
 
-// ─── Render: Supply ────────────────────────────────────────────
+// =====================================================================
+//  RENDER: SUPPLY
+// =====================================================================
 function renderSupply() {
   renderPenBar('glow', GLOW_CLICKS);
   renderPenBar('cjc', CJC_CLICKS);
@@ -1282,7 +1946,6 @@ function renderPenBar(type, clicksPerDose) {
   bar.className = 'pen-bar-inner ' + (pct > 40 ? 'healthy' : pct > 20 ? 'warning' : 'critical');
   info.textContent = remaining + ' / ' + PEN_CAPACITY + ' clicks';
 
-  // Count active days per week
   const activeDaysPerWeek = data.activeDays.length;
   const dosesRemaining = Math.floor(remaining / clicksPerDose);
   const daysRemaining = activeDaysPerWeek > 0
@@ -1292,7 +1955,7 @@ function renderPenBar(type, clicksPerDose) {
 
   if (pct <= 20) {
     warning.style.display = 'inline';
-    warning.textContent = 'Low supply — reorder soon';
+    warning.textContent = 'Low supply \u2014 reorder soon';
   } else {
     warning.style.display = 'none';
   }
@@ -1306,7 +1969,9 @@ function replacePen(type) {
   }
 }
 
-// ─── Render: Week ──────────────────────────────────────────────
+// =====================================================================
+//  RENDER: WEEK
+// =====================================================================
 function renderWeek() {
   const today = new Date();
   const dayOfWeek = today.getDay();
@@ -1338,41 +2003,45 @@ function renderWeekStrip(containerId, monday, type) {
 
     let status;
     if (isRest) {
-      status = '—';
+      status = '\u2014';
     } else if (type === 'both') {
-      if (glowDone && cjcDone) status = '✓';
-      else if (isToday) status = '◌';
-      else if (isPast) status = '✗';
-      else status = '·';
+      if (glowDone && cjcDone) status = '\u2713';
+      else if (isToday) status = '\u25cc';
+      else if (isPast) status = '\u2717';
+      else status = '\u00b7';
     } else {
       const done = type === 'glow' ? glowDone : cjcDone;
-      if (done) status = '✓';
-      else if (isToday) status = '◌';
-      else if (isPast) status = '✗';
-      else status = '·';
+      if (done) status = '\u2713';
+      else if (isToday) status = '\u25cc';
+      else if (isPast) status = '\u2717';
+      else status = '\u00b7';
     }
 
-    const statusColor = status === '✓' ? 'var(--green)' : status === '✗' ? 'var(--red)' : status === '◌' ? 'var(--amber)' : 'var(--text-muted)';
+    const statusColor = status === '\u2713' ? 'var(--green)' : status === '\u2717' ? 'var(--red)' : status === '\u25cc' ? 'var(--amber)' : 'var(--text-muted)';
 
     const el = document.createElement('div');
     el.className = 'week-day' + (isToday ? ' today' : '');
-    el.innerHTML = `
-      <div class="day-name">${DAY_NAMES[d.getDay()]}</div>
-      <div class="day-num">${d.getDate()}</div>
-      <div class="day-status" style="color:${statusColor}">${status}</div>
-    `;
+    el.innerHTML =
+      '<div class="day-name">' + DAY_NAMES[d.getDay()] + '</div>' +
+      '<div class="day-num">' + d.getDate() + '</div>' +
+      '<div class="day-status" style="color:' + statusColor + '">' + status + '</div>';
 
-    // Allow retroactive logging on past missed days
-    if (isPast && !isRest && status === '✗') {
+    if (isPast && !isRest && status === '\u2717') {
       el.style.cursor = 'pointer';
-      el.onclick = () => openRetroModal(ds, type);
+      el.onclick = (() => {
+        const capturedDs = ds;
+        const capturedType = type;
+        return () => openRetroModal(capturedDs, capturedType);
+      })();
     }
 
     container.appendChild(el);
   }
 }
 
-// ─── Retroactive Modal ────────────────────────────────────────
+// =====================================================================
+//  RETROACTIVE MODAL
+// =====================================================================
 function openRetroModal(date, filterType) {
   const modal = document.getElementById('retroModal');
   document.getElementById('retroTitle').textContent = 'Log for ' + formatDateShort(date);
@@ -1408,7 +2077,6 @@ function closeRetroModal() {
 }
 
 function selectRetroSite(btn) {
-  const type = btn.dataset.type;
   btn.parentElement.querySelectorAll('.site-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
@@ -1420,27 +2088,25 @@ function retroLog(type, date, btn) {
   closeRetroModal();
 }
 
-// ─── Render: Stats ─────────────────────────────────────────────
+// =====================================================================
+//  RENDER: STATS
+// =====================================================================
 function renderStats() {
   const start = new Date(data.protocolStart + 'T12:00:00');
   const today = new Date(todayStr() + 'T12:00:00');
   const totalDays = Math.max(1, Math.floor((today - start) / 86400000) + 1);
 
-  // Total injections
   const totalInjections = data.logs.length;
   document.getElementById('statTotal').textContent = totalInjections;
-
-  // Days on protocol
   document.getElementById('statDays').textContent = totalDays;
 
-  // Adherence: count scheduled injection slots vs completed
   let scheduled = 0;
   let completed = 0;
   const d = new Date(start);
   while (d <= today) {
     const ds = dateStr(d);
     if (isOnDay(ds)) {
-      scheduled += 2; // both glow and cjc
+      scheduled += 2;
       if (getLogsForDate(ds, 'glow').length > 0) completed++;
       if (getLogsForDate(ds, 'cjc').length > 0) completed++;
     }
@@ -1449,7 +2115,6 @@ function renderStats() {
   const adherence = scheduled > 0 ? Math.round((completed / scheduled) * 100) : 0;
   document.getElementById('statAdherence').textContent = adherence + '%';
 
-  // Streak: consecutive ON days where both injections were done
   let streak = 0;
   const check = new Date(today);
   while (true) {
@@ -1457,14 +2122,12 @@ function renderStats() {
     if (cs < data.protocolStart) break;
     if (!isOnDay(cs)) {
       check.setDate(check.getDate() - 1);
-      continue; // skip rest days
+      continue;
     }
     const glowDone = getLogsForDate(cs, 'glow').length > 0;
     const cjcDone = getLogsForDate(cs, 'cjc').length > 0;
-    // For today, count even partial
     if (cs === todayStr()) {
       if (glowDone || cjcDone) { streak++; check.setDate(check.getDate() - 1); continue; }
-      // Today not started yet — don't count but don't break streak
       check.setDate(check.getDate() - 1);
       continue;
     }
@@ -1474,7 +2137,9 @@ function renderStats() {
   document.getElementById('statStreak').textContent = streak;
 }
 
-// ─── Render: Day Config ────────────────────────────────────────
+// =====================================================================
+//  RENDER: DAY CONFIG
+// =====================================================================
 function renderDayConfig() {
   const container = document.getElementById('dayConfig');
   container.innerHTML = '';
@@ -1496,7 +2161,9 @@ function renderDayConfig() {
   });
 }
 
-// ─── Render: Bloodwork ─────────────────────────────────────────
+// =====================================================================
+//  RENDER: BLOODWORK
+// =====================================================================
 function renderBloodwork() {
   const milestones = [
     {
@@ -1552,22 +2219,23 @@ function renderBloodwork() {
     const daysUntil = Math.ceil((target - today) / 86400000);
     const countdownText = daysUntil < 0 ? Math.abs(daysUntil) + ' days overdue' : daysUntil === 0 ? 'Today' : daysUntil + ' days away';
 
-    el.innerHTML = `
-      <div class="bloodwork-header">
-        <div class="bloodwork-title">${m.title}</div>
-        <div class="bloodwork-countdown ${m.urgency}">${countdownText}</div>
-      </div>
-      <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:8px;font-weight:500">
-        ${formatDateShort(m.date)}
-      </div>
-      <ul class="bloodwork-items">
-        ${m.items.map(item => '<li>' + item + '</li>').join('')}
-      </ul>
-    `;
+    el.innerHTML =
+      '<div class="bloodwork-header">' +
+        '<div class="bloodwork-title">' + m.title + '</div>' +
+        '<div class="bloodwork-countdown ' + m.urgency + '">' + countdownText + '</div>' +
+      '</div>' +
+      '<div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:8px;font-weight:500">' +
+        formatDateShort(m.date) +
+      '</div>' +
+      '<ul class="bloodwork-items">' +
+        m.items.map(item => '<li>' + item + '</li>').join('') +
+      '</ul>';
   });
 }
 
-// ─── Data Export / Import ──────────────────────────────────────
+// =====================================================================
+//  DATA EXPORT / IMPORT
+// =====================================================================
 function exportData() {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -1592,7 +2260,7 @@ function importData(event) {
       data = imported;
       saveData(data);
       renderAll();
-      alert('Data imported.');
+      alert('Data imported and synced.');
     } catch {
       alert('Failed to parse file.');
     }
@@ -1611,7 +2279,9 @@ function resetAllData() {
   }
 }
 
-// ─── Render All ────────────────────────────────────────────────
+// =====================================================================
+//  RENDER ALL
+// =====================================================================
 function renderAll() {
   renderHeader();
   renderTodayCards();
@@ -1620,33 +2290,81 @@ function renderAll() {
   renderStats();
   renderDayConfig();
   renderBloodwork();
+  renderSyncSetup();
 }
 
-// ─── Animated counters (enhancement) ──────────────────────────
-function animateCounter(el, target) {
-  const start = parseInt(el.textContent) || 0;
-  if (start === target) return;
-  const duration = 600;
-  const startTime = performance.now();
-  function tick(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    // ease-out
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.round(start + (target - start) * eased);
-    el.textContent = current;
-    if (progress < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
+// =====================================================================
+//  INIT
+// =====================================================================
 
-// ─── Init ──────────────────────────────────────────────────────
+// Load client ID and try auto-connect
+DriveSync.loadClientId();
 renderAll();
 
-// Re-render at midnight to update "today"
+// Auto-connect if client ID exists
+if (DriveSync.clientId) {
+  // Attempt silent auth after scripts load
+  DriveSync.loadScripts().then(async () => {
+    if (!DriveSync.gapiLoaded || !DriveSync.gisLoaded) return;
+    DriveSync.initTokenClient();
+    try {
+      // Try silent token refresh
+      await new Promise((resolve, reject) => {
+        DriveSync.tokenClient.callback = (resp) => {
+          if (resp.error) { reject(resp); return; }
+          DriveSync.accessToken = resp.access_token;
+          gapi.client.setToken({ access_token: resp.access_token });
+          resolve();
+        };
+        DriveSync.tokenClient.error_callback = reject;
+        DriveSync.tokenClient.requestAccessToken({ prompt: '' });
+      });
+      // Got token silently, do initial sync
+      data = await DriveSync.sync(data);
+      saveDataLocal(data);
+      renderAll();
+    } catch(e) {
+      // Silent auth failed — user needs to click Sign In
+      DriveSync.syncState = 'local';
+      updateSyncUI();
+      renderSyncSetup();
+    }
+  });
+}
+
+// Listen for online/offline events
+window.addEventListener('online', () => {
+  if (DriveSync.isConnected()) {
+    DriveSync.sync(data).then(merged => {
+      data = merged;
+      saveDataLocal(data);
+      renderAll();
+    });
+  }
+});
+
+window.addEventListener('offline', () => {
+  if (DriveSync.clientId) {
+    DriveSync.syncState = 'offline';
+    updateSyncUI();
+  }
+});
+
+// Re-render at midnight
 const now = new Date();
 const msUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
 setTimeout(() => { renderAll(); setInterval(renderAll, 86400000); }, msUntilMidnight);
+
+// Periodic sync every 5 minutes if connected
+setInterval(() => {
+  if (DriveSync.isConnected() && navigator.onLine) {
+    DriveSync.sync(data).then(merged => {
+      data = merged;
+      saveDataLocal(data);
+      // Don't call renderAll to avoid flicker — only update if data changed
+    });
+  }
+}, 5 * 60 * 1000);
 </script>
 </body>
 </html>
