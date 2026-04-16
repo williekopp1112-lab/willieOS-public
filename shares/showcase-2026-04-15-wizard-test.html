@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Northbeam — Ship what you meant to build</title>
+<meta name="description" content="A calm, focused workspace for small teams who care about the details. No clutter, no ceremony — just the tools that get out of your way." />
+<meta property="og:title" content="Northbeam — Ship what you meant to build" />
+<meta property="og:description" content="A calm, focused workspace for small teams who care about the details." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23ff5a1f'/%3E%3C/svg%3E" />
+<style>
+  /* =========================================================
+     DESIGN TOKENS
+     One accent color. Neutral greyscale. Generous whitespace.
+     ========================================================= */
+  :root {
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --ink: #0f0f0e;
+    --ink-muted: #5a5a57;
+    --ink-soft: #8a8a85;
+    --line: rgba(15, 15, 14, 0.08);
+    --accent: #ff5a1f;
+    --accent-soft: rgba(255, 90, 31, 0.08);
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 1px 2px rgba(15,15,14,0.04), 0 1px 1px rgba(15,15,14,0.03);
+    --shadow-md: 0 8px 24px -12px rgba(15,15,14,0.12), 0 2px 6px -2px rgba(15,15,14,0.06);
+    --shadow-lg: 0 24px 64px -24px rgba(15,15,14,0.18), 0 8px 24px -8px rgba(15,15,14,0.08);
+
+    /* Spring-curve timing — gentle critically-damped spring (stiffness ~170, damping ~26) */
+    --spring-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+    --spring-snappy: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --dur-fast: 160ms;
+    --dur-med: 420ms;
+    --dur-slow: 760ms;
+
+    --nav-h: 64px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f0e;
+      --surface: #171716;
+      --ink: #f5f5f0;
+      --ink-muted: #a8a8a3;
+      --ink-soft: #6a6a65;
+      --line: rgba(245, 245, 240, 0.08);
+      --accent: #ff7a44;
+      --accent-soft: rgba(255, 122, 68, 0.10);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.40);
+      --shadow-md: 0 8px 24px -12px rgba(0,0,0,0.50), 0 2px 6px -2px rgba(0,0,0,0.30);
+      --shadow-lg: 0 24px 64px -24px rgba(0,0,0,0.60), 0 8px 24px -8px rgba(0,0,0,0.35);
+    }
+  }
+
+  /* =========================================================
+     RESET + BASE
+     ========================================================= */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4, p { margin: 0; }
+  h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.1; font-weight: 600; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* =========================================================
+     LAYOUT PRIMITIVES
+     QG-1: All sections use 80-120px padding.
+     ========================================================= */
+  .container {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 20px; }
+  }
+
+  section { padding: 100px 0; }
+  @media (max-width: 640px) {
+    section { padding: 80px 0; }
+  }
+
+  /* =========================================================
+     NAV
+     Minimal, ghost-like. Border appears past 8px scroll.
+     ========================================================= */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur-med) var(--ease-out),
+                background var(--dur-med) var(--ease-out);
+  }
+  .nav.scrolled {
+    border-bottom-color: var(--line);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--nav-h);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    transition: background var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--spring-snappy);
+  }
+  .nav-cta:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* =========================================================
+     HERO
+     QG-1: Section uses standard 100px padding (compliant).
+     Nav clearance handled by margin-top on .hero-inner per
+     pre-flight decision record.
+     ========================================================= */
+  .hero {
+    text-align: center;
+  }
+  .hero-inner {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 640px) {
+    .hero-inner { margin-top: 16px; margin-bottom: 16px; }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin-bottom: 32px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, transparent);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, transparent); }
+    50%      { box-shadow: 0 0 0 7px color-mix(in oklab, var(--accent) 0%,  transparent); }
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    max-width: 18ch;
+    margin: 0 auto 28px;
+  }
+  .hero h1 .accent { color: var(--accent); }
+
+  .hero p.lede {
+    color: var(--ink-muted);
+    font-size: clamp(17px, 2vw, 20px);
+    max-width: 54ch;
+    margin: 0 auto 48px;
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: transform var(--dur-fast) var(--spring-snappy),
+                background var(--dur-fast) var(--ease-out),
+                box-shadow var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+    will-change: transform;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-ghost {
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .btn-ghost:hover {
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
+  .btn .arrow {
+    display: inline-block;
+    transition: transform var(--dur-fast) var(--spring-snappy);
+  }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* =========================================================
+     FEATURE GRID (3 columns, stacks on mobile)
+     ========================================================= */
+  .features {
+    border-top: 1px solid var(--line);
+  }
+  .features-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .features-header h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 20ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .features-header p {
+    color: var(--ink-muted);
+    max-width: 50ch;
+    margin: 0 auto;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    transition: transform var(--dur-med) var(--spring-gentle),
+                box-shadow var(--dur-med) var(--ease-out),
+                border-color var(--dur-med) var(--ease-out);
+    will-change: transform;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in oklab, var(--ink) 16%, transparent);
+  }
+  .card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .card-icon svg {
+    width: 22px; height: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    letter-spacing: -0.015em;
+  }
+  .card p {
+    color: var(--ink-muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* =========================================================
+     QUOTE BLOCK
+     ========================================================= */
+  .quote-section {
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .quote {
+    max-width: 44ch;
+    margin: 0 auto;
+  }
+  .quote-mark {
+    display: inline-block;
+    font-size: 48px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .quote blockquote {
+    font-size: clamp(24px, 3.2vw, 36px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin: 0 0 32px;
+    color: var(--ink);
+  }
+  .attribution {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink-muted);
+    font-size: 14px;
+  }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent) 60%, var(--ink)));
+    display: inline-block;
+  }
+  .attribution strong { color: var(--ink); font-weight: 500; }
+
+  /* =========================================================
+     CTA FOOTER
+     ========================================================= */
+  .cta {
+    border-top: 1px solid var(--line);
+  }
+  .cta-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 80px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  @media (max-width: 640px) {
+    .cta-card { padding: 56px 24px; border-radius: 20px; }
+  }
+  .cta-card::before {
+    content: "";
+    position: absolute;
+    inset: auto auto -40% -10%;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--accent-soft), transparent);
+    pointer-events: none;
+  }
+  .cta-card h2 {
+    position: relative;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-card p {
+    position: relative;
+    color: var(--ink-muted);
+    max-width: 46ch;
+    margin: 0 auto 32px;
+  }
+  .cta-actions {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Footer */
+  footer.site-foot {
+    padding: 48px 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+  .foot-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .foot-links { display: flex; gap: 20px; }
+  .foot-links a { color: var(--ink-muted); transition: color var(--dur-fast) var(--ease-out); }
+  .foot-links a:hover { color: var(--ink); }
+
+  /* =========================================================
+     REVEAL-ON-SCROLL ANIMATIONS
+     QG-2: IntersectionObserver threshold 0.05.
+     Unconditional 2s setTimeout fallback handles hidden-tab,
+     no-IO, and any environment where IO may never fire.
+     Adding `.reveal--in` is idempotent, so both paths can
+     race harmlessly.
+     ========================================================= */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity var(--dur-slow) var(--ease-out),
+                transform var(--dur-slow) var(--spring-gentle);
+    will-change: opacity, transform;
+  }
+  .reveal.reveal--in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Stagger children — each child delayed by index */
+  [data-stagger] > * { transition-delay: calc(var(--i, 0) * 80ms); }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     NAV
+     ========================================================= -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-dot"></span>
+      <span>Northbeam</span>
+    </a>
+    <a href="#cta" class="nav-cta">Get started <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</header>
+
+<!-- =========================================================
+     HERO
+     QG-1 compliant: section padding 100px, nav clearance
+     handled by .hero-inner margin-top.
+     ========================================================= -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <span class="eyebrow reveal">Now in public beta</span>
+      <h1 class="reveal" style="--i: 1">
+        The simplest way to ship <span class="accent">what you meant to build.</span>
+      </h1>
+      <p class="lede reveal" style="--i: 2">
+        A calm, focused workspace for small teams who care about the details. No clutter, no ceremony &mdash; just the tools that get out of your way.
+      </p>
+      <div class="hero-actions reveal" style="--i: 3">
+        <a href="#cta" class="btn btn-primary">
+          Start free <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="#features" class="btn btn-ghost">
+          See how it works
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FEATURE GRID (3-up)
+     ========================================================= -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <h2>Built around the boring stuff that actually matters.</h2>
+      <p>Three fewer decisions a day. Three more reasons to stay in flow.</p>
+    </div>
+
+    <div class="grid-3" data-stagger>
+      <article class="card reveal" style="--i: 0">
+        <span class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+        </span>
+        <h3>Fewer inputs</h3>
+        <p>A single surface for the thing you're doing right now. Context switches cost more than you think &mdash; so we just removed them.</p>
+      </article>
+
+      <article class="card reveal" style="--i: 1">
+        <span class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        </span>
+        <h3>Honest speed</h3>
+        <p>No splash screens, no skeletons you pretend not to see. The page loads, the input is focused, and you keep moving.</p>
+      </article>
+
+      <article class="card reveal" style="--i: 2">
+        <span class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+        </span>
+        <h3>Quiet defaults</h3>
+        <p>Thoughtful choices baked in so you don't have to configure anything on day one. Everything is still adjustable on day two.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     QUOTE BLOCK
+     ========================================================= -->
+<section class="quote-section">
+  <div class="container">
+    <figure class="quote reveal">
+      <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>
+        It feels like the tool was already waiting for me. I just opened it and kept working.
+      </blockquote>
+      <figcaption class="attribution">
+        <span class="avatar" aria-hidden="true"></span>
+        <span><strong>Mara Okafor</strong> &nbsp;&middot;&nbsp; Design Lead, Fieldnote</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- =========================================================
+     CTA FOOTER
+     ========================================================= -->
+<section class="cta" id="cta">
+  <div class="container">
+    <div class="cta-card reveal">
+      <h2>Try the first week on us.</h2>
+      <p>No credit card, no onboarding call, no sales pitch. Just open it up and see if it fits.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary">
+          Start free <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="#" class="btn btn-ghost">Read the docs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="container foot-inner">
+    <div>&copy; 2026 Northbeam. All rights reserved.</div>
+    <div class="foot-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // =========================================================
+  // REVEAL-ON-SCROLL
+  // QG-2 compliance:
+  //   - IntersectionObserver threshold: 0.05
+  //   - Unconditional 2s setTimeout fallback: forces all
+  //     .reveal elements to opacity:1 regardless of IO state.
+  //     Idempotent — IO and the fallback can both add the
+  //     class without harm.
+  // =========================================================
+  (function () {
+    var REVEAL_CLASS = 'reveal--in';
+
+    function getReveals() {
+      return document.querySelectorAll('.reveal');
+    }
+
+    function revealAll() {
+      var els = getReveals();
+      for (var i = 0; i < els.length; i++) {
+        els[i].classList.add(REVEAL_CLASS);
+      }
+    }
+
+    function bootReveal() {
+      var els = getReveals();
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduce || !('IntersectionObserver' in window)) {
+        revealAll();
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          if (entry.isIntersecting) {
+            entry.target.classList.add(REVEAL_CLASS);
+            io.unobserve(entry.target);
+          }
+        }
+      }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+
+      for (var j = 0; j < els.length; j++) {
+        io.observe(els[j]);
+      }
+    }
+
+    function bootNav() {
+      var nav = document.getElementById('nav');
+      if (!nav) return;
+      var onScroll = function () {
+        if (window.scrollY > 8) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    function init() {
+      bootReveal();
+      bootNav();
+      // QG-2: 2s unconditional fallback. Guarantees content
+      // is visible even if IO never fires (hidden tab on load,
+      // browser bugs, prerender quirks, etc.). Idempotent.
+      setTimeout(revealAll, 2000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>
