@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willie Kopp | Enterprise AI Sales Leadership</title>
+    <meta name="description" content="15 years selling enterprise platforms to Fortune 500. Built a production AI system with 110+ tools. Enterprise AI sales leadership for the next decade.">
+    <meta property="og:title" content="Willie Kopp | Enterprise AI Sales Leadership">
+    <meta property="og:description" content="Enterprise seller. AI builder. 15 years of Fortune 500 platform sales meets production AI fluency.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect fill='%23080810' width='1200' height='630'/%3E%3Ctext x='600' y='260' text-anchor='middle' fill='%23f0f0f5' font-family='system-ui' font-size='56' font-weight='700'%3EWillie Kopp%3C/text%3E%3Ctext x='600' y='330' text-anchor='middle' fill='%23c8a44e' font-family='monospace' font-size='20'%3EEnterprise AI Sales Leadership%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23080810'/><text x='50' y='68' text-anchor='middle' fill='%23c8a44e' font-family='system-ui' font-size='52' font-weight='700'>W</text></svg>">
+
+    <!-- Google Fonts — async, page renders fine without them -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           DESIGN TOKENS
+           ======================================== */
+        :root {
+            /* Backgrounds — darker, richer than previous version */
+            --bg-deep: #080810;
+            --bg-surface: #0e0e18;
+            --bg-card: #141420;
+            --bg-card-hover: #1a1a28;
+            --bg-elevated: #1e1e2c;
+
+            /* Text hierarchy */
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --text-faint: #404050;
+
+            /* Gold accent — warm, executive, distinct from OpenAI blue */
+            --gold: #c8a44e;
+            --gold-dim: rgba(200, 164, 78, 0.10);
+            --gold-glow: rgba(200, 164, 78, 0.05);
+            --gold-border: rgba(200, 164, 78, 0.18);
+
+            /* Supporting palette */
+            --blue: #5a8fd4;
+            --blue-dim: rgba(90, 143, 212, 0.10);
+            --green: #4fac7a;
+            --green-dim: rgba(79, 172, 122, 0.10);
+            --coral: #d45a50;
+            --coral-dim: rgba(212, 90, 80, 0.10);
+            --amber: #d4973a;
+
+            /* Borders */
+            --border: rgba(255, 255, 255, 0.05);
+            --border-hover: rgba(255, 255, 255, 0.08);
+
+            /* Spring cubic-beziers ONLY — no linear, ease, or ease-in-out */
+            --spring-out: cubic-bezier(0.22, 1.0, 0.36, 1.0);
+            --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1.0);
+            --spring-settle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --spring-snap: cubic-bezier(0.16, 1.0, 0.3, 1.0);
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+        }
+
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========================================
+           DRAFT NOTICE BANNER
+           ======================================== */
+        .draft-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(200, 164, 78, 0.07);
+            border-bottom: 1px solid var(--gold-border);
+            padding: 8px 24px;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            backdrop-filter: blur(12px);
+        }
+        .draft-banner .sep { opacity: 0.4; margin: 0 8px; }
+
+        /* ========================================
+           SECTION TAGS
+           ======================================== */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.4;
+        }
+
+        h1, h2, h3, h4 { line-height: 1.15; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.65rem, 3.2vw, 2.35rem); font-weight: 700; margin-bottom: 16px; }
+
+        /* ========================================
+           REVEAL SYSTEM
+           IntersectionObserver threshold: 0.05
+           2s setTimeout fallback → opacity: 1
+           ======================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s var(--spring-out), transform 0.65s var(--spring-out);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger > .reveal:nth-child(2) { transition-delay: 0.08s; }
+        .stagger > .reveal:nth-child(3) { transition-delay: 0.16s; }
+        .stagger > .reveal:nth-child(4) { transition-delay: 0.24s; }
+        .stagger > .reveal:nth-child(5) { transition-delay: 0.32s; }
+
+        /* ========================================
+           HERO — min-height: 100vh allowed for hero only
+           ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 24px 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 55% 40% at 50% 35%, rgba(200, 164, 78, 0.035) 0%, transparent 70%),
+                radial-gradient(ellipse 30% 30% at 72% 58%, rgba(90, 143, 212, 0.02) 0%, transparent 60%);
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.018) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 50% 45% at 50% 40%, black 10%, transparent 70%);
+        }
+
+        .hero-inner {
+            position: relative;
+            max-width: 1080px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: heroSlide 0.6s var(--spring-out) 0.15s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 700;
+            line-height: 1.08;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: heroSlide 0.7s var(--spring-out) 0.3s forwards;
+        }
+        .hero h1 em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .hero-body {
+            font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+            color: var(--text-secondary);
+            max-width: 620px;
+            line-height: 1.75;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: heroSlide 0.7s var(--spring-out) 0.45s forwards;
+        }
+
+        .hero-metrics {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: heroSlide 0.7s var(--spring-out) 0.6s forwards;
+        }
+        .hero-metric-value {
+            font-family: var(--font-mono);
+            font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .hero-metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-family: var(--font-mono);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        @keyframes heroSlide {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================
+           SECTIONS — 80-120px padding, no 100vh
+           ======================================== */
+        section { padding: 80px 0 100px; }
+        section.alt-bg { background: var(--bg-surface); }
+
+        /* Shared prose block */
+        .prose {
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+            line-height: 1.75;
+            max-width: 660px;
+        }
+
+        /* ========================================
+           SECTION A: MARKET OPPORTUNITY
+           ======================================== */
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+        }
+        .stat-number {
+            font-family: var(--font-mono);
+            font-size: clamp(2.2rem, 5.5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--coral);
+        }
+        .stat-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin-top: 8px;
+        }
+        .stat-source {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-family: var(--font-mono);
+        }
+
+        .pressure-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 28px;
+        }
+        .pressure-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 22px;
+            transition: border-color 0.3s var(--spring-settle);
+        }
+        .pressure-card:hover { border-color: var(--border-hover); }
+        .pressure-card h4 {
+            font-size: 0.84rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .pressure-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           SECTION B: CAREER TRAJECTORY
+           ======================================== */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 32px;
+        }
+        .era-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px 18px;
+            transition: border-color 0.3s var(--spring-settle), transform 0.35s var(--spring-bounce);
+        }
+        .era-card:hover {
+            border-color: var(--gold-border);
+            transform: translateY(-2px);
+        }
+        .era-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .era-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.25;
+        }
+        .era-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 14px;
+        }
+        .era-badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+        }
+        .era-badge--net { color: var(--blue); background: var(--blue-dim); }
+        .era-badge--plat { color: var(--amber); background: rgba(212, 151, 58, 0.10); }
+        .era-badge--edge { color: var(--blue); background: var(--blue-dim); }
+        .era-badge--ai { color: var(--green); background: var(--green-dim); }
+
+        .era-card.now {
+            border-color: var(--gold-border);
+            background: linear-gradient(160deg, var(--bg-card), rgba(200, 164, 78, 0.025));
+        }
+
+        .narrative {
+            margin-top: 28px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.75;
+            max-width: 660px;
+        }
+
+        /* ========================================
+           SECTION C: AI FLUENCY
+           ======================================== */
+        .system-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .system-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+        }
+        .system-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .nodes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .node {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px 14px;
+            text-align: center;
+            transition: border-color 0.3s var(--spring-settle);
+        }
+        .node:hover { border-color: var(--gold-border); }
+        .node-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--gold);
+            background: var(--gold-dim);
+        }
+        .node-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .node-detail {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Competitor table */
+        .table-wrap { margin-top: 24px; overflow-x: auto; }
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+        }
+        .comp-table th {
+            text-align: left;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .comp-table td {
+            padding: 13px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+        .comp-table tr:last-child td { border-bottom: none; }
+        .comp-pool { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+        .comp-gap { color: var(--coral); font-size: 0.79rem; }
+        .comp-edge { color: var(--green); font-size: 0.79rem; }
+        .comp-highlight {
+            background: linear-gradient(135deg, var(--bg-card), rgba(200, 164, 78, 0.03));
+        }
+        .comp-highlight .comp-pool { color: var(--gold); }
+
+        /* ========================================
+           SECTION D: STRATEGIC ALIGNMENT
+           ======================================== */
+        .pairs { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+        .pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .pair-left, .pair-right { padding: 26px 22px; }
+        .pair-left { background: var(--bg-surface); }
+        .pair-right { background: var(--bg-card); }
+
+        .pair-stat {
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .pair-left .pair-stat { color: var(--coral); }
+        .pair-left h4 { font-size: 0.84rem; font-weight: 600; margin-bottom: 8px; }
+        .pair-left p, .pair-right p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+        .pair-right-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 8px;
+            font-family: var(--font-mono);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .pair-source {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* ========================================
+           SECTION E: CTA
+           ======================================== */
+        .cta {
+            padding: 100px 0 120px;
+            text-align: center;
+        }
+        .cta h2 { margin-bottom: 20px; }
+        .cta-body {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 28px;
+            line-height: 1.75;
+        }
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            color: var(--gold);
+            text-decoration: none;
+            padding: 12px 28px;
+            border: 1px solid var(--gold-border);
+            border-radius: 8px;
+            background: var(--gold-dim);
+            transition: background 0.3s var(--spring-settle), border-color 0.3s var(--spring-settle);
+        }
+        .cta-link:hover {
+            background: rgba(200, 164, 78, 0.16);
+            border-color: rgba(200, 164, 78, 0.32);
+        }
+        .cta-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 24px;
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* STATE B CTA — hidden by default, toggled via data attribute */
+        .cta[data-state="b"] .cta-a { display: none; }
+        .cta[data-state="b"] .cta-b { display: block; }
+        .cta .cta-b { display: none; }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .page-footer {
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 0.68rem;
+            color: var(--text-faint);
+            font-family: var(--font-mono);
+            border-top: 1px solid var(--border);
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .draft-banner { font-size: 10px; padding: 6px 16px; }
+            .hero { padding: 100px 20px 60px; min-height: auto; }
+            .hero h1 { font-size: clamp(1.65rem, 6.5vw, 2.3rem); }
+            .hero-metrics { gap: 28px; }
+            section { padding: 60px 0 80px; }
+            .container { padding: 0 20px; }
+
+            .pressure-grid { grid-template-columns: 1fr; }
+            .timeline { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+            .nodes { grid-template-columns: 1fr 1fr; }
+            .nodes .node:last-child { grid-column: 1 / -1; }
+
+            .comp-table { font-size: 0.76rem; }
+            .comp-table th, .comp-table td { padding: 10px; }
+
+            .pair { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.5rem; }
+            .hero-metrics { flex-direction: column; gap: 14px; }
+            .hero-metric-value { font-size: 1.2rem; }
+
+            .timeline { grid-template-columns: 1fr; }
+            .nodes { grid-template-columns: 1fr; }
+            .nodes .node:last-child { grid-column: auto; }
+
+            .stat-card { padding: 28px 18px; }
+            .stat-number { font-size: 2rem; }
+
+            .pair-left, .pair-right { padding: 18px 16px; }
+        }
+
+        /* ========================================
+           REDUCED MOTION — respect user preference
+           ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-delay: 0ms !important;
+                transition-duration: 0.001ms !important;
+                transition-delay: 0ms !important;
+            }
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .hero-eyebrow, .hero h1, .hero-body, .hero-metrics {
+                opacity: 1 !important;
+                animation: none !important;
+            }
+        }
+
+        /* ========================================
+           PRINT — clean output
+           ======================================== */
+        @media print {
+            .draft-banner { display: none; }
+            body { background: #fff; color: #111; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+            section.alt-bg { background: #f5f5f5; }
+            .hero { min-height: auto; padding: 40px 24px; }
+            .hero-bg { display: none; }
+            a { color: #333; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================
+     DRAFT NOTICE — Remove before sending
+     ============================================================ -->
+<div class="draft-banner">
+    DRAFT <span class="sep">&middot;</span> Review before sending <span class="sep">&middot;</span> April 2026
+</div>
+
+
+<!-- ============================================================
+     HERO
+     Content slots: 1-Eyebrow, 2-Headline, 3-Body, 4-Metric A,
+                    5-Metric B, 6-Metric C
+     ============================================================ -->
+<header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+        <div class="hero-eyebrow">Enterprise AI Sales Leadership</div>
+        <h1>The enterprise seller who doesn't just <em>pitch AI platforms</em>. He builds them.</h1>
+        <p class="hero-body">Fifteen years selling enterprise technology platforms to Fortune 500 buyers &mdash; Cisco's connected stadiums, then Nokia's private 5G networks. The last year I spent building a production AI system with 110+ tools, multi-agent orchestration, and cost controls that most enterprise sellers only see on vendor slides.</p>
+        <div class="hero-metrics">
+            <div>
+                <div class="hero-metric-value counter" data-target="15">15+</div>
+                <div class="hero-metric-label">Years Sales Leadership</div>
+            </div>
+            <div>
+                <div class="hero-metric-value counter" data-target="110">110+</div>
+                <div class="hero-metric-label">Production AI Tools</div>
+            </div>
+            <div>
+                <div class="hero-metric-value">F500</div>
+                <div class="hero-metric-label">Buyer Relationships</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- ============================================================
+     SECTION A: THE ENTERPRISE AI OPPORTUNITY
+     Content slots: 7-Tag, 8-Headline, 9-StatCard, 10-Paragraph,
+                    11-PressureCard A, 12-PressureCard B,
+                    13-PressureCard C, 14-PressureCard D
+     ============================================================ -->
+<section id="opportunity">
+    <div class="container">
+        <div class="reveal">
+            <div class="tag">Market Context</div>
+            <h2>OpenAI's $19B Problem:<br>85% Consumer, 15% Enterprise</h2>
+        </div>
+
+        <div class="stat-card reveal">
+            <div class="stat-number">50% &rarr; 27%</div>
+            <div class="stat-desc">OpenAI market share decline from 2023 to end of 2025</div>
+            <div class="stat-source">Sources: TechCrunch, CNBC industry reporting</div>
+        </div>
+
+        <div class="reveal">
+            <p class="prose">
+                The revenue mix is 85% consumer, 15% enterprise. That ratio doesn't hold up at $19B ARR. Enterprise contracts are stickier, higher-value, and the stated #1 growth priority for 2026. OpenAI Frontier launched in February targeting Uber, State Farm, Intuit, and Thermo Fisher. New CRO Denise Dresser and enterprise AI product sales lead Barret Zoph are staffing up the team now. The workforce is doubling from 4,500 to 8,000 this year.
+            </p>
+        </div>
+
+        <div class="pressure-grid stagger">
+            <div class="pressure-card reveal">
+                <h4>Anthropic Penetration</h4>
+                <p>8 of Fortune 10 use Anthropic. Revenue per user reportedly ~$211 vs. OpenAI's ~$25. The enterprise gap is widening.</p>
+            </div>
+            <div class="pressure-card reveal">
+                <h4>Agentforce Embedding</h4>
+                <p>Salesforce embeds AI into existing CRM workflows. Enterprise buyers can add agents without changing vendors.</p>
+            </div>
+            <div class="pressure-card reveal">
+                <h4>Bedrock Aggregation</h4>
+                <p>AWS Bedrock lets enterprises mix models from multiple providers. No lock-in to one foundation model vendor.</p>
+            </div>
+            <div class="pressure-card reveal">
+                <h4>Enterprise Trust Deficit</h4>
+                <p>67% of executives fear AI security breaches. Consumer-first platforms face a credibility wall with enterprise procurement.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION B: TRACK RECORD
+     Content slots: 15-Tag, 16-Headline, 17-EraCard A,
+                    18-EraCard B, 19-EraCard C, 20-EraCard D,
+                    21-Narrative
+     ============================================================ -->
+<section class="alt-bg" id="track-record">
+    <div class="container">
+        <div class="reveal">
+            <div class="tag">Career Trajectory</div>
+            <h2>15 Years of Selling What Didn't Exist Yet</h2>
+        </div>
+
+        <div class="timeline stagger">
+            <div class="era-card reveal">
+                <div class="era-label">Cisco S&amp;E</div>
+                <div class="era-title">CTO, Sports &amp; Entertainment Solutions</div>
+                <div class="era-desc">Led Cisco's S&amp;E solutions group during the Wi-Fi 6 and Cisco Vision 4K signage buildout across major NFL venues.</div>
+                <div class="era-badge era-badge--net">Network Layer</div>
+            </div>
+            <div class="era-card reveal">
+                <div class="era-label">Cisco IoT</div>
+                <div class="era-title">Director of Sales, IoT Americas</div>
+                <div class="era-desc">Sold industrial IoT platforms to Fortune 500 manufacturing. Moved from venues to factory floors.</div>
+                <div class="era-badge era-badge--plat">Platform Layer</div>
+            </div>
+            <div class="era-card reveal">
+                <div class="era-label">Nokia</div>
+                <div class="era-title">Head of NAM Enterprise Campus Edge</div>
+                <div class="era-desc">Private 5G and edge compute for enterprise campuses. Infrastructure deals with CTO/CIO buyers.</div>
+                <div class="era-badge era-badge--edge">Wireless / Edge</div>
+            </div>
+            <div class="era-card now reveal">
+                <div class="era-label">Builder Era</div>
+                <div class="era-title">AI System Architect</div>
+                <div class="era-desc">Built a production AI operating system: Tauri 2, React 19, SQLite, 110+ MCP tools, multi-agent dispatch.</div>
+                <div class="era-badge era-badge--ai">AI Application</div>
+            </div>
+        </div>
+
+        <p class="narrative reveal">
+            The pattern matters more than the titles. Every role meant selling an emerging technology before enterprise buyers had a procurement playbook for it. IoT was new in 2012. Private 5G was new in 2020. Enterprise AI is new right now. Same structural sell, different stack layer. Each move pushed the buyer further up the org chart too, from venue operators to Fortune 500 CIOs to enterprise CTOs with longer cycles and less patience.
+        </p>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION C: AI-NATIVE FLUENCY
+     Content slots: 22-Tag+Headline, 23-SystemPanel (6 nodes),
+                    24-Prose+CompTable
+     ============================================================ -->
+<section id="ai-fluency">
+    <div class="container">
+        <div class="reveal">
+            <div class="tag">Builder Credentials</div>
+            <h2>The Seller Who Can Demo by Building</h2>
+        </div>
+
+        <div class="system-panel reveal">
+            <div class="system-label">Production AI System Architecture</div>
+            <div class="nodes">
+                <div class="node">
+                    <div class="node-icon">&loz;</div>
+                    <div class="node-name">110+ MCP Tools</div>
+                    <div class="node-detail">Node.js sidecar server</div>
+                </div>
+                <div class="node">
+                    <div class="node-icon">&harr;</div>
+                    <div class="node-name">Multi-Agent Dispatch</div>
+                    <div class="node-detail">Specialized agent routing</div>
+                </div>
+                <div class="node">
+                    <div class="node-icon">&#9881;</div>
+                    <div class="node-name">Model Routing</div>
+                    <div class="node-detail">Per-service provider selection</div>
+                </div>
+                <div class="node">
+                    <div class="node-icon">&#9632;</div>
+                    <div class="node-name">Cost Architecture</div>
+                    <div class="node-detail">Daily caps, guardrails, tracking</div>
+                </div>
+                <div class="node">
+                    <div class="node-icon">&oplus;</div>
+                    <div class="node-name">Autonomous Workflows</div>
+                    <div class="node-detail">Email triage, daily briefs, tasks</div>
+                </div>
+                <div class="node">
+                    <div class="node-icon">&#9670;</div>
+                    <div class="node-name">Local-First Data</div>
+                    <div class="node-detail">SQLite + Tauri 2 (Rust)</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="prose reveal" style="margin-bottom: 28px;">
+            This isn't a demo app or a weekend project. It's a running production system with autonomous daily workflows, per-service cost controls, and the same tool-calling architecture that OpenAI is selling with Frontier. Every enterprise buyer asks two questions: what will this cost at scale, and can I trust autonomous agents with my workflows. I can answer both from what I've built, not slides I've been handed.
+        </p>
+
+        <div class="table-wrap reveal">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Candidate Pool</th>
+                        <th>What They Bring</th>
+                        <th>What They Lack</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="comp-pool">Cloud AI Sellers</td>
+                        <td>Enterprise relationships, quotas</td>
+                        <td class="comp-gap">Never built production AI</td>
+                    </tr>
+                    <tr>
+                        <td class="comp-pool">AI Startup Founders</td>
+                        <td>Built AI products</td>
+                        <td class="comp-gap">Rarely carried enterprise quota</td>
+                    </tr>
+                    <tr>
+                        <td class="comp-pool">Enterprise SaaS Sellers</td>
+                        <td>Process rigor, C-suite access</td>
+                        <td class="comp-gap">Don't understand AI architecture</td>
+                    </tr>
+                    <tr>
+                        <td class="comp-pool">Solutions Engineers</td>
+                        <td>Technical depth</td>
+                        <td class="comp-gap">Haven't owned revenue</td>
+                    </tr>
+                    <tr class="comp-highlight">
+                        <td class="comp-pool">Willie Kopp</td>
+                        <td class="comp-edge">Enterprise quota + C-suite access + AI architecture + production build experience</td>
+                        <td class="comp-edge">Occupies the intersection</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION D: STRATEGIC ALIGNMENT
+     5 challenge/answer pairs from Phase 3 content strategy
+     ============================================================ -->
+<section class="alt-bg" id="alignment">
+    <div class="container">
+        <div class="reveal">
+            <div class="tag">Strategic Fit</div>
+            <h2>What Enterprise AI Needs Now</h2>
+        </div>
+
+        <div class="pairs">
+
+            <div class="pair reveal">
+                <div class="pair-left">
+                    <div class="pair-stat">85% &rarr; ?</div>
+                    <h4>Platform Adoption Gap</h4>
+                    <p>85% consumer revenue, 15% enterprise. OpenAI needs sellers who can move enterprise buyers from curiosity to procurement on technology they haven't bought before.</p>
+                </div>
+                <div class="pair-right">
+                    <div class="pair-right-label">Willie's Answer</div>
+                    <p>Sold industrial IoT at Cisco and private 5G at Nokia before enterprise buyers had procurement playbooks for either category. Built the commercial motion from scratch both times.</p>
+                    <div class="pair-source">Nokia bio, Cisco career verified</div>
+                </div>
+            </div>
+
+            <div class="pair reveal">
+                <div class="pair-left">
+                    <div class="pair-stat">8 of 10</div>
+                    <h4>Competitive Displacement</h4>
+                    <p>8 of the Fortune 10 use Anthropic. AWS Bedrock aggregates. Salesforce embeds. OpenAI's enterprise position requires sellers who know how to displace incumbents.</p>
+                </div>
+                <div class="pair-right">
+                    <div class="pair-right-label">Willie's Answer</div>
+                    <p>Every role involved displacement. Private 5G takes budget from Wi-Fi-only. Industrial IoT replaced a decade of point solutions. The selling motion is the same: prove the integrated platform beats the patchwork, then defend it through a rigorous technical evaluation.</p>
+                    <div class="pair-source">Career pattern across Cisco + Nokia</div>
+                </div>
+            </div>
+
+            <div class="pair reveal">
+                <div class="pair-left">
+                    <div class="pair-stat">67%</div>
+                    <h4>Enterprise Trust &amp; Security</h4>
+                    <p>67% of executives fear AI security breaches from unapproved tools. Consumer-first AI platforms hit a wall when enterprise procurement starts asking about compliance.</p>
+                </div>
+                <div class="pair-right">
+                    <div class="pair-right-label">Willie's Answer</div>
+                    <p>Ran CISO-gated procurement cycles at both Cisco and Nokia. These were infrastructure deals where security and compliance are a prerequisite to the commercial conversation, not a late-stage box to tick.</p>
+                    <div class="pair-source">Cisco IoT + Nokia private 5G verticals</div>
+                </div>
+            </div>
+
+            <div class="pair reveal">
+                <div class="pair-left">
+                    <div class="pair-stat">42%</div>
+                    <h4>Cost Architecture at Scale</h4>
+                    <p>42% of companies scrapped AI initiatives from cost overruns. Enterprise buyers need sellers who can model production economics, not just wave at "tokens per dollar."</p>
+                </div>
+                <div class="pair-right">
+                    <div class="pair-right-label">Willie's Answer</div>
+                    <p>Built production cost controls from scratch: per-service model routing, daily caps, guardrail systems, and microcent-level usage tracking. Can walk through the production economics from first principles, not a pricing sheet.</p>
+                    <div class="pair-source">Verified from production codebase</div>
+                </div>
+            </div>
+
+            <div class="pair reveal">
+                <div class="pair-left">
+                    <div class="pair-stat">200%</div>
+                    <h4>Industrial Vertical ROI</h4>
+                    <p>Manufacturing delivers 200% average ROI on AI &mdash; highest of any sector. Predictive maintenance alone returns 400-500% over three years. This is the enterprise AI battleground.</p>
+                </div>
+                <div class="pair-right">
+                    <div class="pair-right-label">Willie's Answer</div>
+                    <p>Sold IoT to Fortune 500 manufacturing at Cisco and private 5G for industrial campuses at Nokia. The vertical where enterprise AI has the highest ROI is the same vertical where Willie has the deepest buyer relationships.</p>
+                    <div class="pair-source">McKinsey ROI data + Nokia/Cisco industrial experience</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION E: CTA — State A (default) + State B (template swap)
+     data-state="a" default. Set data-state="b" for alternate.
+     Without JS: State A always visible. Template B is inert.
+     ============================================================ -->
+<section class="cta" id="contact" data-state="a">
+    <div class="container">
+        <div class="reveal">
+            <!-- STATE A (default) -->
+            <div class="cta-a">
+                <div class="tag" style="justify-content: center;">Let's Talk</div>
+                <h2>Ready for a Conversation</h2>
+                <p class="cta-body">
+                    I'm exploring opportunities where enterprise sales leadership and hands-on AI fluency intersect. If your team is building out enterprise AI go-to-market, I'd welcome a conversation.
+                </p>
+                <a href="mailto:williekopp1112@gmail.com" class="cta-link">
+                    <span>&#9993;</span> williekopp1112@gmail.com
+                </a>
+                <p class="cta-note">
+                    The AI system referenced on this page drafted the research brief that shaped it. If you want to see how that works end-to-end, I can show you live.
+                </p>
+            </div>
+            <!-- STATE B (alternate — hidden unless data-state="b") -->
+            <div class="cta-b">
+                <div class="tag" style="justify-content: center;">Let's Connect</div>
+                <h2>Built for This Moment</h2>
+                <p class="cta-body">
+                    Enterprise AI needs sellers who understand the architecture, not just the pitch deck. If you're scaling an enterprise AI sales org, let's talk.
+                </p>
+                <a href="mailto:williekopp1112@gmail.com" class="cta-link">
+                    <span>&#9993;</span> williekopp1112@gmail.com
+                </a>
+                <p class="cta-note">
+                    This page was built with the same AI system it describes. Ask me how.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="page-footer">
+    April 2026 &middot; Built with verified research, not marketing copy
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT — Progressive enhancement only
+     All content is visible and functional without JS.
+     Animated counters: FINAL number is default textContent.
+     IntersectionObserver threshold: 0.05
+     2s setTimeout fallback sets opacity: 1
+     ============================================================ -->
+<script>
+(function() {
+    'use strict';
+
+    /* Respect prefers-reduced-motion: show everything, skip animations */
+    var prefersReducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---- Reveal on scroll ---- */
+    var reveals = document.querySelectorAll('.reveal');
+
+    if (prefersReducedMotion) {
+        reveals.forEach(function(el) { el.classList.add('visible'); });
+    } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.05 });
+
+        reveals.forEach(function(el) { io.observe(el); });
+    } else {
+        reveals.forEach(function(el) { el.classList.add('visible'); });
+    }
+
+    /* Mandatory 2s fallback */
+    setTimeout(function() {
+        reveals.forEach(function(el) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
+    }, 2000);
+
+    /* ---- Animated counters (enhancement only) ---- */
+    var counters = document.querySelectorAll('.counter[data-target]');
+
+    /* Skip counter animation if reduced motion is requested — textContent
+       already holds the final value, so there is nothing else to do. */
+    if (prefersReducedMotion) counters = [];
+
+    function animateCounter(el) {
+        var target = parseInt(el.getAttribute('data-target'), 10);
+        if (isNaN(target)) return;
+        var raw = el.textContent;
+        var suffix = raw.replace(/[\d]/g, '').trim();
+        var duration = 1100;
+        var t0 = null;
+
+        function ease(t) {
+            /* Approximation of spring-settle: cubic-bezier(0.25, 0.46, 0.45, 0.94) */
+            var t2 = t * t, t3 = t2 * t;
+            return 3 * 0.46 * (1 - t) * (1 - t) * t + 3 * 0.94 * (1 - t) * t2 + t3;
+        }
+
+        function tick(ts) {
+            if (!t0) t0 = ts;
+            var p = Math.min((ts - t0) / duration, 1);
+            el.textContent = Math.round(target * ease(p)) + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+            else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(tick);
+    }
+
+    if ('IntersectionObserver' in window && counters.length) {
+        var cio = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    animateCounter(e.target);
+                    cio.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.05 });
+        counters.forEach(function(el) { cio.observe(el); });
+    }
+
+})();
+</script>
+
+</body>
+</html>
