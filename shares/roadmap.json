@@ -571,6 +571,97 @@
       "prompt_file": null,
       "depends_on": [],
       "notes": "Installed alongside 15 ecosystem skills (01-self-improving-agent through 15-agent-designer). All ecosystem skills were already present. V2 method replaces the old python-pptx edit-in-place approach that corrupted formatting. Gary routing updated to always dispatch to Claude Code (requires Python execution)."
+    },
+    {
+      "id": "design-arsenal-client",
+      "family": "design-arsenal",
+      "title": "Claude Design Client (Playwright with API-ready abstraction)",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/claudeDesignClient.js", "willieos-mcp-server/browser/selectors/claudeDesign.js"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": [],
+      "notes": "Foundation. Do not start any other design-arsenal piece until this is merged."
+    },
+    {
+      "id": "design-arsenal-tools",
+      "family": "design-arsenal",
+      "title": "Claude Design MCP tools (design_create, design_refine, design_export, design_web_capture)",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/tools/claudeDesign.js"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": ["design-arsenal-client"],
+      "notes": "Four MCP tools wrapping claudeDesignClient.js"
+    },
+    {
+      "id": "design-arsenal-imagegen-v2",
+      "family": "design-arsenal",
+      "title": "generate_image V2 (new styles, transparent background, vault tokens)",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/tools/imageGen.js"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": [],
+      "notes": "Backward compatible upgrade. Can be built in parallel with Piece 1."
+    },
+    {
+      "id": "design-arsenal-chartgen",
+      "family": "design-arsenal",
+      "title": "generate_chart tool (matplotlib + plotly)",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/tools/chartGen.js", "willieos-mcp-server/scripts/render_chart.py"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": [],
+      "notes": "New tool. Can be built in parallel with Pieces 1-3."
+    },
+    {
+      "id": "design-arsenal-tokens",
+      "family": "design-arsenal",
+      "title": "Design tokens threaded through phase templates",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/seedProjectTemplates.js", "willieos-mcp-server/phaseOrchestrator.js"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": ["design-arsenal-imagegen-v2", "design-arsenal-chartgen"],
+      "notes": "Wire design tokens into existing templates"
+    },
+    {
+      "id": "design-arsenal-battlecard",
+      "family": "design-arsenal",
+      "title": "Battlecard project template (5 phases)",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/seedProjectTemplates.js"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": ["design-arsenal-client", "design-arsenal-tools", "design-arsenal-imagegen-v2", "design-arsenal-chartgen", "design-arsenal-tokens"],
+      "notes": "New template using all design arsenal tools"
+    },
+    {
+      "id": "design-arsenal-routing",
+      "family": "design-arsenal",
+      "title": "Capability manifest + dispatch routing updates",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": ["willieos-mcp-server/prompt/capability-manifest.js"],
+      "prompt_file": "Prompt_Design_Arsenal.md",
+      "depends_on": ["design-arsenal-tools", "design-arsenal-chartgen"],
+      "notes": "Teach Gary when to use design_create vs generate_image vs generate_chart vs v0"
     }
   ]
 }
