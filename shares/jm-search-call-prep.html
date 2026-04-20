@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Prep — JM Search / Head of Western Sales</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b1120;--surface:#111827;--card:#1a2332;--border:#2a3a52;--text:#e2e8f0;--muted:#8899aa;--accent:#f59e0b;--accent2:#14b8a6;--danger:#ef4444;--green:#22c55e;--radius:12px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(11,17,32,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px}
+nav ul{display:flex;gap:4px;list-style:none;overflow-x:auto;scrollbar-width:none}
+nav ul::-webkit-scrollbar{display:none}
+nav li a{display:block;padding:14px 16px;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);transition:.2s;white-space:nowrap;border-bottom:2px solid transparent}
+nav li a:hover,nav li a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* LAYOUT */
+.container{max-width:960px;margin:0 auto;padding:24px 20px 80px}
+section{margin-bottom:56px;scroll-margin-top:64px}
+h1{font-size:28px;font-weight:700;margin-bottom:4px}
+.subtitle{color:var(--muted);font-size:14px;margin-bottom:32px}
+h2{font-size:18px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+h2 .icon{font-size:20px}
+h3{font-size:14px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+
+/* CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:.2s}
+.card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.card-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.card-detail{font-size:13px;color:var(--muted);margin-bottom:4px}
+.card-detail strong{color:var(--text)}
+.tag{display:inline-block;background:rgba(245,158,11,.12);color:var(--accent);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:2px 4px 2px 0}
+
+/* CHECKLIST */
+.checklist-group{margin-bottom:24px}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;border-radius:8px;cursor:pointer;transition:.15s}
+.check-item:hover{background:rgba(255,255,255,.03)}
+.check-item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:20px;height:20px;min-width:20px;border:2px solid var(--border);border-radius:5px;margin-top:1px;cursor:pointer;transition:.2s;position:relative}
+.check-item input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+.check-item input[type=checkbox]:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:12px;font-weight:700;color:var(--bg)}
+.check-item.checked .check-text{color:var(--muted);text-decoration:line-through}
+.check-text{font-size:14px}
+
+/* SCORECARD */
+.score-item{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.score-item:last-child{border-bottom:none}
+.score-label{flex:1;font-size:14px;font-weight:500}
+.stars{display:flex;gap:4px}
+.star{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center}
+.star:hover{border-color:var(--accent);color:var(--accent)}
+.star.filled{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.score-val{font-size:14px;font-weight:700;color:var(--accent);min-width:24px;text-align:center}
+.overall-score{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(20,184,166,.1));border:1px solid var(--accent);border-radius:var(--radius);padding:24px;text-align:center;margin-top:24px}
+.overall-score .big{font-size:48px;font-weight:800;color:var(--accent)}
+.overall-score .label{font-size:13px;color:var(--muted);margin-top:4px}
+.overall-score .verdict{font-size:16px;font-weight:600;margin-top:8px}
+
+/* NOTES */
+textarea{width:100%;min-height:220px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;color:var(--text);font-family:inherit;font-size:14px;line-height:1.7;resize:vertical;transition:.2s}
+textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+.save-indicator{font-size:12px;color:var(--green);margin-top:8px;opacity:0;transition:.3s}
+.save-indicator.show{opacity:1}
+
+/* RED FLAGS */
+.flag-card{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius);padding:16px;display:flex;gap:12px;align-items:flex-start}
+.flag-card .flag-icon{font-size:20px;min-width:24px}
+.flag-card .flag-title{font-size:14px;font-weight:600;color:var(--danger);margin-bottom:2px}
+.flag-card .flag-desc{font-size:13px;color:var(--muted)}
+.flag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+
+/* HEADER */
+.header{padding:32px 0 8px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.status-badge{background:rgba(34,197,94,.12);color:var(--green);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;border:1px solid rgba(34,197,94,.25)}
+
+@media(max-width:600px){.card-grid,.flag-grid{grid-template-columns:1fr}h1{font-size:22px}}
+</style>
+</head>
+<body>
+
+<nav>
+<ul>
+<li><a href="#intel" class="active" onclick="setActive(this)">Intel</a></li>
+<li><a href="#questions" onclick="setActive(this)">Questions</a></li>
+<li><a href="#scorecard" onclick="setActive(this)">Scorecard</a></li>
+<li><a href="#notes" onclick="setActive(this)">Notes</a></li>
+<li><a href="#redflags" onclick="setActive(this)">Red Flags</a></li>
+</ul>
+</nav>
+
+<div class="container">
+
+<div class="header">
+<div class="header-top">
+<div>
+<h1>Call Prep — JM Search</h1>
+<div class="subtitle">Head of Western Sales · PE-Backed Telecom · Retained Search</div>
+</div>
+<div class="status-badge">● ACTIVE SEARCH</div>
+</div>
+</div>
+
+<!-- INTEL -->
+<section id="intel">
+<h2><span class="icon">◆</span> Intel Briefing</h2>
+<div class="card-grid">
+
+<div class="card">
+<div class="card-label">Recruiter</div>
+<div class="card-title">Wouter Van den Hooff</div>
+<div class="card-detail"><strong>Executive Search Consultant</strong> at JM Search</div>
+<div class="card-detail">GTM Practice — CRO/CSO/Head of Sales placements</div>
+<div class="card-detail">📞 <strong>610-945-7796</strong></div>
+<div class="card-detail">🎓 Franklin & Marshall College</div>
+<div class="card-detail">Path: Market Analyst → Sr. Analyst → Consultant (since 2021)</div>
+</div>
+
+<div class="card">
+<div class="card-label">The Firm</div>
+<div class="card-title">JM Search</div>
+<div class="card-detail"><strong>40+ year</strong> retained executive search firm</div>
+<div class="card-detail">PE/VC specialist — <strong>Top 50 ranked</strong> (Hunt Scanlon)</div>
+<div class="card-detail">Inc. 5000 honoree (2025)</div>
+<div class="card-detail">Telecom vertical led by <strong>Renee Hauch</strong> & <strong>John Warrack</strong></div>
+<div style="margin-top:8px">
+<span class="tag">Retained Search</span>
+<span class="tag">PE-Focused</span>
+<span class="tag">Philadelphia HQ</span>
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">The Opportunity</div>
+<div class="card-title">Head of Western Sales</div>
+<div class="card-detail">PE-backed <strong>Telecom Service Provider</strong></div>
+<div class="card-detail">Reports to: <strong>CRO</strong></div>
+<div class="card-detail">Scope: Largest & most strategic direct sales region</div>
+<div class="card-detail">Est. OTE: <strong>$200K–$350K+</strong> with equity upside</div>
+<div style="margin-top:8px">
+<span class="tag">Retained = Funded</span>
+<span class="tag">Leadership Team</span>
+<span class="tag">Western US</span>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- QUESTIONS -->
+<section id="questions">
+<h2><span class="icon">◆</span> Questions to Ask</h2>
+<p style="font-size:13px;color:var(--muted);margin-bottom:20px">Check off as you go during the call. Progress saves locally.</p>
+
+<div class="checklist-group">
+<h3>About the Company</h3>
+<label class="check-item"><input type="checkbox" data-key="q1"><span class="check-text">Who is the PE sponsor / investor?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q2"><span class="check-text">What's the company's annual revenue?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q3"><span class="check-text">How many employees / what's the company size?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q4"><span class="check-text">What telecom services — fiber, UCaaS, managed services, other?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q5"><span class="check-text">What states/markets does the Western region cover?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q6"><span class="check-text">Who are the main competitors?</span></label>
+</div>
+
+<div class="checklist-group">
+<h3>About the Role</h3>
+<label class="check-item"><input type="checkbox" data-key="q7"><span class="check-text">Why is this role open — new position or backfill?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q8"><span class="check-text">How long has the CRO been in seat?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q9"><span class="check-text">What's the team size / number of direct reports?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q10"><span class="check-text">What's the quota / revenue target for Western region?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q11"><span class="check-text">What does the comp package look like — base, variable, equity?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q12"><span class="check-text">What does a typical week look like — travel expectations?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q13"><span class="check-text">Where is the role based / is remote an option?</span></label>
+</div>
+
+<div class="checklist-group">
+<h3>About the Growth Plan</h3>
+<label class="check-item"><input type="checkbox" data-key="q14"><span class="check-text">Organic growth vs. M&A — what's the strategy?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q15"><span class="check-text">What's the investment thesis / exit timeline?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q16"><span class="check-text">Any recent acquisitions or planned ones?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q17"><span class="check-text">How mature is the sales org — building or optimizing?</span></label>
+</div>
+
+<div class="checklist-group">
+<h3>About the Process</h3>
+<label class="check-item"><input type="checkbox" data-key="q18"><span class="check-text">What's the timeline for the search?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q19"><span class="check-text">How many candidates are in the process?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q20"><span class="check-text">What does the full interview process look like?</span></label>
+<label class="check-item"><input type="checkbox" data-key="q21"><span class="check-text">Who are the key decision makers beyond the CRO?</span></label>
+</div>
+</section>
+
+<!-- SCORECARD -->
+<section id="scorecard">
+<h2><span class="icon">◆</span> Opportunity Scorecard</h2>
+<p style="font-size:13px;color:var(--muted);margin-bottom:20px">Rate each dimension after the call to see if this is worth pursuing.</p>
+
+<div id="scorecard-items">
+<div class="score-item" data-score-key="s1">
+<div class="score-label">Comp & Equity Potential</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+<div class="score-item" data-score-key="s2">
+<div class="score-label">Growth Trajectory</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+<div class="score-item" data-score-key="s3">
+<div class="score-label">Culture & Leadership Fit</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+<div class="score-item" data-score-key="s4">
+<div class="score-label">Role Scope & Autonomy</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+<div class="score-item" data-score-key="s5">
+<div class="score-label">PE Sponsor Quality</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+<div class="score-item" data-score-key="s6">
+<div class="score-label">Location & Travel</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+<div class="score-item" data-score-key="s7">
+<div class="score-label">Career Advancement</div>
+<div class="stars"></div>
+<div class="score-val">—</div>
+</div>
+</div>
+
+<div class="overall-score" id="overall-score">
+<div class="big" id="avg-score">—</div>
+<div class="label">OVERALL SCORE (out of 5)</div>
+<div class="verdict" id="verdict"></div>
+</div>
+</section>
+
+<!-- NOTES -->
+<section id="notes">
+<h2><span class="icon">◆</span> Call Notes</h2>
+<textarea id="call-notes" placeholder="Type your notes during the call here..."></textarea>
+<div class="save-indicator" id="save-ind">✓ Saved locally</div>
+</section>
+
+<!-- RED FLAGS -->
+<section id="redflags">
+<h2><span class="icon">◆</span> Red Flags to Watch</h2>
+<div class="flag-grid">
+<div class="flag-card"><div class="flag-icon">⚠</div><div><div class="flag-title">High CRO Turnover</div><div class="flag-desc">If the CRO is new or this is the 2nd+ CRO, the org may be unstable. Ask how long they've been in seat.</div></div></div>
+<div class="flag-card"><div class="flag-icon">⚠</div><div><div class="flag-title">Unrealistic Quotas</div><div class="flag-desc">PE-backed = aggressive targets. Push for specifics on quota vs. historical attainment. 120%+ ramp expectations are a red flag.</div></div></div>
+<div class="flag-card"><div class="flag-icon">⚠</div><div><div class="flag-title">No Equity Component</div><div class="flag-desc">At a PE-backed company, equity is the upside. If there's no equity/options in the comp, the economics don't match the risk.</div></div></div>
+<div class="flag-card"><div class="flag-icon">⚠</div><div><div class="flag-title">Unclear Exit Timeline</div><div class="flag-desc">PE firms typically exit in 3–5 years. If they can't articulate the timeline, the thesis may be shaky or you could get caught in a transition.</div></div></div>
+<div class="flag-card"><div class="flag-icon">⚠</div><div><div class="flag-title">Too Many Direct Reports</div><div class="flag-desc">More than 8–10 direct reports means you're managing, not leading. Ask about the org structure and whether there are managers in between.</div></div></div>
+<div class="flag-card"><div class="flag-icon">⚠</div><div><div class="flag-title">Heavy Travel, No Adjustment</div><div class="flag-desc">"Western region" can mean constant flights. If travel is 60%+ with no travel comp or remote flexibility, that's a lifestyle concern.</div></div></div>
+</div>
+</section>
+
+</div>
+
+<script>
+// NAV
+function setActive(el){document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active')}
+window.addEventListener('scroll',()=>{const sects=['intel','questions','scorecard','notes','redflags'];let cur='';sects.forEach(id=>{const s=document.getElementById(id);if(s&&s.getBoundingClientRect().top<120)cur=id});document.querySelectorAll('nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur)})});
+
+// CHECKLIST
+document.querySelectorAll('.check-item input').forEach(cb=>{
+const k=cb.dataset.key;cb.checked=localStorage.getItem(k)==='true';
+if(cb.checked)cb.closest('.check-item').classList.add('checked');
+cb.addEventListener('change',()=>{localStorage.setItem(k,cb.checked);cb.closest('.check-item').classList.toggle('checked',cb.checked)});
+});
+
+// SCORECARD
+const scores={};
+document.querySelectorAll('.score-item').forEach(item=>{
+const k=item.dataset.scoreKey,container=item.querySelector('.stars'),valEl=item.querySelector('.score-val');
+const saved=localStorage.getItem(k);if(saved)scores[k]=parseInt(saved);
+for(let i=1;i<=5;i++){const btn=document.createElement('button');btn.className='star'+(scores[k]>=i?' filled':'');btn.textContent=i;
+btn.addEventListener('click',()=>{scores[k]=i;localStorage.setItem(k,i);container.querySelectorAll('.star').forEach((s,idx)=>s.classList.toggle('filled',idx<i));valEl.textContent=i;updateOverall()});container.appendChild(btn)}
+if(scores[k])valEl.textContent=scores[k];
+});
+function updateOverall(){const vals=Object.values(scores);if(!vals.length)return;const avg=(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);document.getElementById('avg-score').textContent=avg;const v=document.getElementById('verdict');if(avg>=4)v.textContent='Strong opportunity — worth pursuing';else if(avg>=3)v.textContent='Promising — dig deeper on weak areas';else if(avg>=2)v.textContent='Proceed with caution';else v.textContent='Likely a pass';v.style.color=avg>=4?'var(--green)':avg>=3?'var(--accent)':avg>=2?'var(--accent)':'var(--danger)'}
+updateOverall();
+
+// NOTES
+const ta=document.getElementById('call-notes'),si=document.getElementById('save-ind');let timer;
+ta.value=localStorage.getItem('call-notes')||'';
+ta.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(()=>{localStorage.setItem('call-notes',ta.value);si.classList.add('show');setTimeout(()=>si.classList.remove('show'),1500)},500)});
+</script>
+</body>
+</html>
