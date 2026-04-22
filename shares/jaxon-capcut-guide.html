@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAXON // CapCut Command Center</title>
+<meta name="description" content="Interactive CapCut Video Editing Guide & Project Planner for Jaxon">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cyan: #00D4FF;
+  --purple: #8B5CF6;
+  --magenta: #D946EF;
+  --bg-deep: #05050a;
+  --bg-base: #0a0a0f;
+  --bg-card: rgba(15, 15, 25, 0.7);
+  --bg-card-hover: rgba(20, 20, 35, 0.85);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(0, 212, 255, 0.15);
+  --text-primary: #e8e8ec;
+  --text-secondary: #8888a0;
+  --text-dim: #555570;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) var(--bg-deep);
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === BACKGROUND ATMOSPHERE === */
+.bg-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-atmosphere::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+.bg-atmosphere::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  right: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.04) 0%, transparent 70%);
+  animation: drift 30s ease-in-out infinite reverse;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -20px) rotate(1deg); }
+  66% { transform: translate(-20px, 15px) rotate(-1deg); }
+}
+
+/* grain overlay */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* === CONTAINER === */
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* === HEADER === */
+.header {
+  padding: 48px 0 32px;
+  text-align: center;
+  position: relative;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 24px;
+}
+
+.header-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--cyan); }
+  50% { opacity: 0.4; box-shadow: 0 0 8px var(--cyan); }
+}
+
+.header h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header h1 span {
+  display: block;
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  -webkit-text-fill-color: var(--text-secondary);
+  margin-top: 12px;
+}
+
+/* === NAV === */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 0 40px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.3);
+  color: var(--cyan);
+}
+
+/* === SECTIONS === */
+.section {
+  margin-bottom: 64px;
+  animation: fadeUp 0.6s ease-out both;
+}
+
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.2s; }
+.section:nth-child(4) { animation-delay: 0.3s; }
+.section:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.section-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.section-icon.cyan { background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2); }
+.section-icon.purple { background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); }
+.section-icon.magenta { background: rgba(217, 70, 239, 0.1); border: 1px solid rgba(217, 70, 239, 0.2); }
+.section-icon.green { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); }
+.section-icon.orange { background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.2); }
+
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.section-title small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* === GLASS CARD === */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 28px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.25s ease;
+}
+
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* === PROJECT STARTER === */
+.starter-form {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: end;
+}
+
+@media (max-width: 640px) {
+  .starter-form { grid-template-columns: 1fr; }
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.form-select option { background: var(--bg-base); }
+
+.btn-primary {
+  padding: 12px 28px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+/* plan output */
+.plan-output {
+  margin-top: 24px;
+  display: none;
+}
+
+.plan-output.visible { display: block; animation: fadeUp 0.4s ease-out; }
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.plan-card h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-card h4 .tag {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.tag-cyan { background: rgba(0, 212, 255, 0.1); color: var(--cyan); }
+.tag-purple { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+.tag-magenta { background: rgba(217, 70, 239, 0.1); color: var(--magenta); }
+
+.plan-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plan-card li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.plan-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--cyan);
+  opacity: 0.5;
+}
+
+.plan-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: rgba(0, 212, 255, 0.04);
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: 12px;
+}
+
+.plan-title-bar h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.plan-title-bar .type-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--purple);
+  letter-spacing: 1px;
+}
+
+/* === TECHNIQUE LIBRARY === */
+.difficulty-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.diff-tab {
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.diff-tab:hover { border-color: rgba(255, 255, 255, 0.15); color: var(--text-primary); }
+.diff-tab.active-beginner { background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #22c55e; }
+.diff-tab.active-intermediate { background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.3); color: #fbbf24; }
+.diff-tab.active-advanced { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #ef4444; }
+
+.technique-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.technique-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.technique-card:hover {
+  border-color: rgba(0, 212, 255, 0.2);
+  background: rgba(0, 212, 255, 0.03);
+}
+
+.technique-card.expanded {
+  grid-column: 1 / -1;
+  border-color: rgba(0, 212, 255, 0.25);
+}
+
+.technique-card-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.technique-card-header h4 {
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.technique-card-header .cat-icon {
+  font-size: 16px;
+}
+
+.difficulty-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.difficulty-dot.beginner { background: #22c55e; }
+.difficulty-dot.intermediate { background: #fbbf24; }
+.difficulty-dot.advanced { background: #ef4444; }
+
+.technique-expand-icon {
+  font-size: 12px;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+}
+
+.technique-card.expanded .technique-expand-icon {
+  transform: rotate(180deg);
+}
+
+.technique-details {
+  display: none;
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.technique-card.expanded .technique-details {
+  display: block;
+  animation: fadeUp 0.3s ease-out;
+}
+
+.step-list {
+  list-style: none;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.step-list li {
+  counter-increment: step;
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.step-list li::before {
+  content: counter(step);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* === AI TOOLKIT === */
+.ai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.ai-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ai-card:hover::before { opacity: 1; }
+
+.ai-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.ai-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.ai-card-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.ai-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ai-card h4 small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.ai-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.ai-workflow {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.ai-workflow h5 {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.ai-workflow p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* === PRE-SUBMIT CHECKLIST === */
+.checklist-container {
+  position: relative;
+}
+
+.progress-bar-wrap {
+  margin-bottom: 24px;
+}
+
+.progress-bar-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.progress-bar-label span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.progress-bar-label .progress-pct {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0%;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.check-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.check-item.checked {
+  border-color: rgba(34, 197, 94, 0.25);
+  background: rgba(34, 197, 94, 0.04);
+}
+
+.check-box {
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.check-item.checked .check-box {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+.check-box svg {
+  width: 12px; height: 12px;
+  stroke: #fff;
+  stroke-width: 3;
+  fill: none;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s;
+}
+
+.check-item.checked .check-box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.check-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.check-item.checked .check-label {
+  color: var(--text-primary);
+}
+
+.completion-msg {
+  margin-top: 20px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  text-align: center;
+  font-size: 14px;
+  color: #22c55e;
+  font-weight: 500;
+  display: none;
+}
+
+.completion-msg.visible { display: block; animation: fadeUp 0.4s ease-out; }
+
+/* === WEEKLY CHALLENGE === */
+.challenge-card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(0, 212, 255, 0.06) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+.challenge-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.15);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 16px;
+}
+
+.challenge-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.challenge-card .challenge-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.challenge-skills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.skill-tag {
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.challenge-refresh {
+  margin-top: 20px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--purple);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.challenge-refresh:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+/* === FOOTER === */
+.footer {
+  padding: 40px 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.footer p {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .header { padding: 32px 0 24px; }
+  .glass-card { padding: 20px; }
+  .ai-grid { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: 1fr; }
+  .technique-grid { grid-template-columns: 1fr; }
+  .checklist-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-atmosphere"></div>
+<div class="grain"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-badge"><span class="dot"></span> JAXON'S COMMAND CENTER</div>
+    <h1>CapCut<span>Video Editing Guide & Project Planner</span></h1>
+  </header>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <button class="nav-btn active" data-section="project-starter">Project Starter</button>
+    <button class="nav-btn" data-section="technique-library">Techniques</button>
+    <button class="nav-btn" data-section="ai-toolkit">AI Toolkit</button>
+    <button class="nav-btn" data-section="pre-submit">Pre-Submit</button>
+    <button class="nav-btn" data-section="weekly-challenge">Challenge</button>
+  </nav>
+
+  <!-- SECTION 1: PROJECT STARTER -->
+  <section class="section" id="project-starter">
+    <div class="section-header">
+      <div class="section-icon cyan">🎬</div>
+      <div>
+        <div class="section-title">Project Starter<small>Plan your next video project</small></div>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <form class="starter-form" id="starterForm" onsubmit="return false;">
+        <div class="form-group">
+          <label>Video Topic</label>
+          <input type="text" class="form-input" id="videoTopic" placeholder="e.g. History of sneakers, School day vlog..." />
+        </div>
+        <div class="form-group">
+          <label>Video Type</label>
+          <select class="form-select" id="videoType">
+            <option value="documentary">Documentary</option>
+            <option value="presentation">Presentation</option>
+            <option value="story">Story / Narrative</option>
+            <option value="tutorial">Tutorial / How-To</option>
+            <option value="hype">Hype / Montage</option>
+          </select>
+        </div>
+        <button type="button" class="btn-primary" onclick="generatePlan()">Generate Plan</button>
+      </form>
+
+      <div class="plan-output" id="planOutput">
+        <div class="plan-title-bar">
+          <h3 id="planTopicTitle">—</h3>
+          <span class="type-badge" id="planTypeBadge">—</span>
+        </div>
+        <div class="plan-grid" id="planGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: TECHNIQUE LIBRARY -->
+  <section class="section" id="technique-library">
+    <div class="section-header">
+      <div class="section-icon purple">🎛️</div>
+      <div>
+        <div class="section-title">Technique Library<small>CapCut techniques by difficulty</small></div>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="difficulty-tabs" id="diffTabs">
+        <button class="diff-tab active-beginner" data-diff="all">All</button>
+        <button class="diff-tab" data-diff="beginner">Beginner</button>
+        <button class="diff-tab" data-diff="intermediate">Intermediate</button>
+        <button class="diff-tab" data-diff="advanced">Advanced</button>
+      </div>
+      <div class="technique-grid" id="techniqueGrid"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: AI TOOLKIT -->
+  <section class="section" id="ai-toolkit">
+    <div class="section-header">
+      <div class="section-icon magenta">🤖</div>
+      <div>
+        <div class="section-title">AI Toolkit<small>AI tools to level up your workflow</small></div>
+      </div>
+    </div>
+
+    <div class="ai-grid" id="aiGrid"></div>
+  </section>
+
+  <!-- SECTION 4: PRE-SUBMIT CHECKLIST -->
+  <section class="section" id="pre-submit">
+    <div class="section-header">
+      <div class="section-icon green">✅</div>
+      <div>
+        <div class="section-title">Pre-Submit Checklist<small>Check everything before turning in</small></div>
+      </div>
+    </div>
+
+    <div class="glass-card checklist-container">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-label">
+          <span>Completion</span>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <div class="checklist-grid" id="checklistGrid"></div>
+      <div class="completion-msg" id="completionMsg">Ready to submit. Your video is locked in. 🔥</div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: WEEKLY CHALLENGE -->
+  <section class="section" id="weekly-challenge">
+    <div class="section-header">
+      <div class="section-icon orange">⚡</div>
+      <div>
+        <div class="section-title">Weekly Challenge<small>Push your editing skills</small></div>
+      </div>
+    </div>
+
+    <div class="challenge-card" id="challengeCard"></div>
+  </section>
+
+  <footer class="footer">
+    <p>JAXON // CAPCUT COMMAND CENTER &mdash; 2026</p>
+  </footer>
+
+</div>
+
+<script>
+// === DATA ===
+
+const VIDEO_PRESETS = {
+  documentary: {
+    label: 'Documentary',
+    shots: ['Wide establishing shot of subject/location', 'Interview or talking head B-roll', 'Close-up detail shots', 'Historical photos/archival if available', 'Text cards with key facts/dates', 'Closing reflection shot'],
+    effects: ['Ken Burns pan/zoom on photos', 'Subtle vignette', 'Film grain overlay for vintage feel', 'Lower third name titles'],
+    music: 'Cinematic ambient, orchestral swells, minimal piano',
+    typography: 'Serif or slab-serif for titles, clean sans-serif body text, lower thirds with subtle lines',
+    pacing: 'Slow and deliberate. Let shots breathe 3-5 seconds. Cut on narration beats. Build momentum toward a conclusion.'
+  },
+  presentation: {
+    label: 'Presentation',
+    shots: ['Title card with topic + name', 'Talking head segments (you explaining)', 'Screen recordings if showing a process', 'Bullet point overlay slides', 'Visual examples / images', 'Summary/takeaway card'],
+    effects: ['Clean slide transitions (dissolve or push)', 'Animated text reveals', 'Highlight/underline key words', 'Progress indicator overlay'],
+    music: 'Lo-fi background, soft electronic, nothing distracting',
+    typography: 'Bold sans-serif titles, medium weight body text, consistent alignment (left or center)',
+    pacing: 'Moderate and steady. 2-3 seconds per slide point. Match cuts to your spoken rhythm. Keep total under 5 minutes if possible.'
+  },
+  story: {
+    label: 'Story / Narrative',
+    shots: ['Opening hook shot (action or mystery)', 'Character introduction moments', 'Conflict/tension B-roll', 'Reaction shots', 'Climax sequence', 'Resolution + closing'],
+    effects: ['Speed ramps at key moments', 'Letterbox bars for cinematic feel', 'Color shift for flashbacks', 'Handheld shake effect for tension'],
+    music: 'Builds with the story arc. Quiet intro, tension building, emotional peak, resolve to calm',
+    typography: 'Minimal text. Maybe opening title and closing credits only. If subtitles, keep them clean.',
+    pacing: 'Follow story arc. Quick cuts for tension, slow shots for emotion. Let the climax hit hard, then decompress.'
+  },
+  tutorial: {
+    label: 'Tutorial / How-To',
+    shots: ['Intro card: what you will learn', 'Step-by-step demonstration clips', 'Close-up of hands/screen for detail', 'Before/after comparison', 'Common mistakes to avoid', 'Final result showcase'],
+    effects: ['Zoom-in callouts on important areas', 'Arrow/circle annotations', 'Split screen for before/after', 'Step counter overlay'],
+    music: 'Upbeat lo-fi or light acoustic. Keeps energy without distracting from instruction.',
+    typography: 'Numbered step titles, annotation labels, bold keywords highlighted in color',
+    pacing: 'Measured and clear. Pause on key steps. Repeat important moments. Total 3-7 min for most tutorials.'
+  },
+  hype: {
+    label: 'Hype / Montage',
+    shots: ['High-energy opening clip', 'Quick montage cuts (1-2 sec each)', 'Slow-motion hero shot', 'POV or action angles', 'Group/crowd energy shots', 'Epic closing shot with text'],
+    effects: ['Beat-synced cuts', 'Velocity/speed ramping', 'RGB split / glitch', 'Flash frames on bass drops', 'Shake + zoom effects'],
+    music: 'High energy: trap, EDM drops, bass-heavy. The track IS the edit. Every cut syncs to the beat.',
+    typography: 'Big bold impact font. Glitch text effects. Minimal words, maximum impact. ALL CAPS.',
+    pacing: 'Fast and relentless. Cuts every 0.5-2 seconds. Build to drops. Use slow-mo for contrast, then slam back to speed.'
+  }
+};
+
+const TECHNIQUES = [
+  { name: 'Basic Cut & Trim', category: 'Transitions', icon: '✂️', difficulty: 'beginner', steps: ['Import your clips to the timeline', 'Tap a clip to select it, then drag the white handles on either end to trim', 'To split: move the playhead where you want to cut, then tap the Split button', 'Delete unwanted sections by selecting them and tapping Delete', 'Tip: zoom into the timeline for more precise cuts'] },
+  { name: 'Cross Dissolve', category: 'Transitions', icon: '🔄', difficulty: 'beginner', steps: ['Place two clips next to each other on the timeline', 'Tap the transition icon between the clips (white square)', 'Select "Dissolve" from the transition menu', 'Adjust the duration by dragging the handles (0.3-0.5s is usually good)', 'Preview to make sure it feels smooth'] },
+  { name: 'Add Text & Titles', category: 'Text Effects', icon: '📝', difficulty: 'beginner', steps: ['Tap "Text" in the bottom toolbar', 'Choose "Add Text" for basic or browse templates for styled options', 'Type your text and adjust font, size, color in the editor', 'Drag the text layer on timeline to set when it appears and how long', 'Position it on screen by dragging in the preview window'] },
+  { name: 'Basic Color Filter', category: 'Color Grading', icon: '🎨', difficulty: 'beginner', steps: ['Select your clip on the timeline', 'Tap "Filters" in the bottom toolbar', 'Browse categories and tap to preview different looks', 'Use the intensity slider to dial it back (60-80% usually looks more natural)', 'Apply the same filter to all clips for a consistent look'] },
+  { name: 'Add Background Music', category: 'Sound Design', icon: '🎵', difficulty: 'beginner', steps: ['Tap "Audio" in the bottom toolbar, then "Sounds"', 'Browse CapCut\'s free music library by mood or genre', 'Tap the + button to add a track to your timeline', 'Lower the music volume to around 20-30% so it doesn\'t overpower dialogue', 'Trim the music to match your video length'] },
+  { name: 'Speed Ramp', category: 'Speed Effects', icon: '⚡', difficulty: 'intermediate', steps: ['Select your clip, tap "Speed" in the bottom menu', 'Choose "Curve" (not Normal) for speed ramping', 'Pick a preset like "Montage" or tap "Custom"', 'In custom: add beats (points) on the curve. Drag UP for fast, DOWN for slow', 'Create smooth transitions between speeds. The S-curve shape usually looks best', 'Preview and adjust until the speed change feels natural with your music'] },
+  { name: 'Keyframe Animation', category: 'Keyframing', icon: '🔑', difficulty: 'intermediate', steps: ['Select a clip or text layer on the timeline', 'Move playhead to where you want the animation to START', 'Tap the diamond keyframe icon to set the first keyframe', 'Adjust a property (position, scale, opacity, rotation)', 'Move playhead to where the animation should END', 'Change the property to its final value - CapCut auto-creates the second keyframe', 'Preview. Add more keyframes for complex motion paths'] },
+  { name: 'Green Screen / Chroma Key', category: 'Overlays', icon: '🟩', difficulty: 'intermediate', steps: ['Film your subject in front of a solid green (or blue) background', 'Import the green screen clip as an overlay (tap "Overlay" > "Add overlay")', 'Select the overlay clip, tap "Cutout" > "Chroma Key"', 'Use the color picker to select the green color', 'Adjust Intensity and Shadow sliders until the background is cleanly removed', 'Position and scale the overlay on your background'] },
+  { name: 'Auto Captions', category: 'Text Effects', icon: '💬', difficulty: 'beginner', steps: ['Tap "Text" > "Auto Captions"', 'Select the language of your audio', 'Wait for CapCut to generate captions automatically', 'Review and fix any errors by tapping individual caption blocks', 'Style them: change font, add background, adjust position', 'Tip: bold, centered captions with a dark outline are easiest to read'] },
+  { name: 'Masking & Reveal', category: 'Masking', icon: '🎭', difficulty: 'advanced', steps: ['Select the clip you want to mask', 'Go to "Mask" in the editing options', 'Choose a mask shape (rectangle, circle, or draw custom)', 'Position the mask over the area you want to reveal/hide', 'Invert the mask if needed', 'Use keyframes to animate the mask position over time for reveal effects', 'Combine with a second layer underneath for split-screen or reveal transitions'] },
+  { name: 'Beat-Synced Editing', category: 'Sound Design', icon: '🥁', difficulty: 'intermediate', steps: ['Add your music track first', 'Tap the music clip, then "Beats"', 'Use "Auto-generate" or manually tap to mark beats while the music plays', 'Yellow markers appear on the timeline at each beat', 'Now trim/split your video clips to snap to those beat markers', 'Each visual cut should land on a beat for maximum impact', 'Use speed ramps between beats for extra punch'] },
+  { name: 'Picture-in-Picture', category: 'Overlays', icon: '📱', difficulty: 'beginner', steps: ['Add your main video to the timeline', 'Tap "Overlay" > "Add overlay" and select a second clip', 'Resize the overlay by pinching in the preview', 'Position it in a corner or wherever looks best', 'Adjust the overlay clip length on the timeline', 'Optional: add a border or rounded corners via overlay effects'] },
+  { name: 'Color Grading with HSL', category: 'Color Grading', icon: '🌈', difficulty: 'advanced', steps: ['Select your clip and go to "Adjust"', 'Scroll to find HSL (Hue, Saturation, Luminance) controls', 'Pick a specific color channel (e.g., oranges for skin tones, blues for sky)', 'Adjust Hue to shift the color, Saturation to boost/reduce intensity', 'Use Luminance to brighten or darken just that color range', 'This lets you make skies more blue, skin warmer, or grass greener without affecting other colors', 'Apply the same HSL settings across all clips for consistency'] },
+  { name: 'Glitch & Distortion', category: 'Transitions', icon: '📺', difficulty: 'intermediate', steps: ['Place your two clips on the timeline', 'At the cut point, add a very short clip (0.1-0.2 seconds) in between', 'Apply a glitch effect from Effects > Video Effects > Distortion', 'Or: duplicate a frame and offset the RGB channels manually with overlays', 'Add a glitch sound effect to match', 'Works best on beat drops in hype/montage edits'] },
+  { name: '3D Zoom Parallax', category: 'Keyframing', icon: '🏔️', difficulty: 'advanced', steps: ['Take a photo and separate the foreground subject from background (use CapCut\'s cutout or Photoshop)', 'Import the background as your base layer', 'Add the foreground subject as an overlay', 'Scale the overlay slightly larger than the background', 'Use keyframes: slowly zoom INTO the background while keeping the foreground overlay at a different zoom rate', 'The different zoom speeds create a parallax 3D depth illusion', 'Add subtle camera shake for extra realism'] },
+  { name: 'Audio Ducking', category: 'Sound Design', icon: '🔊', difficulty: 'intermediate', steps: ['Add both your dialogue and music tracks to the timeline', 'Select your music track', 'Look for "Volume" controls and lower the music during speaking parts', 'Or use keyframes on the music volume: set low (20%) during dialogue, normal (60-80%) during pauses', 'Alternative: some versions of CapCut have auto-ducking in Audio settings', 'Always preview with headphones to check the balance'] }
+];
+
+const AI_TOOLS = [
+  { name: 'CapCut AI', tagline: 'Built-in AI features', icon: '✨', desc: 'CapCut has built-in AI tools: auto captions, background remover, text-to-speech, style transfer, and AI-generated effects. These are free and right inside the app.', workflow: 'Use auto captions after recording voiceover. Use background remover instead of green screen when you don\'t have one. Try style transfer to match a specific visual aesthetic.' },
+  { name: 'ElevenLabs', tagline: 'AI voice generation', icon: '🎙️', desc: 'Generate professional voiceover narration from text. Pick from hundreds of voices or clone your own. Great for documentaries and presentations when you want polished narration.', workflow: 'Write your script in Google Docs first. Paste into ElevenLabs, pick a voice that matches your video tone. Download the MP3 and drop it into CapCut as an audio track. Sync your visuals to the narration.' },
+  { name: 'Suno', tagline: 'AI music creation', icon: '🎶', desc: 'Generate custom background music by describing the mood you want. No copyright issues since you made it. Create exactly the right track for your video.', workflow: 'Describe the mood: "calm lo-fi beat for a study tutorial, 90 BPM, 2 minutes." Generate a few options, pick the best one. Download and import to CapCut. Way better than using overused stock music.' },
+  { name: 'Runway / Kling', tagline: 'AI video generation', icon: '🎥', desc: 'Generate short video clips from text descriptions or images. Use for B-roll you can\'t film, sci-fi effects, or creative transitions. Kling is great for motion from photos.', workflow: 'When you need a shot you can\'t film (space, underwater, historical event), describe it and generate a 4-second clip. Import as B-roll into your CapCut timeline. Works best for artistic/abstract shots.' },
+  { name: 'Midjourney', tagline: 'AI image generation', icon: '🖼️', desc: 'Create custom images, thumbnails, backgrounds, and title cards. Generate exactly the visual you need instead of searching through stock photos.', workflow: 'Use for: video thumbnails that pop, custom backgrounds for title slides, images for documentaries when real photos aren\'t available. Generate at highest quality, then import to CapCut as an image layer.' },
+  { name: 'Claude', tagline: 'AI writing assistant', icon: '🧠', desc: 'Write video scripts, brainstorm concepts, create shot lists, and plan your entire project structure. The best tool for the thinking and planning part of video creation.', workflow: 'Start here before editing. Ask Claude to help outline your video, write narration, create a shot list, or suggest a story structure. Paste your transcript to get feedback. Use it to write your video description and thumbnail text too.' }
+];
+
+const CHECKLIST_ITEMS = [
+  { id: 'story', label: 'Story flows logically from start to finish', icon: '📖' },
+  { id: 'text', label: 'All text is readable (size, contrast, duration)', icon: '📝' },
+  { id: 'music', label: 'Music matches the mood and isn\'t overpowering', icon: '🎵' },
+  { id: 'transitions', label: 'Transitions are smooth and intentional', icon: '🔄' },
+  { id: 'audio', label: 'Audio levels balanced (voice vs music vs effects)', icon: '🔊' },
+  { id: 'color', label: 'Color grading is consistent across all clips', icon: '🎨' },
+  { id: 'thumbnail', label: 'Thumbnail is high-quality and attention-grabbing', icon: '🖼️' },
+  { id: 'format', label: 'Exported in the right format and resolution', icon: '📐' }
+];
+
+const CHALLENGES = [
+  { title: '30-Second Story', desc: 'Tell a complete story in exactly 30 seconds. Must have a beginning, middle, and end. Use at least 3 different shot types and one speed ramp. The constraint forces you to make every frame count.', skills: ['Pacing', 'Speed Ramp', 'Storytelling', 'Trimming'] },
+  { title: 'Beat Drop Edit', desc: 'Pick a song with a big drop. Build tension for 15 seconds with slow cuts and close-ups, then hit the drop with rapid-fire beat-synced cuts (at least 8 cuts in 4 seconds). Make the audience feel the impact.', skills: ['Beat Sync', 'Speed Effects', 'Timing', 'Sound Design'] },
+  { title: 'One Location, Five Looks', desc: 'Film in one single location but make it look like five completely different places using only color grading, angles, framing, and overlays. No text or explanation — the viewer should believe they are different locations.', skills: ['Color Grading', 'Composition', 'Overlays', 'Creativity'] },
+  { title: 'Silent Film', desc: 'Create a 1-minute video with zero dialogue and zero voiceover. Tell your story using only visuals, music, text cards (silent film style), and sound effects. Focus on showing instead of telling.', skills: ['Visual Storytelling', 'Text Effects', 'Sound Design', 'Pacing'] },
+  { title: 'Remake a Scene', desc: 'Pick a famous 30-second movie or TV scene and recreate it shot-for-shot with whatever you have available. Match the camera angles, timing, and editing as closely as possible. Post the original alongside yours.', skills: ['Shot Matching', 'Transitions', 'Color Grading', 'Attention to Detail'] },
+  { title: 'Photo Comes Alive', desc: 'Start with a still photo. Using keyframe animation, masking, and parallax effects, make the photo come alive with movement. Add ambient sound and subtle particle effects. The whole thing should feel like a living photograph.', skills: ['Keyframing', 'Masking', 'Parallax', 'Sound Design'] },
+  { title: 'Two Perspectives', desc: 'Film the same event from two different perspectives (e.g., two people\'s POV of the same moment). Edit them together using split screen, then merge into a single timeline at the climax. Show how perspective changes the story.', skills: ['Split Screen', 'Overlay', 'Storytelling', 'Transitions'] }
+];
+
+// === RENDER FUNCTIONS ===
+
+function generatePlan() {
+  const topic = document.getElementById('videoTopic').value.trim();
+  const type = document.getElementById('videoType').value;
+  if (!topic) { document.getElementById('videoTopic').focus(); return; }
+
+  const preset = VIDEO_PRESETS[type];
+  const output = document.getElementById('planOutput');
+  const grid = document.getElementById('planGrid');
+
+  document.getElementById('planTopicTitle').textContent = topic;
+  document.getElementById('planTypeBadge').textContent = preset.label;
+
+  grid.innerHTML = `
+    <div class="plan-card">
+      <h4><span class="tag tag-cyan">SHOTS</span> Shot List</h4>
+      <ul>${preset.shots.map(s => `<li>${s}</li>`).join('')}</ul>
+    </div>
+    <div class="plan-card">
+      <h4><span class="tag tag-purple">FX</span> Effects & Overlays</h4>
+      <ul>${preset.effects.map(e => `<li>${e}</li>`).join('')}</ul>
+    </div>
+    <div class="plan-card">
+      <h4><span class="tag tag-magenta">MUSIC</span> Music Mood</h4>
+      <ul><li>${preset.music}</li></ul>
+    </div>
+    <div class="plan-card">
+      <h4><span class="tag tag-cyan">TYPE</span> Typography Style</h4>
+      <ul><li>${preset.typography}</li></ul>
+    </div>
+    <div class="plan-card" style="grid-column: 1 / -1;">
+      <h4><span class="tag tag-purple">PACE</span> Pacing Guide</h4>
+      <ul><li>${preset.pacing}</li></ul>
+    </div>
+  `;
+
+  output.classList.add('visible');
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderTechniques(filter = 'all') {
+  const grid = document.getElementById('techniqueGrid');
+  const filtered = filter === 'all' ? TECHNIQUES : TECHNIQUES.filter(t => t.difficulty === filter);
+
+  grid.innerHTML = filtered.map((t, i) => `
+    <div class="technique-card" id="tech-${i}" onclick="toggleTechnique(${i})">
+      <div class="technique-card-header">
+        <h4>
+          <span class="cat-icon">${t.icon}</span>
+          ${t.name}
+          <span class="difficulty-dot ${t.difficulty}"></span>
+        </h4>
+        <span class="technique-expand-icon">▼</span>
+      </div>
+      <div class="technique-details">
+        <div style="margin-bottom:8px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);">
+          ${t.category} &middot; ${t.difficulty}
+        </div>
+        <ol class="step-list">${t.steps.map(s => `<li><span>${s}</span></li>`).join('')}</ol>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleTechnique(idx) {
+  const card = document.getElementById(`tech-${idx}`);
+  card.classList.toggle('expanded');
+}
+
+function renderDiffTabs() {
+  const tabs = document.querySelectorAll('.diff-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.className = 'diff-tab');
+      const diff = tab.dataset.diff;
+      if (diff === 'all') tab.classList.add('active-beginner');
+      else tab.classList.add(`active-${diff}`);
+      renderTechniques(diff);
+    });
+  });
+}
+
+function renderAITools() {
+  const grid = document.getElementById('aiGrid');
+  grid.innerHTML = AI_TOOLS.map(tool => `
+    <div class="ai-card">
+      <div class="ai-card-header">
+        <div class="ai-card-icon">${tool.icon}</div>
+        <h4>${tool.name}<small>${tool.tagline}</small></h4>
+      </div>
+      <p>${tool.desc}</p>
+      <div class="ai-workflow">
+        <h5>How to Use in Your Workflow</h5>
+        <p>${tool.workflow}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderChecklist() {
+  const grid = document.getElementById('checklistGrid');
+  grid.innerHTML = CHECKLIST_ITEMS.map(item => `
+    <div class="check-item" id="check-${item.id}" onclick="toggleCheck('${item.id}')">
+      <div class="check-box">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <span class="check-label">${item.icon} ${item.label}</span>
+    </div>
+  `).join('');
+}
+
+function toggleCheck(id) {
+  const item = document.getElementById(`check-${id}`);
+  item.classList.toggle('checked');
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = CHECKLIST_ITEMS.length;
+  const checked = document.querySelectorAll('.check-item.checked').length;
+  const pct = Math.round((checked / total) * 100);
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  const msg = document.getElementById('completionMsg');
+  if (pct === 100) msg.classList.add('visible');
+  else msg.classList.remove('visible');
+}
+
+function renderChallenge() {
+  const card = document.getElementById('challengeCard');
+  const challenge = CHALLENGES[Math.floor(Math.random() * CHALLENGES.length)];
+  card.innerHTML = `
+    <div class="challenge-badge">⚡ WEEKLY CHALLENGE</div>
+    <h3>${challenge.title}</h3>
+    <p class="challenge-desc">${challenge.desc}</p>
+    <div class="challenge-skills">
+      ${challenge.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+    </div>
+    <button class="challenge-refresh" onclick="renderChallenge()">↻ New Challenge</button>
+  `;
+}
+
+// === NAV ===
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.section).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// === INIT ===
+renderTechniques();
+renderDiffTabs();
+renderAITools();
+renderChecklist();
+renderChallenge();
+</script>
+</body>
+</html>
