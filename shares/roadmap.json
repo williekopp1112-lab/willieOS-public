@@ -1,12 +1,114 @@
 {
   "version": "1.0.0",
-  "updated": "2026-03-30",
+  "updated": "2026-04-29",
   "developers": {
     "willie": { "name": "Willie Kopp", "github": "williekopp1112-lab" },
     "joe": { "name": "Joe Ortega", "github": "Joeortega1085" },
     "gary": { "name": "Gary AI", "github": "williekopp1112-lab" }
   },
   "features": [
+    {
+      "id": "email-action-opportunity-intelligence",
+      "title": "Email Action Queue Opportunity Intelligence",
+      "description": "Upgrade email-triggered action cards from generic review tasks into opportunity-aware Gary cards with structured recommendations, stakes analysis, cautions, prep questions, self-sent owner command handling, and internal telemetry filtering.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "main",
+      "priority": "high",
+      "files": [
+        "src/components/dashboard/ActionQueueCard.jsx",
+        "src/components/dashboard/OpportunityActionCard.jsx",
+        "src/stores/actionStore.js",
+        "src/utils/emailTriageService.js",
+        "src/utils/opportunityAction.js",
+        "src/utils/opportunityMetadata.js",
+        "src/utils/ownerCommandMode.js",
+        "src/utils/jobRegistry.js",
+        "willieos-mcp-server/phaseEvents.js",
+        "gary-tests/opportunity-metadata.test.mjs",
+        "gary-tests/owner-command-mode.test.mjs"
+      ],
+      "depends_on": [],
+      "notes": "Adds v0-inspired opportunity cards, structured Gary briefs, self-sent owner command promotion, phase-event telemetry suppression, and dispatch monitor poll window alignment."
+    },
+    {
+      "id": "designer-workflow-redesign",
+      "title": "Designer Workflow Redesign (6 sub-projects after #5+#7 collapse)",
+      "description": "Redesign Gary → Designer (Claude Design / v0) → Engineer (Cowork) pipeline. Original 7 sub-projects collapsed to 6: (1) Designer Brief Packet, (2) Designer→Engineer artifact bridge, (3) Stage review gates, (4) Research/content pre-phase, (6) Claude Design MCP reliability, (8) Design Portal. The original (5) Internal-design workspace and (7) Progress surfacing were merged into (8) Design Portal — a live webview portal is simultaneously the workspace and the progress surface. Each sub-project gets its own spec → plan → implementation cycle.",
+      "status": "in-progress",
+      "owner": "willie",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "docs/superpowers/specs/2026-04-20-designer-brief-packet-design.md",
+        "docs/superpowers/specs/2026-04-21-design-portal-design.md"
+      ],
+      "depends_on": [],
+      "notes": "Sub-project #1 (Designer Brief Packet) shipped on main as of commit cb2c310. Sub-project #8 (Design Portal) spec approved, implementation plan pending. Sub-projects #2, #3, #4, #6 still spec-pending. Feature flags: designer_briefs.enabled (sub-project #1), design_portal.enabled (sub-project #8). Non-regressive — existing dispatch pipeline unchanged when flags are off."
+    },
+    {
+      "id": "designer-brief-packet",
+      "title": "Designer Brief Packet (sub-project #1 of 7)",
+      "description": "Typed brief packet contract between Gary and designer/engineer stages. Unified schema across landing_page, battlecard, presentation, research_report, and freeform. Light user dialogue (≤3 questions), layered premier prompting (retrieval → template → style rules → meta-prompt), durable briefs table, feature-flagged staged rollout.",
+      "status": "planned",
+      "owner": "willie",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "docs/superpowers/specs/2026-04-20-designer-brief-packet-design.md",
+        "src/utils/designerBriefBuilder.js",
+        "willieos-mcp-server/tools/designerBriefBuilder.js",
+        "willieos-mcp-server/designer-briefs/schema.js",
+        "willieos-mcp-server/designer-briefs/capabilityRegistry.js",
+        "willieos-mcp-server/designer-briefs/design_rules.json",
+        "willieos-mcp-server/designer-briefs/templates/",
+        "willieos-mcp-server/coworkDispatch.js",
+        "willieos-mcp-server/tools/orchestration.js",
+        "src/utils/aiTools.js"
+      ],
+      "depends_on": ["designer-workflow-redesign"],
+      "notes": "Spec approved (commit 60b77ff + 59ef683). Sub-project #1 of 6 (originally #1 of 7). Tables: designer_briefs, designer_brief_versions, designer_brief_feedback. Piggybacks on existing vec_embeddings + embedding_metadata for retrieval (no new vec table). Implementation shipped on main via merge commit cb2c310."
+    },
+    {
+      "id": "design-portal",
+      "title": "Design Portal (sub-project #8 of 6 — collapses #5 + #7)",
+      "description": "In-app webview portal that loads claude.ai/design or v0.dev (and other supported design tools via adapter pattern) inside Gary after Gary has created a project and injected a prompt. User sees the live design render, can interact natively, and refines via a bottom bar that routes back through Gary. Single-window takeover with clear Back button. Per-service login inside Gary; WKWebView persists session. URL intercept converts design-service links in Gary chat responses to portal opens.",
+      "status": "planned",
+      "owner": "willie",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "docs/superpowers/specs/2026-04-21-design-portal-design.md",
+        "src/components/design-portal/",
+        "src/stores/designPortalStore.js",
+        "src/utils/designPortalRegistry.js",
+        "src/components/ai-assistant/MessageBubble.jsx",
+        "willieos-mcp-server/design-portal/adapters/claudeDesign.js",
+        "willieos-mcp-server/design-portal/adapters/v0.js",
+        "willieos-mcp-server/design-portal/registry.js",
+        "willieos-mcp-server/tools/designPortal.js",
+        "src-tauri/src/design_portal.rs",
+        "src-tauri/src/lib.rs"
+      ],
+      "depends_on": ["designer-workflow-redesign", "claude-design-reliability"],
+      "notes": "Spec f92c549 → cf03fe1 → (post-sanity-check commit). Sub-project #8 (new) collapses original #5 (Internal-design workspace) and #7 (Progress surfacing). Phase A ships v0 adapter fully working + Claude Design adapter with view reliable and refine flagged experimental (Claude Design is today's default designer, so stubbing the adapter would leave the majority flow on a dead screen). Phase B drops experimental flag after sub-project #6 hardens Claude Design prompt injection. Phase C adds Figma/Lovable adapters + preference learning. Feature flag: design_portal.enabled. Implementation includes a spike task to pick between Tauri 2 WebviewWindow overlay vs. multi-webview-in-one-window APIs."
+    },
+    {
+      "id": "claude-design-reliability",
+      "title": "Claude Design MCP Reliability (sub-project #6 of 6)",
+      "description": "Harden Claude Design's Playwright-based prompt injection so it matches the consistency of v0's HTTP API path. Today: selectors, auth, waitForGeneration, and circuit breaker landed in commit 31c35db; end-to-end injection still produces inconsistent results in practice. Spec pending.",
+      "status": "planned",
+      "owner": "willie",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "willieos-mcp-server/claudeDesignClient.js",
+        "willieos-mcp-server/browser/selectors/claudeDesign.js",
+        "willieos-mcp-server/browser/browserEngine.js"
+      ],
+      "depends_on": ["designer-workflow-redesign"],
+      "notes": "Significant reliability work already shipped in commit 31c35db (browser_login for claude.ai, 7-candidate ProseMirror composer selectors, focusAndType firing React onChange, waitForGeneration throwing on timeout). Spec pending. Unblocks Design Portal Phase B (drop experimental flag from Claude Design adapter)."
+    },
     {
       "id": "identity-generalization",
       "title": "Identity & Path Generalization",
