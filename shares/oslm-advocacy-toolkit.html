@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="OSLM Community Advocacy Toolkit — Standing Together for Our Principal">
+<meta property="og:title" content="Standing Together for Our Savior — Community Advocacy Toolkit">
+<meta property="og:description" content="Parent advocacy resources for the OSLM Board of Directors Open Forum, April 30, 2026">
+<title>Standing Together for Our Savior — Community Advocacy Toolkit</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%9D%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #1B2A4A;
+    --navy-deep: #0F1A33;
+    --navy-light: #2A3D62;
+    --gold: #C9A84C;
+    --gold-light: #DFC574;
+    --gold-muted: #A08838;
+    --cream: #FDF8EF;
+    --cream-warm: #FAF3E3;
+    --white: #FFFFFF;
+    --text-dark: #1A1A2E;
+    --text-body: #3A3A52;
+    --text-muted: #6B6B82;
+    --red-accent: #C0392B;
+    --green-accent: #27AE60;
+    --border: rgba(27, 42, 74, 0.12);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--text-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy-deep);
+    border-bottom: 2px solid var(--gold);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    gap: 1rem;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 0.95rem;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 40%, var(--navy-light) 100%);
+    color: var(--white);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 150%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-cross {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+    display: block;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    font-weight: 300;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gold-light);
+  }
+  .hero-meta-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* ─── CONTAINER ─── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    padding: 3.5rem 0;
+  }
+  .section + .section { border-top: 1px solid var(--border); }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 50%;
+    margin-bottom: 0.75rem;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    line-height: 1.25;
+  }
+  .section-lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 2rem 0 0.75rem;
+    line-height: 1.3;
+  }
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy-light);
+    margin: 1.5rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  p + p { margin-top: 1rem; }
+  ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+  li { margin-bottom: 0.4rem; }
+  li + li { margin-top: 0.3rem; }
+
+  /* ─── SPEECH CARD ─── */
+  .speech-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 2rem 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .speech-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--gold));
+    border-radius: 12px 12px 0 0;
+  }
+  .speech-section-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    background: var(--navy);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+  .time-marker {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--gold-muted);
+    background: rgba(201, 168, 76, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+  }
+  .speech-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+  }
+  .speech-text .placeholder {
+    color: var(--gold-muted);
+    font-style: italic;
+    background: rgba(201, 168, 76, 0.08);
+    padding: 0.05rem 0.3rem;
+    border-radius: 3px;
+  }
+  .speech-text .emphasis {
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .speech-tip {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(201, 168, 76, 0.06);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── CALLOUT BOXES ─── */
+  .callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .callout-warning {
+    background: #FEF3E2;
+    border-left: 4px solid #E67E22;
+    color: #7A4A1A;
+  }
+  .callout-important {
+    background: #FDE8E8;
+    border-left: 4px solid var(--red-accent);
+    color: #5A1A1A;
+  }
+  .callout-success {
+    background: #E8F8EE;
+    border-left: 4px solid var(--green-accent);
+    color: #1A4A2A;
+  }
+  .callout-info {
+    background: #EBF0F7;
+    border-left: 4px solid var(--navy-light);
+    color: var(--navy-deep);
+  }
+  .callout-title {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── STRATEGY TABLE ─── */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .strategy-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s;
+  }
+  .strategy-card:hover { box-shadow: var(--shadow-md); }
+  .strategy-card h4 {
+    margin: 0 0 0.5rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.95rem;
+    color: var(--navy);
+  }
+  .strategy-card p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    margin: 2rem 0;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--navy));
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 1.5rem 1.5rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    background: var(--gold);
+    border: 3px solid var(--cream);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--navy);
+  }
+  .timeline-label {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  .timeline-desc {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ─── TALKING POINT CARDS ─── */
+  .tp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .tp-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    page-break-inside: avoid;
+  }
+  .tp-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .tp-card-header h4 {
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--navy);
+    font-size: 0.9rem;
+  }
+  .tp-card ul {
+    margin: 0;
+    padding-left: 1.15rem;
+  }
+  .tp-card li {
+    font-size: 0.84rem;
+    color: var(--text-body);
+    line-height: 1.5;
+    margin-bottom: 0.35rem;
+  }
+
+  /* ─── DO / DON'T ─── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .do-col, .dont-col {
+    padding: 1.25rem;
+    border-radius: 10px;
+    font-size: 0.87rem;
+  }
+  .do-col { background: #E8F8EE; border: 1px solid #AADCBC; }
+  .dont-col { background: #FDE8E8; border: 1px solid #F0B4B4; }
+  .do-col h4, .dont-col h4 {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .do-col h4 { color: #1A6B3A; }
+  .dont-col h4 { color: #8B2020; }
+  .do-col li { color: #1A4A2A; }
+  .dont-col li { color: #5A1A1A; }
+
+  /* ─── SIGN-UP SHEET ─── */
+  .signup-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.87rem;
+  }
+  .signup-table th {
+    background: var(--navy);
+    color: var(--white);
+    font-weight: 600;
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .signup-table th:first-child { border-radius: 8px 0 0 0; }
+  .signup-table th:last-child { border-radius: 0 8px 0 0; }
+  .signup-table td {
+    padding: 0.9rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    min-height: 40px;
+    vertical-align: middle;
+  }
+  .signup-table tr:nth-child(even) td { background: rgba(27, 42, 74, 0.02); }
+  .signup-table .checkbox-col { width: 80px; text-align: center; }
+  .signup-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--navy-light);
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .line-placeholder {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    min-height: 1.4em;
+  }
+
+  /* ─── LETTER TEMPLATE ─── */
+  .letter-template {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .letter-template .placeholder {
+    color: var(--gold-muted);
+    font-style: italic;
+    background: rgba(201, 168, 76, 0.08);
+    padding: 0.05rem 0.3rem;
+    border-radius: 3px;
+  }
+
+  /* ─── LEGAL BOX ─── */
+  .legal-point {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.15rem 1.25rem;
+    margin: 1rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .legal-point h4 {
+    margin: 0 0 0.4rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--navy);
+    font-size: 0.92rem;
+  }
+  .legal-point p {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.78rem;
+    line-height: 1.8;
+  }
+  .footer strong { color: var(--gold); font-weight: 600; }
+
+  /* ─── PRINT STYLES ─── */
+  @media print {
+    .top-nav { display: none; }
+    .hero { padding: 2rem 1rem; }
+    body { font-size: 11pt; }
+    .speech-card, .strategy-card, .tp-card, .legal-point, .letter-template {
+      box-shadow: none;
+      border: 1px solid #ddd;
+      page-break-inside: avoid;
+    }
+    .section { padding: 1.5rem 0; }
+    .signup-table { page-break-inside: avoid; }
+    .do-dont, .strategy-grid, .tp-grid { page-break-inside: avoid; }
+    .container { max-width: 100%; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .strategy-grid, .do-dont { grid-template-columns: 1fr; }
+    .tp-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .section h2 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Standing Together for Our Savior</div>
+    <div class="nav-links">
+      <a href="#speech">Board Speech</a>
+      <a href="#legal">Legal Analysis</a>
+      <a href="#playbook">Strategy</a>
+      <a href="#talking-points">Talking Points</a>
+      <a href="#signup">Sign-Up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-cross">&#10013;</span>
+  <h1>Standing Together<br><span class="gold">for Our Savior</span></h1>
+  <p class="subtitle">A community advocacy toolkit for parents and families of Our Savior Lutheran Ministries</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      April 30, 2026 &mdash; 6:00&ndash;8:00 PM
+    </div>
+    <div class="hero-meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Sanctuary &mdash; 1385 S. Livermore Ave, Livermore, CA
+    </div>
+    <div class="hero-meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      3 minutes per speaker
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: BOARD SPEECH TEMPLATE           -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="speech">
+  <div class="section-number">1</div>
+  <h2>3-Minute Board Speech Template</h2>
+  <p class="section-lead">A structured, emotionally compelling speech parents can customize and deliver at the Open Forum. Timing markers keep you within the 3-minute window.</p>
+
+  <div class="callout callout-info">
+    <div class="callout-title">How to use this template</div>
+    Replace every <span style="color:var(--gold-muted);font-style:italic;">[bracketed item]</span> with your own details. Practice aloud twice before the meeting. Speak slowly &mdash; three minutes feels longer at the podium than in your head.
+  </div>
+
+  <!-- OPENING: Personal Connection -->
+  <div class="speech-card">
+    <span class="speech-section-label">Opening &mdash; Personal Connection</span>
+    <span class="time-marker">0:00 &ndash; 0:40</span>
+    <div class="speech-text">
+      <p>Good evening, members of the Board. My name is <span class="placeholder">[Your Name]</span>, and my <span class="placeholder">[son/daughter/children]</span> <span class="placeholder">[has/have]</span> attended Our Savior for <span class="placeholder">[X years]</span>.</p>
+      <p>When we chose this school, we weren't just choosing a curriculum. We were choosing a community &mdash; one built on grace, accountability, and the kind of personal investment that <span class="emphasis">you can't put into a handbook</span>. And <span class="emphasis">Julie has been at the heart of that community</span>.</p>
+      <p><span class="placeholder">[Optional: Insert one specific, personal story about the principal's positive impact on your child &mdash; a moment of encouragement, a tough conversation handled well, going above and beyond.]</span></p>
+    </div>
+    <div class="speech-tip"><strong>Tip:</strong> A brief, specific story is more powerful than general praise. "She called our family on a Sunday" hits harder than "she really cares."</div>
+  </div>
+
+  <!-- MIDDLE: Context & Proportionality -->
+  <div class="speech-card">
+    <span class="speech-section-label">Middle &mdash; Context & Proportionality</span>
+    <span class="time-marker">0:40 &ndash; 1:50</span>
+    <div class="speech-text">
+      <p>I want to address the incident on the Washington DC trip directly. From everything the parent community understands, this was a <span class="emphasis">lighthearted, playful moment</span> &mdash; wearing a ski mask to be goofy with kids on a school trip. Was it a perfect judgment call? Maybe not. Was it done with malice, with an intent to harm, with any disregard for student safety? <span class="emphasis">Absolutely not.</span></p>
+      <p>We send our children on these trips precisely because we trust the adults in charge to build memories, not just supervise logistics. Fun matters. Connection matters. And sometimes, the adults who try the hardest to connect with their students are the ones who take small risks to make a trip unforgettable.</p>
+      <p><span class="emphasis">Termination is the most severe employment action a school can take.</span> It should be reserved for genuine misconduct &mdash; for situations that put children at real risk, that demonstrate a pattern of poor judgment, or that violate the foundational trust between a school and its families. <span class="emphasis">This incident does not meet that bar.</span> Not by any fair measure.</p>
+    </div>
+    <div class="speech-tip"><strong>Tip:</strong> Keep your voice measured here. Outrage is less persuasive than calm certainty. Let the disproportion speak for itself.</div>
+  </div>
+
+  <!-- CLOSE: Community, Fairness, Call to Action -->
+  <div class="speech-card">
+    <span class="speech-section-label">Close &mdash; Community & Fairness</span>
+    <span class="time-marker">1:50 &ndash; 3:00</span>
+    <div class="speech-text">
+      <p>I'm not standing here alone tonight. The number of families in this room should tell this Board something important: this principal is not a liability to Our Savior. She is one of its <span class="emphasis">greatest assets</span>.</p>
+      <p>We are asking the Board for three things:</p>
+      <p><span class="emphasis">First, fairness.</span> Whatever process led to this point, the outcome should be proportionate. A counseling conversation, a written record, additional training &mdash; these are proportionate responses. Termination is not.</p>
+      <p><span class="emphasis">Second, transparency.</span> We understand personnel privacy limits what the Board can share publicly. But the <em>process</em> itself should be defensible and clear. Families deserve to know that this decision &mdash; if it moves forward &mdash; was made through a fair, documented, and thorough investigation, not in reaction to a single complaint.</p>
+      <p><span class="emphasis">Third, perspective.</span> Look at the room tonight. Listen to what these families are telling you. This community built this school together, and we are telling you &mdash; unanimously, forcefully, and with love &mdash; <span class="emphasis">that firing this principal would do far more damage to Our Savior than anything that happened on that trip.</span></p>
+      <p>Thank you.</p>
+    </div>
+    <div class="speech-tip"><strong>Tip:</strong> End with "Thank you" and sit down. Don't add anything after it. A clean close is more powerful than trailing off.</div>
+  </div>
+
+  <h3>Variations for Different Speakers</h3>
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <h4>New Family (1&ndash;2 years)</h4>
+      <p>Emphasize that Julie was a reason you chose the school. "We toured three schools. The 20 minutes Julie spent with our daughter that day is why we're here." Shows the principal drives enrollment.</p>
+    </div>
+    <div class="strategy-card">
+      <h4>Long-Time Family (5+ years)</h4>
+      <p>Speak to consistency and institutional knowledge. "Julie knows every child's name, every family's story. That's not replaceable." Shows irreplaceable value.</p>
+    </div>
+    <div class="strategy-card">
+      <h4>Alumni Parent</h4>
+      <p>Talk about lasting impact. "My oldest graduated three years ago and still talks about Julie. She shaped who my child became." Shows long-term outcomes.</p>
+    </div>
+    <div class="strategy-card">
+      <h4>DC Trip Chaperone/Participant</h4>
+      <p>Provide firsthand context. "I was there. The kids were laughing. No one was scared. This was a fun moment, not a crisis." Eyewitness testimony carries weight.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: LEGAL & PROCEDURAL ANALYSIS     -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="legal">
+  <div class="section-number">2</div>
+  <h2>Legal &amp; Procedural Analysis</h2>
+  <p class="section-lead">Understanding the legal landscape. This section covers what protections may apply and where the board's obligations lie. <strong>This is educational guidance, not legal advice. Consult an employment attorney for case-specific counsel.</strong></p>
+
+  <div class="callout callout-important">
+    <div class="callout-title">Critical Distinction: Private Religious School</div>
+    Our Savior Lutheran Ministries is a <strong>private religious school</strong>, likely affiliated with the Lutheran Church&mdash;Missouri Synod (LCMS). This fundamentally changes the legal landscape compared to public schools. Many California Education Code protections (tenure, statutory due process, administrative hearings) apply <em>only</em> to public school employees and do not extend to private school staff.
+  </div>
+
+  <h3>What Protections May Still Apply</h3>
+
+  <div class="legal-point">
+    <h4>Implied Contract from Employee Handbook</h4>
+    <p>Under California law, even at-will employees can gain implied contract protections if the school's employee handbook describes progressive discipline procedures (verbal warning, written warning, suspension, then termination). If the school published such procedures and bypassed them, this creates a potential breach-of-implied-contract claim. Courts consider: the handbook's language, length of employment, performance history, and whether the employer's practices created a reasonable expectation of continued employment. <em>(See: Foley v. Interactive Data Corp., 47 Cal.3d 654 (1988))</em></p>
+  </div>
+
+  <div class="legal-point">
+    <h4>Covenant of Good Faith and Fair Dealing</h4>
+    <p>California recognizes an implied covenant of good faith in employment relationships. Terminating a long-serving employee over a single minor, non-harmful incident &mdash; particularly without investigation or progressive discipline &mdash; could be argued as a bad-faith termination. This applies to private employers including religious schools.</p>
+  </div>
+
+  <div class="legal-point">
+    <h4>Wrongful Termination in Violation of Public Policy</h4>
+    <p>If the termination is retaliatory (e.g., the principal raised safety concerns, reported misconduct, or exercised legal rights), California's public policy exception to at-will employment would apply even at a private religious school. This is a narrow but powerful protection.</p>
+  </div>
+
+  <div class="legal-point">
+    <h4>The "Ministerial Exception" &mdash; Does It Apply?</h4>
+    <p>The U.S. Supreme Court's <em>Hosanna-Tabor v. EEOC</em> (2012) ruling &mdash; involving an LCMS school &mdash; established that religious institutions have broad latitude in employment decisions for "ministerial" employees. However, courts look at four factors: formal title, substance of that title, the employee's self-identification, and whether the employee performs significant religious functions. <strong>A school principal who primarily performs administrative rather than ministerial duties may not qualify.</strong> This is a fact-specific determination.</p>
+  </div>
+
+  <div class="legal-point">
+    <h4>LCMS Governance: School Board Authority</h4>
+    <p>LCMS schools are typically governed by a local Board of Education or Board of Directors, operating under the congregation's constitution and bylaws. The LCMS <em>Governing Manual for Lutheran Schools</em> outlines that the school board oversees the principal, conducts annual evaluations, and is expected to follow adopted policies. If the school's own bylaws or governance manual establish a termination process that isn't being followed, this creates both a legal and procedural argument.</p>
+  </div>
+
+  <h3>Key Questions to Raise with the Board</h3>
+  <ol>
+    <li><strong>Was a formal investigation conducted?</strong> Who investigated, what evidence was gathered, and were all parties interviewed &mdash; including the principal, the student, the parent, and any witnesses?</li>
+    <li><strong>Does the school's employee handbook establish progressive discipline?</strong> If so, what steps were taken before reaching the termination decision?</li>
+    <li><strong>Was the principal given an opportunity to respond?</strong> Basic fairness (even outside statutory due process) requires hearing the employee's side.</li>
+    <li><strong>Is there a documented history of performance issues?</strong> If the principal's record is clean, a first-time incident resulting in termination raises serious proportionality concerns.</li>
+    <li><strong>Have similar incidents at the school been handled differently?</strong> Disparate treatment &mdash; punishing one employee more harshly than others for similar conduct &mdash; undermines the fairness of the decision.</li>
+    <li><strong>What do the school's bylaws require?</strong> Many LCMS congregational constitutions require specific procedures for personnel decisions, including board votes, notice periods, and appeal rights.</li>
+  </ol>
+
+  <h3>The Proportionality Argument</h3>
+  <div class="callout callout-info">
+    <div class="callout-title">Core Legal Principle</div>
+    Even in at-will employment states, courts and arbitrators consistently hold that <strong>disciplinary action should be proportionate to the offense</strong>. A playful incident on a school trip &mdash; with no injury, no complaint from the student, no pattern of behavior &mdash; does not warrant the most severe employment consequence available. Proportionate responses include: verbal counseling, a written warning in the personnel file, required training, or a brief suspension. Termination signals that the school views this as equivalent to serious misconduct. That framing is unsupportable given the known facts.
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-title">Action Item for Families</div>
+    Request a copy of the school's employee handbook and the congregation's constitution/bylaws. These documents govern what process the Board must follow. If the Board is not following its own procedures, that is the strongest procedural argument available.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: STRATEGIC PLAYBOOK FOR NIKKI    -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="playbook">
+  <div class="section-number">3</div>
+  <h2>Strategic Playbook</h2>
+  <p class="section-lead">A step-by-step action plan for organizing community advocacy before, during, and after the Board meeting.</p>
+
+  <h3>Before the Meeting (Today)</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-label">Coordinate Speakers</div>
+      <div class="timeline-desc">Recruit 8&ndash;12 speakers covering different angles: new families, long-time families, alumni, DC trip participants, community members without kids at the school. Assign each person a specific theme (see Talking Points Cards below) so testimony doesn't repeat. Brief them on the 3-minute limit.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Distribute This Toolkit</div>
+      <div class="timeline-desc">Share this document with all families who want to attend. It gives them the speech template, talking points, and the do's/don'ts for the meeting. Send via the group text, email chain, or WhatsApp group.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Gather Signatures</div>
+      <div class="timeline-desc">Print 10 copies of the Support Letter (Section 3b below) and the Sign-Up Sheet (Section 4). Collect signatures before and during the meeting. A stack of signed pages delivered to the Board is more powerful than verbal testimony alone.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Request Key Documents</div>
+      <div class="timeline-desc">Submit a written request (email is fine) to the Board Chair asking for: (1) the school's employee handbook/personnel policies, (2) the congregation's constitution and bylaws, (3) the school's published disciplinary process. This creates a paper trail showing the community expects procedural compliance.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Identify a Lead Spokesperson</div>
+      <div class="timeline-desc">Choose one person (ideally a well-known, respected parent) to open community testimony. This person sets the tone: calm, firm, fact-based. Nikki or someone Nikki designates. The opener should use the full 3-minute speech template.</div>
+    </div>
+  </div>
+
+  <h3>During the Meeting</h3>
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <h4>Show Up in Numbers</h4>
+      <p>Even parents who don't speak should attend. A full sanctuary sends the strongest possible signal. Encourage families to arrive by 5:45 PM and sit together.</p>
+    </div>
+    <div class="strategy-card">
+      <h4>Speak in Order of Impact</h4>
+      <p>Open with the strongest personal story. Follow with DC trip eyewitnesses. Then long-time families. Close with the broadest community voice (someone without kids at the school, a pastor, an alumni family).</p>
+    </div>
+    <div class="strategy-card">
+      <h4>Stay Calm and Respectful</h4>
+      <p>The Board expects anger. Defy that expectation. Measured, articulate, emotionally honest testimony is far harder for a Board to dismiss than shouting. Treat Board members as people making a difficult decision, not adversaries.</p>
+    </div>
+    <div class="strategy-card">
+      <h4>Hand-Deliver the Petition</h4>
+      <p>At the end of testimony, have one person walk the signed petition/support letters to the Board table. Say: "This represents [X] families who stand behind our principal." Physical documents matter in a boardroom.</p>
+    </div>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-col">
+      <h4>Do</h4>
+      <ul>
+        <li>Speak from personal experience</li>
+        <li>Name specific ways the principal helped your child</li>
+        <li>Acknowledge the Board has a difficult job</li>
+        <li>Use the word "proportionate" &mdash; it frames the debate</li>
+        <li>Dress professionally; it signals seriousness</li>
+        <li>Take notes on what the Board says</li>
+        <li>Thank Board members for holding the forum</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <h4>Don't</h4>
+      <ul>
+        <li>Attack the complaining parent by name</li>
+        <li>Threaten the Board (lawsuits, media) from the podium</li>
+        <li>Speak longer than 3 minutes &mdash; the timer is not your enemy</li>
+        <li>Be sarcastic or dismissive of the incident</li>
+        <li>Let emotion turn into raised voices</li>
+        <li>Repeat what a previous speaker already said &mdash; say "I echo that" and move to your assigned point</li>
+        <li>Record or livestream without permission</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>After the Meeting</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-label">Follow Up in Writing</div>
+      <div class="timeline-desc">Within 48 hours, send a letter to the Board Chair summarizing the community's position. Reference the number of speakers, the petition signatures, and the key points made. Ask for a written response and timeline for the Board's decision.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Consult an Employment Attorney</div>
+      <div class="timeline-desc">If the Board proceeds toward termination, the principal should have legal representation. California employment attorneys often offer free consultations. The implied-contract and proportionality arguments are strong enough to warrant professional review.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Engage the LCMS District</div>
+      <div class="timeline-desc">LCMS congregations operate within a District structure. The Pacific Southwest District office may have a reconciliation or mediation process for personnel disputes. Escalating through denominational channels shows the Board that the community is serious but operating within the system.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-label">Maintain Unity</div>
+      <div class="timeline-desc">Regardless of the outcome tonight, the community's power comes from staying organized. Set up a communication channel (email list, group chat) for ongoing coordination. Meet again in one week to assess next steps.</div>
+    </div>
+  </div>
+
+  <h3>Template: Letter of Support</h3>
+  <div class="letter-template">
+    <p>To the Board of Directors,<br>Our Savior Lutheran Ministries<br>1385 S. Livermore Avenue<br>Livermore, CA 94550</p>
+    <p>April 30, 2026</p>
+    <p>Dear Board Members,</p>
+    <p>We, the undersigned families of Our Savior Lutheran Ministries, write to express our strong support for <span class="placeholder">[Principal's Full Name]</span> and to urge the Board to retain her as our school's principal.</p>
+    <p><span class="placeholder">[Principal's First Name]</span> has served this community with dedication, integrity, and genuine care for our children. Under her leadership, our school has <span class="placeholder">[briefly note specific achievements: enrollment growth, academic improvements, new programs, community building, etc.]</span>.</p>
+    <p>We are aware of the incident during the 8th grade Washington DC trip that prompted this review. Based on the information available to the parent community, we believe the incident was a well-intentioned, playful moment that caused no harm. We do not believe it warrants termination.</p>
+    <p>We respectfully ask the Board to:</p>
+    <ol>
+      <li>Retain <span class="placeholder">[Principal's First Name]</span> as principal of Our Savior</li>
+      <li>Apply a proportionate response to the incident, consistent with the school's disciplinary policies</li>
+      <li>Ensure that any personnel process follows the procedures established in the school's employee handbook and the congregation's bylaws</li>
+    </ol>
+    <p>This community is united. We ask the Board to honor that unity and the overwhelming voice of the families who trust, value, and depend on this principal's leadership.</p>
+    <p>Respectfully,</p>
+    <p><em>(Signatures on attached pages)</em></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: SIGN-UP SHEET                   -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="signup">
+  <div class="section-number">4</div>
+  <h2>Parent Support &amp; Sign-Up Sheet</h2>
+  <p class="section-lead">Print this page. Collect signatures before and during the meeting. Deliver completed sheets to the Board with the petition letter.</p>
+
+  <div class="callout callout-success">
+    <div class="callout-title">Instructions</div>
+    Sign your name to indicate support for retaining our principal. Check the box if you also wish to speak at tonight's forum. Contact info is optional but helps with future coordination.
+  </div>
+
+  <p style="text-align:center;margin:1.5rem 0 0.5rem;font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:var(--navy);">
+    We, the undersigned, support the retention of our school principal.
+  </p>
+
+  <table class="signup-table">
+    <thead>
+      <tr>
+        <th style="width:30%">Name (Print)</th>
+        <th style="width:20%">Child(ren) &amp; Grade(s)</th>
+        <th class="checkbox-col">Wish to Speak?</th>
+        <th style="width:25%">Email / Phone (Optional)</th>
+        <th style="width:10%">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+      <tr><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td><td style="text-align:center"><span class="signup-checkbox"></span></td><td><span class="line-placeholder"></span></td><td><span class="line-placeholder"></span></td></tr>
+    </tbody>
+  </table>
+
+  <p style="text-align:center;font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;">
+    Page ___ of ___ &nbsp;&nbsp;&bull;&nbsp;&nbsp; Contact information is used only for advocacy coordination and will not be shared.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 5: TALKING POINT CARDS             -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="talking-points">
+  <div class="section-number">5</div>
+  <h2>Quick-Reference Talking Point Cards</h2>
+  <p class="section-lead">Print and cut. Each card covers one angle. Assign different cards to different speakers so the Board hears a full picture without repetition.</p>
+
+  <div class="tp-grid">
+    <div class="tp-card">
+      <div class="tp-card-header">
+        <h4>Card A: Proportionality</h4>
+      </div>
+      <ul>
+        <li>Termination is the most severe action possible</li>
+        <li>No child was harmed, frightened, or at risk</li>
+        <li>First-time incident with no prior disciplinary record (to our knowledge)</li>
+        <li>Proportionate responses: verbal counseling, written note to file, additional training</li>
+        <li>Ask: "Would any employer in America fire someone for this?"</li>
+      </ul>
+    </div>
+
+    <div class="tp-card">
+      <div class="tp-card-header">
+        <h4>Card B: Community Impact</h4>
+      </div>
+      <ul>
+        <li>Families chose OSLM in part because of this principal</li>
+        <li>Losing her means losing institutional knowledge, relationships, and trust</li>
+        <li>Enrollment impact: families are already discussing leaving</li>
+        <li>Faculty morale: teachers who feel unsupported leave next</li>
+        <li>Ask: "What message does this send to the educators who give everything to this school?"</li>
+      </ul>
+    </div>
+
+    <div class="tp-card">
+      <div class="tp-card-header">
+        <h4>Card C: Process & Fairness</h4>
+      </div>
+      <ul>
+        <li>Was a formal investigation conducted?</li>
+        <li>Was the principal given a chance to tell her side?</li>
+        <li>Does the employee handbook require progressive discipline?</li>
+        <li>Were the school's bylaws followed?</li>
+        <li>Ask: "If we teach our children about fairness and grace, shouldn't the Board model those values?"</li>
+      </ul>
+    </div>
+
+    <div class="tp-card">
+      <div class="tp-card-header">
+        <h4>Card D: The DC Trip Context</h4>
+      </div>
+      <ul>
+        <li>School trips are built on trust and connection</li>
+        <li>The ski-mask moment was playful and silly, not threatening</li>
+        <li>Kids and adults on the trip understood the context</li>
+        <li>Good educators take calculated social risks to bond with students</li>
+        <li>Ask: "Do we want a principal who plays it safe and stays distant, or one who shows up fully?"</li>
+      </ul>
+    </div>
+
+    <div class="tp-card">
+      <div class="tp-card-header">
+        <h4>Card E: Institutional Damage</h4>
+      </div>
+      <ul>
+        <li>Firing a beloved principal over one complaint fractures community trust</li>
+        <li>Future principals and teachers will know they can be terminated for minor judgment calls</li>
+        <li>Prospective families research schools &mdash; this story will spread</li>
+        <li>A school's reputation is built over decades and lost in one bad decision</li>
+        <li>Ask: "What will this school look like in two years if this decision goes forward?"</li>
+      </ul>
+    </div>
+
+    <div class="tp-card">
+      <div class="tp-card-header">
+        <h4>Card F: Faith & Grace</h4>
+      </div>
+      <ul>
+        <li>This is a Lutheran school &mdash; grace is foundational to our theology</li>
+        <li>We teach children that mistakes are opportunities for growth, not grounds for exile</li>
+        <li>Forgiveness and restoration are Christian values this Board should model</li>
+        <li>The community wants to see accountability AND grace working together</li>
+        <li>Ask: "What does it say about our school's mission if we can't extend grace to our own principal?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-success">
+    <div class="callout-title">Speaker Coordination Tip</div>
+    Assign each speaker one card. If you have 6 speakers, each covers a different angle. If someone ahead of you covers your card's points, simply say "I echo what [Name] said about [topic]" and pivot to your personal story. Never repeat another speaker's testimony word-for-word.
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>Standing Together for Our Savior</strong><br>
+  Prepared for the OSLM Board of Directors Open Forum &mdash; April 30, 2026<br>
+  This document is an advocacy resource for the parent community. It does not constitute legal advice.<br>
+  For legal counsel, contact a California employment attorney.
+</footer>
+
+</body>
+</html>
