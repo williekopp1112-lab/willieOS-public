@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Critical Business Development — Strategic Vision & Playbook</title>
+<meta name="description" content="Strategic vision and playbook for Nokia's Mission Critical Business Development">
+<meta property="og:title" content="Mission Critical Business Development — Strategic Vision & Playbook">
+<meta property="og:description" content="A strategic framework for driving pipeline and partnership growth across Nokia's Mission Critical enterprise segment. Prepared by Willie Kopp for Sarah Nesland.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%230a0e17'/%3E%3Crect x='40' y='40' width='80' height='80' rx='16' fill='%23124191'/%3E%3Ctext x='80' y='95' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3EN%3C/text%3E%3Ctext x='600' y='300' font-size='48' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EMission Critical BD%3C/text%3E%3Ctext x='600' y='360' font-size='24' text-anchor='middle' fill='%238b91a3' font-family='Arial'%3EStrategic Vision %26 Playbook%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23124191'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial'>N</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --nokia-blue: #124191;
+  --nokia-blue-light: #1a5ec7;
+  --nokia-blue-glow: rgba(18, 65, 145, 0.3);
+  --nokia-blue-subtle: rgba(18, 65, 145, 0.08);
+  --bg-primary: #0a0e17;
+  --bg-secondary: #0f1420;
+  --bg-card: #141a2a;
+  --bg-card-hover: #1a2238;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(18, 65, 145, 0.3);
+  --text-primary: #e8eaef;
+  --text-secondary: #8b91a3;
+  --text-muted: #5a6074;
+  --accent-green: #34d399;
+  --accent-amber: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-purple: #a78bfa;
+  --accent-cyan: #22d3ee;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 0 0 1px var(--border-color);
+  --shadow-elevated: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px var(--border-color);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition-base);
+}
+
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-brand-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--nokia-blue);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.nav-links a {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-primary);
+  background: var(--nokia-blue-subtle);
+}
+
+.nav-links a.active {
+  color: white;
+  background: var(--nokia-blue);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-print {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-family: var(--font-main);
+}
+
+.btn-print:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+}
+
+.btn-print svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 120px 32px 80px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(18, 65, 145, 0.15), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(18, 65, 145, 0.08), transparent),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(34, 211, 238, 0.04), transparent);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--nokia-blue-light);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat 8s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  50% { transform: translateY(-120px) scale(1); }
+}
+
+.hero-content {
+  position: relative;
+  max-width: 800px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: var(--nokia-blue-subtle);
+  border: 1px solid var(--border-accent);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--nokia-blue-light);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--nokia-blue-light);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5.5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--nokia-blue-light) 0%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-meta-item svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+}
+
+/* ===== LAYOUT ===== */
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.section {
+  padding: 100px 0;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nokia-blue-light);
+  margin-bottom: 12px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: var(--nokia-blue);
+  border-radius: 1px;
+}
+
+.section-title {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.7;
+}
+
+/* ===== STAT CARDS ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--nokia-blue), var(--nokia-blue-light));
+  opacity: 0;
+  transition: var(--transition-base);
+}
+
+.stat-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-value .unit {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.stat-change {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-change.positive { color: var(--accent-green); }
+.stat-change.neutral { color: var(--accent-amber); }
+
+/* ===== CONTENT CARDS ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 16px;
+  transition: var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--border-accent);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.card-icon.blue { background: rgba(18, 65, 145, 0.15); color: var(--nokia-blue-light); }
+.card-icon.green { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+.card-icon.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+.card-icon.red { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+.card-icon.purple { background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); }
+.card-icon.cyan { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); }
+
+.card-list {
+  list-style: none;
+}
+
+.card-list li {
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-list li:last-child {
+  border-bottom: none;
+}
+
+.card-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--nokia-blue);
+}
+
+.card-list li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ===== TWO COLUMN GRID ===== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* ===== COMPETITIVE TABLE ===== */
+.comp-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  margin-top: 32px;
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.comp-table thead {
+  background: var(--bg-card);
+}
+
+.comp-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.comp-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+.comp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comp-table tr:hover td {
+  background: var(--nokia-blue-subtle);
+}
+
+.comp-table .vendor-name {
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.comp-table .nokia-row td {
+  background: rgba(18, 65, 145, 0.06);
+}
+
+.comp-table .nokia-row:hover td {
+  background: rgba(18, 65, 145, 0.12);
+}
+
+.comp-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.comp-badge.leader { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+.comp-badge.challenger { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+.comp-badge.niche { background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); }
+.comp-badge.emerging { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); }
+
+/* ===== PROGRESS BARS ===== */
+.progress-item {
+  margin-bottom: 20px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.progress-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--nokia-blue-light);
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--nokia-blue), var(--nokia-blue-light));
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+.progress-fill.green {
+  background: linear-gradient(90deg, #059669, var(--accent-green));
+}
+
+.progress-fill.amber {
+  background: linear-gradient(90deg, #d97706, var(--accent-amber));
+}
+
+.progress-fill.red {
+  background: linear-gradient(90deg, #dc2626, var(--accent-red));
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  position: relative;
+  padding-left: 48px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--nokia-blue), var(--nokia-blue-light), var(--accent-cyan));
+  border-radius: 1px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -40px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--nokia-blue);
+  z-index: 1;
+}
+
+.timeline-item.active .timeline-dot {
+  background: var(--nokia-blue);
+  box-shadow: 0 0 0 4px var(--nokia-blue-glow);
+}
+
+.timeline-phase {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nokia-blue-light);
+  margin-bottom: 6px;
+}
+
+.timeline-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.timeline-list {
+  list-style: none;
+}
+
+.timeline-list li {
+  padding: 6px 0;
+  padding-left: 18px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.timeline-list li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--nokia-blue-light);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ===== FRAMEWORK CARD ===== */
+.framework-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.framework-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--nokia-blue), var(--nokia-blue-light));
+  opacity: 0;
+  transition: var(--transition-base);
+}
+
+.framework-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+.framework-card:hover::after {
+  opacity: 1;
+}
+
+.framework-number {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--nokia-blue);
+  opacity: 0.2;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.framework-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.framework-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== QUESTIONS SECTION ===== */
+.question-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: var(--transition-fast);
+  counter-increment: question;
+}
+
+.question-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+
+.question-num {
+  min-width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--nokia-blue-subtle);
+  border: 1px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--nokia-blue-light);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.question-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.question-tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.question-tag.strategic { background: rgba(18, 65, 145, 0.15); color: var(--nokia-blue-light); }
+.question-tag.tactical { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+.question-tag.comp { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+
+/* ===== ALIGNMENT SECTION ===== */
+.alignment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.alignment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: var(--transition-base);
+}
+
+.alignment-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+.alignment-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.alignment-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.alignment-card ul {
+  list-style: none;
+}
+
+.alignment-card li {
+  padding: 5px 0;
+  padding-left: 16px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.alignment-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--nokia-blue);
+}
+
+/* ===== UVP BANNER ===== */
+.uvp-banner {
+  background: linear-gradient(135deg, rgba(18, 65, 145, 0.12), rgba(18, 65, 145, 0.04));
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-xl);
+  padding: 40px 48px;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.uvp-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--nokia-blue-light), transparent);
+}
+
+.uvp-banner h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nokia-blue-light);
+  margin-bottom: 16px;
+}
+
+.uvp-banner blockquote {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text-primary);
+  font-style: italic;
+  border-left: 3px solid var(--nokia-blue);
+  padding-left: 20px;
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+  margin: 0;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 60px 32px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.footer-brand {
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.footer-note {
+  font-style: italic;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+/* ===== SOLUTION TAG GRID ===== */
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.solution-tag {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: var(--transition-fast);
+}
+
+.solution-tag:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+
+.solution-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--nokia-blue);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.solution-dot.core { background: var(--nokia-blue-light); }
+.solution-dot.edge { background: var(--accent-cyan); }
+.solution-dot.ip { background: var(--accent-green); }
+.solution-dot.transport { background: var(--accent-amber); }
+.solution-dot.mc { background: var(--accent-purple); }
+
+.solution-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.solution-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===== PARTNER SECTION ===== */
+.partner-category {
+  margin-bottom: 32px;
+}
+
+.partner-category-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nokia-blue-light);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.partner-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  transition: var(--transition-fast);
+}
+
+.partner-chip:hover {
+  border-color: var(--border-accent);
+}
+
+.partner-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.partner-role {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ===== HOT TOPIC CALLOUT ===== */
+.callout {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.02));
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+
+.callout.blue {
+  background: linear-gradient(135deg, rgba(18, 65, 145, 0.1), rgba(18, 65, 145, 0.03));
+  border-color: var(--border-accent);
+}
+
+.callout-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-amber);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.callout.blue .callout-title {
+  color: var(--nokia-blue-light);
+}
+
+.callout-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .alignment-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-links { display: none; }
+  .hero { padding: 100px 20px 60px; }
+  .main { padding: 0 20px; }
+  .section { padding: 60px 0; }
+  .uvp-banner { padding: 28px 24px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .hero-meta { flex-direction: column; gap: 8px; }
+  .nav-inner { padding: 0 16px; }
+  .card { padding: 20px; }
+}
+
+/* ===== MOBILE NAV TOGGLE ===== */
+.nav-toggle {
+  display: none;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.nav-toggle svg { width: 16px; height: 16px; }
+
+@media (max-width: 900px) {
+  .nav-toggle { display: flex; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: rgba(10, 14, 23, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .nav, .btn-print, .nav-toggle, .hero-particles, .hero-bg, .hero-grid { display: none !important; }
+  body { background: white; color: #1a1a1a; font-size: 11pt; }
+  .hero { min-height: auto; padding: 40px 0; }
+  .hero h1 { color: #1a1a1a; -webkit-text-fill-color: #1a1a1a; font-size: 28pt; }
+  .hero h1 .accent { -webkit-text-fill-color: var(--nokia-blue); }
+  .hero-subtitle { color: #444; }
+  .hero-badge { border-color: var(--nokia-blue); }
+  .section { opacity: 1 !important; transform: none !important; padding: 30px 0; break-inside: avoid; }
+  .section-eyebrow { color: var(--nokia-blue); }
+  .card, .stat-card, .framework-card, .alignment-card, .question-card, .solution-tag, .partner-chip {
+    background: #f8f9fa; border-color: #ddd; box-shadow: none;
+  }
+  .card:hover, .stat-card:hover, .framework-card:hover {
+    transform: none; border-color: #ddd;
+  }
+  .stat-value, .section-title, .card-title, .framework-title, .timeline-title { color: #1a1a1a; }
+  .stat-label, .stat-change, .card-list li, .section-desc, .question-text, .timeline-list li,
+  .framework-desc, .alignment-card li, .solution-desc, .partner-role { color: #555; }
+  .comp-table { font-size: 10pt; }
+  .comp-table th { background: #f0f0f0; }
+  .comp-table td { border-color: #ddd; }
+  .progress-track { background: #e0e0e0; }
+  .progress-fill { background: var(--nokia-blue) !important; }
+  .uvp-banner { background: #f0f4fa; border-color: var(--nokia-blue); }
+  .uvp-banner blockquote { color: #1a1a1a; }
+  .callout { background: #fffbeb; }
+  .callout.blue { background: #f0f4fa; }
+  .footer { color: #888; }
+  a { color: var(--nokia-blue); }
+  .main { max-width: 100%; padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand">
+      <div class="nav-brand-icon">N</div>
+      Mission Critical BD
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#market" data-section="market">Market</a></li>
+      <li><a href="#partners" data-section="partners">Partners</a></li>
+      <li><a href="#solutions" data-section="solutions">Solutions</a></li>
+      <li><a href="#vision" data-section="vision">BD Vision</a></li>
+      <li><a href="#alignment" data-section="alignment">Alignment</a></li>
+      <li><a href="#sprint" data-section="sprint">90-Day Sprint</a></li>
+      <li><a href="#questions" data-section="questions">Questions</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-print" onclick="window.print()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Export PDF
+      </button>
+      <button class="nav-toggle" id="navToggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Strategic Vision & Playbook
+    </div>
+    <h1>Mission Critical<br><span class="accent">Business Development</span></h1>
+    <p class="hero-subtitle">A strategic framework for driving pipeline and partnership growth across Nokia's Mission Critical enterprise segment.</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Prepared by Willie Kopp
+      </span>
+      <span class="hero-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        For Sarah Nesland
+      </span>
+      <span class="hero-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        June 2025
+      </span>
+    </div>
+  </div>
+</section>
+
+<div class="main">
+
+<!-- ===== SECTION 1: MARKET INTELLIGENCE ===== -->
+<section class="section" id="market">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Enterprise Landscape &amp; Market Intelligence</h2>
+    <p class="section-desc">Nokia's Mission Critical enterprise business sits at the intersection of industrial connectivity and operational resilience. The market is large, growing, and increasingly strategic.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Enterprise Revenue (2024)</div>
+      <div class="stat-value">&euro;2.18<span class="unit">B</span></div>
+      <div class="stat-change positive">+22% YoY (Q4 const. currency)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Private Network Revenue</div>
+      <div class="stat-value">~&euro;1.6<span class="unit">B</span></div>
+      <div class="stat-change neutral">Excl. ~&euro;500M webscale</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Private Networks Deployed</div>
+      <div class="stat-value">1,001<span class="unit">+</span></div>
+      <div class="stat-change positive">+240 in H2 2025 alone</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Market Position</div>
+      <div class="stat-value" style="font-size:22px;">Sole Champion</div>
+      <div class="stat-change positive">Omdia 2025 Private 5G Radar</div>
+    </div>
+  </div>
+
+  <!-- Definition -->
+  <div class="callout blue">
+    <div class="callout-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      Defining "Mission Critical"
+    </div>
+    <div class="callout-text"><strong>Connectivity as a strategic asset for operations that cannot fail.</strong> This covers public utilities, rail and transportation, emergency services, energy, mining, manufacturing, ports, and defense. These are multi-million dollar contracts requiring enterprise-grade RAN, core, and edge infrastructure &mdash; distinct from smaller campus deployments.</div>
+  </div>
+
+  <!-- Hot Topics -->
+  <div class="callout" style="margin-top:24px;">
+    <div class="callout-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      CMD 2025 Strategic Pivot &mdash; Critical Context
+    </div>
+    <div class="callout-text">At Nokia's November 2025 Capital Markets Day, Enterprise Campus Edge was moved into "Portfolio Businesses" (slated for potential divestiture in 2026). Nokia is refocusing investment toward AI infrastructure and hyperscaler markets. <strong>For Mission Critical, this creates both risk and opportunity:</strong> the MX Enterprise team now owns the strategic narrative for enterprise private wireless. The company is doubling down on large, safety-of-life deployments over smaller campus deals. Channel sales already account for 70% of private network deals, indicating the partner model is maturing.</div>
+  </div>
+
+  <!-- What's Working / Not Working -->
+  <div class="grid-2" style="margin-top:24px;">
+    <div class="card">
+      <div class="card-title">
+        <div class="card-icon green">&#x2713;</div>
+        What's Working
+      </div>
+      <ul class="card-list">
+        <li><strong>Heavy industrial verticals</strong> (mining, energy, ports) deliver clear ROI with safety-of-life use cases</li>
+        <li><strong>NDAC platform maturity</strong> &mdash; 1,001+ deployments prove at-scale reliability</li>
+        <li><strong>Vertical-specific packaging</strong> outperforms generic connectivity pitches</li>
+        <li><strong>Land &amp; expand motion works</strong> &mdash; 45% of customers expanding use cases; all 100 early adopters expanding to new locations</li>
+        <li><strong>Leonardo MC_linX partnership</strong> &mdash; pre-integrated mission-critical comms for public safety, energy, rail</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <div class="card-icon red">!</div>
+        What's Not Working
+      </div>
+      <ul class="card-list">
+        <li><strong>Partner ecosystem lags</strong> significantly behind Cisco's world-class channel program</li>
+        <li><strong>Sales motion too carrier-centric</strong> &mdash; enterprise buyers need an enterprise-native BD approach</li>
+        <li><strong>Lighter competitors winning mid-market</strong> &mdash; Celona and Druid deploy faster with simpler models</li>
+        <li><strong>Cross-portfolio selling not integrated</strong> &mdash; IP, optical, fixed alongside private wireless</li>
+        <li><strong>BD coverage gaps</strong> &mdash; account teams need overlay support to drive pipeline in new verticals</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Competitive Landscape Table -->
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Vendor</th>
+          <th>Position</th>
+          <th>Deployments</th>
+          <th>Strengths</th>
+          <th>Weaknesses</th>
+          <th>Threat Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="nokia-row">
+          <td class="vendor-name">Nokia</td>
+          <td><span class="comp-badge leader">Champion</span></td>
+          <td>1,001+</td>
+          <td>Full E2E portfolio, mission-critical heritage, sole Omdia Champion, Leonardo partnership</td>
+          <td>Heavy/complex for smaller deals, campus edge being divested, enterprise BD gaps</td>
+          <td>&mdash;</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Ericsson</td>
+          <td><span class="comp-badge leader">Leader</span></td>
+          <td>100+</td>
+          <td>Strong carrier relationships, neutral host focus, scaling enterprise</td>
+          <td>Later to enterprise, fewer vertical-specific solutions</td>
+          <td><span style="color:var(--accent-red);font-weight:700;">High</span></td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Celona</td>
+          <td><span class="comp-badge challenger">Pioneer</span></td>
+          <td>Growing</td>
+          <td>Enterprise-friendly experience, simpler deployment, strong healthcare/AI positioning</td>
+          <td>Limited scale vs. Nokia/Ericsson, no full E2E portfolio</td>
+          <td><span style="color:var(--accent-amber);font-weight:700;">Medium-High</span></td>
+        </tr>
+        <tr>
+          <td class="vendor-name">ZTE</td>
+          <td><span class="comp-badge leader">Leader</span></td>
+          <td>Significant</td>
+          <td>Cost-competitive, strong industrial integration, growing global presence</td>
+          <td>Geopolitical restrictions in US/EU markets</td>
+          <td><span style="color:var(--accent-amber);font-weight:700;">Medium</span></td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Druid Software</td>
+          <td><span class="comp-badge niche">Niche</span></td>
+          <td>Niche</td>
+          <td>Flexible for smaller deployments, strong in specific verticals</td>
+          <td>Limited scale, narrow portfolio</td>
+          <td><span style="color:var(--accent-amber);font-weight:700;">Low-Medium</span></td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Huawei</td>
+          <td><span class="comp-badge challenger">Challenger</span></td>
+          <td>Large (APAC)</td>
+          <td>Full portfolio, aggressive pricing, strong in Asia-Pacific</td>
+          <td>US/EU market restrictions, trust concerns</td>
+          <td><span style="color:var(--accent-amber);font-weight:700;">Medium (non-US)</span></td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Samsung / HPE</td>
+          <td><span class="comp-badge emerging">Emerging</span></td>
+          <td>Early</td>
+          <td>Samsung: strong 5G RAN; HPE: enterprise IT relationships</td>
+          <td>Not yet mature in mission-critical private wireless</td>
+          <td><span style="color:var(--text-muted);font-weight:700;">Low</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SECTION 2: PARTNER ECOSYSTEM ===== -->
+<section class="section" id="partners">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Partner Ecosystem Analysis</h2>
+    <p class="section-desc">Nokia's partner program is functional but not yet world-class. Channel already drives 70% of private network deals &mdash; the foundation is there, but the structure needs upgrading to Cisco-caliber execution.</p>
+  </div>
+
+  <!-- Partner Progress -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-title">
+      <div class="card-icon blue">&#x2B21;</div>
+      Partner Program Maturity Assessment
+    </div>
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-label">Channel Revenue Contribution</span>
+        <span class="progress-value">70%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill green" data-width="70"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-label">SI Partner Depth</span>
+        <span class="progress-value">45%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill amber" data-width="45"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-label">Hyperscaler Integration</span>
+        <span class="progress-value">55%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" data-width="55"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-label">Enterprise BD Enablement</span>
+        <span class="progress-value">30%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill red" data-width="30"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-label">ISV/OEM Ecosystem Breadth</span>
+        <span class="progress-value">40%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill amber" data-width="40"></div></div>
+    </div>
+  </div>
+
+  <!-- Partner Categories -->
+  <div class="partner-category">
+    <div class="partner-category-title">Systems Integrators</div>
+    <div class="partner-grid">
+      <div class="partner-chip">
+        <div class="partner-name">Kyndryl</div>
+        <div class="partner-role">Existing Nokia partner &mdash; deep infrastructure practice</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">Deloitte</div>
+        <div class="partner-role">Industry 4.0 consulting &mdash; opportunity to deepen</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">Accenture</div>
+        <div class="partner-role">Digital transformation &mdash; strong enterprise relationships</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">Andorix</div>
+        <div class="partner-role">Real estate / campus private 5G + Edge deployments</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="partner-category">
+    <div class="partner-category-title">Hyperscaler & Cloud</div>
+    <div class="partner-grid">
+      <div class="partner-chip">
+        <div class="partner-name">Microsoft Azure</div>
+        <div class="partner-role">NDAC integrated with Azure cloud &mdash; enterprise edge</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">AWS</div>
+        <div class="partner-role">Private 5G integration &mdash; industrial IoT edge</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">CoreWeave</div>
+        <div class="partner-role">AI infrastructure partnership &mdash; GPU cloud + network</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="partner-category">
+    <div class="partner-category-title">Strategic Technology Partners</div>
+    <div class="partner-grid">
+      <div class="partner-chip">
+        <div class="partner-name">Leonardo</div>
+        <div class="partner-role">MC_linX &mdash; mission-critical comms for public safety, energy, rail</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">OneLayer</div>
+        <div class="partner-role">Industrial private network security &amp; visibility</div>
+      </div>
+      <div class="partner-chip">
+        <div class="partner-name">Dell Technologies</div>
+        <div class="partner-role">Network cloud transformation &amp; edge compute</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gap Analysis -->
+  <div class="callout blue" style="margin-top:24px;">
+    <div class="callout-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      Gap Analysis: What World-Class Looks Like
+    </div>
+    <div class="callout-text">Cisco's partner program generates 80%+ of revenue through channel. Key differences: dedicated partner BD overlays, co-selling motions with named account alignment, partner-funded demand gen, and a tiered certification program that creates stickiness. <strong>The BD role can be the bridge</strong> &mdash; bringing Cisco-caliber partner engagement methodology to Nokia's existing 70% channel foundation.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SECTION 3: SOLUTIONS ===== -->
+<section class="section" id="solutions">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Solution Areas of Focus</h2>
+    <p class="section-desc">Nokia offers the only true end-to-end mission critical connectivity portfolio. No other vendor can match the breadth &mdash; from radio access through core, transport, and edge compute.</p>
+  </div>
+
+  <div class="solution-grid">
+    <div class="solution-tag">
+      <div class="solution-dot core"></div>
+      <div>
+        <div class="solution-name">Private Wireless / NDAC / MPW</div>
+        <div class="solution-desc">Core competency. 1,001+ deployments. 4G/5G private networks for mission critical operations.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot core"></div>
+      <div>
+        <div class="solution-name">5G Core for Enterprise</div>
+        <div class="solution-desc">Dedicated core network for enterprise-grade SLA, security, and control plane isolation.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot ip"></div>
+      <div>
+        <div class="solution-name">IP Routing & Switching</div>
+        <div class="solution-desc">Enterprise campus and WAN. Cross-sell opportunity with private wireless accounts.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot transport"></div>
+      <div>
+        <div class="solution-name">Optical Transport</div>
+        <div class="solution-desc">Backbone connectivity for high-bandwidth mission critical applications.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot"></div>
+      <div>
+        <div class="solution-name">Fixed Wireless Access</div>
+        <div class="solution-desc">Last-mile connectivity for remote and underserved industrial sites.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot"></div>
+      <div>
+        <div class="solution-name">Microwave Radio</div>
+        <div class="solution-desc">Wireless backhaul for remote deployments where fiber is impractical.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot edge"></div>
+      <div>
+        <div class="solution-name">Digital Automation Cloud (DAC)</div>
+        <div class="solution-desc">Edge compute + AI platform. On-premise processing for latency-sensitive operations.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot edge"></div>
+      <div>
+        <div class="solution-name">Nokia MX Industrial Edge</div>
+        <div class="solution-desc">IoT/OT convergence platform. Bridges operational technology with IT infrastructure.</div>
+      </div>
+    </div>
+    <div class="solution-tag">
+      <div class="solution-dot mc"></div>
+      <div>
+        <div class="solution-name">Mission Critical Communications</div>
+        <div class="solution-desc">Leonardo MC_linX partnership. MCPTT, video, data over LTE/5G for public safety and critical infra.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uvp-banner" style="margin-top:32px;">
+    <h3>E2E Positioning</h3>
+    <blockquote>"The only vendor that can deliver true end-to-end mission critical connectivity &mdash; from the radio edge through the core, across transport, and into the enterprise cloud."</blockquote>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SECTION 4: BD VISION ===== -->
+<section class="section" id="vision">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">BD Role Strategic Vision</h2>
+    <p class="section-desc">The Overlay Catalyst &mdash; driving pipeline across Mission Critical Enterprise through account-level engagement, partner activation, and cross-portfolio solution selling.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="framework-card">
+      <div class="framework-number">01</div>
+      <div class="framework-title">Overlay Model</div>
+      <div class="framework-desc">Work hand-in-hand with 5&ndash;10 account managers. Deep focus on 2&ndash;3 key accounts with whitespace mapping and pipeline acceleration. Be the expert resource that account teams pull in, not a separate silo.</div>
+    </div>
+    <div class="framework-card">
+      <div class="framework-number">02</div>
+      <div class="framework-title">Solution Selling</div>
+      <div class="framework-desc">Map Nokia's full portfolio to customer business outcomes, not technology specs. Lead with vertical expertise and industry language. Position connectivity as operational resilience, not just infrastructure.</div>
+    </div>
+    <div class="framework-card">
+      <div class="framework-number">03</div>
+      <div class="framework-title">Partner Activation</div>
+      <div class="framework-desc">Bring Cisco-level partner engagement methodology to Nokia's ecosystem. Co-selling with SIs, hyperscaler joint solutions, and ISV integration plays. Build the partner-sourced pipeline engine.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <div class="card-title">
+      <div class="card-icon blue">&#x2B50;</div>
+      Pipeline Methodology
+    </div>
+    <ul class="card-list">
+      <li><strong>Whitespace identification</strong> &mdash; Map cross-portfolio expansion opportunities in existing accounts (IP, optical, edge alongside private wireless)</li>
+      <li><strong>New logo hunting</strong> &mdash; Target underserved verticals with vertical-specific value propositions and proof points</li>
+      <li><strong>Partner-sourced pipeline</strong> &mdash; Develop joint go-to-market motions with top 2&ndash;3 SI and channel partners</li>
+      <li><strong>Customer expansion plays</strong> &mdash; Leverage Nokia's proven land &amp; expand motion (45% of customers already expanding)</li>
+      <li><strong>Event-driven demand gen</strong> &mdash; Conference presence, customer workshops, vertical thought leadership</li>
+      <li><strong>Vertical specialization</strong> &mdash; Lead with industry expertise and peer reference stories, not product datasheets</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SECTION 5: ALIGNMENT ===== -->
+<section class="section" id="alignment">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Where I Hit the Ground Running</h2>
+    <p class="section-desc">The intersection of deep vertical expertise, cross-portfolio technical credibility, and world-class partner ecosystem experience &mdash; mapped directly to what Mission Critical needs.</p>
+  </div>
+
+  <div class="alignment-grid">
+    <div class="alignment-card">
+      <div class="alignment-icon" style="background:rgba(18,65,145,0.15);color:var(--nokia-blue-light);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-4h6v4"/></svg>
+      </div>
+      <h3>Vertical Expertise (10+ Years)</h3>
+      <ul>
+        <li>Energy &amp; Utilities &mdash; OT/IT convergence</li>
+        <li>Manufacturing &mdash; Industry 4.0 selling</li>
+        <li>Mining &mdash; remote ops, safety-critical</li>
+        <li>Transportation &mdash; DOT, rail, smart corridors</li>
+        <li>Public Sector &mdash; federal, state, municipal</li>
+        <li>Retail, hospitality, sports &amp; entertainment</li>
+      </ul>
+    </div>
+    <div class="alignment-card">
+      <div class="alignment-icon" style="background:rgba(34,211,238,0.15);color:var(--accent-cyan);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Solution Expertise</h3>
+      <ul>
+        <li>Private Wireless / NDAC &mdash; 10 years</li>
+        <li>IP, optical, Wi-Fi, switching (Cisco)</li>
+        <li>Edge compute &amp; IoT platforms</li>
+        <li>Full-stack campus to WAN to DC</li>
+        <li>OneLayer, Microsoft IoT experience</li>
+      </ul>
+    </div>
+    <div class="alignment-card">
+      <div class="alignment-icon" style="background:rgba(52,211,153,0.15);color:var(--accent-green);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Partner &amp; Channel DNA</h3>
+      <ul>
+        <li>Cisco alumni &mdash; best-in-class channel</li>
+        <li>SI relationships (Deloitte, etc.)</li>
+        <li>Software/ISV integration experience</li>
+        <li>Channel ecosystem build &amp; activation</li>
+        <li>Partner program best practices</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="uvp-banner">
+    <h3>Unique Value Proposition</h3>
+    <blockquote>"The rare BD professional who combines deep industrial vertical expertise, cross-portfolio technical credibility, and world-class partner ecosystem experience &mdash; exactly what Nokia's Mission Critical group needs to scale pipeline."</blockquote>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SECTION 6: 90-DAY SPRINT ===== -->
+<section class="section" id="sprint">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">90-Day Sprint Plan</h2>
+    <p class="section-desc">A structured ramp from discovery through activation to measurable pipeline contribution. Each phase builds on the last.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item active">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Days 1&ndash;30</div>
+      <div class="timeline-title">Discover</div>
+      <ul class="timeline-list">
+        <li>Deep dive into Mission Critical group charter, accounts, and existing pipeline</li>
+        <li>Map current account team coverage and identify whitespace opportunities</li>
+        <li>Audit existing partner relationships and pipeline sources</li>
+        <li>Identify top 3 target accounts for deep engagement</li>
+        <li>Build vertical-specific value propositions with industry proof points</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Days 31&ndash;60</div>
+      <div class="timeline-title">Activate</div>
+      <ul class="timeline-list">
+        <li>Launch pipeline development plays with top 3 account teams</li>
+        <li>Initiate partner activation strategy &mdash; identify 2&ndash;3 SI/channel partners</li>
+        <li>Develop repeatable BD playbook for account team enablement</li>
+        <li>Begin cross-portfolio opportunity mapping across target accounts</li>
+        <li>Host first customer or partner workshop/event</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Days 61&ndash;90</div>
+      <div class="timeline-title">Accelerate</div>
+      <ul class="timeline-list">
+        <li>Demonstrate measurable pipeline contribution with specific metrics</li>
+        <li>Expand BD coverage to additional account teams beyond initial 3</li>
+        <li>Formalize partner-sourced pipeline program with joint targets</li>
+        <li>Share best practices and wins across the Mission Critical org</li>
+        <li>Present Q1 results and Q2 pipeline forecast to leadership</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== SECTION 7: QUESTIONS ===== -->
+<section class="section" id="questions">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title">Questions for Sarah</h2>
+    <p class="section-desc">Strategic questions designed to understand the mission, evaluate fit, and demonstrate thoughtful preparation for the role and the opportunity.</p>
+  </div>
+
+  <div class="question-card">
+    <div class="question-num">1</div>
+    <div class="question-text">What is the Mission Critical group's charter and how does it fit within Nokia's new operating structure post-CMD 2025? <span class="question-tag strategic">Strategic</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">2</div>
+    <div class="question-text">How does the CMD pivot (Enterprise Campus Edge &rarr; Portfolio Businesses) impact this group's strategy and investment level? <span class="question-tag strategic">Strategic</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">3</div>
+    <div class="question-text">Which verticals and solution areas are highest priority for pipeline development right now? <span class="question-tag tactical">Tactical</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">4</div>
+    <div class="question-text">How many account teams would I be supporting, and what does the current pipeline look like in terms of stage and coverage? <span class="question-tag tactical">Tactical</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">5</div>
+    <div class="question-text">What's the geographic territory &mdash; West Coast, full US, or aligned to specific verticals regardless of geography? <span class="question-tag tactical">Tactical</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">6</div>
+    <div class="question-text">How is success measured &mdash; pipeline generated, deals closed, partner activation metrics, or a composite? <span class="question-tag tactical">Tactical</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">7</div>
+    <div class="question-text">What tools and resources does the BD team have access to &mdash; CRM, marketing support, partner development funds, event budget? <span class="question-tag tactical">Tactical</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">8</div>
+    <div class="question-text">What's the relationship between this group and Nokia's carrier/CSP business &mdash; is there any channel conflict to navigate? <span class="question-tag strategic">Strategic</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">9</div>
+    <div class="question-text">How does the team think about the competitive threat from lighter-weight players like Celona, especially in mid-market? <span class="question-tag comp">Competitive</span></div>
+  </div>
+  <div class="question-card">
+    <div class="question-num">10</div>
+    <div class="question-text">What does the compensation structure look like &mdash; base plus variable, quota-carrying, or a hybrid model? <span class="question-tag tactical">Tactical</span></div>
+  </div>
+</section>
+
+</div><!-- .main -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">Built for the Mission Critical Conversation</div>
+  Willie Kopp &middot; June 2025
+  <div class="footer-note">This document is a living playbook &mdash; designed to evolve as the role and strategy take shape.</div>
+</footer>
+
+<script>
+// ===== PARTICLES =====
+(function() {
+  const container = document.getElementById('particles');
+  if (!container) return;
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = 30 + Math.random() * 60 + '%';
+    p.style.animationDelay = Math.random() * 8 + 's';
+    p.style.animationDuration = 6 + Math.random() * 6 + 's';
+    container.appendChild(p);
+  }
+})();
+
+// ===== SCROLL ANIMATIONS =====
+(function() {
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // Animate progress bars within visible section
+        const bars = entry.target.querySelectorAll('.progress-fill');
+        bars.forEach(bar => {
+          const w = bar.getAttribute('data-width');
+          if (w) setTimeout(() => { bar.style.width = w + '%'; }, 200);
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '-40px' });
+
+  sections.forEach(s => observer.observe(s));
+})();
+
+// ===== ACTIVE NAV TRACKING =====
+(function() {
+  const links = document.querySelectorAll('.nav-links a');
+  const sectionEls = document.querySelectorAll('.section[id]');
+
+  function updateActive() {
+    let current = '';
+    sectionEls.forEach(s => {
+      const top = s.getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.4) current = s.id;
+    });
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-section') === current);
+    });
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
+
+// ===== SMOOTH SCROLL NAV =====
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Close mobile nav
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>
