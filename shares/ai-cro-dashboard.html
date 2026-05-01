@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CRO — AI Chief Revenue Officer Dashboard</title>
+    <meta name="description" content="AI-powered sales leadership layer for B2B enterprise teams. ICP scoring, stakeholder intelligence, and daily briefings.">
+    <meta property="og:title" content="AI CRO — AI Chief Revenue Officer">
+    <meta property="og:description" content="The AI sales leader your team deserves. Pipeline intelligence that runs before you do.">
+    <meta property="og:image" content="https://v0-ai-chief-revenue-officer-mu.vercel.app/og-image.png">
+    <meta property="og:url" content="https://v0-ai-chief-revenue-officer-mu.vercel.app/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text x='50' y='68' font-size='52' font-family='system-ui' font-weight='700' text-anchor='middle' fill='white'>C</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: { 50: '#16161d', 100: '#1a1a24', 200: '#22222e', 300: '#2a2a38', 400: '#33334a' },
+            accent: { DEFAULT: '#6366f1', light: '#818cf8', dark: '#4f46e5', glow: 'rgba(99,102,241,0.15)' },
+            success: { DEFAULT: '#22c55e', muted: 'rgba(34,197,94,0.15)' },
+            warning: { DEFAULT: '#f59e0b', muted: 'rgba(245,158,11,0.15)' },
+            danger: { DEFAULT: '#ef4444', muted: 'rgba(239,68,68,0.15)' },
+            info: { DEFAULT: '#3b82f6', muted: 'rgba(59,130,246,0.15)' },
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        }
+      }
+    }
+    </script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #0a0a0f; color: #e2e2e8; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+
+      /* Glassmorphism */
+      .glass { background: rgba(22,22,29,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(99,102,241,0.1); }
+      .glass-hover:hover { border-color: rgba(99,102,241,0.25); box-shadow: 0 0 30px rgba(99,102,241,0.08); }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #33334a; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+
+      /* SVG Progress Ring */
+      .progress-ring { transform: rotate(-90deg); }
+      .progress-ring__bg { stroke: rgba(99,102,241,0.12); fill: none; stroke-width: 4; }
+      .progress-ring__fill { fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+      /* Animations */
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.2); } 50% { box-shadow: 0 0 20px 4px rgba(99,102,241,0.15); } }
+      @keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+      .animate-in { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+      .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+      /* Stagger */
+      .stagger-1 { animation-delay: 0.05s; }
+      .stagger-2 { animation-delay: 0.1s; }
+      .stagger-3 { animation-delay: 0.15s; }
+      .stagger-4 { animation-delay: 0.2s; }
+      .stagger-5 { animation-delay: 0.25s; }
+      .stagger-6 { animation-delay: 0.3s; }
+      .stagger-7 { animation-delay: 0.35s; }
+      .stagger-8 { animation-delay: 0.4s; }
+
+      /* Sidebar */
+      .sidebar-link { transition: all 0.2s; }
+      .sidebar-link:hover { background: rgba(99,102,241,0.1); }
+      .sidebar-link.active { background: rgba(99,102,241,0.15); border-right: 2px solid #6366f1; }
+
+      /* Table */
+      .deal-row { transition: all 0.2s; }
+      .deal-row:hover { background: rgba(99,102,241,0.05); }
+
+      /* Persona bubble */
+      .persona-bubble { transition: transform 0.2s, box-shadow 0.2s; }
+      .persona-bubble:hover { transform: scale(1.08); }
+
+      /* Badge */
+      .score-badge { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; min-width: 42px; text-align: center; }
+
+      /* Competitive check/x */
+      .check { color: #22c55e; }
+      .partial { color: #f59e0b; }
+      .miss { color: #ef4444; }
+
+      /* Mobile sidebar */
+      @media (max-width: 1024px) {
+        .sidebar-desktop { display: none; }
+        .main-content { margin-left: 0 !important; }
+      }
+    </style>
+</head>
+<body class="min-h-screen">
+
+<!-- SIDEBAR -->
+<aside class="sidebar-desktop fixed left-0 top-0 h-full w-[72px] glass flex flex-col items-center py-6 z-50" style="border-right: 1px solid rgba(99,102,241,0.1);">
+    <!-- Logo -->
+    <div class="w-10 h-10 rounded-xl bg-accent flex items-center justify-center mb-8 pulse-glow">
+        <span class="font-display font-bold text-white text-lg">C</span>
+    </div>
+
+    <!-- Nav Icons -->
+    <nav class="flex flex-col gap-2 flex-1">
+        <a href="#" class="sidebar-link active w-11 h-11 rounded-xl flex items-center justify-center" title="Dashboard">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </a>
+        <a href="#icp-section" class="sidebar-link w-11 h-11 rounded-xl flex items-center justify-center text-gray-500 hover:text-white" title="Deals">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+        </a>
+        <a href="#stakeholder-section" class="sidebar-link w-11 h-11 rounded-xl flex items-center justify-center text-gray-500 hover:text-white" title="Stakeholders">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </a>
+        <a href="#brief-section" class="sidebar-link w-11 h-11 rounded-xl flex items-center justify-center text-gray-500 hover:text-white" title="Coaching">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </a>
+        <a href="#brief-section" class="sidebar-link w-11 h-11 rounded-xl flex items-center justify-center text-gray-500 hover:text-white" title="Briefs">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </a>
+        <a href="#competitive-section" class="sidebar-link w-11 h-11 rounded-xl flex items-center justify-center text-gray-500 hover:text-white" title="Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </a>
+    </nav>
+
+    <!-- User avatar bottom -->
+    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-purple-500 flex items-center justify-center text-sm font-semibold text-white cursor-pointer">DG</div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content ml-[72px] min-h-screen">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 glass px-6 py-4 flex items-center justify-between" style="border-bottom: 1px solid rgba(99,102,241,0.1);">
+        <div class="flex items-center gap-3">
+            <h1 class="font-display font-bold text-xl text-white">AI CRO</h1>
+            <span class="text-xs text-gray-500 font-mono bg-surface-200 px-2 py-0.5 rounded-full">BETA</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-400">OneLayer Security (Demo)</span>
+            <button class="relative w-9 h-9 rounded-xl glass flex items-center justify-center hover:border-accent/30 transition-all">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="absolute -top-1 -right-1 w-4 h-4 bg-danger rounded-full text-[10px] font-bold flex items-center justify-center text-white">3</span>
+            </button>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-purple-500 flex items-center justify-center text-sm font-semibold text-white">DG</div>
+        </div>
+    </header>
+
+    <div class="p-6 max-w-[1400px] mx-auto space-y-6">
+
+    <!-- KPI CARDS -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Pipeline Value -->
+        <div class="glass rounded-2xl p-5 glass-hover animate-in stagger-1">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-medium mb-1">Total Pipeline</p>
+                    <p class="text-3xl font-display font-bold text-white">$4.2M</p>
+                    <p class="text-xs text-green-400 mt-1 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/></svg>
+                        +12% vs last month
+                    </p>
+                </div>
+                <div class="relative">
+                    <svg class="progress-ring" width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="progress-ring__bg" cx="28" cy="28" r="24"/>
+                        <circle class="progress-ring__fill" cx="28" cy="28" r="24" stroke="#6366f1" stroke-dasharray="150.8" stroke-dashoffset="30.16"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xs font-mono font-semibold text-accent">80%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Rate -->
+        <div class="glass rounded-2xl p-5 glass-hover animate-in stagger-2">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-medium mb-1">Win Rate</p>
+                    <p class="text-3xl font-display font-bold text-white">34%</p>
+                    <p class="text-xs text-yellow-400 mt-1 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Flat vs last quarter
+                    </p>
+                </div>
+                <div class="relative">
+                    <svg class="progress-ring" width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="progress-ring__bg" cx="28" cy="28" r="24"/>
+                        <circle class="progress-ring__fill" cx="28" cy="28" r="24" stroke="#f59e0b" stroke-dasharray="150.8" stroke-dashoffset="99.53"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xs font-mono font-semibold text-yellow-400">34%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avg Deal Cycle -->
+        <div class="glass rounded-2xl p-5 glass-hover animate-in stagger-3">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-medium mb-1">Avg Cycle</p>
+                    <p class="text-3xl font-display font-bold text-white">47<span class="text-lg text-gray-500 ml-1">days</span></p>
+                    <p class="text-xs text-green-400 mt-1 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23,18 13.5,8.5 8.5,13.5 1,6"/></svg>
+                        -8 days vs Q1
+                    </p>
+                </div>
+                <div class="relative">
+                    <svg class="progress-ring" width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="progress-ring__bg" cx="28" cy="28" r="24"/>
+                        <circle class="progress-ring__fill" cx="28" cy="28" r="24" stroke="#22c55e" stroke-dasharray="150.8" stroke-dashoffset="52.78"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xs font-mono font-semibold text-green-400">65%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Deals -->
+        <div class="glass rounded-2xl p-5 glass-hover animate-in stagger-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider font-medium mb-1">Active Deals</p>
+                    <p class="text-3xl font-display font-bold text-white">28</p>
+                    <p class="text-xs text-blue-400 mt-1 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/></svg>
+                        +3 new this week
+                    </p>
+                </div>
+                <div class="relative">
+                    <svg class="progress-ring" width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="progress-ring__bg" cx="28" cy="28" r="24"/>
+                        <circle class="progress-ring__fill" cx="28" cy="28" r="24" stroke="#3b82f6" stroke-dasharray="150.8" stroke-dashoffset="22.62"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xs font-mono font-semibold text-blue-400">85%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ICP COMPLIANCE TABLE -->
+    <section id="icp-section" class="glass rounded-2xl overflow-hidden animate-in stagger-5">
+        <div class="px-6 py-4 flex items-center justify-between border-b border-white/5">
+            <div>
+                <h2 class="font-display font-semibold text-white text-lg">ICP Compliance Scoring</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Deals scored against your Ideal Customer Profile</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs bg-green-500/10 text-green-400 px-2.5 py-1 rounded-full font-medium">8 scored</span>
+                <button class="text-xs bg-accent/10 text-accent px-3 py-1.5 rounded-lg font-medium hover:bg-accent/20 transition-colors">Re-score All</button>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="text-xs text-gray-500 uppercase tracking-wider border-b border-white/5">
+                        <th class="text-left px-6 py-3 font-medium">Deal</th>
+                        <th class="text-left px-4 py-3 font-medium">Account</th>
+                        <th class="text-left px-4 py-3 font-medium">Stage</th>
+                        <th class="text-right px-4 py-3 font-medium">Value</th>
+                        <th class="text-center px-4 py-3 font-medium">ICP Score</th>
+                        <th class="text-center px-4 py-3 font-medium">Risk</th>
+                        <th class="text-left px-4 py-3 font-medium">Rep</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white">Shell - Refinery 5G Security</td>
+                        <td class="px-4 py-3.5 text-gray-400">Shell</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full">Proposal</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$750K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">95</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full">Medium</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">M. Johnson</td>
+                    </tr>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white">Chevron - Upstream OT Visibility</td>
+                        <td class="px-4 py-3.5 text-gray-400">Chevron</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full">Tech Eval</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$680K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">94</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full">Medium</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">M. Johnson</td>
+                    </tr>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white">Evergy - Grid Modernization Security</td>
+                        <td class="px-4 py-3.5 text-gray-400">Evergy</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full">Negotiation</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$380K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">92</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full">Low</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">S. Kim</td>
+                    </tr>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white">Siemens Energy - Smart Factory</td>
+                        <td class="px-4 py-3.5 text-gray-400">Siemens Energy</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full">Proposal</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$420K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">91</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full">Low</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">A. Chen</td>
+                    </tr>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white">Rio Tinto - Mining OT Security</td>
+                        <td class="px-4 py-3.5 text-gray-400">Rio Tinto</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full">Negotiation</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$520K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">88</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full">Medium</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">M. Johnson</td>
+                    </tr>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white flex items-center gap-2">
+                            Global Energy - Substation Monitoring
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse" title="Stalled 28 days"></span>
+                        </td>
+                        <td class="px-4 py-3.5 text-gray-400">Global Energy Corp</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full">Tech Eval</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$420K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-green-500/15 text-green-400 px-2 py-0.5 rounded-md">85</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-red-500/10 text-red-400 px-2 py-0.5 rounded-full">Critical</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">M. Johnson</td>
+                    </tr>
+                    <tr class="deal-row border-b border-white/[0.03]">
+                        <td class="px-6 py-3.5 font-medium text-white">Southern Linc - Network Visibility</td>
+                        <td class="px-4 py-3.5 text-gray-400">Southern Linc</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full">Negotiation</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$265K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-yellow-500/15 text-yellow-400 px-2 py-0.5 rounded-md">78</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full">Medium</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">S. Kim</td>
+                    </tr>
+                    <tr class="deal-row">
+                        <td class="px-6 py-3.5 font-medium text-white">Maersk - Port Security Platform</td>
+                        <td class="px-4 py-3.5 text-gray-400">Maersk</td>
+                        <td class="px-4 py-3.5"><span class="text-xs bg-gray-500/10 text-gray-400 px-2 py-0.5 rounded-full">Discovery</span></td>
+                        <td class="px-4 py-3.5 text-right font-mono text-white">$340K</td>
+                        <td class="px-4 py-3.5 text-center"><span class="score-badge bg-yellow-500/15 text-yellow-400 px-2 py-0.5 rounded-md">72</span></td>
+                        <td class="px-4 py-3.5 text-center"><span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full">Medium</span></td>
+                        <td class="px-4 py-3.5 text-gray-400">A. Chen</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- STAKEHOLDER MAP + DAILY BRIEF (2-col) -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- STAKEHOLDER MAP -->
+        <div id="stakeholder-section" class="glass rounded-2xl p-6 glass-hover animate-in stagger-6">
+            <div class="flex items-center justify-between mb-5">
+                <div>
+                    <h2 class="font-display font-semibold text-white text-lg">Stakeholder Map</h2>
+                    <p class="text-xs text-gray-500 mt-0.5">OneLayer - Private 5G Security Platform &mdash; $280K</p>
+                </div>
+                <span class="text-xs bg-purple-500/10 text-purple-400 px-2.5 py-1 rounded-full font-medium">Tech Eval</span>
+            </div>
+
+            <!-- Persona Grid -->
+            <div class="grid grid-cols-3 gap-3 mb-5">
+                <!-- Economic Buyer - engaged -->
+                <div class="persona-bubble rounded-xl p-3 text-center" style="background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2);">
+                    <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-2">
+                        <span class="text-green-400 text-sm font-semibold">DG</span>
+                    </div>
+                    <p class="text-xs font-medium text-green-400">Economic Buyer</p>
+                    <p class="text-[10px] text-gray-500 mt-0.5">Drew Ganther</p>
+                    <p class="text-[10px] text-gray-600">VP Sales</p>
+                </div>
+
+                <!-- Technical Evaluator - engaged -->
+                <div class="persona-bubble rounded-xl p-3 text-center" style="background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2);">
+                    <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-2">
+                        <span class="text-green-400 text-sm font-semibold">SC</span>
+                    </div>
+                    <p class="text-xs font-medium text-green-400">Tech Evaluator</p>
+                    <p class="text-[10px] text-gray-500 mt-0.5">Sarah Chen</p>
+                    <p class="text-[10px] text-gray-600">CISO</p>
+                </div>
+
+                <!-- Champion - identified -->
+                <div class="persona-bubble rounded-xl p-3 text-center" style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center mx-auto mb-2">
+                        <span class="text-yellow-400 text-sm font-semibold">JR</span>
+                    </div>
+                    <p class="text-xs font-medium text-yellow-400">Champion</p>
+                    <p class="text-[10px] text-gray-500 mt-0.5">James Rodriguez</p>
+                    <p class="text-[10px] text-gray-600">OT Security Mgr</p>
+                </div>
+
+                <!-- Legal/Procurement - MISSING -->
+                <div class="persona-bubble rounded-xl p-3 text-center" style="background: rgba(239,68,68,0.06); border: 1px dashed rgba(239,68,68,0.3);">
+                    <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-2">
+                        <span class="text-red-400 text-sm">?</span>
+                    </div>
+                    <p class="text-xs font-medium text-red-400">Legal/Procurement</p>
+                    <p class="text-[10px] text-gray-600 mt-0.5">Not identified</p>
+                </div>
+
+                <!-- End User - identified -->
+                <div class="persona-bubble rounded-xl p-3 text-center" style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center mx-auto mb-2">
+                        <span class="text-yellow-400 text-sm font-semibold">KW</span>
+                    </div>
+                    <p class="text-xs font-medium text-yellow-400">End User</p>
+                    <p class="text-[10px] text-gray-500 mt-0.5">Keith Williams</p>
+                    <p class="text-[10px] text-gray-600">Plant IT Dir</p>
+                </div>
+
+                <!-- Executive Sponsor - engaged -->
+                <div class="persona-bubble rounded-xl p-3 text-center" style="background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2);">
+                    <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-2">
+                        <span class="text-green-400 text-sm font-semibold">RM</span>
+                    </div>
+                    <p class="text-xs font-medium text-green-400">Exec Sponsor</p>
+                    <p class="text-[10px] text-gray-500 mt-0.5">Robert Martinez</p>
+                    <p class="text-[10px] text-gray-600">SVP Technology</p>
+                </div>
+            </div>
+
+            <!-- Gap Alert -->
+            <div class="rounded-lg p-3 flex items-start gap-3" style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div>
+                    <p class="text-xs text-red-400 font-medium">No Legal/Procurement contact identified</p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">Ask Sarah Chen for procurement contact before advancing to Proposal stage.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAILY BRIEF -->
+        <div id="brief-section" class="glass rounded-2xl p-6 glass-hover animate-in stagger-7">
+            <div class="flex items-center justify-between mb-5">
+                <div>
+                    <h2 class="font-display font-semibold text-white text-lg">Daily Brief</h2>
+                    <p class="text-xs text-gray-500 mt-0.5">Thursday, April 10, 2026 &mdash; 7:00 AM ET</p>
+                </div>
+                <span class="text-xs bg-accent/10 text-accent px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    AI-Generated
+                </span>
+            </div>
+
+            <!-- Headline -->
+            <div class="rounded-lg p-4 mb-4" style="background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(147,51,234,0.08)); border: 1px solid rgba(99,102,241,0.15);">
+                <p class="text-sm text-white font-medium leading-relaxed">$420K Global Energy deal stalled 28 days with zero activity. Your $750K Shell deal is missing an executive sponsor. Three deals need stakeholder attention today.</p>
+            </div>
+
+            <!-- Red Alerts -->
+            <div class="mb-4">
+                <h3 class="text-xs text-red-400 font-semibold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    Red Alerts
+                </h3>
+                <div class="space-y-2">
+                    <div class="rounded-lg p-3 text-xs" style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.12);">
+                        <p class="text-white font-medium">Global Energy Corp &mdash; $420K</p>
+                        <p class="text-gray-400 mt-1">28 days in Tech Eval (avg: 14). No activity in 12 days. Both contacts dark. Champion may have left.</p>
+                        <p class="text-accent mt-1.5">Action: Call Mike Johnson. Get a status check meeting this week or flag for pipe review.</p>
+                    </div>
+                    <div class="rounded-lg p-3 text-xs" style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.12);">
+                        <p class="text-white font-medium">Shell Refinery &mdash; $750K</p>
+                        <p class="text-gray-400 mt-1">No executive sponsor identified for your largest deal. Hans Weber (VP Digital) hasn't engaged in 13 days.</p>
+                        <p class="text-accent mt-1.5">Action: Schedule executive briefing. You need C-level sponsorship before Negotiation.</p>
+                    </div>
+                    <div class="rounded-lg p-3 text-xs" style="background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.12);">
+                        <p class="text-white font-medium">3 deals single-threaded</p>
+                        <p class="text-gray-400 mt-1">Chevron, Maersk, and Nucor each have only 1-2 contacts. Multi-threading is critical before advancing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Priorities -->
+            <div>
+                <h3 class="text-xs text-accent font-semibold uppercase tracking-wider mb-2">Today's Priorities</h3>
+                <div class="space-y-2">
+                    <div class="flex items-start gap-2.5">
+                        <span class="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 text-accent text-[10px] font-bold flex items-center justify-center mt-0.5">1</span>
+                        <p class="text-xs text-gray-300"><span class="text-white font-medium">Unstick Global Energy</span> &mdash; Call Mike Johnson, get champion status</p>
+                    </div>
+                    <div class="flex items-start gap-2.5">
+                        <span class="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 text-accent text-[10px] font-bold flex items-center justify-center mt-0.5">2</span>
+                        <p class="text-xs text-gray-300"><span class="text-white font-medium">Shell exec sponsor</span> &mdash; Schedule briefing for Hans Weber</p>
+                    </div>
+                    <div class="flex items-start gap-2.5">
+                        <span class="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 text-accent text-[10px] font-bold flex items-center justify-center mt-0.5">3</span>
+                        <p class="text-xs text-gray-300"><span class="text-white font-medium">Prep for 10 AM OneLayer deep dive</span> &mdash; Ask about procurement contact</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPETITIVE POSITIONING -->
+    <section id="competitive-section" class="glass rounded-2xl overflow-hidden animate-in stagger-8">
+        <div class="px-6 py-4 border-b border-white/5">
+            <h2 class="font-display font-semibold text-white text-lg">Competitive Positioning</h2>
+            <p class="text-xs text-gray-500 mt-0.5">AI CRO vs market alternatives</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="text-xs text-gray-500 uppercase tracking-wider border-b border-white/5">
+                        <th class="text-left px-6 py-3 font-medium">Capability</th>
+                        <th class="text-center px-4 py-3 font-medium"><span class="text-accent">AI CRO</span></th>
+                        <th class="text-center px-4 py-3 font-medium">Gong</th>
+                        <th class="text-center px-4 py-3 font-medium">Clari</th>
+                        <th class="text-center px-4 py-3 font-medium">People.ai</th>
+                        <th class="text-center px-4 py-3 font-medium">Aviso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Price / user / month</td>
+                        <td class="px-4 py-3 text-center"><span class="text-accent font-semibold">$20-60</span></td>
+                        <td class="px-4 py-3 text-center text-gray-400">$113-133</td>
+                        <td class="px-4 py-3 text-center text-gray-400">$100-310</td>
+                        <td class="px-4 py-3 text-center text-gray-400">~$50+</td>
+                        <td class="px-4 py-3 text-center text-gray-400">$30-75</td>
+                    </tr>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Setup Time</td>
+                        <td class="px-4 py-3 text-center"><span class="text-accent font-semibold">&lt; 2 hrs</span></td>
+                        <td class="px-4 py-3 text-center text-gray-400">8 weeks</td>
+                        <td class="px-4 py-3 text-center text-gray-400">8-16 weeks</td>
+                        <td class="px-4 py-3 text-center text-gray-400">4-8 weeks</td>
+                        <td class="px-4 py-3 text-center text-gray-400">4-12 weeks</td>
+                    </tr>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">ICP Scoring</td>
+                        <td class="px-4 py-3 text-center check font-bold">&#10003;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                    </tr>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Stakeholder Mapping</td>
+                        <td class="px-4 py-3 text-center check font-bold">&#10003;</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                    </tr>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Daily Brief</td>
+                        <td class="px-4 py-3 text-center check font-bold">&#10003;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                    </tr>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Methodology Enforcement</td>
+                        <td class="px-4 py-3 text-center check font-bold">&#10003;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                    </tr>
+                    <tr class="border-b border-white/[0.03] deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Conversation Intelligence</td>
+                        <td class="px-4 py-3 text-center text-gray-600 text-xs">Phase 2</td>
+                        <td class="px-4 py-3 text-center check font-bold">&#10003;</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center check">&#10003;</td>
+                    </tr>
+                    <tr class="deal-row">
+                        <td class="px-6 py-3 text-gray-300 font-medium">Revenue Forecasting</td>
+                        <td class="px-4 py-3 text-center text-gray-600 text-xs">Phase 2</td>
+                        <td class="px-4 py-3 text-center partial">~</td>
+                        <td class="px-4 py-3 text-center check font-bold">&#10003;</td>
+                        <td class="px-4 py-3 text-center miss">&#10007;</td>
+                        <td class="px-4 py-3 text-center check">&#10003;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Positioning callout -->
+        <div class="px-6 py-4 border-t border-white/5">
+            <div class="rounded-lg p-4" style="background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(147,51,234,0.04)); border: 1px solid rgba(99,102,241,0.1);">
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    <span class="text-accent font-semibold">AI CRO's differentiation:</span> Methodology enforcement. Every competitor tracks what happened. None ensure what should happen. We score deals against YOUR process, map buying committee gaps, and brief you before you ask.
+                    <span class="text-gray-600 ml-1">$20-60/user vs $100-310/user. Live in 2 hours vs 8-16 weeks.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 text-xs text-gray-600">
+        <p>AI CRO &mdash; Built by Willie Kopp. Powered by <a href="https://anthropic.com" class="text-accent/60 hover:text-accent transition-colors">Anthropic Claude</a>.</p>
+        <p class="mt-1">The AI sales leader your team deserves.</p>
+    </footer>
+
+    </div>
+</main>
+
+<!-- Intersection Observer for scroll animations -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // All animate-in elements are visible by default (opacity set by animation)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Smooth scroll for sidebar links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
