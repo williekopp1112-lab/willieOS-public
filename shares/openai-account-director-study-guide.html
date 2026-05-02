@@ -1,0 +1,1669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Account Director IC — Interview Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-2: #111111;
+    --card: #1a1a1a;
+    --card-2: #1f1f1f;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --text: #ffffff;
+    --muted: #a0a0a0;
+    --dim: #6e6e6e;
+    --accent: #10a37f;
+    --accent-2: #0d8a6a;
+    --blue: #5b8def;
+    --warn: #e07b5b;
+    --red: #d75a5a;
+    --yellow: #d6b14c;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  ::selection { background: rgba(16,163,127,0.4); color: #fff; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+  /* ───── Top nav ───── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-row {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; align-items: center; gap: 18px;
+    padding: 14px 24px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 14px; letter-spacing: -0.01em;
+    color: var(--text); white-space: nowrap;
+  }
+  .brand-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(16,163,127,0.6);
+  }
+  .brand-sub { color: var(--muted); font-weight: 500; }
+  .tabs {
+    display: flex; flex: 1; gap: 2px; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    appearance: none; background: transparent; border: 0; cursor: pointer;
+    color: var(--muted); font: inherit; font-size: 13px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px;
+    white-space: nowrap; transition: all 0.15s ease;
+  }
+  .tab:hover { color: var(--text); background: var(--card); }
+  .tab.active {
+    color: var(--text); background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border-2);
+  }
+  .tab .num {
+    color: var(--dim); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; margin-right: 8px;
+  }
+  .tab.active .num { color: var(--accent); }
+  .menu-btn {
+    display: none;
+    appearance: none; background: var(--card); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px;
+    width: 40px; height: 40px; cursor: pointer;
+    align-items: center; justify-content: center;
+  }
+  .menu-btn svg { width: 18px; height: 18px; }
+
+  @media (max-width: 900px) {
+    .tabs { display: none; }
+    .menu-btn { display: inline-flex; }
+    .nav-row { padding: 12px 16px; }
+    .brand-sub { display: none; }
+  }
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 100;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu-inner {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 86%; max-width: 360px;
+    background: var(--bg-2); border-left: 1px solid var(--border);
+    padding: 16px; overflow-y: auto;
+  }
+  .mobile-menu .tab { display: block; width: 100%; text-align: left; margin: 4px 0; padding: 14px 14px; font-size: 15px; }
+  .mobile-menu .close {
+    appearance: none; background: transparent; border: 1px solid var(--border);
+    color: var(--text); padding: 8px 12px; border-radius: 8px; cursor: pointer;
+    margin-bottom: 12px; font: inherit; font-size: 13px;
+  }
+
+  /* ───── Layout ───── */
+  main { max-width: 1240px; margin: 0 auto; padding: 40px 24px 96px; }
+  @media (max-width: 700px) { main { padding: 24px 16px 80px; } }
+
+  .panel { display: none; }
+  .panel.active { display: block; animation: fade 0.35s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 16px;
+  }
+  .eyebrow::before {
+    content: ""; width: 18px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 48px); font-weight: 700;
+    letter-spacing: -0.025em; line-height: 1.05;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-size: clamp(22px, 3vw, 30px); font-weight: 700;
+    letter-spacing: -0.02em; margin: 48px 0 18px;
+  }
+  h3 { font-size: 17px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
+  p { color: var(--muted); margin: 0 0 14px; }
+  p.lead { font-size: 17px; color: #d4d4d4; max-width: 70ch; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px;
+    transition: all 0.2s ease;
+  }
+  .card:hover { border-color: var(--border-2); transform: translateY(-1px); }
+  .card-title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .card-title h3 { margin: 0; }
+  .card-emoji { font-size: 18px; }
+
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 600px) and (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(16,163,127,0.12); color: var(--accent);
+    font-size: 11px; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .pill.blue { background: rgba(91,141,239,0.12); color: var(--blue); }
+  .pill.warn { background: rgba(224,123,91,0.12); color: var(--warn); }
+  .pill.red { background: rgba(215,90,90,0.12); color: var(--red); }
+  .pill.muted { background: rgba(160,160,160,0.1); color: var(--muted); }
+
+  ul.clean { list-style: none; padding: 0; margin: 0; }
+  ul.clean li {
+    color: #cfcfcf; padding: 6px 0 6px 22px; position: relative; font-size: 14.5px;
+  }
+  ul.clean li::before {
+    content: ""; position: absolute; left: 4px; top: 14px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+  ul.clean.blue li::before { background: var(--blue); }
+  ul.clean.muted li::before { background: var(--dim); }
+
+  /* ───── Hero ───── */
+  .hero {
+    position: relative; padding: 36px 36px 32px; margin-bottom: 28px;
+    border-radius: 20px;
+    background:
+      radial-gradient(80% 120% at 100% 0%, rgba(16,163,127,0.10), transparent 60%),
+      radial-gradient(60% 100% at 0% 100%, rgba(91,141,239,0.06), transparent 60%),
+      var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(circle at 100% 0%, #000 0%, transparent 55%);
+    -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 0%, transparent 55%);
+    opacity: 0.35; pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  @media (max-width: 700px) { .hero { padding: 24px 20px; } }
+
+  .narrative p { color: #cfcfcf; font-size: 15.5px; line-height: 1.7; max-width: 72ch; }
+  .narrative p strong { color: var(--text); font-weight: 600; }
+  .narrative p em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  /* ───── Department grid ───── */
+  .dept-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-top: 8px;
+  }
+  @media (max-width: 700px) { .dept-grid { grid-template-columns: repeat(2, 1fr); } }
+  .dept {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 18px 14px;
+    text-align: left; transition: all 0.15s ease;
+  }
+  .dept:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .dept-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(16,163,127,0.1); border: 1px solid rgba(16,163,127,0.25);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px;
+  }
+  .dept-icon svg { width: 18px; height: 18px; color: var(--accent); }
+  .dept-name { font-weight: 600; font-size: 14px; color: var(--text); }
+  .dept-buyer { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ───── Persona cards ───── */
+  .persona { border-left: 3px solid var(--accent); }
+  .persona[data-color="blue"] { border-left-color: var(--blue); }
+  .persona[data-color="warn"] { border-left-color: var(--warn); }
+  .persona[data-color="red"] { border-left-color: var(--red); }
+  .persona[data-color="yellow"] { border-left-color: var(--yellow); }
+  .persona[data-color="purple"] { border-left-color: #a672e0; }
+  .persona[data-color="cyan"] { border-left-color: #5bd7e0; }
+  .persona[data-color="pink"] { border-left-color: #e07baf; }
+  .persona h3 { font-size: 18px; }
+  .persona .role { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .persona .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em;
+    margin: 14px 0 6px;
+  }
+  .persona ul.clean li { font-size: 13.5px; padding: 4px 0 4px 18px; }
+  .persona ul.clean li::before { top: 12px; width: 4px; height: 4px; }
+  .bridge {
+    margin-top: 14px; padding: 12px 14px;
+    background: rgba(16,163,127,0.06); border: 1px solid rgba(16,163,127,0.2);
+    border-radius: 8px; font-size: 13.5px; color: #d4d4d4;
+  }
+  .bridge strong { color: var(--accent); font-weight: 600; }
+
+  /* ───── Accordion ───── */
+  .accordion { display: flex; flex-direction: column; gap: 8px; }
+  details.acc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  details.acc[open] { border-color: var(--border-2); background: var(--card-2); }
+  details.acc summary {
+    list-style: none; cursor: pointer;
+    padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+    font-weight: 500; font-size: 15px; color: var(--text);
+  }
+  details.acc summary::-webkit-details-marker { display: none; }
+  details.acc summary::after {
+    content: "+"; margin-left: auto;
+    font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+  details.acc[open] summary::after { content: "−"; color: var(--accent); }
+  details.acc summary .q-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); min-width: 28px;
+  }
+  details.acc .body {
+    padding: 0 20px 18px 62px; color: #d4d4d4; font-size: 14.5px; line-height: 1.65;
+  }
+  details.acc .body p { color: #d4d4d4; }
+  details.acc .body p + p { margin-top: 10px; }
+  @media (max-width: 600px) {
+    details.acc .body { padding: 0 16px 16px 16px; }
+    details.acc summary { padding: 14px 16px; gap: 10px; }
+  }
+
+  /* ───── Comparison table ───── */
+  .table-wrap {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; overflow-x: auto;
+  }
+  table {
+    width: 100%; border-collapse: collapse; min-width: 720px;
+  }
+  th, td {
+    text-align: left; padding: 14px 18px; font-size: 14px;
+    border-bottom: 1px solid var(--border); vertical-align: top;
+  }
+  th {
+    background: var(--card-2); color: var(--muted); font-weight: 600;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  td { color: #cfcfcf; }
+  td:first-child { color: var(--text); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* ───── Steps / progression ───── */
+  .progression {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    position: relative;
+  }
+  @media (max-width: 800px) { .progression { grid-template-columns: 1fr; } }
+  .step {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 18px;
+  }
+  .step .step-n {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .step h4 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+  .step p { font-size: 13px; margin: 0; }
+
+  /* ───── Timer / final prep ───── */
+  .timeline { display: flex; flex-direction: column; gap: 10px; }
+  .timeslot {
+    display: grid; grid-template-columns: 110px 1fr; gap: 16px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    align-items: start;
+  }
+  .timeslot .clock {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--accent); font-weight: 600;
+    background: rgba(16,163,127,0.08); border: 1px solid rgba(16,163,127,0.2);
+    padding: 6px 10px; border-radius: 6px; text-align: center;
+  }
+  .timeslot h4 { margin: 0 0 6px; font-size: 15px; }
+  .timeslot ul.clean li { font-size: 13.5px; padding: 3px 0 3px 18px; }
+  .timeslot ul.clean li::before { top: 11px; }
+  @media (max-width: 600px) {
+    .timeslot { grid-template-columns: 1fr; }
+    .timeslot .clock { width: fit-content; }
+  }
+
+  .checkbox-list { display: grid; gap: 8px; }
+  .check {
+    display: flex; align-items: flex-start; gap: 12px; cursor: pointer;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+    transition: all 0.15s ease; user-select: none;
+  }
+  .check:hover { border-color: var(--border-2); }
+  .check input { display: none; }
+  .check .box {
+    width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0;
+    border: 1.5px solid var(--border-2); margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .check input:checked ~ .box {
+    background: var(--accent); border-color: var(--accent);
+  }
+  .check input:checked ~ .box::after {
+    content: ""; width: 9px; height: 5px;
+    border-left: 2px solid #0a0a0a; border-bottom: 2px solid #0a0a0a;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .check input:checked ~ .label { color: var(--dim); text-decoration: line-through; }
+  .check .label { font-size: 14px; color: #d4d4d4; line-height: 1.5; }
+
+  /* ───── Don't say cards ───── */
+  .dont {
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: var(--radius-sm); padding: 18px;
+  }
+  .dont .red-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--red); font-size: 11px; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .dont h4 { margin: 0 0 8px; font-size: 16px; color: var(--text); font-weight: 600; }
+  .dont p { font-size: 13.5px; margin: 0 0 10px; }
+  .dont .instead {
+    margin-top: 10px; padding: 10px 12px;
+    background: rgba(16,163,127,0.06); border: 1px solid rgba(16,163,127,0.2);
+    border-radius: 8px; font-size: 13px; color: #d4d4d4;
+  }
+  .dont .instead strong { color: var(--accent); font-weight: 600; }
+
+  /* ───── Pitch script ───── */
+  .script {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 22px 24px;
+    font-size: 14.5px; line-height: 1.75; color: #d4d4d4;
+  }
+  .script .stage {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+    margin: 14px 0 6px;
+  }
+  .script .stage:first-child { margin-top: 0; }
+
+  /* ───── Stat grid ───── */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 700px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
+  .stat {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px;
+  }
+  .stat .label {
+    font-size: 12px; color: var(--muted); margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat .value { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .stat .sub { font-size: 12px; color: var(--dim); margin-top: 2px; }
+
+  /* ───── Section header ───── */
+  .section-head {
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 16px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .section-head p { margin: 0; max-width: 60ch; }
+
+  /* ───── Misc helpers ───── */
+  .divider {
+    height: 1px; background: var(--border); margin: 36px 0;
+    border: 0;
+  }
+  .kv {
+    display: grid; grid-template-columns: 130px 1fr; gap: 8px 14px;
+    font-size: 13.5px; margin-top: 12px;
+  }
+  .kv dt { color: var(--dim); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .kv dd { margin: 0; color: #d4d4d4; }
+
+  .price-card { display: flex; flex-direction: column; height: 100%; }
+  .price-card h3 { display: flex; align-items: center; gap: 8px; }
+  .price-card .badge {
+    font-size: 10px; padding: 3px 7px; border-radius: 4px;
+    background: var(--card-2); color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-row">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>Account Director IC</span>
+      <span class="brand-sub">— Interview Study Guide</span>
+    </div>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab active" data-tab="overview"><span class="num">01</span>Overview</button>
+      <button class="tab" data-tab="discovery"><span class="num">02</span>Discovery &amp; Personas</button>
+      <button class="tab" data-tab="deal"><span class="num">03</span>Deal Strategy</button>
+      <button class="tab" data-tab="products"><span class="num">04</span>Products &amp; Licensing</button>
+      <button class="tab" data-tab="api"><span class="num">05</span>API Expansion</button>
+      <button class="tab" data-tab="voice"><span class="num">06</span>Voice AI</button>
+      <button class="tab" data-tab="killer"><span class="num">07</span>Killer Answers</button>
+      <button class="tab" data-tab="prep"><span class="num">08</span>Final Prep</button>
+      <button class="tab" data-tab="dont"><span class="num">09</span>What Not To Say</button>
+    </div>
+    <button class="menu-btn" id="menu-open" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-inner">
+    <button class="close" id="menu-close">Close</button>
+    <button class="tab active" data-tab="overview"><span class="num">01</span>Overview</button>
+    <button class="tab" data-tab="discovery"><span class="num">02</span>Discovery &amp; Personas</button>
+    <button class="tab" data-tab="deal"><span class="num">03</span>Deal Strategy</button>
+    <button class="tab" data-tab="products"><span class="num">04</span>Products &amp; Licensing</button>
+    <button class="tab" data-tab="api"><span class="num">05</span>API Expansion</button>
+    <button class="tab" data-tab="voice"><span class="num">06</span>Voice AI Scenario</button>
+    <button class="tab" data-tab="killer"><span class="num">07</span>Killer Answers</button>
+    <button class="tab" data-tab="prep"><span class="num">08</span>Final Prep</button>
+    <button class="tab" data-tab="dont"><span class="num">09</span>What Not To Say</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ════════════ TAB 1 OVERVIEW ════════════ -->
+<section class="panel active" data-panel="overview">
+  <div class="hero">
+    <div class="eyebrow">Tab 01 · Overview</div>
+    <h1>How I Would Sell at the Frontier</h1>
+    <p class="lead">A personal narrative for the Account Director IC interview. Not a pitch deck — a selling philosophy I can defend in any room, in front of any executive, in any vertical.</p>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom: 28px;">
+    <div class="card narrative">
+      <div class="card-title"><span class="pill">Narrative pitch</span></div>
+      <h3 style="font-size: 20px; margin-bottom: 14px;">How I would sell, in four paragraphs</h3>
+      <p>I don't sell models. I sell <em>operating leverage</em>. When I walk into a Fortune 500 account, the question I'm answering isn't "do you want AI?" — every executive in the building already knows the answer. The real question is "whose AI gets embedded into how your company actually runs in the next 24 months?" I want to be the partner that question gets answered with.</p>
+      <p>My selling motion starts with a deliberate <strong>land</strong>: a single high-signal department where I can prove measurable lift inside one quarter. Support deflection. Sales-rep ramp time. Legal contract turnaround. I'd rather win 200 seats with a publishable internal case study than 2,000 seats and a champion who can't defend the ROI to the CFO.</p>
+      <p>The expansion thesis is what makes this role different from any other enterprise sale. Once a function is using a frontier model daily, two things happen: usage expands sideways into adjacent functions, and the customer's product team starts asking what's possible <strong>through the API</strong>. The same logo can be a $400K seat deal in year one and a $10M API consumption account in year three — but only if I'm engineering for that arc from day one.</p>
+      <p>Ultimately, I'm hired to own a number, but I win by being the executive's most trusted explainer of a fast-moving technology. <em>Curiosity is my unfair advantage.</em> If I understand their roadmap better than their last vendor did, the renewal conversation never starts from zero.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="pill blue">Core thesis</span></div>
+      <h3 style="font-size: 20px;">AI is operating infrastructure, not a point solution</h3>
+      <p style="color:#cfcfcf; font-size: 15px;">The category-defining mistake is treating frontier AI as an "IT tool" with a CIO-shaped buyer. It isn't. It's a horizontal substrate that every department touches — which means the TAM has no ceiling, because every function becomes a buyer.</p>
+      <h4 style="margin: 18px 0 10px; font-size: 13px; color: var(--muted); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em;">Every department becomes a buyer</h4>
+      <div class="dept-grid">
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 4 4 5-6"/></svg></div>
+          <div class="dept-name">Sales</div>
+          <div class="dept-buyer">CRO · VP Sales</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="dept-name">Support</div>
+          <div class="dept-buyer">VP CX · COO</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+          <div class="dept-name">Product</div>
+          <div class="dept-buyer">CPO · VP Product</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg></div>
+          <div class="dept-name">Legal</div>
+          <div class="dept-buyer">GC · Chief Compliance</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="dept-name">Finance</div>
+          <div class="dept-buyer">CFO · Controller</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4"/></svg></div>
+          <div class="dept-name">Operations</div>
+          <div class="dept-buyer">COO · VP Ops</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-8-8 18-2-8z"/></svg></div>
+          <div class="dept-name">Marketing</div>
+          <div class="dept-buyer">CMO · VP Demand</div>
+        </div>
+        <div class="dept">
+          <div class="dept-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+          <div class="dept-name">Engineering</div>
+          <div class="dept-buyer">CTO · VP Eng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><span class="pill">Why Account Director IC</span></div>
+      <h3 style="font-size: 19px;">What this role actually means</h3>
+      <p>The IC distinction matters. This isn't a manager hiding behind a forecast roll-up — it's a senior closer with quota ownership, account ownership, and direct executive reach into a small portfolio of named accounts.</p>
+      <dl class="kv">
+        <dt>Quota ownership</dt><dd>Personally accountable for a number. No team to spread the miss across.</dd>
+        <dt>Land &amp; expand</dt><dd>Win a beachhead, drive measurable usage, then sell horizontally and into the API.</dd>
+        <dt>Exec reach</dt><dd>Direct access to the C-suite — both as advisor and as deal-closer.</dd>
+        <dt>Technical depth</dt><dd>Fluent enough to map a model capability to a customer roadmap without an SE babysitter.</dd>
+        <dt>Strategic patience</dt><dd>Comfort with deals that take 9–14 months but compound for a decade.</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="pill blue">My principles</span></div>
+      <h3 style="font-size: 19px;">Five things I refuse to do</h3>
+      <ul class="clean">
+        <li>Sell a feature the customer can't actually operationalize in 90 days.</li>
+        <li>Forecast a deal I haven't pressure-tested with the economic buyer directly.</li>
+        <li>Promise capability I can't ship — credibility compounds, so does the loss of it.</li>
+        <li>Treat procurement as an obstacle. They're a stakeholder; I sell to them too.</li>
+        <li>Confuse activity with progress. A meeting without a next-step decision didn't happen.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TAB 2 DISCOVERY & PERSONAS ════════════ -->
+<section class="panel" data-panel="discovery">
+  <div class="eyebrow">Tab 02 · Discovery &amp; Personas</div>
+  <h1>Eight buyers. Eight conversations.</h1>
+  <p class="lead">Every persona has a different definition of "value." My job is to translate the same underlying capability into the metric they're already measured on. Color-coded by where they sit in the org.</p>
+
+  <div class="grid grid-2" style="margin-top: 28px;">
+    <!-- CIO/CTO -->
+    <div class="card persona" data-color="blue">
+      <div class="card-title">
+        <span class="card-emoji">⚙️</span>
+        <h3>CIO / CTO</h3>
+      </div>
+      <div class="role">Owns infrastructure, security posture, and the build-vs-buy decision.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>What's your current AI governance model — centralized platform team or federated?</li>
+        <li>Which workloads are you comfortable sending to a hosted frontier model vs. keeping private?</li>
+        <li>How are you thinking about the gap between experimentation and production deployment?</li>
+        <li>What does your data-residency map look like across regions?</li>
+        <li>Where has your current AI vendor stack created lock-in you'd undo if you could?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Shadow AI usage they can't audit</li>
+        <li>Pressure from CEO/board to "have an AI strategy" with no resourcing</li>
+        <li>Procurement-heavy contracts that lag the technology cycle</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "We'll give you a single governed surface — Enterprise admin, SSO/SCIM, audit logs, no training on your data — that lets you say yes to the business without giving up control."</div>
+    </div>
+
+    <!-- VP Sales -->
+    <div class="card persona" data-color="warn">
+      <div class="card-title">
+        <span class="card-emoji">📈</span>
+        <h3>VP Sales / CRO</h3>
+      </div>
+      <div class="role">Measured on bookings, ramp, and rep productivity.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>What's the biggest single drag on your reps' selling time today?</li>
+        <li>How long is your new-hire ramp, and where do most reps stall?</li>
+        <li>Which CRM rituals are you confident your team is actually doing well?</li>
+        <li>If you could give every rep a senior strategist on call, what would they ask first?</li>
+        <li>Where does deal-quality break down — discovery, MEDDIC capture, or executive engagement?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Reps drowning in admin instead of selling</li>
+        <li>Inconsistent call quality across the team</li>
+        <li>Forecast accuracy that depends on heroics</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "Your reps each get a research analyst, a deal coach, and a CRM scribe — and you get a forecast you can actually defend to the CEO."</div>
+    </div>
+
+    <!-- VP Support -->
+    <div class="card persona" data-color="purple">
+      <div class="card-title">
+        <span class="card-emoji">🎧</span>
+        <h3>VP Customer Support</h3>
+      </div>
+      <div class="role">Measured on CSAT, deflection, AHT, and cost-per-contact.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>What's your current deflection rate, and what's the ceiling you've been told you can't break?</li>
+        <li>Where does Tier 1 escalate to Tier 2 most often — and is it knowledge gaps or policy gaps?</li>
+        <li>How do you handle multilingual coverage today, and what's that costing you?</li>
+        <li>What does your knowledge base look like — is it current, structured, and trusted by agents?</li>
+        <li>If you could safely automate 30% of contacts, what would you reinvest the headcount in?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Attrition burning institutional knowledge every quarter</li>
+        <li>BPO costs scaling linearly with volume</li>
+        <li>CSAT trade-offs from previous chatbot deployments</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "We replace the 'chatbot tax' on CSAT — agents get a copilot that's actually right, and the deflection bot finally sounds like your best human."</div>
+    </div>
+
+    <!-- General Counsel -->
+    <div class="card persona" data-color="yellow">
+      <div class="card-title">
+        <span class="card-emoji">⚖️</span>
+        <h3>General Counsel</h3>
+      </div>
+      <div class="role">Owns risk, contracts, regulatory exposure.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>How is your team currently triaging contract review volume?</li>
+        <li>What regulatory frameworks (EU AI Act, sector-specific) are shaping your AI policy?</li>
+        <li>What's your position on customer-data and IP indemnification from AI vendors?</li>
+        <li>Where do you most want auditability — prompts, outputs, or both?</li>
+        <li>What's the legal team's own use of AI today, and what's blocking expansion?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Risk-tolerance mismatch with a board demanding AI velocity</li>
+        <li>Vendor sprawl creating undocumented data flows</li>
+        <li>Lack of vendor accountability when models change behavior</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "You get one accountable counterparty with clear data terms — and your team gets faster contract review on day one as the use case that proves the policy."</div>
+    </div>
+
+    <!-- CFO -->
+    <div class="card persona" data-color="red">
+      <div class="card-title">
+        <span class="card-emoji">💰</span>
+        <h3>CFO</h3>
+      </div>
+      <div class="role">Owns the dollar — every dollar.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>How are you currently allocating AI spend — capex, opex, or per-business-unit charge-back?</li>
+        <li>Which existing line items would AI realistically displace before adding net-new spend?</li>
+        <li>What's your hurdle rate for new technology investment, and over what payback window?</li>
+        <li>How do you want to measure ROI — productivity hours, cost-out, or revenue lift?</li>
+        <li>What's the largest deal you've ever signed without a published case study, and what gave you confidence?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Pressure to fund AI without a credible ROI model</li>
+        <li>Sticker shock from naive consumption pricing</li>
+        <li>FP&amp;A teams stuck in spreadsheets while peers automate</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "Let's build a joint ROI model with one anchor use case where the savings are auditable — then expand only on what's proven."</div>
+    </div>
+
+    <!-- VP Product -->
+    <div class="card persona" data-color="cyan">
+      <div class="card-title">
+        <span class="card-emoji">🧩</span>
+        <h3>VP Product</h3>
+      </div>
+      <div class="role">Owns the roadmap, the customer experience, and the win/loss.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>Which parts of your product would feel "broken" without AI two years from now?</li>
+        <li>What's your build-vs-API stance for foundational capabilities like reasoning and voice?</li>
+        <li>Where are competitors shipping AI features that are pulling deals away from you?</li>
+        <li>What does your evaluation harness for AI features look like today?</li>
+        <li>How do you balance latency, quality, and cost when picking a model per feature?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Roadmap whiplash from a category moving faster than planning cycles</li>
+        <li>Internal AI experiments stuck in prototype purgatory</li>
+        <li>Engineers building model abstraction layers instead of features</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "Stop building plumbing. Use one stable platform — Realtime, structured outputs, evals, fine-tuning — and put your engineers back on the differentiated 20%."</div>
+    </div>
+
+    <!-- VP Marketing -->
+    <div class="card persona" data-color="pink">
+      <div class="card-title">
+        <span class="card-emoji">🎯</span>
+        <h3>VP Marketing</h3>
+      </div>
+      <div class="role">Owns demand, brand, and content velocity.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>What's the gap between content you want to ship and content you're actually shipping?</li>
+        <li>How is your team thinking about personalization at scale without losing brand voice?</li>
+        <li>Where is your funnel leakiest — top, middle, or post-MQL handoff to sales?</li>
+        <li>What would change in your team structure if creative output cost 10× less?</li>
+        <li>How are you measuring AI-driven content quality vs. just volume?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Agency dependency for routine creative</li>
+        <li>Personalization stuck at "first name" level</li>
+        <li>Hard time attributing pipeline to content investment</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "Your team becomes editors instead of producers — they ship 10× more, and your brand voice gets more consistent, not less."</div>
+    </div>
+
+    <!-- VP Engineering -->
+    <div class="card persona" data-color="yellow">
+      <div class="card-title">
+        <span class="card-emoji">🛠️</span>
+        <h3>VP Engineering</h3>
+      </div>
+      <div class="role">Owns velocity, reliability, and engineer happiness.</div>
+      <div class="section-label">Discovery questions</div>
+      <ul class="clean blue">
+        <li>What's your current developer-productivity baseline, and how do you measure it?</li>
+        <li>Where does code review most often slow down a release?</li>
+        <li>What share of engineering time goes to net-new features vs. maintenance?</li>
+        <li>How are you thinking about agentic coding tools beyond inline autocomplete?</li>
+        <li>What language stacks and review cultures will adopt fastest, and which will resist?</li>
+      </ul>
+      <div class="section-label">Pain points</div>
+      <ul class="clean muted">
+        <li>Senior engineer time eaten by mentorship of routine work</li>
+        <li>Codebase complexity outpacing onboarding speed</li>
+        <li>Tooling fragmentation across squads</li>
+      </ul>
+      <div class="bridge"><strong>Bridge:</strong> "Codex isn't autocomplete — it's a teammate that drafts, reviews, and ships. Your senior engineers get their week back."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TAB 3 DEAL STRATEGY ════════════ -->
+<section class="panel" data-panel="deal">
+  <div class="eyebrow">Tab 03 · Deal Strategy</div>
+  <h1>How the deal actually closes.</h1>
+  <p class="lead">Qualification, mutual action, competitive positioning, expansion signals, and the objections I should be able to answer in my sleep.</p>
+
+  <h2>Qualification — MEDDPICC, adapted for frontier AI</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3><span style="color:var(--accent);">M</span>etrics</h3>
+      <p>Specific, baselined, and tied to a function the customer already reports on. "30% reduction in Tier-1 ticket cost over two quarters" — not "improve productivity."</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">E</span>conomic Buyer</h3>
+      <p>Person who can sign without committee. For seat deals it's typically a function head with discretionary budget; for API and platform deals it climbs to CTO/CFO/CEO.</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">D</span>ecision Criteria</h3>
+      <p>What the customer says they're judging vs. what the org will actually weigh. Get both, in writing, before proposal.</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">D</span>ecision Process</h3>
+      <p>Stages, gates, exec reviews, security review, procurement, board approval if &gt;$X. Map the org chart against the timeline.</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">P</span>aper Process</h3>
+      <p>Procurement, legal, InfoSec, privacy review, MSAs and DPAs. Start in week one, not week ten — security review alone can be 6–10 weeks at large enterprises.</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">I</span>dentified Pain</h3>
+      <p>Quantified, owned by a named person, and visible to leadership. If no one loses their bonus over it, the deal slips.</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">C</span>hampion</h3>
+      <p>Internal seller with the political capital to defend the deal in a room I'm not in. Test them: have they fought for me when I wasn't on the call?</p>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--accent);">C</span>ompetition</h3>
+      <p>Not just other vendors — also "do nothing," "build internally," and "wait six months for the next model." All three can kill a deal.</p>
+    </div>
+  </div>
+
+  <h2>Mutual Action Plan — template</h2>
+  <div class="card" style="padding: 0;">
+    <div class="table-wrap" style="border: 0;">
+      <table>
+        <thead>
+          <tr><th style="width: 80px;">Week</th><th>Joint milestone</th><th>Customer owner</th><th>OpenAI owner</th><th>Exit criteria</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1–2</td><td>Discovery + use case shortlist</td><td>Champion + 2 stakeholders</td><td>AD + SE</td><td>3 prioritized use cases</td></tr>
+          <tr><td>3–4</td><td>Technical scoping &amp; success metrics</td><td>Tech lead</td><td>SE + AD</td><td>Signed success criteria doc</td></tr>
+          <tr><td>5–8</td><td>Pilot build + measurement</td><td>Pilot team</td><td>SE + AD weekly check-ins</td><td>Quantified pilot outcomes</td></tr>
+          <tr><td>9–10</td><td>Security &amp; legal review</td><td>InfoSec, GC, procurement</td><td>AD + Trust team</td><td>Approved DPA + MSA</td></tr>
+          <tr><td>11–13</td><td>Business case + exec review</td><td>Champion + EB</td><td>AD</td><td>EB sign-off</td></tr>
+          <tr><td>14</td><td>Contract close + rollout plan</td><td>Procurement, EB</td><td>AD + CSM</td><td>Signed order form, kickoff scheduled</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Competitive positioning</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><span class="pill blue">vs. Microsoft Copilot</span></div>
+      <h3>"Bundled, but generic"</h3>
+      <p><strong>Where they win:</strong> existing M365 footprint, single-vendor procurement, IT comfort.</p>
+      <p><strong>Where I win:</strong> frontier-model quality, faster release cadence, multi-modal depth (Realtime, vision, agents), API-first surface for product embedding. Copilot is a productivity feature; I'm selling a platform.</p>
+      <p><strong>How I frame it:</strong> "Copilot is a great mass-deployment story for Office workflows. For the workloads where model quality determines whether the project ships at all, you'll want us — and most of our customers run both."</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="pill blue">vs. Google Gemini</span></div>
+      <h3>"Strong models, fragmented motion"</h3>
+      <p><strong>Where they win:</strong> Workspace-native customers, very long context, price/perf in some tiers.</p>
+      <p><strong>Where I win:</strong> developer ecosystem maturity, Realtime + voice, faster enterprise admin/audit features, deeper partner channel.</p>
+      <p><strong>How I frame it:</strong> "Strong models — but the question is which ecosystem your engineers actually want to build on. Look at where the open-source tooling, evals, and recipes are."</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="pill blue">vs. Anthropic Claude</span></div>
+      <h3>"Capable peer, narrower surface"</h3>
+      <p><strong>Where they win:</strong> long-context reasoning, safety-conscious buyers, strong coding model.</p>
+      <p><strong>Where I win:</strong> breadth of modalities (voice, vision, image gen), ChatGPT brand recognition that pulls users into the platform without training, faster agentic surface, more mature fine-tuning.</p>
+      <p><strong>How I frame it:</strong> "Claude is a credible reasoning model; we don't disagree there. But you're not just buying one model — you're buying the platform around it: voice, agents, evals, fine-tuning, the brand your end-users already know."</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="pill blue">vs. AWS Bedrock</span></div>
+      <h3>"Marketplace, not a partner"</h3>
+      <p><strong>Where they win:</strong> existing AWS commit burn-down, model-shopping convenience, infrastructure proximity.</p>
+      <p><strong>Where I win:</strong> first-party model access without abstraction layers, faster availability of new capabilities, direct relationship with the lab shipping the model — no telephone game when something breaks.</p>
+      <p><strong>How I frame it:</strong> "Bedrock is fine if your priority is burning AWS commit. If your priority is being on the frontier the day it ships and having a phone number when production breaks, we're a different conversation."</p>
+    </div>
+  </div>
+
+  <h2>Expansion signals — what I watch for</h2>
+  <div class="card">
+    <div class="checkbox-list">
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Weekly active usage &gt; 60% of licensed seats by month three.</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Custom GPTs / projects being built and shared across teams without prompting from CSM.</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Second department asking for seats before the first renewal cycle.</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Engineering team posting questions in the API forum or asking for SE intros.</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Champion getting promoted or quoted internally on AI strategy.</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Exec asking, unprompted, "what else are companies our size doing with this?"</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Procurement upgrading us from "vendor" to "strategic supplier" in their tiering.</span></label>
+      <label class="check"><input type="checkbox" /><span class="box"></span><span class="label">Customer's product team starting a build that uses our API behind the scenes.</span></label>
+    </div>
+  </div>
+
+  <h2>Objection handling</h2>
+  <div class="accordion">
+    <details class="acc">
+      <summary><span class="q-num">01</span>"We're worried about our data being used to train your models."</summary>
+      <div class="body">
+        <p>"Reasonable concern, and the answer is direct: Enterprise and API data are not used to train our models by default. Your data stays your data. I'll send you the relevant section of the DPA, but more importantly I'll set up a 30-minute call with our trust team — they'll walk through your specific data flows and what happens at each step. Most of our customers find that conversation more reassuring than any marketing page."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">02</span>"We already have Microsoft Copilot through our M365 contract."</summary>
+      <div class="body">
+        <p>"Great — that's actually a tailwind, not a blocker. Copilot drove organization-wide AI literacy for you, which means we can skip the 'what is AI' conversation and go straight to the workloads where model quality determines whether a project ships."</p>
+        <p>"Most of our enterprise customers run both. Copilot for ambient productivity inside Office; us for the high-stakes workflows — agent automation, voice experiences, customer-facing AI built on the API. I'd rather show you side-by-side on three of your real use cases than argue in the abstract."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">03</span>"The pricing is unpredictable — we can't budget for consumption."</summary>
+      <div class="body">
+        <p>"I hear that constantly, and it's a fair concern. Two ways we solve it. One: for seat-based products like ChatGPT Enterprise the pricing is fully predictable — per-seat, annual, no surprises. Two: for API workloads we do committed-use agreements with volume discounts, so you know your floor and your ceiling before you sign."</p>
+        <p>"And before any of that, we'll build a joint ROI model on one specific use case so you're not budgeting for ambiguity — you're budgeting against a quantified outcome."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">04</span>"We're going to wait until the technology stabilizes."</summary>
+      <div class="body">
+        <p>"I'd push back gently on the framing. The technology isn't going to 'stabilize' on a timeline that's useful to your competitors — they're not waiting. The question isn't whether to invest, it's whether you build organizational muscle now while the stakes are low or try to catch up when a competitor has a two-year head start on data, workflows, and talent."</p>
+        <p>"What I'd suggest: pick one bounded use case, run a 90-day pilot with clear success criteria, and either you've learned something cheaply or you've earned the case for a bigger move."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">05</span>"We're going to build this in-house."</summary>
+      <div class="body">
+        <p>"Some of our best customers thought the same thing — and many of them are still building, just on top of our platform instead of trying to replicate it. Two questions worth asking your team: how long would it take you to match the current frontier, and what happens when the frontier moves while you're building?"</p>
+        <p>"The build-vs-buy line for foundational capability has moved. I'd rather your engineers spend their time on what's truly proprietary to your business — not on rebuilding plumbing. Happy to share how peer companies decided where to draw that line."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">06</span>"How is this different from what we tried two years ago that didn't work?"</summary>
+      <div class="body">
+        <p>"Honest answer: a lot. Model quality is dramatically better, the tooling around evaluation and fine-tuning is real now, agentic and voice surfaces didn't exist, and the enterprise admin layer is mature. The category looks like the same word — AI — but the underlying capability is in a different decade."</p>
+        <p>"What I'd love is to look at exactly what didn't work last time. Half the time the failure was scoping or change-management, not the model — and getting that right is more valuable than any feature."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">07</span>"Our regulator hasn't blessed this yet."</summary>
+      <div class="body">
+        <p>"Then let's start where the regulator is comfortable. Internal productivity workloads — drafting, summarization, code review — are typically well within existing policy. We can sequence so that the customer-facing or regulated use cases come after you've built precedent and your compliance team has had a chance to develop the controls."</p>
+        <p>"I'll also connect you with our policy team and customers in your industry who've already navigated similar conversations with their regulators."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">08</span>"We need this to integrate with our existing stack — Salesforce, ServiceNow, Snowflake."</summary>
+      <div class="body">
+        <p>"Good — that's table stakes for us. We have first-party integrations and partner connectors across the major systems of record, and where we don't, our API surface and partner ecosystem cover the rest. Let me get your platform lead on with our SE so we can map the specific integration points to your reference architecture, not a generic one."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">09</span>"Our security team will never approve this in time for the quarter."</summary>
+      <div class="body">
+        <p>"Let's not let the timeline be the obstacle. We have SOC 2 Type II, ISO 27001, and a security-review pack that pre-answers about 80% of the questions your team will ask. I'll get that to your CISO this week so they can start in parallel with the business case — not in series after it."</p>
+        <p>"If we shave even three weeks off security review, we're back inside the quarter window."</p>
+      </div>
+    </details>
+    <details class="acc">
+      <summary><span class="q-num">10</span>"Why should we believe you over your CEO's last roadmap statement?"</summary>
+      <div class="body">
+        <p>"Fair pushback. I won't sell you a future I can't ship. What I will do is show you what's GA today, what's in beta with reference customers I can introduce you to, and what's on the public roadmap with documented timelines. Anything past that is a conversation, not a commitment — and I'll tell you the difference every time."</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ════════════ TAB 4 PRODUCTS ════════════ -->
+<section class="panel" data-panel="products">
+  <div class="eyebrow">Tab 04 · Products &amp; Licensing</div>
+  <h1>The product surface I'm selling.</h1>
+  <p class="lead">Four primary motions. The art of the role is sequencing them — which one leads, which one expands, which one converts a logo into a multi-year platform account.</p>
+
+  <div class="grid grid-2" style="margin-top: 28px;">
+    <div class="card price-card">
+      <div class="card-title">
+        <h3>ChatGPT Enterprise <span class="badge">FLAGSHIP</span></h3>
+      </div>
+      <p><strong>What it is:</strong> The frontier ChatGPT experience with enterprise admin — SSO/SCIM, audit logs, no-training-on-data by default, longer context, expanded usage limits, advanced data analysis, and admin-managed connectors.</p>
+      <dl class="kv">
+        <dt>Pricing</dt><dd>Per-seat annual, custom — typically tiered by volume and term length.</dd>
+        <dt>Ideal buyer</dt><dd>Function head with discretionary budget; CIO or CISO as approver.</dd>
+        <dt>Land motion</dt><dd>Department-level deployment — Sales, Support, or Legal — with measured outcomes.</dd>
+        <dt>Expand path</dt><dd>Org-wide rollout → custom GPTs/projects → API workloads.</dd>
+        <dt>Win conditions</dt><dd>Strong WAU, &gt;3 use cases per seat, named champion who can defend value.</dd>
+      </dl>
+    </div>
+
+    <div class="card price-card">
+      <div class="card-title">
+        <h3>ChatGPT Team</h3>
+      </div>
+      <p><strong>What it is:</strong> The mid-market team SKU — same data-protection posture, lighter admin, designed for groups of 2 to a few hundred. Often a foothold in larger orgs through a single function before Enterprise.</p>
+      <dl class="kv">
+        <dt>Pricing</dt><dd>Per-seat monthly or annual, published list, simple procurement.</dd>
+        <dt>Ideal buyer</dt><dd>Function lead, ops leader, or innovation lab.</dd>
+        <dt>Land motion</dt><dd>Often self-serve; my role is to make sure it's known about and to convert it to Enterprise at the right scale moment.</dd>
+        <dt>Expand path</dt><dd>Team → Enterprise upgrade with admin and security controls.</dd>
+        <dt>Win conditions</dt><dd>Use as a beachhead; never let a Team subscription stagnate inside a F500.</dd>
+      </dl>
+    </div>
+
+    <div class="card price-card">
+      <div class="card-title">
+        <h3>Codex <span class="badge">CODE AGENT</span></h3>
+      </div>
+      <p><strong>What it is:</strong> A code-generation and code-execution agent for engineering teams — not just inline autocomplete. Writes, refactors, reviews, and ships code in tasks with context across a repo.</p>
+      <dl class="kv">
+        <dt>Pricing</dt><dd>Per-seat for engineers, with usage-based tier for heavier agentic workloads.</dd>
+        <dt>Ideal buyer</dt><dd>VP Engineering, CTO, or Platform/DevEx lead.</dd>
+        <dt>Land motion</dt><dd>Pilot one or two squads; measure cycle-time, PR throughput, review quality.</dd>
+        <dt>Expand path</dt><dd>Org-wide rollout → CI/CD integration → agentic operations on staging environments.</dd>
+        <dt>Win conditions</dt><dd>Engineering leadership willing to publish productivity numbers internally.</dd>
+      </dl>
+    </div>
+
+    <div class="card price-card">
+      <div class="card-title">
+        <h3>API Platform <span class="badge">PLATFORM</span></h3>
+      </div>
+      <p><strong>What it is:</strong> Direct API access to frontier models, Realtime (speech-to-speech), structured outputs, fine-tuning, evals, embeddings, vision, image generation, and the agentic surface.</p>
+      <dl class="kv">
+        <dt>Pricing</dt><dd>Token-based consumption with committed-use discounts at scale.</dd>
+        <dt>Ideal buyer</dt><dd>VP Product, CTO, or Head of Platform Engineering.</dd>
+        <dt>Land motion</dt><dd>Often follows a successful seat deployment — engineers want to embed what they've seen work internally.</dd>
+        <dt>Expand path</dt><dd>Internal experiment → product feature → product-native dependency → multi-year committed contract.</dd>
+        <dt>Win conditions</dt><dd>API is in the customer's roadmap deck; they're discussing latency/cost trade-offs at the leadership level.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <h2>Visual comparison</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Buyer</th>
+          <th>Pricing motion</th>
+          <th>Time-to-value</th>
+          <th>Expansion lever</th>
+          <th>Risk if mis-sold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ChatGPT Enterprise</td>
+          <td>Function head + CIO</td>
+          <td>Per-seat, annual</td>
+          <td>2–6 weeks</td>
+          <td>Sideways across departments</td>
+          <td>Low usage if no internal champion</td>
+        </tr>
+        <tr>
+          <td>ChatGPT Team</td>
+          <td>Team lead</td>
+          <td>Per-seat, monthly/annual</td>
+          <td>Days</td>
+          <td>Upgrade to Enterprise</td>
+          <td>Stalls below F500 visibility</td>
+        </tr>
+        <tr>
+          <td>Codex</td>
+          <td>VP Eng / CTO</td>
+          <td>Per-seat + usage</td>
+          <td>4–8 weeks pilot</td>
+          <td>CI/CD &amp; agent ops</td>
+          <td>Adoption resistance from senior eng</td>
+        </tr>
+        <tr>
+          <td>API Platform</td>
+          <td>VP Product / CTO</td>
+          <td>Consumption + commit</td>
+          <td>1–2 quarters</td>
+          <td>Product-native dependency</td>
+          <td>Cost surprise without commit pricing</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════ TAB 5 API EXPANSION ════════════ -->
+<section class="panel" data-panel="api">
+  <div class="eyebrow">Tab 05 · API Expansion</div>
+  <h1>From seats to platform.</h1>
+  <p class="lead">The biggest accounts in this role aren't seat deals — they're API-native customers where our platform is embedded in <em>their</em> product. Spotting that arc early is the difference between a six-figure account and an eight-figure one.</p>
+
+  <h2>Spotting an API-native customer</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Strong signals</h3>
+      <ul class="clean">
+        <li>The product itself is software — not a service that uses software internally.</li>
+        <li>An engineering culture with a reputation for shipping; in-house ML or applied science already exists.</li>
+        <li>Their customers would notice (and pay for) AI-powered features directly.</li>
+        <li>Internal tools team is already wrapping our API in a private SDK.</li>
+        <li>Product roadmap explicitly references AI capabilities tied to user-facing outcomes.</li>
+        <li>A current vendor stack that includes embeddings, vector DBs, or model-routing layers.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Weak / disqualifying signals</h3>
+      <ul class="clean muted">
+        <li>"AI strategy" lives entirely in IT with no product representation.</li>
+        <li>No public-facing software product, or product is a thin wrapper around services.</li>
+        <li>Engineering leadership treats AI as a marketing topic.</li>
+        <li>Procurement-led conversations with no product or engineering presence.</li>
+        <li>Compliance posture so conservative that customer-facing AI is out of scope for years.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>The expansion arc</h2>
+  <div class="progression">
+    <div class="step">
+      <div class="step-n">STAGE 01</div>
+      <h4>Internal productivity seats</h4>
+      <p>ChatGPT Enterprise lands in one or two functions. Goal: prove value, build literacy, identify champions. Revenue is modest; signal value is high.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">STAGE 02</div>
+      <h4>API experimentation</h4>
+      <p>Engineers from the customer's product team hit the API for prototypes. Often started without procurement involvement. My job: get visibility, offer SE help, prevent stall-out.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">STAGE 03</div>
+      <h4>Product-native embedding</h4>
+      <p>An AI feature ships to the customer's customers, powered by us. Now we're inside their P&amp;L story, not just their cost center. Pricing moves to committed use.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">STAGE 04</div>
+      <h4>Platform dependency</h4>
+      <p>Multiple product lines depend on us. The conversation is now about latency, model cadence, and roadmap alignment. Multi-year, multi-million dollar commitment with co-marketed reference architectures.</p>
+    </div>
+  </div>
+
+  <h2>API-native use cases I'd hunt for</h2>
+  <div class="grid grid-3">
+    <div class="card">
+      <span class="pill">SaaS</span>
+      <h3 style="margin-top: 10px;">Vertical SaaS adding AI features</h3>
+      <p>Existing workflow tools (CRM, EHR, legal practice management, construction management) bolting reasoning, drafting, and summarization into the core product. Big win: the customer's customers retain stickier.</p>
+    </div>
+    <div class="card">
+      <span class="pill">Fintech</span>
+      <h3 style="margin-top: 10px;">Fintech advisors &amp; underwriting</h3>
+      <p>AI-driven financial guidance, robo-advisor narratives, or underwriting copilots. Latency-sensitive, regulator-sensitive — exactly the kind of account where the platform relationship matters more than price.</p>
+    </div>
+    <div class="card">
+      <span class="pill">Healthtech</span>
+      <h3 style="margin-top: 10px;">Healthtech clinical tools</h3>
+      <p>Clinical decision support, ambient documentation, patient-facing triage. HIPAA workloads with strict audit needs — a perfect fit for the Enterprise + API combo.</p>
+    </div>
+    <div class="card">
+      <span class="pill">DevTools</span>
+      <h3 style="margin-top: 10px;">Developer platforms</h3>
+      <p>IDE, CI/CD, observability, and code-quality vendors integrating Codex-class capabilities directly into their product. Large committed-use deals with clear engineering relationships.</p>
+    </div>
+    <div class="card">
+      <span class="pill">Media</span>
+      <h3 style="margin-top: 10px;">Media &amp; creative platforms</h3>
+      <p>Content-creation, editing, and publishing workflows. High volume, multi-modal — image, audio, voice — and reference-customer gold.</p>
+    </div>
+    <div class="card">
+      <span class="pill">Industrial</span>
+      <h3 style="margin-top: 10px;">Industrial &amp; field-ops platforms</h3>
+      <p>Field-service, logistics, manufacturing software adding voice-first interfaces (Realtime API) and visual inspection. Often greenfield — no incumbent AI vendor to displace.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TAB 6 VOICE AI SCENARIO ════════════ -->
+<section class="panel" data-panel="voice">
+  <div class="eyebrow">Tab 06 · Voice AI Scenario · Realtime API</div>
+  <h1>The Regional Healthcare System.</h1>
+  <p class="lead">A worked example I can walk through end-to-end if asked: how I'd land an account with the Realtime API as the wedge, then expand it through internal productivity into product-native voice AI.</p>
+
+  <div class="card" style="margin-top: 28px;">
+    <div class="card-title"><span class="pill">Sample customer</span></div>
+    <h3 style="font-size: 22px;">Mercy Valley Health (representative example)</h3>
+    <div class="stat-grid" style="margin-top: 14px;">
+      <div class="stat"><div class="label">Employees</div><div class="value">15,000</div><div class="sub">Across the system</div></div>
+      <div class="stat"><div class="label">Clinics</div><div class="value">200+</div><div class="sub">Plus 4 hospital campuses</div></div>
+      <div class="stat"><div class="label">Annual encounters</div><div class="value">1.8M</div><div class="sub">Patient visits / year</div></div>
+      <div class="stat"><div class="label">Frontline staff</div><div class="value">~6,500</div><div class="sub">Nurses, MAs, schedulers</div></div>
+      <div class="stat"><div class="label">Clinical KB pages</div><div class="value">~120k</div><div class="sub">Protocols, formularies</div></div>
+      <div class="stat"><div class="label">Avg call AHT</div><div class="value">7m 40s</div><div class="sub">Patient access center</div></div>
+    </div>
+    <p style="margin-top: 18px;">The pain: their clinical knowledge base is enormous and lives in a search portal nobody can use under pressure. Frontline staff hold lines for protocol questions. Schedulers fumble between systems. Patient throughput suffers, and so does experience scores.</p>
+  </div>
+
+  <h2>The pitch — what I'd actually walk through</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>The wedge: speech-to-speech, hands-free</h3>
+      <p>The Realtime API absorbs their clinical protocols and operational playbooks and answers spoken questions in real time. Nurse asks aloud — "what's the standing order for pediatric strep under 12?" — and gets a voice answer in under a second, with citations to the source protocol available in the call log.</p>
+      <p>It's not a chatbot. It's not a phone tree. It's a colleague-on-call that scales with the org and never forgets a protocol update.</p>
+    </div>
+    <div class="card">
+      <h3>The integration story</h3>
+      <p>The same voice surface routes structured actions into Epic and the scheduling system: "patient declined the appointment, wants to reschedule next Tuesday afternoon" creates a candidate slot, drops a note in the chart, and confirms back — without opening a different app.</p>
+      <p>Pricing: per-minute usage on the API side, with committed-use bands so finance can model it like any other clinical-services line item.</p>
+    </div>
+  </div>
+
+  <h2>The progression — how this becomes a platform deal</h2>
+  <div class="progression" style="margin-top: 8px;">
+    <div class="step">
+      <div class="step-n">PHASE 1 · Q1–Q2</div>
+      <h4>Internal productivity</h4>
+      <p>Realtime voice for clinical-protocol lookup deployed at 3 pilot clinics. ChatGPT Enterprise in parallel for back-office (HR, finance, marketing). Measured: nurse satisfaction, AHT, escalation rate.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">PHASE 2 · Q3–Q4</div>
+      <h4>Operational scale</h4>
+      <p>Voice agent expands to patient-access center for triage and scheduling. EHR write-back goes live. Internal Codex deployment for the digital health team. Spend grows ~3×.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">PHASE 3 · Year 2</div>
+      <h4>Patient-facing voice</h4>
+      <p>Patient-side voice agent for appointment confirmations, post-visit follow-up, and after-hours questions. Now an external-facing experience — co-developed, regulator-blessed, branded by the health system.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">PHASE 4 · Year 3</div>
+      <h4>Product-native, multi-year commit</h4>
+      <p>The system is selling its own AI-augmented care services to other regional systems via a tech-licensing arm — built on our API. We become a co-marketed reference architecture and a multi-year committed-use account.</p>
+    </div>
+  </div>
+
+  <h2>Mini pitch script — to rehearse</h2>
+  <div class="script">
+    <div class="stage">Open · 60 seconds</div>
+    <p>"Before I tell you about the technology, I want to tell you what I've been hearing from systems your size. The clinical knowledge base isn't the bottleneck — it's complete. The bottleneck is access. A nurse standing in a hallway with a question can't pause a patient encounter to log into a portal. The protocol may as well not exist."</p>
+
+    <div class="stage">Frame · 60 seconds</div>
+    <p>"What we've started doing with health systems is making that knowledge base talk back. Speech-to-speech, in under a second, voice in voice out, citations attached. The nurse asks; she gets the answer; she keeps moving. And because it's the same voice surface, we can wire it into Epic and your scheduling system so it can also <em>do</em> things — note a chart, hold a slot, confirm a follow-up."</p>
+
+    <div class="stage">Proof · 90 seconds</div>
+    <p>"I'd love to walk you through what a 90-day pilot looks like in three of your busiest clinics. Specific protocols, specific staff, measured outcomes — average handle time, escalation rate, nurse satisfaction. We don't move past pilot until those numbers are where we both want them. After that, the same voice surface that answered nurses can answer patients — and at that point, the conversation isn't about the technology, it's about how big a piece of your operating model wants to run on top of it."</p>
+
+    <div class="stage">Ask · 30 seconds</div>
+    <p>"What I'd love from you today is permission to bring our SE in for a 90-minute working session with your CMIO and your patient-access leader. I'll bring a draft success-metrics doc; if we agree on what 'good' looks like, we'll have a pilot scoped within two weeks."</p>
+  </div>
+</section>
+
+<!-- ════════════ TAB 7 KILLER ANSWERS ════════════ -->
+<section class="panel" data-panel="killer">
+  <div class="eyebrow">Tab 07 · Killer Answers</div>
+  <h1>Sixteen questions I should never fumble.</h1>
+  <p class="lead">Concise, defensible, real. Each answer is something I can say in under 90 seconds and then defend with a follow-up if pressed.</p>
+
+  <div class="accordion" style="margin-top: 28px;">
+    <details class="acc">
+      <summary><span class="q-num">01</span>How would you sell to a CISO worried about data privacy?</summary>
+      <div class="body">
+        <p>I'd start by acknowledging that "privacy" usually means three different concerns — training-data leakage, residency, and audit. I'd address each on its merits: Enterprise data isn't used to train models by default, residency options exist where required, and the audit log gives the security team forensic visibility they likely don't get from their current SaaS stack.</p>
+        <p>Then I'd offer something concrete: a 30-minute working session between their security team and our trust team, with our SOC 2 and pen-test reports in advance. CISOs respect specifics, not slogans.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">02</span>Walk me through your biggest enterprise deal.</summary>
+      <div class="body">
+        <p>I'd pick a deal where I can name (a) the strategic premise, (b) one decision I made under pressure, (c) what I'd do differently. Sequence: discovery uncovered an unstated fear about a competitor's roadmap; I reframed the deal from a feature comparison to a strategic-bet conversation; built a champion in a function I wasn't initially calling on; found and neutralized a hidden detractor in InfoSec; and closed inside the customer's fiscal year by working their procurement timeline backward from signature.</p>
+        <p>What I'd do differently: get to the economic buyer two months earlier. The deal closed, but I burned weeks polishing decks for a mid-level audience.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">03</span>How do you think about land-and-expand?</summary>
+      <div class="body">
+        <p>Land for proof, not for revenue. The first deployment exists to generate one defensible internal case study with named owners and quantified outcomes. Without that, expansion is a cold start.</p>
+        <p>For expansion, I run two motions in parallel: sideways — taking the same playbook to adjacent functions before renewal — and upward — moving from seat deployment to the API once engineering and product see what their colleagues are doing.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">04</span>Why OpenAI over competitors?</summary>
+      <div class="body">
+        <p>Three reasons I'd defend in any room. One: model quality and release cadence at the frontier, with a track record of being first on capability that customers actually use — voice, agents, multi-modal. Two: the breadth of the platform — Enterprise, API, Codex, Realtime, fine-tuning — under one accountable counterparty. Three: the brand familiarity end-users already have, which collapses change-management cost on day one.</p>
+        <p>I won't claim we win every comparison; I will claim we're the partner most likely to still be on the frontier in 24 months.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">05</span>How would you handle a customer who wants to use Claude instead?</summary>
+      <div class="body">
+        <p>I'd respect the choice and ask why. If it's a specific capability they've evaluated, I want to learn from it. If it's safety posture, I'd talk about our enterprise controls and trust framework. If it's a hedge, I'd reframe — most serious enterprises run more than one model anyway; the question is which one is your platform of record.</p>
+        <p>I'd never disparage the competitor. I'd offer a side-by-side on three of their actual use cases and let the data do the work. If we lose on a use case, I'd rather know early.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">06</span>What's your forecasting discipline?</summary>
+      <div class="body">
+        <p>A deal isn't in my forecast unless I can name the economic buyer, the close mechanism, the paper process status, and a defensible exit criterion for each remaining stage. I'd rather sandbag a deal and over-deliver than sing a deal in and apologize at QBR. Forecasts are a form of public commitment to the rest of the company; I treat them that way.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">07</span>Tell me about a deal you lost.</summary>
+      <div class="body">
+        <p>I'd pick a real one and be specific. The shape of the answer: I lost because I didn't pressure-test my champion's political capital. He believed the deal would close; the CFO didn't see the ROI, and my champion didn't have the relationship to push back. I should have asked for a CFO meeting at week six, not week sixteen. Since then, I gate myself: no proposal goes out without a confirmed economic-buyer touchpoint within the prior 30 days.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">08</span>How do you handle a stalled deal?</summary>
+      <div class="body">
+        <p>First, I diagnose. Stalls usually mean either a missing stakeholder, an unaddressed objection, or an internal priority shift. I send a written "where we are, where we're stuck" email to the champion and ask them to react. The response — or lack of one — tells me which of the three it is.</p>
+        <p>Then I pick the smallest re-engagement that creates a forced moment: a working session, a peer-customer call, or, if needed, a hard ask: "should we pause and revisit Q3?" Sometimes the right deal is one I let go for now.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">09</span>How do you build a champion?</summary>
+      <div class="body">
+        <p>Champions aren't found, they're built. I look for someone whose career is improved by this deal succeeding — not someone who's just curious. I give them more than they can give me: market intel, peer introductions, narrative they can use internally. I make them look smart in front of their boss, in writing, repeatedly. By the time we get to procurement, they're not selling for me — they're selling for themselves.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">10</span>How do you sell to a CFO?</summary>
+      <div class="body">
+        <p>Numbers, not narrative. Every CFO I've sold to wants the same three artifacts: a quantified baseline, a defensible delta, and a payback window. I bring a joint ROI model — built with their FP&amp;A team, not my marketing team — anchored on one auditable use case.</p>
+        <p>I also volunteer the risks. CFOs trust people who tell them what could go wrong before they have to ask. "Here's what would have to be true for this to not work" is the most underrated phrase in enterprise sales.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">11</span>What does your discovery process look like?</summary>
+      <div class="body">
+        <p>I run discovery in three layers. Surface — the publicly known business priorities, from earnings calls and 10-Ks. Operational — what's happening on the ground, learned from individual contributors and middle managers. Political — who has informal power, who's at risk, whose career is improved by change.</p>
+        <p>I take notes obsessively, share them back with the customer in writing, and let them correct me. The act of being corrected accelerates trust faster than any pitch.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">12</span>How do you keep a customer from churning?</summary>
+      <div class="body">
+        <p>Churn starts in month two of the deployment, not month eleven. The signals are usage flat-lining, the champion going quiet, and a new exec entering the picture without a relationship to me. I run a structured check-in cadence with both the champion and the user community, and I treat any quarter without a measurable usage win as a yellow flag.</p>
+        <p>For the renewal itself, I want a documented expansion case open at least two quarters in advance. Renewals shouldn't be conversations about price; they should be conversations about scope.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">13</span>How do you handle procurement?</summary>
+      <div class="body">
+        <p>I treat procurement as a stakeholder, not an obstacle. Their job is risk-adjusted savings; mine is to make them look like they did their job. I bring market benchmarks, an MSA pre-redlined to common enterprise asks, and a flexibility menu — term length, payment timing, service levels — so they have something to negotiate with that doesn't come out of the price.</p>
+        <p>Engaging procurement in week two is much cheaper than engaging them in week ten.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">14</span>What's the hardest part of selling frontier AI?</summary>
+      <div class="body">
+        <p>Pacing the customer. The technology is moving faster than most enterprise planning cycles. If I let the customer build a 12-month roadmap based on today's capability, I'll have to rewrite it twice before we sign. My job is to design deals that stay valuable through capability shifts — modular use cases, committed-use rather than feature-locked pricing, and quarterly steering committees so the customer expects the surface to evolve.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">15</span>Why this role, and why now?</summary>
+      <div class="body">
+        <p>Because the category is in the rare window where the technology, the buyer, and the budget are all moving at the same time. That window doesn't last. The companies that pick partners well in the next 18 months will compound advantage for a decade, and the ones that don't will spend the rest of their careers catching up.</p>
+        <p>I want to be the person an executive remembers as the one who got it right. That's a career-defining role for someone who likes both the strategy and the closing.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary><span class="q-num">16</span>What questions do you have for me?</summary>
+      <div class="body">
+        <p>Three I'd actually ask. One: how does the team think about the seat-vs-API tension inside a single account — is there one quota or two? Two: what's the bar I'd be measured on in the first 90 days, and is it relationship-building or pipeline? Three: tell me about a deal someone on the team lost recently, and what the team learned from it. The third one tells me more about the culture than any answer to the first two.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ════════════ TAB 8 FINAL PREP ════════════ -->
+<section class="panel" data-panel="prep">
+  <div class="eyebrow">Tab 08 · Final 30 Minutes</div>
+  <h1>Thirty minutes before the call.</h1>
+  <p class="lead">A timed checklist to walk through right before the interview. Don't try to learn anything new. Re-anchor to what you already know and walk in calm.</p>
+
+  <h2>Timed walk-through</h2>
+  <div class="timeline">
+    <div class="timeslot">
+      <div class="clock">0:00 – 0:05</div>
+      <div>
+        <h4>Re-read your narrative pitch out loud.</h4>
+        <ul class="clean">
+          <li>Read Tab 1's four-paragraph narrative slowly, out loud, with pauses.</li>
+          <li>Identify the one phrase you most want to land in the first 90 seconds.</li>
+          <li>Don't memorize — own the structure, improvise the words.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeslot">
+      <div class="clock">0:05 – 0:10</div>
+      <div>
+        <h4>Rehearse three discovery questions per persona.</h4>
+        <ul class="clean">
+          <li>Pick CIO, VP Sales, and CFO — the three you're most likely to be tested on.</li>
+          <li>Say the questions aloud, in plain language, without the card in front of you.</li>
+          <li>You don't need to remember all five. Three real ones beats five recited ones.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeslot">
+      <div class="clock">0:10 – 0:15</div>
+      <div>
+        <h4>Walk through the Mercy Valley voice scenario.</h4>
+        <ul class="clean">
+          <li>Open, frame, proof, ask — beats and rough timing.</li>
+          <li>Practice the four-phase progression in 30 seconds total.</li>
+          <li>If asked about Realtime, you should be able to draw the diagram on a napkin.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeslot">
+      <div class="clock">0:15 – 0:20</div>
+      <div>
+        <h4>Skim killer-answer titles only.</h4>
+        <ul class="clean">
+          <li>Read the question titles in Tab 7. Don't open the body.</li>
+          <li>For each, mentally land the first sentence of your answer.</li>
+          <li>If you stumble on one, open it once and move on.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeslot">
+      <div class="clock">0:20 – 0:24</div>
+      <div>
+        <h4>Memorize three numbers and three names.</h4>
+        <ul class="clean">
+          <li>Numbers: a deal size you closed, a quota attainment percentage, and a customer outcome.</li>
+          <li>Names: your strongest reference customer, your most senior champion, and the deal you lost.</li>
+          <li>Specificity beats fluency.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeslot">
+      <div class="clock">0:24 – 0:27</div>
+      <div>
+        <h4>Read "What Not To Say" once.</h4>
+        <ul class="clean">
+          <li>Tab 9, fast scroll. Just the red headlines.</li>
+          <li>The point isn't to remember every one — it's to have them in working memory.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeslot">
+      <div class="clock">0:27 – 0:30</div>
+      <div>
+        <h4>Stop preparing. Start landing.</h4>
+        <ul class="clean">
+          <li>Stand up, drink water, breathe out longer than you breathe in for 60 seconds.</li>
+          <li>Picture the opening 60 seconds going well — voice steady, smiling, no rush.</li>
+          <li>Close every other tab. Open only the call link and a blank notes doc.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>Stats to keep in working memory</h2>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>Personal</h3>
+      <ul class="clean">
+        <li>Top deal size, year, and customer industry.</li>
+        <li>Quota attainment last 3 years, in percent.</li>
+        <li>Largest single customer expansion ratio (e.g., 4× over 24 months).</li>
+        <li>Average sales cycle for your enterprise deals.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Process</h3>
+      <ul class="clean">
+        <li>MEDDPICC — eight letters, no skips.</li>
+        <li>Mutual Action Plan stage cadence: 1–2, 3–4, 5–8, 9–10, 11–13, 14.</li>
+        <li>Four-phase API expansion arc.</li>
+        <li>Realtime pitch beats: open, frame, proof, ask.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Product</h3>
+      <ul class="clean">
+        <li>Four primary SKUs: Enterprise, Team, Codex, API.</li>
+        <li>Buyer for each (function head, team lead, VP Eng, VP Product).</li>
+        <li>Pricing motion for each.</li>
+        <li>Time-to-value for each.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Mindset reminders</h2>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>You are interviewing them too.</h3>
+      <p>This is a peer conversation, not a beg. They want to be sure you're a good bet; you want to be sure the role is. Curiosity beats deference — every time.</p>
+    </div>
+    <div class="card">
+      <h3>Slow is smooth, smooth is fast.</h3>
+      <p>Pause before answering. A two-second beat before you speak makes every sentence land harder. Talking fast is the most common nervousness tell — kill it deliberately.</p>
+    </div>
+    <div class="card">
+      <h3>Specific beats clever.</h3>
+      <p>Names, numbers, dates, decisions. If you find yourself reaching for an abstraction, anchor back to a real customer story. Generality is the enemy.</p>
+    </div>
+  </div>
+
+  <h2>Your opening 60 seconds</h2>
+  <div class="script">
+    <div class="stage">Beat 1 · 15 sec — Frame</div>
+    <p>"Thanks for the time today. Before I dive in, I want to tell you the lens I'm bringing to this conversation, because I think it's the lens you'd want from someone in this seat."</p>
+
+    <div class="stage">Beat 2 · 25 sec — Thesis</div>
+    <p>"I don't think AI is a point solution that lives inside IT. I think it's the operating substrate of every department in the next 24 months — and the partner that gets picked is the one with the best model and the most complete platform around it. That's the deal I want to be selling."</p>
+
+    <div class="stage">Beat 3 · 20 sec — Bridge</div>
+    <p>"I've spent my career closing strategic enterprise deals. What I want from this role is to do that at the only company where the product itself is the frontier. Happy to start anywhere you want — discovery, my biggest deal, or a hypothetical. Where would you like to begin?"</p>
+  </div>
+</section>
+
+<!-- ════════════ TAB 9 WHAT NOT TO SAY ════════════ -->
+<section class="panel" data-panel="dont">
+  <div class="eyebrow">Tab 09 · What Not To Say</div>
+  <h1>The unforced errors.</h1>
+  <p class="lead">Each of these has cost someone a deal — or an offer. None are about content; all are about discipline. Read once, internalize, never look at again.</p>
+
+  <div class="grid grid-2" style="margin-top: 28px;">
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Trash competitors by name.</h4>
+      <p>"Claude is a toy." "Gemini hallucinates constantly." Even if true, you sound insecure and the interviewer wonders how you'd talk about them in two years.</p>
+      <div class="instead"><strong>Instead:</strong> respect the competitor, then explain the conditions under which you win. Strength + specificity beats sneer + slogan.</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Quote pricing you're not sure about.</h4>
+      <p>If you make up a number — or worse, a ratio — and they spot it, you've handed them a reason to doubt every other claim you make in the conversation.</p>
+      <div class="instead"><strong>Instead:</strong> "I'd rather not anchor on a number I can't defend. The motion is per-seat for the productivity SKUs and committed-use for API; I can talk through the structure without quoting figures."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Claim features that don't exist yet.</h4>
+      <p>Roadmap as fact is the fastest way to lose technical credibility — especially in a room with people who track the public roadmap better than you do.</p>
+      <div class="instead"><strong>Instead:</strong> "That's not GA today. It's been previewed publicly; I'd want to confirm the timeline before I commit to it in a customer conversation."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Use "AGI" in a sales context.</h4>
+      <p>It signals hype, alarms compliance buyers, and dates you. Customers don't buy AGI; they buy outcomes their CFO can underwrite.</p>
+      <div class="instead"><strong>Instead:</strong> talk about the next 18 months of capability — agents, voice, multi-modal — in concrete, customer-facing terms.</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Position AI as replacing jobs.</h4>
+      <p>Even when a customer says it first, don't echo it. You've just made yourself a procurement problem and an HR problem in one sentence — and the next executive in the meeting is now distracted.</p>
+      <div class="instead"><strong>Instead:</strong> "What we tend to see is the work changing shape. Routine tasks compress; expert judgment expands. The customers who get this right reinvest the savings, not redistribute the headcount."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Promise outcomes you can't measure.</h4>
+      <p>"You'll see a 40% productivity lift." Says who? Says when? Measured how? If the customer holds you to it, you'll be defending a number you invented.</p>
+      <div class="instead"><strong>Instead:</strong> "Peer customers in your industry are reporting outcomes in this range, and I'd rather build a joint baseline before I commit to a number for you."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Explain the technology when they asked about the business.</h4>
+      <p>An executive asks "why now"; you answer "transformer architecture." You've just told them you don't know how to translate.</p>
+      <div class="instead"><strong>Instead:</strong> answer the business question in business language. Save the architecture for the SE meeting — or for the executive who asks for it explicitly.</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Apologize for the price.</h4>
+      <p>"I know it's expensive…" You've just told them it's too much. Now they're negotiating from a position you handed them.</p>
+      <div class="instead"><strong>Instead:</strong> anchor on value. "Here's what this saves, here's what it accelerates, here's what's at stake if you wait. The price is the price; let's talk about whether the case is real."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Speak negatively about prior employers.</h4>
+      <p>The interviewer is mentally substituting "OpenAI" for the name of the company you're criticizing. Every story should be told as something you learned, not something they did wrong.</p>
+      <div class="instead"><strong>Instead:</strong> "I'm grateful for what I learned there. Here's what made me ready for a different stage of company."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Confuse activity with progress.</h4>
+      <p>"I had 14 meetings last quarter." That's a calendar, not a forecast. The interviewer wants to know what moved.</p>
+      <div class="instead"><strong>Instead:</strong> name the deal, the stage, the decision you forced, and the outcome. "I drove a CFO meeting in week six that re-anchored the deal on payback. Closed in 11 weeks instead of the usual 16."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Hide behind "I'd loop in my SE."</h4>
+      <p>You can do that twice in an interview. The third time, the interviewer concludes you can't carry a technical conversation without help. This is an IC role — show you can hold the room.</p>
+      <div class="instead"><strong>Instead:</strong> answer at the level you can defend, then say where you'd bring the SE in for depth. "I can speak to model selection and latency trade-offs; for retrieval architecture I'd want to bring in our SE so we get it right."</div>
+    </div>
+
+    <div class="dont">
+      <div class="red-tag">⛔ Don't</div>
+      <h4>Use buzzwords without a referent.</h4>
+      <p>"Synergistic," "leverage" as a verb in a vague sentence, "transformational." If you can't replace the word with a concrete noun, don't use it.</p>
+      <div class="instead"><strong>Instead:</strong> say what you actually mean. "We replaced 3 of their 5 vendor contracts with one platform" beats "transformational consolidation."</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  function activate(name) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + name);
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+  tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.tab)));
+
+  // Mobile menu
+  document.getElementById('menu-open').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('open');
+  });
+  document.getElementById('menu-close').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.remove('open');
+  });
+  document.getElementById('mobile-menu').addEventListener('click', (e) => {
+    if (e.target.id === 'mobile-menu') {
+      document.getElementById('mobile-menu').classList.remove('open');
+    }
+  });
+
+  // Hash routing
+  const initial = (location.hash || '#overview').slice(1);
+  if ([...tabs].some(t => t.dataset.tab === initial)) activate(initial);
+</script>
+
+</body>
+</html>
