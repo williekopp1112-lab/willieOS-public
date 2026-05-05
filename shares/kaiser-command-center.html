@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaiser Permanente | Customer Command Center</title>
+<meta name="description" content="Strategic account command center for Kaiser Permanente - OpenAI enterprise deployment analysis covering clinical operations, patient access, finance, and digital transformation.">
+<meta property="og:title" content="Kaiser Permanente | Customer Command Center">
+<meta property="og:description" content="Enterprise AI deployment strategy for Kaiser Permanente's 12.6M+ member integrated health system.">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='%230f172a'%3E%3Crect width='1200' height='630'/%3E%3Ctext x='600' y='315' font-family='Inter' font-size='48' fill='%2338bdf8' text-anchor='middle'%3EKaiser Permanente Command Center%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f172a'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='18' font-weight='bold' fill='%2338bdf8' text-anchor='middle'%3EKP%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace']
+      },
+      colors: {
+        kp: {
+          blue: '#004B87',
+          light: '#0079C1',
+          dark: '#003359'
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { scrollbar-width: thin; scrollbar-color: #334155 #0f172a; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0f172a; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { font-family: 'Inter', system-ui, sans-serif; }
+
+  .nav-link { position: relative; transition: all 0.2s; }
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: transparent;
+    transition: background 0.2s;
+    border-radius: 1px;
+  }
+  .nav-link:hover::before, .nav-link.active::before { background: #38bdf8; }
+  .nav-link:hover, .nav-link.active { color: #f1f5f9; background: rgba(56, 189, 248, 0.06); }
+
+  .card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    border-color: rgba(56, 189, 248, 0.25);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
+  }
+
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+  .badge-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+  .badge-red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+  .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+  .badge-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+
+  .stat-ring { transform: rotate(-90deg); }
+
+  .expand-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .expand-content.open { max-height: 2000px; }
+
+  .fade-in { opacity: 0; transform: translateY(12px); transition: opacity 0.4s, transform 0.4s; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0 !important; }
+  }
+
+  table { border-collapse: separate; border-spacing: 0; }
+  table th { position: sticky; top: 0; z-index: 2; }
+</style>
+</head>
+<body class="bg-slate-950 text-slate-300 min-h-screen">
+
+<!-- Top Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/60">
+  <div class="flex items-center justify-between px-6 h-16">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-kp-blue flex items-center justify-center">
+          <span class="text-white font-bold text-xs">KP</span>
+        </div>
+        <div>
+          <div class="text-sm font-semibold text-slate-100">Kaiser Permanente</div>
+          <div class="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Customer Command Center</div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="badge badge-green">
+        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3"/></svg>
+        Active Account
+      </span>
+      <span class="text-xs text-slate-500 font-mono">May 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar fixed left-0 top-16 bottom-0 w-56 bg-slate-950 border-r border-slate-800/40 overflow-y-auto z-40 pt-4 pb-8">
+  <div class="px-3 space-y-0.5">
+    <div class="text-[10px] font-semibold text-slate-600 uppercase tracking-widest px-3 pt-2 pb-1">Strategy</div>
+    <a href="#thesis" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Executive Thesis
+    </a>
+    <a href="#stakeholders" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Stakeholder Map
+    </a>
+    <a href="#usecases" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-violet-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Use Cases
+    </a>
+    <div class="text-[10px] font-semibold text-slate-600 uppercase tracking-widest px-3 pt-4 pb-1">Execution</div>
+    <a href="#wedge" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Wedge Opportunities
+    </a>
+    <a href="#governance" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-red-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Governance
+    </a>
+    <div class="text-[10px] font-semibold text-slate-600 uppercase tracking-widest px-3 pt-4 pb-1">Follow-Up</div>
+    <a href="#followup" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Follow-Up Package
+    </a>
+    <a href="#action" class="nav-link flex items-center gap-2.5 px-3 py-2 text-xs text-slate-400 rounded-md">
+      <svg class="w-3.5 h-3.5 text-orange-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Action Plan
+    </a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content ml-56 pt-16">
+
+<!-- ===== SECTION 1: Executive Account Thesis ===== -->
+<section id="thesis" class="px-8 py-12 border-b border-slate-800/40">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Hero -->
+    <div class="mb-10">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="badge badge-blue">Strategy</span>
+        <span class="text-xs text-slate-600">Section 1 of 7</span>
+      </div>
+      <h1 class="text-3xl font-bold text-slate-100 mb-3">Executive Account Thesis</h1>
+      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
+        Kaiser Permanente is the largest integrated health system in the United States: 12.6M+ members, 40 hospitals, 600+ medical offices, $127.7B in operating revenue (2025). They are both insurer and provider, which means a single AI deployment can propagate across the entire care continuum without the fragmentation that slows adoption at non-integrated systems.
+      </p>
+    </div>
+
+    <!-- Key Metrics Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="card p-5 text-center">
+        <div class="text-2xl font-bold text-slate-100">12.6M+</div>
+        <div class="text-xs text-slate-500 mt-1">Health Plan Members</div>
+      </div>
+      <div class="card p-5 text-center">
+        <div class="text-2xl font-bold text-slate-100">$127.7B</div>
+        <div class="text-xs text-slate-500 mt-1">Operating Revenue (2025)</div>
+      </div>
+      <div class="card p-5 text-center">
+        <div class="text-2xl font-bold text-slate-100">40</div>
+        <div class="text-xs text-slate-500 mt-1">Hospitals</div>
+      </div>
+      <div class="card p-5 text-center">
+        <div class="text-2xl font-bold text-slate-100">600+</div>
+        <div class="text-xs text-slate-500 mt-1">Medical Offices</div>
+      </div>
+    </div>
+
+    <!-- Thesis Cards -->
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="card p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center">
+            <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-200">Urgent Pain</h3>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Physicians spend an estimated 2+ hours daily on clinical documentation. Kaiser deployed Abridge for ambient AI note-taking across all 40 hospitals, signaling they are actively buying clinical AI. Their 1.1% operating margin leaves little room for labor cost inflation. Every minute of physician time recovered is revenue-generating capacity restored.
+        </p>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
+            <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-200">Measurable Value</h3>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Three high-confidence opportunities: ambient clinical documentation ($180M+ annual value in recovered physician time), contact center copilot ($95M+ in operational savings across their member service operation), and prior authorization automation ($120M+ in admin cost reduction). Combined first-year addressable value exceeds $395M.
+        </p>
+      </div>
+
+      <div class="card p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-200">Why It Matters for OpenAI</h3>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Kaiser is a lighthouse account for healthcare AI. Their integrated model means a successful deployment becomes a reference for every health system in the country. They already have a VP of AI and a responsible AI framework. They are a sophisticated buyer who will push OpenAI's enterprise capabilities forward, not just consume them.
+        </p>
+      </div>
+    </div>
+
+    <!-- Existing AI Landscape -->
+    <div class="card p-6 mt-6">
+      <h3 class="text-sm font-semibold text-slate-200 mb-3">Current AI Landscape at Kaiser</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Active Deployments</div>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li class="flex items-start gap-2">
+              <span class="badge badge-green mt-0.5">Live</span>
+              <span>Abridge ambient clinical documentation (all 40 hospitals, 600+ offices)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="badge badge-green mt-0.5">Live</span>
+              <span>Division of Research AI quality assurance program for clinical AI</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="badge badge-green mt-0.5">Live</span>
+              <span>KP.org / My Doctor Online digital member portal</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Key Technology Leaders</div>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><span class="text-slate-300 font-medium">Neil Cowles</span> - Chief Information & Technology Officer (appointed Apr 2025)</li>
+            <li><span class="text-slate-300 font-medium">Nari Gopala</span> - Chief Digital Officer</li>
+            <li><span class="text-slate-300 font-medium">VP of AI</span> - Oversees responsible AI framework, quality oversight for all AI applications</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: Stakeholder Map ===== -->
+<section id="stakeholders" class="px-8 py-12 border-b border-slate-800/40">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge badge-green">People</span>
+      <span class="text-xs text-slate-600">Section 2 of 7</span>
+    </div>
+    <h2 class="text-2xl font-bold text-slate-100 mb-2">Stakeholder Map by Function</h2>
+    <p class="text-sm text-slate-400 mb-8 max-w-3xl">
+      Enterprise healthcare deals require multi-threaded relationships. Each function has a business owner, operational leader, technical partner, compliance checkpoint, finance buyer, and frontline champion. This map shows who to engage and in what order.
+    </p>
+
+    <div class="overflow-x-auto rounded-xl border border-slate-800/50">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="bg-slate-900/80">
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Function</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Business Owner</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Operational Leader</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Technical Partner</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Risk/Compliance</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Finance Buyer</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Frontline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-slate-800/30 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-sky-400">Clinical Operations</td>
+            <td class="px-4 py-3 text-slate-300">Chief Medical Officer</td>
+            <td class="px-4 py-3 text-slate-400">VP Clinical Informatics</td>
+            <td class="px-4 py-3 text-slate-400">Director Health IT</td>
+            <td class="px-4 py-3 text-slate-400">Chief Compliance Officer</td>
+            <td class="px-4 py-3 text-slate-400">VP Finance, Clinical</td>
+            <td class="px-4 py-3 text-slate-400">Nurse Manager / Physician Lead</td>
+          </tr>
+          <tr class="border-b border-slate-800/30 bg-slate-900/20 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-emerald-400">Patient Access</td>
+            <td class="px-4 py-3 text-slate-300">VP Member Services</td>
+            <td class="px-4 py-3 text-slate-400">Director Call Center Ops</td>
+            <td class="px-4 py-3 text-slate-400">IT Director, Patient Platforms</td>
+            <td class="px-4 py-3 text-slate-400">Privacy Officer</td>
+            <td class="px-4 py-3 text-slate-400">Director Revenue Cycle</td>
+            <td class="px-4 py-3 text-slate-400">Patient Access Supervisor</td>
+          </tr>
+          <tr class="border-b border-slate-800/30 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-red-400">Legal / Compliance</td>
+            <td class="px-4 py-3 text-slate-300">General Counsel</td>
+            <td class="px-4 py-3 text-slate-400">VP Risk Management</td>
+            <td class="px-4 py-3 text-slate-400">CISO</td>
+            <td class="px-4 py-3 text-slate-400">Chief Compliance Officer</td>
+            <td class="px-4 py-3 text-slate-400">CFO</td>
+            <td class="px-4 py-3 text-slate-400">Regional Counsel</td>
+          </tr>
+          <tr class="border-b border-slate-800/30 bg-slate-900/20 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-amber-400">Finance</td>
+            <td class="px-4 py-3 text-slate-300">CFO</td>
+            <td class="px-4 py-3 text-slate-400">VP Financial Planning</td>
+            <td class="px-4 py-3 text-slate-400">Director IT Finance</td>
+            <td class="px-4 py-3 text-slate-400">VP Internal Audit</td>
+            <td class="px-4 py-3 text-slate-400">Controller</td>
+            <td class="px-4 py-3 text-slate-400">Finance Manager</td>
+          </tr>
+          <tr class="border-b border-slate-800/30 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-violet-400">HR / People</td>
+            <td class="px-4 py-3 text-slate-300">CHRO</td>
+            <td class="px-4 py-3 text-slate-400">VP Talent Acquisition</td>
+            <td class="px-4 py-3 text-slate-400">HRIS Director</td>
+            <td class="px-4 py-3 text-slate-400">VP Labor Relations</td>
+            <td class="px-4 py-3 text-slate-400">VP Comp & Benefits</td>
+            <td class="px-4 py-3 text-slate-400">HR Business Partner</td>
+          </tr>
+          <tr class="border-b border-slate-800/30 bg-slate-900/20 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-orange-400">Contact Center</td>
+            <td class="px-4 py-3 text-slate-300">SVP Member Services</td>
+            <td class="px-4 py-3 text-slate-400">Director Contact Center Ops</td>
+            <td class="px-4 py-3 text-slate-400">VP Digital Platforms</td>
+            <td class="px-4 py-3 text-slate-400">Director Quality Assurance</td>
+            <td class="px-4 py-3 text-slate-400">Director Workforce Mgmt</td>
+            <td class="px-4 py-3 text-slate-400">Team Lead / Supervisor</td>
+          </tr>
+          <tr class="hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-cyan-400">Product / Digital</td>
+            <td class="px-4 py-3 text-slate-300">Chief Digital Officer</td>
+            <td class="px-4 py-3 text-slate-400">VP Product</td>
+            <td class="px-4 py-3 text-slate-400">CTO / CTIO</td>
+            <td class="px-4 py-3 text-slate-400">VP Information Security</td>
+            <td class="px-4 py-3 text-slate-400">VP Digital Finance</td>
+            <td class="px-4 py-3 text-slate-400">Product Manager</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card p-4 mt-4">
+      <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Account Threading Strategy</div>
+      <p class="text-sm text-slate-400 leading-relaxed">
+        The entry point is the CTIO (Neil Cowles) and CDO (Nari Gopala) for technology evaluation. But the economic buyer for each use case sits in the business function. The CMO authorizes clinical deployments, SVP Member Services owns contact center spend, and General Counsel controls data processing agreements. Run parallel tracks: technical validation with CTIO/CDO, business case with functional VPs, compliance clearance with Legal/CISO.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: Function-by-Function Use Cases ===== -->
+<section id="usecases" class="px-8 py-12 border-b border-slate-800/40">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge badge-purple">Products</span>
+      <span class="text-xs text-slate-600">Section 3 of 7</span>
+    </div>
+    <h2 class="text-2xl font-bold text-slate-100 mb-2">Function-by-Function Use Cases</h2>
+    <p class="text-sm text-slate-400 mb-8 max-w-3xl">
+      How OpenAI products map to each Kaiser function. Click any department to expand use cases.
+    </p>
+
+    <div class="space-y-3" id="usecases-accordion">
+
+      <!-- Clinical Operations -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-clinical">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-sky-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">Clinical Operations</div>
+              <div class="text-xs text-slate-500">Physicians, nurses, clinical informatics</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-clinical">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Whisper + GPT-4o</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Ambient Clinical Documentation</div>
+              <p class="text-xs text-slate-400">Real-time transcription and summarization of patient-physician encounters. Generates structured SOAP notes, ICD-10 codes, and follow-up orders. Kaiser already uses Abridge here; OpenAI's Whisper + GPT-4o offers higher accuracy and customization via fine-tuning on Kaiser's own clinical vocabulary.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API + Fine-tuning</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Clinical Decision Support</div>
+              <p class="text-xs text-slate-400">Persistent assistants with access to clinical guidelines, formulary data, and patient context. Physicians query for drug interactions, treatment protocols, and care gap alerts. Fine-tuned on Kaiser's Permanente Medicine evidence base for KP-specific recommendations.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Structured Outputs</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Discharge Summary Generation</div>
+              <p class="text-xs text-slate-400">Auto-generate structured discharge summaries from encounter notes. Outputs follow HL7 FHIR schema for direct Epic integration. Reduces discharge documentation time from 20 minutes to under 5.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">GPT-4o + Codex</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Clinical Analytics & Research Acceleration</div>
+              <p class="text-xs text-slate-400">Kaiser's Division of Research runs large-scale population health studies. GPT-4o processes unstructured clinical notes for cohort identification. Codex accelerates statistical analysis code for epidemiological research across 12.6M member records.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Center -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-contact">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">Contact Center / Member Services</div>
+              <div class="text-xs text-slate-500">15,000+ agents handling 50M+ annual member interactions</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-contact">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">ChatGPT Enterprise</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Member Inquiry Copilot</div>
+              <p class="text-xs text-slate-400">Real-time agent assist during calls. Surfaces member benefit details, recent visit history, and policy-specific answers. Reduces average handle time 25% by eliminating manual system lookups across Epic, claims, and benefits platforms.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Whisper + Structured Outputs</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Call Summarization & Routing</div>
+              <p class="text-xs text-slate-400">Whisper transcribes calls in real-time. Structured Outputs extract intent, urgency level, department routing, and follow-up actions. Eliminates manual after-call work and improves first-call resolution tracking accuracy.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Prior Authorization Triage</div>
+              <p class="text-xs text-slate-400">Persistent assistant pre-populates prior auth forms, checks clinical criteria against payer guidelines, and routes to appropriate review queue. Automates 60%+ of routine authorization requests that currently take 14 days average.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">GPT-4o</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Multilingual Member Support</div>
+              <p class="text-xs text-slate-400">Kaiser serves diverse populations across 8 states. GPT-4o provides real-time translation and culturally-aware response generation in 50+ languages. Reduces reliance on third-party interpreter services ($40M+ annual cost).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product / Digital -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-product">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">Product / Digital</div>
+              <div class="text-xs text-slate-500">KP.org, My Doctor Online, Thrive platform, mobile apps</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-product">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API + GPT-4o</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Intelligent Member Portal</div>
+              <p class="text-xs text-slate-400">AI-powered triage and navigation on KP.org and My Doctor Online. Members describe symptoms in natural language, receive care guidance, schedule appointments, and manage prescriptions. Reduces unnecessary urgent care visits by routing members to appropriate care level.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">Codex</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Engineering Velocity</div>
+              <p class="text-xs text-slate-400">Codex for Kaiser's internal engineering teams building KP.org, mobile apps, and clinical tools. Accelerates Epic integration development, FHIR API implementations, and internal tooling. Estimated 30-40% developer productivity gain across 2,000+ engineers.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">DALL-E</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Health Education Content</div>
+              <p class="text-xs text-slate-400">Generate culturally diverse, condition-specific health education materials at scale. Illustrations for patient handouts, discharge instructions, and wellness content across Kaiser's 12.6M member base. Reduces creative production costs and improves health literacy engagement.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Fine-tuning + Structured Outputs</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Care Gap Outreach</div>
+              <p class="text-xs text-slate-400">Fine-tuned models identify members overdue for preventive care (mammograms, colonoscopies, vaccinations). Structured Outputs generate personalized outreach messages through the member portal and SMS. Improves HEDIS quality scores that directly impact Medicare Advantage star ratings and $200M+ in quality bonuses.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-finance">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">Finance</div>
+              <div class="text-xs text-slate-500">$127.7B revenue, 1.1% operating margin, complex payer/provider model</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-finance">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">GPT-4o + Structured Outputs</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Claims Processing Intelligence</div>
+              <p class="text-xs text-slate-400">Automate claims adjudication for routine submissions. Extract structured data from unstructured clinical documentation to validate claims. Reduce denial rates and accelerate payment cycles across the $126B+ expense base.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">ChatGPT Enterprise</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Financial Analysis Copilot</div>
+              <p class="text-xs text-slate-400">Enterprise-wide financial analysis assistant for budgeting, forecasting, and variance analysis across 40 hospitals and 8 regional markets. Analysts query financial data in natural language, reducing report generation time from days to hours.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Contract & Vendor Management</div>
+              <p class="text-xs text-slate-400">Persistent assistant that ingests vendor contracts, surfaces renewal dates, compares terms across agreements, and flags non-standard clauses. Manages Kaiser's multi-billion dollar vendor ecosystem with automated compliance checking.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">Codex</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Actuarial Model Development</div>
+              <p class="text-xs text-slate-400">Accelerate actuarial and underwriting model development with Codex. Kaiser's dual insurer/provider model requires sophisticated risk modeling. Codex assists actuaries in building, testing, and validating models 3x faster.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legal / Compliance -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-legal">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-red-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">Legal / Compliance</div>
+              <div class="text-xs text-slate-500">HIPAA, state regulations, clinical AI governance, labor law</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-legal">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">ChatGPT Enterprise</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Regulatory Research Assistant</div>
+              <p class="text-xs text-slate-400">Legal team uses ChatGPT Enterprise for rapid analysis of CMS rulings, state health regulations, and FDA AI/ML guidance across all 8 states where Kaiser operates. Enterprise data retention controls ensure no PHI leakage during legal research.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Structured Outputs + Fine-tuning</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Compliance Monitoring</div>
+              <p class="text-xs text-slate-400">Automated extraction of compliance-relevant events from clinical documentation and communications. Structured outputs flag potential HIPAA violations, billing anomalies, and clinical safety events for review. Fine-tuned on Kaiser's internal compliance taxonomy.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Policy Q&A for Staff</div>
+              <p class="text-xs text-slate-400">Internal compliance assistant that answers staff questions about HIPAA, clinical protocols, and workplace policies. Reduces compliance team inquiry volume by 40%+ while ensuring consistent, accurate answers grounded in current Kaiser policies.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">GPT-4o</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Contract Review Acceleration</div>
+              <p class="text-xs text-slate-400">AI-assisted review of vendor agreements, BAAs, and data processing agreements. Identifies non-standard terms, missing clauses, and regulatory gaps. Reduces contract review cycle from weeks to days for Kaiser's procurement operation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HR -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-hr">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-violet-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-violet-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">HR / People Operations</div>
+              <div class="text-xs text-slate-500">300,000+ employees, unionized workforce, 8 state operations</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-hr">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">ChatGPT Enterprise</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">HR Knowledge Base</div>
+              <p class="text-xs text-slate-400">Self-service HR assistant for 300,000+ employees across benefits, PTO, labor agreements, and workplace policies. Handles the volume of routine HR inquiries that currently require phone calls to HR service center. Multi-language support for diverse workforce.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">GPT-4o + Whisper</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Training & Onboarding</div>
+              <p class="text-xs text-slate-400">AI-generated training content from clinical protocols and operational procedures. Whisper transcribes expert lectures into searchable training modules. Accelerates onboarding for new hires in a system that adds thousands of staff annually.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Structured Outputs</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Workforce Analytics</div>
+              <p class="text-xs text-slate-400">Structured extraction from workforce data to predict staffing needs, identify burnout risk patterns, and optimize scheduling across 40 hospitals. Outputs feed directly into workforce management systems for automated action.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Labor Relations Intelligence</div>
+              <p class="text-xs text-slate-400">Assistant that helps HR leaders navigate collective bargaining agreements, grievance procedures, and labor compliance across multiple unions and 8 states. Surfaces relevant precedents and contract language during negotiations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field / Frontline -->
+      <div class="card overflow-hidden">
+        <button class="expand-btn w-full px-6 py-4 flex items-center justify-between hover:bg-slate-800/20" data-target="uc-field">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+              <svg class="w-4.5 h-4.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-sm font-semibold text-slate-200">Field / Frontline Operations</div>
+              <div class="text-xs text-slate-500">Medical offices, pharmacy, lab, imaging, home health</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-500 expand-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="expand-content" id="uc-field">
+          <div class="px-6 pb-5 grid md:grid-cols-2 gap-3">
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">Whisper + GPT-4o</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Pharmacy Consultation Documentation</div>
+              <p class="text-xs text-slate-400">Pharmacists use Whisper to transcribe patient medication counseling sessions. GPT-4o generates structured documentation including drug interactions flagged, patient education delivered, and follow-up actions. Ensures compliance with pharmacy board documentation requirements.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-green">ChatGPT Enterprise</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Frontline Staff Assistant</div>
+              <p class="text-xs text-slate-400">Medical assistants, lab techs, and front desk staff use ChatGPT Enterprise to look up procedures, troubleshoot equipment, and answer patient questions about scheduling and prep instructions. Reduces supervisor escalations by 35%.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-blue">GPT-4o Vision</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Facility & Equipment Monitoring</div>
+              <p class="text-xs text-slate-400">Vision-based monitoring for facility maintenance: identify equipment wear, check sterilization indicators, verify supply stock levels from photos. Frontline staff capture images, AI routes to appropriate maintenance or supply chain workflows.</p>
+            </div>
+            <div class="bg-slate-900/40 rounded-lg p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="badge badge-purple">Assistants API + Structured Outputs</span>
+              </div>
+              <div class="text-sm font-medium text-slate-200 mb-1">Home Health Visit Intelligence</div>
+              <p class="text-xs text-slate-400">Home health nurses use a persistent assistant to document visits, flag deterioration patterns, and generate structured care plans. Structured Outputs feed directly into Epic for care coordination. Reduces readmission rates for post-acute patients.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: Three Wedge Opportunities ===== -->
+<section id="wedge" class="px-8 py-12 border-b border-slate-800/40">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge badge-amber">Execution</span>
+      <span class="text-xs text-slate-600">Section 4 of 7</span>
+    </div>
+    <h2 class="text-2xl font-bold text-slate-100 mb-2">Three Wedge Opportunities</h2>
+    <p class="text-sm text-slate-400 mb-8 max-w-3xl">
+      Concrete first deployments designed to land, prove value, and expand. Each wedge has a defined buyer, success metric, realistic blocker, and growth path.
+    </p>
+
+    <div class="space-y-5">
+
+      <!-- Wedge 1: Ambient Clinical Documentation -->
+      <div class="card p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-lg font-bold text-slate-100">1. Ambient Clinical Documentation</span>
+              <span class="badge badge-green">High Confidence</span>
+            </div>
+            <div class="text-xs text-slate-500">Whisper + GPT-4o + Structured Outputs</div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold text-emerald-400">$180M+</div>
+            <div class="text-[10px] text-slate-500 uppercase tracking-wider">Annual Value</div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Deployment</div>
+            <p class="text-sm text-slate-400">Deploy Whisper + GPT-4o for real-time transcription and structured note generation across outpatient visits. Start with primary care in one region (e.g., Northern California), expand to specialty and inpatient. Kaiser already uses Abridge, so the clinical workflow is established. The pitch is higher accuracy, deeper customization via fine-tuning on Kaiser's clinical vocabulary, and tighter Epic integration through Structured Outputs.</p>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Success Metric</div>
+              <div class="text-sm text-slate-300">40% reduction in documentation time (save ~48 min/physician/day)</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Buyer</div>
+              <div class="text-sm text-slate-300">CMO + VP Clinical Informatics</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Likely Blocker</div>
+              <div class="text-sm text-slate-300">HIPAA BAA execution, Epic integration certification, physician change management (switching from Abridge)</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Expansion Path</div>
+              <div class="text-sm text-slate-300">All 23,000+ physicians across 40 hospitals. Then extend to nursing documentation, discharge summaries, and referral letters.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="bg-slate-900/60 rounded-lg p-3">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-xs text-slate-500">Readiness Assessment</span>
+            <span class="text-xs font-mono text-emerald-400">85%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5">
+            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 85%"></div>
+          </div>
+          <div class="flex justify-between mt-1.5">
+            <span class="text-[10px] text-slate-600">Clinical workflow proven</span>
+            <span class="text-[10px] text-slate-600">Needs BAA + pilot agreement</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wedge 2: Contact Center Copilot -->
+      <div class="card p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-lg font-bold text-slate-100">2. Member Service AI Copilot</span>
+              <span class="badge badge-amber">Medium Complexity</span>
+            </div>
+            <div class="text-xs text-slate-500">ChatGPT Enterprise + Whisper + Structured Outputs</div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold text-sky-400">$95M+</div>
+            <div class="text-[10px] text-slate-500 uppercase tracking-wider">Annual Value</div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Deployment</div>
+            <p class="text-sm text-slate-400">ChatGPT Enterprise deployed to 15,000+ contact center agents as a real-time copilot. During member calls, the system surfaces benefit details, recent visit context, and policy-specific guidance. Whisper handles real-time transcription. Structured Outputs generate after-call summaries and route follow-up actions. Start with appointment scheduling and benefits inquiries (highest volume, lowest complexity).</p>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Success Metric</div>
+              <div class="text-sm text-slate-300">25% reduction in average handle time, 30% improvement in first-call resolution</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Buyer</div>
+              <div class="text-sm text-slate-300">SVP Member Services + Director Contact Center Ops</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Likely Blocker</div>
+              <div class="text-sm text-slate-300">PHI handling policy (members discuss health conditions on calls), union considerations for workforce changes, IT integration with existing telephony</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Expansion Path</div>
+              <div class="text-sm text-slate-300">Digital self-service via KP.org chat (member-facing AI). Then extend to Thrive mobile app for asynchronous member support.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 rounded-lg p-3">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-xs text-slate-500">Readiness Assessment</span>
+            <span class="text-xs font-mono text-sky-400">70%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5">
+            <div class="bg-sky-500 h-1.5 rounded-full" style="width: 70%"></div>
+          </div>
+          <div class="flex justify-between mt-1.5">
+            <span class="text-[10px] text-slate-600">Enterprise licensing ready</span>
+            <span class="text-[10px] text-slate-600">Needs PHI policy + union review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wedge 3: Prior Auth Automation -->
+      <div class="card p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-lg font-bold text-slate-100">3. Prior Authorization Automation</span>
+              <span class="badge badge-red">High Impact</span>
+            </div>
+            <div class="text-xs text-slate-500">Assistants API + Structured Outputs + Fine-tuning</div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold text-amber-400">$120M+</div>
+            <div class="text-[10px] text-slate-500 uppercase tracking-wider">Annual Value</div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Deployment</div>
+            <p class="text-sm text-slate-400">Assistants API with persistent context per authorization case. The system pre-populates auth forms from clinical documentation, checks clinical necessity criteria against payer guidelines (Kaiser is often both payer and provider, simplifying this), and auto-adjudicates routine cases. Fine-tuned on Kaiser's historical auth decisions for 95%+ accuracy on routine cases. Structured Outputs generate decision letters and provider notifications.</p>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Success Metric</div>
+              <div class="text-sm text-slate-300">Reduce auth turnaround from 14 days to 2 days; automate 60% of routine authorizations</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Buyer</div>
+              <div class="text-sm text-slate-300">VP Revenue Cycle + General Counsel</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Likely Blocker</div>
+              <div class="text-sm text-slate-300">CMS regulatory requirements for prior auth automation, clinical validation protocol, state-by-state compliance (8 states), physician trust in AI adjudication</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold mb-1">Expansion Path</div>
+              <div class="text-sm text-slate-300">Full claims processing pipeline, referral management, and utilization review. Then extend to Risant Health affiliates (Geisinger, Cone Health).</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/60 rounded-lg p-3">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-xs text-slate-500">Readiness Assessment</span>
+            <span class="text-xs font-mono text-amber-400">55%</span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-1.5">
+            <div class="bg-amber-500 h-1.5 rounded-full" style="width: 55%"></div>
+          </div>
+          <div class="flex justify-between mt-1.5">
+            <span class="text-[10px] text-slate-600">Technology proven</span>
+            <span class="text-[10px] text-slate-600">Regulatory + clinical validation needed</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Combined Value Summary -->
+    <div class="card p-5 mt-6 bg-gradient-to-r from-slate-900/80 to-slate-800/30">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-sm font-semibold text-slate-200">Combined First-Year Addressable Value</div>
+          <div class="text-xs text-slate-500">Across all three wedge opportunities</div>
+        </div>
+        <div class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400">$395M+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: Governance & Risk ===== -->
+<section id="governance" class="px-8 py-12 border-b border-slate-800/40">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge badge-red">Risk</span>
+      <span class="text-xs text-slate-600">Section 5 of 7</span>
+    </div>
+    <h2 class="text-2xl font-bold text-slate-100 mb-2">Governance & Risk Plan</h2>
+    <p class="text-sm text-slate-400 mb-8 max-w-3xl">
+      Healthcare AI procurement involves layers of compliance, clinical validation, and organizational change management that do not exist in other verticals. This section maps the governance landscape an Account Director must navigate.
+    </p>
+
+    <div class="overflow-x-auto rounded-xl border border-slate-800/50">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="bg-slate-900/80">
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50 w-40">Domain</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50">Requirements & Considerations</th>
+            <th class="text-left px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-800/50 w-28">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-slate-800/30 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-red-400">HIPAA / BAA</td>
+            <td class="px-4 py-3 text-slate-400">Business Associate Agreement required before any PHI processing. OpenAI offers HIPAA-eligible API access with BAA. Must cover: data transmission encryption, access controls, audit logging, breach notification procedures, data retention/deletion policies. Separate BAA needed for each deployment type (API, ChatGPT Enterprise, Codex).</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">In Progress</span></td>
+          </tr>
+          <tr class="border-b border-slate-800/30 bg-slate-900/20 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-red-400">Data Boundaries</td>
+            <td class="px-4 py-3 text-slate-400">Zero training on patient data (contractual guarantee). Azure private deployment option for sensitive workloads. Data residency within US borders. No cross-customer data exposure. PHI must be de-identified or encrypted at rest and in transit. Separate data handling for insurer vs. provider operations.</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Available</span></td>
+          </tr>
+          <tr class="border-b border-slate-800/30 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-amber-400">Security</td>
+            <td class="px-4 py-3 text-slate-400">SOC 2 Type II compliance, penetration testing reports, HITRUST certification pathway. SSO/SAML integration with Kaiser's identity provider. Role-based access controls aligned with clinical privilege levels. Network isolation for clinical AI workloads. Regular third-party security audits.</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Available</span></td>
+          </tr>
+          <tr class="border-b border-slate-800/30 bg-slate-900/20 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-amber-400">Clinical Validation</td>
+            <td class="px-4 py-3 text-slate-400">Kaiser has an established AI quality assurance program through their Division of Research. Any clinical AI deployment requires: prospective clinical validation study, accuracy benchmarking against human performance, bias testing across demographic groups, ongoing monitoring framework, physician attestation workflow. Kaiser's VP of AI oversees this process.</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Required</span></td>
+          </tr>
+          <tr class="border-b border-slate-800/30 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-sky-400">Change Management</td>
+            <td class="px-4 py-3 text-slate-400">Physician adoption program: champion network, peer training, workflow integration support. 88% of physicians in Kaiser's Abridge pilot reported positive experience, setting favorable precedent. Union engagement required for any workforce-impacting deployments (contact center, administrative automation). Regional rollout strategy across 8 states with different regulatory environments.</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Planning</span></td>
+          </tr>
+          <tr class="border-b border-slate-800/30 bg-slate-900/20 hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-sky-400">Measurement</td>
+            <td class="px-4 py-3 text-slate-400">Framework: physician time saved per encounter, call deflection rate, average handle time reduction, prior auth turnaround time, HEDIS quality score impact, patient satisfaction (CAHPS) correlation, cost per transaction. Quarterly business reviews with executive sponsors. ROI validation at 6-month and 12-month checkpoints.</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Defined</span></td>
+          </tr>
+          <tr class="hover:bg-slate-900/30">
+            <td class="px-4 py-3 font-semibold text-emerald-400">Procurement</td>
+            <td class="px-4 py-3 text-slate-400">Multi-year enterprise agreement structure. Volume pricing tiers based on API consumption and seat count. Phased deployment aligned with clinical validation milestones. Pilot-to-production pricing with committed minimums. Potential inclusion in Risant Health master agreement for cross-system leverage (Geisinger, Cone Health). Typical Kaiser enterprise procurement cycle: 6-12 months.</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">TBD</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Key Questions -->
+    <div class="card p-6 mt-6">
+      <h3 class="text-sm font-semibold text-slate-200 mb-3">Questions to Ask in Discovery</h3>
+      <div class="grid md:grid-cols-2 gap-3">
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>What is Kaiser's current BAA framework with AI vendors, and who owns the review process?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>How did the Abridge procurement process work? Who signed off, and what was the timeline?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>Is Kaiser evaluating a single-vendor AI strategy or best-of-breed across use cases?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>What is the Risant Health technology integration timeline and how does it affect enterprise purchasing?</span>
+          </li>
+        </ul>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>Which union agreements have provisions about AI/automation, and what notice requirements exist?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>Does Kaiser require Azure Government / private cloud deployment for PHI workloads?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>What is the Division of Research's validation framework timeline for new AI tools?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sky-400 mt-0.5">?</span>
+            <span>How does Kaiser's CTIO (Neil Cowles) prioritize AI vendors given his recent appointment?</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: Follow-Up Package ===== -->
+<section id="followup" class="px-8 py-12 border-b border-slate-800/40">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge badge-blue">Communications</span>
+      <span class="text-xs text-slate-600">Section 6 of 7</span>
+    </div>
+    <h2 class="text-2xl font-bold text-slate-100 mb-2">Follow-Up Package</h2>
+    <p class="text-sm text-slate-400 mb-8 max-w-3xl">
+      Talking points and deliverables to use after a recruiter screen or stakeholder conversation. Demonstrate preparedness without overwhelming.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <!-- Talking Points -->
+      <div class="card p-6">
+        <h3 class="text-sm font-semibold text-slate-200 mb-4">Recruiter Screen Talking Points</h3>
+        <ol class="space-y-3 text-sm text-slate-400">
+          <li class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold flex items-center justify-center">1</span>
+            <span><span class="text-slate-200 font-medium">Kaiser is a platform account, not just a big customer.</span> Their integrated model means every use case cross-pollinates. A clinical documentation win feeds contact center improvements feeds prior auth automation. Account Directors who see these connections create disproportionate value.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold flex items-center justify-center">2</span>
+            <span><span class="text-slate-200 font-medium">Healthcare AI requires multi-threaded relationships.</span> The CTIO opens the door, but the CMO, SVP Member Services, General Counsel, and CFO each own different buying decisions. I build account plans that engage all threads simultaneously so deals do not stall in one department.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="flex-shrink-0 w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold flex items-center justify-center">3</span>
+            <span><span class="text-slate-200 font-medium">I quantify outcomes in the customer's language.</span> Physician time recovered, call deflection rates, auth turnaround days. Healthcare buyers respond to operational metrics, not technology features. I map every product capability to a business outcome before entering a conversation.</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Follow-Up Assets -->
+      <div class="card p-6">
+        <h3 class="text-sm font-semibold text-slate-200 mb-4">Assets to Send After Meeting</h3>
+        <div class="space-y-4">
+          <div class="bg-slate-900/40 rounded-lg p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span class="text-sm font-medium text-slate-200">1-Page Account Thesis</span>
+            </div>
+            <p class="text-xs text-slate-400">Executive summary: Kaiser's AI opportunity, three wedge deployments, combined $395M+ annual value. Formatted for the hiring manager to forward internally.</p>
+          </div>
+          <div class="bg-slate-900/40 rounded-lg p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span class="text-sm font-medium text-slate-200">Stakeholder Relationship Map</span>
+            </div>
+            <p class="text-xs text-slate-400">Visual map showing all seven functions, key titles, and engagement sequencing. Demonstrates understanding of enterprise healthcare complexity.</p>
+          </div>
+          <div class="bg-slate-900/40 rounded-lg p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+              <span class="text-sm font-medium text-slate-200">ROI Model Framework</span>
+            </div>
+            <p class="text-xs text-slate-400">Spreadsheet skeleton with assumptions, formulas, and sensitivity analysis for the three wedge opportunities. Shows analytical rigor without overpromising specific numbers.</p>
+          </div>
+        </div>
+
+        <div class="mt-4 p-3 rounded-lg bg-sky-500/5 border border-sky-500/10">
+          <div class="text-xs text-sky-400 font-semibold mb-1">Suggested Meeting Agenda (Next Step)</div>
+          <ol class="text-xs text-slate-400 space-y-1 list-decimal list-inside">
+            <li>5 min: Intro and role expectations</li>
+            <li>15 min: Walk through Kaiser account thesis and wedge strategy</li>
+            <li>10 min: Discussion on OpenAI's current healthcare pipeline and positioning</li>
+            <li>10 min: How I would structure the first 90 days on this account</li>
+            <li>5 min: Questions and next steps</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 7: Action Plan ===== -->
+<section id="action" class="px-8 py-12">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="badge badge-green">Next Steps</span>
+      <span class="text-xs text-slate-600">Section 7 of 7</span>
+    </div>
+    <h2 class="text-2xl font-bold text-slate-100 mb-2">Action Plan</h2>
+    <p class="text-sm text-slate-400 mb-8 max-w-3xl">
+      Research items, artifacts to build, and signals to monitor. Organized by priority and timeline.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-5">
+
+      <!-- Research -->
+      <div class="card p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-violet-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-200">Research</h3>
+        </div>
+        <ul class="space-y-2.5">
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r1">
+            <label for="r1" class="cursor-pointer">Kaiser Permanente 2025 annual report and 10-K filing for financial details and strategic priorities</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r2">
+            <label for="r2" class="cursor-pointer">Abridge partnership details: contract scope, deployment timeline, physician satisfaction data</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r3">
+            <label for="r3" class="cursor-pointer">Risant Health integration roadmap (Geisinger + Cone Health acquisitions) and technology strategy</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r4">
+            <label for="r4" class="cursor-pointer">Kaiser's Epic EHR deployment details and integration partner ecosystem</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r5">
+            <label for="r5" class="cursor-pointer">Union contracts (SEIU-UHW, UNAC/UHCP) for AI/automation provisions</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r6">
+            <label for="r6" class="cursor-pointer">Neil Cowles (CTIO) background, published interviews, technology priorities</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="r7">
+            <label for="r7" class="cursor-pointer">OpenAI healthcare BAA terms and HIPAA-eligible deployment options</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Artifacts to Create -->
+      <div class="card p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-sky-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-200">Artifacts to Build</h3>
+        </div>
+        <ul class="space-y-2.5">
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="a1">
+            <label for="a1" class="cursor-pointer">1-page executive account thesis (PDF) for follow-up after interview</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="a2">
+            <label for="a2" class="cursor-pointer">Detailed ROI model spreadsheet with assumptions and sensitivity analysis</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="a3">
+            <label for="a3" class="cursor-pointer">90-day account plan: first 30-60-90 day milestones for Kaiser engagement</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="a4">
+            <label for="a4" class="cursor-pointer">Competitive landscape brief: Microsoft/Azure Health, Google/Med-PaLM, AWS HealthScribe positioning at Kaiser</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="a5">
+            <label for="a5" class="cursor-pointer">Visual stakeholder map (one-page diagram) with engagement sequence</label>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <input type="checkbox" class="mt-0.5 rounded border-slate-600 bg-slate-800 text-sky-500 focus:ring-sky-500/20 cursor-pointer" id="a6">
+            <label for="a6" class="cursor-pointer">Implementation timeline showing phased deployment across all three wedge opportunities</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Signals to Watch -->
+      <div class="card p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-200">Signals to Watch</h3>
+        </div>
+        <ul class="space-y-2.5">
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>Kaiser RFP or RFI activity for enterprise AI platforms</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>Abridge contract renewal or expansion announcements</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>CMS rulings on AI in prior authorization (regulatory tailwinds)</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>Kaiser leadership changes: CTIO, CDO, VP AI, CMO appointments</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>Competitor moves: Microsoft Azure Health deals, Google healthcare partnerships</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>Kaiser Division of Research publications on AI validation frameworks</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>Risant Health technology integration milestones (could expand contract scope)</span>
+          </li>
+          <li class="flex items-start gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></div>
+            <span>SEIU-UHW labor negotiations around AI/automation provisions</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="px-8 py-6 border-t border-slate-800/40">
+  <div class="max-w-5xl mx-auto ml-0 flex items-center justify-between">
+    <div class="text-xs text-slate-600">
+      Customer Command Center | Kaiser Permanente | Prepared May 2026
+    </div>
+    <div class="text-xs text-slate-600">
+      Confidential - Interview Preparation
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- JavaScript: Accordion + Navigation + Scroll Effects -->
+<script>
+// Accordion functionality
+document.querySelectorAll('.expand-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const content = document.getElementById(targetId);
+    const icon = btn.querySelector('.expand-icon');
+
+    // Close other open accordions
+    document.querySelectorAll('.expand-content.open').forEach(el => {
+      if (el.id !== targetId) {
+        el.classList.remove('open');
+        const otherBtn = document.querySelector(`[data-target="${el.id}"]`);
+        if (otherBtn) otherBtn.querySelector('.expand-icon').style.transform = '';
+      }
+    });
+
+    content.classList.toggle('open');
+    icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : '';
+  });
+});
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateActiveNav() {
+  const scrollPos = window.scrollY + 120;
+
+  sections.forEach(section => {
+    const top = section.offsetTop;
+    const height = section.offsetHeight;
+    const id = section.getAttribute('id');
+
+    if (scrollPos >= top && scrollPos < top + height) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => {
+  el.classList.add('visible'); // Visible by default for no-JS
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

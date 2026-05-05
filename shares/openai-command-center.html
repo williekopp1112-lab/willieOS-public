@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenAI Interview Command Center — Willie Kopp</title>
+<meta name="description" content="Willie Kopp's comprehensive command center for the OpenAI Account Director interview. Recruiter prep, account plans, competitive intel, and WillieOS proof points.">
+<meta property="og:title" content="OpenAI Interview Command Center — Willie Kopp">
+<meta property="og:description" content="17 years enterprise tech. Builder of WillieOS. Ready for OpenAI.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --bg-elevated: #171717;
+    --border: #1e1e1e;
+    --border-hover: #2a2a2a;
+    --text: #ededed;
+    --text-secondary: #a1a1a1;
+    --text-muted: #666;
+    --green: #10a37f;
+    --green-dim: rgba(16, 163, 127, 0.12);
+    --green-glow: rgba(16, 163, 127, 0.08);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59, 130, 246, 0.12);
+    --gold: #d4a853;
+    --gold-dim: rgba(212, 168, 83, 0.12);
+    --purple: #a855f7;
+    --purple-dim: rgba(168, 85, 247, 0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239, 68, 68, 0.12);
+    --navy: #0A1628;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---- NAV ---- */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.3s ease;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('images/openai-command-center/hero-ai-sales-leadership.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.18;
+  }
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.6) 50%, var(--bg) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green-dim);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(16,163,127,0.25);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, #a1a1a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-meta-item strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  /* ---- SECTIONS ---- */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+  .section-divider {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    opacity: 0.35;
+    display: block;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .section-desc {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-top: 8px;
+    max-width: 600px;
+  }
+
+  /* ---- NARRATIVE CARD ---- */
+  .narrative {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+  }
+  .narrative-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .narrative p {
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+  .narrative p:last-child { margin-bottom: 0; }
+
+  /* ---- CARDS ---- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    border-color: var(--green);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(16,163,127,0.08);
+  }
+  .card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+    background: var(--green-dim);
+  }
+  .card-icon-wrap.gold { background: var(--gold-dim); }
+  .card-icon-wrap.blue { background: var(--blue-dim); }
+  .card-icon-wrap.purple { background: var(--purple-dim); }
+  .card-icon-wrap.red { background: var(--red-dim); }
+  .card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-top: 12px;
+    align-self: flex-start;
+  }
+  .tag-green { background: var(--green-dim); color: var(--green); }
+  .tag-gold { background: var(--gold-dim); color: var(--gold); }
+  .tag-blue { background: var(--blue-dim); color: var(--blue); }
+  .tag-purple { background: var(--purple-dim); color: var(--purple); }
+
+  /* ---- STATS ROW ---- */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ---- IMAGE SHOWCASE ---- */
+  .img-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .img-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    transition: all 0.25s ease;
+  }
+  .img-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+  .img-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  .img-card-label {
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ---- TIPS / AVOID ---- */
+  .tips-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+  .tips-card.green { border-left: 4px solid var(--green); }
+  .tips-card.red { border-left: 4px solid var(--red); }
+  .tips-card.blue { border-left: 4px solid var(--blue); }
+  .tips-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .tips-card.green h3 { color: var(--green); }
+  .tips-card.red h3 { color: var(--red); }
+  .tips-card.blue h3 { color: var(--blue); }
+  .tips-card ul { list-style: none; padding: 0; }
+  .tips-card li {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
+    padding: 5px 0 5px 20px;
+    position: relative;
+  }
+  .tips-card.green li::before { content: '\2192'; position: absolute; left: 0; color: var(--green); }
+  .tips-card.red li::before { content: '\2715'; position: absolute; left: 0; color: var(--red); font-size: 12px; top: 7px; }
+  .tips-card.blue li::before { content: '\2022'; position: absolute; left: 0; color: var(--blue); }
+
+  /* ---- QUESTIONS ---- */
+  .q-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .q-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .q-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .q-text {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.5;
+  }
+  .q-why {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* ---- TIMELINE ---- */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 32px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 2px solid var(--bg);
+  }
+  .timeline-year {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .timeline-role {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .timeline-co {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* ---- ANIMATIONS ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero { min-height: 440px; padding: 100px 20px 60px; }
+    .section { padding: 48px 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .img-showcase { grid-template-columns: 1fr; }
+    .narrative, .tips-card { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo"><span>OpenAI</span> Command Center</div>
+    <ul class="nav-links">
+      <li><a href="#recruiter-prep">Recruiter Prep</a></li>
+      <li><a href="#account-plans">Account Plans</a></li>
+      <li><a href="#sales-toolkit">Sales Toolkit</a></li>
+      <li><a href="#competitive">Competitive</a></li>
+      <li><a href="#willieos">WillieOS</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Account Director Prep</div>
+    <h1>OpenAI Interview<br>Command Center</h1>
+    <p class="hero-sub">17 years enterprise tech. Builder of WillieOS. Every deliverable, account plan, and proof point — one link.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Target:</strong> Maddie Casey recruiter screen</div>
+      <div class="hero-meta-item"><strong>Date:</strong> June 13, 2026</div>
+      <div class="hero-meta-item"><strong>Role:</strong> Account Director, Enterprise</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 1: RECRUITER PREP ═══════ -->
+<div id="recruiter-prep"></div>
+<img src="images/openai-command-center/divider-interview-prep.png" alt="" class="section-divider" loading="lazy">
+<section class="section">
+  <div class="section-header reveal">
+    <div class="section-label">Section A</div>
+    <div class="section-title">Recruiter Call Prep</div>
+    <p class="section-desc">Maddie Casey, GTM Recruiter at OpenAI since August 2023. This is a 30-minute screen. Lead with career arc and enterprise results, make Gary the differentiator in 10 seconds.</p>
+  </div>
+
+  <!-- 60-second narrative -->
+  <div class="narrative reveal">
+    <div class="narrative-label">60-Second Pitch (Recruiter-Adapted)</div>
+    <p>17 years in enterprise tech sales. Cisco, then Nokia. At Cisco I ran the Sports &amp; Entertainment CTO practice. SoFi Stadium, NFL, NBA, NASCAR. Multi-year, multi-million dollar deals with complex stakeholder maps. At Nokia I'm selling private 5G and edge compute to industrial enterprises.</p>
+    <p>The reason I'm excited about OpenAI specifically: I built my own AI operating system. Production software with 242 tools, multi-agent dispatch, autonomous workflows. It manages my email, calendar, tasks, and deliverables. I built it because I wanted to understand what it actually feels like to operationalize AI, not just sell it.</p>
+    <p>That means when I sit with a CTO or a VP of Engineering at a Fortune 500, I'm not reading a feature sheet. I can talk about token economics, orchestration patterns, failure modes, and governance from firsthand experience. I want to bring that to OpenAI's enterprise customers.</p>
+  </div>
+
+  <!-- Key talking points -->
+  <div class="tips-card green reveal">
+    <h3>Key Talking Points</h3>
+    <ul>
+      <li><strong>Career credibility:</strong> 17 years enterprise tech (Cisco 2006-2023, Nokia 2023-present). CTO-level relationships, multi-million dollar deal cycles</li>
+      <li><strong>Why OpenAI, why now:</strong> The Agents SDK update signals OpenAI is serious about the enterprise agentic layer. I've been building on this stack.</li>
+      <li><strong>Builder differentiator:</strong> WillieOS/Gary has 242 registered MCP tools, 4 specialist agents, autonomous workflows, and a full governance layer</li>
+      <li><strong>Enterprise AI insight:</strong> AI sales is fundamentally different. Probabilistic product, buyers have no mental model. Sell evaluation frameworks and architecture durability, not features.</li>
+      <li><strong>Cross-functional selling:</strong> Different pitch per persona. COO (cycle time), CFO (cost of delay), GC (auditability), CIO/CISO (data posture), CRO (rep productivity)</li>
+      <li><strong>Proof of work:</strong> Built full account plans for John Deere and Kaiser Permanente unprompted</li>
+    </ul>
+  </div>
+
+  <!-- Questions to ask -->
+  <div class="section-header reveal" style="margin-top: 48px;">
+    <div class="section-label">Questions for Maddie</div>
+  </div>
+  <div class="q-grid reveal">
+    <div class="q-card">
+      <div class="q-num">1</div>
+      <div>
+        <div class="q-text">"How is the enterprise sales org structured today? Vertical industry teams or horizontal?"</div>
+        <div class="q-why">Shows GTM thinking</div>
+      </div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">2</div>
+      <div>
+        <div class="q-text">"What's the typical profile of ADs who are succeeding in the first year?"</div>
+        <div class="q-why">Shows self-awareness, lets her talk about what she knows best</div>
+      </div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">3</div>
+      <div>
+        <div class="q-text">"Is the Account Director role more land-focused or expand-focused for existing accounts?"</div>
+        <div class="q-why">Shows you understand sales motion nuance</div>
+      </div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">4</div>
+      <div>
+        <div class="q-text">"What does the interview process look like from here?"</div>
+        <div class="q-why">Practical, respectful of her role</div>
+      </div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">5</div>
+      <div>
+        <div class="q-text">"Are there specific verticals or territories the team is prioritizing right now?"</div>
+        <div class="q-why">Shows you're thinking about fit, not just getting any role</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avoid -->
+  <div class="tips-card red reveal" style="margin-top: 32px;">
+    <h3>Don't Say</h3>
+    <ul>
+      <li>"Gary costs $15/week" -- makes it sound like a hobby</li>
+      <li>Volunteering Anthropic applications without being asked</li>
+      <li>Calling WillieOS a "side project" -- say "self-driven initiative"</li>
+      <li>Over-explaining the tech stack. Focus on what it does, not how</li>
+      <li>Detailed comp/quota questions (save for hiring manager)</li>
+      <li>Technical product questions about Agents SDK, MCP vs A2A (save for later rounds)</li>
+    </ul>
+  </div>
+
+  <!-- Timing -->
+  <div class="tips-card blue reveal">
+    <h3>Call Timing</h3>
+    <ul>
+      <li>Target length: 30 minutes. Your talk time: ~15 minutes max</li>
+      <li>Narrative: 60 seconds, then let her pull for details</li>
+      <li>Save 5 minutes at end for your questions (2-3 max)</li>
+      <li>Close with: "I want this role. What's the next step?"</li>
+      <li>Same-day follow-up email: 3 sentences, reference something she said</li>
+    </ul>
+  </div>
+
+  <!-- Prep docs links -->
+  <div class="section-header reveal" style="margin-top: 48px;">
+    <div class="section-label">Core Prep Documents</div>
+  </div>
+  <div class="card-grid reveal">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-account-director-study-guide.html" target="_blank">
+      <div class="card-icon-wrap"><span>&#128214;</span></div>
+      <h3>Account Director Study Guide</h3>
+      <p>9-tab deep-dive: products, Agents SDK, competitive landscape, discovery personas, killer answers, and what not to say. 98KB of substance.</p>
+      <span class="card-tag tag-green">Start Here</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-discussion-prep.html" target="_blank">
+      <div class="card-icon-wrap gold"><span>&#128221;</span></div>
+      <h3>Discussion Prep Brief</h3>
+      <p>Mobile-friendly prep with narrative, Q&A, questions to ask, examples, and the show/protect/avoid framework.</p>
+      <span class="card-tag tag-gold">Mobile-Ready</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-referral-prep.html" target="_blank">
+      <div class="card-icon-wrap blue"><span>&#127912;</span></div>
+      <h3>Referral Prep Brief</h3>
+      <p>Slide deck format covering positioning, anticipated questions, and recruiter rapport strategies.</p>
+      <span class="card-tag tag-blue">Slides</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willie-kopp-openai-enterprise.html" target="_blank">
+      <div class="card-icon-wrap purple"><span>&#127919;</span></div>
+      <h3>Enterprise Sales Showcase</h3>
+      <p>Visual showcase with interactive charts, career narrative, WillieOS proof points. The polished send-ready version.</p>
+      <span class="card-tag tag-purple">Send-Ready</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 2: ACCOUNT PLANS ═══════ -->
+<div id="account-plans"></div>
+<img src="images/openai-command-center/divider-sales-toolkit.png" alt="" class="section-divider" loading="lazy">
+<section class="section">
+  <div class="section-header reveal">
+    <div class="section-label">Section B</div>
+    <div class="section-title">Account Plans & Command Centers</div>
+    <p class="section-desc">Two full customer command centers built unprompted. Demonstrates repeatable enterprise account planning methodology mapped to OpenAI's product suite.</p>
+  </div>
+
+  <!-- Account planning infographic -->
+  <div class="img-showcase reveal">
+    <div class="img-card">
+      <img src="images/openai-command-center/infographic-account-planning-methodology.png" alt="Enterprise account planning methodology" loading="lazy">
+      <div class="img-card-label">Enterprise Account Planning Methodology</div>
+    </div>
+    <div class="img-card">
+      <img src="images/openai-command-center/infographic-enterprise-ai-market-stats.png" alt="Enterprise AI market stats" loading="lazy">
+      <div class="img-card-label">Enterprise AI Market: 88% adoption, $334B spend</div>
+    </div>
+  </div>
+
+  <div class="card-grid reveal">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/deere-command-center.html" target="_blank">
+      <div class="card-icon-wrap"><span>&#127806;</span></div>
+      <h3>John Deere Command Center</h3>
+      <p>125KB. Fortune 92, $45.7B revenue, 500M+ managed acres. 7 sections: exec thesis, stakeholder map, use cases by function, wedge plays, governance, follow-up kit, action plan. Maps ChatGPT Enterprise, Codex, and API across the full business.</p>
+      <span class="card-tag tag-green">Flagship</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/kaiser-command-center.html" target="_blank">
+      <div class="card-icon-wrap blue"><span>&#127973;</span></div>
+      <h3>Kaiser Permanente Command Center</h3>
+      <p>85KB. 12.6M+ members integrated health system. Healthcare vertical with HIPAA-aware governance. Clinical operations, patient access, finance, digital transformation use cases.</p>
+      <span class="card-tag tag-blue">Healthcare</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-account-plan-john-deere.html" target="_blank">
+      <div class="card-icon-wrap gold"><span>&#128203;</span></div>
+      <h3>Deere Account Plan (Detailed)</h3>
+      <p>80KB account plan with revenue forecast ($2M+ ARR path), stakeholder map, competitive displacement strategy, and 9-tab navigation. The strategic companion to the command center.</p>
+      <span class="card-tag tag-gold">Strategy</span>
+    </a>
+  </div>
+
+  <!-- Framework callout -->
+  <div class="tips-card green reveal" style="margin-top: 32px;">
+    <h3>Repeatable Framework</h3>
+    <ul>
+      <li><strong>Executive thesis</strong> -- why this account, why now</li>
+      <li><strong>Stakeholder map</strong> -- champion, economic buyer, technical evaluator, blocker</li>
+      <li><strong>Use case matrix</strong> -- by department x product (ChatGPT, Codex, API)</li>
+      <li><strong>Wedge plays</strong> -- first deals to close</li>
+      <li><strong>Governance & risk</strong> -- security, compliance, data residency</li>
+      <li><strong>Follow-up package</strong> -- leave-behinds for each stakeholder</li>
+      <li><strong>Action plan</strong> -- 30/60/90 day milestones</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 3: SALES TOOLKIT ═══════ -->
+<div id="sales-toolkit"></div>
+<section class="section" style="padding-top: 40px;">
+  <div class="section-header reveal">
+    <div class="section-label">Section C</div>
+    <div class="section-title">Day-1 Sales Toolkit</div>
+    <p class="section-desc">Tools and frameworks designed for an enterprise AI sales team. Not theoretical. Built and functional.</p>
+  </div>
+
+  <div class="img-showcase reveal">
+    <div class="img-card">
+      <img src="images/openai-command-center/infographic-day1-impact.png" alt="Day-1 impact deliverables" loading="lazy">
+      <div class="img-card-label">5 Immediate-Value Day-1 Deliverables</div>
+    </div>
+    <div class="img-card">
+      <img src="images/openai-command-center/infographic-career-timeline.png" alt="Career progression timeline" loading="lazy">
+      <div class="img-card-label">Career: Cisco (2006-2023) &rarr; Nokia (2023) &rarr; WillieOS</div>
+    </div>
+  </div>
+
+  <div class="card-grid reveal">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/ai-sales-command-center.html" target="_blank">
+      <div class="card-icon-wrap"><span>&#128640;</span></div>
+      <h3>AI Sales Command Center</h3>
+      <p>91KB. Full daily routine command center for an enterprise AI sales rep. Account intelligence, pipeline management, competitive positioning, prep routines.</p>
+      <span class="card-tag tag-green">Operational</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-translate-tech-demo.html" target="_blank">
+      <div class="card-icon-wrap gold"><span>&#128300;</span></div>
+      <h3>Tech Translator Demo</h3>
+      <p>Interactive tool that translates deep technical capabilities (GPT-4o multi-modal vision) into executive business cases with ROI framing. Model capabilities to revenue opportunities.</p>
+      <span class="card-tag tag-gold">Interactive</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/ai-trends-executive-summary.html" target="_blank">
+      <div class="card-icon-wrap blue"><span>&#128200;</span></div>
+      <h3>AI Trends Executive Summary</h3>
+      <p>Enterprise AI market intelligence and trend analysis. Data points ready for customer conversations and competitive positioning.</p>
+      <span class="card-tag tag-blue">Intel</span>
+    </a>
+  </div>
+
+  <!-- GTM Framework -->
+  <div class="tips-card green reveal" style="margin-top: 32px;">
+    <h3>Enterprise AI GTM Framework</h3>
+    <ul>
+      <li><strong>Step 1:</strong> Find the highest-signal workflow (painful, visible)</li>
+      <li><strong>Step 2:</strong> Prove measurable lift quickly (30-day POC)</li>
+      <li><strong>Step 3:</strong> Expand across departments</li>
+      <li><strong>Step 4:</strong> Move into embedded product use cases (API)</li>
+    </ul>
+  </div>
+
+  <!-- OpenAI Product Framework -->
+  <div class="tips-card blue reveal">
+    <h3>OpenAI's Three Surfaces</h3>
+    <ul>
+      <li><strong>ChatGPT:</strong> User adoption surface -- the way in</li>
+      <li><strong>Codex:</strong> Builder and automation surface -- where code ships</li>
+      <li><strong>API:</strong> Embedded intelligence surface -- where it becomes infrastructure</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 4: COMPETITIVE INTEL ═══════ -->
+<div id="competitive"></div>
+<img src="images/openai-command-center/divider-competitive-intel.png" alt="" class="section-divider" loading="lazy">
+<section class="section">
+  <div class="section-header reveal">
+    <div class="section-label">Section D</div>
+    <div class="section-title">Competitive Intelligence</div>
+    <p class="section-desc">Detailed analysis of the enterprise AI competitive landscape. Know where OpenAI wins and where to watch out.</p>
+  </div>
+
+  <div class="img-showcase reveal">
+    <div class="img-card">
+      <img src="images/openai-command-center/graphic-competitive-landscape.png" alt="Competitive positioning map" loading="lazy">
+      <div class="img-card-label">Competitive Positioning: OpenAI vs Field</div>
+    </div>
+  </div>
+
+  <div class="card-grid reveal">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/battlecard-anthropic-vs-openai.html" target="_blank">
+      <div class="card-icon-wrap red"><span>&#9876;</span></div>
+      <h3>Battlecard: Anthropic vs OpenAI</h3>
+      <p>86KB. Chart.js visualizations, IDE-style dark UI with tree navigation. Pricing, product comparison, enterprise features, win/loss patterns, objection handling.</p>
+      <span class="card-tag tag-green">Comprehensive</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/business-plans/gary-competitive-analysis-2026.html" target="_blank">
+      <div class="card-icon-wrap purple"><span>&#128270;</span></div>
+      <h3>Competitive Analysis 2026</h3>
+      <p>OpenAI vs Anthropic vs AWS Bedrock vs Google Vertex. Enterprise positioning, pricing tiers, win themes, and competitive landmines.</p>
+      <span class="card-tag tag-purple">Market Intel</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 5: WILLIEOS / GARY ═══════ -->
+<div id="willieos"></div>
+<img src="images/openai-command-center/divider-willieos-gary.png" alt="" class="section-divider" loading="lazy">
+<section class="section">
+  <div class="section-header reveal">
+    <div class="section-label">Section E</div>
+    <div class="section-title">WillieOS / Gary — Builder Proof</div>
+    <p class="section-desc">Not a side project. A production AI operating system that proves firsthand understanding of enterprise AI adoption.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row reveal">
+    <div class="stat-card">
+      <div class="stat-value">242</div>
+      <div class="stat-label">MCP Tools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">46</div>
+      <div class="stat-label">Tool Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Specialist Agents</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">25+</div>
+      <div class="stat-label">DB Tables</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">&lt;20MB</div>
+      <div class="stat-label">Binary (Tauri)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$0</div>
+      <div class="stat-label">Code Dispatch Cost</div>
+    </div>
+  </div>
+
+  <!-- Architecture + Gary images -->
+  <div class="img-showcase reveal">
+    <div class="img-card">
+      <img src="images/openai-command-center/architecture-willieos-multi-agent-system.png" alt="WillieOS multi-agent architecture" loading="lazy">
+      <div class="img-card-label">Multi-Agent Architecture</div>
+    </div>
+    <div class="img-card">
+      <img src="images/openai-command-center/showcase-gary-capabilities.png" alt="Gary AI capabilities" loading="lazy">
+      <div class="img-card-label">Gary Capabilities: Email, Dispatch, Wizard, Calendar, Knowledge, Tools</div>
+    </div>
+    <div class="img-card">
+      <img src="images/openai-command-center/diagram-stage-gate-quality-system.png" alt="Stage-gate quality system" loading="lazy">
+      <div class="img-card-label">Adversarial Stage-Gate Quality System</div>
+    </div>
+  </div>
+
+  <!-- How to talk about Gary -->
+  <div class="tips-card green reveal" style="margin-top: 32px;">
+    <h3>How to Talk About Gary</h3>
+    <ul>
+      <li>"I built this because I wanted to understand what it feels like to run my own work through an AI-native operating layer."</li>
+      <li>"The product taught me where enterprise adoption gets hard: state, memory, handoff, governance, and trust."</li>
+      <li>"This is not polished SaaS. It is a working lab for the same customer problems OpenAI helps enterprises solve."</li>
+    </ul>
+  </div>
+
+  <div class="tips-card red reveal">
+    <h3>Don't Say About Gary</h3>
+    <ul>
+      <li>Don't call it a "side project"</li>
+      <li>Don't over-explain React/Tauri/SQLite before business value</li>
+      <li>Don't lead with model benchmarks or cost metrics</li>
+      <li>Don't make unsupported benchmark claims</li>
+    </ul>
+  </div>
+
+  <!-- 7-minute demo flow -->
+  <div class="tips-card blue reveal">
+    <h3>7-Minute Demo Flow (Later Rounds)</h3>
+    <ul>
+      <li>Start in Email tab. Show owner command. Pending Action with safety labels</li>
+      <li>Open action detail. Show safety posture (owner-authored = trusted, pasted/forwarded = untrusted)</li>
+      <li>Run Autopilot. 3 phases: clarify, investigate, package</li>
+      <li>Watch Gary Activity. Live dispatch card, agent, cost, model, origin</li>
+      <li>Open deliverable. Filed in vault, linked to dispatch</li>
+      <li>Continue with Gary. Follow-up path, context preserved</li>
+      <li>Show Agent OS layer. Gary Activity widget, weekly memory reflection</li>
+    </ul>
+  </div>
+
+  <!-- 4-layer architecture -->
+  <div class="narrative reveal" style="border-left-color: var(--green); margin-top: 32px;">
+    <div class="narrative-label" style="color: var(--green);">4-Layer Architecture</div>
+    <p><strong style="color: var(--green);">Shell</strong> (React 19 + Vite 7) -- Unified mission control interface. Web tech in a native wrapper.</p>
+    <p><strong style="color: var(--blue);">Engine</strong> (Tauri v2 + Rust) -- Lightweight native desktop binary. &lt;20MB vs 150MB+ Electron.</p>
+    <p><strong style="color: var(--gold);">Memory</strong> (SQLite) -- Persistent, local-only brain trust. All personal data on host machine.</p>
+    <p><strong style="color: var(--purple);">Hands</strong> (MCP Node.js sidecar) -- 242 tools connecting AI to real-world systems, files, and APIs.</p>
+  </div>
+
+  <!-- Gary links -->
+  <div class="card-grid reveal" style="margin-top: 32px;">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v5.html" target="_blank">
+      <div class="card-icon-wrap"><span>&#127775;</span></div>
+      <h3>WillieOS Showcase v5</h3>
+      <p>The flagship showcase. Architecture, workflows, multi-agent dispatch in action. Apple-tier design with scroll animations.</p>
+      <span class="card-tag tag-green">Flagship</span>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-showcase-2026-04-13.html" target="_blank">
+      <div class="card-icon-wrap gold"><span>&#129302;</span></div>
+      <h3>Gary Showcase</h3>
+      <p>Gary's capabilities with interactive examples and real workflow demos. Glass cards, gradient text.</p>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-capabilities-showcase.html" target="_blank">
+      <div class="card-icon-wrap blue"><span>&#128736;</span></div>
+      <h3>Gary Capabilities</h3>
+      <p>Detailed breakdown of Gary's MCP tools, multi-agent dispatch, autonomous email triage, and project wizard.</p>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-mission-control.html" target="_blank">
+      <div class="card-icon-wrap purple"><span>&#128187;</span></div>
+      <h3>Gary Mission Control</h3>
+      <p>The dashboard view. 10 customizable widgets, intelligence panel, and the command palette.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════ CAREER TIMELINE ═══════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-header reveal">
+    <div class="section-label">Career Arc</div>
+    <div class="section-title">17 Years of Enterprise Tech</div>
+  </div>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-year">2006 - 2023</div>
+      <div class="timeline-role">Multiple Roles, culminating in CTO Sports & Entertainment</div>
+      <div class="timeline-co">Cisco Systems</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">Key Highlight</div>
+      <div class="timeline-role">SoFi Stadium Wi-Fi 6 + Cisco Vision 4K</div>
+      <div class="timeline-co">NFL, NBA, NHL, MLB, NASCAR venues globally</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2023 - Present</div>
+      <div class="timeline-role">Edge Campus Enterprise Sales</div>
+      <div class="timeline-co">Nokia</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024 - Present</div>
+      <div class="timeline-role">Creator & Builder, WillieOS / Gary AI</div>
+      <div class="timeline-co">Production AI operating system with 242 MCP tools</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ MADDIE INTEL ═══════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-header reveal">
+    <div class="section-label">Recruiter Intel</div>
+    <div class="section-title">Maddie Casey Profile</div>
+  </div>
+  <div class="tips-card green reveal">
+    <h3>Verified Background</h3>
+    <ul>
+      <li><strong>Role:</strong> Go-to-Market Recruiter, OpenAI (since August 2023)</li>
+      <li><strong>Education:</strong> BA, Business Admin & Management, University of San Francisco '14</li>
+      <li><strong>Location:</strong> San Francisco, CA</li>
+      <li><strong>Previous:</strong> Stripe, Box (unverified -- from aggregator data)</li>
+    </ul>
+  </div>
+  <div class="tips-card blue reveal">
+    <h3>What She's Screening For</h3>
+    <ul>
+      <li><strong>Can you sell?</strong> Enterprise deal experience, quota attainment, deal size, complex sales cycles</li>
+      <li><strong>Why OpenAI?</strong> She hears "I love AI" 50 times a week. She wants specificity on the GTM motion</li>
+      <li><strong>Startup energy:</strong> Enterprise pedigree is great, but can you operate in a 2000-person rocket ship?</li>
+      <li><strong>Red flags she watches for:</strong> Entitlement, inflexibility, comp-first questions, talking too long</li>
+    </ul>
+  </div>
+  <div class="tips-card green reveal">
+    <h3>How to Be Memorable</h3>
+    <ul>
+      <li>Open with energy, not a resume recitation</li>
+      <li>Have a Deere or Kaiser story ready -- "I built a full account plan for John Deere. Not because anyone asked me to."</li>
+      <li>Ask about HER. She's been at OpenAI since Aug 2023. What's changed most?</li>
+      <li>Close with forward momentum: "I want this role. What's the next step?"</li>
+      <li>Follow up same day. Short email. 3 sentences. Reference something she said.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════ FULL ASSET INDEX ═══════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-header reveal">
+    <div class="section-label">Complete Index</div>
+    <div class="section-title">All Assets</div>
+    <p class="section-desc">Every deliverable in one place.</p>
+  </div>
+  <div class="card-grid reveal" style="grid-template-columns: 1fr;">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-account-director-study-guide.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128214;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Account Director Study Guide</h3><p style="margin: 0;">9-tab study guide. 98KB.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-discussion-prep.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap gold" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128221;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Discussion Prep Brief</h3><p style="margin: 0;">Mobile-friendly narrative + Q&A.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-referral-prep.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127912;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Referral Prep Brief</h3><p style="margin: 0;">Slide deck format. Positioning + Q&A.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willie-kopp-openai-enterprise.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap purple" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127919;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Enterprise Sales Showcase</h3><p style="margin: 0;">Interactive charts + career narrative.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/deere-command-center.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127806;</span></div>
+      <div><h3 style="margin-bottom: 2px;">John Deere Command Center</h3><p style="margin: 0;">125KB. Full 7-section enterprise prep.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/kaiser-command-center.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127973;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Kaiser Permanente Command Center</h3><p style="margin: 0;">85KB. Healthcare vertical.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-account-plan-john-deere.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap gold" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128203;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Deere Account Plan</h3><p style="margin: 0;">80KB. Revenue forecast + strategy.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/ai-sales-command-center.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128640;</span></div>
+      <div><h3 style="margin-bottom: 2px;">AI Sales Command Center</h3><p style="margin: 0;">91KB. Daily routine toolkit.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-translate-tech-demo.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap gold" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128300;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Tech Translator Demo</h3><p style="margin: 0;">Interactive technical-to-business translator.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/ai-trends-executive-summary.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128200;</span></div>
+      <div><h3 style="margin-bottom: 2px;">AI Trends Executive Summary</h3><p style="margin: 0;">Market intel and trend analysis.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/battlecard-anthropic-vs-openai.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap red" style="margin-bottom: 0; flex-shrink: 0;"><span>&#9876;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Battlecard: Anthropic vs OpenAI</h3><p style="margin: 0;">86KB. Chart.js competitive analysis.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v5.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127775;</span></div>
+      <div><h3 style="margin-bottom: 2px;">WillieOS Showcase v5</h3><p style="margin: 0;">Flagship showcase with scroll animations.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-capabilities-showcase.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128736;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Gary Capabilities</h3><p style="margin: 0;">MCP tools + agent dispatch breakdown.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-mission-control.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap purple" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128187;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Gary Mission Control</h3><p style="margin: 0;">Dashboard, widgets, intelligence panel.</p></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Built by Gary &middot; Willie Kopp's AI Chief of Staff</p>
+  <p style="margin-top: 4px;">OpenAI Account Director Interview Prep &middot; June 2026</p>
+</div>
+
+<!-- SCROLL REVEAL -->
+<script>
+(function() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
+</script>
+
+</body>
+</html>

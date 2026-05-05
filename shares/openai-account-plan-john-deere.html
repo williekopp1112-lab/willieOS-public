@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Deere Account Plan | OpenAI Enterprise</title>
+<meta name="description" content="Enterprise Account Plan for John Deere - OpenAI API consumption strategy, AI opportunity mapping, and revenue forecast by Willie Kopp">
+<meta property="og:title" content="John Deere x OpenAI | Enterprise Account Plan">
+<meta property="og:description" content="Comprehensive account plan demonstrating path to $2M+ ARR through strategic AI deployment across Deere's business units">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='%230A1628'%3E%3Crect width='1200' height='630'/%3E%3Ctext x='600' y='300' text-anchor='middle' fill='%23FAFAF7' font-size='48' font-family='serif'%3EJohn Deere x OpenAI%3C/text%3E%3Ctext x='600' y='370' text-anchor='middle' fill='%232D6A4F' font-size='28' font-family='sans-serif'%3EEnterprise Account Plan%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A1628'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%232D6A4F' font-size='18' font-weight='bold' font-family='serif'%3ED%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A1628;--navy-light:#132039;--navy-mid:#1A2D4D;
+  --green:#2D6A4F;--green-light:#40916C;--green-pale:#D8F3DC;
+  --gold:#D4A843;--gold-light:#E8C96A;
+  --white:#FAFAF7;--off-white:#F0EDE6;--cream:#E8E4DB;
+  --slate:#64748B;--slate-light:#94A3B8;--slate-dark:#475569;
+  --text:#1E293B;--text-light:#64748B;--text-muted:#94A3B8;
+  --success:#22C55E;--warning:#F59E0B;--danger:#EF4444;--info:#3B82F6;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans','Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono','Courier New',monospace;
+  --shadow-sm:0 1px 3px rgba(10,22,40,0.08);
+  --shadow-md:0 4px 12px rgba(10,22,40,0.10);
+  --shadow-lg:0 8px 30px rgba(10,22,40,0.12);
+  --shadow-xl:0 16px 48px rgba(10,22,40,0.15);
+  --radius:10px;--radius-lg:16px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);color:var(--text);background:var(--off-white);
+  line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Header */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.06);
+  backdrop-filter:blur(20px);
+}
+.header-inner{
+  max-width:1320px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;height:64px;
+}
+.logo{display:flex;align-items:center;gap:14px}
+.logo-mark{
+  width:36px;height:36px;background:var(--green);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;color:var(--white);font-size:18px;
+}
+.logo-text{color:var(--white);font-family:var(--font-display);font-size:16px;font-weight:500;letter-spacing:-0.3px}
+.logo-text span{color:var(--slate-light);font-weight:400}
+.header-meta{display:flex;align-items:center;gap:20px;color:var(--slate-light);font-size:13px}
+.header-badge{
+  background:rgba(45,106,79,0.2);color:var(--green-light);
+  padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;
+  letter-spacing:0.5px;text-transform:uppercase;border:1px solid rgba(45,106,79,0.3);
+}
+
+/* Tab Navigation */
+.tab-nav{
+  background:var(--navy-light);border-bottom:1px solid rgba(255,255,255,0.04);
+  position:sticky;top:64px;z-index:99;
+}
+.tab-nav-inner{
+  max-width:1320px;margin:0 auto;padding:0 32px;
+  display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
+}
+.tab-nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{
+  padding:14px 20px;color:var(--slate-light);font-size:13px;font-weight:500;
+  border:none;background:none;cursor:pointer;white-space:nowrap;
+  border-bottom:2px solid transparent;transition:all 0.2s;
+  font-family:var(--font-body);letter-spacing:0.2px;
+}
+.tab-btn:hover{color:var(--white)}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--green)}
+
+/* Content */
+.main{max-width:1320px;margin:0 auto;padding:32px}
+.tab-content{display:none;animation:fadeIn 0.3s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Section Headers */
+.section-header{margin-bottom:28px}
+.section-header h2{
+  font-family:var(--font-display);font-size:28px;font-weight:600;
+  color:var(--navy);letter-spacing:-0.5px;margin-bottom:6px;
+}
+.section-header p{color:var(--text-light);font-size:15px;max-width:680px}
+.section-label{
+  display:inline-block;font-size:11px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  color:var(--green);margin-bottom:8px;
+}
+
+/* Cards */
+.card{
+  background:var(--white);border:1px solid var(--cream);border-radius:var(--radius-lg);
+  padding:28px;box-shadow:var(--shadow-sm);transition:all 0.25s;
+}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.card-dark{
+  background:var(--navy);border-color:var(--navy-mid);color:var(--white);
+}
+.card-dark .card-label{color:var(--green-light)}
+.card-dark p{color:var(--slate-light)}
+
+/* Grid */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:1024px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* Hero */
+.hero-banner{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 50%,var(--navy-light) 100%);
+  border-radius:var(--radius-lg);padding:40px;margin-bottom:32px;
+  position:relative;overflow:hidden;
+}
+.hero-banner::before{
+  content:'';position:absolute;right:-60px;top:-60px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(45,106,79,0.15) 0%,transparent 70%);
+}
+.hero-banner::after{
+  content:'';position:absolute;left:40%;bottom:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,168,67,0.08) 0%,transparent 70%);
+}
+.hero-content{position:relative;z-index:1}
+.hero-title{
+  font-family:var(--font-display);font-size:36px;font-weight:600;
+  color:var(--white);letter-spacing:-0.8px;margin-bottom:8px;
+}
+.hero-subtitle{color:var(--slate-light);font-size:16px;margin-bottom:24px}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap}
+.hero-stat{text-align:left}
+.hero-stat-value{
+  font-family:var(--font-display);font-size:28px;font-weight:700;
+  color:var(--gold);letter-spacing:-0.5px;
+}
+.hero-stat-label{font-size:12px;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px}
+
+/* Stakeholder Cards */
+.stakeholder-card{display:flex;gap:16px;align-items:flex-start}
+.stakeholder-avatar{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--navy);display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;color:var(--green-light);
+  font-size:16px;flex-shrink:0;
+}
+.stakeholder-info h4{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.stakeholder-info .role{font-size:13px;color:var(--green);font-weight:500;margin-bottom:4px}
+.stakeholder-info .priority{font-size:12px;color:var(--text-light);line-height:1.5}
+
+/* Priority Cards */
+.priority-card{position:relative;padding-left:16px}
+.priority-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  border-radius:3px;background:var(--green);
+}
+.priority-card h4{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.priority-card p{font-size:13px;color:var(--text-light);line-height:1.6}
+
+/* Opportunity Cards */
+.opp-card{position:relative;overflow:hidden}
+.opp-card .opp-header{
+  display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;
+}
+.opp-card .opp-unit{
+  font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;
+  color:var(--green);
+}
+.opp-card .opp-quadrant{
+  font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;
+  letter-spacing:0.3px;
+}
+.opp-quadrant.high-high{background:rgba(34,197,94,0.1);color:var(--success)}
+.opp-quadrant.high-med{background:rgba(59,130,246,0.1);color:var(--info)}
+.opp-quadrant.med-med{background:rgba(245,158,11,0.1);color:var(--warning)}
+.opp-card h4{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.opp-card .problem{font-size:13px;color:var(--text-light);margin-bottom:14px;line-height:1.5}
+.opp-detail{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.opp-detail-label{
+  font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;
+  color:var(--slate);min-width:60px;padding-top:2px;
+}
+.opp-detail-value{font-size:13px;color:var(--text);line-height:1.5}
+.opp-product{
+  display:inline-block;font-size:11px;font-weight:600;
+  padding:3px 8px;border-radius:4px;margin-right:4px;margin-top:4px;
+  background:var(--navy);color:var(--green-light);
+}
+
+/* Phase Timeline */
+.phase-timeline{display:flex;gap:0;margin:32px 0}
+.phase-block{
+  flex:1;position:relative;padding:28px 24px;
+  border:1px solid var(--cream);
+}
+.phase-block:first-child{border-radius:var(--radius-lg) 0 0 var(--radius-lg)}
+.phase-block:last-child{border-radius:0 var(--radius-lg) var(--radius-lg) 0}
+.phase-block.phase-1{background:linear-gradient(135deg,rgba(45,106,79,0.05),rgba(45,106,79,0.02))}
+.phase-block.phase-2{background:linear-gradient(135deg,rgba(59,130,246,0.05),rgba(59,130,246,0.02))}
+.phase-block.phase-3{background:linear-gradient(135deg,rgba(212,168,67,0.05),rgba(212,168,67,0.02))}
+.phase-label{
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:4px;
+}
+.phase-1 .phase-label{color:var(--green)}
+.phase-2 .phase-label{color:var(--info)}
+.phase-3 .phase-label{color:var(--gold)}
+.phase-block h4{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.phase-block .phase-timeline-range{font-size:12px;color:var(--text-light);margin-bottom:12px}
+.phase-block .phase-revenue{
+  font-family:var(--font-display);font-size:24px;font-weight:700;margin-bottom:12px;
+}
+.phase-1 .phase-revenue{color:var(--green)}
+.phase-2 .phase-revenue{color:var(--info)}
+.phase-3 .phase-revenue{color:var(--gold)}
+.phase-metric{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--cream);font-size:13px}
+.phase-metric span:first-child{color:var(--text-light)}
+.phase-metric span:last-child{font-weight:600;color:var(--text)}
+
+@media(max-width:768px){
+  .phase-timeline{flex-direction:column}
+  .phase-block:first-child{border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+  .phase-block:last-child{border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+}
+
+/* Comparison Table */
+.comp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+.comp-table thead{position:sticky;top:128px;z-index:10}
+.comp-table th{
+  background:var(--navy);color:var(--white);padding:12px 16px;
+  text-align:left;font-weight:600;font-size:12px;
+  letter-spacing:0.5px;
+}
+.comp-table th:first-child{border-radius:var(--radius) 0 0 0}
+.comp-table th:last-child{border-radius:0 var(--radius) 0 0}
+.comp-table th.highlight{background:var(--green);color:var(--white)}
+.comp-table td{
+  padding:12px 16px;border-bottom:1px solid var(--cream);
+  background:var(--white);
+}
+.comp-table td.highlight{background:rgba(45,106,79,0.04);font-weight:500}
+.comp-table tr:last-child td:first-child{border-radius:0 0 0 var(--radius)}
+.comp-table tr:last-child td:last-child{border-radius:0 0 var(--radius) 0}
+.check{color:var(--success);font-weight:700}
+.partial{color:var(--warning);font-weight:700}
+.cross{color:var(--danger);font-weight:500}
+
+/* Revenue Chart */
+.chart-container{position:relative;padding:20px 0}
+.bar-chart{display:flex;align-items:flex-end;gap:12px;height:240px;padding:0 20px;position:relative}
+.bar-group{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bar{
+  width:100%;border-radius:6px 6px 0 0;transition:all 0.5s;position:relative;min-height:4px;
+}
+.bar.consumption{background:linear-gradient(180deg,var(--green),var(--green-light))}
+.bar.projected{background:linear-gradient(180deg,rgba(45,106,79,0.3),rgba(45,106,79,0.15));border:1px dashed var(--green);border-bottom:none}
+.bar-label{font-size:11px;color:var(--text-light);font-weight:500}
+.bar-value{
+  position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  font-size:11px;font-weight:700;color:var(--navy);white-space:nowrap;
+}
+.chart-y-axis{
+  position:absolute;left:0;top:0;bottom:30px;width:50px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  font-size:10px;color:var(--text-muted);text-align:right;padding-right:8px;
+}
+
+/* Engagement Cards */
+.engagement-card{border-left:3px solid var(--green)}
+.engagement-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.engagement-card .timeframe{
+  font-size:11px;font-weight:600;color:var(--green);
+  letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px;
+}
+.engagement-list{list-style:none;padding:0}
+.engagement-list li{
+  font-size:13px;color:var(--text-light);padding:4px 0 4px 16px;
+  position:relative;line-height:1.5;
+}
+.engagement-list li::before{
+  content:'';position:absolute;left:0;top:11px;
+  width:6px;height:6px;border-radius:50%;background:var(--green);opacity:0.4;
+}
+
+/* Expandable */
+.expandable{cursor:pointer}
+.expandable .expand-toggle{
+  font-size:12px;color:var(--green);font-weight:600;
+  display:flex;align-items:center;gap:4px;margin-top:10px;
+}
+.expandable .expand-toggle::after{content:'+';font-size:16px;font-weight:400}
+.expandable.open .expand-toggle::after{content:'\2212'}
+.expand-content{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--cream)}
+.expandable.open .expand-content{display:block}
+
+/* Cross-Account */
+.cross-card{position:relative;overflow:hidden}
+.cross-card .industry-tag{
+  position:absolute;top:0;right:0;
+  font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;
+  padding:6px 14px;border-radius:0 0 0 var(--radius);
+}
+.cross-card.utilities .industry-tag{background:rgba(245,158,11,0.1);color:var(--warning)}
+.cross-card.healthcare .industry-tag{background:rgba(59,130,246,0.1);color:var(--info)}
+.cross-card.entertainment .industry-tag{background:rgba(168,85,247,0.1);color:#A855F7}
+
+/* Pattern Matrix */
+.pattern-matrix{overflow-x:auto}
+.pattern-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+.pattern-table th{
+  background:var(--navy);color:var(--white);padding:10px 14px;
+  font-weight:600;font-size:11px;letter-spacing:0.3px;text-align:center;
+}
+.pattern-table th:first-child{text-align:left;border-radius:var(--radius) 0 0 0}
+.pattern-table th:last-child{border-radius:0 var(--radius) 0 0}
+.pattern-table td{
+  padding:10px 14px;text-align:center;border-bottom:1px solid var(--cream);
+  background:var(--white);
+}
+.pattern-table td:first-child{text-align:left;font-weight:600;color:var(--navy)}
+.pattern-dot{
+  display:inline-block;width:10px;height:10px;border-radius:50%;
+}
+.pattern-dot.strong{background:var(--green)}
+.pattern-dot.moderate{background:var(--gold)}
+.pattern-dot.emerging{background:var(--slate-light)}
+
+/* Objection Cards */
+.objection-card{border:1px solid var(--cream);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;background:var(--white)}
+.objection-header{
+  padding:14px 20px;display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;transition:background 0.2s;
+}
+.objection-header:hover{background:var(--off-white)}
+.objection-header h5{font-size:14px;font-weight:600;color:var(--navy)}
+.objection-header .toggle-icon{
+  width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+  color:var(--slate);font-size:18px;transition:transform 0.2s;
+}
+.objection-card.open .toggle-icon{transform:rotate(45deg)}
+.objection-body{
+  display:none;padding:0 20px 16px;font-size:13px;color:var(--text-light);line-height:1.7;
+}
+.objection-card.open .objection-body{display:block}
+
+/* Milestone */
+.milestone-bar{
+  display:flex;align-items:center;height:48px;background:var(--off-white);
+  border-radius:var(--radius);overflow:hidden;margin:16px 0;position:relative;
+}
+.milestone-fill{
+  height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--white);
+  transition:width 0.8s ease;
+}
+.milestone-fill.p1{background:var(--green);width:15%}
+.milestone-fill.p2{background:var(--info);width:35%}
+.milestone-fill.p3{background:var(--gold);width:50%}
+.milestone-markers{
+  position:absolute;top:100%;left:0;right:0;display:flex;
+  font-size:10px;color:var(--text-muted);padding-top:6px;
+}
+.milestone-markers span{flex:1;text-align:center}
+
+/* Token Table */
+.token-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+.token-table th{
+  background:var(--off-white);padding:10px 16px;text-align:left;
+  font-weight:600;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;
+  color:var(--slate);border-bottom:2px solid var(--cream);
+}
+.token-table td{padding:10px 16px;border-bottom:1px solid var(--cream)}
+.token-table tr:hover td{background:rgba(45,106,79,0.02)}
+.token-table .amount{font-weight:600;color:var(--navy);font-family:var(--font-mono);font-size:12px}
+
+/* Footer */
+.footer{
+  margin-top:48px;padding:32px 0;border-top:1px solid var(--cream);
+  text-align:center;color:var(--text-muted);font-size:12px;
+}
+.footer strong{color:var(--text-light)}
+
+/* Print */
+@media print{
+  .header,.tab-nav{position:static}
+  .tab-content{display:block!important;page-break-inside:avoid;margin-bottom:32px}
+  .tab-content::before{
+    content:attr(data-print-title);display:block;
+    font-family:var(--font-display);font-size:24px;font-weight:600;
+    color:var(--navy);margin-bottom:16px;padding-top:16px;
+    border-top:2px solid var(--green);
+  }
+  .card:hover{transform:none;box-shadow:var(--shadow-sm)}
+  body{background:white}
+}
+
+/* Scroll animation */
+.reveal{opacity:0;transform:translateY(16px);transition:all 0.5s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">D</div>
+      <div class="logo-text">John Deere <span>Account Plan</span></div>
+    </div>
+    <div class="header-meta">
+      <span class="header-badge">Confidential</span>
+      <span>Prepared by Willie Kopp</span>
+      <span>May 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="overview">Account Overview</button>
+    <button class="tab-btn" data-tab="opportunities">AI Opportunity Map</button>
+    <button class="tab-btn" data-tab="strategy">Land &amp; Expand</button>
+    <button class="tab-btn" data-tab="competitive">Competitive Landscape</button>
+    <button class="tab-btn" data-tab="revenue">Revenue Model</button>
+    <button class="tab-btn" data-tab="engagement">Exec Engagement</button>
+    <button class="tab-btn" data-tab="cross-account">Cross-Account Patterns</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+<!-- TAB 1: ACCOUNT OVERVIEW -->
+<section class="tab-content active" id="overview" data-print-title="1. Account Overview">
+
+  <!-- Hero -->
+  <div class="hero-banner reveal">
+    <div class="hero-content">
+      <div class="section-label" style="color:var(--green-light)">Target Account</div>
+      <h1 class="hero-title">Deere &amp; Company</h1>
+      <p class="hero-subtitle">NYSE: DE | Moline, Illinois | Founded 1837</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">$45.7B</div>
+          <div class="hero-stat-label">FY2025 Revenue</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">82,200+</div>
+          <div class="hero-stat-label">Employees</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">$5.0B</div>
+          <div class="hero-stat-label">Net Income FY2025</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">80%</div>
+          <div class="hero-stat-label">New Equipment w/ Autonomy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stakeholders -->
+  <div class="section-header reveal">
+    <div class="section-label">Key Stakeholders</div>
+    <h2>Executive Sponsors &amp; Decision Makers</h2>
+    <p>Mapped to strategic priorities relevant to OpenAI engagement</p>
+  </div>
+
+  <div class="grid-3 reveal" style="margin-bottom:32px">
+    <div class="card stakeholder-card">
+      <div class="stakeholder-avatar">JM</div>
+      <div class="stakeholder-info">
+        <h4>John May</h4>
+        <div class="role">Chairman &amp; CEO</div>
+        <div class="priority">Executive sponsor. Owns Smart Industrial Strategy. Champions technology as core competitive moat. Sets enterprise-wide AI investment agenda.</div>
+      </div>
+    </div>
+    <div class="card stakeholder-card">
+      <div class="stakeholder-avatar">JH</div>
+      <div class="stakeholder-info">
+        <h4>Jahmy Hindman</h4>
+        <div class="role">SVP &amp; Chief Technology Officer</div>
+        <div class="priority">Primary technical champion. First-ever CTO at Deere. PhD in neural network applications. Leads Intelligent Solutions Group and tech stack architecture.</div>
+      </div>
+    </div>
+    <div class="card stakeholder-card">
+      <div class="stakeholder-avatar">RK</div>
+      <div class="stakeholder-info">
+        <h4>Rajesh Kalathur</h4>
+        <div class="role">President, Financial &amp; CIO</div>
+        <div class="priority">Owns IT infrastructure and Financial Products division ($6.3B revenue). Key buyer for enterprise API deployment and data platform integration.</div>
+      </div>
+    </div>
+    <div class="card stakeholder-card">
+      <div class="stakeholder-avatar">JR</div>
+      <div class="stakeholder-info">
+        <h4>Justin Rose</h4>
+        <div class="role">President, Worldwide Ag &amp; Turf (Small Ag)</div>
+        <div class="priority">Featured in OpenAI case study. Current user of OpenAI APIs for customer success and dealer enablement. Strongest internal advocate.</div>
+      </div>
+    </div>
+    <div class="card stakeholder-card">
+      <div class="stakeholder-avatar">CR</div>
+      <div class="stakeholder-info">
+        <h4>Cory Reed</h4>
+        <div class="role">President, Lifecycle Solutions &amp; Customer Success</div>
+        <div class="priority">Manages aftermarket, supply chain, precision upgrades, and business transformation. High-volume API use cases in parts and service documentation.</div>
+      </div>
+    </div>
+    <div class="card stakeholder-card">
+      <div class="stakeholder-avatar">AI</div>
+      <div class="stakeholder-info">
+        <h4>AI/ML Engineering Team</h4>
+        <div class="role">Technical Evaluators (Blue River + ISG)</div>
+        <div class="priority">Blue River Technology (acquired $305M) and Intelligent Solutions Group. Core evaluation team for model performance, fine-tuning, and production deployment.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategic Priorities -->
+  <div class="section-header reveal">
+    <div class="section-label">Strategic Context</div>
+    <h2>Deere's Transformation Priorities</h2>
+  </div>
+
+  <div class="grid-4 reveal" style="margin-bottom:32px">
+    <div class="card priority-card">
+      <h4>Smart Industrial Strategy</h4>
+      <p>Transforming from equipment manufacturer to technology-driven outcomes company. Selling productivity, profitability, and sustainability rather than machinery.</p>
+    </div>
+    <div class="card priority-card">
+      <h4>Precision Agriculture</h4>
+      <p>See &amp; Spray saved farmers 31M+ gallons of herbicide mix in 2025. Operations Center processes farm data every 5-30 seconds. Sub-inch GPS accuracy.</p>
+    </div>
+    <div class="card priority-card">
+      <h4>Autonomous Operations</h4>
+      <p>80% of 2025 equipment ships autonomy-ready. 360-degree camera pods with 16 cameras per tractor. Retrofit kits extend autonomy to existing fleet back to 2020.</p>
+    </div>
+    <div class="card priority-card">
+      <h4>Data Monetization</h4>
+      <p>Operations Center "data flywheel" creates compounding competitive advantage. Subscription model for precision agriculture services. Moving to outcomes-based pricing.</p>
+    </div>
+  </div>
+
+  <!-- Existing OpenAI Relationship -->
+  <div class="card card-dark reveal">
+    <div class="section-label">Existing Relationship</div>
+    <h3 style="font-family:var(--font-display);font-size:20px;margin-bottom:12px">Deere is Already an OpenAI Customer</h3>
+    <p style="font-size:14px;line-height:1.7;max-width:800px">
+      OpenAI published a case study featuring Justin Rose and Deere's use of OpenAI APIs. Current deployments include natural language database querying (converting questions to SQL against the Teseo database), customer success team enablement, and dealer support tools. The relationship is active but concentrated in a single division. The opportunity is to expand across all business units with a structured consumption growth plan.
+    </p>
+  </div>
+
+</section>
+
+<!-- TAB 2: AI OPPORTUNITY MAP -->
+<section class="tab-content" id="opportunities" data-print-title="2. AI Opportunity Map">
+
+  <div class="section-header reveal">
+    <div class="section-label">Opportunity Mapping</div>
+    <h2>AI Use Cases Across Deere's Business Units</h2>
+    <p>6 high-impact opportunities mapped to OpenAI product capabilities with quantified business impact</p>
+  </div>
+
+  <div class="grid-2 reveal" style="margin-bottom:20px">
+
+    <!-- Opp 1 -->
+    <div class="card opp-card">
+      <div class="opp-header">
+        <div class="opp-unit">Precision Agriculture</div>
+        <span class="opp-quadrant high-high">High Impact / High Fit</span>
+      </div>
+      <h4>Agronomic Intelligence Assistant</h4>
+      <p class="problem">Farmers need real-time, field-specific advice combining weather, soil, crop, and equipment data. Current decision support requires manual data interpretation across multiple dashboards.</p>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Solution</span>
+        <span class="opp-detail-value">GPT-powered conversational assistant within Operations Center. Farmers ask natural language questions about their fields and receive data-grounded recommendations.</span>
+      </div>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Impact</span>
+        <span class="opp-detail-value">15-20% reduction in input costs through optimized application timing. Estimated $2,400/farm annual savings across 500K+ connected machines.</span>
+      </div>
+      <div>
+        <span class="opp-product">GPT-4 API</span>
+        <span class="opp-product">Assistants API</span>
+        <span class="opp-product">Fine-tuning</span>
+      </div>
+    </div>
+
+    <!-- Opp 2 -->
+    <div class="card opp-card">
+      <div class="opp-header">
+        <div class="opp-unit">Customer Success</div>
+        <span class="opp-quadrant high-high">High Impact / High Fit</span>
+      </div>
+      <h4>Natural Language Data Access (Expansion)</h4>
+      <p class="problem">Customer success teams, dealers, and data scientists query the Teseo database for operational insights. Current text-to-SQL PoC is limited to one database and one team.</p>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Solution</span>
+        <span class="opp-detail-value">Scale existing OpenAI text-to-SQL PoC across all internal databases. Add multi-turn conversation, saved queries, and automated reporting.</span>
+      </div>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Impact</span>
+        <span class="opp-detail-value">60% reduction in data request turnaround time. Enables 2,000+ non-technical users to self-serve analytics. Frees data science team for high-value modeling.</span>
+      </div>
+      <div>
+        <span class="opp-product">GPT-4 API</span>
+        <span class="opp-product">Assistants API</span>
+        <span class="opp-product">Function Calling</span>
+      </div>
+    </div>
+
+    <!-- Opp 3 -->
+    <div class="card opp-card">
+      <div class="opp-header">
+        <div class="opp-unit">Dealer Network</div>
+        <span class="opp-quadrant high-med">High Impact / Medium Effort</span>
+      </div>
+      <h4>Dealer Knowledge &amp; Training Platform</h4>
+      <p class="problem">2,000+ dealers worldwide need to stay current on equipment specs, troubleshooting procedures, and precision agriculture features across hundreds of product lines. Training is inconsistent.</p>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Solution</span>
+        <span class="opp-detail-value">RAG-powered knowledge base ingesting service manuals, technical bulletins, and training materials. Conversational interface for dealer technicians in the field.</span>
+      </div>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Impact</span>
+        <span class="opp-detail-value">40% faster first-call resolution for dealer support. Reduced warranty costs from misdiagnosis. Consistent quality across global dealer network.</span>
+      </div>
+      <div>
+        <span class="opp-product">Assistants API</span>
+        <span class="opp-product">File Search</span>
+        <span class="opp-product">Fine-tuning</span>
+      </div>
+    </div>
+
+    <!-- Opp 4 -->
+    <div class="card opp-card">
+      <div class="opp-header">
+        <div class="opp-unit">Construction &amp; Forestry</div>
+        <span class="opp-quadrant high-med">High Impact / Medium Effort</span>
+      </div>
+      <h4>Predictive Maintenance Report Generation</h4>
+      <p class="problem">Equipment sensors generate terabytes of telemetry data. Converting raw sensor readings into actionable maintenance reports requires manual analyst effort. Downtime costs $1,500+/hour on large construction sites.</p>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Solution</span>
+        <span class="opp-detail-value">AI pipeline that ingests equipment telemetry, identifies anomaly patterns, and generates plain-language maintenance reports with priority rankings and part numbers.</span>
+      </div>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Impact</span>
+        <span class="opp-detail-value">25% reduction in unplanned downtime. Estimated $3.2M annual savings across C&amp;F fleet. Drives precision upgrade subscription adoption.</span>
+      </div>
+      <div>
+        <span class="opp-product">GPT-4 API</span>
+        <span class="opp-product">Batch API</span>
+        <span class="opp-product">Fine-tuning</span>
+      </div>
+    </div>
+
+    <!-- Opp 5 -->
+    <div class="card opp-card">
+      <div class="opp-header">
+        <div class="opp-unit">Financial Services</div>
+        <span class="opp-quadrant med-med">Medium Impact / Medium Effort</span>
+      </div>
+      <h4>Underwriting &amp; Risk Assessment</h4>
+      <p class="problem">Deere Financial ($6.3B revenue) processes thousands of equipment financing applications. Underwriting involves manual document review, credit analysis, and collateral assessment across diverse agricultural and construction contexts.</p>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Solution</span>
+        <span class="opp-detail-value">AI-assisted document extraction and risk scoring. Automate financial statement parsing, cross-reference farm performance data from Operations Center, generate underwriting summaries.</span>
+      </div>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Impact</span>
+        <span class="opp-detail-value">50% reduction in underwriting cycle time. Better risk segmentation using farm productivity data. Improved dealer satisfaction through faster approvals.</span>
+      </div>
+      <div>
+        <span class="opp-product">GPT-4 API</span>
+        <span class="opp-product">Vision API</span>
+        <span class="opp-product">Function Calling</span>
+      </div>
+    </div>
+
+    <!-- Opp 6 -->
+    <div class="card opp-card">
+      <div class="opp-header">
+        <div class="opp-unit">Supply Chain</div>
+        <span class="opp-quadrant med-med">Medium Impact / Medium Effort</span>
+      </div>
+      <h4>Parts Documentation &amp; Catalog Intelligence</h4>
+      <p class="problem">Massive parts catalog spanning 188 years of equipment. Cross-referencing parts across models, finding substitutes, and updating technical documentation is labor-intensive and error-prone.</p>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Solution</span>
+        <span class="opp-detail-value">AI-powered parts search and compatibility engine. Natural language queries for cross-referencing. Automated documentation updates when engineering changes occur.</span>
+      </div>
+      <div class="opp-detail">
+        <span class="opp-detail-label">Impact</span>
+        <span class="opp-detail-value">30% reduction in parts lookup time. Fewer incorrect parts shipments. Accelerates precision upgrade attachment rates for aftermarket revenue growth.</span>
+      </div>
+      <div>
+        <span class="opp-product">Assistants API</span>
+        <span class="opp-product">File Search</span>
+        <span class="opp-product">Embeddings</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 3: LAND & EXPAND -->
+<section class="tab-content" id="strategy" data-print-title="3. Land & Expand Strategy">
+
+  <div class="section-header reveal">
+    <div class="section-label">Go-to-Market Strategy</div>
+    <h2>Three-Phase Deployment Roadmap</h2>
+    <p>Structured approach from proof of value to enterprise-wide rollout with clear success gates</p>
+  </div>
+
+  <!-- Phase Timeline -->
+  <div class="phase-timeline reveal">
+    <div class="phase-block phase-1">
+      <div class="phase-label">Phase 1: Proof of Value</div>
+      <h4>Foundation</h4>
+      <div class="phase-timeline-range">Q3 2026 - Q4 2026</div>
+      <div class="phase-revenue">$150K</div>
+      <div class="phase-metric"><span>Pilot use cases</span><span>2</span></div>
+      <div class="phase-metric"><span>Target users</span><span>50-100</span></div>
+      <div class="phase-metric"><span>Focus areas</span><span>Text-to-SQL, Dealer KB</span></div>
+      <div class="phase-metric"><span>Success gate</span><span>User NPS &gt; 60</span></div>
+    </div>
+    <div class="phase-block phase-2">
+      <div class="phase-label">Phase 2: Production Scale</div>
+      <h4>Expansion</h4>
+      <div class="phase-timeline-range">Q1 2027 - Q2 2027</div>
+      <div class="phase-revenue">$800K</div>
+      <div class="phase-metric"><span>Production deployments</span><span>4</span></div>
+      <div class="phase-metric"><span>Target users</span><span>500-2,000</span></div>
+      <div class="phase-metric"><span>New use cases</span><span>Ag Assistant, Maintenance</span></div>
+      <div class="phase-metric"><span>Success gate</span><span>Measurable ROI</span></div>
+    </div>
+    <div class="phase-block phase-3">
+      <div class="phase-label">Phase 3: Enterprise-Wide</div>
+      <h4>Full Rollout</h4>
+      <div class="phase-timeline-range">Q3 2027 - Q4 2027</div>
+      <div class="phase-revenue">$2.4M ARR</div>
+      <div class="phase-metric"><span>Active deployments</span><span>6+</span></div>
+      <div class="phase-metric"><span>Target users</span><span>5,000+</span></div>
+      <div class="phase-metric"><span>Coverage</span><span>All business units</span></div>
+      <div class="phase-metric"><span>Success gate</span><span>Enterprise agreement</span></div>
+    </div>
+  </div>
+
+  <!-- Success Metrics -->
+  <div class="grid-2 reveal" style="margin-top:32px;margin-bottom:32px">
+    <div class="card">
+      <div class="section-label">Phase 1 Success Metrics</div>
+      <h4 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--navy)">Proof of Value Criteria</h4>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:6px 0;font-size:13px;color:var(--text-light);border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span>Text-to-SQL query accuracy</span><span style="font-weight:600;color:var(--navy)">&gt; 90%</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;color:var(--text-light);border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span>Dealer KB first-call resolution improvement</span><span style="font-weight:600;color:var(--navy)">&gt; 25%</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;color:var(--text-light);border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span>User satisfaction (NPS)</span><span style="font-weight:600;color:var(--navy)">&gt; 60</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;color:var(--text-light);border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span>Average response latency</span><span style="font-weight:600;color:var(--navy)">&lt; 3 seconds</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;color:var(--text-light);display:flex;justify-content:space-between">
+          <span>Data privacy compliance audit</span><span style="font-weight:600;color:var(--navy)">Pass</span>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="section-label">Stakeholder Mapping</div>
+      <h4 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--navy)">Engagement by Role</h4>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:6px 0;font-size:13px;border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Executive Sponsor</span><span style="font-weight:600;color:var(--green)">Jahmy Hindman (CTO)</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Economic Buyer</span><span style="font-weight:600;color:var(--green)">Rajesh Kalathur (CIO)</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Champion</span><span style="font-weight:600;color:var(--green)">Justin Rose (Ag &amp; Turf)</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Technical Evaluator</span><span style="font-weight:600;color:var(--green)">Blue River / ISG Team</span>
+        </li>
+        <li style="padding:6px 0;font-size:13px;display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Expansion Champion</span><span style="font-weight:600;color:var(--green)">Cory Reed (Lifecycle)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Land Strategy -->
+  <div class="card reveal">
+    <div class="section-label">Land Strategy</div>
+    <h4 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--navy)">Why Text-to-SQL + Dealer KB as Phase 1</h4>
+    <div class="grid-2" style="gap:24px">
+      <div>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.7;margin-bottom:12px">
+          <strong style="color:var(--navy)">Low risk, high visibility.</strong> Text-to-SQL is already proven in PoC with Justin Rose's team. Expanding it requires minimal new development and shows immediate value to data science and customer success teams.
+        </p>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.7">
+          <strong style="color:var(--navy)">Dealer KB creates pull demand.</strong> When 2,000+ dealers experience AI-powered knowledge access, they become advocates for expanding the platform into customer-facing features, creating organic expansion pressure.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.7;margin-bottom:12px">
+          <strong style="color:var(--navy)">Multi-stakeholder engagement.</strong> Phase 1 touches Justin Rose (current champion), Cory Reed (aftermarket/dealers), and Rajesh Kalathur (IT infrastructure). This builds a coalition before asking for enterprise commitment.
+        </p>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.7">
+          <strong style="color:var(--navy)">Consumption seed.</strong> Text-to-SQL and dealer KB are high-frequency, moderate-token use cases. They establish steady baseline consumption that compounds as users grow.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 4: COMPETITIVE LANDSCAPE -->
+<section class="tab-content" id="competitive" data-print-title="4. Competitive Landscape">
+
+  <div class="section-header reveal">
+    <div class="section-label">Competitive Analysis</div>
+    <h2>AI Vendor Landscape at Deere</h2>
+    <p>Deere evaluates AI vendors across model quality, enterprise readiness, and domain-specific capabilities</p>
+  </div>
+
+  <!-- Comparison Table -->
+  <div class="card reveal" style="padding:0;overflow:hidden;margin-bottom:32px">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:22%">Capability</th>
+          <th class="highlight" style="width:18%">OpenAI (Direct)</th>
+          <th style="width:15%">Azure OpenAI</th>
+          <th style="width:15%">AWS Bedrock</th>
+          <th style="width:15%">Google Cloud AI</th>
+          <th style="width:15%">In-House / OSS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600">Model Quality (Reasoning)</td>
+          <td class="highlight"><span class="check">&#10003;</span> Best-in-class</td>
+          <td><span class="check">&#10003;</span> Same models</td>
+          <td><span class="partial">~</span> Claude/Llama</td>
+          <td><span class="partial">~</span> Gemini</td>
+          <td><span class="cross">&#10007;</span> Limited</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Assistants / RAG Platform</td>
+          <td class="highlight"><span class="check">&#10003;</span> Native</td>
+          <td><span class="partial">~</span> Via SDK</td>
+          <td><span class="partial">~</span> Bedrock Agents</td>
+          <td><span class="partial">~</span> Vertex AI</td>
+          <td><span class="cross">&#10007;</span> Build from scratch</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Fine-tuning</td>
+          <td class="highlight"><span class="check">&#10003;</span> GPT-4 fine-tuning</td>
+          <td><span class="check">&#10003;</span> Via Azure</td>
+          <td><span class="partial">~</span> Limited models</td>
+          <td><span class="check">&#10003;</span> Gemini tuning</td>
+          <td><span class="check">&#10003;</span> Full control</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Batch Processing</td>
+          <td class="highlight"><span class="check">&#10003;</span> 50% discount</td>
+          <td><span class="check">&#10003;</span> Available</td>
+          <td><span class="partial">~</span> Varies</td>
+          <td><span class="check">&#10003;</span> Available</td>
+          <td><span class="check">&#10003;</span> Self-managed</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Vision / Multimodal</td>
+          <td class="highlight"><span class="check">&#10003;</span> Native</td>
+          <td><span class="check">&#10003;</span> Same</td>
+          <td><span class="partial">~</span> Claude only</td>
+          <td><span class="check">&#10003;</span> Gemini</td>
+          <td><span class="cross">&#10007;</span> Complex</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Enterprise Data Residency</td>
+          <td class="highlight"><span class="partial">~</span> SOC 2</td>
+          <td><span class="check">&#10003;</span> Azure regions</td>
+          <td><span class="check">&#10003;</span> AWS regions</td>
+          <td><span class="check">&#10003;</span> GCP regions</td>
+          <td><span class="check">&#10003;</span> On-prem</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Speed to Production</td>
+          <td class="highlight"><span class="check">&#10003;</span> Days</td>
+          <td><span class="partial">~</span> Weeks</td>
+          <td><span class="partial">~</span> Weeks</td>
+          <td><span class="partial">~</span> Weeks</td>
+          <td><span class="cross">&#10007;</span> Months</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Innovation Velocity</td>
+          <td class="highlight"><span class="check">&#10003;</span> First to market</td>
+          <td><span class="partial">~</span> Delayed</td>
+          <td><span class="partial">~</span> Multi-vendor</td>
+          <td><span class="partial">~</span> Own models</td>
+          <td><span class="cross">&#10007;</span> Reactive</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Differentiators -->
+  <div class="section-header reveal">
+    <div class="section-label">Why OpenAI Wins</div>
+    <h2>Key Differentiators for Deere</h2>
+  </div>
+
+  <div class="grid-3 reveal">
+    <div class="card">
+      <h4 style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">Existing Relationship</h4>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">Deere already has a production deployment and a published case study with OpenAI. Switching costs are real. Expanding within the existing vendor is lower friction than onboarding a new platform.</p>
+    </div>
+    <div class="card">
+      <h4 style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">Model Leadership</h4>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">GPT-4 and successors consistently lead benchmarks for reasoning, code generation, and instruction following. For complex agricultural and engineering domains, model quality directly impacts accuracy.</p>
+    </div>
+    <div class="card">
+      <h4 style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">Speed to Value</h4>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">OpenAI's Assistants API, File Search, and function calling reduce implementation time from months to weeks. Deere's existing integration means Phase 1 pilots can launch in weeks, not quarters.</p>
+    </div>
+  </div>
+
+  <!-- Current Vendor Map -->
+  <div class="card reveal" style="margin-top:24px">
+    <div class="section-label">Deere's Current AI Vendor Map</div>
+    <h4 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:16px">Known AI Partnerships &amp; Investments</h4>
+    <div class="grid-2" style="gap:16px">
+      <div style="padding:12px;background:var(--off-white);border-radius:var(--radius);font-size:13px">
+        <strong style="color:var(--navy)">OpenAI</strong> <span style="color:var(--green);font-size:11px;font-weight:600">ACTIVE</span>
+        <p style="color:var(--text-light);margin-top:4px">API consumption for text-to-SQL, dealer tools, customer success. Published case study.</p>
+      </div>
+      <div style="padding:12px;background:var(--off-white);border-radius:var(--radius);font-size:13px">
+        <strong style="color:var(--navy)">NVIDIA</strong> <span style="color:var(--info);font-size:11px;font-weight:600">PARTNERSHIP</span>
+        <p style="color:var(--text-light);margin-top:4px">GPU infrastructure for computer vision and autonomous operations. Edge computing on equipment.</p>
+      </div>
+      <div style="padding:12px;background:var(--off-white);border-radius:var(--radius);font-size:13px">
+        <strong style="color:var(--navy)">Blue River Technology</strong> <span style="color:var(--gold);font-size:11px;font-weight:600">ACQUIRED ($305M)</span>
+        <p style="color:var(--text-light);margin-top:4px">Computer vision for See &amp; Spray. Now internal team. Uses custom ML models for real-time weed detection.</p>
+      </div>
+      <div style="padding:12px;background:var(--off-white);border-radius:var(--radius);font-size:13px">
+        <strong style="color:var(--navy)">Apptronik</strong> <span style="color:var(--info);font-size:11px;font-weight:600">INVESTMENT</span>
+        <p style="color:var(--text-light);margin-top:4px">Humanoid robotics for labor automation. Strategic investment alongside Google and Mercedes-Benz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 5: REVENUE MODEL -->
+<section class="tab-content" id="revenue" data-print-title="5. Revenue Model">
+
+  <div class="section-header reveal">
+    <div class="section-label">Financial Forecast</div>
+    <h2>Path to $2.4M Annual Consumption</h2>
+    <p>Quarterly consumption forecast based on phased deployment across 6 use cases</p>
+  </div>
+
+  <!-- Revenue Chart -->
+  <div class="card reveal" style="margin-bottom:32px">
+    <h4 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:4px">Quarterly API Consumption Forecast</h4>
+    <p style="font-size:12px;color:var(--text-light);margin-bottom:24px">Showing projected consumption ramp from Phase 1 through enterprise-wide deployment</p>
+
+    <div class="chart-container" style="position:relative;padding-left:50px">
+      <div class="chart-y-axis">
+        <span>$600K</span>
+        <span>$450K</span>
+        <span>$300K</span>
+        <span>$150K</span>
+        <span>$0</span>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-group">
+          <div class="bar consumption" style="height:25px"><div class="bar-value">$25K</div></div>
+          <div class="bar-label">Q3 '26</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar consumption" style="height:50px"><div class="bar-value">$50K</div></div>
+          <div class="bar-label">Q4 '26</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar consumption" style="height:80px"><div class="bar-value">$125K</div></div>
+          <div class="bar-label">Q1 '27</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar consumption" style="height:115px"><div class="bar-value">$200K</div></div>
+          <div class="bar-label">Q2 '27</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar consumption" style="height:160px"><div class="bar-value">$350K</div></div>
+          <div class="bar-label">Q3 '27</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar consumption" style="height:200px"><div class="bar-value">$475K</div></div>
+          <div class="bar-label">Q4 '27</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar projected" style="height:220px"><div class="bar-value">$550K</div></div>
+          <div class="bar-label">Q1 '28</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar projected" style="height:240px"><div class="bar-value">$600K+</div></div>
+          <div class="bar-label">Q2 '28</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Milestone Bar -->
+    <div style="margin-top:32px">
+      <p style="font-size:12px;color:var(--text-light);font-weight:600;margin-bottom:8px">Revenue Milestone Progress</p>
+      <div class="milestone-bar">
+        <div class="milestone-fill p1">P1</div>
+        <div class="milestone-fill p2">P2</div>
+        <div class="milestone-fill p3">P3</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);margin-top:6px">
+        <span>$0</span>
+        <span style="color:var(--green);font-weight:600">$150K</span>
+        <span style="color:var(--info);font-weight:600">$800K</span>
+        <span style="color:var(--gold);font-weight:600">$2.4M ARR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Token Usage Breakdown -->
+  <div class="card reveal" style="margin-bottom:32px">
+    <div class="section-label">Consumption Detail</div>
+    <h4 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:16px">Token Usage &amp; Cost Breakdown by Use Case (at Scale)</h4>
+    <div style="overflow-x:auto">
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Use Case</th>
+            <th>Model</th>
+            <th>Est. Monthly Queries</th>
+            <th>Avg Tokens/Query</th>
+            <th>Monthly Token Volume</th>
+            <th>Monthly Cost</th>
+            <th>Annual Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;color:var(--navy)">Agronomic Assistant</td>
+            <td>GPT-4</td>
+            <td>50,000</td>
+            <td>2,500</td>
+            <td class="amount">125M</td>
+            <td class="amount">$62,500</td>
+            <td class="amount">$750,000</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--navy)">Text-to-SQL Platform</td>
+            <td>GPT-4</td>
+            <td>30,000</td>
+            <td>1,800</td>
+            <td class="amount">54M</td>
+            <td class="amount">$27,000</td>
+            <td class="amount">$324,000</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--navy)">Dealer Knowledge Base</td>
+            <td>GPT-4 + Embeddings</td>
+            <td>80,000</td>
+            <td>1,500</td>
+            <td class="amount">120M</td>
+            <td class="amount">$42,000</td>
+            <td class="amount">$504,000</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--navy)">Maintenance Reports</td>
+            <td>GPT-4 (Batch)</td>
+            <td>15,000</td>
+            <td>3,000</td>
+            <td class="amount">45M</td>
+            <td class="amount">$16,875</td>
+            <td class="amount">$202,500</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--navy)">Financial Underwriting</td>
+            <td>GPT-4 + Vision</td>
+            <td>8,000</td>
+            <td>4,000</td>
+            <td class="amount">32M</td>
+            <td class="amount">$20,000</td>
+            <td class="amount">$240,000</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--navy)">Parts Documentation</td>
+            <td>GPT-4 + File Search</td>
+            <td>40,000</td>
+            <td>1,200</td>
+            <td class="amount">48M</td>
+            <td class="amount">$28,800</td>
+            <td class="amount">$345,600</td>
+          </tr>
+          <tr style="background:var(--off-white)">
+            <td style="font-weight:700;color:var(--navy)">Total</td>
+            <td></td>
+            <td style="font-weight:700">223,000</td>
+            <td></td>
+            <td class="amount" style="font-weight:700">424M</td>
+            <td class="amount" style="font-weight:700;color:var(--green)">$197,175</td>
+            <td class="amount" style="font-weight:700;color:var(--green)">$2,366,100</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--text-muted);margin-top:12px">* Estimates based on current GPT-4 API pricing ($2.50/1M input, $10/1M output). Batch API offers 50% discount for non-real-time workloads. Enterprise volume discounts not included. Actual costs will vary based on model selection, caching, and prompt optimization.</p>
+  </div>
+
+  <!-- ROI Summary -->
+  <div class="grid-2 reveal">
+    <div class="card card-dark">
+      <div class="section-label" style="color:var(--green-light)">ROI Summary</div>
+      <h4 style="font-family:var(--font-display);font-size:20px;margin-bottom:16px">Return on AI Investment</h4>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--navy-mid)">
+          <span style="color:var(--slate-light);font-size:13px">Annual API Cost (at scale)</span>
+          <span style="font-weight:700;font-family:var(--font-mono);font-size:14px;color:var(--white)">$2.4M</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--navy-mid)">
+          <span style="color:var(--slate-light);font-size:13px">Est. Annual Value Created</span>
+          <span style="font-weight:700;font-family:var(--font-mono);font-size:14px;color:var(--gold)">$18-24M</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--navy-mid)">
+          <span style="color:var(--slate-light);font-size:13px">ROI Multiple</span>
+          <span style="font-weight:700;font-family:var(--font-mono);font-size:14px;color:var(--gold)">7.5-10x</span>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <span style="color:var(--slate-light);font-size:13px">Payback Period</span>
+          <span style="font-weight:700;font-family:var(--font-mono);font-size:14px;color:var(--green-light)">&lt; 6 months</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-label">Pricing Recommendation</div>
+      <h4 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:12px">Enterprise Agreement Structure</h4>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.7;margin-bottom:12px">
+        Recommend a <strong style="color:var(--navy)">committed use discount (CUD)</strong> structure with annual commitment tiers:
+      </p>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:8px 0;font-size:13px;border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Tier 1: $100K-500K/yr</span><span style="font-weight:600;color:var(--navy)">5% discount</span>
+        </li>
+        <li style="padding:8px 0;font-size:13px;border-bottom:1px solid var(--cream);display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Tier 2: $500K-1M/yr</span><span style="font-weight:600;color:var(--navy)">10% discount</span>
+        </li>
+        <li style="padding:8px 0;font-size:13px;display:flex;justify-content:space-between">
+          <span style="color:var(--text-light)">Tier 3: $1M+/yr</span><span style="font-weight:600;color:var(--green)">15% discount + CSM</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 6: EXEC ENGAGEMENT -->
+<section class="tab-content" id="engagement" data-print-title="6. Exec Engagement Plan">
+
+  <div class="section-header reveal">
+    <div class="section-label">Engagement Cadence</div>
+    <h2>Executive Engagement Plan</h2>
+    <p>Structured 90-day engagement plan with talk tracks and objection handling</p>
+  </div>
+
+  <!-- 30/60/90 -->
+  <div class="grid-3 reveal" style="margin-bottom:32px">
+    <div class="card engagement-card">
+      <div class="timeframe">Days 1-30: Discovery</div>
+      <h4>Establish &amp; Validate</h4>
+      <ul class="engagement-list">
+        <li>Technical deep-dive with ISG/Blue River engineering (understand current architecture, integration points, data pipelines)</li>
+        <li>Business review with Justin Rose (expand PoC learnings, document what worked, what didn't)</li>
+        <li>CTO briefing with Jahmy Hindman (present account plan, align on 12-month vision, get executive sponsorship)</li>
+        <li>Security and compliance review with IT/InfoSec (data handling, model access, audit requirements)</li>
+        <li>Map all existing AI spend across business units</li>
+      </ul>
+    </div>
+    <div class="card engagement-card">
+      <div class="timeframe">Days 31-60: Pilot</div>
+      <h4>Prove &amp; Measure</h4>
+      <ul class="engagement-list">
+        <li>Launch Phase 1 pilots (text-to-SQL expansion + dealer KB)</li>
+        <li>Weekly standup with technical team (API performance, edge cases, prompt engineering)</li>
+        <li>Bi-weekly executive update to CTO office (adoption metrics, user feedback, cost tracking)</li>
+        <li>Cross-functional workshop with C&amp;F and Financial Services teams (demo, ideation for Phase 2 use cases)</li>
+        <li>Prepare ROI report for Phase 1 business case</li>
+      </ul>
+    </div>
+    <div class="card engagement-card">
+      <div class="timeframe">Days 61-90: Expand</div>
+      <h4>Scale &amp; Commit</h4>
+      <ul class="engagement-list">
+        <li>Executive business review with CEO office (Phase 1 results, Phase 2 proposal, enterprise agreement structure)</li>
+        <li>Technical architecture review for production scale (load testing, failover, monitoring)</li>
+        <li>Phase 2 kickoff (agronomic assistant, predictive maintenance)</li>
+        <li>Enterprise agreement negotiation (CUD tiers, SLAs, dedicated CSM)</li>
+        <li>Annual planning alignment with Deere FY2027 budget cycle</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Talk Tracks -->
+  <div class="section-header reveal">
+    <div class="section-label">Stakeholder Talk Tracks</div>
+    <h2>Tailored Messaging by Role</h2>
+  </div>
+
+  <div class="grid-2 reveal" style="margin-bottom:32px">
+    <div class="card">
+      <h4 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px">For the CEO (John May)</h4>
+      <p style="font-size:12px;color:var(--green);margin-bottom:8px">Theme: Strategic differentiation</p>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">"Your Smart Industrial strategy is fundamentally an AI play. The question isn't whether Deere uses AI, it's whether you control the AI value chain or rent it. OpenAI gives you the most capable models with the fastest iteration speed, so your data flywheel compounds faster than competitors who are building on weaker foundations."</p>
+    </div>
+    <div class="card">
+      <h4 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px">For the CTO (Jahmy Hindman)</h4>
+      <p style="font-size:12px;color:var(--green);margin-bottom:8px">Theme: Technical leverage</p>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">"Your team built See &amp; Spray with custom vision models, and that's the right call for edge inference. But for the 80% of AI workloads that don't run on a tractor, you don't want your engineers maintaining model infrastructure. OpenAI's API lets your team focus on agricultural domain problems while we handle model improvements."</p>
+    </div>
+    <div class="card">
+      <h4 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px">For the CIO (Rajesh Kalathur)</h4>
+      <p style="font-size:12px;color:var(--green);margin-bottom:8px">Theme: Enterprise readiness &amp; cost control</p>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">"Consumption-based pricing means you only pay for what you use, and the Batch API cuts costs 50% for non-real-time workloads. With committed use discounts at scale, your effective cost per AI interaction drops well below what it would cost to build and maintain equivalent models in-house."</p>
+    </div>
+    <div class="card">
+      <h4 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px">For the Champion (Justin Rose)</h4>
+      <p style="font-size:12px;color:var(--green);margin-bottom:8px">Theme: Scaling what's working</p>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6">"Your team proved the model works. The text-to-SQL PoC showed that OpenAI APIs can give non-technical users direct access to operational data. Now let's take that proof point and expand it across all of Deere's databases, then add conversational interfaces for your dealers and farm customers."</p>
+    </div>
+  </div>
+
+  <!-- Objection Handling -->
+  <div class="section-header reveal">
+    <div class="section-label">Objection Handling</div>
+    <h2>Anticipated Objections &amp; Responses</h2>
+  </div>
+
+  <div class="reveal">
+    <div class="objection-card">
+      <div class="objection-header" onclick="this.parentElement.classList.toggle('open')">
+        <h5>"We're already investing in in-house AI capabilities with Blue River."</h5>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="objection-body">
+        <p>Blue River is specialized for real-time edge vision on equipment. That's the right investment for sub-second weed detection at 12 mph. But the use cases we're discussing are fundamentally different: they're cloud-based, language-centric, and affect thousands of internal users and dealers. Building equivalent language models in-house would require a team of 20+ ML engineers at $250K+ each and 12-18 months of development. OpenAI gives you state-of-the-art language capabilities today for a fraction of that cost, while Blue River continues to own the edge vision stack.</p>
+      </div>
+    </div>
+    <div class="objection-card">
+      <div class="objection-header" onclick="this.parentElement.classList.toggle('open')">
+        <h5>"We have concerns about data privacy and sending agricultural data to a third party."</h5>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="objection-body">
+        <p>Valid concern. Three mitigations: (1) OpenAI Enterprise agreements include zero data retention. Your data is not used for model training. (2) We can architect the system so sensitive farm data stays in Deere's infrastructure and only processed queries/summaries touch the API. (3) For the most sensitive workloads, Azure OpenAI provides the same models within your existing Azure tenant with full data residency controls. We recommend starting with non-sensitive workloads (dealer KB, parts catalog) and implementing the full security architecture before moving to farm-level data.</p>
+      </div>
+    </div>
+    <div class="objection-card">
+      <div class="objection-header" onclick="this.parentElement.classList.toggle('open')">
+        <h5>"What happens if OpenAI's models change or pricing increases?"</h5>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="objection-body">
+        <p>Model improvements have historically reduced costs, not increased them. GPT-4's effective cost has dropped 90%+ since launch through efficiency improvements and new model tiers. Enterprise agreements lock in committed rates. Additionally, the Assistants API abstracts the model layer, so upgrading to newer models is a configuration change, not a rewrite. If you're concerned about vendor lock-in, we can design the integration layer with clean abstraction boundaries so the application logic is model-agnostic.</p>
+      </div>
+    </div>
+    <div class="objection-card">
+      <div class="objection-header" onclick="this.parentElement.classList.toggle('open')">
+        <h5>"Why not use Azure OpenAI since we already have an Azure relationship?"</h5>
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="objection-body">
+        <p>Azure OpenAI is a valid deployment option and we can support it. The trade-off: Azure models typically lag direct API by weeks to months for new capabilities. For Phase 1 pilots, I recommend direct API for fastest time-to-value and access to latest features (Assistants API, real-time API). Once production architecture is validated, we can evaluate whether Azure deployment makes sense for specific workloads based on your data residency and compliance requirements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 7: CROSS-ACCOUNT PATTERNS -->
+<section class="tab-content" id="cross-account" data-print-title="7. Cross-Account Patterns">
+
+  <div class="section-header reveal">
+    <div class="section-label">Multi-Vertical Portfolio</div>
+    <h2>Cross-Account Intelligence</h2>
+    <p>Proving repeatable enterprise AI deployment patterns across industrial, utility, healthcare, and entertainment verticals</p>
+  </div>
+
+  <div class="grid-3 reveal" style="margin-bottom:32px">
+    <!-- PG&E -->
+    <div class="card cross-card utilities">
+      <div class="industry-tag">Utilities</div>
+      <h4 style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px;font-family:var(--font-display)">PG&amp;E</h4>
+      <p style="font-size:12px;color:var(--text-light);margin-bottom:16px">$24B Revenue | 25K Employees | San Francisco, CA</p>
+
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">AI Opportunity</div>
+        <p style="font-size:13px;color:var(--text);line-height:1.5">Wildfire risk prediction, grid maintenance automation, customer communication. PG&E's $73B capital plan includes AI integration across 630+ fire cameras and predictive grid models.</p>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">Consumption Potential</div>
+        <p style="font-size:13px;font-weight:600;color:var(--navy)">$1.5-2M ARR</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--gold);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">Strategic Pattern</div>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.5">Safety-critical AI with regulatory compliance requirements. Similar to Deere's autonomous equipment safety standards.</p>
+      </div>
+    </div>
+
+    <!-- Kaiser -->
+    <div class="card cross-card healthcare">
+      <div class="industry-tag">Healthcare</div>
+      <h4 style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px;font-family:var(--font-display)">Kaiser Permanente</h4>
+      <p style="font-size:12px;color:var(--text-light);margin-bottom:16px">$100B+ Revenue | 300K+ Employees | Oakland, CA</p>
+
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:var(--info);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">AI Opportunity</div>
+        <p style="font-size:13px;color:var(--text);line-height:1.5">Clinical documentation AI scribe (saves 1 hr/day per clinician), patient navigation (KPIN serving 4.9M patients), predictive analytics for patient deterioration.</p>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:var(--info);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">Consumption Potential</div>
+        <p style="font-size:13px;font-weight:600;color:var(--navy)">$3-5M ARR</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--info);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">Strategic Pattern</div>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.5">High-compliance environment requiring responsible AI governance. "Measure twice, cut once" mirrors Deere's safety-first approach to autonomous equipment.</p>
+      </div>
+    </div>
+
+    <!-- SoFi Stadium -->
+    <div class="card cross-card entertainment">
+      <div class="industry-tag">Entertainment</div>
+      <h4 style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px;font-family:var(--font-display)">SoFi Stadium</h4>
+      <p style="font-size:12px;color:var(--text-light);margin-bottom:16px">$5B Venue | 70K Capacity | Inglewood, CA</p>
+
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:#A855F7;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">AI Opportunity</div>
+        <p style="font-size:13px;color:var(--text);line-height:1.5">Real-time fan experience personalization, AI security screening (Evolv), digital twin operations, AR-powered engagement for 70K simultaneous users.</p>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:#A855F7;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">Consumption Potential</div>
+        <p style="font-size:13px;font-weight:600;color:var(--navy)">$800K-1.2M ARR</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:#A855F7;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px">Strategic Pattern</div>
+        <p style="font-size:13px;color:var(--text-light);line-height:1.5">Real-time AI at scale with consumer-facing UX requirements. Similar to Deere's farmer-facing Operations Center AI features.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pattern Matrix -->
+  <div class="card reveal">
+    <div class="section-label">Cross-Account Pattern Analysis</div>
+    <h4 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:16px">Repeatable Enterprise AI Deployment Patterns</h4>
+    <div class="pattern-matrix">
+      <table class="pattern-table">
+        <thead>
+          <tr>
+            <th>Pattern</th>
+            <th>John Deere</th>
+            <th>PG&amp;E</th>
+            <th>Kaiser Permanente</th>
+            <th>SoFi Stadium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Internal knowledge/RAG platform</td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+          </tr>
+          <tr>
+            <td>Customer-facing AI assistant</td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+          </tr>
+          <tr>
+            <td>Predictive maintenance / analytics</td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+          </tr>
+          <tr>
+            <td>Document processing / automation</td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot emerging" title="Emerging fit"></span></td>
+          </tr>
+          <tr>
+            <td>Real-time AI at scale</td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+          </tr>
+          <tr>
+            <td>Safety-critical / compliance</td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+          </tr>
+          <tr>
+            <td>Data monetization / subscription</td>
+            <td><span class="pattern-dot strong" title="Strong fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+            <td><span class="pattern-dot moderate" title="Moderate fit"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;gap:20px;margin-top:16px;font-size:11px;color:var(--text-muted)">
+      <span><span class="pattern-dot strong" style="vertical-align:middle;margin-right:4px"></span> Strong Fit</span>
+      <span><span class="pattern-dot moderate" style="vertical-align:middle;margin-right:4px"></span> Moderate Fit</span>
+      <span><span class="pattern-dot emerging" style="vertical-align:middle;margin-right:4px"></span> Emerging</span>
+    </div>
+  </div>
+
+  <!-- Portfolio Summary -->
+  <div class="card card-dark reveal" style="margin-top:24px">
+    <div class="section-label" style="color:var(--green-light)">Portfolio Value</div>
+    <h4 style="font-family:var(--font-display);font-size:20px;margin-bottom:16px">Combined Account Book Potential</h4>
+    <div class="grid-4" style="gap:24px">
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold)">$7.7-11.6M</div>
+        <div style="font-size:11px;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">Combined ARR Potential</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--white)">4</div>
+        <div style="font-size:11px;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">Verticals</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--white)">7</div>
+        <div style="font-size:11px;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">Repeatable Patterns</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--green-light)">$170B+</div>
+        <div style="font-size:11px;color:var(--slate-light);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px">Combined Customer Revenue</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<div class="footer">
+  <p><strong>Prepared by Willie Kopp</strong> | Enterprise Account Director Candidate</p>
+  <p style="margin-top:4px">Confidential. For interview evaluation purposes only. May 2026.</p>
+</div>
+
+<script>
+// Tab Navigation
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = document.getElementById(btn.dataset.tab);
+    if (tab) {
+      tab.classList.add('active');
+      // Re-trigger reveal animations
+      tab.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => el.classList.add('visible'), 50);
+      });
+    }
+  });
+});
+
+// Scroll Reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Make all active tab reveals visible on load
+document.querySelectorAll('.tab-content.active .reveal').forEach(el => {
+  el.classList.add('visible');
+});
+</script>
+
+</body>
+</html>

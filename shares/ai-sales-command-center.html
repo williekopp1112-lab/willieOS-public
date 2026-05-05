@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise AI Sales Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%233B82F6'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='18' font-weight='bold'>AI</text></svg>">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary: #0A1628;
+  --bg-secondary: #0F1D32;
+  --bg-card: rgba(255,255,255,0.05);
+  --border-card: rgba(255,255,255,0.1);
+  --accent-blue: #3B82F6;
+  --accent-blue-dim: rgba(59,130,246,0.15);
+  --accent-gold: #F59E0B;
+  --accent-gold-dim: rgba(245,158,11,0.15);
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --success: #22C55E;
+  --danger: #EF4444;
+  --nav-height: 60px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+/* ===================== NAV ===================== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-height);
+  background: rgba(10,22,40,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-card);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
+.nav-brand { font-weight: 700; font-size: 1rem; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.nav-brand i { width: 20px; height: 20px; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; font-weight: 500;
+  padding: 6px 12px; border-radius: 6px; white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); background: var(--bg-card); }
+.hamburger { display: none; background: none; border: none; color: var(--text-primary); cursor: pointer; padding: 8px; }
+.mobile-menu {
+  display: none; position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0;
+  background: rgba(10,22,40,0.98); backdrop-filter: blur(16px);
+  flex-direction: column; padding: 24px; gap: 8px; z-index: 99;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--text-secondary); text-decoration: none; font-size: 1.1rem; font-weight: 500;
+  padding: 14px 16px; border-radius: 8px; transition: all 0.2s;
+}
+.mobile-menu a:hover { color: var(--text-primary); background: var(--bg-card); }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+}
+
+/* ===================== HEADER / HERO ===================== */
+.hero {
+  padding: 120px 24px 60px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(59,130,246,0.08) 0%, transparent 70%);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; position: relative; }
+.hero h1 span { color: var(--accent-blue); }
+.hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--text-secondary); font-weight: 400; margin-bottom: 28px; position: relative; }
+.hero-meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 0.9rem; color: var(--text-muted); margin-bottom: 32px; position: relative;
+}
+.hero-meta .live-clock { color: var(--accent-blue); font-weight: 600; font-variant-numeric: tabular-nums; }
+.quote-box {
+  max-width: 700px; margin: 0 auto; padding: 20px 28px;
+  background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;
+  position: relative; min-height: 80px;
+  transition: opacity 0.5s;
+}
+.quote-box .quote-text { font-style: italic; color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 8px; }
+.quote-box .quote-author { color: var(--accent-gold); font-weight: 600; font-size: 0.85rem; }
+.quote-dots { display: flex; justify-content: center; gap: 6px; margin-top: 16px; position: relative; }
+.quote-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); transition: all 0.3s; cursor: pointer; }
+.quote-dots span.active { background: var(--accent-blue); transform: scale(1.3); }
+
+/* ===================== LAYOUT ===================== */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 60px 0; }
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 32px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-card);
+}
+.section-header i { color: var(--accent-blue); width: 24px; height: 24px; flex-shrink: 0; }
+.section-header h2 { font-size: 1.5rem; font-weight: 700; }
+.section-header .section-badge {
+  margin-left: auto; font-size: 0.75rem; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+}
+
+/* ===================== CARDS ===================== */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 12px; overflow: hidden;
+  transition: all 0.3s;
+}
+.card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+.card-grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.card-grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
+
+/* ===================== COLLAPSIBLE ===================== */
+.collapsible { margin-bottom: 16px; }
+.collapsible-trigger {
+  width: 100%; background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 12px; padding: 20px 24px;
+  display: flex; align-items: center; gap: 14px;
+  color: var(--text-primary); cursor: pointer; font-size: 1rem; font-weight: 600;
+  transition: all 0.2s; font-family: 'Inter', sans-serif; text-align: left;
+}
+.collapsible-trigger:hover { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.07); }
+.collapsible-trigger .emoji { font-size: 1.3rem; }
+.collapsible-trigger .badge {
+  margin-left: auto; font-size: 0.75rem; font-weight: 500;
+  padding: 4px 10px; border-radius: 12px;
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+}
+.collapsible-trigger .chevron {
+  margin-left: 8px; transition: transform 0.3s; flex-shrink: 0;
+}
+.collapsible-trigger.open .chevron { transform: rotate(180deg); }
+.collapsible-trigger.open { border-radius: 12px 12px 0 0; border-bottom-color: transparent; }
+.collapsible-content {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  background: var(--bg-card); border: 1px solid var(--border-card); border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+.collapsible-content.open { max-height: 5000px; }
+.collapsible-inner { padding: 20px 24px; }
+
+/* ===================== TABS ===================== */
+.tabs { margin-bottom: 24px; }
+.tab-header {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  background: rgba(255,255,255,0.03); border-radius: 10px; padding: 4px;
+  margin-bottom: 24px;
+}
+.tab-btn {
+  padding: 10px 18px; border: none; background: transparent;
+  color: var(--text-muted); font-size: 0.85rem; font-weight: 600;
+  border-radius: 8px; cursor: pointer; transition: all 0.2s;
+  font-family: 'Inter', sans-serif; white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text-secondary); }
+.tab-btn.active { background: var(--accent-blue); color: white; }
+.tab-panel { display: none; animation: fadeIn 0.3s; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===================== ACCORDION ===================== */
+.accordion-item { margin-bottom: 8px; }
+.accordion-trigger {
+  width: 100%; padding: 16px 20px;
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 10px; color: var(--text-primary);
+  font-size: 0.95rem; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  transition: all 0.2s; font-family: 'Inter', sans-serif; text-align: left;
+}
+.accordion-trigger:hover { border-color: rgba(255,255,255,0.18); }
+.accordion-trigger .num {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.accordion-trigger .arrow { margin-left: auto; transition: transform 0.3s; flex-shrink: 0; }
+.accordion-trigger.open { border-radius: 10px 10px 0 0; border-bottom: none; }
+.accordion-trigger.open .arrow { transform: rotate(180deg); }
+.accordion-body {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  border: 1px solid var(--border-card); border-top: none;
+  border-radius: 0 0 10px 10px; background: rgba(255,255,255,0.03);
+}
+.accordion-body.open { max-height: 3000px; }
+.accordion-body-inner { padding: 20px 24px; }
+
+/* ===================== OBJECTION FRAMEWORK ===================== */
+.obj-step { margin-bottom: 14px; }
+.obj-label {
+  font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.obj-label.acknowledge { color: var(--accent-blue); }
+.obj-label.reframe { color: #A78BFA; }
+.obj-label.bridge { color: var(--accent-gold); }
+.obj-label.evidence { color: var(--success); }
+.obj-label.ask { color: #F472B6; }
+.obj-step p { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* ===================== DISCOVERY ===================== */
+.question-list { list-style: none; }
+.question-list li {
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: var(--text-secondary); font-size: 0.9rem; display: flex; gap: 10px;
+}
+.question-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-blue); flex-shrink: 0; margin-top: 8px; }
+.question-list li:last-child { border-bottom: none; }
+
+/* ===================== SUB-CARDS ===================== */
+.sub-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 20px; margin-bottom: 16px;
+}
+.sub-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.sub-card h4 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); }
+.sub-card ul { list-style: none; }
+.sub-card ul li { padding: 6px 0; color: var(--text-secondary); font-size: 0.88rem; display: flex; gap: 8px; }
+.sub-card ul li::before { content: ''; flex-shrink: 0; margin-top: 8px; width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted); }
+.sub-card strong { color: var(--text-primary); }
+.sub-card .formula { background: var(--accent-blue-dim); padding: 10px 16px; border-radius: 8px; font-family: monospace; color: var(--accent-blue); margin: 10px 0; font-size: 0.88rem; }
+
+/* ===================== COMP TABLE ===================== */
+.comp-card {
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 12px; padding: 24px; transition: all 0.3s;
+}
+.comp-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+.comp-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.comp-card .comp-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; }
+.comp-detail { margin-bottom: 12px; }
+.comp-detail .label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.comp-detail .label.strengths { color: var(--success); }
+.comp-detail .label.weaknesses { color: var(--danger); }
+.comp-detail .label.icp { color: var(--accent-blue); }
+.comp-detail .label.strategy { color: var(--accent-gold); }
+.comp-detail p { color: var(--text-secondary); font-size: 0.85rem; }
+
+/* ===================== CHECKLIST ===================== */
+.checklist { list-style: none; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px; border-radius: 10px; margin-bottom: 6px;
+  transition: background 0.2s; cursor: pointer;
+}
+.checklist li:hover { background: rgba(255,255,255,0.03); }
+.checklist li.checked { opacity: 0.5; }
+.checklist li.checked .check-label { text-decoration: line-through; }
+.check-box {
+  width: 22px; height: 22px; border: 2px solid var(--text-muted);
+  border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; margin-top: 1px;
+}
+.checklist li.checked .check-box { background: var(--accent-blue); border-color: var(--accent-blue); }
+.check-box svg { width: 14px; height: 14px; color: white; opacity: 0; transition: opacity 0.2s; }
+.checklist li.checked .check-box svg { opacity: 1; }
+.check-day { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 2px; }
+.check-label { color: var(--text-secondary); font-size: 0.9rem; }
+.reset-btn {
+  margin-top: 16px; padding: 10px 24px; background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.25); color: var(--danger);
+  border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+  transition: all 0.2s; font-family: 'Inter', sans-serif;
+}
+.reset-btn:hover { background: rgba(239,68,68,0.2); }
+
+/* ===================== RESOURCE CARDS ===================== */
+.res-card {
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 12px; padding: 20px; transition: all 0.3s;
+}
+.res-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+.res-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+.res-card .author { font-size: 0.8rem; color: var(--text-muted); }
+.res-category-header {
+  font-size: 1rem; font-weight: 700; color: var(--accent-gold);
+  margin-bottom: 16px; margin-top: 8px; display: flex; align-items: center; gap: 8px;
+}
+.res-category-header i { width: 18px; height: 18px; }
+
+/* ===================== MESSAGING ===================== */
+.msg-block {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 20px; margin-bottom: 16px;
+}
+.msg-block h4 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--accent-blue); }
+.msg-block p, .msg-block li { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+.msg-block ol { padding-left: 20px; }
+.msg-block ol li { margin-bottom: 8px; }
+.pitch-text {
+  background: var(--accent-blue-dim); border-left: 3px solid var(--accent-blue);
+  padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 12px 0;
+  color: var(--text-secondary); font-size: 0.9rem; font-style: italic; line-height: 1.7;
+}
+.persona-row { display: flex; gap: 8px; align-items: baseline; margin-bottom: 8px; }
+.persona-role { font-weight: 700; color: var(--accent-gold); font-size: 0.85rem; min-width: 50px; }
+.email-tmpl {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 20px; margin-bottom: 12px;
+}
+.email-tmpl h5 { font-size: 0.9rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 6px; }
+.email-tmpl .tmpl-line { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 4px; }
+.email-tmpl .tmpl-line strong { color: var(--text-primary); }
+
+/* ===================== VERTICAL CARDS ===================== */
+.vert-card {
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 10px; padding: 18px; transition: all 0.3s;
+}
+.vert-card:hover { border-color: rgba(255,255,255,0.18); }
+.vert-card h5 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.vert-card .use-cases { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; }
+
+/* ===================== METRIC GRID ===================== */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+.metric-item {
+  background: rgba(255,255,255,0.03); border-radius: 8px; padding: 14px;
+  text-align: center;
+}
+.metric-item .metric-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.metric-item .metric-desc { font-size: 0.8rem; color: var(--text-secondary); }
+
+/* ===================== FOOTER ===================== */
+.footer {
+  text-align: center; padding: 40px 24px; border-top: 1px solid var(--border-card);
+  color: var(--text-muted); font-size: 0.85rem;
+}
+.footer .tagline { font-size: 1rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 600px) {
+  .card-grid, .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+  .tab-header { flex-direction: column; }
+  .hero { padding: 100px 16px 40px; }
+  .section { padding: 40px 0; }
+  .container { padding: 0 16px; }
+  .hero-meta { gap: 16px; }
+  .metric-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav" id="mainNav">
+  <div class="nav-brand"><i data-lucide="radar"></i> AI Sales HQ</div>
+  <div class="nav-links">
+    <a href="#daily-routine">Daily Routine</a>
+    <a href="#core-skills">Core Skills</a>
+    <a href="#objection-playbook">Objections</a>
+    <a href="#discovery-bank">Discovery</a>
+    <a href="#exec-messaging">Exec Messaging</a>
+    <a href="#competitive-intel">Competitive Intel</a>
+    <a href="#weekly-challenges">Challenges</a>
+    <a href="#resources">Resources</a>
+  </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i data-lucide="menu" style="width:24px;height:24px"></i></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#daily-routine" onclick="closeMobile()">Daily Routine</a>
+  <a href="#core-skills" onclick="closeMobile()">Core Skills</a>
+  <a href="#objection-playbook" onclick="closeMobile()">Objections</a>
+  <a href="#discovery-bank" onclick="closeMobile()">Discovery</a>
+  <a href="#exec-messaging" onclick="closeMobile()">Exec Messaging</a>
+  <a href="#competitive-intel" onclick="closeMobile()">Competitive Intel</a>
+  <a href="#weekly-challenges" onclick="closeMobile()">Challenges</a>
+  <a href="#resources" onclick="closeMobile()">Resources</a>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <h1>Enterprise <span>AI Sales</span> Command Center</h1>
+  <p class="subtitle">Daily Training Hub for Elite AI Sales Leadership</p>
+  <div class="hero-meta">
+    <span><i data-lucide="calendar" style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i> <span id="currentDate"></span></span>
+    <span class="live-clock"><i data-lucide="clock" style="width:16px;height:16px;vertical-align:middle;margin-right:4px"></i> <span id="liveClock"></span></span>
+  </div>
+  <div class="quote-box" id="quoteBox">
+    <div class="quote-text" id="quoteText"></div>
+    <div class="quote-author" id="quoteAuthor"></div>
+  </div>
+  <div class="quote-dots" id="quoteDots"></div>
+</header>
+
+<!-- ==================== SECTION 1: DAILY ROUTINE ==================== -->
+<section class="section" id="daily-routine">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="repeat"></i>
+    <h2>Daily Practice Routine</h2>
+    <span class="section-badge">90 min/day</span>
+  </div>
+
+  <!-- Morning -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <span class="emoji">&#9728;&#65039;</span>
+      Morning Block &mdash; Market Intelligence
+      <span class="badge">30 min</span>
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <div class="sub-card">
+          <h4><span class="dot"></span> Read 2-3 AI Industry News Articles</h4>
+          <ul>
+            <li><strong>The Information</strong> &mdash; Deep tech industry reporting, enterprise deals, funding rounds</li>
+            <li><strong>TechCrunch AI</strong> &mdash; Product launches, startup coverage, market moves</li>
+            <li><strong>Import AI (Jack Clark)</strong> &mdash; Weekly newsletter with technical + policy analysis</li>
+            <li><strong>Ben's Bites</strong> &mdash; Daily digest of the most important AI news</li>
+          </ul>
+        </div>
+        <div class="sub-card">
+          <h4><span class="dot"></span> Check Competitor Announcements</h4>
+          <ul>
+            <li><strong>OpenAI Blog</strong> &mdash; New models, API updates, enterprise features</li>
+            <li><strong>Anthropic Blog</strong> &mdash; Safety research, Claude updates, enterprise partnerships</li>
+            <li><strong>Google AI Blog</strong> &mdash; Gemini updates, Vertex AI, cloud AI services</li>
+          </ul>
+        </div>
+        <div class="sub-card">
+          <h4><span class="dot"></span> Review One Earnings Call or Analyst Report</h4>
+          <ul>
+            <li>Focus on how public tech companies discuss AI strategy and adoption</li>
+            <li>Note specific metrics, ROI claims, and deployment timelines mentioned</li>
+            <li>Track which verticals are accelerating AI spend</li>
+          </ul>
+        </div>
+        <div class="sub-card">
+          <h4><span class="dot"></span> Update Your Market POV Document</h4>
+          <ul>
+            <li>Capture one new insight or data point daily</li>
+            <li>Build your narrative: "Here's what I'm seeing in the market..."</li>
+            <li>This becomes ammunition for executive conversations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Midday -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <span class="emoji">&#128293;</span>
+      Midday Block &mdash; Skill Sharpening
+      <span class="badge">30 min</span>
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <div class="sub-card">
+          <h4><span class="dot"></span> Daily Rotation Schedule</h4>
+          <ul>
+            <li><strong>Monday:</strong> Practice MEDDPICC qualification on a target account. Pick one real deal and fill out every letter.</li>
+            <li><strong>Tuesday:</strong> Write 3 personalized cold outreach emails. Each must reference something specific about the prospect.</li>
+            <li><strong>Wednesday:</strong> Practice objection handling. Pick 3 objections from the playbook below and rehearse responses out loud.</li>
+            <li><strong>Thursday:</strong> Build or update one ROI model or business case. Use real numbers from your pipeline.</li>
+            <li><strong>Friday:</strong> Practice your 2-minute executive pitch out loud. Record it. Play it back. Tighten it.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Evening -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <span class="emoji">&#127769;</span>
+      Evening Block &mdash; Strategic Thinking
+      <span class="badge">30 min</span>
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <div class="sub-card">
+          <h4><span class="dot"></span> Account Strategy</h4>
+          <ul>
+            <li>Review and update account plans for your top 5 accounts</li>
+            <li>Map organizational charts and identify champions vs. blockers</li>
+            <li>Identify gaps in your multi-threading for each account</li>
+          </ul>
+        </div>
+        <div class="sub-card">
+          <h4><span class="dot"></span> Thought Leadership</h4>
+          <ul>
+            <li>Write an executive-level POV on one AI trend (200-400 words)</li>
+            <li>Practice explaining one technical AI concept in pure business terms</li>
+            <li>Think about how today's news connects to your customers' challenges</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SECTION 2: CORE COMPETENCY FRAMEWORK ==================== -->
+<section class="section" id="core-skills">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="layers"></i>
+    <h2>Core Competency Framework</h2>
+    <span class="section-badge">4 Domains</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-header" id="coreTabHeader">
+      <button class="tab-btn active" onclick="switchTab('core', 0, this)">Sales Methodology</button>
+      <button class="tab-btn" onclick="switchTab('core', 1, this)">AI/ML Fluency</button>
+      <button class="tab-btn" onclick="switchTab('core', 2, this)">GTM & Leadership</button>
+      <button class="tab-btn" onclick="switchTab('core', 3, this)">Industry Knowledge</button>
+    </div>
+
+    <!-- TAB 1: Sales Methodology -->
+    <div class="tab-panel active" data-tab-group="core">
+
+      <!-- MEDDPICC -->
+      <div class="sub-card">
+        <h4><span class="dot"></span> MEDDPICC (AI-Specific Examples)</h4>
+        <ul>
+          <li><strong>Metrics:</strong> What KPIs will AI impact? Customer service resolution time, code review velocity, document processing throughput, support ticket deflection rate</li>
+          <li><strong>Economic Buyer:</strong> Who owns the AI budget? Often CTO, CDO, or increasingly a Chief AI Officer. Sometimes still the CEO at mid-market companies.</li>
+          <li><strong>Decision Process:</strong> AI purchases often require security review, legal review (IP/data), IT architecture review, and sometimes board approval. Expect 4-8 stakeholders.</li>
+          <li><strong>Decision Criteria:</strong> Technical: accuracy, latency, security. Business: TCO, time-to-value, scalability. Strategic: vendor stability, roadmap alignment, talent impact.</li>
+          <li><strong>Paper Process:</strong> AI deals often need: MSA, DPA (Data Processing Agreement), AI-specific addendums on data usage/retention, SOC2/ISO compliance docs, sometimes AI ethics review.</li>
+          <li><strong>Identified Pain:</strong> Manual processes costing $X/year, competitive pressure from AI-native competitors, talent gaps in key functions, quality/consistency issues at scale.</li>
+          <li><strong>Champion:</strong> Look for the innovation leader with executive access AND technical credibility. Often a VP of Engineering, Head of Data, or Digital Transformation lead. They need to be willing to sell internally on your behalf.</li>
+          <li><strong>Competition:</strong> Map build vs buy vs competitor vs do-nothing. The real competitor is often inertia. Quantify the cost of delay.</li>
+        </ul>
+      </div>
+
+      <!-- Command of the Message -->
+      <div class="sub-card">
+        <h4><span class="dot"></span> Command of the Message</h4>
+        <ul>
+          <li><strong>Before Scenarios:</strong> What does the customer's world look like today without your solution? Paint the pain vividly with specifics.</li>
+          <li><strong>After Scenarios:</strong> What does their world look like with your solution fully deployed? Quantify the improvement.</li>
+          <li><strong>Required Capabilities:</strong> What must the solution do to bridge the gap? These become your evaluation criteria.</li>
+          <li><strong>Metrics:</strong> How will you measure the transition from Before to After? Agree on these early.</li>
+          <li><strong>Differentiation:</strong> Why you vs. alternatives? Focus on capabilities only you can deliver. Avoid feature comparisons; compete on outcomes.</li>
+        </ul>
+      </div>
+
+      <!-- Challenger Sale -->
+      <div class="sub-card">
+        <h4><span class="dot"></span> Challenger Sale Principles</h4>
+        <ul>
+          <li><strong>Teach:</strong> Share insights they don't know. "Did you know 73% of AI POCs fail to reach production? Here's why, and how to avoid it."</li>
+          <li><strong>Tailor:</strong> Customize your message to their industry, role, and specific business context. A CFO and a CTO need different versions of the same story.</li>
+          <li><strong>Take Control:</strong> Guide the buying process confidently. Push back respectfully when the process stalls or goes off-track. You are the expert.</li>
+        </ul>
+      </div>
+
+      <!-- Value Selling -->
+      <div class="sub-card">
+        <h4><span class="dot"></span> Value Selling / ROI Framework</h4>
+        <ul>
+          <li><strong>Cost savings:</strong> Automation of manual work (hours saved x hourly rate x employees)</li>
+          <li><strong>Revenue acceleration:</strong> Faster sales cycles, better lead scoring, higher conversion</li>
+          <li><strong>Risk reduction:</strong> Compliance automation, security consistency, error reduction</li>
+          <li><strong>Strategic value:</strong> Competitive differentiation, innovation speed, talent attraction</li>
+        </ul>
+        <div class="formula">ROI = (Annual Value - Total Cost) / Total Cost x 100</div>
+        <ul>
+          <li>Always quantify in <strong>dollars AND time-to-value</strong>. "$400K annual savings, payback in 4 months" beats "significant ROI."</li>
+        </ul>
+      </div>
+
+      <!-- Multi-threading -->
+      <div class="sub-card">
+        <h4><span class="dot"></span> Multi-threading Strategy</h4>
+        <ul>
+          <li>Map the org: Economic Buyer, Technical Buyer, User Buyer, Coach</li>
+          <li><strong>3x3 rule:</strong> 3 contacts in 3 departments minimum before any deal is "real"</li>
+          <li>Never rely on a single thread. Single-threaded deals die when your champion goes on vacation, changes roles, or gets overruled.</li>
+          <li>Build power maps visually. Know who influences whom.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 2: AI/ML Technical Fluency -->
+    <div class="tab-panel" data-tab-group="core">
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> How LLMs Work (CxO-Friendly)</h4>
+        <ul>
+          <li><strong>Transformers:</strong> The architecture that reads text and understands context and relationships between words. Think of it as a very sophisticated pattern-matching engine trained on massive amounts of text.</li>
+          <li><strong>Tokens:</strong> How AI processes text. Roughly 4 characters = 1 token. Pricing is per-token (input and output priced separately). Important for cost modeling.</li>
+          <li><strong>Context Windows:</strong> How much text the AI can "see" at once. Ranges from 8K to 200K+ tokens. Bigger windows = more complex tasks, but also higher cost per call.</li>
+          <li><strong>Fine-tuning:</strong> Customizing a pre-trained model on your specific data. Like training a new employee who already has a college degree. Faster time-to-value than building from scratch.</li>
+          <li><strong>RAG (Retrieval Augmented Generation):</strong> Connecting AI to your company's knowledge base in real-time. The AI retrieves relevant docs before generating answers. Best for staying current without retraining.</li>
+          <li><strong>Embeddings:</strong> Converting text to numerical representations for search and similarity matching. Powers semantic search ("find documents about customer churn" instead of exact keyword matches).</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Foundation Models vs Fine-tuned</h4>
+        <ul>
+          <li><strong>Foundation:</strong> GPT-4, Claude, Gemini &mdash; general purpose, broad knowledge, works out of the box. Best for getting started quickly.</li>
+          <li><strong>Fine-tuned:</strong> Specialized for your domain (legal, medical, financial). Higher accuracy on narrow tasks, but requires labeled data and ongoing maintenance.</li>
+          <li><strong>Trade-offs:</strong> Foundation models are faster to deploy, cheaper to start, but may lack domain precision. Fine-tuning costs more upfront but pays off at scale with higher accuracy.</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> AI Agents & Agentic Workflows</h4>
+        <ul>
+          <li><strong>Definition:</strong> AI systems that can plan, use tools, and take actions autonomously. Not just answering questions but completing multi-step tasks.</li>
+          <li><strong>Examples:</strong> Customer service agents that resolve tickets end-to-end, code review agents, research agents that gather and synthesize information, sales prep agents.</li>
+          <li><strong>Key components:</strong> Planning (break down tasks), tool use (APIs, databases, web), memory (retain context), feedback loops (self-correction).</li>
+          <li><strong>This is where the market is heading.</strong> Massive opportunity in 2025-2027. Companies buying AI agents = higher ACV, stickier contracts, platform-level deals.</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Responsible AI & Governance</h4>
+        <ul>
+          <li>Bias and fairness testing across different user groups</li>
+          <li>Explainability and transparency (why did the AI make this recommendation?)</li>
+          <li>Human-in-the-loop requirements for high-stakes decisions</li>
+          <li>Data privacy and sovereignty (where is data stored and processed?)</li>
+          <li>Model evaluation and monitoring (performance drift, hallucination rates)</li>
+          <li>AI safety principles &mdash; especially relevant for Anthropic's positioning</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Key Metrics to Know</h4>
+        <div class="metric-grid">
+          <div class="metric-item"><div class="metric-name">Latency</div><div class="metric-desc">Response time (ms). Enterprise needs &lt;2s for real-time.</div></div>
+          <div class="metric-item"><div class="metric-name">Accuracy</div><div class="metric-desc">Task-specific benchmarks (MMLU, HumanEval, etc.)</div></div>
+          <div class="metric-item"><div class="metric-name">Hallucination Rate</div><div class="metric-desc">How often the AI makes things up. Critical for trust.</div></div>
+          <div class="metric-item"><div class="metric-name">Cost/Token</div><div class="metric-desc">Input vs output pricing. Varies 100x across models.</div></div>
+          <div class="metric-item"><div class="metric-name">Throughput</div><div class="metric-desc">Tokens per second, concurrent requests supported.</div></div>
+          <div class="metric-item"><div class="metric-name">Context Util.</div><div class="metric-desc">How well the model uses long context windows.</div></div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Competitive Landscape Summary</h4>
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:8px">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.1)">
+              <th style="text-align:left;padding:8px;color:var(--text-muted);font-weight:700">Vendor</th>
+              <th style="text-align:left;padding:8px;color:var(--text-muted);font-weight:700">Best For</th>
+              <th style="text-align:left;padding:8px;color:var(--text-muted);font-weight:700">Key Model</th>
+              <th style="text-align:left;padding:8px;color:var(--text-muted);font-weight:700">Enterprise Features</th>
+              <th style="text-align:left;padding:8px;color:var(--text-muted);font-weight:700">Weakness</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:8px;font-weight:600">OpenAI</td><td style="padding:8px;color:var(--text-secondary)">Breadth, ecosystem</td><td style="padding:8px;color:var(--text-secondary)">GPT-4o</td><td style="padding:8px;color:var(--text-secondary)">ChatGPT Enterprise, API</td><td style="padding:8px;color:var(--text-secondary)">Data privacy concerns</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:8px;font-weight:600">Anthropic</td><td style="padding:8px;color:var(--text-secondary)">Safety, reasoning</td><td style="padding:8px;color:var(--text-secondary)">Claude 4</td><td style="padding:8px;color:var(--text-secondary)">Claude Enterprise, long context</td><td style="padding:8px;color:var(--text-secondary)">Smaller ecosystem</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:8px;font-weight:600">Google</td><td style="padding:8px;color:var(--text-secondary)">Multimodal, GCP</td><td style="padding:8px;color:var(--text-secondary)">Gemini Ultra</td><td style="padding:8px;color:var(--text-secondary)">Vertex AI, cloud-native</td><td style="padding:8px;color:var(--text-secondary)">Confusing lineup</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:8px;font-weight:600">Meta</td><td style="padding:8px;color:var(--text-secondary)">Open-source</td><td style="padding:8px;color:var(--text-secondary)">Llama 3</td><td style="padding:8px;color:var(--text-secondary)">Self-hosted, customizable</td><td style="padding:8px;color:var(--text-secondary)">No enterprise support</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05)">
+              <td style="padding:8px;font-weight:600">Cohere</td><td style="padding:8px;color:var(--text-secondary)">Enterprise RAG</td><td style="padding:8px;color:var(--text-secondary)">Command R+</td><td style="padding:8px;color:var(--text-secondary)">Data connectors, RAG</td><td style="padding:8px;color:var(--text-secondary)">Lower brand awareness</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;font-weight:600">Mistral</td><td style="padding:8px;color:var(--text-secondary)">EU data sovereignty</td><td style="padding:8px;color:var(--text-secondary)">Mistral Large</td><td style="padding:8px;color:var(--text-secondary)">EU-hosted, open-weight</td><td style="padding:8px;color:var(--text-secondary)">Limited enterprise track record</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: GTM & Sales Leadership -->
+    <div class="tab-panel" data-tab-group="core">
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Territory Planning</h4>
+        <ul>
+          <li><strong>ICP definition for AI:</strong> Company size (1000+ employees for enterprise), tech maturity (cloud-first, data team exists), budget ($200K+ for initial deal), active use case or pain point</li>
+          <li><strong>Account tiering:</strong> Strategic (10 accounts, $500K+ potential) &rarr; Target (30 accounts, $100-500K) &rarr; Develop (100+ accounts, land &amp; expand)</li>
+          <li><strong>Whitespace analysis:</strong> Map existing customer base for expansion. Which departments haven't adopted? Which use cases are untouched?</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Pipeline Management</h4>
+        <ul>
+          <li><strong>Coverage ratio:</strong> 3-4x pipeline to quota. If your quota is $2M, you need $6-8M in qualified pipeline.</li>
+          <li><strong>Stage definitions:</strong> Align to buyer journey, not seller activity. "Discovery Complete" means THEY shared pain, not that you asked questions.</li>
+          <li><strong>Pipeline hygiene:</strong> Weekly scrub. Validate every deal in Stage 3+. Kill zombies. No deal sits in the same stage for more than 2x the average stage duration.</li>
+          <li><strong>Velocity metrics:</strong> Track deal size, win rate, cycle time, and stage-to-stage conversion independently. Improving any one of these accelerates the whole machine.</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Forecasting</h4>
+        <ul>
+          <li><strong>Commit:</strong> 90%+ confidence. You'd bet your paycheck.</li>
+          <li><strong>Best Case:</strong> 50-70% confidence. Deals that could pull in with the right execution.</li>
+          <li><strong>Pipeline:</strong> Everything else that's qualified. Feed the machine.</li>
+          <li><strong>Bottom-up vs top-down:</strong> Use both. Rep-level bottoms-up for accuracy. Market-based top-down for sanity check.</li>
+          <li><strong>AI deal caveat:</strong> Enterprise AI cycles often run 6-12 months. Build this into forecast timing. Don't over-commit on new logo AI deals in the current quarter.</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Sales Leadership & Coaching</h4>
+        <ul>
+          <li><strong>1:1 framework:</strong> Deals (pipeline review, deal strategy), Skills (call coaching, methodology), Career (goals, development, motivation). Cover all three every week.</li>
+          <li><strong>Call coaching:</strong> Listen for discovery quality, objection handling strength, clear next steps. Score on a simple rubric. Review recordings together.</li>
+          <li><strong>Performance management:</strong> Lead with leading indicators (activities, pipeline creation, meetings booked) not lagging indicators (revenue). By the time revenue misses, it's too late.</li>
+          <li><strong>Hiring:</strong> In the AI era, look for: intellectual curiosity, technical aptitude (can they learn AI concepts?), executive presence, and grit. Domain expertise matters less than learning velocity.</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4><span class="dot"></span> Land & Expand</h4>
+        <ul>
+          <li><strong>Land:</strong> Start with a single use case / department. Keep the initial deal small and fast.</li>
+          <li><strong>Prove:</strong> Deliver measurable ROI in 90 days. Document everything.</li>
+          <li><strong>Expand:</strong> Build internal case study. Your champion presents results to adjacent teams.</li>
+          <li><strong>Platform:</strong> At renewal, shift the conversation from point solution to platform. "You've proven this works in customer service. Let's talk about engineering, finance, and HR."</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TAB 4: Industry Knowledge -->
+    <div class="tab-panel" data-tab-group="core">
+
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px">Key Verticals</h3>
+      <div class="card-grid-3">
+        <div class="vert-card">
+          <h5><i data-lucide="landmark" style="width:16px;height:16px;color:var(--accent-blue)"></i> Financial Services</h5>
+          <div class="use-cases">Fraud detection, risk modeling, document processing, customer service automation, compliance monitoring, algorithmic trading support</div>
+        </div>
+        <div class="vert-card">
+          <h5><i data-lucide="heart-pulse" style="width:16px;height:16px;color:var(--accent-blue)"></i> Healthcare</h5>
+          <div class="use-cases">Clinical decision support, medical coding (ICD-10), patient engagement, drug discovery, administrative automation, prior auth processing</div>
+        </div>
+        <div class="vert-card">
+          <h5><i data-lucide="factory" style="width:16px;height:16px;color:var(--accent-blue)"></i> Manufacturing</h5>
+          <div class="use-cases">Predictive maintenance, quality control (visual inspection), supply chain optimization, design automation, safety monitoring</div>
+        </div>
+        <div class="vert-card">
+          <h5><i data-lucide="code" style="width:16px;height:16px;color:var(--accent-blue)"></i> Technology</h5>
+          <div class="use-cases">Code generation, automated testing, documentation, customer support, security threat detection, developer productivity</div>
+        </div>
+        <div class="vert-card">
+          <h5><i data-lucide="shopping-cart" style="width:16px;height:16px;color:var(--accent-blue)"></i> Retail</h5>
+          <div class="use-cases">Personalization engines, inventory optimization, customer service chatbots, demand forecasting, dynamic pricing, visual search</div>
+        </div>
+        <div class="vert-card">
+          <h5><i data-lucide="scale" style="width:16px;height:16px;color:var(--accent-blue)"></i> Legal</h5>
+          <div class="use-cases">Contract analysis & review, legal research, compliance monitoring, due diligence automation, IP analysis, e-discovery</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.1rem;font-weight:700;margin:28px 0 16px">Regulatory Landscape</h3>
+      <div class="sub-card">
+        <ul>
+          <li><strong>EU AI Act:</strong> Risk-based framework classifying AI systems as unacceptable/high/limited/minimal risk. High-risk systems (healthcare, hiring, credit) face strict compliance requirements. Enforcement ramping 2025-2026.</li>
+          <li><strong>NIST AI RMF:</strong> US voluntary framework for managing AI risk across the lifecycle. Govern, Map, Measure, Manage. Becoming the de facto US standard.</li>
+          <li><strong>Industry-specific:</strong> HIPAA (healthcare data), SOX (financial controls), GDPR (EU data privacy), CCPA (California privacy), FERPA (education).</li>
+          <li><strong>SOC2 Type II:</strong> Required by most enterprise buyers for any AI vendor handling their data. Covers security, availability, processing integrity, confidentiality, privacy. Takes 6-12 months to achieve.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SECTION 3: OBJECTION HANDLING ==================== -->
+<section class="section" id="objection-playbook">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="shield"></i>
+    <h2>Objection Handling Playbook</h2>
+    <span class="section-badge">8 Objections</span>
+  </div>
+  <p style="color:var(--text-secondary);margin-bottom:24px;font-size:0.9rem">Framework for each: <strong style="color:var(--accent-blue)">Acknowledge</strong> &rarr; <strong style="color:#A78BFA">Reframe</strong> &rarr; <strong style="color:var(--accent-gold)">Bridge</strong> &rarr; <strong style="color:var(--success)">Evidence</strong> &rarr; <strong style="color:#F472B6">Ask</strong></p>
+
+  <!-- Objection 1 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">1</span>
+      "We're already using ChatGPT / Copilot"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"That's great &mdash; it shows you see the value of AI."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"Most companies start with consumer-grade AI, but enterprise needs are different &mdash; security, compliance, customization, and reliability at scale."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"What we offer is purpose-built for enterprise: SOC2 compliant, on-prem deployment options, fine-tuning on YOUR data, with SLAs and support."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"Company X started with ChatGPT, then moved to us when they needed [specific capability]. They saw a 40% improvement in [metric]."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"What's your biggest concern about moving from consumer AI to an enterprise solution?"</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 2 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">2</span>
+      "AI is too risky for our industry"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"You're right to think carefully about risk &mdash; that's exactly what a responsible leader should do."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"The bigger risk may be NOT adopting AI. Your competitors are already investing, and the gap will widen."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"Our approach includes guardrails, human-in-the-loop workflows, audit trails, and compliance certifications specifically for regulated industries."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"[Regulated company] in your industry deployed our solution with full compliance. Their legal and compliance teams were involved from day one."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"What specific risks are you most concerned about? Let's talk about how we address each one."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 3 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">3</span>
+      "We don't have the data infrastructure"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"Data readiness is a real consideration &mdash; I appreciate you being upfront about it."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"You actually need less data than you think. Modern AI can work with your existing systems through APIs and RAG &mdash; no massive data migration needed."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"We've designed our platform to connect to your existing data sources &mdash; CRM, knowledge bases, documents &mdash; without requiring a data warehouse or data lake."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"Company Y was in the exact same position. We started with just their existing Confluence and SharePoint. Within 30 days, they had a working solution."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"What systems does your team use day-to-day? Let me show you how we connect to those."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 4 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">4</span>
+      "Our team isn't ready for AI"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"Change management is one of the most important factors in AI success."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"The companies that succeed with AI don't wait until everyone is ready &mdash; they start with enthusiastic early adopters and let success spread."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"We include onboarding, training, and a dedicated CSM who has helped dozens of teams through this transition."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"Company Z had 15% adoption in month one. After seeing early results and with proper training, they hit 80% by month three."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"Who on your team is most excited about AI? They could be your internal champion."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 5 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">5</span>
+      "The ROI isn't proven yet"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"You should absolutely expect clear ROI &mdash; this is a significant investment."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"Let's make ROI concrete. What if we could identify one workflow that saves your team 10 hours per week? At an average fully-loaded cost of $75/hour, that's $39K/year per team."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"We can run a 30-day pilot with clear success metrics so you see ROI before any long-term commitment."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"Our average customer sees a measurable productivity improvement within 90 days. Here's a case study from your industry."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"What would meaningful ROI look like for you? Let's define that together."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 6 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">6</span>
+      "We're concerned about security and data privacy"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"Security should be non-negotiable &mdash; I'd be concerned if you weren't asking about it."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"This is actually one of our strongest differentiators. We were built enterprise-security-first, not consumer-first."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"SOC2 Type II certified, data encryption at rest and in transit, your data is never used to train our models, VPC deployment options, SSO/SAML integration."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"We've passed security reviews at major banks, healthcare companies, and government agencies."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"Can I connect you with our security team for a detailed review? We can share our SOC2 report today."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 7 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">7</span>
+      "We want to build in-house"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"Building in-house can make sense for core IP and differentiation."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"Consider: a team of 5 ML engineers costs $1.5-2M/year. Building a production-grade AI system takes 12-18 months. And that's before ongoing maintenance, model updates, and scaling."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"Most companies use a hybrid approach: build on top of our platform for speed, then invest in custom models only where it creates true competitive advantage."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"Company A planned to build in-house. After 6 months and $500K, they hadn't reached production. They switched to us and launched in 6 weeks."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"What's the specific capability you want to own? Let's discuss what makes sense to build vs buy."</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Objection 8 -->
+  <div class="accordion-item">
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      <span class="num">8</span>
+      "We need to see a POC first"
+      <i data-lucide="chevron-down" class="arrow" style="width:16px;height:16px"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">
+        <div class="obj-step"><div class="obj-label acknowledge">Acknowledge</div><p>"Absolutely &mdash; seeing is believing. We love doing POCs."</p></div>
+        <div class="obj-step"><div class="obj-label reframe">Reframe</div><p>"Let's make sure we set this up for success. The best POCs have clear success criteria, executive sponsorship, and a defined timeline."</p></div>
+        <div class="obj-step"><div class="obj-label bridge">Bridge</div><p>"I'd suggest a 2-week focused POC on your highest-value use case, with mutually agreed success metrics. If we hit them, we move to a production discussion."</p></div>
+        <div class="obj-step"><div class="obj-label evidence">Evidence</div><p>"85% of our POCs convert to paid deployments because we focus on real business impact, not just demos."</p></div>
+        <div class="obj-step"><div class="obj-label ask">Ask</div><p>"What use case would have the most impact on your team right now? Let's scope a POC around that."</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SECTION 4: DISCOVERY QUESTION BANK ==================== -->
+<section class="section" id="discovery-bank">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="search"></i>
+    <h2>Discovery Question Bank</h2>
+    <span class="section-badge">50+ Questions</span>
+  </div>
+
+  <!-- Current State -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="scan" style="width:18px;height:18px;color:var(--accent-blue)"></i>
+      Current State
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>Walk me through how your team handles [process] today.</li>
+          <li>How many people are involved in this workflow?</li>
+          <li>What tools and systems are you currently using?</li>
+          <li>How long does [process] typically take end-to-end?</li>
+          <li>What happens when this process breaks down?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pain / Impact -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="alert-triangle" style="width:18px;height:18px;color:var(--accent-gold)"></i>
+      Pain / Impact
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>What's the cost of this problem in dollars, time, or risk?</li>
+          <li>How does this impact your team's ability to hit their goals?</li>
+          <li>If you could wave a magic wand, what would change?</li>
+          <li>What have you tried before? What worked and what didn't?</li>
+          <li>How does this compare to what your competitors are doing?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Future State -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="rocket" style="width:18px;height:18px;color:var(--success)"></i>
+      Future State / Vision
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>What does success look like 12 months from now?</li>
+          <li>If we solved this, what would you do with the time saved?</li>
+          <li>How does AI fit into your broader digital transformation strategy?</li>
+          <li>What's your AI vision for the next 3 years?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decision Process -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="git-branch" style="width:18px;height:18px;color:#A78BFA"></i>
+      Decision Process
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>Who else needs to be involved in this decision?</li>
+          <li>What's your typical evaluation process for new technology?</li>
+          <li>Have you purchased AI/ML tools before? What was that process like?</li>
+          <li>Is there a formal AI governance or review board?</li>
+          <li>What would need to be true for you to move forward?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Budget / Timeline -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="dollar-sign" style="width:18px;height:18px;color:var(--accent-gold)"></i>
+      Budget / Timeline
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>Is there budget allocated for AI initiatives this year?</li>
+          <li>What's your timeline for making a decision?</li>
+          <li>Is there an event or deadline driving urgency?</li>
+          <li>How do you typically structure technology investments &mdash; capex or opex?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competition / Alternatives -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="swords" style="width:18px;height:18px;color:var(--danger)"></i>
+      Competition / Alternatives
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>Are you evaluating other solutions right now?</li>
+          <li>Have you considered building this capability in-house?</li>
+          <li>What would happen if you did nothing for the next 12 months?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI-Specific -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="brain" style="width:18px;height:18px;color:var(--accent-blue)"></i>
+      AI-Specific
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>What's your team's current experience with AI/ML?</li>
+          <li>Do you have a data science or ML engineering team?</li>
+          <li>What are your security and compliance requirements for AI tools?</li>
+          <li>How do you think about responsible AI and governance?</li>
+          <li>Are you using any AI tools today, even informally?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Management -->
+  <div class="collapsible">
+    <button class="collapsible-trigger" onclick="toggleCollapsible(this)">
+      <i data-lucide="users" style="width:18px;height:18px;color:#F472B6"></i>
+      Change Management
+      <i data-lucide="chevron-down" class="chevron" style="width:18px;height:18px"></i>
+    </button>
+    <div class="collapsible-content">
+      <div class="collapsible-inner">
+        <ul class="question-list">
+          <li>How does your organization typically adopt new technology?</li>
+          <li>Who are the potential champions for this initiative?</li>
+          <li>What resistance do you anticipate?</li>
+          <li>How will you measure adoption and success?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SECTION 5: EXECUTIVE MESSAGING ==================== -->
+<section class="section" id="exec-messaging">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="megaphone"></i>
+    <h2>Executive Messaging Frameworks</h2>
+  </div>
+
+  <div class="msg-block">
+    <h4>30-Second Elevator Pitch</h4>
+    <div class="pitch-text">"We help enterprises deploy AI and automate workflows without the risk and complexity of building from scratch. Our customers like [Company X] have seen [specific result] within [timeframe]. The companies moving fastest on AI will have a significant competitive advantage in the next 2-3 years, and we make that transition safe, fast, and measurable."</div>
+  </div>
+
+  <div class="msg-block">
+    <h4>2-Minute Executive Briefing Structure</h4>
+    <ol>
+      <li><strong>Market context (15 sec):</strong> "AI is transforming [their industry] &mdash; [stat or trend]"</li>
+      <li><strong>Challenge (20 sec):</strong> "Most enterprises struggle with [specific pain point]"</li>
+      <li><strong>Insight (20 sec):</strong> "What we've learned from working with [X] companies is..."</li>
+      <li><strong>Solution (30 sec):</strong> "Our platform enables [capability] with [key differentiator]"</li>
+      <li><strong>Proof (20 sec):</strong> "Customer X achieved [result] in [timeframe]"</li>
+      <li><strong>Ask (15 sec):</strong> "I'd love to explore how this could work for [their company]"</li>
+    </ol>
+  </div>
+
+  <div class="msg-block">
+    <h4>Persona-Specific Talk Tracks</h4>
+    <div class="persona-row"><span class="persona-role">CTO:</span><span style="color:var(--text-secondary);font-size:0.9rem">Lead with technology, architecture, security, scalability, developer experience, and integration complexity</span></div>
+    <div class="persona-row"><span class="persona-role">CIO:</span><span style="color:var(--text-secondary);font-size:0.9rem">Lead with integration, IT governance, risk management, total cost of ownership, vendor consolidation</span></div>
+    <div class="persona-row"><span class="persona-role">CDO/CAO:</span><span style="color:var(--text-secondary);font-size:0.9rem">Lead with data strategy, model performance, AI governance, innovation velocity, talent enablement</span></div>
+    <div class="persona-row"><span class="persona-role">CFO:</span><span style="color:var(--text-secondary);font-size:0.9rem">Lead with ROI, cost reduction, revenue impact, risk quantification, payback period, capex vs opex</span></div>
+    <div class="persona-row"><span class="persona-role">LOB VP:</span><span style="color:var(--text-secondary);font-size:0.9rem">Lead with productivity, team impact, competitive advantage, speed to value, ease of adoption</span></div>
+  </div>
+
+  <div class="msg-block">
+    <h4>Email Templates</h4>
+
+    <div class="email-tmpl">
+      <h5>1. Cold Outreach (Insight-Led)</h5>
+      <div class="tmpl-line"><strong>Subject:</strong> [Specific insight about their company] + AI</div>
+      <div class="tmpl-line" style="margin-top:8px">Hi [Name],</div>
+      <div class="tmpl-line" style="margin-top:4px">I noticed [specific observation about their company &mdash; recent announcement, job posting for AI roles, competitor move]. It got me thinking about how [their industry] is approaching [specific AI use case].</div>
+      <div class="tmpl-line" style="margin-top:4px">We recently helped [similar company] achieve [specific result] with [brief solution description]. The part that surprised them was [unexpected insight].</div>
+      <div class="tmpl-line" style="margin-top:4px">Would 20 minutes be worth exploring whether something similar could work for [their company]?</div>
+      <div class="tmpl-line" style="margin-top:4px">[Your name]</div>
+    </div>
+
+    <div class="email-tmpl">
+      <h5>2. Follow-Up After No Response (Add Value)</h5>
+      <div class="tmpl-line"><strong>Subject:</strong> Re: [original subject] &mdash; thought you'd find this useful</div>
+      <div class="tmpl-line" style="margin-top:8px">Hi [Name],</div>
+      <div class="tmpl-line" style="margin-top:4px">I came across [relevant article/report/case study] about [topic related to their challenge] and thought of your team. The key takeaway: [one-sentence insight].</div>
+      <div class="tmpl-line" style="margin-top:4px">[Link to resource]</div>
+      <div class="tmpl-line" style="margin-top:4px">Happy to share what we've seen work in practice if it's helpful. No pressure either way.</div>
+      <div class="tmpl-line" style="margin-top:4px">[Your name]</div>
+    </div>
+
+    <div class="email-tmpl">
+      <h5>3. Executive Sponsor Introduction (Warm)</h5>
+      <div class="tmpl-line"><strong>Subject:</strong> Introduction: [Your name] &lrarr; [Exec name] &mdash; AI for [their initiative]</div>
+      <div class="tmpl-line" style="margin-top:8px">Hi [Exec name],</div>
+      <div class="tmpl-line" style="margin-top:4px">[Mutual connection] suggested I reach out. Your team's work on [specific initiative] aligns closely with what we're doing at [your company] &mdash; specifically helping [their type of org] [achieve specific outcome].</div>
+      <div class="tmpl-line" style="margin-top:4px">[One sentence of social proof with a relevant customer].</div>
+      <div class="tmpl-line" style="margin-top:4px">Would a 15-minute conversation be worthwhile to compare notes?</div>
+      <div class="tmpl-line" style="margin-top:4px">[Your name]</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== SECTION 6: COMPETITIVE INTEL ==================== -->
+<section class="section" id="competitive-intel">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="binoculars"></i>
+    <h2>Competitive Intelligence</h2>
+    <span class="section-badge">7 Competitors</span>
+  </div>
+
+  <div class="card-grid-2">
+
+    <div class="comp-card">
+      <h4>OpenAI</h4>
+      <div class="comp-sub">GPT-4 / ChatGPT Enterprise / API Platform / Codex</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>Brand recognition, largest ecosystem, rapid innovation, broadest model range, developer community</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Data privacy concerns (training data), less enterprise-focused historically, Microsoft dependency questions, leadership instability</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Companies wanting the most well-known brand, broad use cases, developer-led adoption</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Great models, but enterprise features are still catching up. Ask about data retention policies, SOC2 scope, and customization depth."</p></div>
+    </div>
+
+    <div class="comp-card">
+      <h4>Anthropic</h4>
+      <div class="comp-sub">Claude 4 / Claude Enterprise / API / Claude for Work</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>Safety-first approach, strong reasoning, long context (200K), Constitutional AI, strong enterprise security posture</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Smaller ecosystem, fewer third-party integrations, lower brand awareness outside tech, smaller model variety</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Regulated industries, safety-conscious enterprises, companies needing long-document processing</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Excellent safety story, but evaluate breadth of platform capabilities and ecosystem maturity."</p></div>
+    </div>
+
+    <div class="comp-card">
+      <h4>Google (Vertex AI / Gemini)</h4>
+      <div class="comp-sub">Gemini Ultra / Vertex AI / Cloud AI Platform</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>Cloud integration, multimodal capabilities, enterprise infrastructure, data/analytics ecosystem, search grounding</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Slower to market, confusing product lineup, Gemini quality perception, enterprise sales culture still maturing</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Existing GCP customers, companies needing multimodal AI, data-heavy enterprises</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Strong infrastructure play, but model quality and developer experience trail the leaders."</p></div>
+    </div>
+
+    <div class="comp-card">
+      <h4>Microsoft (Azure OpenAI / Copilot)</h4>
+      <div class="comp-sub">Azure OpenAI Service / Microsoft 365 Copilot / GitHub Copilot</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>Enterprise distribution (M365), Azure integration, existing relationships, bundling power</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Dependency on OpenAI, Copilot ROI questions at $30/user/month, cost at scale, lock-in concerns</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Microsoft-heavy enterprises wanting quick AI integration without new vendor relationships</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Convenient but expensive at scale. Ask about actual usage rates and ROI. Copilot adoption often plateaus at 20-30%."</p></div>
+    </div>
+
+    <div class="comp-card">
+      <h4>ServiceNow (Now Assist)</h4>
+      <div class="comp-sub">Now Assist / Now Platform AI / Virtual Agent</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>Workflow integration, existing enterprise install base, structured data advantage, industry-specific solutions</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Limited to ServiceNow platform, not a general AI play, model capabilities lag pure-play AI vendors</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Existing ServiceNow customers wanting AI within ITSM, ITOM, CSM, and HR workflows</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Great for ServiceNow-specific workflows, but won't solve AI needs outside that ecosystem."</p></div>
+    </div>
+
+    <div class="comp-card">
+      <h4>AWS (Bedrock / SageMaker)</h4>
+      <div class="comp-sub">Amazon Bedrock / SageMaker / Q / CodeWhisperer</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>Model choice (multi-model marketplace), cloud infrastructure, customization options, fine-tuning at scale</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Complexity, no proprietary frontier model, requires more technical expertise, less opinionated platform</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Technical teams wanting flexibility and multi-model approach, existing AWS-heavy organizations</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Maximum flexibility but maximum complexity. Great for teams with ML engineers, but most enterprises need more guidance."</p></div>
+    </div>
+
+    <div class="comp-card">
+      <h4>Salesforce (Einstein / Agentforce)</h4>
+      <div class="comp-sub">Einstein AI / Agentforce / Data Cloud / Einstein Trust Layer</div>
+      <div class="comp-detail"><div class="label strengths">Strengths</div><p>CRM integration, sales/service use cases, Trust Layer for data governance, massive installed base</p></div>
+      <div class="comp-detail"><div class="label weaknesses">Weaknesses</div><p>Limited to Salesforce ecosystem, AI quality questions vs pure-play vendors, pricing complexity, slow innovation cycles</p></div>
+      <div class="comp-detail"><div class="label icp">ICP</div><p>Salesforce-heavy organizations wanting AI in CRM, marketing, and customer service workflows</p></div>
+      <div class="comp-detail"><div class="label strategy">Selling Against</div><p>"Convenient for CRM-specific AI, but limited scope. Evaluate whether you need AI that works across your entire tech stack."</p></div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ==================== SECTION 7: WEEKLY CHALLENGES ==================== -->
+<section class="section" id="weekly-challenges">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="trophy"></i>
+    <h2>Weekly Challenge Tracker</h2>
+    <span class="section-badge">7 Days</span>
+  </div>
+
+  <ul class="checklist" id="weeklyChecklist">
+    <li data-key="mon" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Monday</div><div class="check-label">Write 3 personalized cold outreach emails for target accounts</div></div>
+    </li>
+    <li data-key="tue" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Tuesday</div><div class="check-label">Record yourself doing a 5-min discovery call. Play it back and critique.</div></div>
+    </li>
+    <li data-key="wed" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Wednesday</div><div class="check-label">Deep-dive one AI concept and write a 1-pager explaining it in business terms</div></div>
+    </li>
+    <li data-key="thu" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Thursday</div><div class="check-label">Create or update one competitive battle card</div></div>
+    </li>
+    <li data-key="fri" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Friday</div><div class="check-label">Practice your executive pitch and get feedback from a peer</div></div>
+    </li>
+    <li data-key="sat" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Saturday</div><div class="check-label">Read one chapter from a sales or AI book</div></div>
+    </li>
+    <li data-key="sun" onclick="toggleCheck(this)">
+      <div class="check-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="check-day">Sunday</div><div class="check-label">Write your weekly reflection: wins, lessons, focus for next week</div></div>
+    </li>
+  </ul>
+  <button class="reset-btn" onclick="resetChecklist()">Reset Week</button>
+</div>
+</section>
+
+<!-- ==================== SECTION 8: RESOURCES ==================== -->
+<section class="section" id="resources">
+<div class="container">
+  <div class="section-header">
+    <i data-lucide="library"></i>
+    <h2>Resource Library</h2>
+  </div>
+
+  <!-- Books -->
+  <div class="res-category-header"><i data-lucide="book-open"></i> Books</div>
+  <div class="card-grid-3" style="margin-bottom:32px">
+    <div class="res-card"><h4>The Challenger Sale</h4><div class="author">Matthew Dixon & Brent Adamson</div></div>
+    <div class="res-card"><h4>SPIN Selling</h4><div class="author">Neil Rackham</div></div>
+    <div class="res-card"><h4>Gap Selling</h4><div class="author">Keenan</div></div>
+    <div class="res-card"><h4>Competing Against Luck</h4><div class="author">Clayton Christensen</div></div>
+    <div class="res-card"><h4>The Qualified Sales Leader</h4><div class="author">John McMahon</div></div>
+    <div class="res-card"><h4>AI Superpowers</h4><div class="author">Kai-Fu Lee</div></div>
+    <div class="res-card"><h4>Co-Intelligence</h4><div class="author">Ethan Mollick</div></div>
+    <div class="res-card"><h4>The AI-First Company</h4><div class="author">Ash Fontana</div></div>
+  </div>
+
+  <!-- Podcasts -->
+  <div class="res-category-header"><i data-lucide="headphones"></i> Podcasts</div>
+  <div class="card-grid-3" style="margin-bottom:32px">
+    <div class="res-card"><h4>Revenue Builders</h4><div class="author">Force Management</div></div>
+    <div class="res-card"><h4>30 Minutes to Presidents Club</h4><div class="author">Nick Cegelski & Armand Farrokh</div></div>
+    <div class="res-card"><h4>Practical AI</h4><div class="author">Changelog Media</div></div>
+    <div class="res-card"><h4>The AI Podcast</h4><div class="author">NVIDIA</div></div>
+    <div class="res-card"><h4>Lenny's Podcast</h4><div class="author">Lenny Rachitsky</div></div>
+    <div class="res-card"><h4>My First Million</h4><div class="author">Sam Parr & Shaan Puri</div></div>
+  </div>
+
+  <!-- Newsletters -->
+  <div class="res-category-header"><i data-lucide="mail"></i> Newsletters</div>
+  <div class="card-grid-3" style="margin-bottom:32px">
+    <div class="res-card"><h4>Import AI</h4><div class="author">Jack Clark (Anthropic co-founder)</div></div>
+    <div class="res-card"><h4>Ben's Bites</h4><div class="author">Ben Tossell</div></div>
+    <div class="res-card"><h4>The Neuron</h4><div class="author">Pete Huang</div></div>
+    <div class="res-card"><h4>Stratechery</h4><div class="author">Ben Thompson</div></div>
+    <div class="res-card"><h4>SaaStr</h4><div class="author">Jason Lemkin</div></div>
+  </div>
+
+  <!-- Online Learning -->
+  <div class="res-category-header"><i data-lucide="graduation-cap"></i> Online Learning</div>
+  <div class="card-grid-3">
+    <div class="res-card"><h4>AI for Everyone / Deep Learning</h4><div class="author">Andrew Ng &mdash; Coursera</div></div>
+    <div class="res-card"><h4>Command of the Message</h4><div class="author">Force Management</div></div>
+    <div class="res-card"><h4>Sandler Training</h4><div class="author">Sandler Systems</div></div>
+    <div class="res-card"><h4>Corporate Visions</h4><div class="author">B2B Sales Training</div></div>
+    <div class="res-card"><h4>Pavilion</h4><div class="author">Revenue Collective / Pavilion University</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="tagline">Built for the grind. Updated daily. Close bigger.</div>
+  <div>Version 1.0 &mdash; Enterprise AI Sales Command Center</div>
+</footer>
+
+<script>
+// ===================== CLOCK & DATE =====================
+function updateClock() {
+  const now = new Date();
+  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', opts);
+  document.getElementById('liveClock').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ===================== QUOTES =====================
+const quotes = [
+  { text: "The best salespeople are the best listeners. Stop pitching and start understanding.", author: "Marc Benioff, CEO of Salesforce" },
+  { text: "People don't buy what you do; they buy why you do it.", author: "Simon Sinek" },
+  { text: "Every sale has five basic obstacles: no need, no money, no hurry, no desire, no trust.", author: "Zig Ziglar" },
+  { text: "Success is not about the cards you're dealt, but how you play the hand.", author: "Randy Pausch" },
+  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+  { text: "Sell the problem you solve, not the product you have.", author: "Unknown" }
+];
+
+let quoteIndex = 0;
+const quoteText = document.getElementById('quoteText');
+const quoteAuthor = document.getElementById('quoteAuthor');
+const quoteDots = document.getElementById('quoteDots');
+
+// Build dots
+quotes.forEach((_, i) => {
+  const dot = document.createElement('span');
+  if (i === 0) dot.classList.add('active');
+  dot.onclick = () => showQuote(i);
+  quoteDots.appendChild(dot);
+});
+
+function showQuote(i) {
+  quoteIndex = i;
+  quoteText.style.opacity = '0';
+  quoteAuthor.style.opacity = '0';
+  setTimeout(() => {
+    quoteText.textContent = '"' + quotes[i].text + '"';
+    quoteAuthor.textContent = '— ' + quotes[i].author;
+    quoteText.style.opacity = '1';
+    quoteAuthor.style.opacity = '1';
+  }, 250);
+  quoteDots.querySelectorAll('span').forEach((d, j) => d.classList.toggle('active', j === i));
+}
+showQuote(0);
+quoteText.style.transition = 'opacity 0.3s';
+quoteAuthor.style.transition = 'opacity 0.3s';
+setInterval(() => showQuote((quoteIndex + 1) % quotes.length), 10000);
+
+// ===================== NAV SCROLL =====================
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+// Active section tracking
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+// ===================== MOBILE MENU =====================
+document.getElementById('hamburgerBtn').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ===================== COLLAPSIBLE =====================
+function toggleCollapsible(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('open');
+}
+
+// ===================== TABS =====================
+function switchTab(group, index, btn) {
+  const panels = document.querySelectorAll('[data-tab-group="' + group + '"]');
+  panels.forEach((p, i) => p.classList.toggle('active', i === index));
+  btn.parentElement.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+}
+
+// ===================== ACCORDION =====================
+function toggleAccordion(btn) {
+  const wasOpen = btn.classList.contains('open');
+  // Close all in same parent
+  btn.closest('.container').querySelectorAll('.accordion-trigger.open').forEach(t => {
+    t.classList.remove('open');
+    t.nextElementSibling.classList.remove('open');
+  });
+  if (!wasOpen) {
+    btn.classList.add('open');
+    btn.nextElementSibling.classList.add('open');
+  }
+}
+
+// ===================== WEEKLY CHECKLIST =====================
+function loadChecklist() {
+  const saved = JSON.parse(localStorage.getItem('salesHQ_checklist') || '{}');
+  document.querySelectorAll('#weeklyChecklist li').forEach(li => {
+    const key = li.getAttribute('data-key');
+    if (saved[key]) li.classList.add('checked');
+  });
+}
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  saveChecklist();
+}
+function saveChecklist() {
+  const data = {};
+  document.querySelectorAll('#weeklyChecklist li').forEach(li => {
+    data[li.getAttribute('data-key')] = li.classList.contains('checked');
+  });
+  localStorage.setItem('salesHQ_checklist', JSON.stringify(data));
+}
+function resetChecklist() {
+  document.querySelectorAll('#weeklyChecklist li').forEach(li => li.classList.remove('checked'));
+  localStorage.removeItem('salesHQ_checklist');
+}
+loadChecklist();
+
+// ===================== LUCIDE ICONS =====================
+document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.createIcons(); });
+if (window.lucide) lucide.createIcons();
+</script>
+</body>
+</html>

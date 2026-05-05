@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Deere Customer Command Center | OpenAI Account Strategy</title>
+<meta name="description" content="Enterprise account strategy package for OpenAI Account Director conversation with John Deere leadership. Use cases mapped across ChatGPT Enterprise, Codex, and OpenAI APIs.">
+<meta property="og:title" content="John Deere x OpenAI Customer Command Center">
+<meta property="og:description" content="Account strategy package mapping ChatGPT Enterprise, Codex, and OpenAI APIs to John Deere business functions.">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/John_Deere_logo.svg/1200px-John_Deere_logo.svg.png">
+<meta property="og:url" content="">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23367C2B'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='%23FFDE00' font-family='sans-serif' font-weight='bold'>JD</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwindcss.config = {
+  theme: {
+    extend: {
+      colors: {
+        bg: '#0B0F1A',
+        surface: '#131927',
+        surface2: '#1C2333',
+        primary: '#6366F1',
+        accent: '#22D3EE',
+        success: '#34D399',
+        warning: '#FBBF24',
+        textPrimary: '#F1F5F9',
+        textSecondary: '#94A3B8',
+        border: '#1E293B',
+        jdGreen: '#367C2B',
+        jdYellow: '#FFDE00',
+        danger: '#EF4444',
+        pink: '#F472B6',
+        purple: '#A78BFA',
+        orange: '#FB923C',
+      },
+      fontFamily: {
+        heading: ['Inter', 'sans-serif'],
+        body: ['Nunito', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Nunito', sans-serif; background: #0B0F1A; color: #F1F5F9; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0B0F1A; }
+::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+.nav-scroll::-webkit-scrollbar { display: none; }
+.nav-scroll { scrollbar-width: none; }
+.card { background: #131927; border: 1px solid #1E293B; border-radius: 12px; padding: 24px; }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; font-family: 'Inter', sans-serif; letter-spacing: 0.03em; white-space: nowrap; }
+.section-header { padding-top: 80px; margin-bottom: 32px; }
+.func-tab { padding: 7px 16px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.func-tab.active { border-color: #22D3EE; background: rgba(34,211,238,0.09); color: #22D3EE; font-weight: 700; }
+.func-tab:not(.active) { border: 1px solid #1E293B; background: #1C2333; color: #94A3B8; font-weight: 500; }
+.func-panel { display: none; }
+.func-panel.active { display: grid; gap: 16px; }
+.copy-card { cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.copy-card:hover { border-color: #6366F1; }
+.copy-card.copied { border-color: #34D399 !important; }
+@media (max-width: 768px) {
+  .hero-grid { flex-direction: column; }
+  .hero-meta { align-items: flex-start !important; }
+  .stakeholder-grid { grid-template-columns: 1fr !important; }
+  .usecase-detail { grid-template-columns: 1fr !important; }
+  .governance-grid { grid-template-columns: 1fr !important; }
+  .wedge-details { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="bg-surface border-b border-border" style="padding: 48px 24px 40px;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="hero-grid" style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 24px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div class="bg-jdGreen" style="border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 800; color: #fff; font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">JOHN DEERE</div>
+          <span class="text-border" style="font-size: 18px;">&times;</span>
+          <div class="bg-surface2 border border-border" style="border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">OpenAI</div>
+          <span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27);">EXECUTIVE PREP</span>
+        </div>
+        <h1 style="font-size: 36px; font-weight: 900; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 10px 0; letter-spacing: -0.03em; line-height: 1.15;">Customer Command Center</h1>
+        <p style="font-size: 16px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6; max-width: 560px;">Account strategy package for an OpenAI Account Director conversation with John Deere leadership. 7 sections. Enterprise-ready.</p>
+      </div>
+      <div class="hero-meta" style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+        <div style="display: flex; gap: 10px; align-items: center;"><span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif;">Account Tier</span><span style="font-size: 12px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; background: #1C2333; padding: 3px 10px; border-radius: 6px; border: 1px solid #1E293B;">Fortune 92 / Strategic</span></div>
+        <div style="display: flex; gap: 10px; align-items: center;"><span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif;">Industry</span><span style="font-size: 12px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; background: #1C2333; padding: 3px 10px; border-radius: 6px; border: 1px solid #1E293B;">Agriculture & Heavy Equipment</span></div>
+        <div style="display: flex; gap: 10px; align-items: center;"><span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif;">Revenue</span><span style="font-size: 12px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; background: #1C2333; padding: 3px 10px; border-radius: 6px; border: 1px solid #1E293B;">$45.7B FY2025</span></div>
+        <div style="display: flex; gap: 10px; align-items: center;"><span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif;">Prepared</span><span style="font-size: 12px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; background: #1C2333; padding: 3px 10px; border-radius: 6px; border: 1px solid #1E293B;">May 2026</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" style="position: sticky; top: 0; z-index: 50; background: rgba(11,15,26,0.95); border-bottom: 1px solid #1E293B; backdrop-filter: blur(12px);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+    <div class="nav-scroll" style="display: flex; align-items: center; gap: 0; overflow-x: auto;">
+      <div style="display: flex; align-items: center; gap: 10px; padding-right: 24px; border-right: 1px solid #1E293B; margin-right: 16px; flex-shrink: 0;">
+        <div style="width: 10px; height: 10px; border-radius: 50%; background: #367C2B;"></div>
+        <span style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 13px; color: #F1F5F9; letter-spacing: 0.04em; white-space: nowrap;">JOHN DEERE &middot; COMMAND CENTER</span>
+      </div>
+      <a href="#thesis" class="nav-link active" data-section="thesis" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid #22D3EE; color: #22D3EE; font-weight: 700;">Account Thesis</a>
+      <a href="#stakeholders" class="nav-link" data-section="stakeholders" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; color: #94A3B8; font-weight: 500;">Stakeholder Map</a>
+      <a href="#usecases" class="nav-link" data-section="usecases" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; color: #94A3B8; font-weight: 500;">Use Cases</a>
+      <a href="#wedge" class="nav-link" data-section="wedge" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; color: #94A3B8; font-weight: 500;">Wedge Plays</a>
+      <a href="#governance" class="nav-link" data-section="governance" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; color: #94A3B8; font-weight: 500;">Governance & Risk</a>
+      <a href="#followup" class="nav-link" data-section="followup" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; color: #94A3B8; font-weight: 500;">Follow-Up Kit</a>
+      <a href="#action" class="nav-link" data-section="action" style="background: none; border: none; cursor: pointer; padding: 16px 14px; font-size: 12px; font-family: 'Nunito', sans-serif; white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; color: #94A3B8; font-weight: 500;">Gary Action Plan</a>
+    </div>
+  </div>
+</nav>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+
+<!-- SECTION 1: EXECUTIVE ACCOUNT THESIS -->
+<section>
+  <div id="thesis" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 01</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Executive Account Thesis</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">Why John Deere is a tier-one OpenAI enterprise target and what makes this moment strategically urgent.</p>
+  </div>
+
+  <!-- Metrics -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px;">
+    <div class="card" style="text-align: center; padding: 20px 16px;">
+      <div style="font-size: 32px; font-weight: 800; font-family: 'Inter', sans-serif; color: #22D3EE; letter-spacing: -0.03em;">$45.7B</div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-top: 4px;">FY2025 Revenue</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">Fortune 92</div>
+    </div>
+    <div class="card" style="text-align: center; padding: 20px 16px;">
+      <div style="font-size: 32px; font-weight: 800; font-family: 'Inter', sans-serif; color: #22D3EE; letter-spacing: -0.03em;">500M+</div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-top: 4px;">Acres Managed</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">Operations Center</div>
+    </div>
+    <div class="card" style="text-align: center; padding: 20px 16px;">
+      <div style="font-size: 32px; font-weight: 800; font-family: 'Inter', sans-serif; color: #22D3EE; letter-spacing: -0.03em;">1.5M</div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-top: 4px;">Connected Machines</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">Target by 2026</div>
+    </div>
+    <div class="card" style="text-align: center; padding: 20px 16px;">
+      <div style="font-size: 32px; font-weight: 800; font-family: 'Inter', sans-serif; color: #22D3EE; letter-spacing: -0.03em;">$150B</div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-top: 4px;">Value-Creation Target</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">For farmers by 2030</div>
+    </div>
+  </div>
+
+  <!-- Strategic context -->
+  <div class="card" style="margin-bottom: 32px; border-left: 3px solid #367C2B;">
+    <h3 style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-top: 0; margin-bottom: 12px;">Why This Customer, Why Now</h3>
+    <p style="font-size: 14px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.7; margin: 0 0 12px 0;">John Deere is not a traditional manufacturing company experimenting with AI. It is a <strong style="color: #F1F5F9;">software-first industrial company</strong> that happens to sell physical equipment. Their Smart Industrial Strategy, Blue River Technology acquisition, and investment in autonomous machines create a unique enterprise account: one with both the <em>technical sophistication</em> to deploy OpenAI capabilities at depth and the <em>operational urgency</em> to pay for measurable outcomes.</p>
+    <p style="font-size: 14px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.7; margin: 0 0 12px 0;">With CIO Rajesh Kalathur retiring (effective Jan 2026) and an incoming leadership transition, there is a <strong style="color: #FBBF24;">window of strategic influence</strong>. New technical leadership will be establishing vendor relationships and technology bets. OpenAI should be in that conversation at the executive level before the seat is filled.</p>
+    <p style="font-size: 14px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.7; margin: 0;">The account thesis is simple: <strong style="color: #22D3EE;">Deere has built the data infrastructure and machine connectivity. OpenAI provides the reasoning and language layer that turns that infrastructure into actionable intelligence</strong> for farmers, dealers, engineers, and operators alike.</p>
+  </div>
+
+  <!-- Pain points -->
+  <h3 style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 16px;">Urgent Pain Points to Lead With</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+    <div class="card" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+        <span style="font-size: 20px;">&#9881;</span>
+        <span class="badge" style="background: rgba(239,68,68,0.13); color: #EF4444; border: 1px solid rgba(239,68,68,0.27);">HIGH URGENCY</span>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Dealer Network Knowledge Gap</div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">7,000+ North American dealers rely on tribal knowledge for diagnostics, parts lookup, and customer service. Inconsistent service quality directly impacts NPS and machine uptime, which is Deere's most critical customer metric.</p>
+      <div><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span></div>
+    </div>
+    <div class="card" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+        <span style="font-size: 20px;">&#128187;</span>
+        <span class="badge" style="background: rgba(239,68,68,0.13); color: #EF4444; border: 1px solid rgba(239,68,68,0.27);">HIGH URGENCY</span>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Software Development Velocity</div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Deere's tech stack ambitions (Operations Center, precision-ag apps, embedded firmware) require engineering output that outpaces current hiring. 40%+ of engineers globally face productivity backlogs.</p>
+      <div><span class="badge" style="background: rgba(52,211,153,0.13); color: #34D399; border: 1px solid rgba(52,211,153,0.27);">Codex</span></div>
+    </div>
+    <div class="card" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+        <span style="font-size: 20px;">&#128202;</span>
+        <span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27);">MEDIUM URGENCY</span>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Unstructured Data Trapped in Machines</div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Telematics, sensor logs, and agronomic imagery sit in siloed systems. Deere has the data pipes; it lacks the intelligence layer to generate natural-language insight for operators and agronomists.</p>
+      <div><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span></div>
+    </div>
+    <div class="card" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+        <span style="font-size: 20px;">&#127793;</span>
+        <span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27);">MEDIUM URGENCY</span>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Carbon & Sustainability Reporting Burden</div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Enterprise farming customers and investors demand verifiable scope-3 emissions data. Manual aggregation across 500M managed acres is not scalable. Regulators are accelerating the timeline.</p>
+      <div><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: STAKEHOLDER MAP -->
+<section>
+  <div id="stakeholders" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 02</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Stakeholder Map by Function</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">Who controls the decision, what they care about, and how to frame OpenAI's value for each conversation.</p>
+  </div>
+
+  <div class="stakeholder-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+    <!-- John May -->
+    <div class="card" style="border-left: 3px solid #367C2B; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(54,124,43,0.13); color: #367C2B; border: 1px solid rgba(54,124,43,0.27);">Economic Buyer / Sponsor</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">John May</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">Chairman & CEO</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> Operational autonomy at scale, farmer value creation, stock narrative around AI differentiation</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(54,124,43,0.27);">"AI is how Deere delivers the $150B farmer value target. The operations center becomes an intelligence layer, not just a data lake."</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span>
+        <span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span>
+      </div>
+    </div>
+    <!-- Jahmy Hindman -->
+    <div class="card" style="border-left: 3px solid #22D3EE; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">Technical Champion</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Jahmy Hindman</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">CTO & SVP, Intelligent Solutions Group</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> Tech stack completeness, machine intelligence, autonomy roadmap, Blue River integration</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(34,211,238,0.27);">"Codex accelerates our embedded and precision-ag engineering velocity. GPT-4o Vision extends what Blue River already does with spray logic."</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(52,211,153,0.13); color: #34D399; border: 1px solid rgba(52,211,153,0.27);">Codex</span>
+        <span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">Vision API</span>
+        <span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span>
+      </div>
+    </div>
+    <!-- Incoming CIO -->
+    <div class="card" style="border-left: 3px solid #FBBF24; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27);">IT Decision-Maker</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Incoming CIO</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">CIO (Role Open as of Jan 2026)</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> Establishing vendor landscape, security posture, enterprise architecture. HIGH influence window.</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(251,191,36,0.27);">"We're evaluating the enterprise AI stack. ChatGPT Enterprise solves the productivity layer. We need to know about data residency and SOC2 before we go further."</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span>
+        <span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span>
+      </div>
+    </div>
+    <!-- Dealer Network Ops -->
+    <div class="card" style="border-left: 3px solid #6366F1; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">Operational Leader</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Dealer Network Ops</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">VP, Aftermarket & Customer Support</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> Dealer productivity, parts fill rate, first-time-fix rate, technician retention</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(99,102,241,0.27);">"If a technician in Iowa can pull a full diagnostic summary and repair guide in 30 seconds versus 20 minutes of manual lookup, that's real uptime value."</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span>
+        <span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span>
+      </div>
+    </div>
+    <!-- Josh Jepsen -->
+    <div class="card" style="border-left: 3px solid #F472B6; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Finance Buyer</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Josh Jepsen</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">CFO</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> ROI proof, capex vs. opex, payback period, alignment with Deere Financial business unit</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(244,114,182,0.27);">"Show me the cost per acre and time-to-value. We're disciplined on spend in a down cycle. The use case has to pay back in under 18 months."</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span>
+        <span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span>
+      </div>
+    </div>
+    <!-- Legal -->
+    <div class="card" style="border-left: 3px solid #EF4444; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(239,68,68,0.13); color: #EF4444; border: 1px solid rgba(239,68,68,0.27);">Risk & Compliance</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Legal / Privacy Officer</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">VP & General Counsel</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> Farmer data sovereignty, IP protection on agronomic models, GDPR for EU operations, AI governance</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(239,68,68,0.27);">"Farmer data cannot train public models. Full stop. What are the contractual data boundaries and audit controls?"</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span>
+      </div>
+    </div>
+    <!-- Frontline -->
+    <div class="card" style="border-left: 3px solid #34D399; display: flex; flex-direction: column; gap: 12px;">
+      <div><span class="badge" style="background: rgba(52,211,153,0.13); color: #34D399; border: 1px solid rgba(52,211,153,0.27);">Frontline / Champion</span></div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Agronomist / Precision Ag Specialists</div>
+        <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">Customer Success & Agronomy Teams</div>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;"><strong style="color: #F1F5F9;">Cares about:</strong> Field-ready tools that help farmers understand recommendations, simplify agronomic decision-making</p>
+      <div style="background: #1C2333; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; line-height: 1.6; border-left: 2px solid rgba(52,211,153,0.27);">"My farmers don't need another dashboard. They need their machine to tell them what to do next in plain language."</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span>
+        <span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span>
+        <span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">Vision API</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: USE CASES -->
+<section>
+  <div id="usecases" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 03</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Function-by-Function Use Cases</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">Mapped to specific OpenAI products with clear differentiation of when to use each capability.</p>
+  </div>
+
+  <!-- Product legend -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div style="font-size: 13px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 12px;">Product Reference Guide</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27); flex-shrink: 0;">ChatGPT Enterprise</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Enterprise-wide productivity, internal tools, document Q&A, knowledge management</span></div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(52,211,153,0.13); color: #34D399; border: 1px solid rgba(52,211,153,0.27); flex-shrink: 0;">Codex</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Software development, code generation, firmware, test automation</span></div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27); flex-shrink: 0;">GPT-4o</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Custom applications, real-time reasoning, multimodal inputs</span></div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27); flex-shrink: 0;">Fine-tuning</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Domain-specific accuracy on Deere's agronomic/equipment knowledge base</span></div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27); flex-shrink: 0;">Assistants API</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Multi-step workflows, tool use, persistent conversation threads</span></div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27); flex-shrink: 0;">Vision API</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Imagery analysis, computer vision tasks, field report generation</span></div>
+      <div style="display: flex; align-items: flex-start; gap: 8px; flex-basis: calc(50% - 8px); min-width: 260px;"><span class="badge" style="background: rgba(251,146,60,0.13); color: #FB923C; border: 1px solid rgba(251,146,60,0.27); flex-shrink: 0;">o-series</span><span style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Complex multi-step reasoning: financial modeling, risk analysis, planning</span></div>
+    </div>
+  </div>
+
+  <!-- Function tabs -->
+  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
+    <button class="func-tab active" onclick="switchFunc('Operations')">Operations</button>
+    <button class="func-tab" onclick="switchFunc('Product / Digital')">Product / Digital</button>
+    <button class="func-tab" onclick="switchFunc('Support / Contact Center')">Support / Contact Center</button>
+    <button class="func-tab" onclick="switchFunc('Finance')">Finance</button>
+    <button class="func-tab" onclick="switchFunc('Legal / Compliance')">Legal / Compliance</button>
+    <button class="func-tab" onclick="switchFunc('HR')">HR</button>
+    <button class="func-tab" onclick="switchFunc('Field / Frontline')">Field / Frontline</button>
+  </div>
+
+  <!-- Use case panels -->
+  <div id="func-Operations" class="func-panel active">
+    <!-- Predictive Maintenance -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Predictive Maintenance Intelligence</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div>
+      </div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+        <div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Machine downtime costs farmers $1,000-$10,000/day during harvest. Telematics generate alerts but field managers cannot parse diagnostic codes into action.</p></div>
+        <div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o summarizes telematics feeds into plain-language service alerts sent to operators and dealers. Assistants API manages multi-step diagnostic workflows with parts availability lookup.</p></div>
+      </div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">Reduce unplanned downtime by 25%; cut time-to-first-action from 2 hrs to &lt;15 min</span></div>
+    </div>
+    <!-- Autonomous Machine Decision Logging -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Autonomous Machine Decision Logging</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">Vision API</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div>
+      </div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+        <div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Autonomous 9RX tractors make thousands of micro-decisions per field pass. Operators and agronomists cannot audit or explain machine behavior.</p></div>
+        <div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o Vision + Assistants API generate human-readable field decision logs from sensor data and imagery. Creates explainability layer for autonomous operations.</p></div>
+      </div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">100% audit coverage of autonomous decisions; operator trust score improvement</span></div>
+    </div>
+    <!-- Dealer Parts -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+        <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Dealer Parts & Service AI Assistant</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div>
+      </div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+        <div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Technicians at 7,000+ dealers spend 30-45 min per service job navigating manuals, parts catalogs, and historical repair data.</p></div>
+        <div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">ChatGPT Enterprise with RAG over Deere service documentation, parts catalog, and TerrainCommand data. Answers in &lt;10 seconds with citation links.</p></div>
+      </div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">40% reduction in diagnosis time; 15pt NPS improvement at dealer network</span></div>
+    </div>
+  </div>
+
+  <div id="func-Product / Digital" class="func-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Precision Ag App Development Acceleration</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(52,211,153,0.13); color: #34D399; border: 1px solid rgba(52,211,153,0.27);">Codex</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Operations Center feature backlog is 18+ months. Embedded software teams for 9RX, ExactShot, and See & Spray cannot ship fast enough.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Codex accelerates Python/C++ development for embedded ag systems, automates test generation for firmware, and powers code review for precision-ag APIs.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">30-40% engineering velocity increase; reduce feature backlog by 6 months</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Natural Language Operations Center</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Farmers and agronomists treat the Operations Center as a data dump. Complex query interfaces require training; adoption plateaus at 40% of paid subscribers.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o powers a conversational interface for Operations Center. Farmers ask: 'How did field 4B perform vs. last year?' and get an instant comparative summary.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">25% increase in Operations Center DAU; 3pt subscription retention improvement</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">See & Spray Model Explanation Layer</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">Vision API</span><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Blue River's CV models make spray/no-spray decisions farmers cannot interrogate. Regulatory bodies in EU/CA are pushing for explainability on automated chemical application.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o Vision generates field-pass narrative reports: 'In the northeast quadrant, 12% weed density triggered 847 targeted applications, saving 0.7 gallons/acre.'</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">Regulatory-ready reporting; 20% increase in See & Spray premium attach rate</span></div>
+    </div>
+  </div>
+
+  <div id="func-Support / Contact Center" class="func-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Tier-1 Dealer Support Deflection</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Deere's dealer support lines handle 2M+ contacts annually. 60% are routine (parts availability, warranty status, delivery tracking) that could be automated.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">ChatGPT Enterprise + Assistants API handles Tier-1 contacts with access to Deere dealer systems. Escalates to human agents with full conversation context.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">35% Tier-1 deflection; $4-8M annual contact center savings</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Farmer Agronomy Hotline AI</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Agronomists cannot scale 1:1 advisory support to Deere's 500M managed acres. High-value farmer segments get attention; mid-tier customers churn.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Fine-tuned GPT-4o model on Deere's agronomic knowledge base handles real-time crop advisory calls via voice/chat. Escalates to senior agronomists for edge cases.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">5x agronomist coverage capacity; 18% reduction in mid-tier farmer churn</span></div>
+    </div>
+  </div>
+
+  <div id="func-Finance" class="func-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Deere Financial Credit Underwriting</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Deere Financial processes thousands of equipment loan applications. Manual review of farm income statements, commodity price risk, and land valuations is slow and inconsistent.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o + Assistants API analyze farm financials, commodity market data, and historical loan performance to generate structured risk summaries for underwriters.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">40% reduction in underwriting cycle time; improved credit quality scoring consistency</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">CFO-Level Financial Narrative Generation</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Finance teams spend 2-3 weeks preparing quarterly earnings commentary, investor decks, and segment performance narratives.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">ChatGPT Enterprise with access to internal financial data generates draft earnings commentary, variance analysis, and investor briefing materials.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">70% reduction in draft preparation time; faster earnings cycle</span></div>
+    </div>
+  </div>
+
+  <div id="func-Legal / Compliance" class="func-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Supplier Contract Review</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Deere manages thousands of global supplier contracts. Legal team reviews are a bottleneck, averaging 3-5 days per contract and $400-800 in attorney time.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">ChatGPT Enterprise with legal RAG indexes Deere's master supply agreements and flags non-standard terms, IP risks, and liability clauses for attorney sign-off.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">60% reduction in contract review time; $2-4M annual legal ops savings</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Carbon & ESG Reporting Automation</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Scope-3 emissions reporting across 500M managed acres requires aggregating satellite data, machine telemetry, and agronomic inputs. This is a manual process today.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o + Assistants API aggregate telemetry, fuel consumption, and carbon-sequestration estimates into regulatory-grade ESG report drafts.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">ESG reporting cycle from 8 weeks to 2 weeks; audit-ready documentation</span></div>
+    </div>
+  </div>
+
+  <div id="func-HR" class="func-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Engineering Hiring & Screening at Scale</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Deere is competing with Tesla, NVIDIA, and Apple for embedded AI engineers. Recruiting pipeline volume is high; quality screening is inconsistent.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">ChatGPT Enterprise supports HR with job description generation, structured interview guides, and resume screening assistance with bias controls.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">50% reduction in time-to-screen; improved diverse candidate pipeline</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Technician Onboarding & Skills Training</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Field technician turnover is high. New hires take 6-9 months to achieve full diagnostic competency. Training is classroom-heavy and not available in the field.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">ChatGPT Enterprise + Assistants API powers interactive training simulations for Deere equipment, testing diagnostic reasoning with real equipment scenarios.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">Reduce technician time-to-competency by 40%; decrease first-year attrition</span></div>
+    </div>
+  </div>
+
+  <div id="func-Field / Frontline" class="func-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">In-Cab AI Assistant (JD Cab AI)</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span><span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">Vision API</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Operators in the cab make real-time decisions on soil conditions, application rates, and route planning with minimal guidance. Error rates during peak season are high.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">GPT-4o via in-cab display gives operators voice-activated agronomic recommendations, weather integration, and yield optimization coaching in natural language.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">3-5% yield improvement; 20% reduction in input waste per crop cycle</span></div>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;"><div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Construction Equipment Field Diagnostics</div><div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span><span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span></div></div>
+      <div class="usecase-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;"><div><div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE PROBLEM</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Construction operators and site managers cannot self-diagnose equipment faults. Every Tier-2 fault requires a dealer call, creating costly delays on job sites.</p></div><div><div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 6px;">THE SOLUTION</div><p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0;">Mobile-first Assistants API app scans fault codes, consults repair history, and guides operators through safe field-correctable procedures with step-by-step AI guidance.</p></div></div>
+      <div style="background: #1C2333; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; white-space: nowrap;">TARGET METRIC</span><span style="font-size: 13px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">30% of Tier-2 faults resolved in-field; reduce dealer dispatch calls by 25%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: WEDGE PLAYS -->
+<section>
+  <div id="wedge" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 04</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Three Wedge Opportunities</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">Concrete first deployments with buyer, blocker, success metric, and expansion path clearly defined.</p>
+  </div>
+
+  <div style="display: grid; gap: 24px;">
+    <!-- Wedge 01 -->
+    <div class="card" style="border-top: 3px solid #367C2B;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(54,124,43,0.13); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #367C2B; font-family: 'Inter', sans-serif; border: 1px solid rgba(54,124,43,0.27); flex-shrink: 0;">01</div>
+          <div>
+            <div style="font-size: 17px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif;">Dealer Diagnostic & Service AI</div>
+            <div style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">The fastest path to Deere-wide deployment</div>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span>
+          <span class="badge" style="background: rgba(167,139,250,0.13); color: #A78BFA; border: 1px solid rgba(167,139,250,0.27);">Assistants API</span>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.7; margin: 0 0 20px 0;">Deploy a custom ChatGPT Enterprise instance with Deere's service documentation, parts catalog, machine fault codes, and dealer CRM data as the knowledge layer. Give 500 pilot dealers access in a 90-day proof of concept.</p>
+      <div class="wedge-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #34D399; font-family: 'Inter', sans-serif; margin-bottom: 6px;">PRIMARY BUYER</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">VP Aftermarket & Customer Support (Operational Buyer)</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #FBBF24; font-family: 'Inter', sans-serif; margin-bottom: 6px;">SUCCESS METRIC</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">First-time fix rate improvement (+10pt), diagnosis time (-40%), technician NPS</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #EF4444; font-family: 'Inter', sans-serif; margin-bottom: 6px;">LIKELY BLOCKER</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">Data ingestion pipeline from Deere's service information systems (ServiceAdvisor) may require API integration work. IT approval for ChatGPT Enterprise data residency.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #22D3EE; font-family: 'Inter', sans-serif; margin-bottom: 6px;">EXPANSION PATH</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">Expand to all 7,000 North American dealers. Layer in machine telematics for proactive diagnostic alerts. Build toward autonomous dealer dispatch recommendations.</p></div>
+      </div>
+      <div style="margin-top: 14px; display: flex; align-items: center; gap: 8px; background: rgba(54,124,43,0.06); border-radius: 8px; padding: 8px 14px; border: 1px solid rgba(54,124,43,0.19);">
+        <span style="font-size: 11px; font-weight: 700; color: #367C2B; font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">TIMELINE</span>
+        <span style="font-size: 12px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">90-day POC &rarr; 6-month rollout &rarr; 18-month full network</span>
+      </div>
+    </div>
+
+    <!-- Wedge 02 -->
+    <div class="card" style="border-top: 3px solid #22D3EE;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(34,211,238,0.13); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #22D3EE; font-family: 'Inter', sans-serif; border: 1px solid rgba(34,211,238,0.27); flex-shrink: 0;">02</div>
+          <div>
+            <div style="font-size: 17px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif;">Operations Center Conversational Intelligence</div>
+            <div style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">The product that makes Deere's data platform defensible</div>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <span class="badge" style="background: rgba(34,211,238,0.13); color: #22D3EE; border: 1px solid rgba(34,211,238,0.27);">OpenAI API</span>
+          <span class="badge" style="background: rgba(244,114,182,0.13); color: #F472B6; border: 1px solid rgba(244,114,182,0.27);">Fine-tuning</span>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.7; margin: 0 0 20px 0;">Embed GPT-4o into the Operations Center as a natural language query layer. Farmers and agronomists ask questions in plain language; the system synthesizes field data, satellite imagery, weather, and historical yield records into actionable summaries.</p>
+      <div class="wedge-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #34D399; font-family: 'Inter', sans-serif; margin-bottom: 6px;">PRIMARY BUYER</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">SVP Precision Ag / Product (Product Sponsor)</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #FBBF24; font-family: 'Inter', sans-serif; margin-bottom: 6px;">SUCCESS METRIC</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">Operations Center DAU (+25%), subscription retention (+3pt), farmer NPS</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #EF4444; font-family: 'Inter', sans-serif; margin-bottom: 6px;">LIKELY BLOCKER</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">Requires Deere to expose Operations Center APIs to OpenAI integration layer. Fine-tuning on Deere's proprietary agronomic dataset may surface IP questions for Legal.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #22D3EE; font-family: 'Inter', sans-serif; margin-bottom: 6px;">EXPANSION PATH</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">Voice-enabled in-cab AI assistant. Carbon reporting automation. Farmer-facing yield projection and input optimization advisor.</p></div>
+      </div>
+      <div style="margin-top: 14px; display: flex; align-items: center; gap: 8px; background: rgba(34,211,238,0.06); border-radius: 8px; padding: 8px 14px; border: 1px solid rgba(34,211,238,0.19);">
+        <span style="font-size: 11px; font-weight: 700; color: #22D3EE; font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">TIMELINE</span>
+        <span style="font-size: 12px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">120-day technical integration &rarr; 9-month beta with premium subscribers &rarr; 24-month product GA</span>
+      </div>
+    </div>
+
+    <!-- Wedge 03 -->
+    <div class="card" style="border-top: 3px solid #6366F1;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(99,102,241,0.13); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #6366F1; font-family: 'Inter', sans-serif; border: 1px solid rgba(99,102,241,0.27); flex-shrink: 0;">03</div>
+          <div>
+            <div style="font-size: 17px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif;">Engineering Copilot for Precision Ag Teams</div>
+            <div style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin-top: 2px;">The internal velocity play that Hindman will sponsor</div>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <span class="badge" style="background: rgba(52,211,153,0.13); color: #34D399; border: 1px solid rgba(52,211,153,0.27);">Codex</span>
+          <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">ChatGPT Enterprise</span>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.7; margin: 0 0 20px 0;">Deploy Codex-powered development tools to Deere's Intelligent Solutions Group engineering teams, targeting embedded firmware engineers, Operations Center backend teams, and Blue River CV engineers. Start with a 200-engineer pilot on a single product line.</p>
+      <div class="wedge-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #34D399; font-family: 'Inter', sans-serif; margin-bottom: 6px;">PRIMARY BUYER</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">CTO Jahmy Hindman / Engineering VPs (Technical Champion)</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #FBBF24; font-family: 'Inter', sans-serif; margin-bottom: 6px;">SUCCESS METRIC</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">PR merge velocity (+35%), code review cycle (-50%), test coverage improvement</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #EF4444; font-family: 'Inter', sans-serif; margin-bottom: 6px;">LIKELY BLOCKER</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">IP protection concerns around AI-assisted code generation touching patented precision-ag algorithms. Will require enterprise data handling agreement addendum.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 12px 14px;"><div style="font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #22D3EE; font-family: 'Inter', sans-serif; margin-bottom: 6px;">EXPANSION PATH</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;">All 4,000+ Deere engineers globally. Codex-powered documentation generation for regulatory compliance. Fine-tuned models on Deere's internal codebase.</p></div>
+      </div>
+      <div style="margin-top: 14px; display: flex; align-items: center; gap: 8px; background: rgba(99,102,241,0.06); border-radius: 8px; padding: 8px 14px; border: 1px solid rgba(99,102,241,0.19);">
+        <span style="font-size: 11px; font-weight: 700; color: #6366F1; font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">TIMELINE</span>
+        <span style="font-size: 12px; color: #F1F5F9; font-family: 'Nunito', sans-serif;">60-day pilot &rarr; 12-month engineering-wide rollout</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: GOVERNANCE -->
+<section>
+  <div id="governance" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 05</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Governance & Risk Plan</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">Questions to resolve, talking points to have ready, and risk vectors to manage proactively.</p>
+  </div>
+
+  <div style="display: grid; gap: 20px;">
+    <!-- Data Security -->
+    <div class="card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <span style="font-size: 22px;">&#128274;</span>
+        <div style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Data Security & Boundaries</div>
+        <div style="flex: 1; height: 1px; background: #1E293B;"></div>
+      </div>
+      <div class="governance-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">KEY QUESTIONS TO RESOLVE</div>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #EF4444; font-weight: 700; flex-shrink: 0;">1.</span><span>ChatGPT Enterprise guarantees zero data training on customer inputs. Confirm DPA covers Deere's farmer-data agreements.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #EF4444; font-weight: 700; flex-shrink: 0;">2.</span><span>API deployments require Deere's legal team to review OpenAI's enterprise data processing addendum.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #EF4444; font-weight: 700; flex-shrink: 0;">3.</span><span>Confirm Azure OpenAI Service option for deployments requiring geographic data residency (EU farm data under GDPR).</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #EF4444; font-weight: 700; flex-shrink: 0;">4.</span><span>Farmer data sovereignty: Deere's Operations Center user agreements may restrict third-party AI processing without explicit consent.</span></li>
+          </ul>
+        </div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 16px; border-left: 3px solid #EF4444;">
+          <div style="font-size: 11px; font-weight: 700; color: #EF4444; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">TALKING POINT</div>
+          <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0; font-style: italic;">"Every product in our enterprise tier is contractually prohibited from using Deere's data to train any shared model. We can provide the DPA to your legal team within 48 hours."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- IP & Model Protection -->
+    <div class="card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <span style="font-size: 22px;">&#9878;</span>
+        <div style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">IP & Model Protection</div>
+        <div style="flex: 1; height: 1px; background: #1E293B;"></div>
+      </div>
+      <div class="governance-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">KEY QUESTIONS TO RESOLVE</div>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #FBBF24; font-weight: 700; flex-shrink: 0;">1.</span><span>Fine-tuned models built on Deere's agronomic datasets remain Deere's intellectual property. Establish model ownership clause upfront.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #FBBF24; font-weight: 700; flex-shrink: 0;">2.</span><span>Codex-generated code for patented precision-ag algorithms: ensure no competitive IP leakage.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #FBBF24; font-weight: 700; flex-shrink: 0;">3.</span><span>Deere's Blue River CV models should not be used as fine-tuning input without a separate IP agreement.</span></li>
+          </ul>
+        </div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 16px; border-left: 3px solid #FBBF24;">
+          <div style="font-size: 11px; font-weight: 700; color: #FBBF24; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">TALKING POINT</div>
+          <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0; font-style: italic;">"Fine-tuned models you build on your data are yours. We do not share weights, training data, or model derivatives with any other customer."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adoption -->
+    <div class="card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <span style="font-size: 22px;">&#128101;</span>
+        <div style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Adoption & Change Management</div>
+        <div style="flex: 1; height: 1px; background: #1E293B;"></div>
+      </div>
+      <div class="governance-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #6366F1; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">KEY QUESTIONS TO RESOLVE</div>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #6366F1; font-weight: 700; flex-shrink: 0;">1.</span><span>Dealer network adoption will require Deere's dealer support organization to co-own rollout.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #6366F1; font-weight: 700; flex-shrink: 0;">2.</span><span>Engineering tool adoption (Codex) needs executive air cover from CTO org. Bottom-up adoption without sponsorship stalls.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #6366F1; font-weight: 700; flex-shrink: 0;">3.</span><span>Field technician AI tools must be mobile-first and offline-capable (many rural deployments have limited connectivity).</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #6366F1; font-weight: 700; flex-shrink: 0;">4.</span><span>Training program: Deere's L&D team should co-develop adoption curriculum rather than leaving it to IT.</span></li>
+          </ul>
+        </div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 16px; border-left: 3px solid #6366F1;">
+          <div style="font-size: 11px; font-weight: 700; color: #6366F1; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">TALKING POINT</div>
+          <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0; font-style: italic;">"We recommend a 90-day activation sprint with your dealer ops team, not a technology-only deployment. The change management workstream is as important as the integration."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Governance -->
+    <div class="card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <span style="font-size: 22px;">&#128202;</span>
+        <div style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">AI Governance & Measurement</div>
+        <div style="flex: 1; height: 1px; background: #1E293B;"></div>
+      </div>
+      <div class="governance-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #22D3EE; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">KEY QUESTIONS TO RESOLVE</div>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #22D3EE; font-weight: 700; flex-shrink: 0;">1.</span><span>Establish AI output review policy for high-stakes decisions: financial underwriting, field chemical application, autonomous machine commands.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #22D3EE; font-weight: 700; flex-shrink: 0;">2.</span><span>Define human-in-the-loop thresholds before deployment: what AI can recommend autonomously vs. what requires agronomist/engineer sign-off.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #22D3EE; font-weight: 700; flex-shrink: 0;">3.</span><span>Create a quarterly AI performance review cadence with Deere's technical and business owners.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #22D3EE; font-weight: 700; flex-shrink: 0;">4.</span><span>Measurement framework: agree on primary success metrics for each deployment before go-live.</span></li>
+          </ul>
+        </div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 16px; border-left: 3px solid #22D3EE;">
+          <div style="font-size: 11px; font-weight: 700; color: #22D3EE; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">TALKING POINT</div>
+          <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0; font-style: italic;">"We strongly recommend a governance committee, joint Deere + OpenAI, that reviews AI decision logs quarterly. This protects Deere legally and builds internal confidence."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Procurement -->
+    <div class="card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <span style="font-size: 22px;">&#128188;</span>
+        <div style="font-size: 16px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif;">Procurement & Commercial</div>
+        <div style="flex: 1; height: 1px; background: #1E293B;"></div>
+      </div>
+      <div class="governance-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">KEY QUESTIONS TO RESOLVE</div>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #34D399; font-weight: 700; flex-shrink: 0;">1.</span><span>ChatGPT Enterprise: seat-based pricing. Negotiate enterprise-wide commitment with volume discount rather than per-department purchasing.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #34D399; font-weight: 700; flex-shrink: 0;">2.</span><span>API usage: consumption-based pricing creates budget unpredictability for Finance. Consider prepaid credit commitment with ceiling.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #34D399; font-weight: 700; flex-shrink: 0;">3.</span><span>Codex licensing for 4,000+ engineers: negotiate a developer-seats bundle.</span></li>
+            <li style="display: flex; gap: 10px; font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;"><span style="color: #34D399; font-weight: 700; flex-shrink: 0;">4.</span><span>Request a co-innovation agreement that ties commercial terms to joint roadmap milestones (new in-cab AI features, dealer tools).</span></li>
+          </ul>
+        </div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 16px; border-left: 3px solid #34D399;">
+          <div style="font-size: 11px; font-weight: 700; color: #34D399; font-family: 'Inter', sans-serif; letter-spacing: 0.08em; margin-bottom: 10px;">TALKING POINT</div>
+          <p style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; margin: 0; font-style: italic;">"We prefer one enterprise agreement that covers all OpenAI products rather than department-level purchasing. It simplifies your procurement, reduces your cost, and gives you flexibility to expand use cases."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: FOLLOW-UP KIT -->
+<section>
+  <div id="followup" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 06</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Follow-Up Package</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">Ready-to-use assets for post-meeting outreach. Click any card to copy the full text.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px;">
+    <div class="card copy-card" onclick="copyAsset(this)" data-content="Subject: John Deere × OpenAI — Following Up&#10;&#10;Hi [Name],&#10;&#10;Thank you for the time today. A few things I wanted to follow up on directly:&#10;&#10;1. On data boundaries: I'll have our enterprise DPA to your legal team by end of week. Happy to walk through the farmer-data provisions specifically.&#10;&#10;2. Dealer Service AI: I've roughed out a 90-day POC structure targeting your aftermarket operations team. Would it be useful to bring your VP of Customer Support into a brief call to stress-test the use case against your current ServiceAdvisor setup?&#10;&#10;3. One ask: could you share the current Operations Center roadmap at a high level? I want to make sure what we're scoping on the natural language query layer is additive — not duplicative with work already underway.&#10;&#10;Next step: I'll send a two-page concept note on the Dealer Diagnostic AI and Engineering Copilot plays by Friday. Let me know if the framing we discussed resonates or if you'd like me to re-scope.&#10;&#10;Best,&#10;[Name]">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">Email: Post-Initial Meeting</span>
+        <span class="copy-status" style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-weight: 600;">Click to copy</span>
+      </div>
+      <div style="font-size: 13px; color: #F1F5F9; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px;">Subject: John Deere × OpenAI — Following Up</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">Hi [Name], Thank you for the time today. A few things I wanted to follow up on directly: 1. On data boundaries: I'll have our enterprise DPA to your legal team by end of week. 2. Dealer Service AI: I've roughed out a 90-day POC structure targeting your aftermarket operations team...</div>
+    </div>
+
+    <div class="card copy-card" onclick="copyAsset(this)" data-content="Hi [Name] — appreciated the context on Deere's tech priorities.&#10;&#10;Quick follow-up: I've mapped three specific OpenAI use cases to your current state that I think are worth 30 min to walk through. The dealer diagnostic play in particular has a POC path that doesn't require deep IT integration to get started.&#10;&#10;Dropping a one-pager in your inbox now. Would Friday afternoon work for a brief follow-up?">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">Slack/Teams: Post-Screen Follow-Up</span>
+        <span class="copy-status" style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-weight: 600;">Click to copy</span>
+      </div>
+      <div style="font-size: 13px; color: #F1F5F9; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px;">Concise message for async follow-up</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">Hi [Name] — appreciated the context on Deere's tech priorities. Quick follow-up: I've mapped three specific OpenAI use cases to your current state that I think are worth 30 min to walk through...</div>
+    </div>
+
+    <div class="card copy-card" onclick="copyAsset(this)" data-content="JOHN DEERE × OPENAI — EXECUTIVE TALKING POINTS&#10;&#10;1. DEERE IS ALREADY AN AI COMPANY&#10;&quot;You've built the data infrastructure with Operations Center, the machine connectivity with TerrainCommand, and the computer vision capability with Blue River. OpenAI provides the reasoning and language layer that makes all of that accessible — to farmers, dealers, and engineers — in natural language.&quot;&#10;&#10;2. THE TIMING IS RIGHT&#10;&quot;With the CIO transition underway and the Smart Industrial Strategy in execution mode, this is the moment to establish OpenAI as the enterprise AI standard before departmental purchasing creates a fragmented vendor landscape.&quot;&#10;&#10;3. THREE PLACES TO START&#10;&quot;Dealer service AI, Operations Center conversational intelligence, and engineering copilot. These three are independent enough to run in parallel, low enough risk to prove quickly, and large enough to matter on the P&L.&quot;&#10;&#10;4. DATA IS SAFE&#10;&quot;ChatGPT Enterprise is contractually prohibited from training on your data. Farmer data doesn't move. We can have an enterprise DPA signed before any pilot data touches our infrastructure.&quot;&#10;&#10;5. THIS IS ABOUT FARMER VALUE&#10;&quot;Your $150B farmer value target by 2030 requires intelligence at scale. OpenAI is the fastest path from data asset to actionable farm decision.&quot;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">Executive Talking Points (Verbal)</span>
+        <span class="copy-status" style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-weight: 600;">Click to copy</span>
+      </div>
+      <div style="font-size: 13px; color: #F1F5F9; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px;">5 crisp points for a C-level conversation</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">1. DEERE IS ALREADY AN AI COMPANY — "You've built the data infrastructure with Operations Center, the machine connectivity with TerrainCommand, and the computer vision capability with Blue River..."</div>
+    </div>
+
+    <div class="card copy-card" onclick="copyAsset(this)" data-content="JOHN DEERE DEALER SERVICE AI — CONCEPT NOTE&#10;&#10;THE PROBLEM&#10;7,000+ North American dealers rely on tribal knowledge and manual documentation lookup for diagnostics and parts. The average technician spends 30-45 minutes per service job on documentation alone. During harvest season, every hour of delay costs farmers $1,000-$10,000 in lost yield.&#10;&#10;THE SOLUTION&#10;A ChatGPT Enterprise deployment with Deere's service documentation, fault code library, parts catalog, and machine telematics history as the knowledge layer. Technicians get answers in under 10 seconds with cited sources.&#10;&#10;EXAMPLE INTERACTION&#10;Tech: &quot;John 8R450 throwing code 523727.03 and 527489.16 together. What's the most likely root cause and what parts do I need?&quot;&#10;AI: &quot;These codes together typically indicate a CANbus communication failure on the hydraulic control unit. Recommend checking harness connector X15 first. If fault persists, parts needed: 87695431 (harness assembly) and RE340678 (HCU module). Historical repair data shows 73% resolution with harness replacement alone.&quot;&#10;&#10;POC SCOPE&#10;- 500 dealers, 90-day pilot&#10;- Integration with ServiceAdvisor and Parts Catalog API&#10;- Measurement: first-time fix rate, diagnosis time, technician NPS&#10;&#10;COMMERCIAL ESTIMATE&#10;- ChatGPT Enterprise: seat-based pricing per technician&#10;- Integration support: 2-3 OpenAI solution engineers, 90 days&#10;- Expected ROI positive within 6 months at scale">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+        <span class="badge" style="background: rgba(99,102,241,0.13); color: #6366F1; border: 1px solid rgba(99,102,241,0.27);">One-Pager: Dealer Service AI Concept</span>
+        <span class="copy-status" style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-weight: 600;">Click to copy</span>
+      </div>
+      <div style="font-size: 13px; color: #F1F5F9; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 8px;">Leave-behind for Aftermarket / Service leadership</div>
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">THE PROBLEM: 7,000+ North American dealers rely on tribal knowledge and manual documentation lookup for diagnostics and parts. The average technician spends 30-45 minutes per service job...</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: GARY ACTION PLAN -->
+<section style="padding-bottom: 80px;">
+  <div id="action" class="section-header">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="width: 3px; height: 18px; background: #22D3EE; border-radius: 2px; display: inline-block;"></span>
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #22D3EE; font-family: 'Inter', sans-serif; text-transform: uppercase;">Section 07</span>
+    </div>
+    <h2 style="font-size: 28px; font-weight: 800; color: #F1F5F9; font-family: 'Inter', sans-serif; margin: 0 0 8px 0; letter-spacing: -0.02em;">Gary Action Plan</h2>
+    <p style="font-size: 15px; color: #94A3B8; font-family: 'Nunito', sans-serif; margin: 0; line-height: 1.6;">What to research next, what to build, and what customer signals to watch for.</p>
+  </div>
+
+  <div style="display: grid; gap: 24px;">
+    <!-- Research priorities -->
+    <div class="card">
+      <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 16px;">Research Priorities</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid #1E293B;">
+          <span class="badge" style="background: rgba(239,68,68,0.13); color: #EF4444; border: 1px solid rgba(239,68,68,0.27);">P1</span>
+          <span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Monitor incoming CIO appointment announcement. This is the highest-value moment to establish a new relationship from day 1.</span>
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; min-width: 180px; text-align: right; line-height: 1.4;">Deere press releases, LinkedIn, Bloomberg</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid #1E293B;">
+          <span class="badge" style="background: rgba(239,68,68,0.13); color: #EF4444; border: 1px solid rgba(239,68,68,0.27);">P1</span>
+          <span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Confirm current state of Operations Center developer API program. Determine if Deere has published external APIs or only internal access.</span>
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; min-width: 180px; text-align: right; line-height: 1.4;">developer.deere.com, John Deere tech team outreach</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid #1E293B;">
+          <span class="badge" style="background: rgba(239,68,68,0.13); color: #EF4444; border: 1px solid rgba(239,68,68,0.27);">P1</span>
+          <span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Research Deere's existing Microsoft relationship. If Azure is the preferred cloud, position Azure OpenAI Service as the data-residency-safe path.</span>
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; min-width: 180px; text-align: right; line-height: 1.4;">Deere earnings calls, MSFT partnership announcements</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid #1E293B;">
+          <span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27);">P2</span>
+          <span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Review Deere's recent patent filings for AI/ML innovations to understand which capabilities they're building vs. buying.</span>
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; min-width: 180px; text-align: right; line-height: 1.4;">USPTO patent search for John Deere Company</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid #1E293B;">
+          <span class="badge" style="background: rgba(251,191,36,0.13); color: #FBBF24; border: 1px solid rgba(251,191,36,0.27);">P2</span>
+          <span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Map Deere's key system integrator and consulting relationships (Accenture, Cognizant, IBM) to identify pre-existing AI deployment conversations.</span>
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; min-width: 180px; text-align: right; line-height: 1.4;">Deere supplier portals, trade press</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: start; padding: 10px 0;">
+          <span class="badge" style="background: rgba(148,163,184,0.13); color: #94A3B8; border: 1px solid rgba(148,163,184,0.27);">P3</span>
+          <span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Quantify See & Spray Premium attach rate vs. base sprayer sales. This signals precision-ag product velocity and willingness to pay for intelligence upgrades.</span>
+          <span style="font-size: 11px; color: #94A3B8; font-family: 'Nunito', sans-serif; font-style: italic; min-width: 180px; text-align: right; line-height: 1.4;">Deere investor day, analyst notes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files to create -->
+    <div class="card">
+      <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 16px;">Files & Artifacts to Create</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: grid; grid-template-columns: 220px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #1E293B; align-items: start;"><div style="display: flex; align-items: center; gap: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #22D3EE; flex-shrink: 0;"></div><code style="font-size: 11px; color: #22D3EE; background: #1C2333; padding: 2px 8px; border-radius: 4px;">deere-dealer-ai-poc-brief.pdf</code></div><span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">2-page POC proposal for Dealer Service AI, designed for VP Aftermarket hand-off</span></div>
+        <div style="display: grid; grid-template-columns: 220px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #1E293B; align-items: start;"><div style="display: flex; align-items: center; gap: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #22D3EE; flex-shrink: 0;"></div><code style="font-size: 11px; color: #22D3EE; background: #1C2333; padding: 2px 8px; border-radius: 4px;">deere-ops-center-diagram.pdf</code></div><span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">Technical diagram showing GPT-4o integration layer into Operations Center API architecture</span></div>
+        <div style="display: grid; grid-template-columns: 220px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #1E293B; align-items: start;"><div style="display: flex; align-items: center; gap: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #22D3EE; flex-shrink: 0;"></div><code style="font-size: 11px; color: #22D3EE; background: #1C2333; padding: 2px 8px; border-radius: 4px;">deere-roi-model.xlsx</code></div><span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">ROI model for all three wedge plays with adjustable inputs (dealer count, technician hours, acre volume)</span></div>
+        <div style="display: grid; grid-template-columns: 220px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid #1E293B; align-items: start;"><div style="display: flex; align-items: center; gap: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #22D3EE; flex-shrink: 0;"></div><code style="font-size: 11px; color: #22D3EE; background: #1C2333; padding: 2px 8px; border-radius: 4px;">deere-data-security-faq.pdf</code></div><span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">One-page FAQ answering top farmer-data and IP protection questions, legal-friendly language</span></div>
+        <div style="display: grid; grid-template-columns: 220px 1fr; gap: 14px; padding: 10px 0; align-items: start;"><div style="display: flex; align-items: center; gap: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #22D3EE; flex-shrink: 0;"></div><code style="font-size: 11px; color: #22D3EE; background: #1C2333; padding: 2px 8px; border-radius: 4px;">deere-executive-brief.pdf</code></div><span style="font-size: 13px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5;">2-page CEO/CTO brief: account thesis, three wedge plays, and a single ask</span></div>
+      </div>
+    </div>
+
+    <!-- Customer signals -->
+    <div class="card">
+      <div style="font-size: 15px; font-weight: 700; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 16px;">Customer Signals to Watch</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;">
+        <div style="background: #1C2333; border-radius: 8px; padding: 14px; border-left: 3px solid #FBBF24;"><div style="font-size: 13px; font-weight: 600; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 6px;">Job postings for LLM/AI platform engineers at Deere ISG</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;"><strong style="color: #FBBF24;">When seen:</strong> Internal build underway. Position OpenAI as accelerant, not competitor.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 14px; border-left: 3px solid #FBBF24;"><div style="font-size: 13px; font-weight: 600; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 6px;">Operations Center subscriber growth stalls or declines</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;"><strong style="color: #FBBF24;">When seen:</strong> Product differentiation opportunity. Conversational AI as retention play.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 14px; border-left: 3px solid #FBBF24;"><div style="font-size: 13px; font-weight: 600; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 6px;">New CIO appointment from Microsoft/Azure background</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;"><strong style="color: #FBBF24;">When seen:</strong> Accelerate Azure OpenAI Service positioning; warm intro via MSFT team.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 14px; border-left: 3px solid #FBBF24;"><div style="font-size: 13px; font-weight: 600; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 6px;">Deere announces partnership with competing AI provider</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;"><strong style="color: #FBBF24;">When seen:</strong> Identify gaps/limitations in that partnership; position complementary use cases.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 14px; border-left: 3px solid #FBBF24;"><div style="font-size: 13px; font-weight: 600; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 6px;">Earnings call language around 'talent constraints' or 'engineering capacity'</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;"><strong style="color: #FBBF24;">When seen:</strong> Codex development velocity story becomes urgent. CFO-level justification available.</p></div>
+        <div style="background: #1C2333; border-radius: 8px; padding: 14px; border-left: 3px solid #FBBF24;"><div style="font-size: 13px; font-weight: 600; color: #F1F5F9; font-family: 'Inter', sans-serif; margin-bottom: 6px;">Blue River publishes new See & Spray research or model accuracy benchmarks</div><p style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.5; margin: 0;"><strong style="color: #FBBF24;">When seen:</strong> Engage Hindman team on Vision API + Blue River model extension conversation.</p></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; padding: 24px 0;">
+      <div style="font-size: 12px; color: #94A3B8; font-family: 'Nunito', sans-serif; line-height: 1.6;">
+        Generated by Gary &middot; John Deere Customer Command Center &middot; Account Director Prep Package<br>
+        <span style="color: #1E293B;">May 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- JAVASCRIPT -->
+<script>
+// Function tabs
+function switchFunc(name) {
+  document.querySelectorAll('.func-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.func-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  const panel = document.getElementById('func-' + name);
+  if (panel) panel.classList.add('active');
+}
+
+// Copy to clipboard
+function copyAsset(el) {
+  const text = el.getAttribute('data-content').replace(/&#10;/g, '\n').replace(/&quot;/g, '"');
+  navigator.clipboard.writeText(text).then(() => {
+    el.classList.add('copied');
+    el.querySelector('.copy-status').textContent = 'Copied!';
+    el.querySelector('.copy-status').style.color = '#34D399';
+    setTimeout(() => {
+      el.classList.remove('copied');
+      el.querySelector('.copy-status').textContent = 'Click to copy';
+      el.querySelector('.copy-status').style.color = '#94A3B8';
+    }, 2000);
+  });
+}
+
+// Nav scroll spy
+const sections = ['thesis','stakeholders','usecases','wedge','governance','followup','action'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.style.borderBottom = '2px solid transparent';
+        l.style.color = '#94A3B8';
+        l.style.fontWeight = '500';
+      });
+      const active = document.querySelector('.nav-link[data-section="' + entry.target.id + '"]');
+      if (active) {
+        active.style.borderBottom = '2px solid #22D3EE';
+        active.style.color = '#22D3EE';
+        active.style.fontWeight = '700';
+      }
+    }
+  });
+}, { threshold: 0.1, rootMargin: '-80px 0px -70% 0px' });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+</script>
+</body>
+</html>

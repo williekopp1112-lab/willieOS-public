@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trends 2026 — Executive Summary</title>
+<meta name="description" content="Executive summary of the six AI trends most likely to affect enterprise strategy in 2026. Synthesized from Phase 1 research brief (17 findings, 15+ verified sources).">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F4CA;</text></svg>">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #4a4a5a;
+    --accent: #1a56db;
+    --accent-light: #e8effc;
+    --border: #dfe1e6;
+    --callout-bg: #f0f4ff;
+    --callout-border: #1a56db;
+    --urgent-bg: #fef3c7;
+    --urgent-border: #d97706;
+    --stat-bg: #f3f4f6;
+    --action-bg: #f0fdf4;
+    --action-border: #16a34a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.72;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .header .label {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .header .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    max-width: 640px;
+  }
+
+  .header .meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+  }
+
+  /* Research basis notice */
+  .research-basis {
+    background: var(--callout-bg);
+    border-left: 3px solid var(--callout-border);
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    border-radius: 0 6px 6px 0;
+    line-height: 1.6;
+  }
+
+  .research-basis strong {
+    color: var(--text);
+  }
+
+  /* Priority callout */
+  .priority-callout {
+    background: var(--urgent-bg);
+    border-left: 3px solid var(--urgent-border);
+    padding: 14px 18px;
+    margin: 0 0 32px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .priority-callout .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #92400e;
+    margin-bottom: 6px;
+  }
+
+  .priority-callout p {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #78350f;
+    line-height: 1.6;
+  }
+
+  /* Intro */
+  .intro p {
+    margin-bottom: 14px;
+  }
+
+  /* Stat blocks */
+  .stat-row {
+    display: flex;
+    gap: 14px;
+    margin: 24px 0 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    flex: 1;
+    min-width: 130px;
+    background: var(--stat-bg);
+    border-radius: 8px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+
+  .stat-card .number {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+  }
+
+  .stat-card .desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  .stat-card .source {
+    font-size: 10px;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  /* Sections */
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  p { margin-bottom: 13px; }
+
+  /* Trend blocks */
+  .trend {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trend:last-of-type {
+    border-bottom: none;
+  }
+
+  .trend-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .trend-number {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .trend-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .trend .body p {
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  /* Business implication box */
+  .business-implication {
+    background: var(--action-bg);
+    border: 1px solid #bbf7d0;
+    border-left: 3px solid var(--action-border);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .business-implication .bi-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--action-border);
+    margin-bottom: 4px;
+  }
+
+  /* Conclusion */
+  .conclusion {
+    background: var(--callout-bg);
+    border-radius: 8px;
+    padding: 28px;
+    margin-top: 36px;
+  }
+
+  .conclusion h2 {
+    margin-top: 0;
+    font-size: 19px;
+  }
+
+  .conclusion ol {
+    margin: 12px 0 0;
+    padding-left: 20px;
+  }
+
+  .conclusion li {
+    margin-bottom: 8px;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    margin-top: 36px;
+    padding: 16px 18px;
+    background: #fefce8;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #713f12;
+    line-height: 1.55;
+  }
+
+  .disclaimer strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Sources */
+  .sources {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .sources h2 {
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+  }
+
+  .sources ol {
+    padding-left: 20px;
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .sources li {
+    margin-bottom: 4px;
+  }
+
+  .sources a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .sources a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+  }
+
+  /* Print */
+  @media print {
+    body { font-size: 11.5px; }
+    .page { padding: 16px; max-width: 100%; }
+    .stat-card, .trend, .conclusion { break-inside: avoid; }
+    .stat-card .number { font-size: 20px; }
+    .header h1 { font-size: 24px; }
+    a { color: var(--text) !important; }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 18px 48px; }
+    .header h1 { font-size: 24px; }
+    .stat-row { flex-direction: column; }
+    .stat-card { min-width: 100%; }
+    .header .meta { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="label">Executive Summary</div>
+    <h1>Artificial Intelligence Trends Shaping Business in 2026</h1>
+    <div class="subtitle">What senior leaders need to know and where to act</div>
+    <div class="meta">
+      <span>Prepared: April 14, 2026</span>
+      <span>Classification: Internal</span>
+      <span>~2,500 words</span>
+    </div>
+  </div>
+
+  <!-- Research basis disclosure -->
+  <div class="research-basis">
+    <strong>How this document was built:</strong> This summary synthesizes findings from a companion research brief compiled on April 14, 2026, which gathered 17 discrete findings from 15+ verified sources including Gartner, Stanford HAI (2026 AI Index), Deloitte, McKinsey, PwC, OutSystems, and major technology press. This is a landscape synthesis of publicly available data, not a commissioned primary-research report. All statistics are cited to their original sources; where findings carry lower confidence or could not be independently verified, they are flagged.
+  </div>
+
+  <!-- Priority signal -->
+  <div class="priority-callout">
+    <div class="label">Immediate Attention</div>
+    <p>
+      <strong>Trends 1 and 5 require action this quarter.</strong> Agentic AI is moving from pilot to production faster than governance structures can keep up: 97% of enterprises now run AI agents, but only 12% have centralized oversight (OutSystems, Apr 2026). Meanwhile, the EU AI Act's high-risk provisions take effect August 2, and multiple U.S. state AI laws became enforceable January 1. The window for proactive positioning on both fronts is closing.
+    </p>
+  </div>
+
+  <!-- Introduction -->
+  <h2>Introduction</h2>
+  <div class="intro">
+    <p>
+      Global AI spending will reach $2.52 trillion in 2026, a 44% year-over-year increase (Gartner, Jan 2026). Corporate AI investment hit $581.7 billion in 2025 alone, up 130% from the prior year (Stanford HAI). The money is flowing. The harder question is whether it's going to the right places.
+    </p>
+    <p>
+      Boards are asking tougher questions about returns. Regulators on three continents are writing enforceable rules. The technology itself is splitting: smaller and cheaper for most production workloads, bigger and more autonomous for the tasks that carry the highest stakes. Organizational AI adoption reached 88% last year (Stanford HAI), yet only 5% of companies report substantial ROI. The gap between adoption and value capture is the central strategic tension of this year.
+    </p>
+    <p>
+      This document identifies six trends drawn from our research brief that will most directly affect enterprise strategy. Each includes analysis and a concrete business implication.
+    </p>
+  </div>
+
+  <!-- Market context stats -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="number">$2.52T</div>
+      <div class="desc">Global AI spending 2026</div>
+      <div class="source">Gartner, Jan 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">97%</div>
+      <div class="desc">Enterprises running AI agents</div>
+      <div class="source">OutSystems, Apr 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">88%</div>
+      <div class="desc">Organizational AI adoption</div>
+      <div class="source">Stanford HAI, 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">5%</div>
+      <div class="desc">Achieving substantial AI ROI</div>
+      <div class="source">Master of Code / Deloitte</div>
+    </div>
+  </div>
+
+  <!-- Trend 1 -->
+  <div class="trend">
+    <div class="trend-header">
+      <span class="trend-number">1</span>
+      <span class="trend-title">Agentic AI Goes to Work</span>
+    </div>
+    <div class="body">
+      <p>
+        AI agents that plan, execute, and iterate on multi-step tasks with minimal human oversight have crossed from demos to production. Gartner forecasts that 40% of enterprise applications will embed task-specific agents by year-end, up from under 5% in 2025. OutSystems separately found 97% of enterprises now run agents in production (Apr 2026). The agentic AI market is projected to grow from $7.8 billion to over $52 billion by 2030.
+      </p>
+      <p>
+        The shift is architectural. Multi-agent systems now coordinate across workflows, passing context and making sequenced decisions. The Model Context Protocol (MCP), originally developed by Anthropic and now governed by the Linux Foundation, is enabling vendor-neutral interoperability. Customer service, finance operations, and security monitoring are leading adoption areas.
+      </p>
+      <p>
+        But 94% of organizations report concern about agent sprawl: the unchecked proliferation of autonomous systems creating complexity, security gaps, and technical debt. Only 12% have centralized governance. Gartner warns that over 40% of agentic AI projects will be canceled by end of 2027 due to integration failures and organizational change resistance, not technology limitations.
+      </p>
+      <div class="business-implication">
+        <div class="bi-label">What to Do</div>
+        Stand up an agent oversight function now. Define escalation boundaries, audit requirements, and kill switches before agents reach production scale. The companies that treat governance as an afterthought will face the same reckoning that ungoverned cloud sprawl caused a decade ago.
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend 2 -->
+  <div class="trend">
+    <div class="trend-header">
+      <span class="trend-number">2</span>
+      <span class="trend-title">The ROI Reckoning</span>
+    </div>
+    <div class="body">
+      <p>
+        The gap between AI spending and measurable returns is the defining tension in enterprise technology right now. Deloitte's State of AI in the Enterprise report found only 39% of organizations report a measurable EBIT impact from AI, with most seeing less than 5% financial contribution. A separate analysis puts it at 5% of companies achieving substantial returns.
+      </p>
+      <p>
+        Gartner places AI in the "Trough of Disillusionment" for 2026. That's a maturation signal, not a death sentence. The organizations generating returns share traits: enterprise-wide strategy rather than scattered departmental pilots, focus on specific high-value workflows, and realistic 18-36 month payback horizons. Kyndryl's Readiness Report found 61% of senior leaders feel more pressure to prove AI ROI than a year ago.
+      </p>
+      <p>
+        Generative AI has reached 53% population adoption faster than the personal computer or the internet (Stanford HAI), but business value capture lags adoption by a wide margin.
+      </p>
+      <div class="business-implication">
+        <div class="bi-label">What to Do</div>
+        Stop measuring AI by adoption rates. Measure by cost avoidance, throughput improvement, and revenue attribution on a per-workflow basis. Kill pilots that can't articulate a payback timeline. Fund the ones that can.
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend 3 -->
+  <div class="trend">
+    <div class="trend-header">
+      <span class="trend-number">3</span>
+      <span class="trend-title">Smaller Models, Bigger Impact</span>
+    </div>
+    <div class="body">
+      <p>
+        The dominance of massive general-purpose models is giving way to smaller, domain-specific systems. Open-source models like Llama 4 Maverick (400B parameters, 10M token context) and Qwen 3.5 are now within 3-5% of frontier closed models on most benchmarks, with local inference running 30-150x cheaper per token than cloud APIs. The small language model market is projected to grow from $7.8 billion (2023) to $20.7 billion by 2030.
+      </p>
+      <p>
+        This matters most in regulated industries where data residency, auditability, and compliance make cloud-hosted frontier models impractical. Small models running locally eliminate the need to send sensitive data to external servers and often achieve higher precision on domain-specific tasks. The FDA has now authorized over 1,039 AI-enabled medical devices, with radiology tools comprising nearly 80% of all authorizations.
+      </p>
+      <p>
+        The emerging pattern is hybrid: a large general model handles complex reasoning and novel requests, while specialized small models handle the high-volume, domain-specific workloads that make up 80% of production traffic.
+      </p>
+      <div class="business-implication">
+        <div class="bi-label">What to Do</div>
+        Audit your AI workloads by task type this quarter. Identify the high-volume, pattern-matching jobs running on expensive frontier models. Each one you migrate to a fine-tuned small model cuts inference cost by 60-80% while often improving domain accuracy. Start with your three highest-volume use cases and run a 30-day cost comparison. For regulated industries, this simultaneously solves data residency requirements.
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend 4 -->
+  <div class="trend">
+    <div class="trend-header">
+      <span class="trend-number">4</span>
+      <span class="trend-title">The Infrastructure Arms Race</span>
+    </div>
+    <div class="body">
+      <p>
+        The physical infrastructure behind AI now rivals national utility systems in scale. Five major technology companies are spending over $320 billion annually on data center CapEx. NVIDIA reported $215.9 billion in fiscal year 2026 revenue (up 65% YoY), with data center revenue at $194 billion. Blackwell GPUs remain sold out through mid-year at approximately $40,000 per unit.
+      </p>
+      <p>
+        The hardware landscape is fragmenting. Amazon's Trainium3, Google's Trillium TPU, Microsoft's Maia 200, and Meta's MTIA chips are all in production, competing for inference workloads. NVIDIA still dominates training. Global data center capacity must grow from 122 GW (2025) to 220 GW by 2030, requiring $5.2 trillion in total infrastructure investment.
+      </p>
+      <p>
+        U.S. data centers now consume approximately 176 TWh of electricity annually, about 4.4% of total national consumption. Communities near major data center clusters in Virginia, Texas, and Georgia are seeing residential electricity rate increases of 8-15%.
+      </p>
+      <div class="business-implication">
+        <div class="bi-label">What to Do</div>
+        Factor energy costs into every AI deployment decision. On-premise inference, edge computing, and model efficiency are now P&amp;L items, not engineering preferences. Organizations with large compute footprints should model power cost scenarios 3-5 years out.
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend 5 -->
+  <div class="trend">
+    <div class="trend-header">
+      <span class="trend-number">5</span>
+      <span class="trend-title">Regulation Arrives &mdash; Fragmented and Fast</span>
+    </div>
+    <div class="body">
+      <p>
+        AI regulation in 2026 is no longer theoretical. The EU AI Act's high-risk system provisions for the financial sector take full effect August 2, 2026, with regulated products following by August 2027. Each member state must establish an AI regulatory sandbox. In the U.S., California's Transparency in Frontier AI Act and Texas's Responsible AI Governance Act took effect January 1. Illinois's AI in Employment amendment to the Human Rights Act also became effective January 1, requiring employers to disclose AI use in hiring and promotion.
+      </p>
+      <p>
+        The federal picture is contested. The White House released a National Policy Framework for AI on March 20, 2026, proposing federal preemption of state AI laws. A DOJ AI Litigation Task Force has been active since January 10, challenging state regulations in federal court. Roughly 200 state AI bills are being tracked in 2026. Globally, Korea's Basic AI Act and Vietnam's first dedicated AI law both take effect this year. India's AI Impact Summit (February 2026) produced commitments from 92 countries and over $200 billion in pledged investment.
+      </p>
+      <div class="business-implication">
+        <div class="bi-label">What to Do</div>
+        If you operate across U.S. states, your legal team needs a state-by-state compliance map by end of Q2. The federal preemption question won't resolve quickly, and non-compliance penalties in California, Texas, and Illinois are already active. In the EU, if you deploy high-risk AI in financial services, August 2 is a hard deadline. Separately, check your cyber insurance renewal: carriers are beginning to require documented AI red-teaming, and policies that don't address AI-specific liabilities may not cover you.
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend 6 -->
+  <div class="trend">
+    <div class="trend-header">
+      <span class="trend-number">6</span>
+      <span class="trend-title">The Talent Equation Inverts</span>
+    </div>
+    <div class="body">
+      <p>
+        Over 90% of global enterprises are projected to face critical AI skills shortages this year. The numbers: 1.6 million open AI positions globally against 518,000 qualified candidates (Second Talent). IDC estimates sustained skills gaps risk $5.5 trillion in reduced global market performance. AI-exposed roles are evolving 66% faster than non-AI roles and command a 56% wage premium.
+      </p>
+      <p>
+        The demand has shifted from general data science toward production and governance profiles. MLOps engineers, forward-deployed engineers, and AI governance specialists are the hardest roles to fill. AI coding assistants have become standard infrastructure: GitHub Copilot serves 1.8 million paying developers, Cursor reached a $10 billion valuation, and 74% of developers worldwide had adopted specialized AI tools by January 2026 (JetBrains).
+      </p>
+      <p>
+        The paradox: 82% of enterprise leaders say their organization provides AI training, yet 59% still report a skills gap. Most training programs address knowledge, but the actual bottleneck is hands-on capability with production systems.
+      </p>
+      <div class="business-implication">
+        <div class="bi-label">What to Do</div>
+        Stop hiring for AI titles. Start building AI capabilities into existing technical functions. Your next best ML engineer may be a senior software engineer with six months of targeted upskilling on your production stack. This quarter, redesign three pilot roles around human-AI collaboration patterns rather than growing an isolated "AI team" that becomes a bottleneck for every project. Budget for the 56% wage premium on specialist hires you do need to make externally. Underpaying delays the gap; it doesn't close it.
+      </div>
+    </div>
+  </div>
+
+  <!-- Conclusion -->
+  <div class="conclusion">
+    <h2>Looking Ahead</h2>
+    <p>
+      The dominant theme of 2026 is convergence between ambition and accountability. Frontier models now exceed human performance on PhD-level science questions and competition mathematics, yet the same systems correctly read an analog clock only 50.1% of the time (Stanford HAI). The technology has matured past the point where momentum alone justifies investment, but it has also become too capable to ignore.
+    </p>
+    <p>Three priorities for this quarter:</p>
+    <ol>
+      <li><strong>Establish agent governance</strong> before your autonomous systems outrun your oversight capacity. Define what agents can and cannot do without human approval.</li>
+      <li><strong>Map your regulatory exposure</strong> across every jurisdiction where you operate. The EU has hard deadlines, U.S. states have active enforcement, and the federal picture is unsettled.</li>
+      <li><strong>Audit AI workloads for cost optimization.</strong> Identify where smaller, cheaper models can replace expensive general-purpose ones without sacrificing quality. The 60-80% cost savings on high-volume inference directly improves unit economics.</li>
+    </ol>
+    <p style="margin-top: 14px;">
+      The companies that win in 2026 won't be the ones spending the most on AI. They'll be the ones spending in the right places, with clear line-of-sight to value.
+    </p>
+  </div>
+
+  <!-- Verification disclaimer -->
+  <div class="disclaimer">
+    <strong>Note on Sources and Limitations</strong>
+    Some details could not be verified from primary sources. Specifically: the 3-5% gap between open-source and frontier models may not hold for complex multi-step reasoning; McKinsey's $2.6-4.4 trillion value estimate for AI agents carries wide confidence bounds; productivity figures for AI coding tools are largely vendor self-reported; and the ~200 state AI bills figure was not confirmed against a primary legislative tracking database. Findings with lower confidence are noted as such in the companion research brief.
+  </div>
+
+  <!-- Sources -->
+  <div class="sources">
+    <h2>Sources</h2>
+    <ol>
+      <li><a href="https://www.gartner.com/en/newsroom/press-releases/2026-1-15-gartner-says-worldwide-ai-spending-will-total-2-point-5-trillion-dollars-in-2026">Gartner, "Worldwide AI Spending Will Total $2.5 Trillion in 2026" (Jan 2026)</a></li>
+      <li><a href="https://hai.stanford.edu/ai-index/2026-ai-index-report">Stanford HAI, 2026 AI Index Report (Apr 2026)</a></li>
+      <li><a href="https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html">Deloitte, "The State of AI in the Enterprise" (2026)</a></li>
+      <li><a href="https://www.businesswire.com/news/home/20260407749542/en/">OutSystems, Enterprise AI Agent Adoption Report (Apr 2026)</a></li>
+      <li><a href="https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025">Gartner, "40% of Enterprise Apps Will Feature AI Agents by 2026" (Aug 2025)</a></li>
+      <li><a href="https://www.kyndryl.com/us/en/insights/articles/2026/02/achieving-ai-roi-through-value-realization">Kyndryl, "Achieving AI ROI Through Value Realization" (Feb 2026)</a></li>
+      <li><a href="https://masterofcode.com/blog/ai-roi">Master of Code, "AI ROI: Why Only 5% of Enterprises See Real Returns in 2026"</a></li>
+      <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">European Commission, EU AI Act Regulatory Framework</a></li>
+      <li><a href="https://www.kslaw.com/news-and-insights/new-state-ai-laws-are-effective-on-january-1-2026-but-a-new-executive-order-signals-disruption">King &amp; Spalding, "New State AI Laws Effective January 1, 2026"</a></li>
+      <li><a href="https://www.politico.com/news/2026/03/20/white-house-releases-ai-policy-blueprint-for-congress-00837354">Politico, "White House Releases AI Policy Blueprint" (Mar 2026)</a></li>
+      <li><a href="https://www.wsgr.com/en/insights/2026-year-in-preview-ai-regulatory-developments-for-companies-to-watch-out-for.html">Wilson Sonsini, "2026 Year in Preview: AI Regulatory Developments"</a></li>
+      <li><a href="https://www.workera.ai/blog/the-5-5-trillion-skills-gap-what-idcs-new-report-reveals-about-ai-workforce-readiness">Workera / IDC, "The $5.5 Trillion Skills Gap"</a></li>
+      <li><a href="https://www.secondtalent.com/resources/global-ai-talent-shortage-statistics/">Second Talent, "Global AI Talent Shortage Statistics 2026"</a></li>
+      <li><a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/">JetBrains, "AI Coding Tools Developers Use at Work" (Apr 2026)</a></li>
+      <li><a href="https://www.opensourceforu.com/2026/04/the-quiet-revolution-how-small-language-models-are-redefining-enterprise-ai-strategy/">Open Source For You, "Small Language Models Redefining Enterprise AI" (Apr 2026)</a></li>
+      <li><a href="https://ai.meta.com/blog/llama-4-multimodal-intelligence/">Meta AI, "Llama 4 Multimodal Intelligence"</a></li>
+      <li><a href="https://www.belfercenter.org/research-analysis/ai-data-centers-us-electric-grid">Harvard Belfer Center, "AI, Data Centers, and the U.S. Electric Grid"</a></li>
+      <li><a href="https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai">IEA, "Energy Demand from AI"</a></li>
+      <li><a href="https://www.cnbc.com/2026/03/13/ai-data-centers-electricity-prices-backlash-ratepayer-protection.html">CNBC, "Who Is Really Footing the AI Energy Bill?" (Mar 2026)</a></li>
+      <li><a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices">FDA, "AI-Enabled Medical Devices"</a></li>
+      <li><a href="https://sloanreview.mit.edu/article/five-trends-in-ai-and-data-science-for-2026/">MIT Sloan Management Review, "Five Trends in AI and Data Science for 2026"</a></li>
+      <li><a href="https://www.pwc.com/us/en/tech-effect/ai-analytics/ai-predictions.html">PwC, "2026 AI Business Predictions"</a></li>
+      <li><a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2234343">India AI Impact Summit 2026, Declaration and Investment Commitments (Feb 2026)</a></li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Phase 2 Executive Summary &middot; April 14, 2026 &middot; Synthesized from Phase 1 Research Brief (17 findings, 15+ sources)
+  </div>
+
+</div>
+</body>
+</html>

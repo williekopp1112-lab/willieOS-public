@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="OpenAI Referral Prep Brief — Willie Kopp">
+<meta property="og:title" content="OpenAI Referral Prep Brief | Willie Kopp">
+<meta property="og:description" content="Positioning, anticipated questions, and narrative prep for an OpenAI conversation on agentic systems and model-based systems engineering.">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%230a0a0f'/%3E%3Ctext x='600' y='280' font-size='48' text-anchor='middle' fill='%2300c896' font-family='system-ui' font-weight='700'%3EOpenAI Referral Prep%3C/text%3E%3Ctext x='600' y='360' font-size='28' text-anchor='middle' fill='%238888a0' font-family='system-ui'%3EWillie Kopp%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='%2300e0a0' font-family='system-ui'%3EG%3C/text%3E%3C/svg%3E">
+<title>OpenAI Referral Prep Brief — Willie Kopp</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --border: rgba(255,255,255,0.06);
+    --text: #e8e8ed;
+    --text-muted: #8888a0;
+    --accent: #00c896;
+    --accent-glow: rgba(0,200,150,0.15);
+    --warn: #f0a040;
+    --danger: #e04060;
+    --blue: #4090f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .slide.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .slide-inner {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  /* Typography */
+  h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+  }
+
+  p, li {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .accent { color: var(--accent); }
+  .warn { color: var(--warn); }
+  .danger { color: var(--danger); }
+  .blue { color: var(--blue); }
+
+  /* Slide Header */
+  .slide-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .slide-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0,200,150,0.2);
+  }
+
+  .card-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.3;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* Pill tags */
+  .pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  .pill.green { background: rgba(0,200,150,0.12); color: var(--accent); }
+  .pill.blue { background: rgba(64,144,240,0.12); color: var(--blue); }
+  .pill.warn { background: rgba(240,160,64,0.12); color: var(--warn); }
+  .pill.danger { background: rgba(224,64,96,0.12); color: var(--danger); }
+
+  /* Quote block */
+  .quote-block {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 28px 32px;
+    border-radius: 0 12px 12px 0;
+    margin: 20px 0;
+  }
+
+  .quote-block p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .quote-block .attribution {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 12px;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* List styles */
+  .prep-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .prep-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .prep-list li:last-child { border-bottom: none; }
+
+  .list-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-glow);
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .list-content { flex: 1; }
+
+  .list-content strong {
+    display: block;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+  }
+
+  .list-content span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Avoid section */
+  .avoid-list li {
+    padding: 12px 0;
+  }
+
+  .avoid-list .list-num {
+    background: rgba(224,64,96,0.12);
+    color: var(--danger);
+  }
+
+  /* Title slide */
+  .title-slide {
+    text-align: center;
+  }
+
+  .title-slide h1 {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .title-slide .subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .title-slide .meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* Narrative slide */
+  .narrative-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+  }
+
+  .narrative-block::before {
+    content: '60s';
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: var(--accent-glow);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .narrative-block p {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .narrative-block p:last-child { margin-bottom: 0; }
+
+  .narrative-block .beat {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 20px;
+  }
+
+  .narrative-block .beat:first-child { margin-top: 0; }
+
+  /* Career ladder */
+  .career-ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 20px;
+  }
+
+  .career-step {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .career-line {
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), rgba(0,200,150,0.2));
+    position: relative;
+    margin-left: 14px;
+  }
+
+  .career-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: absolute;
+    left: -4px;
+    top: 20px;
+  }
+
+  .career-content {
+    padding: 12px 0 24px;
+  }
+
+  .career-content .role {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .career-content .company {
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .career-content .desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.45;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* Slide counter */
+  .slide-counter {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+    z-index: 100;
+  }
+
+  /* Nav hint */
+  .nav-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 30px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    opacity: 0.3;
+    letter-spacing: 0.04em;
+    z-index: 100;
+  }
+
+  /* Stagger animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide.active .stagger-1 { animation: fadeInUp 0.5s ease 0.1s both; }
+  .slide.active .stagger-2 { animation: fadeInUp 0.5s ease 0.2s both; }
+  .slide.active .stagger-3 { animation: fadeInUp 0.5s ease 0.3s both; }
+  .slide.active .stagger-4 { animation: fadeInUp 0.5s ease 0.4s both; }
+  .slide.active .stagger-5 { animation: fadeInUp 0.5s ease 0.5s both; }
+  .slide.active .stagger-6 { animation: fadeInUp 0.5s ease 0.6s both; }
+  .slide.active .stagger-7 { animation: fadeInUp 0.5s ease 0.7s both; }
+
+  /* Two-column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+  }
+
+  /* Section divider */
+  .section-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .slide { padding: 40px 24px; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.4rem; }
+    .card-grid.cols-2, .card-grid.cols-3 { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 24px; }
+    .title-slide h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide active title-slide" data-slide="0">
+    <div class="slide-inner">
+      <div class="stagger-1">
+        <span class="pill green">Prep Brief</span>
+        <span class="pill blue">Confidential</span>
+      </div>
+      <h1 class="stagger-2" style="margin-top: 24px;">OpenAI Referral<br><span class="accent">Conversation Prep</span></h1>
+      <p class="subtitle stagger-3">Agentic Systems & Model-Based Systems Engineering</p>
+      <div class="section-divider stagger-4" style="margin: 24px auto;"></div>
+      <p class="meta stagger-5">Willie Kopp &middot; April 30, 2026 &middot; Prepared by Gary</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Strongest Positioning -->
+  <div class="slide" data-slide="1">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Section 1</div>
+      <h2 class="stagger-2">Your Strongest Positioning</h2>
+
+      <div class="card-grid cols-2 stagger-3" style="margin-bottom: 20px;">
+        <div class="card">
+          <div class="card-number">01</div>
+          <h4>Builder, Not Just Buyer</h4>
+          <p>You built Gary: a production AI operating system with 110+ MCP tools, multi-agent dispatch, autonomous workflows, and cost-controlled model routing. You did not outsource this or supervise it from a slide deck. You wrote the architecture decisions and shipped it.</p>
+        </div>
+        <div class="card">
+          <div class="card-number">02</div>
+          <h4>Enterprise Revenue at Scale</h4>
+          <p>15+ years carrying enterprise quotas at Cisco and Nokia. Director of Sales for IoT Americas. Head of NAM Enterprise Campus Edge at Nokia. You understand complex, multi-stakeholder sales cycles with 6-12 month timelines and 7-figure deal sizes.</p>
+        </div>
+      </div>
+
+      <div class="card-grid cols-2 stagger-4">
+        <div class="card">
+          <div class="card-number">03</div>
+          <h4>Technical + Commercial Bilingual</h4>
+          <p>You can explain model routing, token economics, and MCP architecture to an engineer, then turn around and frame the same capability as ROI for a CFO. CTO of Cisco Sports & Entertainment proves this duality.</p>
+        </div>
+        <div class="card">
+          <div class="card-number">04</div>
+          <h4>Industrial Vertical Depth</h4>
+          <p>Cisco IoT Americas covered Fortune 500 manufacturing. Nokia Private 5G targets industrial enterprise. OpenAI's enterprise push needs people who speak the language of production floors, not just SaaS dashboards.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Gap Analysis -->
+  <div class="slide" data-slide="2">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Why This Matters</div>
+      <h2 class="stagger-2">The Gap You Fill</h2>
+
+      <p class="stagger-3" style="margin-bottom: 28px; font-size: 1rem;">Most candidates fit one box. You sit at a rare intersection that OpenAI's enterprise team needs.</p>
+
+      <div class="card-grid cols-2 stagger-4">
+        <div class="card" style="border-left: 3px solid var(--text-muted);">
+          <h4 style="color: var(--text-muted);">Typical AI Seller</h4>
+          <p>Has enterprise relationships. Carries quota. But has never built a production AI system. Sells features they read about in release notes.</p>
+        </div>
+        <div class="card" style="border-left: 3px solid var(--accent);">
+          <h4>You</h4>
+          <p>Has enterprise relationships. Carries quota. <strong style="color: var(--accent);">Also built a multi-agent AI system from scratch</strong>, debugged inference pipelines, and understands cost architecture from the inside.</p>
+        </div>
+      </div>
+
+      <div class="card-grid cols-2 stagger-5" style="margin-top: 16px;">
+        <div class="card" style="border-left: 3px solid var(--text-muted);">
+          <h4 style="color: var(--text-muted);">Typical AI Founder</h4>
+          <p>Built something compelling. Deep technical understanding. But has never managed a $50M+ pipeline or navigated a Fortune 500 procurement process.</p>
+        </div>
+        <div class="card" style="border-left: 3px solid var(--accent);">
+          <h4>You</h4>
+          <p>Built something compelling. Deep technical understanding. <strong style="color: var(--accent);">Also ran enterprise sales organizations</strong> across IoT, 5G, and sports & entertainment verticals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Questions They May Ask -->
+  <div class="slide" data-slide="3">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Section 2</div>
+      <h2 class="stagger-2">5 Questions They'll Likely Ask</h2>
+
+      <ul class="prep-list">
+        <li class="stagger-3">
+          <span class="list-num">1</span>
+          <div class="list-content">
+            <strong>"What have you actually built with AI?"</strong>
+            <span>Lead with Gary. Multi-agent dispatch pipeline, 110+ MCP tools, autonomous project execution with stage gates. Emphasize that this is a production system you use daily, not a weekend project. Mention the model routing layer (different models for different cost/quality tradeoffs) as evidence of real operational thinking.</span>
+          </div>
+        </li>
+        <li class="stagger-4">
+          <span class="list-num">2</span>
+          <div class="list-content">
+            <strong>"How do you think about agentic systems vs. traditional automation?"</strong>
+            <span>Agents make decisions about what to do next based on context. Traditional automation follows fixed rules. The hard part is not the inference call; it is the orchestration layer: guardrails, cost caps, fallback routing, and knowing when to escalate to a human. That is what you built in Gary's dispatch system.</span>
+          </div>
+        </li>
+        <li class="stagger-5">
+          <span class="list-num">3</span>
+          <div class="list-content">
+            <strong>"Why are you interested in OpenAI specifically?"</strong>
+            <span>Be honest and precise. OpenAI has the strongest enterprise distribution motion, the largest developer ecosystem, and is investing heavily in enterprise sales infrastructure. If the conversation is about agentic systems, note that you have direct experience building on multi-model architectures and understand what enterprise buyers actually need from an AI platform vendor.</span>
+          </div>
+        </li>
+        <li class="stagger-6">
+          <span class="list-num">4</span>
+          <div class="list-content">
+            <strong>"What's your view on where enterprise AI adoption is stuck?"</strong>
+            <span>Enterprises are stuck at the pilot-to-production gap. The demo is easy. Reorganizing a workflow around model outputs is hard. The market is overpricing demos and underpricing deployment. The AE who can walk a customer from "cool demo" to "we changed how the team works" is the one who closes real deals.</span>
+          </div>
+        </li>
+        <li class="stagger-7">
+          <span class="list-num">5</span>
+          <div class="list-content">
+            <strong>"What verticals do you know well?"</strong>
+            <span>Industrial/manufacturing (Cisco IoT Americas, Nokia Private 5G), sports & entertainment (Cisco S&E — NFL, NBA, NHL venues), and enterprise campus infrastructure. For OpenAI's push into finance, biotech, and industrial verticals, your industrial experience is directly relevant.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Questions You Should Ask -->
+  <div class="slide" data-slide="4">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Section 3</div>
+      <h2 class="stagger-2">5 Questions You Should Ask</h2>
+
+      <ul class="prep-list">
+        <li class="stagger-3">
+          <span class="list-num" style="background: rgba(64,144,240,0.12); color: var(--blue);">1</span>
+          <div class="list-content">
+            <strong>"Where is the enterprise team seeing the most friction between what the model can do and what the customer can actually deploy?"</strong>
+            <span>Shows you understand the pilot-to-production gap from firsthand experience. Opens a conversation about real customer pain, not hypothetical capability.</span>
+          </div>
+        </li>
+        <li class="stagger-4">
+          <span class="list-num" style="background: rgba(64,144,240,0.12); color: var(--blue);">2</span>
+          <div class="list-content">
+            <strong>"How does the enterprise team think about competing with customers building internally on open-weight models versus selling them OpenAI's managed platform?"</strong>
+            <span>Demonstrates you understand the real competitive landscape. Not "who's your competitor?" — it is the customer's own engineering team. Shows strategic depth.</span>
+          </div>
+        </li>
+        <li class="stagger-5">
+          <span class="list-num" style="background: rgba(64,144,240,0.12); color: var(--blue);">3</span>
+          <div class="list-content">
+            <strong>"What does the ideal AE look like for the industrial and manufacturing segment? Is the team structured by vertical or by account size?"</strong>
+            <span>Practical question that signals you are thinking about where you would fit and how to be effective, not just whether you can get the job.</span>
+          </div>
+        </li>
+        <li class="stagger-6">
+          <span class="list-num" style="background: rgba(64,144,240,0.12); color: var(--blue);">4</span>
+          <div class="list-content">
+            <strong>"How is OpenAI thinking about the agentic layer — is it primarily an API play, or are you building opinionated orchestration frameworks that enterprises can deploy?"</strong>
+            <span>You have direct experience building orchestration (Gary's dispatch pipeline). This positions you to have a substantive technical conversation, not a surface-level one.</span>
+          </div>
+        </li>
+        <li class="stagger-7">
+          <span class="list-num" style="background: rgba(64,144,240,0.12); color: var(--blue);">5</span>
+          <div class="list-content">
+            <strong>"What's the relationship between the research team's pace of new capability releases and the enterprise team's ability to keep customers current?"</strong>
+            <span>This is a real operational challenge at every frontier lab. Shows you understand the internal tension and have thought about how a sales org navigates it.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: 60-Second Narrative -->
+  <div class="slide" data-slide="5">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Section 4</div>
+      <h2 class="stagger-2">Your 60-Second Narrative</h2>
+
+      <div class="narrative-block stagger-3">
+        <span class="beat">The Setup</span>
+        <p>I spent 15 years in enterprise technology sales — Cisco and Nokia — selling complex infrastructure into Fortune 500s. Director of IoT Americas, CTO of Sports & Entertainment, Head of Enterprise Campus Edge. I know how large organizations buy technology and how long it takes to earn their trust.</p>
+
+        <span class="beat">The Turn</span>
+        <p>About a year ago, I started building my own AI operating system. Not as a product to sell — as a tool to run my own work. I wanted to understand what agentic AI actually feels like in production, not in a demo. That system now has over 110 tools, multi-agent dispatch, autonomous execution with guardrails, and cost-controlled model routing across multiple providers.</p>
+
+        <span class="beat">The Point</span>
+        <p>What I learned building it is what I think the enterprise market is missing right now. Most sales teams are selling AI capability. But the real sale is helping customers reorganize workflows around model outputs. That requires someone who has done it — not just talked about it. That's the perspective I would bring.</p>
+      </div>
+
+      <p class="stagger-4" style="margin-top: 16px; font-size: 0.82rem; color: var(--text-muted);">Tip: Deliver this conversationally, not as a monologue. Pause after "the turn" — they will likely ask follow-up questions about what you built. Let them pull the details out of you.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: What to Avoid -->
+  <div class="slide" data-slide="6">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Section 5</div>
+      <h2 class="stagger-2">What to Avoid Saying</h2>
+
+      <div class="two-col">
+        <div>
+          <ul class="prep-list avoid-list">
+            <li class="stagger-3">
+              <span class="list-num">1</span>
+              <div class="list-content">
+                <strong>Don't name-drop other labs' models favorably</strong>
+                <span>You built Gary on Claude and other providers. That's fine as personal context, but don't lead with "I built on Anthropic's stack" in an OpenAI conversation. If asked directly, be honest and frame it as model-agnostic architecture — you route to the best model for each task, which is exactly what enterprises do.</span>
+              </div>
+            </li>
+            <li class="stagger-4">
+              <span class="list-num">2</span>
+              <div class="list-content">
+                <strong>Don't oversell Gary as a product</strong>
+                <span>Gary is a proof-of-concept that demonstrates your technical depth. It is not a company, not a product with users, and not a competitor. Frame it as: "I built this to understand the problem space from the inside."</span>
+              </div>
+            </li>
+            <li class="stagger-5">
+              <span class="list-num">3</span>
+              <div class="list-content">
+                <strong>Don't critique OpenAI's safety posture</strong>
+                <span>You may have opinions about different labs' approaches to safety. Keep them to yourself in this conversation. If safety comes up, pivot to what enterprise buyers care about: data privacy, SOC 2, deployment controls. Stay practical, not philosophical.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul class="prep-list avoid-list">
+            <li class="stagger-4">
+              <span class="list-num">4</span>
+              <div class="list-content">
+                <strong>Don't talk about cost as a differentiator</strong>
+                <span>Avoid framing like "I run Gary for $15/week" or comparing model pricing. Enterprise buyers don't optimize for pennies per token — they optimize for deployment risk and vendor trust. Keep cost discussions at the strategic level: "I understand the economics of running inference at scale."</span>
+              </div>
+            </li>
+            <li class="stagger-5">
+              <span class="list-num">5</span>
+              <div class="list-content">
+                <strong>Don't volunteer opinions on OpenAI's competitive position</strong>
+                <span>Market share numbers, comparisons to Google or Anthropic, takes on pricing strategy — none of this helps you. If they bring it up, listen and ask follow-up questions. Let them tell you how they see the market. You learn more and avoid saying something that lands wrong.</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="quote-block stagger-6">
+            <p>"When in doubt, ask a question instead of making a statement. The person with the questions controls the conversation."</p>
+            <div class="attribution">General principle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: Quick Reference -->
+  <div class="slide" data-slide="7">
+    <div class="slide-inner">
+      <div class="slide-label stagger-1">Quick Reference</div>
+      <h2 class="stagger-2">Conversation Cheat Sheet</h2>
+
+      <div class="card-grid cols-3 stagger-3">
+        <div class="card" style="text-align: center;">
+          <h3 style="color: var(--accent); margin-bottom: 16px;">Lead With</h3>
+          <p style="font-size: 0.88rem;">Builder credibility<br>Enterprise sales track record<br>Industrial vertical depth<br>Workflow transformation POV<br>Genuine curiosity</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <h3 style="color: var(--blue); margin-bottom: 16px;">Pivot To</h3>
+          <p style="font-size: 0.88rem;">Questions about their team structure<br>Real customer deployment stories<br>Agentic orchestration challenges<br>Pilot-to-production friction<br>How they measure AE success</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <h3 style="color: var(--danger); margin-bottom: 16px;">Avoid</h3>
+          <p style="font-size: 0.88rem;">Lab comparisons<br>Gary as a product pitch<br>Safety philosophy debates<br>Token pricing details<br>Unsolicited market takes</p>
+        </div>
+      </div>
+
+      <div class="stagger-4" style="margin-top: 32px; text-align: center;">
+        <div class="section-divider" style="margin: 0 auto 20px;"></div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Prepared by Gary &middot; April 30, 2026</p>
+        <p style="font-size: 0.78rem; color: var(--text-muted); opacity: 0.5; margin-top: 4px;">End of brief</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Slide counter -->
+<div class="slide-counter" id="slideCounter">1 / 8</div>
+
+<!-- Nav hint -->
+<div class="nav-hint">Arrow keys or click to navigate</div>
+
+<script>
+  let currentSlide = 0;
+  let isTransitioning = false;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const progressBar = document.getElementById('progressBar');
+  const slideCounter = document.getElementById('slideCounter');
+
+  function updateProgress() {
+    const pct = ((currentSlide + 1) / totalSlides) * 100;
+    progressBar.style.width = pct + '%';
+    slideCounter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+  }
+
+  function goToSlide(index) {
+    if (isTransitioning) return;
+    if (index < 0 || index >= totalSlides || index === currentSlide) return;
+
+    isTransitioning = true;
+    const current = slides[currentSlide];
+    const next = slides[index];
+    const direction = index > currentSlide ? 1 : -1;
+
+    // Exit current
+    current.style.opacity = '0';
+    current.style.transform = 'translateX(' + (-30 * direction) + 'px)';
+
+    setTimeout(() => {
+      current.classList.remove('active');
+      current.style.opacity = '';
+      current.style.transform = '';
+
+      // Enter next
+      next.style.opacity = '0';
+      next.style.transform = 'translateX(' + (30 * direction) + 'px)';
+      next.classList.add('active');
+
+      requestAnimationFrame(() => {
+        next.style.opacity = '1';
+        next.style.transform = 'translateX(0)';
+      });
+
+      currentSlide = index;
+      updateProgress();
+
+      setTimeout(() => {
+        next.style.opacity = '';
+        next.style.transform = '';
+        isTransitioning = false;
+      }, 550);
+    }, 300);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      goToSlide(currentSlide + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      goToSlide(currentSlide - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goToSlide(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goToSlide(totalSlides - 1);
+    }
+  });
+
+  // Click navigation — left third goes back, right two-thirds goes forward
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a, button')) return;
+    const x = e.clientX / window.innerWidth;
+    if (x < 0.33) {
+      goToSlide(currentSlide - 1);
+    } else {
+      goToSlide(currentSlide + 1);
+    }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goToSlide(currentSlide + 1);
+      else goToSlide(currentSlide - 1);
+    }
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>
