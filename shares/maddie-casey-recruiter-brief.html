@@ -12,202 +12,399 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwindcss.config = {
-      theme: {
-        extend: {
-          colors: {
-            background: '#0B0F1A',
-            surface: '#131927',
-            'surface-2': '#1C2333',
-            primary: '#6366F1',
-            accent: '#22D3EE',
-            success: '#34D399',
-            warning: '#FBBF24',
-            border: '#1E293B',
-            'text-primary': '#F1F5F9',
-            'text-secondary': '#94A3B8',
-          },
-          fontFamily: {
-            heading: ['Inter', 'sans-serif'],
-            body: ['Nunito', 'sans-serif'],
-          },
-          borderRadius: {
-            xl: '0.75rem',
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body { font-family: 'Nunito', sans-serif; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; }
+    :root {
+      --bg: #0B0F1A;
+      --surface: #131927;
+      --surface-2: #1C2333;
+      --primary: #6366F1;
+      --accent: #22D3EE;
+      --success: #34D399;
+      --warning: #FBBF24;
+      --border: #1E293B;
+      --text-1: #F1F5F9;
+      --text-2: #94A3B8;
+      --danger: #F87171;
+      --radius: 12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text-1);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; line-height: 1.3; }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(11,15,26,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); height: 56px;
+    }
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 24px;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--text-1); }
+    .nav-brand span.p { color: var(--primary); }
+    .nav-brand span.d { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { font-size: 13px; color: var(--text-2); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text-1); opacity: 1; }
+    .nav-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--success);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Sections */
+    section { padding: 64px 0; }
+    .section-bg { background: var(--surface); }
+
+    .section-label {
+      font-family: 'Inter', sans-serif; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-2); margin-bottom: 16px; font-weight: 500;
+    }
+    .section-title {
+      font-size: 24px; font-weight: 700; color: var(--text-1); margin-bottom: 24px;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 55vh; display: flex; flex-direction: column; justify-content: center;
+      padding-top: 80px;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(99,102,241,0.3); background: rgba(99,102,241,0.05);
+      color: var(--primary); font-size: 12px; font-weight: 500;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; width: fit-content;
+    }
+    .badge svg { width: 14px; height: 14px; }
+    .hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 700; margin-bottom: 8px; }
+    .hero .subtitle {
+      font-size: clamp(22px, 4vw, 36px); font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 16px;
+    }
+    .hero .desc { font-size: 17px; color: var(--text-2); max-width: 640px; margin-bottom: 32px; }
+    .stats-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 12px 16px;
+    }
+    .stat-card .label { font-size: 11px; color: var(--text-2); margin-bottom: 2px; }
+    .stat-card .value { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; }
+
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .grid-2-sm { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Card */
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { border-color: rgba(99,102,241,0.3); box-shadow: 0 8px 32px rgba(99,102,241,0.06); }
+    .card-dark {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card-dark:hover { border-color: rgba(99,102,241,0.3); box-shadow: 0 8px 32px rgba(99,102,241,0.06); }
+    .card-accent {
+      background: linear-gradient(135deg, rgba(99,102,241,0.08), var(--surface), rgba(34,211,238,0.04));
+      border: 1px solid rgba(99,102,241,0.3); border-radius: var(--radius); padding: 32px;
+    }
+
+    /* Timeline */
+    .timeline-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-year { font-size: 12px; color: var(--text-2); width: 96px; flex-shrink: 0; }
+    .timeline-role { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; }
+    .timeline-co { font-size: 12px; }
+    .timeline-co.highlight { color: var(--accent); }
+    .timeline-co.dim { color: var(--text-2); }
+
+    /* Number circle */
+    .num-circle {
+      width: 24px; height: 24px; border-radius: 50%; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;
+    }
+    .num-circle.green { background: rgba(52,211,153,0.1); color: var(--success); }
+    .num-circle.primary { background: rgba(99,102,241,0.1); color: var(--primary); }
+    .num-circle.accent { background: rgba(34,211,238,0.1); color: var(--accent); }
+    .num-circle.warning { background: rgba(251,191,36,0.1); color: var(--warning); }
+
+    .num-box {
+      width: 32px; height: 32px; border-radius: 8px; display: inline-flex;
+      align-items: center; justify-content: center; font-family: 'Inter', sans-serif;
+      font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+
+    /* Segment cards */
+    .segment-card { display: flex; gap: 16px; }
+    .segment-badge {
+      width: 40px; height: 40px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-family: 'Inter', sans-serif;
+      font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .segment-badge.seg-primary { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); color: var(--primary); }
+    .segment-badge.seg-accent { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2); color: var(--accent); }
+    .segment-badge.seg-success { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); color: var(--success); }
+    .segment-badge.seg-warning { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); color: var(--warning); }
+
+    .segment-content { flex: 1; }
+    .segment-content h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .segment-content > p { font-size: 14px; color: var(--text-2); margin-bottom: 12px; }
+
+    /* Inset box */
+    .inset {
+      background: rgba(11,15,26,0.5); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px; margin-top: 8px;
+    }
+    .inset-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-2); font-weight: 500; margin-bottom: 8px;
+    }
+    .inset ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .inset li { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: var(--text-2); }
+    .inset li .bullet { color: var(--accent); margin-top: 3px; flex-shrink: 0; }
+    .inset li .bullet.primary { color: var(--primary); }
+    .inset li .bullet.success { color: var(--success); }
+    .inset p.quote { font-size: 14px; color: var(--text-2); line-height: 1.7; font-style: italic; }
+
+    /* Question row */
+    .q-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .q-mark { color: var(--accent); font-size: 18px; line-height: 1; margin-top: 2px; flex-shrink: 0; }
+    .q-text { font-size: 14px; font-weight: 500; }
+    .q-why { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+
+    /* Avoid row */
+    .avoid-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface-2);
+    }
+    .x-mark { color: var(--danger); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+    .avoid-title { font-size: 14px; font-weight: 500; }
+    .avoid-why { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+
+    /* Mic drop */
+    .icon-box {
+      width: 48px; height: 48px; border-radius: var(--radius);
+      background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.25);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .star-note { display: flex; align-items: flex-start; gap: 12px; margin-top: 24px; }
+    .star-note .star { color: var(--warning); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .star-note p { font-size: 12px; color: var(--text-2); }
+
+    /* Cheat sheet */
+    .cheat-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; margin-bottom: 12px; }
+    .cheat-body { display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--text-2); }
+    .cheat-body .key { color: var(--text-1); font-weight: 500; }
+    .cheat-body .phrase { font-style: italic; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border); background: var(--surface); padding: 32px 0;
+    }
+    .footer-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-inner p { font-size: 12px; color: var(--text-2); }
+    .footer-links { display: flex; align-items: center; gap: 16px; font-size: 12px; }
+    .footer-links span { color: var(--text-2); }
+    .footer-links a { color: var(--accent); font-size: 12px; }
+
+    /* Reveal */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .gradient-text { background: linear-gradient(135deg, #6366F1, #22D3EE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .card-hover { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-    .card-hover:hover { border-color: rgba(99,102,241,0.4); box-shadow: 0 8px 32px rgba(99,102,241,0.08); }
-    .pulse-dot { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2-sm { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+      .hero .subtitle { font-size: 22px; }
+      .stats-row { flex-direction: column; }
+    }
+
     @media print {
-      body { background: white !important; color: black !important; }
-      .no-print { display: none !important; }
+      body { background: white !important; color: #111 !important; }
+      .nav, .no-print { display: none !important; }
+      .card, .card-dark, .card-accent, .inset, .q-row, .avoid-row, .stat-card {
+        border: 1px solid #ddd !important; background: #f9f9f9 !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      a { color: #333 !important; }
     }
   </style>
 </head>
-<body class="bg-background text-text-primary antialiased">
+<body>
 
-  <!-- Sticky Nav -->
-  <header class="fixed top-0 inset-x-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-    <nav class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="font-heading font-semibold text-text-primary tracking-tight">
-        <span class="text-primary">Call</span> Prep<span class="text-accent">.</span>
+  <!-- Nav -->
+  <header class="nav">
+    <div class="nav-inner">
+      <span class="nav-brand">
+        <span class="p">Call</span> Prep<span class="d">.</span>
       </span>
-      <div class="hidden md:flex items-center gap-6">
-        <a href="#about-maddie" class="text-sm text-text-secondary hover:text-text-primary transition-colors">About Maddie</a>
-        <a href="#structure" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Structure</a>
-        <a href="#messages" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Key Messages</a>
-        <a href="#questions" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Questions</a>
-        <a href="#mic-drop" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Mic Drop</a>
+      <div class="nav-links">
+        <a href="#about-maddie">About Maddie</a>
+        <a href="#structure">Structure</a>
+        <a href="#messages">Key Messages</a>
+        <a href="#questions">Questions</a>
+        <a href="#mic-drop">Mic Drop</a>
       </div>
-      <div class="flex items-center gap-2 text-xs text-text-secondary">
-        <span class="pulse-dot inline-block w-2 h-2 rounded-full bg-success"></span>
+      <div class="nav-status">
+        <span class="pulse-dot"></span>
         Friday Call
       </div>
-    </nav>
+    </div>
   </header>
 
   <!-- Hero -->
-  <section class="min-h-[60vh] flex flex-col justify-center pt-20 px-6">
-    <div class="max-w-4xl mx-auto w-full py-16 reveal">
-      <!-- Status badge -->
-      <div class="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 text-primary text-xs font-medium px-3 py-1 rounded-full mb-6">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg>
+  <section class="hero">
+    <div class="container reveal">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg>
         Recruiter Screen Prep
       </div>
-
-      <h1 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-text-primary leading-tight mb-4">
-        Maddie Casey
-        <span class="gradient-text block text-2xl sm:text-3xl md:text-4xl mt-1">GTM Recruiter, OpenAI</span>
-      </h1>
-
-      <p class="text-lg text-text-secondary leading-relaxed max-w-2xl mb-8">
+      <h1>Maddie Casey</h1>
+      <div class="subtitle">GTM Recruiter, OpenAI</div>
+      <p class="desc">
         30-minute recruiter screen for the Enterprise Account Director role. This is a culture and communication check, not a technical interview. Your goal: land three ideas and leave Maddie thinking "this candidate is different."
       </p>
-
-      <!-- Quick stats -->
-      <div class="flex flex-wrap gap-4">
-        <div class="bg-surface border border-border rounded-xl px-4 py-3">
-          <p class="text-xs text-text-secondary mb-0.5">Call Format</p>
-          <p class="font-heading font-semibold text-text-primary">30 min phone/video</p>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="label">Call Format</div>
+          <div class="value">30 min phone/video</div>
         </div>
-        <div class="bg-surface border border-border rounded-xl px-4 py-3">
-          <p class="text-xs text-text-secondary mb-0.5">Interviewer Since</p>
-          <p class="font-heading font-semibold text-text-primary">Aug 2023 at OpenAI</p>
+        <div class="stat-card">
+          <div class="label">At OpenAI Since</div>
+          <div class="value">August 2023</div>
         </div>
-        <div class="bg-surface border border-border rounded-xl px-4 py-3">
-          <p class="text-xs text-text-secondary mb-0.5">Prior Company</p>
-          <p class="font-heading font-semibold text-text-primary">Stripe (GTM)</p>
+        <div class="stat-card">
+          <div class="label">Prior Company</div>
+          <div class="value">Stripe (GTM Recruiting)</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- About Maddie -->
-  <section id="about-maddie" class="py-16 px-6">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">About Your Interviewer</p>
-
-      <div class="grid md:grid-cols-2 gap-8">
+  <section id="about-maddie">
+    <div class="container reveal">
+      <div class="section-label">About Your Interviewer</div>
+      <div class="grid-2">
         <div>
-          <h2 class="font-heading font-bold text-2xl text-text-primary mb-4">Who is Maddie Casey?</h2>
-          <div class="flex flex-col gap-3 text-sm text-text-secondary leading-relaxed">
+          <h2 class="section-title">Who is Maddie Casey?</h2>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;color:var(--text-2);line-height:1.7;">
             <p>Madeline "Maddie" Casey is a career GTM recruiter who joined OpenAI in August 2023. She previously spent 2+ years at Stripe doing the same function during their hypergrowth phase.</p>
-            <p>Before Stripe, she was at Box (promoted from Technical Sourcer to Recruiter II) and started her career in sales recruiting. She is a University of San Francisco grad (2014) and is based in San Francisco.</p>
+            <p>Before Stripe, she was at Box (promoted from Technical Sourcer to Recruiter II) and started her career in sales recruiting. USF grad (2014), based in San Francisco.</p>
             <p>She sits on OpenAI's GTM Strategy team (~22 people). OpenAI scaled their GTM org from 10 to 500 people in about two years. Maddie has been there for most of that growth.</p>
           </div>
         </div>
-
-        <div class="flex flex-col gap-3">
-          <h3 class="font-heading font-semibold text-text-primary mb-2">Career Timeline</h3>
-          <div class="flex flex-col gap-0">
-            <div class="flex items-center gap-3 py-3 border-b border-border">
-              <span class="text-xs text-text-secondary w-24 shrink-0">2023 - Now</span>
-              <div>
-                <p class="font-heading font-medium text-text-primary text-sm">GTM Recruiter</p>
-                <p class="text-xs text-accent">OpenAI</p>
-              </div>
+        <div>
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:12px;">Career Timeline</h3>
+          <div class="timeline-item">
+            <span class="timeline-year">2023 - Now</span>
+            <div>
+              <div class="timeline-role">GTM Recruiter</div>
+              <div class="timeline-co highlight">OpenAI</div>
             </div>
-            <div class="flex items-center gap-3 py-3 border-b border-border">
-              <span class="text-xs text-text-secondary w-24 shrink-0">2021 - 2023</span>
-              <div>
-                <p class="font-heading font-medium text-text-primary text-sm">GTM Recruiter</p>
-                <p class="text-xs text-text-secondary">Stripe</p>
-              </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">2021 - 2023</span>
+            <div>
+              <div class="timeline-role">GTM Recruiter</div>
+              <div class="timeline-co dim">Stripe</div>
             </div>
-            <div class="flex items-center gap-3 py-3 border-b border-border">
-              <span class="text-xs text-text-secondary w-24 shrink-0">2019 - 2021</span>
-              <div>
-                <p class="font-heading font-medium text-text-primary text-sm">Recruiter II</p>
-                <p class="text-xs text-text-secondary">Box</p>
-              </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">2019 - 2021</span>
+            <div>
+              <div class="timeline-role">Recruiter II</div>
+              <div class="timeline-co dim">Box</div>
             </div>
-            <div class="flex items-center gap-3 py-3">
-              <span class="text-xs text-text-secondary w-24 shrink-0">2014 - 2016</span>
-              <div>
-                <p class="font-heading font-medium text-text-primary text-sm">Sales Recruiter</p>
-                <p class="text-xs text-text-secondary">TheLions / OnlyLions</p>
-              </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">2014 - 2016</span>
+            <div>
+              <div class="timeline-role">Sales Recruiter</div>
+              <div class="timeline-co dim">TheLions / OnlyLions</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- What she's evaluating -->
-      <div class="mt-10 bg-surface border border-border rounded-xl p-6 card-hover">
-        <h3 class="font-heading font-semibold text-text-primary mb-4">What GTM Recruiters Screen For</h3>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-success/10 text-success text-xs shrink-0 mt-0.5">1</span>
+      <!-- What she evaluates -->
+      <div class="card" style="margin-top:40px;">
+        <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">What GTM Recruiters Screen For</h3>
+        <div class="grid-2-sm">
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="num-circle green">1</span>
             <div>
-              <p class="text-sm font-medium text-text-primary">Communication clarity</p>
-              <p class="text-xs text-text-secondary">Can you tell your story in 60 seconds without rambling?</p>
+              <div style="font-size:14px;font-weight:500;">Communication clarity</div>
+              <div style="font-size:12px;color:var(--text-2);">Can you tell your story in 60 seconds without rambling?</div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-success/10 text-success text-xs shrink-0 mt-0.5">2</span>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="num-circle green">2</span>
             <div>
-              <p class="text-sm font-medium text-text-primary">Culture signal</p>
-              <p class="text-xs text-text-secondary">Do you thrive in ambiguity? Are you a builder, not a maintainer?</p>
+              <div style="font-size:14px;font-weight:500;">Culture signal</div>
+              <div style="font-size:12px;color:var(--text-2);">Do you thrive in ambiguity? Are you a builder, not a maintainer?</div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-success/10 text-success text-xs shrink-0 mt-0.5">3</span>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="num-circle green">3</span>
             <div>
-              <p class="text-sm font-medium text-text-primary">Enterprise credibility</p>
-              <p class="text-xs text-text-secondary">17 years of Fortune 500 complexity at Cisco and Nokia.</p>
+              <div style="font-size:14px;font-weight:500;">Enterprise credibility</div>
+              <div style="font-size:12px;color:var(--text-2);">17 years of Fortune 500 complexity at Cisco and Nokia.</div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-success/10 text-success text-xs shrink-0 mt-0.5">4</span>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="num-circle green">4</span>
             <div>
-              <p class="text-sm font-medium text-text-primary">Motivation and timing</p>
-              <p class="text-xs text-text-secondary">Why OpenAI? Why now? Is this a "grass is greener" move or genuine pull?</p>
+              <div style="font-size:14px;font-weight:500;">Motivation and timing</div>
+              <div style="font-size:12px;color:var(--text-2);">Why OpenAI? Why now? Genuine pull, not grass-is-greener.</div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-success/10 text-success text-xs shrink-0 mt-0.5">5</span>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="num-circle green">5</span>
             <div>
-              <p class="text-sm font-medium text-text-primary">Technical curiosity</p>
-              <p class="text-xs text-text-secondary">Do you understand the product enough to sell it? (Not a deep dive, just signal.)</p>
+              <div style="font-size:14px;font-weight:500;">Technical curiosity</div>
+              <div style="font-size:12px;color:var(--text-2);">Do you understand the product enough to sell it?</div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-success/10 text-success text-xs shrink-0 mt-0.5">6</span>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="num-circle green">6</span>
             <div>
-              <p class="text-sm font-medium text-text-primary">Compensation alignment</p>
-              <p class="text-xs text-text-secondary">She may ask about expectations. Let her lead this topic.</p>
+              <div style="font-size:14px;font-weight:500;">Compensation alignment</div>
+              <div style="font-size:12px;color:var(--text-2);">She may ask about expectations. Let her lead this topic.</div>
             </div>
           </div>
         </div>
@@ -216,37 +413,26 @@
   </section>
 
   <!-- Call Structure -->
-  <section id="structure" class="py-16 px-6 bg-surface">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">Call Structure</p>
-      <h2 class="font-heading font-bold text-2xl text-text-primary mb-8">30 Minutes, Four Segments</h2>
+  <section id="structure" class="section-bg">
+    <div class="container reveal">
+      <div class="section-label">Call Structure</div>
+      <h2 class="section-title">30 Minutes, Four Segments</h2>
 
-      <div class="flex flex-col gap-4">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
         <!-- Segment 1 -->
-        <div class="bg-surface-2 border border-border rounded-xl p-6 card-hover">
-          <div class="flex items-start gap-4">
-            <div class="flex flex-col items-center shrink-0">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 border border-primary/20 text-primary font-heading font-bold text-sm">5m</span>
-              <div class="w-px h-full bg-border mt-2"></div>
-            </div>
-            <div>
-              <h3 class="font-heading font-semibold text-text-primary mb-2">Rapport Building</h3>
-              <p class="text-sm text-text-secondary mb-3">Show you did your homework. Be warm but efficient.</p>
-              <div class="bg-background/50 rounded-lg p-4 border border-border">
-                <p class="text-xs text-text-secondary uppercase tracking-wider mb-2 font-medium">Conversation starters</p>
-                <ul class="flex flex-col gap-2 text-sm text-text-secondary">
-                  <li class="flex items-start gap-2">
-                    <span class="text-accent mt-1">&#8250;</span>
-                    "Thanks for making time, Maddie. I've been genuinely excited about this conversation since I saw the role."
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-accent mt-1">&#8250;</span>
-                    "I know you came from Stripe's GTM team. The scaling challenge there must have been great prep for what OpenAI's doing now."
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="text-accent mt-1">&#8250;</span>
-                    If she asks "how are you doing": keep it brief, positive, pivot to enthusiasm for the call.
-                  </li>
+        <div class="card-dark">
+          <div class="segment-card">
+            <div class="segment-badge seg-primary">5m</div>
+            <div class="segment-content">
+              <h3>Rapport Building</h3>
+              <p>Show you did your homework. Be warm but efficient.</p>
+              <div class="inset">
+                <div class="inset-label">Conversation starters</div>
+                <ul>
+                  <li><span class="bullet">&#8250;</span>"Thanks for making time, Maddie. I've been genuinely excited about this conversation since I saw the role."</li>
+                  <li><span class="bullet">&#8250;</span>"I know you came from Stripe's GTM team. The scaling challenge there must have been great prep for what OpenAI's doing now."</li>
+                  <li><span class="bullet">&#8250;</span>If she asks "how are you doing": keep it brief, positive, pivot to enthusiasm for the call.</li>
                 </ul>
               </div>
             </div>
@@ -254,27 +440,24 @@
         </div>
 
         <!-- Segment 2 -->
-        <div class="bg-surface-2 border border-border rounded-xl p-6 card-hover">
-          <div class="flex items-start gap-4">
-            <div class="flex flex-col items-center shrink-0">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 border border-accent/20 text-accent font-heading font-bold text-sm">10m</span>
-              <div class="w-px h-full bg-border mt-2"></div>
-            </div>
-            <div>
-              <h3 class="font-heading font-semibold text-text-primary mb-2">Your Story (The 60-Second Narrative)</h3>
-              <p class="text-sm text-text-secondary mb-3">Deliver this concisely, then let her pull for details.</p>
-              <div class="bg-background/50 rounded-lg p-4 border border-border">
-                <p class="text-xs text-text-secondary uppercase tracking-wider mb-2 font-medium">The narrative</p>
-                <p class="text-sm text-text-secondary leading-relaxed italic">
+        <div class="card-dark">
+          <div class="segment-card">
+            <div class="segment-badge seg-accent">10m</div>
+            <div class="segment-content">
+              <h3>Your Story (The 60-Second Narrative)</h3>
+              <p>Deliver this concisely, then let her pull for details.</p>
+              <div class="inset">
+                <div class="inset-label">The narrative</div>
+                <p class="quote">
                   "I've spent 17 years in enterprise tech sales, mostly at Cisco and Nokia, selling complex infrastructure to Fortune 500 accounts. The common thread across all of it is translating deeply technical products into business outcomes for executives who don't speak engineer. Over the past year, I've gone deeper than any sales professional I know into AI. I didn't just study it. I built a full AI-powered operating system from scratch. That experience gave me a fluency with the product category that goes beyond what you'd typically see from a sales hire. And it's exactly why I'm drawn to OpenAI. I want to bring enterprise selling muscle to a company where I genuinely understand and believe in the product."
                 </p>
               </div>
-              <div class="mt-3 bg-background/50 rounded-lg p-4 border border-border">
-                <p class="text-xs text-text-secondary uppercase tracking-wider mb-2 font-medium">Follow-up hooks (let her ask)</p>
-                <ul class="flex flex-col gap-2 text-sm text-text-secondary">
-                  <li class="flex items-start gap-2"><span class="text-primary mt-1">&#8250;</span>"Tell me more about the AI system you built."</li>
-                  <li class="flex items-start gap-2"><span class="text-primary mt-1">&#8250;</span>"What were your biggest deals at Cisco/Nokia?"</li>
-                  <li class="flex items-start gap-2"><span class="text-primary mt-1">&#8250;</span>"Why leave Nokia?"</li>
+              <div class="inset" style="margin-top:12px;">
+                <div class="inset-label">Follow-up hooks (let her ask)</div>
+                <ul>
+                  <li><span class="bullet primary">&#8250;</span>"Tell me more about the AI system you built."</li>
+                  <li><span class="bullet primary">&#8250;</span>"What were your biggest deals at Cisco/Nokia?"</li>
+                  <li><span class="bullet primary">&#8250;</span>"Why leave Nokia?"</li>
                 </ul>
               </div>
             </div>
@@ -282,41 +465,35 @@
         </div>
 
         <!-- Segment 3 -->
-        <div class="bg-surface-2 border border-border rounded-xl p-6 card-hover">
-          <div class="flex items-start gap-4">
-            <div class="flex flex-col items-center shrink-0">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-success/10 border border-success/20 text-success font-heading font-bold text-sm">10m</span>
-              <div class="w-px h-full bg-border mt-2"></div>
-            </div>
-            <div>
-              <h3 class="font-heading font-semibold text-text-primary mb-2">Why OpenAI, Why Now, What Excites You</h3>
-              <p class="text-sm text-text-secondary mb-3">This is where you show genuine pull, not push motivation.</p>
-              <div class="bg-background/50 rounded-lg p-4 border border-border">
-                <p class="text-xs text-text-secondary uppercase tracking-wider mb-2 font-medium">Why OpenAI</p>
-                <ul class="flex flex-col gap-2 text-sm text-text-secondary">
-                  <li class="flex items-start gap-2"><span class="text-success mt-1">&#8250;</span>"I've been building with the API for over a year. I know the developer experience firsthand. I know where it excels and where enterprise buyers need hand-holding. That perspective is rare in a sales hire."</li>
-                  <li class="flex items-start gap-2"><span class="text-success mt-1">&#8250;</span>"The Agents SDK is the unlock for enterprise. Companies that couldn't justify 'AI as a feature' can now justify 'AI as an employee.' That's a fundamentally different sales conversation, and I want to lead it."</li>
-                  <li class="flex items-start gap-2"><span class="text-success mt-1">&#8250;</span>"OpenAI is in a category-defining moment. Enterprises are moving from experimentation to procurement. That's exactly the motion my career has been built around."</li>
+        <div class="card-dark">
+          <div class="segment-card">
+            <div class="segment-badge seg-success">10m</div>
+            <div class="segment-content">
+              <h3>Why OpenAI, Why Now, What Excites You</h3>
+              <p>This is where you show genuine pull, not push motivation.</p>
+              <div class="inset">
+                <div class="inset-label">Why OpenAI</div>
+                <ul>
+                  <li><span class="bullet success">&#8250;</span>"I've been building with the API for over a year. I know the developer experience firsthand. I know where it excels and where enterprise buyers need hand-holding. That perspective is rare in a sales hire."</li>
+                  <li><span class="bullet success">&#8250;</span>"The Agents SDK is the unlock for enterprise. Companies that couldn't justify 'AI as a feature' can now justify 'AI as an employee.' That's a fundamentally different sales conversation, and I want to lead it."</li>
+                  <li><span class="bullet success">&#8250;</span>"OpenAI is in a category-defining moment. Enterprises are moving from experimentation to procurement. That's exactly the motion my career has been built around."</li>
                 </ul>
               </div>
-              <div class="mt-3 bg-background/50 rounded-lg p-4 border border-border">
-                <p class="text-xs text-text-secondary uppercase tracking-wider mb-2 font-medium">Why now</p>
-                <p class="text-sm text-text-secondary">"I've been deliberate about this. I didn't want to jump to AI hype. I wanted to build real competency first. Now I have it, and I'm ready to apply it at the company setting the pace for the entire industry."</p>
+              <div class="inset" style="margin-top:12px;">
+                <div class="inset-label">Why now</div>
+                <p class="quote">"I've been deliberate about this. I didn't want to jump to AI hype. I wanted to build real competency first. Now I have it, and I'm ready to apply it at the company setting the pace for the entire industry."</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Segment 4 -->
-        <div class="bg-surface-2 border border-border rounded-xl p-6 card-hover">
-          <div class="flex items-start gap-4">
-            <div class="flex flex-col items-center shrink-0">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-warning/10 border border-warning/20 text-warning font-heading font-bold text-sm">5m</span>
-            </div>
-            <div>
-              <h3 class="font-heading font-semibold text-text-primary mb-2">Your Questions + The Mic Drop</h3>
-              <p class="text-sm text-text-secondary mb-3">Make these count. End with the command center play.</p>
-              <p class="text-xs text-text-secondary">(See sections below for questions and the close.)</p>
+        <div class="card-dark">
+          <div class="segment-card">
+            <div class="segment-badge seg-warning">5m</div>
+            <div class="segment-content">
+              <h3>Your Questions + The Mic Drop</h3>
+              <p>Make these count. End with the command center play. See sections below.</p>
             </div>
           </div>
         </div>
@@ -325,58 +502,58 @@
   </section>
 
   <!-- Key Messages -->
-  <section id="messages" class="py-16 px-6">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">Core Positioning</p>
-      <h2 class="font-heading font-bold text-2xl text-text-primary mb-8">Five Messages to Land</h2>
+  <section id="messages">
+    <div class="container reveal">
+      <div class="section-label">Core Positioning</div>
+      <h2 class="section-title">Five Messages to Land</h2>
 
-      <div class="grid gap-4">
-        <div class="bg-surface border border-border rounded-xl p-5 card-hover">
-          <div class="flex items-start gap-4">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-heading font-bold text-sm shrink-0">1</span>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="card">
+          <div style="display:flex;align-items:flex-start;gap:16px;">
+            <div class="num-box" style="background:rgba(99,102,241,0.1);color:var(--primary);">1</div>
             <div>
-              <h3 class="font-heading font-semibold text-text-primary text-sm mb-1">Not just an AD candidate. A potential enterprise AI sales leader.</h3>
-              <p class="text-xs text-text-secondary">You're not applying for a quota. You're offering the combination of enterprise muscle + AI fluency + builder mentality that could lead a team as OpenAI scales.</p>
+              <h3 style="font-size:14px;font-weight:600;margin-bottom:4px;">Not just an AD candidate. A potential enterprise AI sales leader.</h3>
+              <p style="font-size:12px;color:var(--text-2);">You're not applying for a quota. You're offering the combination of enterprise muscle + AI fluency + builder mentality that could lead a team as OpenAI scales.</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5 card-hover">
-          <div class="flex items-start gap-4">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-accent/10 text-accent font-heading font-bold text-sm shrink-0">2</span>
+        <div class="card">
+          <div style="display:flex;align-items:flex-start;gap:16px;">
+            <div class="num-box" style="background:rgba(34,211,238,0.1);color:var(--accent);">2</div>
             <div>
-              <h3 class="font-heading font-semibold text-text-primary text-sm mb-1">You BUILD with AI. That's your differentiator.</h3>
-              <p class="text-xs text-text-secondary">WillieOS is a self-driven initiative: a full desktop AI operating system with 110+ tools, multi-agent dispatch, and real daily usage. No other candidate will have built something this sophisticated with the products they're being asked to sell.</p>
+              <h3 style="font-size:14px;font-weight:600;margin-bottom:4px;">You BUILD with AI. That's your differentiator.</h3>
+              <p style="font-size:12px;color:var(--text-2);">WillieOS is a self-driven initiative: a full desktop AI operating system with 110+ tools, multi-agent dispatch, and real daily usage. No other candidate will have built something this sophisticated with the products they're being asked to sell.</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5 card-hover">
-          <div class="flex items-start gap-4">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-success/10 text-success font-heading font-bold text-sm shrink-0">3</span>
+        <div class="card">
+          <div style="display:flex;align-items:flex-start;gap:16px;">
+            <div class="num-box" style="background:rgba(52,211,153,0.1);color:var(--success);">3</div>
             <div>
-              <h3 class="font-heading font-semibold text-text-primary text-sm mb-1">17 years of enterprise complexity = Fortune 500 muscle memory.</h3>
-              <p class="text-xs text-text-secondary">Cisco (global infrastructure deals) + Nokia (complex BD). You know multi-stakeholder procurement, 12-month cycles, executive-level positioning. This isn't something you read about. It's something you did.</p>
+              <h3 style="font-size:14px;font-weight:600;margin-bottom:4px;">17 years of enterprise complexity = Fortune 500 muscle memory.</h3>
+              <p style="font-size:12px;color:var(--text-2);">Cisco (global infrastructure deals) + Nokia (complex BD). You know multi-stakeholder procurement, 12-month cycles, executive-level positioning. This isn't something you read about. It's something you did.</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5 card-hover">
-          <div class="flex items-start gap-4">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-warning/10 text-warning font-heading font-bold text-sm shrink-0">4</span>
+        <div class="card">
+          <div style="display:flex;align-items:flex-start;gap:16px;">
+            <div class="num-box" style="background:rgba(251,191,36,0.1);color:var(--warning);">4</div>
             <div>
-              <h3 class="font-heading font-semibold text-text-primary text-sm mb-1">You understand the buyer because you've been all three: buyer, seller, builder.</h3>
-              <p class="text-xs text-text-secondary">You've sold to enterprises, bought enterprise software as a customer, and now built an enterprise-grade AI system. That triple lens is unique.</p>
+              <h3 style="font-size:14px;font-weight:600;margin-bottom:4px;">You understand the buyer because you've been all three: buyer, seller, builder.</h3>
+              <p style="font-size:12px;color:var(--text-2);">You've sold to enterprises, bought enterprise software as a customer, and now built an enterprise-grade AI system. That triple lens is unique.</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5 card-hover">
-          <div class="flex items-start gap-4">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary font-heading font-bold text-sm shrink-0">5</span>
+        <div class="card">
+          <div style="display:flex;align-items:flex-start;gap:16px;">
+            <div class="num-box" style="background:rgba(99,102,241,0.1);color:var(--primary);">5</div>
             <div>
-              <h3 class="font-heading font-semibold text-text-primary text-sm mb-1">You're already thinking about Day 1.</h3>
-              <p class="text-xs text-text-secondary">The command center you built isn't just interview prep. It's how you think about territory planning, account strategy, and competitive positioning. You operate at this level by default.</p>
+              <h3 style="font-size:14px;font-weight:600;margin-bottom:4px;">You're already thinking about Day 1.</h3>
+              <p style="font-size:12px;color:var(--text-2);">The command center you built isn't just interview prep. It's how you think about territory planning, account strategy, and competitive positioning. You operate at this level by default.</p>
             </div>
           </div>
         </div>
@@ -384,184 +561,176 @@
     </div>
   </section>
 
-  <!-- Questions to Ask -->
-  <section id="questions" class="py-16 px-6 bg-surface">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">Your Questions</p>
-      <h2 class="font-heading font-bold text-2xl text-text-primary mb-8">Ask These (Pick 3-4)</h2>
+  <!-- Questions -->
+  <section id="questions" class="section-bg">
+    <div class="container reveal">
+      <div class="section-label">Your Questions</div>
+      <h2 class="section-title">Ask These (Pick 3-4)</h2>
 
-      <div class="grid gap-3">
-        <div class="flex items-start gap-3 bg-surface-2 border border-border rounded-xl p-4">
-          <span class="text-accent text-lg leading-none mt-0.5">?</span>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="q-row">
+          <span class="q-mark">?</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">"What's the team structure for enterprise sales right now? Is it organized by vertical, geography, or deal size?"</p>
-            <p class="text-xs text-text-secondary mt-1">Shows you're thinking about where you fit. Reveals org structure insights.</p>
+            <div class="q-text">"What's the team structure for enterprise sales right now? Is it organized by vertical, geography, or deal size?"</div>
+            <div class="q-why">Shows you're thinking about where you fit. Reveals org structure insights.</div>
           </div>
         </div>
-
-        <div class="flex items-start gap-3 bg-surface-2 border border-border rounded-xl p-4">
-          <span class="text-accent text-lg leading-none mt-0.5">?</span>
+        <div class="q-row">
+          <span class="q-mark">?</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">"What does the full interview process look like for this role?"</p>
-            <p class="text-xs text-text-secondary mt-1">Practical, shows you're organized and planning ahead.</p>
+            <div class="q-text">"What does the full interview process look like for this role?"</div>
+            <div class="q-why">Practical, shows you're organized and planning ahead.</div>
           </div>
         </div>
-
-        <div class="flex items-start gap-3 bg-surface-2 border border-border rounded-xl p-4">
-          <span class="text-accent text-lg leading-none mt-0.5">?</span>
+        <div class="q-row">
+          <span class="q-mark">?</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">"What are the top qualities that separate the best ADs at OpenAI from the rest?"</p>
-            <p class="text-xs text-text-secondary mt-1">Gets her to articulate what "great" looks like. Then you can map yourself to it.</p>
+            <div class="q-text">"What are the top qualities that separate the best ADs at OpenAI from the rest?"</div>
+            <div class="q-why">Gets her to articulate what "great" looks like. Then you can map yourself to it.</div>
           </div>
         </div>
-
-        <div class="flex items-start gap-3 bg-surface-2 border border-border rounded-xl p-4">
-          <span class="text-accent text-lg leading-none mt-0.5">?</span>
+        <div class="q-row">
+          <span class="q-mark">?</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">"How does the Agents SDK factor into the enterprise sales motion? Is that a separate product line or part of the platform story?"</p>
-            <p class="text-xs text-text-secondary mt-1">Shows technical awareness of their newest product thrust. Recruiters love when candidates know the product.</p>
+            <div class="q-text">"How does the Agents SDK factor into the enterprise sales motion? Is that a separate product line or part of the platform story?"</div>
+            <div class="q-why">Shows technical awareness of their newest product thrust. Recruiters love when candidates know the product.</div>
           </div>
         </div>
-
-        <div class="flex items-start gap-3 bg-surface-2 border border-border rounded-xl p-4">
-          <span class="text-accent text-lg leading-none mt-0.5">?</span>
+        <div class="q-row">
+          <span class="q-mark">?</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">"Is there a specific customer segment or vertical this role focuses on?"</p>
-            <p class="text-xs text-text-secondary mt-1">Helps you tailor follow-up conversations to the actual scope.</p>
+            <div class="q-text">"Is there a specific customer segment or vertical this role focuses on?"</div>
+            <div class="q-why">Helps you tailor follow-up conversations to the actual scope.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- The Mic Drop -->
-  <section id="mic-drop" class="py-16 px-6">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">The Close</p>
-      <h2 class="font-heading font-bold text-2xl text-text-primary mb-6">The Command Center Play</h2>
+  <!-- Mic Drop -->
+  <section id="mic-drop">
+    <div class="container reveal">
+      <div class="section-label">The Close</div>
+      <h2 class="section-title">The Command Center Play</h2>
 
-      <div class="bg-gradient-to-br from-primary/10 via-surface to-accent/5 border border-primary/30 rounded-xl p-8">
-        <div class="flex items-start gap-4 mb-6">
-          <div class="w-12 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <div class="card-accent">
+        <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;">
+          <div class="icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
           <div>
-            <h3 class="font-heading font-semibold text-text-primary mb-1">This is your mic drop moment.</h3>
-            <p class="text-sm text-text-secondary">No other candidate will have done this. It demonstrates Day 1 thinking in a format that's impossible to ignore.</p>
+            <h3 style="font-size:16px;font-weight:600;margin-bottom:4px;">This is your mic drop moment.</h3>
+            <p style="font-size:14px;color:var(--text-2);">No other candidate will have done this. It demonstrates Day 1 thinking in a format that's impossible to ignore.</p>
           </div>
         </div>
 
-        <div class="bg-background/60 rounded-lg p-5 border border-border mb-6">
-          <p class="text-xs text-text-secondary uppercase tracking-wider mb-3 font-medium">Say this at the end of the call:</p>
-          <p class="text-sm text-text-primary leading-relaxed italic">
-            "Before we wrap, I put together something that shows how I'm already thinking about this role. It's a command center I built with account plans, competitive positioning, and territory strategy. Can I send you a link after the call?"
-          </p>
+        <div class="inset">
+          <div class="inset-label">Say this at the end of the call</div>
+          <p class="quote">"Before we wrap, I put together something that shows how I'm already thinking about this role. It's a command center I built with account plans, competitive positioning, and territory strategy. Can I send you a link after the call?"</p>
         </div>
 
-        <div class="bg-background/60 rounded-lg p-5 border border-border">
-          <p class="text-xs text-text-secondary uppercase tracking-wider mb-3 font-medium">Send this link:</p>
-          <a href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-command-center.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors text-sm font-medium break-all">
+        <div class="inset" style="margin-top:12px;">
+          <div class="inset-label">Send this link</div>
+          <p><a href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-command-center.html" target="_blank" rel="noopener noreferrer" style="font-size:14px;font-weight:500;word-break:break-all;">
             williekopp1112-lab.github.io/willieOS-public/shares/openai-command-center.html
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-left:4px;"><path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a></p>
         </div>
 
-        <div class="mt-6 flex items-start gap-3">
-          <span class="text-warning text-sm">&#9733;</span>
-          <p class="text-xs text-text-secondary">Wait for her to say yes before sending. Don't push it. If she says "sure, send it over," follow up within 5 minutes of the call ending with a short email: "Great speaking with you. Here's the command center I mentioned: [link]. Looking forward to next steps."</p>
+        <div class="star-note">
+          <span class="star">&#9733;</span>
+          <p>Wait for her to say yes before sending. Don't push it. If she says "sure, send it over," follow up within 5 minutes of the call ending with a short email: "Great speaking with you. Here's the command center I mentioned: [link]. Looking forward to next steps."</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Avoid Section -->
-  <section class="py-16 px-6 bg-surface">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">Guardrails</p>
-      <h2 class="font-heading font-bold text-2xl text-text-primary mb-6">Do Not</h2>
+  <!-- Avoid -->
+  <section class="section-bg">
+    <div class="container reveal">
+      <div class="section-label">Guardrails</div>
+      <h2 class="section-title">Do Not</h2>
 
-      <div class="grid sm:grid-cols-2 gap-3">
-        <div class="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface-2">
-          <span class="text-red-400 text-sm mt-0.5">&#10005;</span>
+      <div class="grid-2-sm">
+        <div class="avoid-row">
+          <span class="x-mark">&#10005;</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">Don't monologue</p>
-            <p class="text-xs text-text-secondary">Keep answers under 90 seconds. Pause. Let her drive.</p>
+            <div class="avoid-title">Don't monologue</div>
+            <div class="avoid-why">Keep answers under 90 seconds. Pause. Let her drive.</div>
           </div>
         </div>
-        <div class="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface-2">
-          <span class="text-red-400 text-sm mt-0.5">&#10005;</span>
+        <div class="avoid-row">
+          <span class="x-mark">&#10005;</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">Don't mention other applications</p>
-            <p class="text-xs text-text-secondary">Especially not Anthropic. OpenAI recruiters notice.</p>
+            <div class="avoid-title">Don't mention other applications</div>
+            <div class="avoid-why">Especially not Anthropic. OpenAI recruiters notice.</div>
           </div>
         </div>
-        <div class="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface-2">
-          <span class="text-red-400 text-sm mt-0.5">&#10005;</span>
+        <div class="avoid-row">
+          <span class="x-mark">&#10005;</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">Don't say "side project"</p>
-            <p class="text-xs text-text-secondary">Say "self-driven initiative" or "a system I built." Side project trivializes it.</p>
+            <div class="avoid-title">Don't say "side project"</div>
+            <div class="avoid-why">Say "self-driven initiative" or "a system I built." Side project trivializes it.</div>
           </div>
         </div>
-        <div class="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface-2">
-          <span class="text-red-400 text-sm mt-0.5">&#10005;</span>
+        <div class="avoid-row">
+          <span class="x-mark">&#10005;</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">Don't lead with comp questions</p>
-            <p class="text-xs text-text-secondary">If she asks, answer honestly. But never bring it up first.</p>
+            <div class="avoid-title">Don't lead with comp questions</div>
+            <div class="avoid-why">If she asks, answer honestly. But never bring it up first.</div>
           </div>
         </div>
-        <div class="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface-2">
-          <span class="text-red-400 text-sm mt-0.5">&#10005;</span>
+        <div class="avoid-row">
+          <span class="x-mark">&#10005;</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">Don't trash Nokia or current employer</p>
-            <p class="text-xs text-text-secondary">Frame the move as "toward something" not "away from something."</p>
+            <div class="avoid-title">Don't trash Nokia or current employer</div>
+            <div class="avoid-why">Frame the move as "toward something" not "away from something."</div>
           </div>
         </div>
-        <div class="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface-2">
-          <span class="text-red-400 text-sm mt-0.5">&#10005;</span>
+        <div class="avoid-row">
+          <span class="x-mark">&#10005;</span>
           <div>
-            <p class="text-sm text-text-primary font-medium">Don't over-explain WillieOS architecture</p>
-            <p class="text-xs text-text-secondary">She's not technical. Say what it does, not how it works. "Multi-agent AI system" is enough.</p>
+            <div class="avoid-title">Don't over-explain WillieOS architecture</div>
+            <div class="avoid-why">She's not technical. Say what it does, not how. "Multi-agent AI system" is enough.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Quick Reference Card -->
-  <section class="py-16 px-6">
-    <div class="max-w-4xl mx-auto reveal">
-      <p class="text-xs uppercase tracking-widest text-text-secondary mb-4 font-medium font-heading">Quick Reference</p>
-      <h2 class="font-heading font-bold text-2xl text-text-primary mb-6">Cheat Sheet</h2>
+  <!-- Cheat Sheet -->
+  <section>
+    <div class="container reveal">
+      <div class="section-label">Quick Reference</div>
+      <h2 class="section-title">Cheat Sheet</h2>
 
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-surface border border-border rounded-xl p-5">
-          <h3 class="font-heading font-semibold text-primary text-sm mb-3">If She Asks About...</h3>
-          <div class="flex flex-col gap-2 text-xs text-text-secondary">
-            <p><span class="text-text-primary font-medium">Biggest deal?</span> Reference Cisco enterprise deals, multi-million dollar infrastructure accounts.</p>
-            <p><span class="text-text-primary font-medium">Why not stay in telecom?</span> "I followed the technology. AI is the next infrastructure layer."</p>
-            <p><span class="text-text-primary font-medium">What do you know about OpenAI's products?</span> ChatGPT Enterprise, API platform, Agents SDK, fine-tuning, enterprise security/compliance.</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="cheat-title" style="color:var(--primary);">If She Asks About...</div>
+          <div class="cheat-body">
+            <p><span class="key">Biggest deal?</span> Reference Cisco enterprise deals, multi-million dollar infrastructure accounts.</p>
+            <p><span class="key">Why not stay in telecom?</span> "I followed the technology. AI is the next infrastructure layer."</p>
+            <p><span class="key">OpenAI's products?</span> ChatGPT Enterprise, API platform, Agents SDK, fine-tuning, enterprise security/compliance.</p>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5">
-          <h3 class="font-heading font-semibold text-accent text-sm mb-3">Power Phrases</h3>
-          <div class="flex flex-col gap-2 text-xs text-text-secondary">
-            <p>"I'm a builder who sells, not a seller who demos."</p>
-            <p>"Enterprise deals are won in the prep, not the meeting."</p>
-            <p>"I don't just understand the product. I live inside it every day."</p>
-            <p>"Category creation, not vendor displacement."</p>
+        <div class="card">
+          <div class="cheat-title" style="color:var(--accent);">Power Phrases</div>
+          <div class="cheat-body">
+            <p class="phrase">"I'm a builder who sells, not a seller who demos."</p>
+            <p class="phrase">"Enterprise deals are won in the prep, not the meeting."</p>
+            <p class="phrase">"I don't just understand the product. I live inside it every day."</p>
+            <p class="phrase">"Category creation, not vendor displacement."</p>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5">
-          <h3 class="font-heading font-semibold text-success text-sm mb-3">Energy Calibration</h3>
-          <div class="flex flex-col gap-2 text-xs text-text-secondary">
-            <p><span class="text-text-primary font-medium">Tone:</span> Confident, conversational, unhurried.</p>
-            <p><span class="text-text-primary font-medium">Pace:</span> Moderate. No rushing. Breathe between sentences.</p>
-            <p><span class="text-text-primary font-medium">Volume:</span> Clear and projecting, not quiet or hesitant.</p>
-            <p><span class="text-text-primary font-medium">Posture:</span> Even on phone, sit up. It changes your voice.</p>
+        <div class="card">
+          <div class="cheat-title" style="color:var(--success);">Energy Calibration</div>
+          <div class="cheat-body">
+            <p><span class="key">Tone:</span> Confident, conversational, unhurried.</p>
+            <p><span class="key">Pace:</span> Moderate. No rushing. Breathe between sentences.</p>
+            <p><span class="key">Volume:</span> Clear and projecting, not quiet or hesitant.</p>
+            <p><span class="key">Posture:</span> Even on phone, sit up. It changes your voice.</p>
           </div>
         </div>
       </div>
@@ -569,35 +738,29 @@
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-border bg-surface">
-    <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-xs text-text-secondary">
-        Prep brief generated May 5, 2026. Built by Gary, Willie's AI Chief of Staff.
-      </p>
-      <div class="flex items-center gap-4 text-xs text-text-secondary">
+  <footer>
+    <div class="footer-inner">
+      <p>Prep brief generated May 5, 2026. Built by Gary, Willie's AI Chief of Staff.</p>
+      <div class="footer-links">
         <span>williekopp1112@gmail.com</span>
-        <a href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-command-center.html" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent/80 transition-colors">Command Center</a>
+        <a href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-command-center.html" target="_blank" rel="noopener noreferrer">Command Center</a>
       </div>
     </div>
   </footer>
 
-  <!-- Scroll reveal script -->
+  <!-- Scroll reveal -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const reveals = document.querySelectorAll('.reveal');
-      // Make all visible by default (progressive enhancement)
-      reveals.forEach(el => el.classList.add('visible'));
-
+      var reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(function(el) { el.classList.add('visible'); });
       if ('IntersectionObserver' in window) {
-        reveals.forEach(el => el.classList.remove('visible'));
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
+        reveals.forEach(function(el) { el.classList.remove('visible'); });
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) { entry.target.classList.add('visible'); }
           });
         }, { threshold: 0.1 });
-        reveals.forEach(el => observer.observe(el));
+        reveals.forEach(function(el) { observer.observe(el); });
       }
     });
   </script>
