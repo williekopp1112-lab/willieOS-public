@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenAI Interview Command Center — Willie Kopp</title>
-<meta name="description" content="Willie Kopp's comprehensive command center for the OpenAI Account Director interview. Recruiter prep, account plans, competitive intel, and WillieOS proof points.">
-<meta property="og:title" content="OpenAI Interview Command Center — Willie Kopp">
-<meta property="og:description" content="17 years enterprise tech. Builder of WillieOS. Ready for OpenAI.">
+<title>OpenAI Interview Command Center — Willie Kopp | Digital Native Core</title>
+<meta name="description" content="Willie Kopp's command center for the OpenAI Account Director, Digital Native Core role. Builder credentials, account plans, competitive intel, and WillieOS proof points.">
+<meta property="og:title" content="OpenAI Command Center — Willie Kopp | Digital Native Core">
+<meta property="og:description" content="The seller who understands digital native buyers because he builds like one.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +34,8 @@
     --purple-dim: rgba(168, 85, 247, 0.12);
     --red: #ef4444;
     --red-dim: rgba(239, 68, 68, 0.12);
+    --cyan: #22d3ee;
+    --cyan-dim: rgba(34, 211, 238, 0.12);
     --navy: #0A1628;
   }
 
@@ -108,7 +110,7 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('images/openai-command-center/hero-ai-sales-leadership.png');
+    background-image: url('images/openai-command-center-v2/hero-command-center.png');
     background-size: cover;
     background-position: center;
     opacity: 0.18;
@@ -272,6 +274,7 @@
   .card-icon-wrap.blue { background: var(--blue-dim); }
   .card-icon-wrap.purple { background: var(--purple-dim); }
   .card-icon-wrap.red { background: var(--red-dim); }
+  .card-icon-wrap.cyan { background: var(--cyan-dim); }
   .card h3 {
     font-size: 16px;
     font-weight: 600;
@@ -299,6 +302,7 @@
   .tag-gold { background: var(--gold-dim); color: var(--gold); }
   .tag-blue { background: var(--blue-dim); color: var(--blue); }
   .tag-purple { background: var(--purple-dim); color: var(--purple); }
+  .tag-cyan { background: var(--cyan-dim); color: var(--cyan); }
 
   /* ---- STATS ROW ---- */
   .stats-row {
@@ -371,6 +375,7 @@
   .tips-card.green { border-left: 4px solid var(--green); }
   .tips-card.red { border-left: 4px solid var(--red); }
   .tips-card.blue { border-left: 4px solid var(--blue); }
+  .tips-card.cyan { border-left: 4px solid var(--cyan); }
   .tips-card h3 {
     font-size: 13px;
     font-weight: 600;
@@ -381,6 +386,7 @@
   .tips-card.green h3 { color: var(--green); }
   .tips-card.red h3 { color: var(--red); }
   .tips-card.blue h3 { color: var(--blue); }
+  .tips-card.cyan h3 { color: var(--cyan); }
   .tips-card ul { list-style: none; padding: 0; }
   .tips-card li {
     font-size: 14px;
@@ -392,6 +398,7 @@
   .tips-card.green li::before { content: '\2192'; position: absolute; left: 0; color: var(--green); }
   .tips-card.red li::before { content: '\2715'; position: absolute; left: 0; color: var(--red); font-size: 12px; top: 7px; }
   .tips-card.blue li::before { content: '\2022'; position: absolute; left: 0; color: var(--blue); }
+  .tips-card.cyan li::before { content: '\2192'; position: absolute; left: 0; color: var(--cyan); }
 
   /* ---- QUESTIONS ---- */
   .q-grid {
@@ -480,6 +487,70 @@
     color: var(--text-secondary);
   }
 
+  /* ---- DN LENS CARDS ---- */
+  .dn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .dn-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.25s;
+  }
+  .dn-card:hover {
+    border-color: var(--cyan);
+    box-shadow: 0 4px 24px rgba(34,211,238,0.06);
+  }
+  .dn-card .dn-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .dn-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .dn-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ---- COMPARISON TABLE ---- */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 13px;
+  }
+  .compare-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .compare-table td:last-child {
+    color: var(--text);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+
   /* ---- FOOTER ---- */
   .footer {
     text-align: center;
@@ -508,7 +579,10 @@
     .card-grid { grid-template-columns: 1fr; }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .img-showcase { grid-template-columns: 1fr; }
+    .dn-grid { grid-template-columns: 1fr; }
     .narrative, .tips-card { padding: 20px 24px; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
   }
 </style>
 </head>
@@ -520,6 +594,7 @@
     <div class="nav-logo"><span>OpenAI</span> Command Center</div>
     <ul class="nav-links">
       <li><a href="#recruiter-prep">Recruiter Prep</a></li>
+      <li><a href="#dn-lens">DN Lens</a></li>
       <li><a href="#account-plans">Account Plans</a></li>
       <li><a href="#sales-toolkit">Sales Toolkit</a></li>
       <li><a href="#competitive">Competitive</a></li>
@@ -533,45 +608,44 @@
   <div class="hero-bg"></div>
   <div class="hero-gradient"></div>
   <div class="hero-content">
-    <div class="hero-badge">Account Director Prep</div>
-    <h1>OpenAI Interview<br>Command Center</h1>
-    <p class="hero-sub">17 years enterprise tech. Builder of WillieOS. Every deliverable, account plan, and proof point — one link.</p>
+    <div class="hero-badge">Account Director, Digital Native Core</div>
+    <h1>I Don't Just Sell to<br>Digital Natives &mdash;<br>I Build Like One</h1>
+    <p class="hero-sub">15+ years enterprise tech. Production AI builder. API-first thinker. Every deliverable, account plan, and proof point &mdash; one link.</p>
     <div class="hero-meta">
       <div class="hero-meta-item"><strong>Target:</strong> Maddie Casey recruiter screen</div>
-      <div class="hero-meta-item"><strong>Date:</strong> June 13, 2026</div>
-      <div class="hero-meta-item"><strong>Role:</strong> Account Director, Enterprise</div>
+      <div class="hero-meta-item"><strong>Role:</strong> Account Director, Digital Native Core</div>
+      <div class="hero-meta-item"><strong>Candidate:</strong> Willie Kopp</div>
     </div>
   </div>
 </section>
 
 <!-- ═══════ SECTION 1: RECRUITER PREP ═══════ -->
 <div id="recruiter-prep"></div>
-<img src="images/openai-command-center/divider-interview-prep.png" alt="" class="section-divider" loading="lazy">
 <section class="section">
   <div class="section-header reveal">
     <div class="section-label">Section A</div>
     <div class="section-title">Recruiter Call Prep</div>
-    <p class="section-desc">Maddie Casey, GTM Recruiter at OpenAI since August 2023. This is a 30-minute screen. Lead with career arc and enterprise results, make Gary the differentiator in 10 seconds.</p>
+    <p class="section-desc">Maddie Casey, GTM Recruiter at OpenAI since August 2023. 30-minute screen. Lead with builder credentials, let enterprise depth emerge as the foundation.</p>
   </div>
 
-  <!-- 60-second narrative -->
+  <!-- 60-second narrative — Digital Native Core version -->
   <div class="narrative reveal">
-    <div class="narrative-label">60-Second Pitch (Recruiter-Adapted)</div>
-    <p>17 years in enterprise tech sales. Cisco, then Nokia. At Cisco I ran the Sports &amp; Entertainment CTO practice. SoFi Stadium, NFL, NBA, NASCAR. Multi-year, multi-million dollar deals with complex stakeholder maps. At Nokia I'm selling private 5G and edge compute to industrial enterprises.</p>
-    <p>The reason I'm excited about OpenAI specifically: I built my own AI operating system. Production software with 242 tools, multi-agent dispatch, autonomous workflows. It manages my email, calendar, tasks, and deliverables. I built it because I wanted to understand what it actually feels like to operationalize AI, not just sell it.</p>
-    <p>That means when I sit with a CTO or a VP of Engineering at a Fortune 500, I'm not reading a feature sheet. I can talk about token economics, orchestration patterns, failure modes, and governance from firsthand experience. I want to bring that to OpenAI's enterprise customers.</p>
+    <div class="narrative-label">60-Second Pitch (Digital Native Core)</div>
+    <p>I've spent 15+ years in enterprise tech sales at Cisco and Nokia, selling complex platforms to Fortune 500 buyers. But what makes me different for this role isn't the enterprise background. It's what I've been building.</p>
+    <p>I built Gary, a production AI operating system. It runs on multi-model architecture: routing tasks across Claude, GPT, and Gemini based on cost and capability. It has 110+ MCP tools, autonomous agent dispatch, consumption-based cost controls, and guardrail systems that cap API spend. It is the exact kind of system your Digital Native Core customers are building right now.</p>
+    <p>I understand the digital native buyer because I am one. I know what token economics look like in production. I know why model routing matters. And I bring the enterprise sales discipline to help these companies scale their OpenAI usage from experimentation to production commitment.</p>
   </div>
 
   <!-- Key talking points -->
   <div class="tips-card green reveal">
     <h3>Key Talking Points</h3>
     <ul>
-      <li><strong>Career credibility:</strong> 17 years enterprise tech (Cisco 2006-2023, Nokia 2023-present). CTO-level relationships, multi-million dollar deal cycles</li>
-      <li><strong>Why OpenAI, why now:</strong> The Agents SDK update signals OpenAI is serious about the enterprise agentic layer. I've been building on this stack.</li>
-      <li><strong>Builder differentiator:</strong> WillieOS/Gary has 242 registered MCP tools, 4 specialist agents, autonomous workflows, and a full governance layer</li>
-      <li><strong>Enterprise AI insight:</strong> AI sales is fundamentally different. Probabilistic product, buyers have no mental model. Sell evaluation frameworks and architecture durability, not features.</li>
-      <li><strong>Cross-functional selling:</strong> Different pitch per persona. COO (cycle time), CFO (cost of delay), GC (auditability), CIO/CISO (data posture), CRO (rep productivity)</li>
-      <li><strong>Proof of work:</strong> Built full account plans for John Deere and Kaiser Permanente unprompted</li>
+      <li><strong>Lead with builder:</strong> "I don't just sell to digital natives. I build like one." WillieOS is a production AI system with multi-model API routing, 110+ tools, and agent orchestration.</li>
+      <li><strong>Technical empathy:</strong> I understand token economics because I track them in microcents. I understand model routing because I route between providers in production. I understand the developer buying journey because I have lived it.</li>
+      <li><strong>Enterprise depth:</strong> 15+ years at Cisco and Nokia. CTO-level relationships, multi-million dollar deal cycles. This is the foundation that helps DN companies scale into enterprise patterns.</li>
+      <li><strong>Why Digital Native Core:</strong> Core buyers evaluate on latency, model quality, and token cost. They trial with API keys, not RFPs. I speak their language because I have been the buyer persona.</li>
+      <li><strong>Product mapping:</strong> Gary's dispatch pipeline maps to Agents SDK. Multi-model routing maps to API Platform. Autonomous coding maps to Codex. Direct experience with the concepts OpenAI sells.</li>
+      <li><strong>Proof of work:</strong> Built full account plans for John Deere and Kaiser Permanente that demonstrate enterprise methodology DN companies need when they scale.</li>
     </ul>
   </div>
 
@@ -583,36 +657,36 @@
     <div class="q-card">
       <div class="q-num">1</div>
       <div>
-        <div class="q-text">"How is the enterprise sales org structured today? Vertical industry teams or horizontal?"</div>
-        <div class="q-why">Shows GTM thinking</div>
+        <div class="q-text">"How does the Core segment differ from Large Enterprise in customer engagement? I assume Core involves a larger portfolio with faster deal cycles."</div>
+        <div class="q-why">Shows segment understanding. Opens discussion about portfolio velocity.</div>
       </div>
     </div>
     <div class="q-card">
       <div class="q-num">2</div>
       <div>
-        <div class="q-text">"What's the typical profile of ADs who are succeeding in the first year?"</div>
-        <div class="q-why">Shows self-awareness, lets her talk about what she knows best</div>
+        <div class="q-text">"Is the typical DN Core journey bottom-up developer adoption converting to commercial agreements, or is there outbound motion too?"</div>
+        <div class="q-why">Demonstrates developer-led growth fluency. Most enterprise sellers don't think about bottom-up adoption.</div>
       </div>
     </div>
     <div class="q-card">
       <div class="q-num">3</div>
       <div>
-        <div class="q-text">"Is the Account Director role more land-focused or expand-focused for existing accounts?"</div>
-        <div class="q-why">Shows you understand sales motion nuance</div>
+        <div class="q-text">"Digital native companies often run multi-model architectures. How does OpenAI position against that? Is the play to consolidate usage or win the primary-model position?"</div>
+        <div class="q-why">Shows real-world architecture knowledge. Willie has built multi-model routing, so this question comes from experience.</div>
       </div>
     </div>
     <div class="q-card">
       <div class="q-num">4</div>
       <div>
-        <div class="q-text">"What does the interview process look like from here?"</div>
-        <div class="q-why">Practical, respectful of her role</div>
+        <div class="q-text">"In Core, who is OpenAI losing deals to most often? Anthropic? Open-source? Or companies building their own fine-tuned models?"</div>
+        <div class="q-why">Competitive awareness. Shows Willie thinks about the competitive landscape the way a DN buyer does.</div>
       </div>
     </div>
     <div class="q-card">
       <div class="q-num">5</div>
       <div>
-        <div class="q-text">"Are there specific verticals or territories the team is prioritizing right now?"</div>
-        <div class="q-why">Shows you're thinking about fit, not just getting any role</div>
+        <div class="q-text">"What does the interview process look like from here?"</div>
+        <div class="q-why">Practical, respectful of her role.</div>
       </div>
     </div>
   </div>
@@ -621,12 +695,12 @@
   <div class="tips-card red reveal" style="margin-top: 32px;">
     <h3>Don't Say</h3>
     <ul>
-      <li>"Gary costs $15/week" -- makes it sound like a hobby</li>
+      <li>"Gary costs $15/week" &mdash; makes it sound like a hobby</li>
       <li>Volunteering Anthropic applications without being asked</li>
-      <li>Calling WillieOS a "side project" -- say "self-driven initiative"</li>
+      <li>Calling WillieOS a "side project" &mdash; say "self-driven initiative"</li>
       <li>Over-explaining the tech stack. Focus on what it does, not how</li>
-      <li>Detailed comp/quota questions (save for hiring manager)</li>
-      <li>Technical product questions about Agents SDK, MCP vs A2A (save for later rounds)</li>
+      <li>Leading with "Fortune 500" or "17 years enterprise" &mdash; lead with builder, let enterprise emerge</li>
+      <li>Saying "digital transformation" &mdash; say "how are you integrating AI into your core product?"</li>
     </ul>
   </div>
 
@@ -650,7 +724,7 @@
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-account-director-study-guide.html" target="_blank">
       <div class="card-icon-wrap"><span>&#128214;</span></div>
       <h3>Account Director Study Guide</h3>
-      <p>9-tab deep-dive: products, Agents SDK, competitive landscape, discovery personas, killer answers, and what not to say. 98KB of substance.</p>
+      <p>9-tab deep-dive: products, Agents SDK, competitive landscape, discovery personas, killer answers, and what not to say.</p>
       <span class="card-tag tag-green">Start Here</span>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-discussion-prep.html" target="_blank">
@@ -659,40 +733,145 @@
       <p>Mobile-friendly prep with narrative, Q&A, questions to ask, examples, and the show/protect/avoid framework.</p>
       <span class="card-tag tag-gold">Mobile-Ready</span>
     </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/maddie-casey-recruiter-brief.html" target="_blank">
+      <div class="card-icon-wrap cyan"><span>&#128222;</span></div>
+      <h3>Maddie Casey Call Brief</h3>
+      <p>Dedicated recruiter screen prep. Call structure, 60-second narrative, questions, guardrails, and the command center close.</p>
+      <span class="card-tag tag-cyan">Recruiter-Specific</span>
+    </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-referral-prep.html" target="_blank">
       <div class="card-icon-wrap blue"><span>&#127912;</span></div>
       <h3>Referral Prep Brief</h3>
       <p>Slide deck format covering positioning, anticipated questions, and recruiter rapport strategies.</p>
       <span class="card-tag tag-blue">Slides</span>
     </a>
-    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willie-kopp-openai-enterprise.html" target="_blank">
-      <div class="card-icon-wrap purple"><span>&#127919;</span></div>
-      <h3>Enterprise Sales Showcase</h3>
-      <p>Visual showcase with interactive charts, career narrative, WillieOS proof points. The polished send-ready version.</p>
-      <span class="card-tag tag-purple">Send-Ready</span>
-    </a>
   </div>
 </section>
 
-<!-- ═══════ SECTION 2: ACCOUNT PLANS ═══════ -->
-<div id="account-plans"></div>
-<img src="images/openai-command-center/divider-sales-toolkit.png" alt="" class="section-divider" loading="lazy">
-<section class="section">
+<!-- ═══════ SECTION 2: DIGITAL NATIVE LENS ═══════ -->
+<div id="dn-lens"></div>
+<section class="section" style="padding-top: 40px;">
   <div class="section-header reveal">
     <div class="section-label">Section B</div>
-    <div class="section-title">Account Plans & Command Centers</div>
-    <p class="section-desc">Two full customer command centers built unprompted. Demonstrates repeatable enterprise account planning methodology mapped to OpenAI's product suite.</p>
+    <div class="section-title">Digital Native Lens</div>
+    <p class="section-desc">How Willie's dual perspective &mdash; digital native builder + enterprise seller &mdash; creates unique value for OpenAI's Digital Native Core segment.</p>
+  </div>
+
+  <!-- The reframe -->
+  <div class="narrative reveal" style="border-left-color: var(--cyan);">
+    <div class="narrative-label" style="color: var(--cyan);">The Reframe</div>
+    <p>The role shifted from Large Enterprise to <span style="color: var(--text); font-weight: 600;">Digital Native Core</span>. This changes everything about how Willie should be positioned. The old narrative led with Fortune 500 relationships and complex procurement. The new one leads with something more powerful.</p>
+    <p>Willie is not selling to digital native companies from the outside. He <span style="color: var(--text); font-weight: 600;">is</span> the buyer persona. He built a production AI system on multi-model API architecture, consumption-based cost controls, and agent orchestration frameworks. That is what Digital Native Core customers are building right now.</p>
+  </div>
+
+  <!-- DN vs Enterprise comparison -->
+  <div class="reveal" style="overflow-x: auto;">
+    <table class="compare-table" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Traditional Enterprise</th>
+          <th style="color: var(--cyan);">Digital Native Core</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Buyer</td><td>CIO / Procurement</td><td style="color: var(--text);">VP Eng / Head of AI</td></tr>
+        <tr><td>Cycle</td><td>6-18 months</td><td style="color: var(--text);">2-6 months</td></tr>
+        <tr><td>Evaluation</td><td>RFP, vendor scorecard</td><td style="color: var(--text);">Hands-on API trial</td></tr>
+        <tr><td>Pricing</td><td>Seat licenses</td><td style="color: var(--text);">Usage-based / tokens</td></tr>
+        <tr><td>Trust signal</td><td>Gartner quadrant</td><td style="color: var(--text);">Benchmarks, GitHub, docs</td></tr>
+        <tr><td>Competition</td><td>"AI vs. no AI"</td><td style="color: var(--text);">OpenAI vs. Claude vs. OSS</td></tr>
+        <tr><td>Sales motion</td><td>Top-down executive sell</td><td style="color: var(--text);">Bottom-up PLG &rarr; commercial</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DN Lens Cards -->
+  <div class="dn-grid reveal">
+    <div class="dn-card">
+      <div class="dn-label">Builder Credibility</div>
+      <h4>Speaks the Language</h4>
+      <p>When a VP of Engineering asks about token economics, context window management, or multi-model fallback strategies, Willie answers from production experience, not a pitch deck. He tracks API costs in microcents. He routes models based on task complexity. He built the guardrail systems that DN buyers ask about in every evaluation.</p>
+    </div>
+    <div class="dn-card">
+      <div class="dn-label">Scale-Up Bridge</div>
+      <h4>Enterprise Muscle When They Need It</h4>
+      <p>Digital native companies eventually hit enterprise inflection points: procurement, compliance, multi-stakeholder approval. Willie has 15+ years navigating those exact dynamics at Cisco and Nokia. He helps DN companies cross the gap between product-led growth and enterprise sales motion.</p>
+    </div>
+    <div class="dn-card">
+      <div class="dn-label">Technical Depth</div>
+      <h4>Direct OpenAI Product Mapping</h4>
+      <p>Gary's multi-agent dispatch = Agents SDK. Multi-model API routing = API Platform. Autonomous code execution = Codex. Function calling with 110+ tool schemas = Responses API. Willie has built production systems on the same patterns OpenAI sells.</p>
+    </div>
+    <div class="dn-card">
+      <div class="dn-label">Competitive Awareness</div>
+      <h4>Knows the Multi-Model Reality</h4>
+      <p>DN companies run multi-model architectures by default. Willie routes across Anthropic, OpenAI-compatible endpoints, and Google in production. He understands the competitive landscape from the inside: where OpenAI wins, where it competes, and how to position for primary-model status.</p>
+    </div>
+  </div>
+
+  <!-- Candidate pool comparison -->
+  <div class="section-header reveal" style="margin-top: 48px;">
+    <div class="section-label">Candidate Pool Comparison</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px;" class="reveal">
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <span style="margin-top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); opacity: 0.4; flex-shrink: 0;"></span>
+        <div>
+          <strong style="font-size: 14px;">Cloud Platform Sellers (AWS / Azure / GCP)</strong>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">PaaS/SaaS experience and portfolio management, but have never built on AI APIs. Sell infrastructure, not intelligence.</p>
+        </div>
+      </div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <span style="margin-top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); opacity: 0.4; flex-shrink: 0;"></span>
+        <div>
+          <strong style="font-size: 14px;">Dev Tools Sellers (Datadog / Twilio / Segment)</strong>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Developer-centric selling and usage-based pricing, but don't understand model selection, token economics, or agent orchestration.</p>
+        </div>
+      </div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <span style="margin-top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); opacity: 0.4; flex-shrink: 0;"></span>
+        <div>
+          <strong style="font-size: 14px;">AI Startup AEs (Anthropic / Cohere / Scale Alumni)</strong>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">AI domain knowledge, but often early-career without complex portfolio or enterprise relationship experience.</p>
+        </div>
+      </div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid rgba(34,211,238,0.3); border-radius: 12px; padding: 20px;">
+      <div style="display: flex; align-items: flex-start; gap: 12px;">
+        <span style="margin-top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); flex-shrink: 0;"></span>
+        <div>
+          <strong style="font-size: 14px; color: var(--cyan);">Willie Kopp</strong>
+          <p style="font-size: 13px; color: var(--text); margin-top: 4px;">15+ years enterprise tech sales at quota scale. Built production AI on multi-model APIs with consumption tracking and agent orchestration. Understands the buyer persona from the inside. That combination does not exist in the other candidate pools.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SECTION 3: ACCOUNT PLANS ═══════ -->
+<div id="account-plans"></div>
+<section class="section">
+  <div class="section-header reveal">
+    <div class="section-label">Section C</div>
+    <div class="section-title">Account Plans &amp; Command Centers</div>
+    <p class="section-desc">These account plans demonstrate enterprise methodology that helps digital native companies scale into enterprise customers &mdash; the bridge between product-led growth and enterprise sales motion.</p>
   </div>
 
   <!-- Account planning infographic -->
   <div class="img-showcase reveal">
     <div class="img-card">
-      <img src="images/openai-command-center/infographic-account-planning-methodology.png" alt="Enterprise account planning methodology" loading="lazy">
-      <div class="img-card-label">Enterprise Account Planning Methodology</div>
+      <img src="images/openai-command-center-v2/account-planning-flow.png" alt="Enterprise account planning methodology" loading="lazy">
+      <div class="img-card-label">Account Planning Methodology</div>
     </div>
     <div class="img-card">
-      <img src="images/openai-command-center/infographic-enterprise-ai-market-stats.png" alt="Enterprise AI market stats" loading="lazy">
-      <div class="img-card-label">Enterprise AI Market: 88% adoption, $334B spend</div>
+      <img src="images/openai-command-center-v2/enterprise-ai-market.png" alt="Enterprise AI market landscape" loading="lazy">
+      <div class="img-card-label">Enterprise AI Market Landscape</div>
     </div>
   </div>
 
@@ -717,38 +896,30 @@
     </a>
   </div>
 
-  <!-- Framework callout -->
-  <div class="tips-card green reveal" style="margin-top: 32px;">
-    <h3>Repeatable Framework</h3>
+  <!-- DN reframe for account plans -->
+  <div class="tips-card cyan reveal" style="margin-top: 32px;">
+    <h3>Why Account Plans Matter for DN Core</h3>
     <ul>
-      <li><strong>Executive thesis</strong> -- why this account, why now</li>
-      <li><strong>Stakeholder map</strong> -- champion, economic buyer, technical evaluator, blocker</li>
-      <li><strong>Use case matrix</strong> -- by department x product (ChatGPT, Codex, API)</li>
-      <li><strong>Wedge plays</strong> -- first deals to close</li>
-      <li><strong>Governance & risk</strong> -- security, compliance, data residency</li>
-      <li><strong>Follow-up package</strong> -- leave-behinds for each stakeholder</li>
-      <li><strong>Action plan</strong> -- 30/60/90 day milestones</li>
+      <li><strong>PLG to Enterprise Bridge:</strong> DN companies start with developer adoption. These plans show how to convert organic API usage into commercial agreements with executive sponsors.</li>
+      <li><strong>Stakeholder expansion:</strong> Even in DN companies, scaling usage from engineering to company-wide requires navigating procurement, legal, and finance. This is enterprise muscle applied to a DN motion.</li>
+      <li><strong>Repeatable framework:</strong> Executive thesis, stakeholder map, use case matrix, wedge plays, governance, follow-up package, action plan. Works for Deere, Kaiser, or a Series C SaaS company with 500 engineers.</li>
     </ul>
   </div>
 </section>
 
-<!-- ═══════ SECTION 3: SALES TOOLKIT ═══════ -->
+<!-- ═══════ SECTION 4: SALES TOOLKIT ═══════ -->
 <div id="sales-toolkit"></div>
 <section class="section" style="padding-top: 40px;">
   <div class="section-header reveal">
-    <div class="section-label">Section C</div>
+    <div class="section-label">Section D</div>
     <div class="section-title">Day-1 Sales Toolkit</div>
-    <p class="section-desc">Tools and frameworks designed for an enterprise AI sales team. Not theoretical. Built and functional.</p>
+    <p class="section-desc">Tools and frameworks designed for API/developer-focused sales. The Tech Translator and COI Calculator are especially relevant for digital native companies quantifying AI adoption.</p>
   </div>
 
   <div class="img-showcase reveal">
     <div class="img-card">
-      <img src="images/openai-command-center/infographic-day1-impact.png" alt="Day-1 impact deliverables" loading="lazy">
-      <div class="img-card-label">5 Immediate-Value Day-1 Deliverables</div>
-    </div>
-    <div class="img-card">
-      <img src="images/openai-command-center/infographic-career-timeline.png" alt="Career progression timeline" loading="lazy">
-      <div class="img-card-label">Career: Cisco (2006-2023) &rarr; Nokia (2023) &rarr; WillieOS</div>
+      <img src="images/openai-command-center-v2/career-timeline-progression.png" alt="Career progression timeline" loading="lazy">
+      <div class="img-card-label">Career Arc: Cisco (2006-2023) &rarr; Nokia (2023) &rarr; WillieOS Builder</div>
     </div>
   </div>
 
@@ -756,60 +927,41 @@
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/ai-sales-command-center.html" target="_blank">
       <div class="card-icon-wrap"><span>&#128640;</span></div>
       <h3>AI Sales Command Center</h3>
-      <p>91KB. Full daily routine command center for an enterprise AI sales rep. Account intelligence, pipeline management, competitive positioning, prep routines.</p>
+      <p>91KB. Full daily routine command center for an AI sales rep. Account intelligence, pipeline management, competitive positioning, prep routines.</p>
       <span class="card-tag tag-green">Operational</span>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-translate-tech-demo.html" target="_blank">
       <div class="card-icon-wrap gold"><span>&#128300;</span></div>
       <h3>Tech Translator Demo</h3>
-      <p>Interactive tool that translates deep technical capabilities (GPT-4o multi-modal vision) into executive business cases with ROI framing. Model capabilities to revenue opportunities.</p>
+      <p>Interactive tool that translates deep technical capabilities into executive business cases with ROI framing. For DN companies: API throughput &rarr; revenue capacity, model routing &rarr; cost optimization.</p>
       <span class="card-tag tag-gold">Interactive</span>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/ai-trends-executive-summary.html" target="_blank">
       <div class="card-icon-wrap blue"><span>&#128200;</span></div>
       <h3>AI Trends Executive Summary</h3>
-      <p>Enterprise AI market intelligence and trend analysis. Data points ready for customer conversations and competitive positioning.</p>
+      <p>Market intelligence and trend analysis. Data points ready for customer conversations with DN buyers who track the competitive landscape daily.</p>
       <span class="card-tag tag-blue">Intel</span>
     </a>
   </div>
 
-  <!-- GTM Framework -->
+  <!-- OpenAI Product Framework — DN-adapted -->
   <div class="tips-card green reveal" style="margin-top: 32px;">
-    <h3>Enterprise AI GTM Framework</h3>
+    <h3>OpenAI's Three Surfaces &mdash; DN Core Lens</h3>
     <ul>
-      <li><strong>Step 1:</strong> Find the highest-signal workflow (painful, visible)</li>
-      <li><strong>Step 2:</strong> Prove measurable lift quickly (30-day POC)</li>
-      <li><strong>Step 3:</strong> Expand across departments</li>
-      <li><strong>Step 4:</strong> Move into embedded product use cases (API)</li>
-    </ul>
-  </div>
-
-  <!-- OpenAI Product Framework -->
-  <div class="tips-card blue reveal">
-    <h3>OpenAI's Three Surfaces</h3>
-    <ul>
-      <li><strong>ChatGPT:</strong> User adoption surface -- the way in</li>
-      <li><strong>Codex:</strong> Builder and automation surface -- where code ships</li>
-      <li><strong>API:</strong> Embedded intelligence surface -- where it becomes infrastructure</li>
+      <li><strong>API Platform:</strong> The primary surface for DN buyers. Usage-based, evaluate on latency/quality/cost. Willie has built production systems on multi-provider API routing.</li>
+      <li><strong>Agents SDK &amp; Codex:</strong> Where DN companies build autonomous workflows. Willie's Gary dispatch pipeline is the same paradigm: tool orchestration, multi-agent chains, sandboxed execution.</li>
+      <li><strong>ChatGPT Enterprise:</strong> The expand play after API adoption. Company-wide deployment after engineering teams prove value. Enterprise procurement experience becomes critical here.</li>
     </ul>
   </div>
 </section>
 
-<!-- ═══════ SECTION 4: COMPETITIVE INTEL ═══════ -->
+<!-- ═══════ SECTION 5: COMPETITIVE INTEL ═══════ -->
 <div id="competitive"></div>
-<img src="images/openai-command-center/divider-competitive-intel.png" alt="" class="section-divider" loading="lazy">
 <section class="section">
   <div class="section-header reveal">
-    <div class="section-label">Section D</div>
+    <div class="section-label">Section E</div>
     <div class="section-title">Competitive Intelligence</div>
-    <p class="section-desc">Detailed analysis of the enterprise AI competitive landscape. Know where OpenAI wins and where to watch out.</p>
-  </div>
-
-  <div class="img-showcase reveal">
-    <div class="img-card">
-      <img src="images/openai-command-center/graphic-competitive-landscape.png" alt="Competitive positioning map" loading="lazy">
-      <div class="img-card-label">Competitive Positioning: OpenAI vs Field</div>
-    </div>
+    <p class="section-desc">DN Core buyers run multi-model. They benchmark constantly. Knowing where OpenAI wins &mdash; and where it faces pressure &mdash; is table stakes.</p>
   </div>
 
   <div class="card-grid reveal">
@@ -826,39 +978,48 @@
       <span class="card-tag tag-purple">Market Intel</span>
     </a>
   </div>
+
+  <!-- DN competitive insight -->
+  <div class="tips-card cyan reveal" style="margin-top: 32px;">
+    <h3>Competitive Insight from a Builder</h3>
+    <ul>
+      <li><strong>Multi-model is the default:</strong> DN companies don't go exclusive. They route based on cost, quality, and latency. Willie does this in production. He can have an honest conversation about where OpenAI fits in a multi-provider stack.</li>
+      <li><strong>Primary model positioning:</strong> The play isn't "only use OpenAI." It's "make OpenAI the primary model for your highest-value workloads." Willie understands this because he routes expensive tasks to Claude Opus and cheap tasks to Gemini Flash.</li>
+      <li><strong>Open-source pressure:</strong> DN companies evaluate fine-tuned open models for cost-sensitive tasks. Understanding where hosted APIs win (reliability, compliance, function calling quality) vs where OSS is good enough is critical.</li>
+    </ul>
+  </div>
 </section>
 
-<!-- ═══════ SECTION 5: WILLIEOS / GARY ═══════ -->
+<!-- ═══════ SECTION 6: WILLIEOS / GARY — BUILDER PROOF ═══════ -->
 <div id="willieos"></div>
-<img src="images/openai-command-center/divider-willieos-gary.png" alt="" class="section-divider" loading="lazy">
 <section class="section">
   <div class="section-header reveal">
-    <div class="section-label">Section E</div>
-    <div class="section-title">WillieOS / Gary — Builder Proof</div>
-    <p class="section-desc">Not a side project. A production AI operating system that proves firsthand understanding of enterprise AI adoption.</p>
+    <div class="section-label">Section F</div>
+    <div class="section-title">WillieOS / Gary &mdash; Digital Native Builder Proof</div>
+    <p class="section-desc">Not proof of technical depth. Proof of digital native builder mentality. WillieOS is a digital native product: API-first, multi-model, tool-chaining, local-first architecture. Willie understands DN buyers because he is one.</p>
   </div>
 
   <!-- Stats -->
   <div class="stats-row reveal">
     <div class="stat-card">
-      <div class="stat-value">242</div>
+      <div class="stat-value">282</div>
       <div class="stat-label">MCP Tools</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">46</div>
-      <div class="stat-label">Tool Categories</div>
+      <div class="stat-value">56</div>
+      <div class="stat-label">DB Tables</div>
     </div>
     <div class="stat-card">
       <div class="stat-value">4</div>
       <div class="stat-label">Specialist Agents</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">25+</div>
-      <div class="stat-label">DB Tables</div>
+      <div class="stat-value">3</div>
+      <div class="stat-label">AI Providers</div>
     </div>
     <div class="stat-card">
       <div class="stat-value">&lt;20MB</div>
-      <div class="stat-label">Binary (Tauri)</div>
+      <div class="stat-label">Binary (Tauri 2)</div>
     </div>
     <div class="stat-card">
       <div class="stat-value">$0</div>
@@ -869,79 +1030,104 @@
   <!-- Architecture + Gary images -->
   <div class="img-showcase reveal">
     <div class="img-card">
-      <img src="images/openai-command-center/architecture-willieos-multi-agent-system.png" alt="WillieOS multi-agent architecture" loading="lazy">
+      <img src="images/openai-command-center-v2/architecture-multi-agent.png" alt="WillieOS multi-agent architecture" loading="lazy">
       <div class="img-card-label">Multi-Agent Architecture</div>
     </div>
     <div class="img-card">
-      <img src="images/openai-command-center/showcase-gary-capabilities.png" alt="Gary AI capabilities" loading="lazy">
+      <img src="images/openai-command-center-v2/gary-capabilities-grid.png" alt="Gary AI capabilities" loading="lazy">
       <div class="img-card-label">Gary Capabilities: Email, Dispatch, Wizard, Calendar, Knowledge, Tools</div>
-    </div>
-    <div class="img-card">
-      <img src="images/openai-command-center/diagram-stage-gate-quality-system.png" alt="Stage-gate quality system" loading="lazy">
-      <div class="img-card-label">Adversarial Stage-Gate Quality System</div>
     </div>
   </div>
 
-  <!-- How to talk about Gary -->
+  <!-- How to talk about Gary — DN framing -->
   <div class="tips-card green reveal" style="margin-top: 32px;">
-    <h3>How to Talk About Gary</h3>
+    <h3>How to Talk About Gary (DN Frame)</h3>
     <ul>
-      <li>"I built this because I wanted to understand what it feels like to run my own work through an AI-native operating layer."</li>
-      <li>"The product taught me where enterprise adoption gets hard: state, memory, handoff, governance, and trust."</li>
-      <li>"This is not polished SaaS. It is a working lab for the same customer problems OpenAI helps enterprises solve."</li>
+      <li>"I built this because I wanted to understand what digital native companies actually go through when they operationalize AI. Token economics, model routing, guardrails, cost controls &mdash; I lived the buyer journey."</li>
+      <li>"Gary is a digital native product. API-first architecture, consumption-based cost tracking, multi-model routing, tool orchestration. The same patterns your DN Core customers implement."</li>
+      <li>"When I sit with a VP of Engineering who's deciding between OpenAI and Anthropic for their production pipeline, I'm not reading from a competitive deck. I've made that same decision in my own system."</li>
     </ul>
   </div>
 
   <div class="tips-card red reveal">
     <h3>Don't Say About Gary</h3>
     <ul>
-      <li>Don't call it a "side project"</li>
-      <li>Don't over-explain React/Tauri/SQLite before business value</li>
-      <li>Don't lead with model benchmarks or cost metrics</li>
-      <li>Don't make unsupported benchmark claims</li>
+      <li>Don't call it a "side project" &mdash; it is a production system</li>
+      <li>Don't lead with React/Tauri/SQLite before business value</li>
+      <li>Don't frame it as "proof of technical depth" &mdash; frame it as "proof I'm the buyer persona"</li>
+      <li>Don't compare it to enterprise software. Compare it to what DN companies build.</li>
     </ul>
   </div>
 
-  <!-- 7-minute demo flow -->
-  <div class="tips-card blue reveal">
-    <h3>7-Minute Demo Flow (Later Rounds)</h3>
-    <ul>
-      <li>Start in Email tab. Show owner command. Pending Action with safety labels</li>
-      <li>Open action detail. Show safety posture (owner-authored = trusted, pasted/forwarded = untrusted)</li>
-      <li>Run Autopilot. 3 phases: clarify, investigate, package</li>
-      <li>Watch Gary Activity. Live dispatch card, agent, cost, model, origin</li>
-      <li>Open deliverable. Filed in vault, linked to dispatch</li>
-      <li>Continue with Gary. Follow-up path, context preserved</li>
-      <li>Show Agent OS layer. Gary Activity widget, weekly memory reflection</li>
-    </ul>
+  <!-- OpenAI product mapping -->
+  <div class="section-header reveal" style="margin-top: 48px;">
+    <div class="section-label">OpenAI Products &rarr; Willie's Direct Experience</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px;" class="reveal">
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong style="font-size: 14px;">API Platform</strong>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Gary calls AI APIs directly. Multi-provider routing across text, image, and function calling endpoints.</p>
+      </div>
+      <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; background: var(--green-dim); color: var(--green); flex-shrink: 0;">Direct</span>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong style="font-size: 14px;">Agents SDK</strong>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Gary's MCP dispatch pipeline: 110+ tools, multi-agent orchestration, autonomous workflows.</p>
+      </div>
+      <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; background: var(--green-dim); color: var(--green); flex-shrink: 0;">Direct</span>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong style="font-size: 14px;">Codex</strong>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Gary dispatches Claude Code for autonomous coding tasks. Same cloud-based sandboxed execution concept.</p>
+      </div>
+      <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; background: var(--green-dim); color: var(--green); flex-shrink: 0;">Direct</span>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong style="font-size: 14px;">Function Calling / Tool Use</strong>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">110+ tool definitions with structured schemas across all AI providers.</p>
+      </div>
+      <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; background: var(--green-dim); color: var(--green); flex-shrink: 0;">Direct</span>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong style="font-size: 14px;">Responses API</strong>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Streaming AI pipeline using async generators yielding text chunks. Same conversational agent pattern.</p>
+      </div>
+      <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; background: var(--cyan-dim); color: var(--cyan); flex-shrink: 0;">Analogous</span>
+    </div>
   </div>
 
   <!-- 4-layer architecture -->
   <div class="narrative reveal" style="border-left-color: var(--green); margin-top: 32px;">
     <div class="narrative-label" style="color: var(--green);">4-Layer Architecture</div>
-    <p><strong style="color: var(--green);">Shell</strong> (React 19 + Vite 7) -- Unified mission control interface. Web tech in a native wrapper.</p>
-    <p><strong style="color: var(--blue);">Engine</strong> (Tauri v2 + Rust) -- Lightweight native desktop binary. &lt;20MB vs 150MB+ Electron.</p>
-    <p><strong style="color: var(--gold);">Memory</strong> (SQLite) -- Persistent, local-only brain trust. All personal data on host machine.</p>
-    <p><strong style="color: var(--purple);">Hands</strong> (MCP Node.js sidecar) -- 242 tools connecting AI to real-world systems, files, and APIs.</p>
+    <p><strong style="color: var(--green);">Shell</strong> (React 19 + Vite 7) &mdash; Unified mission control interface. Web tech in a native wrapper.</p>
+    <p><strong style="color: var(--blue);">Engine</strong> (Tauri v2 + Rust) &mdash; Lightweight native desktop binary. &lt;20MB vs 150MB+ Electron.</p>
+    <p><strong style="color: var(--gold);">Memory</strong> (SQLite) &mdash; Persistent, local-only brain trust. All personal data on host machine.</p>
+    <p><strong style="color: var(--purple);">Hands</strong> (MCP Node.js sidecar) &mdash; 282 tools connecting AI to real-world systems, files, and APIs.</p>
   </div>
 
-  <!-- Gary links -->
+  <!-- Showcase links — Updated Phase 3 pages -->
   <div class="card-grid reveal" style="margin-top: 32px;">
-    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v5.html" target="_blank">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v6.html" target="_blank">
       <div class="card-icon-wrap"><span>&#127775;</span></div>
-      <h3>WillieOS Showcase v5</h3>
-      <p>The flagship showcase. Architecture, workflows, multi-agent dispatch in action. Apple-tier design with scroll animations.</p>
-      <span class="card-tag tag-green">Flagship</span>
+      <h3>WillieOS Showcase v6</h3>
+      <p>The latest flagship showcase. Architecture, workflows, multi-agent dispatch, 56 DB tables, 282 MCP tools. Full technical depth.</p>
+      <span class="card-tag tag-green">Latest</span>
     </a>
-    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-showcase-2026-04-13.html" target="_blank">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-showcase-2026.html" target="_blank">
       <div class="card-icon-wrap gold"><span>&#129302;</span></div>
-      <h3>Gary Showcase</h3>
-      <p>Gary's capabilities with interactive examples and real workflow demos. Glass cards, gradient text.</p>
+      <h3>Gary Showcase 2026</h3>
+      <p>Gary's capabilities: 4 specialist agents, autonomous email triage, morning briefs, multi-agent dispatch chains, project wizard. The AI Chief of Staff in action.</p>
+      <span class="card-tag tag-gold">Updated</span>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-capabilities-showcase.html" target="_blank">
       <div class="card-icon-wrap blue"><span>&#128736;</span></div>
       <h3>Gary Capabilities</h3>
-      <p>Detailed breakdown of Gary's MCP tools, multi-agent dispatch, autonomous email triage, and project wizard.</p>
+      <p>Detailed breakdown of MCP tools, multi-agent dispatch, autonomous email triage, and project wizard.</p>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-mission-control.html" target="_blank">
       <div class="card-icon-wrap purple"><span>&#128187;</span></div>
@@ -955,12 +1141,12 @@
 <section class="section" style="padding-top: 0;">
   <div class="section-header reveal">
     <div class="section-label">Career Arc</div>
-    <div class="section-title">17 Years of Enterprise Tech</div>
+    <div class="section-title">15+ Years of Enterprise Tech</div>
   </div>
   <div class="timeline reveal">
     <div class="timeline-item">
       <div class="timeline-year">2006 - 2023</div>
-      <div class="timeline-role">Multiple Roles, culminating in CTO Sports & Entertainment</div>
+      <div class="timeline-role">Multiple Roles, culminating in CTO Sports &amp; Entertainment</div>
       <div class="timeline-co">Cisco Systems</div>
     </div>
     <div class="timeline-item">
@@ -970,13 +1156,13 @@
     </div>
     <div class="timeline-item">
       <div class="timeline-year">2023 - Present</div>
-      <div class="timeline-role">Edge Campus Enterprise Sales</div>
+      <div class="timeline-role">Head of NAM Enterprise Campus Edge Business</div>
       <div class="timeline-co">Nokia</div>
     </div>
     <div class="timeline-item">
-      <div class="timeline-year">2024 - Present</div>
-      <div class="timeline-role">Creator & Builder, WillieOS / Gary AI</div>
-      <div class="timeline-co">Production AI operating system with 242 MCP tools</div>
+      <div class="timeline-year">2025 - Present</div>
+      <div class="timeline-role">Creator &amp; Builder, WillieOS / Gary AI</div>
+      <div class="timeline-co">Production AI operating system. 282 MCP tools. 4 specialist agents. Digital native architecture.</div>
     </div>
   </div>
 </section>
@@ -991,28 +1177,29 @@
     <h3>Verified Background</h3>
     <ul>
       <li><strong>Role:</strong> Go-to-Market Recruiter, OpenAI (since August 2023)</li>
-      <li><strong>Education:</strong> BA, Business Admin & Management, University of San Francisco '14</li>
+      <li><strong>Education:</strong> BA, Business Admin &amp; Management, University of San Francisco '14</li>
       <li><strong>Location:</strong> San Francisco, CA</li>
-      <li><strong>Previous:</strong> Stripe, Box (unverified -- from aggregator data)</li>
+      <li><strong>Previous:</strong> Stripe (GTM Recruiting, 2021-2023), Box (Recruiter II), TheLions (Sales Recruiting)</li>
     </ul>
   </div>
   <div class="tips-card blue reveal">
-    <h3>What She's Screening For</h3>
+    <h3>What She's Screening For &mdash; DN Core Context</h3>
     <ul>
-      <li><strong>Can you sell?</strong> Enterprise deal experience, quota attainment, deal size, complex sales cycles</li>
-      <li><strong>Why OpenAI?</strong> She hears "I love AI" 50 times a week. She wants specificity on the GTM motion</li>
-      <li><strong>Startup energy:</strong> Enterprise pedigree is great, but can you operate in a 2000-person rocket ship?</li>
-      <li><strong>Red flags she watches for:</strong> Entitlement, inflexibility, comp-first questions, talking too long</li>
+      <li><strong>Can you sell to technical buyers?</strong> DN Core buyers are VPs of Eng and Heads of AI, not procurement committees. Show you can speak their language.</li>
+      <li><strong>Why Digital Native Core?</strong> She needs to hear why you specifically fit this segment, not generic "I love AI." Your builder credentials are the answer.</li>
+      <li><strong>Portfolio velocity:</strong> Core manages more accounts with faster cycles than Large Enterprise. Show you can operate at volume, not just on whale accounts.</li>
+      <li><strong>Startup energy:</strong> Enterprise pedigree is great, but can you operate in a high-velocity, ambiguous environment? Building WillieOS is the proof.</li>
+      <li><strong>Red flags she watches for:</strong> Entitlement, inflexibility, comp-first questions, talking too long, "digital transformation" language</li>
     </ul>
   </div>
   <div class="tips-card green reveal">
     <h3>How to Be Memorable</h3>
     <ul>
-      <li>Open with energy, not a resume recitation</li>
-      <li>Have a Deere or Kaiser story ready -- "I built a full account plan for John Deere. Not because anyone asked me to."</li>
-      <li>Ask about HER. She's been at OpenAI since Aug 2023. What's changed most?</li>
+      <li>Open with the builder frame: "I don't just sell to digital natives. I build like one."</li>
+      <li>Have a concrete story ready: "I built multi-model API routing because I needed to optimize cost per task. That's the same decision your DN Core customers make every day."</li>
+      <li>Ask about HER: She's been at OpenAI since Aug 2023 through massive scaling. What's changed most?</li>
       <li>Close with forward momentum: "I want this role. What's the next step?"</li>
-      <li>Follow up same day. Short email. 3 sentences. Reference something she said.</li>
+      <li>Follow up same day. Short email. 3 sentences. Reference something she said. Include command center link.</li>
     </ul>
   </div>
 </section>
@@ -1027,23 +1214,23 @@
   <div class="card-grid reveal" style="grid-template-columns: 1fr;">
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-account-director-study-guide.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128214;</span></div>
-      <div><h3 style="margin-bottom: 2px;">Account Director Study Guide</h3><p style="margin: 0;">9-tab study guide. 98KB.</p></div>
+      <div><h3 style="margin-bottom: 2px;">Account Director Study Guide</h3><p style="margin: 0;">9-tab study guide. Deep product and competitive knowledge.</p></div>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-discussion-prep.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap gold" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128221;</span></div>
       <div><h3 style="margin-bottom: 2px;">Discussion Prep Brief</h3><p style="margin: 0;">Mobile-friendly narrative + Q&A.</p></div>
     </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/maddie-casey-recruiter-brief.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap cyan" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128222;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Maddie Casey Call Brief</h3><p style="margin: 0;">Recruiter screen prep. DN Core framing.</p></div>
+    </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/openai-referral-prep.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127912;</span></div>
       <div><h3 style="margin-bottom: 2px;">Referral Prep Brief</h3><p style="margin: 0;">Slide deck format. Positioning + Q&A.</p></div>
     </a>
-    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willie-kopp-openai-enterprise.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
-      <div class="card-icon-wrap purple" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127919;</span></div>
-      <div><h3 style="margin-bottom: 2px;">Enterprise Sales Showcase</h3><p style="margin: 0;">Interactive charts + career narrative.</p></div>
-    </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/deere-command-center.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127806;</span></div>
-      <div><h3 style="margin-bottom: 2px;">John Deere Command Center</h3><p style="margin: 0;">125KB. Full 7-section enterprise prep.</p></div>
+      <div><h3 style="margin-bottom: 2px;">John Deere Command Center</h3><p style="margin: 0;">125KB. Full 7-section enterprise plan.</p></div>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/kaiser-command-center.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127973;</span></div>
@@ -1069,9 +1256,13 @@
       <div class="card-icon-wrap red" style="margin-bottom: 0; flex-shrink: 0;"><span>&#9876;</span></div>
       <div><h3 style="margin-bottom: 2px;">Battlecard: Anthropic vs OpenAI</h3><p style="margin: 0;">86KB. Chart.js competitive analysis.</p></div>
     </a>
-    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v5.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v6.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap" style="margin-bottom: 0; flex-shrink: 0;"><span>&#127775;</span></div>
-      <div><h3 style="margin-bottom: 2px;">WillieOS Showcase v5</h3><p style="margin: 0;">Flagship showcase with scroll animations.</p></div>
+      <div><h3 style="margin-bottom: 2px;">WillieOS Showcase v6</h3><p style="margin: 0;">Latest flagship showcase. Full architecture.</p></div>
+    </a>
+    <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-showcase-2026.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
+      <div class="card-icon-wrap gold" style="margin-bottom: 0; flex-shrink: 0;"><span>&#129302;</span></div>
+      <div><h3 style="margin-bottom: 2px;">Gary Showcase 2026</h3><p style="margin: 0;">4 specialist agents. AI Chief of Staff.</p></div>
     </a>
     <a class="card" href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-capabilities-showcase.html" target="_blank" style="flex-direction: row; align-items: center; gap: 16px; padding: 16px 20px;">
       <div class="card-icon-wrap blue" style="margin-bottom: 0; flex-shrink: 0;"><span>&#128736;</span></div>
@@ -1087,7 +1278,7 @@
 <!-- FOOTER -->
 <div class="footer">
   <p>Built by Gary &middot; Willie Kopp's AI Chief of Staff</p>
-  <p style="margin-top: 4px;">OpenAI Account Director Interview Prep &middot; June 2026</p>
+  <p style="margin-top: 4px;">OpenAI Account Director, Digital Native Core &middot; Interview Prep &middot; May 2026</p>
 </div>
 
 <!-- SCROLL REVEAL -->

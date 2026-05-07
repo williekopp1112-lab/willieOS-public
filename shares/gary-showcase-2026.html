@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary — AI Chief of Staff</title>
+<meta name="description" content="An AI Chief of Staff that manages email, calendar, tasks, research, design, and deployment — autonomously.">
+<meta property="og:title" content="Gary — AI Chief of Staff">
+<meta property="og:description" content="An AI Chief of Staff that manages email, calendar, tasks, research, design, and deployment — autonomously. 282 MCP tools. 4 specialist agents. Runs 24/7.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect fill='%230a0a0a' width='1200' height='630'/%3E%3Ctext x='600' y='290' fill='%2310a37f' font-size='72' font-weight='800' text-anchor='middle' font-family='Inter,sans-serif'%3EGary%3C/text%3E%3Ctext x='600' y='370' fill='%23a1a1a1' font-size='24' text-anchor='middle' font-family='Inter,sans-serif'%3EAI Chief of Staff%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-elevated: #171717;
+  --bg-surface: #0f0f0f;
+  --border: #1e1e1e;
+  --border-hover: #2a2a2a;
+  --text: #ededed;
+  --text-secondary: #a1a1a1;
+  --text-muted: #666;
+  --green: #10a37f;
+  --green-bright: #12b886;
+  --green-dim: rgba(16, 163, 127, 0.10);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.10);
+  --gold: #d4a853;
+  --gold-dim: rgba(212, 168, 83, 0.10);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(16, 163, 127, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.nav-links {
+  display: flex;
+  gap: 2px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.nav-links a.active { color: var(--green); }
+
+/* Sections */
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 120px 24px;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.7;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 35%, rgba(16, 163, 127, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 70% 60%, rgba(59, 130, 246, 0.03) 0%, transparent 60%);
+}
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(16, 163, 127, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 163, 127, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 20%, transparent 70%);
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.hero h1 {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin-bottom: 24px;
+  color: var(--green-bright);
+}
+.hero-tagline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+
+/* Not a Chatbot section */
+.narrative {
+  margin-top: 48px;
+}
+.narrative-text {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 720px;
+}
+.narrative-text strong {
+  color: var(--text);
+}
+
+/* Capabilities Grid */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 48px;
+}
+.cap-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.cap-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+.cap-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cap-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.cap-icon-green { background: var(--green-dim); color: var(--green); }
+.cap-icon-blue { background: var(--blue-dim); color: var(--blue); }
+.cap-icon-gold { background: var(--gold-dim); color: var(--gold); }
+.cap-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.cap-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* How Gary Works - Flow */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 48px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+.flow-step {
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+  padding: 24px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flow-step::after {
+  content: '\2192';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.flow-step:last-child::after { display: none; }
+.flow-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.flow-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.flow-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Real Examples */
+.examples {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.example-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+}
+.example-prompt {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 12px;
+  padding-left: 16px;
+  border-left: 2px solid var(--green);
+}
+.example-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.example-action {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.example-action-green { border-color: rgba(16, 163, 127, 0.3); color: var(--green); }
+
+/* Differentiators */
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+.diff-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+}
+.diff-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--green-bright);
+}
+.diff-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 48px;
+}
+.stat-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-lbl {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* NotebookLM */
+.notebook-link {
+  margin-top: 48px;
+  padding: 24px 32px;
+  background: var(--bg-card);
+  border: 1px solid rgba(16, 163, 127, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.notebook-link-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.notebook-link-text strong {
+  color: var(--text);
+}
+.notebook-link a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 163, 127, 0.3);
+  transition: all 0.2s;
+}
+.notebook-link a:hover {
+  background: var(--green-dim);
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 24px;
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.footer-text {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+  .nav-logo-dot { animation: none; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  section { padding: 80px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .nav-links { display: none; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .flow { flex-direction: column; gap: 12px; }
+  .flow-step::after { display: none; }
+  .flow-step { min-width: unset; }
+  .diff-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .notebook-link { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <div class="nav-logo"><div class="nav-logo-dot"></div> Gary</div>
+    <div class="nav-links">
+      <a href="#what">What Gary Does</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#how">How It Works</a>
+      <a href="#examples">Examples</a>
+      <a href="#different">Differentiators</a>
+      <a href="#numbers">Numbers</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="hero-badge-dot"></div> 2026</div>
+    <h1>Gary</h1>
+    <p class="hero-tagline">An AI Chief of Staff that manages email, calendar, tasks, research, design, and deployment&mdash;autonomously.</p>
+  </div>
+</header>
+
+<!-- What Gary Does -->
+<section id="what">
+  <div class="reveal">
+    <span class="section-label">What Gary Does</span>
+    <h2 class="section-title">Not a chatbot. An operating system layer.</h2>
+  </div>
+  <div class="narrative reveal">
+    <p class="narrative-text">Gary sits between the user and every digital surface they touch. Email arrives and Gary triages it before you wake up. Calendar events trigger pre-meeting research briefs. Tasks get prioritized by deadline, leverage, and who they block.</p>
+    <p class="narrative-text" style="margin-top: 16px;">When you need something built&mdash;a presentation, a research report, a code feature, a design mockup&mdash;Gary <strong>dispatches the right specialist agent</strong>, monitors the work, validates the output against acceptance criteria, and delivers the result. You describe what you need. Gary handles the how.</p>
+  </div>
+</section>
+
+<!-- Capabilities -->
+<section id="capabilities">
+  <div class="reveal">
+    <span class="section-label">Capabilities</span>
+    <h2 class="section-title">Twelve integrated intelligence systems</h2>
+  </div>
+  <div class="cap-grid reveal">
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-green">&#9993;</div>
+        <div class="cap-title">Email Triage &amp; Smart Reply</div>
+      </div>
+      <div class="cap-desc">Classifies urgency, detects missed actions, drafts contextual replies, and queues actions for approval before sending.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-blue">&#9673;</div>
+        <div class="cap-title">Multi-Agent Dispatch</div>
+      </div>
+      <div class="cap-desc">Routes tasks to 4 specialist agents (Researcher, Designer, Writer, Engineer) based on output type, not capability.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-gold">&#9670;</div>
+        <div class="cap-title">Project Wizard</div>
+      </div>
+      <div class="cap-desc">Decomposes complex requests into multi-phase projects with dependency tracking, parallel execution, and stage-gate quality review.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-green">&#9671;</div>
+        <div class="cap-title">Calendar Intelligence</div>
+      </div>
+      <div class="cap-desc">7-day sync, meeting prep briefs, scheduling conflict detection, and proactive reminders with participant context.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-blue">&#9733;</div>
+        <div class="cap-title">Knowledge &amp; Learning Engine</div>
+      </div>
+      <div class="cap-desc">Semantic search across notes, emails, and transcripts. Tracks corrections, identifies patterns, and promotes proven learnings.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-gold">&#9632;</div>
+        <div class="cap-title">Design Portal</div>
+      </div>
+      <div class="cap-desc">Integrated v0 and Claude Design. Generate mockups, refine designs, export production assets, and validate through a handoff gate.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-green">&#9672;</div>
+        <div class="cap-title">Image Generation</div>
+      </div>
+      <div class="cap-desc">gpt-image-2 via OpenRouter with style presets, transparent backgrounds, and automatic vault filing of generated assets.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-blue">&#9888;</div>
+        <div class="cap-title">Notification System</div>
+      </div>
+      <div class="cap-desc">Telegram bot integration and native desktop notifications. Proactive alerts for deadlines, dispatch completions, and anomalies.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-gold">&#8634;</div>
+        <div class="cap-title">Workflow Engine</div>
+      </div>
+      <div class="cap-desc">25+ scheduled jobs with a four-layer guardrail system (debounce, concurrency lock, cooldown, daily cap) preventing runaway execution.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-green">&#9674;</div>
+        <div class="cap-title">Dispatch Memory</div>
+      </div>
+      <div class="cap-desc">Structured handoff contracts between phases. Each agent inherits context, previous output, and acceptance criteria from the chain.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-blue">&#9881;</div>
+        <div class="cap-title">Self-Assessment</div>
+      </div>
+      <div class="cap-desc">Nightly performance evaluation. Weekly memory reflection synthesizes themes, surfaces risks, and proposes process improvements.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-header">
+        <div class="cap-icon cap-icon-gold">&#9745;</div>
+        <div class="cap-title">Vault System</div>
+      </div>
+      <div class="cap-desc">9 configured vaults with keyword-based auto-routing. Dispatch outputs are automatically filed to the right project folder.</div>
+    </div>
+  </div>
+</section>
+
+<!-- How Gary Works -->
+<section id="how">
+  <div class="reveal">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">Request to delivery in six steps</h2>
+  </div>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-title">User Request</div>
+      <div class="flow-desc">Natural language via chat or Telegram</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-title">Gary Classifies</div>
+      <div class="flow-desc">Intent detection + output type analysis</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-title">Route to Agent</div>
+      <div class="flow-desc">Researcher, Designer, Writer, or Engineer</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-title">Agent Executes</div>
+      <div class="flow-desc">Full tool access + context injection</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-title">Quality Gate</div>
+      <div class="flow-desc">Validator checks against criteria</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">6</div>
+      <div class="flow-title">Delivery</div>
+      <div class="flow-desc">Filed to vault + notification sent</div>
+    </div>
+  </div>
+</section>
+
+<!-- Real Examples -->
+<section id="examples">
+  <div class="reveal">
+    <span class="section-label">Real Examples</span>
+    <h2 class="section-title">What a conversation with Gary looks like</h2>
+    <p class="section-subtitle">These are actual use cases, not hypotheticals.</p>
+  </div>
+  <div class="examples reveal">
+    <div class="example-card">
+      <div class="example-prompt">"Schedule a meeting with Jake next week"</div>
+      <div class="example-actions">
+        <span class="example-action example-action-green">Looks up Jake in contacts</span>
+        <span class="example-action">Checks calendar availability</span>
+        <span class="example-action">Creates event with context</span>
+        <span class="example-action">Sends invite</span>
+      </div>
+    </div>
+    <div class="example-card">
+      <div class="example-prompt">"Research ServiceNow's AI strategy and build a battlecard vs Anthropic"</div>
+      <div class="example-actions">
+        <span class="example-action example-action-green">Dispatches Researcher agent</span>
+        <span class="example-action">Brave Search + Perplexity deep research</span>
+        <span class="example-action">Synthesizes findings into battlecard HTML</span>
+        <span class="example-action">Auto-files to ServiceNow vault</span>
+      </div>
+    </div>
+    <div class="example-card">
+      <div class="example-prompt">"Build a landing page for the new product pitch"</div>
+      <div class="example-actions">
+        <span class="example-action example-action-green">Dispatches Designer via v0 Portal</span>
+        <span class="example-action">Generates responsive HTML with animations</span>
+        <span class="example-action">Runs quality gate validation</span>
+        <span class="example-action">Publishes to GitHub Pages</span>
+      </div>
+    </div>
+    <div class="example-card">
+      <div class="example-prompt">"Add a dark mode toggle to the settings panel"</div>
+      <div class="example-actions">
+        <span class="example-action example-action-green">Dispatches Engineer (Claude Code)</span>
+        <span class="example-action">Writes code on feature branch</span>
+        <span class="example-action">Runs lint + build verification</span>
+        <span class="example-action">Commits with descriptive message</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What Makes Gary Different -->
+<section id="different">
+  <div class="reveal">
+    <span class="section-label">What Makes Gary Different</span>
+    <h2 class="section-title">Four architectural principles</h2>
+  </div>
+  <div class="diff-grid reveal">
+    <div class="diff-card">
+      <div class="diff-title">Local-First</div>
+      <div class="diff-desc">All data stays on your machine in SQLite. No cloud backend, no data exfiltration. AI APIs are the only external calls, and those are configurable.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-title">Multi-Model</div>
+      <div class="diff-desc">Uses Claude, GPT, and Gemini where each excels. Claude for reasoning. GPT for image generation. Gemini Flash for high-volume pattern matching. Per-service routing via settings.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-title">Autonomous</div>
+      <div class="diff-desc">Runs workflows without prompting. Email triage happens before you check your inbox. Meeting briefs generate before the meeting starts. Cost monitoring catches anomalies overnight.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-title">Self-Improving</div>
+      <div class="diff-desc">Tracks corrections, identifies recurring patterns, promotes validated learnings to permanent rules. Weekly reflection synthesizes insights and adjusts behavior.</div>
+    </div>
+  </div>
+</section>
+
+<!-- By the Numbers -->
+<section id="numbers">
+  <div class="reveal">
+    <span class="section-label">By the Numbers</span>
+    <h2 class="section-title">Gary's operational footprint</h2>
+  </div>
+  <div class="stats-row reveal">
+    <div class="stat-box">
+      <div class="stat-num">282</div>
+      <div class="stat-lbl">MCP Tools</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4</div>
+      <div class="stat-lbl">Specialist Agents</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">25+</div>
+      <div class="stat-lbl">Scheduled Jobs</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">9</div>
+      <div class="stat-lbl">Vault Configs</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">56</div>
+      <div class="stat-lbl">DB Tables</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">33</div>
+      <div class="stat-lbl">Skills</div>
+    </div>
+  </div>
+
+  <!-- NotebookLM -->
+  <div class="notebook-link reveal">
+    <div class="notebook-link-text"><strong>Deep Dive:</strong> Explore Gary's full architecture in an interactive NotebookLM research notebook.</div>
+    <a href="https://notebooklm.google.com/notebook/b9f01148-23fd-4052-b55b-d14da5d07123" target="_blank" rel="noopener">Open in NotebookLM &rarr;</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer-text">Gary &mdash; AI Chief of Staff, built on WillieOS. All data local-first.</p>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Nav active state
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WillieOS — Local-First AI Operating System</title>
+<meta name="description" content="A local-first AI operating system built by an enterprise seller who wanted to understand what it actually feels like to operationalize AI.">
+<meta property="og:title" content="WillieOS — Local-First AI Operating System">
+<meta property="og:description" content="282 MCP tools. 56 database tables. 4 specialist agents. A desktop AI OS that runs entirely on your machine.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect fill='%230a0a0a' width='1200' height='630'/%3E%3Ctext x='600' y='290' fill='%2310a37f' font-size='64' font-weight='800' text-anchor='middle' font-family='Inter,sans-serif'%3EWillieOS%3C/text%3E%3Ctext x='600' y='370' fill='%23a1a1a1' font-size='24' text-anchor='middle' font-family='Inter,sans-serif'%3ELocal-First AI Operating System%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-elevated: #171717;
+  --bg-surface: #0f0f0f;
+  --border: #1e1e1e;
+  --border-hover: #2a2a2a;
+  --text: #ededed;
+  --text-secondary: #a1a1a1;
+  --text-muted: #666;
+  --green: #10a37f;
+  --green-bright: #12b886;
+  --green-dim: rgba(16, 163, 127, 0.10);
+  --green-glow: rgba(16, 163, 127, 0.06);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.10);
+  --gold: #d4a853;
+  --gold-dim: rgba(212, 168, 83, 0.10);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(16, 163, 127, 0.5);
+}
+.nav-links {
+  display: flex;
+  gap: 2px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.nav-links a.active { color: var(--green); }
+
+/* Sections */
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 120px 24px;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.7;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 30%, rgba(16, 163, 127, 0.04) 0%, transparent 70%);
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(16, 163, 127, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 163, 127, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black, transparent);
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.hero h1 {
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+.hero h1 span { color: var(--green-bright); }
+.hero-tagline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-value {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+.card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+.card-icon-green { background: var(--green-dim); color: var(--green); }
+.card-icon-blue { background: var(--blue-dim); color: var(--blue); }
+.card-icon-gold { background: var(--gold-dim); color: var(--gold); }
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.card-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Architecture */
+.arch-diagram {
+  margin-top: 48px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px;
+}
+.arch-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.arch-layer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+.arch-layer-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  min-width: 100px;
+}
+.arch-layer-content {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.arch-chip {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: var(--bg);
+}
+.arch-chip-green { border-color: rgba(16, 163, 127, 0.3); color: var(--green); }
+.arch-chip-blue { border-color: rgba(59, 130, 246, 0.3); color: var(--blue); }
+.arch-chip-gold { border-color: rgba(212, 168, 83, 0.3); color: var(--gold); }
+
+/* Dispatch Pipeline */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 48px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+.pipeline-step {
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  position: relative;
+}
+.pipeline-step::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  width: 20px;
+  height: 2px;
+  background: var(--border-hover);
+}
+.pipeline-step:last-child::after { display: none; }
+.pipeline-step-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.pipeline-step-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.pipeline-step-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Stats Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+}
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Tech Stack */
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.tech-pill {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: var(--bg-card);
+}
+
+/* Why It Matters */
+.why-block {
+  margin-top: 48px;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(16, 163, 127, 0.04) 0%, rgba(59, 130, 246, 0.02) 100%);
+  border: 1px solid rgba(16, 163, 127, 0.15);
+  border-radius: 12px;
+}
+.why-block p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.why-block p:last-child { margin-bottom: 0; }
+.why-block strong { color: var(--text); }
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 24px;
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.footer-text {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  section { padding: 80px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat-value { font-size: 24px; }
+  .nav-links { display: none; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .pipeline { flex-direction: column; gap: 12px; }
+  .pipeline-step::after { display: none; }
+  .pipeline-step { min-width: unset; }
+  .arch-layer { flex-direction: column; align-items: flex-start; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <div class="nav-logo"><div class="nav-logo-dot"></div> WillieOS</div>
+    <div class="nav-links">
+      <a href="#architecture">Architecture</a>
+      <a href="#systems">Systems</a>
+      <a href="#dispatch">Dispatch</a>
+      <a href="#wizard">Project Wizard</a>
+      <a href="#design">Design</a>
+      <a href="#autonomy">Autonomy</a>
+      <a href="#numbers">Numbers</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="hero-badge-dot"></div> v6 &mdash; May 2026</div>
+    <h1><span>WillieOS</span></h1>
+    <p class="hero-tagline">A local-first AI operating system built by an enterprise seller who wanted to understand what it actually feels like to operationalize AI.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">282</div>
+        <div class="hero-stat-label">MCP Tools</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">56</div>
+        <div class="hero-stat-label">Database Tables</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">4</div>
+        <div class="hero-stat-label">Agent Types</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">$0</div>
+        <div class="hero-stat-label">Code Dispatch Cost</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Architecture -->
+<section id="architecture">
+  <div class="reveal">
+    <span class="section-label">Architecture</span>
+    <h2 class="section-title">Built on Tauri 2 with a Rust backbone</h2>
+    <p class="section-subtitle">A desktop application with a Rust backend, React frontend, local SQLite database, and a Node.js MCP server running as a sidecar process. All data stays on your machine.</p>
+  </div>
+  <div class="arch-diagram reveal">
+    <div class="arch-layers">
+      <div class="arch-layer">
+        <span class="arch-layer-label">Frontend</span>
+        <div class="arch-layer-content">
+          <span class="arch-chip arch-chip-green">React 19</span>
+          <span class="arch-chip">Zustand</span>
+          <span class="arch-chip">Tailwind CSS 4</span>
+          <span class="arch-chip">Vite 7</span>
+          <span class="arch-chip">cmdk</span>
+          <span class="arch-chip">Lucide Icons</span>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">Backend</span>
+        <div class="arch-layer-content">
+          <span class="arch-chip arch-chip-blue">Tauri 2 (Rust)</span>
+          <span class="arch-chip">tauri-plugin-sql</span>
+          <span class="arch-chip">SQLite</span>
+          <span class="arch-chip">OAuth2 server</span>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">MCP Server</span>
+        <div class="arch-layer-content">
+          <span class="arch-chip arch-chip-gold">Node.js Sidecar</span>
+          <span class="arch-chip">282 Tools</span>
+          <span class="arch-chip">Dispatch Engine</span>
+          <span class="arch-chip">Workflow Orchestrator</span>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">AI Models</span>
+        <div class="arch-layer-content">
+          <span class="arch-chip arch-chip-green">Claude (Anthropic)</span>
+          <span class="arch-chip arch-chip-blue">GPT (OpenAI)</span>
+          <span class="arch-chip arch-chip-gold">Gemini (Google)</span>
+          <span class="arch-chip">OpenRouter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Systems -->
+<section id="systems">
+  <div class="reveal">
+    <span class="section-label">Core Systems</span>
+    <h2 class="section-title">Six integrated intelligence layers</h2>
+    <p class="section-subtitle">Each system operates independently but shares context through the unified SQLite database and event bus.</p>
+  </div>
+  <div class="cards-grid reveal">
+    <div class="card">
+      <div class="card-icon card-icon-green">&#9671;</div>
+      <div class="card-title">Calendar Intelligence</div>
+      <div class="card-desc">7-day Google Calendar sync with meeting brief generation, pre-meeting research, and scheduling conflict detection.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-blue">&#9993;</div>
+      <div class="card-title">Email Management</div>
+      <div class="card-desc">Gmail integration with AI triage, smart reply drafting, attachment support, and missed-action detection across threads.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-green">&#8635;</div>
+      <div class="card-title">Task &amp; Loop System</div>
+      <div class="card-desc">GTD-style open loops with AI-suggested actions, due date tracking, and contextual prioritization by urgency and leverage.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-gold">&#9998;</div>
+      <div class="card-title">Note System</div>
+      <div class="card-desc">Rich notes with tags, media support, full-text search, and semantic indexing for knowledge retrieval during conversations.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-blue">&#9733;</div>
+      <div class="card-title">Contact Graph</div>
+      <div class="card-desc">Relationship tracking with aliases, context history, autonomous permissions, and communication pattern analysis.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-gold">&#9881;</div>
+      <div class="card-title">Knowledge Graph</div>
+      <div class="card-desc">Semantic embeddings, hybrid retrieval, learned user preferences, and a correction-tracking system that compounds over time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Dispatch Engine -->
+<section id="dispatch">
+  <div class="reveal">
+    <span class="section-label">Dispatch Engine</span>
+    <h2 class="section-title">Four specialist agents, auto-routed</h2>
+    <p class="section-subtitle">Gary classifies the request, selects the right agent, and routes based on output type. Code changes go to the Engineer. Research goes to the Researcher. Design goes to the Designer. Documents go to the Writer.</p>
+  </div>
+  <div class="cards-grid reveal">
+    <div class="card">
+      <div class="card-icon card-icon-green">&#9673;</div>
+      <div class="card-title">Researcher</div>
+      <div class="card-desc">Web search, deep research via Perplexity, Brave, and Playwright browser automation. Produces analysis documents and intel briefs.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-blue">&#9674;</div>
+      <div class="card-title">Designer</div>
+      <div class="card-desc">v0 Design Portal and Claude Design integration. Generates mockups, interactive prototypes, and production-ready HTML.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-gold">&#9997;</div>
+      <div class="card-title">Writer</div>
+      <div class="card-desc">Documents, presentations (PPTX), spreadsheets, and pitch decks. Uses python-pptx for native PowerPoint editing.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-green">&#9661;</div>
+      <div class="card-title">Engineer</div>
+      <div class="card-desc">Claude Code CLI for code changes, git operations, and building interactive deliverables. Max-covered at $0 per dispatch.</div>
+    </div>
+  </div>
+  <div class="reveal" style="margin-top: 48px;">
+    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Shared Toolchain</h3>
+    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">All agents have identical tool access. Routing is output-type based, not capability-based.</p>
+    <div class="tech-pills">
+      <span class="tech-pill">Brave Search MCP</span>
+      <span class="tech-pill">Perplexity (OpenRouter)</span>
+      <span class="tech-pill">Playwright MCP</span>
+      <span class="tech-pill">File System</span>
+      <span class="tech-pill">Google Drive</span>
+      <span class="tech-pill">Gary Context</span>
+      <span class="tech-pill">Image Generation</span>
+    </div>
+  </div>
+</section>
+
+<!-- Project Wizard -->
+<section id="wizard">
+  <div class="reveal">
+    <span class="section-label">Project Wizard</span>
+    <h2 class="section-title">Multi-phase projects with stage-gate review</h2>
+    <p class="section-subtitle">Complex work is decomposed into phases with dependencies, parallel execution, and quality checkpoints between each stage.</p>
+  </div>
+  <div class="pipeline reveal">
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">01</div>
+      <div class="pipeline-step-title">Pre-flight Dialogue</div>
+      <div class="pipeline-step-desc">Gary asks clarifying questions, sets acceptance criteria</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">02</div>
+      <div class="pipeline-step-title">Agent Build</div>
+      <div class="pipeline-step-desc">Specialist agents execute with full tool access</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">03</div>
+      <div class="pipeline-step-title">Post-flight Review</div>
+      <div class="pipeline-step-desc">Validator agent checks output against criteria</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">04</div>
+      <div class="pipeline-step-title">Pass / Gaps / Escalate</div>
+      <div class="pipeline-step-desc">Auto-promote, request revision, or escalate to user</div>
+    </div>
+  </div>
+  <div class="reveal" style="margin-top: 32px;">
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">Multi-agent chains auto-promote between stages. Each agent receives a structured handoff contract with the previous phase's output, acceptance criteria, and context window. The validator is a real agent (not a simple check) that evaluates deliverables against the original requirements.</p>
+  </div>
+</section>
+
+<!-- Design Integration -->
+<section id="design">
+  <div class="reveal">
+    <span class="section-label">Design Integration</span>
+    <h2 class="section-title">Two design systems, one handoff gate</h2>
+    <p class="section-subtitle">WillieOS integrates with both v0 (Vercel) and Claude Design for generating UI components, then gates delivery through a quality review step.</p>
+  </div>
+  <div class="cards-grid reveal">
+    <div class="card">
+      <div class="card-icon card-icon-green">&#9632;</div>
+      <div class="card-title">v0 Design Portal</div>
+      <div class="card-desc">Embedded v0 integration for generating React components, landing pages, and interactive prototypes. Deployed and previewed in-app.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-blue">&#9679;</div>
+      <div class="card-title">Claude Design Client</div>
+      <div class="card-desc">Playwright-based API abstraction for Claude artifacts. Create, refine, export, and web-capture with design tokens threaded through templates.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-gold">&#9745;</div>
+      <div class="card-title">Design Finalize Gate</div>
+      <div class="card-desc">Handoff validation between design generation and delivery. Ensures design tokens, responsive behavior, and accessibility meet the bar.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Self-Improvement & Autonomy -->
+<section id="autonomy">
+  <div class="reveal">
+    <span class="section-label">Autonomous Operations</span>
+    <h2 class="section-title">Self-improving with scheduled intelligence</h2>
+    <p class="section-subtitle">Gary runs background jobs on a schedule, learns from corrections, and reflects on its own performance weekly.</p>
+  </div>
+  <div class="cards-grid reveal">
+    <div class="card">
+      <div class="card-icon card-icon-green">&#8634;</div>
+      <div class="card-title">Scheduled Jobs</div>
+      <div class="card-desc">25+ cron-style tasks: email triage, calendar sync, morning briefs, proactive scanning, cost monitoring. Four-layer guardrail system prevents runaway execution.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-blue">&#9733;</div>
+      <div class="card-title">Learning Engine</div>
+      <div class="card-desc">Tracks corrections, identifies patterns, promotes proven learnings to permanent rules. Compounds understanding over time.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-gold">&#9670;</div>
+      <div class="card-title">Weekly Memory Reflection</div>
+      <div class="card-desc">Synthesizes the week's interactions, identifies recurring themes, surfaces risks, and proposes process improvements.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon card-icon-green">&#9672;</div>
+      <div class="card-title">Self-Assessment</div>
+      <div class="card-desc">Nightly evaluation of task completion quality, dispatch success rates, and user satisfaction signals. Adjusts behavior accordingly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- By the Numbers -->
+<section id="numbers">
+  <div class="reveal">
+    <span class="section-label">By the Numbers</span>
+    <h2 class="section-title">Scale of a production system</h2>
+  </div>
+  <div class="stats-grid reveal">
+    <div class="stat-card">
+      <div class="stat-value">282</div>
+      <div class="stat-label">MCP Tools Registered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">56</div>
+      <div class="stat-label">Database Tables</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Agent Types</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">9</div>
+      <div class="stat-label">Vault Configurations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">25+</div>
+      <div class="stat-label">Scheduled Jobs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">33</div>
+      <div class="stat-label">Installed Skills</div>
+    </div>
+  </div>
+</section>
+
+<!-- Why It Matters -->
+<section>
+  <div class="reveal">
+    <span class="section-label">Why It Matters</span>
+    <h2 class="section-title">Proof of operational AI literacy</h2>
+  </div>
+  <div class="why-block reveal">
+    <p>WillieOS is not a side project or a demo. It is a <strong>production AI system</strong> that handles real work every day&mdash;triaging email, scheduling meetings, dispatching research, building deliverables, and learning from each interaction.</p>
+    <p>It was built by an enterprise seller who spent 17 years helping companies adopt technology platforms. The question he kept hearing was: <strong>"How do we actually operationalize AI?"</strong> So he built the answer.</p>
+    <p>This is what digital native architecture looks like when applied to personal productivity: local-first data sovereignty, multi-model orchestration, autonomous agent dispatch, and a system that improves itself without human prompting.</p>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section>
+  <div class="reveal">
+    <span class="section-label">Tech Stack</span>
+    <h2 class="section-title">Full technology inventory</h2>
+  </div>
+  <div class="tech-pills reveal" style="margin-top: 32px;">
+    <span class="tech-pill">Tauri 2</span>
+    <span class="tech-pill">Rust</span>
+    <span class="tech-pill">React 19</span>
+    <span class="tech-pill">JavaScript (JSX)</span>
+    <span class="tech-pill">SQLite</span>
+    <span class="tech-pill">MCP Protocol</span>
+    <span class="tech-pill">Claude API</span>
+    <span class="tech-pill">OpenAI API</span>
+    <span class="tech-pill">Gemini API</span>
+    <span class="tech-pill">GitHub API</span>
+    <span class="tech-pill">Google Drive API</span>
+    <span class="tech-pill">Google Calendar API</span>
+    <span class="tech-pill">Gmail API</span>
+    <span class="tech-pill">Telegram Bot API</span>
+    <span class="tech-pill">v0 API</span>
+    <span class="tech-pill">OpenRouter</span>
+    <span class="tech-pill">Brave Search</span>
+    <span class="tech-pill">Playwright</span>
+    <span class="tech-pill">Zustand</span>
+    <span class="tech-pill">Tailwind CSS 4</span>
+    <span class="tech-pill">Vite 7</span>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer-text">WillieOS &mdash; Built in California. All data local-first.</p>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Nav active state
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
