@@ -1,10 +1,19 @@
 {
   "version": "1.0.0",
-  "updated": "2026-04-29",
+  "updated": "2026-05-03",
   "developers": {
-    "willie": { "name": "Willie Kopp", "github": "williekopp1112-lab" },
-    "joe": { "name": "Joe Ortega", "github": "Joeortega1085" },
-    "gary": { "name": "Gary AI", "github": "williekopp1112-lab" }
+    "willie": {
+      "name": "Willie Kopp",
+      "github": "williekopp1112-lab"
+    },
+    "joe": {
+      "name": "Joe Ortega",
+      "github": "Joeortega1085"
+    },
+    "gary": {
+      "name": "Gary AI",
+      "github": "williekopp1112-lab"
+    }
   },
   "features": [
     {
@@ -66,7 +75,9 @@
         "willieos-mcp-server/tools/orchestration.js",
         "src/utils/aiTools.js"
       ],
-      "depends_on": ["designer-workflow-redesign"],
+      "depends_on": [
+        "designer-workflow-redesign"
+      ],
       "notes": "Spec approved (commit 60b77ff + 59ef683). Sub-project #1 of 6 (originally #1 of 7). Tables: designer_briefs, designer_brief_versions, designer_brief_feedback. Piggybacks on existing vec_embeddings + embedding_metadata for retrieval (no new vec table). Implementation shipped on main via merge commit cb2c310."
     },
     {
@@ -90,7 +101,10 @@
         "src-tauri/src/design_portal.rs",
         "src-tauri/src/lib.rs"
       ],
-      "depends_on": ["designer-workflow-redesign", "claude-design-reliability"],
+      "depends_on": [
+        "designer-workflow-redesign",
+        "claude-design-reliability"
+      ],
       "notes": "Spec f92c549 → cf03fe1 → (post-sanity-check commit). Sub-project #8 (new) collapses original #5 (Internal-design workspace) and #7 (Progress surfacing). Phase A ships v0 adapter fully working + Claude Design adapter with view reliable and refine flagged experimental (Claude Design is today's default designer, so stubbing the adapter would leave the majority flow on a dead screen). Phase B drops experimental flag after sub-project #6 hardens Claude Design prompt injection. Phase C adds Figma/Lovable adapters + preference learning. Feature flag: design_portal.enabled. Implementation includes a spike task to pick between Tauri 2 WebviewWindow overlay vs. multi-webview-in-one-window APIs."
     },
     {
@@ -106,7 +120,9 @@
         "willieos-mcp-server/browser/selectors/claudeDesign.js",
         "willieos-mcp-server/browser/browserEngine.js"
       ],
-      "depends_on": ["designer-workflow-redesign"],
+      "depends_on": [
+        "designer-workflow-redesign"
+      ],
       "notes": "Significant reliability work already shipped in commit 31c35db (browser_login for claude.ai, 7-candidate ProseMirror composer selectors, focusAndType firing React onChange, waitForGeneration throwing on timeout). Spec pending. Unblocks Design Portal Phase B (drop experimental flag from Claude Design adapter)."
     },
     {
@@ -204,7 +220,9 @@
         "src/stores/aiStore.js"
       ],
       "prompt_file": null,
-      "depends_on": ["get-setting-tool"],
+      "depends_on": [
+        "get-setting-tool"
+      ],
       "notes": "Intelligence multiplier. Phase 2 of upgrade plan."
     },
     {
@@ -223,7 +241,9 @@
         "src-tauri/src/search.rs"
       ],
       "prompt_file": null,
-      "depends_on": ["recursive-file-search"],
+      "depends_on": [
+        "recursive-file-search"
+      ],
       "notes": "Phase 1: Unified search UI across all data sources with FTS5. Phase 2: Add semantic ranking when embedding engine is ready. Phase 3: Proactive context suggestions. The search bar every productivity app wishes it had."
     },
     {
@@ -243,7 +263,9 @@
         "src/components/settings/SearchSettings.jsx"
       ],
       "prompt_file": null,
-      "depends_on": ["universal-spotlight-search"],
+      "depends_on": [
+        "universal-spotlight-search"
+      ],
       "notes": "sqlite-vec extension for vector storage in existing SQLite DB. all-MiniLM-L6-v2 (384-dim) for fast embeddings via Ollama. Background indexing on data ingest. Optional mxbai-embed-large reranking for premium quality. Settings UI for model selection. Storage: ~500MB for typical user data. Query latency: 60-150ms."
     },
     {
@@ -345,7 +367,9 @@
         "src/utils/willieProfile.js"
       ],
       "prompt_file": null,
-      "depends_on": ["semantic-search-engine"],
+      "depends_on": [
+        "semantic-search-engine"
+      ],
       "notes": "Future architecture item."
     },
     {
@@ -361,7 +385,9 @@
         "willieos-mcp-server/tools/loops.js"
       ],
       "prompt_file": null,
-      "depends_on": ["email-attachments"],
+      "depends_on": [
+        "email-attachments"
+      ],
       "notes": "Depends on attachment pipeline."
     },
     {
@@ -396,7 +422,9 @@
         "willieos-mcp-server/cronEngine.js"
       ],
       "prompt_file": "roadmap-phase1a-db-migration.md",
-      "depends_on": ["identity-generalization"],
+      "depends_on": [
+        "identity-generalization"
+      ],
       "notes": "6 phase prompts already built. Full playbook in roadmap-execution-order.md."
     },
     {
@@ -415,7 +443,11 @@
         "src/utils/aiTools.js"
       ],
       "prompt_file": null,
-      "depends_on": ["identity-generalization", "get-setting-tool", "output-folder-selection"],
+      "depends_on": [
+        "identity-generalization",
+        "get-setting-tool",
+        "output-folder-selection"
+      ],
       "notes": "North star vision. Requires: safe Code dispatch with rollback, dynamic MCP tool registration, per-user DB migration system, sandbox testing before activation. This is what separates Gary from every other AI assistant — the app evolves per user."
     },
     {
@@ -435,7 +467,9 @@
         "willieos-mcp-server/tools/outputFolder.js"
       ],
       "prompt_file": null,
-      "depends_on": ["output-folder-selection"],
+      "depends_on": [
+        "output-folder-selection"
+      ],
       "notes": "Gary can now find files in subdirectories across all configured search dirs. No DB migration needed."
     },
     {
@@ -490,7 +524,9 @@
         "src/utils/mcpServerManager.js"
       ],
       "prompt_file": null,
-      "depends_on": ["identity-generalization"],
+      "depends_on": [
+        "identity-generalization"
+      ],
       "notes": "Merged PR #6. Continuation of PR #4 (mcpDefaults.js)."
     },
     {
@@ -682,7 +718,10 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/claudeDesignClient.js", "willieos-mcp-server/browser/selectors/claudeDesign.js"],
+      "files": [
+        "willieos-mcp-server/claudeDesignClient.js",
+        "willieos-mcp-server/browser/selectors/claudeDesign.js"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
       "depends_on": [],
       "notes": "Foundation. Do not start any other design-arsenal piece until this is merged."
@@ -695,9 +734,13 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/tools/claudeDesign.js"],
+      "files": [
+        "willieos-mcp-server/tools/claudeDesign.js"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": ["design-arsenal-client"],
+      "depends_on": [
+        "design-arsenal-client"
+      ],
       "notes": "Four MCP tools wrapping claudeDesignClient.js"
     },
     {
@@ -708,7 +751,9 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/tools/imageGen.js"],
+      "files": [
+        "willieos-mcp-server/tools/imageGen.js"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
       "depends_on": [],
       "notes": "Backward compatible upgrade. Can be built in parallel with Piece 1."
@@ -721,7 +766,10 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/tools/chartGen.js", "willieos-mcp-server/scripts/render_chart.py"],
+      "files": [
+        "willieos-mcp-server/tools/chartGen.js",
+        "willieos-mcp-server/scripts/render_chart.py"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
       "depends_on": [],
       "notes": "New tool. Can be built in parallel with Pieces 1-3."
@@ -734,9 +782,15 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/seedProjectTemplates.js", "willieos-mcp-server/phaseOrchestrator.js"],
+      "files": [
+        "willieos-mcp-server/seedProjectTemplates.js",
+        "willieos-mcp-server/phaseOrchestrator.js"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": ["design-arsenal-imagegen-v2", "design-arsenal-chartgen"],
+      "depends_on": [
+        "design-arsenal-imagegen-v2",
+        "design-arsenal-chartgen"
+      ],
       "notes": "Wire design tokens into existing templates"
     },
     {
@@ -747,9 +801,17 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/seedProjectTemplates.js"],
+      "files": [
+        "willieos-mcp-server/seedProjectTemplates.js"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": ["design-arsenal-client", "design-arsenal-tools", "design-arsenal-imagegen-v2", "design-arsenal-chartgen", "design-arsenal-tokens"],
+      "depends_on": [
+        "design-arsenal-client",
+        "design-arsenal-tools",
+        "design-arsenal-imagegen-v2",
+        "design-arsenal-chartgen",
+        "design-arsenal-tokens"
+      ],
       "notes": "New template using all design arsenal tools"
     },
     {
@@ -760,10 +822,182 @@
       "owner": "gary",
       "branch": "gary/active",
       "priority": "high",
-      "files": ["willieos-mcp-server/prompt/capability-manifest.js"],
+      "files": [
+        "willieos-mcp-server/prompt/capability-manifest.js"
+      ],
       "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": ["design-arsenal-tools", "design-arsenal-chartgen"],
+      "depends_on": [
+        "design-arsenal-tools",
+        "design-arsenal-chartgen"
+      ],
       "notes": "Teach Gary when to use design_create vs generate_image vs generate_chart vs v0"
+    },
+    {
+      "id": "design-handoff-finalize",
+      "family": "design-arsenal",
+      "title": "Design finalize flow for v0 and Claude Design handoffs",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": [
+        "willieos-mcp-server/designHandoffBuilder.js",
+        "willieos-mcp-server/tools/designHandoff.js",
+        "willieos-mcp-server/v0Integration.js",
+        "src/stores/aiStore.js"
+      ],
+      "prompt_file": null,
+      "depends_on": [
+        "design-arsenal-tools",
+        "design-arsenal-routing"
+      ],
+      "notes": "Adds design_finalize so approved v0/Claude Design output is imported, enriched with copy/tokens/acceptance scaffolds, validated, and handed to engineering without another design generation."
+    },
+    {
+      "id": "openai-demo-owner-command-autopilot",
+      "title": "OpenAI Demo Item 1: Owner-Command Autopilot",
+      "description": "Turn self-sent owner-command emails from review-only cards into safe, trackable Gary Activity dispatches with visible phases, acceptance criteria, full email-body context, and test prompts.",
+      "status": "review",
+      "owner": "gary",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "src/utils/ownerCommandAutopilot.js",
+        "src/utils/actionExecutor.js",
+        "src/components/email/PendingActionsView.jsx",
+        "src/stores/actionStore.js",
+        "willieos-mcp-server/tools/actions.js",
+        "willieos-mcp-server/coworkDispatch.js",
+        "docs/openai-demo-test-prompts.md"
+      ],
+      "depends_on": [
+        "email-action-opportunity-intelligence"
+      ],
+      "notes": "Implements the first OpenAI demo feature slice. Review-only owner commands now upgrade to dispatch_cowork, attach acceptance criteria/project_tag, load full email_bodies content when available, and show an Autopilot phase panel. Current test email 4a38555c-e348-464f-99e8-7aaf4710803e was backfilled to the new plan."
+    },
+    {
+      "id": "openai-demo-customer-command-center",
+      "title": "OpenAI Demo Item 2: Customer Command Center",
+      "description": "Build a reusable account-intelligence workspace for OpenAI demos that ingests customer knowledge, maps stakeholders, surfaces cross-functional use cases, and turns customer context into account plans, value hypotheses, and follow-up artifacts.",
+      "status": "review",
+      "owner": "gary",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "src/components/dashboard/",
+        "src/components/ai-assistant/",
+        "src/utils/universalSearch.js",
+        "willieos-mcp-server/tools/orchestration.js",
+        "src/utils/gtmDemoDispatchTemplates.js",
+        "src/tests/gtmDemoDispatchTemplates.test.js",
+        "docs/openai-demo-test-prompts.md"
+      ],
+      "depends_on": [
+        "email-action-opportunity-intelligence"
+      ],
+      "notes": "OpenAI demo follow-up item #2. Dedicated launch_customer_command_center_demo now builds a 4-stage account-intelligence chain (Account Research, Strategy Synthesis, Command Center Build, Acceptance Review), forces local/vault output, forbids status-only/prior-work handbacks, and includes tests/docs for the reusable command-center contract."
+    },
+    {
+      "id": "openai-demo-live-voice-simulations",
+      "title": "OpenAI Demo Item 3: Live Voice Simulation and Follow-Up Engine",
+      "description": "Create a voice-first prep and demo workflow where Gary can run customer/role simulations, capture spoken practice, score positioning, extract objections, and produce follow-up assets tied to the relevant account or opportunity.",
+      "status": "review",
+      "owner": "gary",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "src/components/ai-assistant/",
+        "src/utils/connectors/",
+        "src/utils/gtmDemoDispatchTemplates.js",
+        "src/tests/gtmDemoDispatchTemplates.test.js",
+        "docs/openai-demo-test-prompts.md",
+        "willieos-mcp-server/tools/orchestration.js",
+        "willieos-mcp-server/resultIngestion.js"
+      ],
+      "depends_on": [
+        "email-action-opportunity-intelligence"
+      ],
+      "notes": "OpenAI demo follow-up item #3. Dedicated launch_voice_simulation_demo now builds a 4-stage rehearsal chain (Scenario Design, Practice Script, Follow-Up Draft, Acceptance Review), requires safe email-draft markup for Draft to Review extraction, forbids outbound contact, and includes tests/docs for the reusable simulation contract."
+    },
+    {
+      "id": "gary-voice-avatar-calling",
+      "title": "Wishlist: Gary Voice Avatar and Phone Concierge",
+      "description": "Explore a disclosed voice avatar for Gary that can speak with the user, rehearse conversations, and eventually place supervised phone calls for appointment booking, meeting coordination, warm transfers, and approved personal assistant workflows.",
+      "status": "planned",
+      "owner": "gary",
+      "branch": null,
+      "priority": "wishlist",
+      "files": [
+        "src/components/ai-assistant/",
+        "src/components/settings/",
+        "src/utils/connectors/",
+        "willieos-mcp-server/tools/",
+        "willieos-mcp-server/garySystemPrompt.js"
+      ],
+      "depends_on": [
+        "openai-demo-live-voice-simulations"
+      ],
+      "notes": "Aspirational product direction, not an active build ticket. Gary should be disclosed as Gary, the user's digital AI avatar/chief of staff, with his own personality, accent, and vibe. Early safe shape: in-app voice, rehearsal, appointment booking, and warm transfer with consent, transcripts, approval gates, contact allowlists, and no impersonation."
+    },
+    {
+      "id": "gary-agent-os-activity-observability",
+      "title": "Gary Agent OS Activity Observability",
+      "description": "Add a dashboard widget that summarizes local Gary activity: dispatch volume, job health, spend, active work, failed runs, and recent deliverables.",
+      "status": "review",
+      "owner": "gary",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "src/utils/garyActivityMetrics.js",
+        "src/components/dashboard/widgets/GaryActivityWidget.jsx",
+        "src/components/dashboard/HomeView.jsx",
+        "src/components/dashboard/widgetConfig.js"
+      ],
+      "depends_on": [
+        "openai-demo-owner-command-autopilot"
+      ],
+      "notes": "Implements the dashboard observability slice from the Agent OS backlog. Uses only local DB telemetry and defensive table fallbacks so clean installs and older dev DBs do not break."
+    },
+    {
+      "id": "gary-agent-os-weekly-memory-reflection",
+      "title": "Gary Agent OS Weekly Memory Reflection",
+      "description": "Create a built-in weekly job that summarizes recent dispatches, jobs, corrections, learnings, actions, and cost telemetry into a durable local memory reflection.",
+      "status": "review",
+      "owner": "gary",
+      "branch": null,
+      "priority": "high",
+      "files": [
+        "src/utils/memoryReflectionService.js",
+        "src/utils/memoryReflectionService.test.js",
+        "src/utils/database.js",
+        "src/utils/jobRegistry.js",
+        "src/utils/cronEngine.js",
+        "willieos-mcp-server/tools/jobs.js"
+      ],
+      "depends_on": [
+        "gary-agent-os-activity-observability"
+      ],
+      "notes": "Adds runtime-safe memory_reflections schema, baseline deterministic summaries, optional AI refinement, weekly built-in schedule, MCP run_job support, and focused tests."
+    },
+    {
+      "id": "gary-agent-os-ollama-provider",
+      "title": "Gary Agent OS Ollama Provider",
+      "description": "Add Ollama as a local zero-cost model provider for lightweight background and routing experiments.",
+      "status": "review",
+      "owner": "gary",
+      "branch": null,
+      "priority": "medium",
+      "files": [
+        "src/utils/aiService.js",
+        "src/utils/costTracker.js",
+        "src/components/settings/AIPanel.jsx",
+        "src/components/settings/ModelPicker.jsx",
+        "willieos-mcp-server/ai.js"
+      ],
+      "depends_on": [
+        "gary-agent-os-activity-observability"
+      ],
+      "notes": "Adds ollama/ model routing, frontend and MCP local chat calls, Settings health check, zero-cost usage logging, and local-model picker entries. Tool-heavy chat should stay on Claude/OpenRouter unless the user intentionally routes it to a text-only local model."
     }
   ]
 }
