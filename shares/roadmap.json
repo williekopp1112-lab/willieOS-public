@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-05-03",
+  "updated": "2026-05-07",
   "developers": {
     "willie": {
       "name": "Willie Kopp",
@@ -998,6 +998,55 @@
         "gary-agent-os-activity-observability"
       ],
       "notes": "Adds ollama/ model routing, frontend and MCP local chat calls, Settings health check, zero-cost usage logging, and local-model picker entries. Tool-heavy chat should stay on Claude/OpenRouter unless the user intentionally routes it to a text-only local model."
+    },
+    {
+      "id": "gary-onboarding-launchpad",
+      "title": "Gary Onboarding Launchpad",
+      "description": "Replace the rudimentary first-run setup wizard with an Agent OS onboarding launchpad that builds a durable user profile, checks integration readiness, connects Claude Max and Google, and generates a first personalized Gary value preview.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "main",
+      "priority": "critical",
+      "files": [
+        "src/App.jsx",
+        "src/main.jsx",
+        "src/components/onboarding/OnboardingLaunchpad.jsx",
+        "src/components/onboarding/IntegrationLogos.jsx",
+        "src/components/onboarding/OnboardingPreviewApp.jsx",
+        "src/components/settings/CodexSubscriptionCard.jsx",
+        "src/components/settings/UserContextPanel.jsx",
+        "src/utils/onboarding/",
+        "src/utils/codexService.js",
+        "src/utils/userContextProfile.js",
+        "src/utils/willieProfile.js",
+        "src/utils/database.js",
+        "src-tauri/src/db/mod.rs",
+        "willieos-mcp-server/codexDispatch.js",
+        "willieos-mcp-server/tools/orchestration.js",
+        "willieos-mcp-server/prompt/dispatch-routing.js"
+      ],
+      "depends_on": [
+        "identity-generalization"
+      ],
+      "notes": "Implements onboarding.version agent-os-v1, settings-backed completion/progress tracking, profile enrichment fields, integration readiness registry, Claude Max and Google connection reuse, branded connector logo treatment for Claude/Google/Drive/Brave/OpenAI/Perplexity/v0/Codex, inline optional integration setup for OAuth/API-key/toggle workflows, Codex CLI subscription readiness, explicit-only Codex dispatch routing through the subscription-backed CLI, standalone /onboarding-preview mock harness, SetupWizard removal, and WillieProfilePanel rename to UserContextPanel."
+    },
+    {
+      "id": "gary-vault-outbox-inbox",
+      "title": "Gary Vault Outbox Inbox",
+      "description": "Expose Gary's unfiled outbox categories and prompt folders inside the Vaults UI, then tighten dispatch output rules so generated artifacts land in outbox inboxes instead of cluttering source repo roots.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "main",
+      "priority": "high",
+      "files": [
+        "src/components/vaults/VaultsView.jsx",
+        "willieos-mcp-server/tools/vaults.js",
+        "willieos-mcp-server/claudeCode.js"
+      ],
+      "depends_on": [
+        "gary-onboarding-launchpad"
+      ],
+      "notes": "Adds outbox inbox pseudo-vaults for loose root files, deliverables, showcases, reports, research, screenshots, images, and orphan top-level folders. Real vaults remain the only filing targets. Claude Code dispatch prompts now separate source edits from generated artifacts so screenshots, PDFs, handoff files, and review notes stay out of repo roots."
     }
   ]
 }
