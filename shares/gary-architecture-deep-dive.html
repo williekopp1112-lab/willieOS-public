@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary: Architecture Deep Dive</title>
+<meta name="description" content="A technical decision-maker overview of Gary, a local-first AI operating system built with Tauri, Rust, SQLite, MCP, and multi-agent orchestration.">
+<meta property="og:title" content="Gary: Architecture Deep Dive">
+<meta property="og:description" content="A local-first AI operating system built from scratch with Tauri, Rust, SQLite, and 282 MCP tools.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="gary-architecture-hero.png">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Cpath d='M17 34.5 28 20l8 12 5-7 6 19H17Z' fill='%2306b6d4'/%3E%3Ccircle cx='46' cy='18' r='5' fill='%23D4A853'/%3E%3C/svg%3E">
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #0a0a0a;
+  --panel: #171717;
+  --panel-2: #202020;
+  --panel-3: #262626;
+  --line: rgba(255,255,255,.11);
+  --line-strong: rgba(255,255,255,.18);
+  --text: #f5f5f5;
+  --muted: #b8b8b8;
+  --dim: #777;
+  --cyan: #06b6d4;
+  --blue: #0ea5e9;
+  --green: #10a37f;
+  --gold: #d4a853;
+  --red: #fb7185;
+  --radius: 8px;
+  --shadow: 0 24px 80px rgba(0,0,0,.42);
+  --font: Inter, Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 20% 8%, rgba(6,182,212,.14), transparent 34rem),
+    radial-gradient(circle at 80% 28%, rgba(16,163,127,.10), transparent 30rem),
+    linear-gradient(180deg, #0a0a0a 0%, #101010 46%, #0a0a0a 100%);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .36;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+a { color: inherit; }
+button { font: inherit; }
+
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+  transform: translateY(-140%);
+  background: var(--cyan);
+  color: #001014;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 800;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(10,10,10,.76);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+}
+.nav-inner {
+  width: min(1180px, calc(100% - 36px));
+  height: 64px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 850;
+  letter-spacing: -.02em;
+}
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(6,182,212,.95), rgba(16,163,127,.86)),
+    #111;
+  box-shadow: 0 0 28px rgba(6,182,212,.32);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--text);
+  background: rgba(255,255,255,.06);
+  outline: none;
+}
+.nav-cta {
+  border: 1px solid rgba(6,182,212,.36);
+  color: #bff7ff !important;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 36px));
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 100vh;
+  padding: 128px 0 56px;
+  display: grid;
+  align-items: center;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
+  gap: 42px;
+  align-items: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #d2fbff;
+  border: 1px solid rgba(6,182,212,.28);
+  background: rgba(6,182,212,.08);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 20px rgba(16,163,127,.8);
+}
+h1 {
+  margin: 24px 0 0;
+  font-size: clamp(48px, 8vw, 98px);
+  line-height: .9;
+  letter-spacing: -.075em;
+  max-width: 900px;
+}
+.subtitle {
+  margin: 26px 0 0;
+  max-width: 730px;
+  color: #d7d7d7;
+  font-size: clamp(19px, 2.4vw, 28px);
+  line-height: 1.24;
+  letter-spacing: -.025em;
+}
+.tagline {
+  margin: 20px 0 0;
+  max-width: 660px;
+  color: var(--muted);
+  font-size: 16px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 7px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+}
+.button.primary {
+  border-color: rgba(6,182,212,.48);
+  color: #001014;
+  background: linear-gradient(135deg, #67e8f9, #10a37f);
+}
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+  box-shadow: 0 16px 42px rgba(6,182,212,.16);
+}
+.hero-visual {
+  position: relative;
+  min-height: 540px;
+}
+.image-card {
+  position: absolute;
+  inset: 26px 0 0;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--panel);
+}
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(.92) contrast(1.03) brightness(.84);
+}
+.image-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,10,10,.85), rgba(10,10,10,.18) 36%, rgba(10,10,10,.46)),
+    linear-gradient(180deg, transparent 50%, rgba(10,10,10,.78));
+}
+.glass-console {
+  position: absolute;
+  left: 30px;
+  right: 44px;
+  bottom: 26px;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  background: rgba(10,10,10,.78);
+  backdrop-filter: blur(18px);
+  padding: 18px;
+  box-shadow: 0 22px 60px rgba(0,0,0,.48);
+}
+.console-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+}
+.live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.live-dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 16px rgba(16,163,127,.85);
+}
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.console-metric {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 7px;
+  padding: 12px;
+  background: rgba(255,255,255,.045);
+}
+.console-metric strong {
+  display: block;
+  font-size: 22px;
+  letter-spacing: -.04em;
+}
+.console-metric span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+.hero-stat-bar {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--line);
+  background: rgba(23,23,23,.72);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 20px 70px rgba(0,0,0,.26);
+}
+.hero-stat {
+  padding: 18px 16px;
+  border-right: 1px solid var(--line);
+}
+.hero-stat:last-child { border-right: 0; }
+.hero-stat b {
+  display: block;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+.hero-stat span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+main section {
+  padding: 104px 0;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(280px, .42fr);
+  gap: 30px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+.kicker {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+h2 {
+  margin: 12px 0 0;
+  font-size: clamp(31px, 5vw, 58px);
+  line-height: 1;
+  letter-spacing: -.055em;
+}
+h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.18;
+  letter-spacing: -.025em;
+}
+.section-note {
+  color: var(--muted);
+  margin: 0;
+  font-size: 16px;
+}
+.lead {
+  font-size: clamp(20px, 3vw, 33px);
+  line-height: 1.2;
+  letter-spacing: -.04em;
+  color: #f1f1f1;
+}
+.muted { color: var(--muted); }
+.accent { color: var(--cyan); }
+.green { color: var(--green); }
+.gold { color: var(--gold); }
+
+.panel {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02)),
+    var(--panel);
+  border-radius: 8px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.24);
+}
+.padded { padding: 24px; }
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.story-card {
+  min-height: 230px;
+}
+.story-card p {
+  color: var(--muted);
+  margin: 13px 0 0;
+}
+.quote {
+  position: relative;
+  padding: 28px;
+  border-left: 3px solid var(--green);
+  background: linear-gradient(90deg, rgba(16,163,127,.14), rgba(255,255,255,.03));
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -.045em;
+}
+
+.architecture {
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  gap: 20px;
+}
+.layer-tabs {
+  display: grid;
+  gap: 10px;
+}
+.layer-tab {
+  text-align: left;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.035);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+}
+.layer-tab:hover,
+.layer-tab:focus-visible,
+.layer-tab[aria-selected="true"] {
+  border-color: rgba(6,182,212,.56);
+  background: rgba(6,182,212,.10);
+  outline: none;
+}
+.layer-tab strong {
+  display: block;
+  font-size: 16px;
+}
+.layer-tab span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.layer-display {
+  min-height: 500px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+.layer-stage {
+  position: relative;
+  min-height: 240px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(6,182,212,.15), transparent 18rem),
+    linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+}
+.stack-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.layer-copy {
+  padding: 24px;
+}
+.layer-copy h3 {
+  font-size: 30px;
+  letter-spacing: -.04em;
+}
+.layer-copy p {
+  color: var(--muted);
+  max-width: 740px;
+}
+.bullet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+.mini {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 14px;
+  background: rgba(0,0,0,.18);
+}
+.mini b { display: block; }
+.mini span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.pipeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.pipe-card {
+  position: relative;
+  min-height: 164px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+}
+.pipe-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -13px;
+  width: 13px;
+  height: 1px;
+  background: rgba(6,182,212,.45);
+}
+.pipe-card:last-child::after { display: none; }
+.pipe-card .num {
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: .12em;
+}
+.pipe-card p,
+.feature-card p,
+.agent-card p,
+.timeline-card p {
+  color: var(--muted);
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+.agent-card,
+.feature-card,
+.timeline-card,
+.tech-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+  padding: 18px;
+}
+.agent-card {
+  min-height: 190px;
+  display: grid;
+  gap: 14px;
+}
+.agent-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #051012;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
+  font-weight: 950;
+}
+.callout {
+  border: 1px solid rgba(212,168,83,.32);
+  background: rgba(212,168,83,.08);
+  color: #f8e6bf;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.wizard-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.wizard-step {
+  position: relative;
+  padding: 18px;
+  min-height: 170px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+}
+.wizard-step strong {
+  display: block;
+  color: #fff;
+}
+.wizard-step span {
+  display: block;
+  color: var(--muted);
+  margin-top: 9px;
+  font-size: 14px;
+}
+.duel {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-top: 18px;
+}
+.persona {
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  padding: 18px;
+  background: rgba(0,0,0,.18);
+}
+.versus {
+  color: var(--gold);
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+
+.memory-demo {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(330px, .7fr);
+  gap: 18px;
+}
+.search-box {
+  border: 1px solid rgba(6,182,212,.28);
+  background: rgba(6,182,212,.07);
+  border-radius: 8px;
+  padding: 20px;
+}
+.query {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 7px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid var(--line);
+  color: #d9fbff;
+  font-weight: 750;
+}
+.result {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  border-radius: 7px;
+  padding: 14px;
+}
+.result b { display: block; }
+.result span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #b7f8e3;
+  background: #050505;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 8px;
+  padding: 18px;
+  overflow: auto;
+  font-size: 13px;
+}
+
+.model-grid {
+  display: grid;
+  grid-template-columns: 1.2fr repeat(3, 1fr);
+  gap: 12px;
+}
+.model-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  min-height: 210px;
+  background: rgba(255,255,255,.04);
+}
+.model-card.featured {
+  background:
+    linear-gradient(135deg, rgba(6,182,212,.14), rgba(16,163,127,.08)),
+    rgba(255,255,255,.04);
+}
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(255,255,255,.04);
+}
+
+.ops-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.ops-card {
+  min-height: 188px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+}
+.ops-card .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #c9fff0;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.ops-card .status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.learning {
+  display: grid;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.trend {
+  display: grid;
+  align-items: end;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 9px;
+  height: 250px;
+  padding: 20px;
+}
+.bar {
+  min-height: 24px;
+  border-radius: 7px 7px 0 0;
+  background: linear-gradient(180deg, var(--cyan), var(--green));
+  box-shadow: 0 0 22px rgba(6,182,212,.2);
+}
+
+.security-list {
+  counter-reset: security;
+  display: grid;
+  gap: 10px;
+}
+.security-row {
+  counter-increment: security;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 14px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255,255,255,.035);
+}
+.security-row::before {
+  content: counter(security);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #051012;
+  font-weight: 950;
+  background: linear-gradient(135deg, var(--gold), var(--cyan));
+}
+.security-row p { margin: 4px 0 0; color: var(--muted); }
+
+.innovation-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.feature-card {
+  min-height: 208px;
+}
+.feature-card .tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #071311;
+  background: var(--gold);
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.number-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+  padding: 24px;
+  min-height: 150px;
+}
+.number-card b {
+  display: block;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: .9;
+  letter-spacing: -.075em;
+  color: #fff;
+}
+.number-card span {
+  display: block;
+  margin-top: 14px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tech-card {
+  padding: 12px 14px;
+  color: #e6e6e6;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.footer {
+  padding: 46px 0 66px;
+  border-top: 1px solid var(--line);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: start;
+}
+.footer-links {
+  display: grid;
+  gap: 10px;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 750;
+}
+.footer-links a:hover { color: var(--cyan); }
+
+.reveal {
+  opacity: .92;
+  transform: translateY(10px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.hero .reveal,
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1060px) {
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero-grid,
+  .section-head,
+  .architecture,
+  .memory-demo,
+  .learning,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual { min-height: 460px; }
+  .innovation-grid { grid-template-columns: repeat(3, 1fr); }
+  .pipeline,
+  .wizard-flow,
+  .model-grid { grid-template-columns: repeat(2, 1fr); }
+  .pipe-card::after { display: none; }
+}
+
+@media (max-width: 760px) {
+  .shell,
+  .nav-inner { width: min(100% - 28px, 1180px); }
+  .hero { padding-top: 100px; }
+  .hero-grid { gap: 24px; }
+  .hero-stat-bar,
+  .grid-3,
+  .grid-2,
+  .bullet-grid,
+  .console-grid,
+  .pipeline,
+  .wizard-flow,
+  .model-grid,
+  .ops-grid,
+  .innovation-grid,
+  .numbers {
+    grid-template-columns: 1fr;
+  }
+  .hero-stat { border-right: 0; border-bottom: 1px solid var(--line); }
+  .hero-stat:last-child { border-bottom: 0; }
+  .hero-visual { min-height: 420px; }
+  .image-card { inset: 0; }
+  .glass-console { left: 12px; right: 12px; bottom: 12px; }
+  .console-top { display: grid; grid-template-columns: 1fr; }
+  .duel { grid-template-columns: 1fr; }
+  .versus { text-align: center; }
+  main section { padding: 72px 0; }
+  .nav-inner { height: 58px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Gary architecture home"><span class="brand-mark" aria-hidden="true"></span><span>Gary Deep Dive</span></a>
+    <div class="nav-links" aria-label="Section links">
+      <a href="#why">Why</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#dispatch">Dispatch</a>
+      <a href="#memory">Memory</a>
+      <a href="#security">Security</a>
+      <a class="nav-cta" href="#numbers">Metrics</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top" class="hero shell">
+  <div class="hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Technical Decision-Maker Overview</span>
+      <h1>Gary: Architecture Deep Dive</h1>
+      <p class="subtitle">A local-first AI operating system built from scratch with Tauri, Rust, SQLite, and 282 MCP tools</p>
+      <p class="tagline">Built by an enterprise seller who wanted to understand what it actually feels like to operationalize AI.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#architecture">Explore the architecture</a>
+        <a class="button" href="#innovation">See what is different</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal" aria-label="Gary application interface">
+      <div class="image-card">
+        <img src="gary-architecture-hero.png" alt="Gary desktop interface with email center, settings, and system health windows layered together">
+      </div>
+      <div class="glass-console" aria-label="Live system metrics">
+        <div class="console-top">
+          <span class="live-dot">Local runtime</span>
+          <span>Owner-operated AI OS</span>
+        </div>
+        <div class="console-grid">
+          <div class="console-metric"><strong>282</strong><span>MCP tools</span></div>
+          <div class="console-metric"><strong>56</strong><span>SQLite tables</span></div>
+          <div class="console-metric"><strong>4</strong><span>Agents</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stat-bar reveal" aria-label="Gary headline statistics">
+    <div class="hero-stat"><b class="counter" data-target="282">282</b><span>Tools</span></div>
+    <div class="hero-stat"><b class="counter" data-target="56">56</b><span>Tables</span></div>
+    <div class="hero-stat"><b class="counter" data-target="4">4</b><span>Agents</span></div>
+    <div class="hero-stat"><b class="counter" data-target="3">3</b><span>AI Models</span></div>
+    <div class="hero-stat"><b><span class="counter" data-target="15">15</span>+</b><span>Integrations</span></div>
+  </div>
+</header>
+
+<main id="main" class="shell">
+  <section id="why" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Why this exists</div>
+        <h2>It started with a very practical frustration.</h2>
+      </div>
+      <p class="section-note">Selling AI is one thing. Living inside the operational mess is another.</p>
+    </div>
+    <div class="grid-3">
+      <article class="panel padded story-card">
+        <h3>The origin</h3>
+        <p>An enterprise tech seller got tired of talking about AI transformation without feeling the daily texture of it: credentials, sync jobs, tool permissions, model routing, memory, reviews, deployment, and failures at odd hours.</p>
+      </article>
+      <article class="panel padded story-card">
+        <h3>What Gary does</h3>
+        <p>Gary is an AI Chief of Staff that manages email, calendar, tasks, research, design, and deployment autonomously.</p>
+      </article>
+      <article class="panel padded story-card">
+        <h3>The philosophy</h3>
+        <p>Local-first, privacy-first, and built to run your life rather than answer isolated questions. The app owns context, tools, schedules, and memory on the user&apos;s machine.</p>
+      </article>
+    </div>
+    <div class="quote" style="margin-top:16px;">Most assistants wait for prompts. Gary runs operations.</div>
+  </section>
+
+  <section id="architecture" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">The architecture</div>
+        <h2>Four layers: shell, engine, memory, hands.</h2>
+      </div>
+      <p class="section-note">The stack is intentionally boring at the storage layer, native at the shell, and aggressive at the agent layer.</p>
+    </div>
+    <div class="architecture">
+      <div class="layer-tabs" role="tablist" aria-label="Architecture layers">
+        <button class="layer-tab" role="tab" aria-selected="true" aria-controls="layer-panel" data-layer="shell">
+          <strong>Layer 1: The Shell</strong><span>Tauri 2 + Rust</span>
+        </button>
+        <button class="layer-tab" role="tab" aria-selected="false" aria-controls="layer-panel" data-layer="engine">
+          <strong>Layer 2: The Engine</strong><span>Node.js + MCP server</span>
+        </button>
+        <button class="layer-tab" role="tab" aria-selected="false" aria-controls="layer-panel" data-layer="memory">
+          <strong>Layer 3: The Memory</strong><span>SQLite + sqlite-vec</span>
+        </button>
+        <button class="layer-tab" role="tab" aria-selected="false" aria-controls="layer-panel" data-layer="hands">
+          <strong>Layer 4: The Hands</strong><span>APIs and integrations</span>
+        </button>
+      </div>
+      <div class="panel layer-display" id="layer-panel" role="tabpanel" aria-live="polite">
+        <div class="layer-stage" aria-hidden="true">
+          <svg class="stack-svg" viewBox="0 0 700 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="120" y1="60" x2="580" y2="210" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#06b6d4" stop-opacity=".9"/>
+                <stop offset="1" stop-color="#10a37f" stop-opacity=".72"/>
+              </linearGradient>
+            </defs>
+            <path d="M122 174 350 54l228 120-228 52-228-52Z" fill="url(#g1)" opacity=".22" stroke="#06b6d4"/>
+            <path d="M122 137 350 17l228 120-228 52-228-52Z" fill="#171717" stroke="#2dd4bf" opacity=".94"/>
+            <path d="M122 174v37l228 32v-54l-228-52v37Z" fill="#101010" stroke="#0ea5e9" opacity=".8"/>
+            <path d="M578 137v37l-228 69v-54l228-52Z" fill="#151515" stroke="#10a37f" opacity=".82"/>
+            <circle cx="350" cy="126" r="42" fill="#050505" stroke="#D4A853"/>
+            <path d="M331 126h38M350 107v38" stroke="#D4A853" stroke-width="4" stroke-linecap="round"/>
+            <path d="M210 134h72M418 134h72M350 74v-28M350 206v28" stroke="#06b6d4" stroke-opacity=".6"/>
+          </svg>
+        </div>
+        <div class="layer-copy">
+          <h3 id="layer-title">Layer 1: The Shell</h3>
+          <p id="layer-description">Tauri 2 wraps the app in a native desktop shell while Rust handles process lifecycle, OS integration, file access, system tray behavior, and secure IPC. It avoids the Electron tax: smaller binaries, lower RAM use, and a stronger native security boundary.</p>
+          <div class="bullet-grid" id="layer-bullets"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel padded" style="margin-top:16px;">
+      <h3>282 MCP tools across the operating surface</h3>
+      <p class="muted">Gary's server is deliberately broad: it gives agents a standard protocol for data, design, workflow, browser, vault, and external system actions instead of adding one-off integrations per feature.</p>
+      <div class="chip-list" aria-label="MCP tool category counts">
+        <span class="chip">Data and memory: 46</span>
+        <span class="chip">Workflows: 34</span>
+        <span class="chip">Orchestration: 32</span>
+        <span class="chip">Design: 29</span>
+        <span class="chip">Google: 24</span>
+        <span class="chip">Vaults and files: 22</span>
+        <span class="chip">Browser: 19</span>
+        <span class="chip">GitHub: 18</span>
+        <span class="chip">Notifications: 15</span>
+        <span class="chip">Learning: 14</span>
+        <span class="chip">Scheduling: 12</span>
+        <span class="chip">Guardrails: 10</span>
+        <span class="chip">System: 7</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="dispatch" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Dispatch engine</div>
+        <h2>Multi-agent orchestration, not a single chat window.</h2>
+      </div>
+      <p class="section-note">Gary classifies intent, selects the right worker, manages handoffs, and stores dispatch memory for future work.</p>
+    </div>
+    <div class="pipeline" aria-label="Dispatch pipeline">
+      <div class="pipe-card"><span class="num">01</span><h3>Request</h3><p>The owner asks for research, design, code, writing, or an operational action.</p></div>
+      <div class="pipe-card"><span class="num">02</span><h3>Classification</h3><p>Gary detects output type, risk, required tools, and whether the work needs a chain.</p></div>
+      <div class="pipe-card"><span class="num">03</span><h3>Agent selection</h3><p>Researcher, Designer, Writer, or Engineer gets the job with a structured handoff.</p></div>
+      <div class="pipe-card"><span class="num">04</span><h3>Execution</h3><p>Agents can run in parallel, pass artifacts downstream, or compete in consensus mode.</p></div>
+      <div class="pipe-card"><span class="num">05</span><h3>Delivery</h3><p>Outputs are routed to chat, vaults, public shares, code branches, or follow-up tasks.</p></div>
+    </div>
+    <div class="grid-2" style="margin-top:16px;">
+      <article class="agent-card"><div class="agent-icon">R</div><h3>Researcher</h3><p>Deep web research, competitive analysis, market intelligence, source synthesis, and prep briefs.</p></article>
+      <article class="agent-card"><div class="agent-icon">D</div><h3>Designer</h3><p>v0 design, Claude Design, mockups, visual assets, image prompts, and design validation.</p></article>
+      <article class="agent-card"><div class="agent-icon">W</div><h3>Writer</h3><p>Email drafting, documentation, executive summaries, public pages, and audience-specific framing.</p></article>
+      <article class="agent-card"><div class="agent-icon">E</div><h3>Engineer</h3><p>Code generation, bug fixes, architecture implementation, tests, deployment, and GitHub workflow.</p></article>
+    </div>
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="callout"><strong>Auto-routing</strong><br>Routing is based on output type and risk, not vague capability labels.</div>
+      <div class="callout"><strong>Dependency chains</strong><br>Step 1 can feed Step 2, then Step 3, with artifacts and criteria carried forward.</div>
+      <div class="callout"><strong>Consensus dispatch</strong><br>Three agents can answer the same question and Gary synthesizes the strategy with weighted voting.</div>
+    </div>
+  </section>
+
+  <section id="wizard" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Project wizard</div>
+        <h2>A stage-gate quality system for AI work.</h2>
+      </div>
+      <p class="section-note">Most AI tools generate. Gary generates, challenges, reviews, and records why.</p>
+    </div>
+    <div class="wizard-flow">
+      <div class="wizard-step"><strong>Phase creation</strong><span>Scope, acceptance criteria, stage name, and expected artifacts are created before build starts.</span></div>
+      <div class="wizard-step"><strong>Pre-flight dialogue</strong><span>Gary and Atlas challenge assumptions before any code or deliverable lands.</span></div>
+      <div class="wizard-step"><strong>Agent build</strong><span>The selected agent executes with a clear handoff, tools, and success criteria.</span></div>
+      <div class="wizard-step"><strong>Post-flight review</strong><span>A real validator inspects the artifact against the acceptance criteria.</span></div>
+      <div class="wizard-step"><strong>Pass / Gaps / Escalate</strong><span>Gary either ships, asks for targeted fixes, or escalates uncertainty.</span></div>
+    </div>
+    <div class="panel padded" style="margin-top:16px;">
+      <h3>Adversarial review means two AI personalities argue before the work becomes real.</h3>
+      <div class="duel">
+        <div class="persona"><strong>Gary</strong><p class="muted">Optimizes for usefulness, momentum, owner context, and finished artifacts.</p></div>
+        <div class="versus">VS</div>
+        <div class="persona"><strong>Atlas</strong><p class="muted">Challenges assumptions, missing edge cases, risk, ambiguity, and weak acceptance criteria.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="memory" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Vector search and semantic memory</div>
+        <h2>Meaning lives next to the relational data.</h2>
+      </div>
+      <p class="section-note">sqlite-vec stores embeddings in the same SQLite database as loops, notes, contacts, settings, calendar, and dispatch memories.</p>
+    </div>
+    <div class="memory-demo">
+      <div class="search-box">
+        <div class="query" aria-label="Semantic search example">Find my notes about the OpenAI architecture</div>
+        <div class="result"><b>Dispatch memory: model routing review</b><span>Matched by meaning: Anthropic, OpenAI, Gemini, OpenRouter, task-based routing.</span></div>
+        <div class="result"><b>Note: local-first AI OS tradeoffs</b><span>Matched by concept: SQLite, local ownership, no separate vector database.</span></div>
+        <div class="result"><b>Calendar prep: AI infrastructure discussion</b><span>Matched by context: architecture, operational AI, deployment patterns.</span></div>
+      </div>
+      <div class="code-block" aria-label="SQLite vector architecture example">
+SQLite database<br>
+  settings<br>
+  loops<br>
+  notes<br>
+  contacts<br>
+  dispatch_memories<br>
+  calendar_events<br>
+  vec_embeddings<br><br>
+No Pinecone. No Chroma. No separate memory service.
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="mini"><b>What gets embedded</b><span>Notes, dispatch memories, contacts, and calendar context.</span></div>
+      <div class="mini"><b>Why it matters</b><span>Gary recalls by meaning instead of exact keywords.</span></div>
+      <div class="mini"><b>Turso sync</b><span>Cloud sync can move cross-instance state while SQLite stays the local source of truth.</span></div>
+    </div>
+  </section>
+
+  <section id="models" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">AI model integrations</div>
+        <h2>Multi-model intelligence with cost-aware routing.</h2>
+      </div>
+      <p class="section-note">No single model is best at every job. Gary routes by task type, quality needs, latency, and subscription value.</p>
+    </div>
+    <div class="model-grid">
+      <article class="model-card featured">
+        <h3>How selection works</h3>
+        <p class="muted">Task type goes through model routing, then Gary chooses the optimal provider and logs usage. High-reasoning work can go to Claude, image work to GPT image generation, and specific alternatives to Gemini or OpenRouter.</p>
+        <div class="chip-list"><span class="chip">Task type</span><span class="chip">Quality</span><span class="chip">Cost</span><span class="chip">Latency</span></div>
+      </article>
+      <article class="model-card"><h3>Claude</h3><p class="muted">Primary reasoning, code generation, long-context analysis, planning, and review.</p></article>
+      <article class="model-card"><h3>GPT</h3><p class="muted">Image generation with gpt-image-2 and specialized tasks where OpenAI is the better fit.</p></article>
+      <article class="model-card"><h3>Gemini</h3><p class="muted">Alternative reasoning and selected background jobs where speed or modality fit the task.</p></article>
+    </div>
+    <div class="panel padded" style="margin-top:16px;">
+      <h3>OpenRouter adds routing leverage.</h3>
+      <p class="muted">OpenRouter gives Gary access to additional models and routing choices, while the cost tracker keeps usage visible in microcents and real dollars.</p>
+    </div>
+  </section>
+
+  <section id="ops" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Autonomous operations</div>
+        <h2>Gary never sleeps.</h2>
+      </div>
+      <p class="section-note">The app has cron-style background work, workflow steps, email-driven commands, and guardrails to keep autonomy bounded.</p>
+    </div>
+    <div class="ops-grid">
+      <article class="ops-card"><span class="status">Running</span><h3>Workflow engine</h3><p class="muted">60+ workflow steps coordinate recurring jobs, dispatch stages, design flows, and owner-triggered work.</p></article>
+      <article class="ops-card"><span class="status">Running</span><h3>Email triage</h3><p class="muted">Classifies email, filters noise, finds what needs action, and drafts replies without sending externally without approval.</p></article>
+      <article class="ops-card"><span class="status">Running</span><h3>Proactive scanning</h3><p class="muted">Gary surfaces insights before the owner asks, based on inbox, calendar, loops, and recent context.</p></article>
+      <article class="ops-card"><span class="status">Running</span><h3>Owner command system</h3><p class="muted">Email Gary a command and the system can classify, execute, and deliver the result through controlled pipelines.</p></article>
+      <article class="ops-card"><span class="status">Running</span><h3>Morning brief</h3><p class="muted">Daily summary of calendar, email, tasks, context, and likely friction points.</p></article>
+      <article class="ops-card"><span class="status">Running</span><h3>Meeting prep</h3><p class="muted">Upcoming meetings can trigger automatic briefings and research packets.</p></article>
+    </div>
+  </section>
+
+  <section id="learning" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Learning engine</div>
+        <h2>Gary reflects, assesses, and improves.</h2>
+      </div>
+      <p class="section-note">Corrections become preferences. Dispatches become memory. Performance becomes a trend, not a guess.</p>
+    </div>
+    <div class="learning">
+      <div class="panel padded">
+        <p class="lead">Gary does not just execute. Gary watches what gets corrected, extracts durable preferences, and grades its own work over time.</p>
+        <div class="chip-list"><span class="chip">Correction tracking</span><span class="chip">Preference extraction</span><span class="chip">Nightly self-assessment</span><span class="chip">Weekly memory reflection</span></div>
+      </div>
+      <div class="panel trend" aria-label="Performance trend chart">
+        <div class="bar" style="height:38%"></div>
+        <div class="bar" style="height:46%"></div>
+        <div class="bar" style="height:52%"></div>
+        <div class="bar" style="height:61%"></div>
+        <div class="bar" style="height:69%"></div>
+        <div class="bar" style="height:77%"></div>
+        <div class="bar" style="height:86%"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="design" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Design integration</div>
+        <h2>From idea to live website.</h2>
+      </div>
+      <p class="section-note">Design is not a side quest. It is a routed workflow with validation gates and deployment targets.</p>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-card"><span class="num">01</span><h3>Prompt</h3><p>Owner intent, audience, tone, assets, and acceptance criteria.</p></div>
+      <div class="pipe-card"><span class="num">02</span><h3>Design</h3><p>v0, Claude Design, or direct code-native design depending on output requirements.</p></div>
+      <div class="pipe-card"><span class="num">03</span><h3>Validate</h3><p>Design tokens, handoff quality, layout, contrast, and mobile behavior are checked.</p></div>
+      <div class="pipe-card"><span class="num">04</span><h3>Engineer</h3><p>Code lands in the right format: static page, app component, or deployable artifact.</p></div>
+      <div class="pipe-card"><span class="num">05</span><h3>Deploy</h3><p>GitHub Pages and public-share routes make finished work available.</p></div>
+    </div>
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="mini"><b>Design portal</b><span>Interactive workspace for v0 and Claude Design.</span></div>
+      <div class="mini"><b>Design tokens</b><span>Shared visual language across generated assets.</span></div>
+      <div class="mini"><b>Image generation</b><span>gpt-image-2 for on-demand visual assets when the environment exposes native image generation.</span></div>
+    </div>
+  </section>
+
+  <section id="security" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Security and safety</div>
+        <h2>Autonomy needs more than a system prompt.</h2>
+      </div>
+      <p class="section-note">An agent with email, calendar, code, and deployment access needs boundaries at every layer.</p>
+    </div>
+    <div class="grid-2">
+      <div class="security-list">
+        <div class="security-row"><div><h3>Content boundary tags</h3><p>Untrusted email content is wrapped so the model can classify it without obeying it.</p></div></div>
+        <div class="security-row"><div><h3>Owner-only execution model</h3><p>Gary acts for the owner, not for random senders or embedded instructions.</p></div></div>
+        <div class="security-row"><div><h3>Tool-call restrictions</h3><p>External actions such as sending email require explicit approval gates.</p></div></div>
+        <div class="security-row"><div><h3>Injection flagging</h3><p>Suspicious content is identified and surfaced rather than silently trusted.</p></div></div>
+        <div class="security-row"><div><h3>Human approval gates</h3><p>High-impact actions wait for a person before they leave the machine.</p></div></div>
+      </div>
+      <div class="panel padded">
+        <h3>Guardrails run before jobs execute.</h3>
+        <p class="muted">Debounce collapses rapid-fire triggers. Concurrency locks prevent overlapping runs of the same job. Cooldowns enforce time between successful runs. Daily caps keep an event storm from becoming an operations incident.</p>
+        <div class="chip-list"><span class="chip">Debounce</span><span class="chip">Cooldown</span><span class="chip">Daily caps</span><span class="chip">Concurrency limits</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="innovation" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Innovation highlights</div>
+        <h2>What makes Gary different.</h2>
+      </div>
+      <p class="section-note">The system is unusual because the agentic layer, memory layer, design layer, and safety layer are built as one product.</p>
+    </div>
+    <div class="innovation-grid">
+      <article class="feature-card"><span class="tag">Memory</span><h3>sqlite-vec in Tauri</h3><p>Vector search inside a local desktop app without a separate vector database.</p></article>
+      <article class="feature-card"><span class="tag">Review</span><h3>Adversarial pre-flight</h3><p>Two AI personalities challenge assumptions before work lands.</p></article>
+      <article class="feature-card"><span class="tag">Agents</span><h3>Semantic handoff</h3><p>Dispatch memory lets future agents inherit useful context across sessions.</p></article>
+      <article class="feature-card"><span class="tag">Ops</span><h3>Owner command email</h3><p>Email can become automatic task execution through controlled classification.</p></article>
+      <article class="feature-card"><span class="tag">Strategy</span><h3>Consensus dispatch</h3><p>Multiple agents can vote on a strategy before Gary synthesizes the answer.</p></article>
+      <article class="feature-card"><span class="tag">Learning</span><h3>Self-assessment trends</h3><p>Gary grades performance over time instead of treating every run as isolated.</p></article>
+      <article class="feature-card"><span class="tag">Design</span><h3>Design to engineering</h3><p>Prompts, mockups, validation, code, and GitHub Pages sit in one pipeline.</p></article>
+      <article class="feature-card"><span class="tag">Scale</span><h3>282 MCP tools</h3><p>Most tool servers have a handful. Gary exposes a full operating surface.</p></article>
+      <article class="feature-card"><span class="tag">Safety</span><h3>Prompt injection defense</h3><p>Email-driven agents need real boundaries, not trust in prompt wording.</p></article>
+      <article class="feature-card"><span class="tag">Control</span><h3>Local-first cloud sync</h3><p>The machine remains sovereign while Turso can sync cross-instance state.</p></article>
+    </div>
+  </section>
+
+  <section id="numbers" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">By the numbers</div>
+        <h2>The operating surface is already large.</h2>
+      </div>
+      <p class="section-note">These numbers explain why Gary feels less like a chatbot and more like an AI operations layer.</p>
+    </div>
+    <div class="numbers">
+      <div class="number-card"><b class="counter" data-target="282">282</b><span>MCP tools</span></div>
+      <div class="number-card"><b class="counter" data-target="56">56</b><span>database tables</span></div>
+      <div class="number-card"><b class="counter" data-target="4">4</b><span>specialist agents</span></div>
+      <div class="number-card"><b class="counter" data-target="3">3</b><span>AI model providers</span></div>
+      <div class="number-card"><b><span class="counter" data-target="15">15</span>+</b><span>API integrations</span></div>
+      <div class="number-card"><b><span class="counter" data-target="25">25</span>+</b><span>scheduled background jobs</span></div>
+      <div class="number-card"><b><span class="counter" data-target="200">200</span>+</b><span>dispatch memories</span></div>
+      <div class="number-card"><b><span class="counter" data-target="60">60</span>+</b><span>workflow steps</span></div>
+      <div class="number-card"><b>5</b><span>layer security model</span></div>
+    </div>
+  </section>
+
+  <section id="stack" class="reveal">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Tech stack summary</div>
+        <h2>Native shell, local memory, wide tool surface.</h2>
+      </div>
+      <p class="section-note">The choices optimize for local-first control, fast iteration, and enough integration surface for a real chief of staff.</p>
+    </div>
+    <div class="tech-grid" aria-label="Technology stack">
+      <span class="tech-card">Tauri 2</span><span class="tech-card">Rust</span><span class="tech-card">React 19</span><span class="tech-card">TypeScript</span><span class="tech-card">Vite</span><span class="tech-card">SQLite</span><span class="tech-card">sqlite-vec</span><span class="tech-card">MCP</span><span class="tech-card">Zustand</span><span class="tech-card">Claude API</span><span class="tech-card">OpenAI API</span><span class="tech-card">Gemini API</span><span class="tech-card">OpenRouter</span><span class="tech-card">Gmail API</span><span class="tech-card">Google Calendar API</span><span class="tech-card">Google Drive API</span><span class="tech-card">GitHub API</span><span class="tech-card">Telegram Bot API</span><span class="tech-card">v0 API</span><span class="tech-card">Turso</span><span class="tech-card">GitHub Pages</span>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="shell footer-grid">
+    <div>
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>Gary: Architecture Deep Dive</span></div>
+      <p class="muted" style="max-width:620px;">A definitive technical overview of a local-first AI operating system built to operationalize AI in daily life, not just demo it.</p>
+    </div>
+    <div class="footer-links" aria-label="Related links">
+      <a href="https://williekopp1112-lab.github.io/willieOS-public/shares/gary-showcase-2026.html">Live Gary Showcase</a>
+      <a href="https://williekopp1112-lab.github.io/willieOS-public/shares/willieos-showcase-v6.html">Live WillieOS Showcase</a>
+      <a href="https://notebooklm.google.com/notebook/b9f01148-23fd-4052-b55b-d14da5d07123">NotebookLM Deep Dive</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const layerData = {
+  shell: {
+    title: "Layer 1: The Shell",
+    description: "Tauri 2 wraps the app in a native desktop shell while Rust handles process lifecycle, OS integration, file access, system tray behavior, and secure IPC. It avoids the Electron tax: smaller binaries, lower RAM use, and a stronger native security boundary.",
+    bullets: [
+      ["Why Tauri", "Roughly 90% smaller binaries, 3-5x less RAM, and no bundled Chromium runtime."],
+      ["What Rust handles", "Process lifecycle, native OS integration, filesystem, tray, media, OAuth, and secure IPC."],
+      ["Why it matters", "Desktop apps that feel native, not web pages pretending to be apps."]
+    ]
+  },
+  engine: {
+    title: "Layer 2: The Engine",
+    description: "A Node.js MCP server is Gary's brain. It registers 282 tools across 15+ categories and gives AI models a standardized way to operate the product, files, workflows, browser, design tools, vaults, and external services.",
+    bullets: [
+      ["MCP protocol", "Standardized tool access so agents can call capabilities without bespoke glue each time."],
+      ["Tool surface", "Data, workflow, design, orchestration, intelligence, vault, notification, GitHub, Google, browser, and system tools."],
+      ["Routing", "Gary chooses direct response, Cowork, or Claude Code based on output type and risk."]
+    ]
+  },
+  memory: {
+    title: "Layer 3: The Memory",
+    description: "SQLite stores the operating record: loops, notes, contacts, settings, dispatch memories, calendar state, job runs, preferences, and more. sqlite-vec adds semantic search without deploying a separate vector database.",
+    bullets: [
+      ["56 tables", "Local relational state for the app, agents, workflows, settings, and historical memory."],
+      ["sqlite-vec", "Embeddings live beside relational rows for semantic recall."],
+      ["Why SQLite", "Zero-config, embedded, portable, and ideal for local-first software."]
+    ]
+  },
+  hands: {
+    title: "Layer 4: The Hands",
+    description: "API integrations let Gary act in the world: Gmail, Google Calendar, Google Drive, GitHub, Telegram, v0, Anthropic, OpenAI, Gemini, OpenRouter, Turso, and GitHub Pages.",
+    bullets: [
+      ["Google workspace", "Email, calendar, Drive, and account context for daily operations."],
+      ["Creation tools", "v0, GPT image generation, Claude Design, and GitHub Pages publishing."],
+      ["Model providers", "Anthropic, OpenAI, Google AI, and OpenRouter for task-aware intelligence."]
+    ]
+  }
+};
+
+const layerTitle = document.getElementById("layer-title");
+const layerDescription = document.getElementById("layer-description");
+const layerBullets = document.getElementById("layer-bullets");
+
+function renderLayer(key) {
+  const data = layerData[key];
+  layerTitle.textContent = data.title;
+  layerDescription.textContent = data.description;
+  layerBullets.innerHTML = data.bullets.map(([title, copy]) => (
+    `<div class="mini"><b>${title}</b><span>${copy}</span></div>`
+  )).join("");
+}
+
+document.querySelectorAll(".layer-tab").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".layer-tab").forEach((item) => item.setAttribute("aria-selected", "false"));
+    tab.setAttribute("aria-selected", "true");
+    renderLayer(tab.dataset.layer);
+  });
+});
+renderLayer("shell");
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.14 });
+document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting || entry.target.dataset.counted) return;
+    entry.target.dataset.counted = "true";
+    const target = Number(entry.target.dataset.target || "0");
+    const duration = 1000;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      entry.target.textContent = Math.round(target * eased).toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll(".counter").forEach((el) => counterObserver.observe(el));
+
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+  document.querySelectorAll(".counter").forEach((el) => {
+    el.textContent = Number(el.dataset.target || "0").toLocaleString();
+  });
+}
+</script>
+</body>
+</html>
