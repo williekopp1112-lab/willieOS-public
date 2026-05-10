@@ -1,0 +1,1525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06140b">
+  <meta name="description" content="Mobile 10U 5-on-5 flag football play caller with call sheet, route diagrams, and huddle show mode.">
+  <meta property="og:title" content="10U 5v5 Flag Play Caller">
+  <meta property="og:description" content="Simple kid-friendly 5v5 flag football plays for coaching from a phone.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306140b'/%3E%3Cpath d='M10 39c12-18 31-22 44-14-3 13-19 25-41 22-2-2-3-5-3-8z' fill='%23d7ff68'/%3E%3Cpath d='M20 39c8-7 19-10 30-9M24 43l-6-11M34 44l-5-16M44 39l-4-13' stroke='%2306140b' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <title>10U 5v5 Flag Play Caller</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #041008;
+      --bg2: #08170d;
+      --panel: #0e2113;
+      --panel2: #102c19;
+      --panel3: #173b20;
+      --line: rgba(215, 255, 104, 0.22);
+      --line-strong: rgba(215, 255, 104, 0.55);
+      --text: #f5ffe9;
+      --muted: #b8ceb1;
+      --dim: #7f9678;
+      --acid: #d7ff68;
+      --gold: #ffd464;
+      --orange: #ff9f43;
+      --blue: #57c7ff;
+      --red: #ff5b5b;
+      --white: #ffffff;
+      --field: #16612b;
+      --field2: #0d4a22;
+      --hash: rgba(255, 255, 255, 0.25);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+      --tap: 56px;
+      --radius: 8px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 30% -10%, rgba(215,255,104,0.16), transparent 30rem),
+        linear-gradient(180deg, var(--bg), #020704 80%);
+      color: var(--text);
+      font-family: Avenir Next, Trebuchet MS, Verdana, sans-serif;
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior-y: contain;
+    }
+
+    body {
+      min-height: 100dvh;
+      touch-action: pan-y;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app-shell {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: calc(12px + var(--safe-top)) 12px calc(14px + var(--safe-bottom));
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 2px 0;
+    }
+
+    .brand {
+      min-width: 0;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: clamp(30px, 10vw, 60px);
+      line-height: 0.88;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .brand .sub {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .score-chip {
+      min-width: 82px;
+      align-self: stretch;
+      background: var(--acid);
+      color: #071109;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      padding: 9px 10px;
+      box-shadow: 0 10px 26px rgba(215, 255, 104, 0.16);
+    }
+
+    .score-chip strong {
+      display: block;
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: 33px;
+      line-height: 0.9;
+    }
+
+    .score-chip span {
+      display: block;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .coach-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 1px 6px;
+      scrollbar-width: none;
+    }
+
+    .coach-strip::-webkit-scrollbar { display: none; }
+
+    .pill {
+      min-height: 38px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .pill .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 0 4px rgba(215,255,104,0.12);
+    }
+
+    .field-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .tabs {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(100px, 1fr);
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0 4px;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      min-height: 48px;
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .tab:active { transform: translateY(1px) scale(0.99); }
+
+    .tab.active {
+      background: var(--acid);
+      color: #06140b;
+      border-color: var(--acid);
+    }
+
+    .call-sheet-view {
+      display: block;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin: 4px 0 10px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: 26px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .category-count {
+      flex: 0 0 auto;
+      color: #071109;
+      background: var(--gold);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .play-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .play-btn {
+      width: 100%;
+      min-height: 92px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: stretch;
+      gap: 10px;
+      padding: 11px;
+      border-radius: var(--radius);
+      color: var(--text);
+      background: linear-gradient(145deg, rgba(18, 55, 29, 0.98), rgba(10, 28, 16, 0.98));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+      text-align: left;
+      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+
+    .play-btn:active {
+      transform: scale(0.985);
+      border-color: var(--acid);
+    }
+
+    .play-main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .play-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .play-num {
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--acid);
+      color: #071109;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .play-title strong {
+      display: block;
+      min-width: 0;
+      font-size: 18px;
+      font-weight: 950;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+
+    .play-desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 650;
+    }
+
+    .play-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      padding: 4px 7px;
+      font-size: 10px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .tag.primary {
+      color: #071109;
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .mini-field {
+      width: 116px;
+      min-height: 70px;
+      border-radius: 7px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: var(--field);
+      align-self: center;
+    }
+
+    .quick-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .quick-card {
+      min-height: 78px;
+      padding: 11px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .quick-card b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--acid);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .quick-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 650;
+    }
+
+    .play-detail-view {
+      display: none;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .play-detail-view.active,
+    .call-sheet-view.active {
+      display: block;
+    }
+
+    .detail-wrap {
+      display: grid;
+      gap: 10px;
+    }
+
+    .detail-actions {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px;
+      align-items: center;
+      position: sticky;
+      top: calc(8px + var(--safe-top));
+      z-index: 5;
+    }
+
+    .icon-btn,
+    .primary-action {
+      min-height: var(--tap);
+      border-radius: var(--radius);
+      font-weight: 950;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .icon-btn {
+      width: var(--tap);
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      font-size: 24px;
+    }
+
+    .primary-action {
+      background: var(--acid);
+      color: #071109;
+      font-size: 15px;
+      box-shadow: 0 12px 26px rgba(215,255,104,0.15);
+    }
+
+    .detail-title {
+      padding: 10px 2px 0;
+    }
+
+    .detail-title h2 {
+      margin: 0;
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: clamp(34px, 10vw, 58px);
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .detail-title p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .diagram-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow);
+      background: #0b3619;
+    }
+
+    .big-diagram {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      min-height: 0;
+      background: var(--field);
+    }
+
+    .coaching-notes {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .note-box {
+      padding: 13px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .note-box h3 {
+      margin: 0 0 8px;
+      color: var(--acid);
+      font-size: 13px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .note-box ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.42;
+      font-weight: 700;
+    }
+
+    .show-mode {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      display: none;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: calc(12px + var(--safe-top)) 12px calc(12px + var(--safe-bottom));
+      background: #020704;
+      color: var(--text);
+    }
+
+    .show-mode.active {
+      display: grid;
+    }
+
+    body.showing {
+      overflow: hidden;
+    }
+
+    .show-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .show-name {
+      min-width: 0;
+    }
+
+    .show-name h2 {
+      margin: 0;
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: clamp(40px, 13vw, 82px);
+      line-height: 0.85;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .show-name p {
+      margin: 7px 0 0;
+      color: var(--acid);
+      font-size: 13px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .close-show {
+      min-width: 58px;
+      min-height: 58px;
+      border-radius: var(--radius);
+      background: var(--red);
+      color: white;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .show-diagram {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      border: 2px solid var(--acid);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--field);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+    }
+
+    .show-diagram svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .show-footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-big {
+      min-height: 58px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 15px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .show-tip {
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .route {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35));
+    }
+
+    .route.primary-route {
+      stroke: var(--gold);
+      stroke-width: 8;
+    }
+
+    .route.secondary-route {
+      stroke: rgba(255,255,255,0.92);
+      stroke-width: 5;
+      stroke-dasharray: 0;
+    }
+
+    .route.fake-route {
+      stroke: var(--orange);
+      stroke-width: 5;
+      stroke-dasharray: 14 12;
+    }
+
+    .route.block-route {
+      stroke: var(--blue);
+      stroke-width: 4;
+      stroke-dasharray: 8 12;
+    }
+
+    .player circle {
+      stroke: rgba(0,0,0,0.45);
+      stroke-width: 3;
+    }
+
+    .player text {
+      font-family: Avenir Next, Trebuchet MS, Verdana, sans-serif;
+      font-size: 13px;
+      font-weight: 950;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+
+    .player.offense circle { fill: #f8fff0; }
+    .player.offense text { fill: #06140b; }
+    .player.defense circle { fill: rgba(255,255,255,0.18); stroke: rgba(255,255,255,0.35); stroke-width: 2; }
+    .player.defense text { fill: rgba(255,255,255,0.72); font-size: 11px; }
+    .player.primary circle {
+      fill: var(--gold);
+      stroke: #071109;
+      stroke-width: 4;
+      filter: drop-shadow(0 0 12px rgba(255,212,100,0.9));
+    }
+
+    .ball {
+      fill: #7a421d;
+      stroke: #f1d2a6;
+      stroke-width: 1.5;
+    }
+
+    .motion-label {
+      fill: var(--acid);
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .field-label {
+      fill: rgba(255,255,255,0.48);
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    @media (min-width: 680px) {
+      .app-shell {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .play-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .play-btn {
+        min-height: 122px;
+      }
+
+      .coaching-notes {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .big-diagram {
+        min-height: 430px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      .show-mode {
+        grid-template-columns: 1.1fr minmax(0, 2fr);
+        grid-template-rows: 1fr auto;
+      }
+
+      .show-head {
+        grid-row: 1;
+        grid-column: 1;
+        align-self: start;
+      }
+
+      .show-diagram {
+        grid-row: 1 / span 2;
+        grid-column: 2;
+      }
+
+      .show-footer {
+        grid-row: 2;
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell" id="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>10U 5v5 Play Caller</h1>
+        <div class="sub">Phone-ready flag football calls for today</div>
+      </div>
+      <div class="score-chip" aria-label="Five on five">
+        <strong>5</strong>
+        <span>v 5</span>
+      </div>
+    </header>
+
+    <section class="coach-strip" aria-label="Coach reminders">
+      <div class="pill"><span class="dot"></span> C, QB, WR1, WR2, WR3/RB</div>
+      <div class="pill"><span class="dot"></span> First read is gold</div>
+      <div class="pill"><span class="dot"></span> One word call names</div>
+      <div class="pill"><span class="dot"></span> Show, snap, celebrate</div>
+    </section>
+
+    <section class="field-card call-sheet-view active" id="callSheetView" aria-label="Call sheet view">
+      <nav class="tabs" id="tabs" aria-label="Play categories"></nav>
+      <div class="section-head">
+        <div>
+          <h2 id="categoryTitle">Openers</h2>
+          <p id="categoryHint">Easy completions to settle the team.</p>
+        </div>
+        <div class="category-count" id="categoryCount">3 plays</div>
+      </div>
+      <div class="play-grid" id="playGrid"></div>
+    </section>
+
+    <section class="quick-panel" id="quickPanel" aria-label="Quick coach reminders">
+      <div class="quick-card">
+        <b>Huddle script</b>
+        <span>Call name, point to primary kid, say “run through the cones,” then clap break.</span>
+      </div>
+      <div class="quick-card">
+        <b>Sub rule</b>
+        <span>Rotate WR3/RB every drive so every player touches the ball.</span>
+      </div>
+    </section>
+
+    <section class="play-detail-view" id="playDetailView" aria-label="Selected play detail">
+      <div class="detail-wrap">
+        <div class="detail-actions">
+          <button class="icon-btn" id="backBtn" aria-label="Back to call sheet">‹</button>
+          <button class="primary-action" id="showBtn">Show Play</button>
+          <button class="icon-btn" id="nextBtn" aria-label="Next play">›</button>
+        </div>
+        <div class="detail-title">
+          <h2 id="detailName">Play Name</h2>
+          <p id="detailDesc">Play description appears here.</p>
+        </div>
+        <div class="diagram-card">
+          <div id="bigDiagram" class="big-diagram" aria-label="Play diagram"></div>
+        </div>
+        <div class="coaching-notes">
+          <div class="note-box">
+            <h3>Kid words</h3>
+            <ul id="kidWords"></ul>
+          </div>
+          <div class="note-box">
+            <h3>Coach keys</h3>
+            <ul id="coachKeys"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="show-mode" id="showMode" aria-label="Full-screen show play mode" role="dialog" aria-modal="true">
+    <div class="show-head">
+      <div class="show-name">
+        <h2 id="showName">Play</h2>
+        <p id="showPrimary">Primary: WR1</p>
+      </div>
+      <button class="close-show" id="closeShow" aria-label="Close show play">×</button>
+    </div>
+    <div class="show-diagram" id="showDiagram" aria-label="Huddle diagram"></div>
+    <div class="show-footer">
+      <button class="nav-big" id="showPrev">Prev</button>
+      <div class="show-tip">Swipe to change plays</div>
+      <button class="nav-big" id="showNext">Next</button>
+    </div>
+  </aside>
+
+  <script>
+    const CATEGORIES = [
+      { key: "openers", label: "Openers", hint: "Easy completions to settle the team." },
+      { key: "runs", label: "Run Plays", hint: "Simple handoffs and sweeps for flags in space." },
+      { key: "passes", label: "Pass Plays", hint: "One-read throws with safe outlets." },
+      { key: "tricks", label: "Trick Plays", hint: "One fun wrinkle when the defense starts guessing." },
+      { key: "goal", label: "Goal Line", hint: "Short field calls with fast decisions." }
+    ];
+
+    // Positions in the scaled 400x500 coordinate space
+    const BASE_OFFENSE = {
+      C:        { x: 200, y: 400 },
+      QB:       { x: 200, y: 350 },
+      WR1:      { x: 52,  y: 385 },
+      WR2:      { x: 348, y: 385 },
+      "WR3/RB": { x: 280, y: 348 }
+    };
+
+    const BASE_DEFENSE = {
+      D1: { x: 60,  y: 210 },
+      D2: { x: 145, y: 220 },
+      D3: { x: 255, y: 220 },
+      D4: { x: 340, y: 210 },
+      D5: { x: 200, y: 150 }
+    };
+
+    // Scale route points from old 0-100 space to new 400x500 space
+    function scalePoint(p) {
+      return [p[0] * 4, p[1] * 5];
+    }
+
+    const PLAYS = [
+      {
+        id: "o1",
+        number: 1,
+        category: "openers",
+        name: "Rocket Out",
+        primary: "WR2",
+        tags: ["Opener", "Quick throw", "Right side"],
+        desc: "WR2 takes three steps up and breaks to the sideline. QB throws on rhythm before the defender can chase.",
+        kidWords: ["WR2: run up three, then out to the cones.", "QB: catch, count one-two, throw.", "Everyone else: run straight and clear space."],
+        coachKeys: ["Best first play of the game.", "Tell QB the ball leaves before WR2 is fully open.", "If the edge is crowded, come back to Bubble Pop next."],
+        routes: [
+          { player: "WR2", type: "primary", points: [[82,74],[82,50],[94,50]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,42]] },
+          { player: "WR3/RB", type: "secondary", points: [[62,67],[70,58],[76,58]] },
+          { player: "C", type: "block", points: [[50,78],[50,61]] },
+          { player: "QB", type: "fake", points: [[50,66],[51,64]] }
+        ],
+        ball: [[50,66],[84,51]]
+      },
+      {
+        id: "o2",
+        number: 2,
+        category: "openers",
+        name: "Bubble Pop",
+        primary: "WR1",
+        tags: ["Opener", "Catch fast", "Left side"],
+        desc: "WR1 steps back for a quick bubble. WR3/RB flashes across as window dressing while WR2 clears deep.",
+        kidWords: ["WR1: step back and show your hands.", "QB: throw right away to the bubble.", "WR3/RB: run across like you might get it."],
+        coachKeys: ["Use when defenders line up deep.", "WR1 should catch moving forward, not flat-footed.", "No blocking contact; just run defenders away."],
+        routes: [
+          { player: "WR1", type: "primary", points: [[18,74],[12,70],[11,62]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[82,40]] },
+          { player: "WR3/RB", type: "fake", points: [[62,67],[50,65],[35,63]] },
+          { player: "C", type: "secondary", points: [[50,78],[50,60],[45,55]] },
+          { player: "QB", type: "fake", points: [[50,66],[49,64]] }
+        ],
+        ball: [[50,66],[13,64]]
+      },
+      {
+        id: "o3",
+        number: 3,
+        category: "openers",
+        name: "Center Sneak",
+        primary: "C",
+        tags: ["Opener", "Center", "Short"],
+        desc: "Center snaps and releases straight ahead. QB gives one pump to WR2, then hits C in the middle.",
+        kidWords: ["C: snap, count one, run straight to the open grass.", "QB: fake right, then find the center.", "WRs: run big routes so nobody bumps C."],
+        coachKeys: ["Great for a reliable center.", "Keep the throw soft and chest high.", "Works best after one outside throw."],
+        routes: [
+          { player: "C", type: "primary", points: [[50,78],[50,56],[52,44]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,48],[12,42]] },
+          { player: "WR2", type: "fake", points: [[82,74],[82,52],[92,52]] },
+          { player: "WR3/RB", type: "secondary", points: [[62,67],[70,60],[70,49]] },
+          { player: "QB", type: "fake", points: [[50,66],[52,64]] }
+        ],
+        ball: [[50,66],[52,46]]
+      },
+      {
+        id: "r1",
+        number: 4,
+        category: "runs",
+        name: "Jet Right",
+        primary: "WR3/RB",
+        tags: ["Run", "Sweep", "Fast"],
+        desc: "WR3/RB goes in motion across the QB and takes a handoff around the right edge.",
+        kidWords: ["WR3/RB: sprint across, take the ball, turn the corner.", "QB: put the ball in the belly and carry fake left.", "WR2: run deep to pull your defender."],
+        coachKeys: ["Start motion only when QB says go.", "Runner aims outside the widest defender.", "Run this when the right edge is soft."],
+        routes: [
+          { player: "WR3/RB", type: "primary", points: [[62,67],[50,66],[72,66],[95,56]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[88,48],[92,38]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,48]] },
+          { player: "C", type: "block", points: [[50,78],[50,62]] },
+          { player: "QB", type: "fake", points: [[50,66],[38,65],[30,62]] }
+        ],
+        ball: [[50,66],[62,67]]
+      },
+      {
+        id: "r2",
+        number: 5,
+        category: "runs",
+        name: "Jet Left",
+        primary: "WR3/RB",
+        tags: ["Run", "Sweep", "Mirror"],
+        desc: "Same as Jet Right, but the runner bends back left behind the center.",
+        kidWords: ["WR3/RB: take the handoff and race left.", "WR1: run your defender away.", "QB: sell the fake to the right after the handoff."],
+        coachKeys: ["Keep the play name paired with Jet Right.", "Runner should not stop in the backfield.", "If the defense chases motion, call Reverse Rocket later."],
+        routes: [
+          { player: "WR3/RB", type: "primary", points: [[62,67],[50,66],[33,66],[6,56]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[12,49],[8,39]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[82,48]] },
+          { player: "C", type: "block", points: [[50,78],[50,62]] },
+          { player: "QB", type: "fake", points: [[50,66],[62,65],[70,62]] }
+        ],
+        ball: [[50,66],[62,67]]
+      },
+      {
+        id: "r3",
+        number: 6,
+        category: "runs",
+        name: "Dive Pop",
+        primary: "WR3/RB",
+        tags: ["Run", "Inside", "Simple"],
+        desc: "WR3/RB takes a quick inside handoff while the receivers sprint outside to widen the defense.",
+        kidWords: ["WR3/RB: step to QB, take it, run through the middle.", "QB: hand off fast and freeze.", "WRs: run wide like you want a throw."],
+        coachKeys: ["Good on fourth-and-short.", "Tell runner to pick a gap and go.", "Avoid if the middle defender is crowding the snap."],
+        routes: [
+          { player: "WR3/RB", type: "primary", points: [[62,67],[54,66],[53,51],[56,38]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[8,62],[8,48]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[94,62],[94,48]] },
+          { player: "C", type: "block", points: [[50,78],[50,62]] },
+          { player: "QB", type: "fake", points: [[50,66],[50,65]] }
+        ],
+        ball: [[50,66],[58,67]]
+      },
+      {
+        id: "p1",
+        number: 7,
+        category: "passes",
+        name: "Slant Smile",
+        primary: "WR1",
+        tags: ["Pass", "Middle", "One read"],
+        desc: "WR1 runs a quick slant into the open middle. WR2 clears deep and C sits as the safety valve.",
+        kidWords: ["WR1: three steps, then cross the field.", "QB: throw to the smile window.", "C: turn around if QB needs help."],
+        coachKeys: ["Use against outside leverage.", "Ball goes in front of WR1, not behind.", "C outlet keeps it safe for young QBs."],
+        routes: [
+          { player: "WR1", type: "primary", points: [[18,74],[25,61],[45,51]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[82,40]] },
+          { player: "C", type: "secondary", points: [[50,78],[50,62],[52,58]] },
+          { player: "WR3/RB", type: "block", points: [[62,67],[68,61]] },
+          { player: "QB", type: "fake", points: [[50,66],[50,64]] }
+        ],
+        ball: [[50,66],[44,52]]
+      },
+      {
+        id: "p2",
+        number: 8,
+        category: "passes",
+        name: "Corner Candy",
+        primary: "WR2",
+        tags: ["Pass", "Corner", "Big play"],
+        desc: "WR2 sells straight, then breaks to the back-right corner. WR1 runs a shallow drag underneath.",
+        kidWords: ["WR2: run tall, then aim for the back cone.", "QB: throw high and outside.", "WR1: cross low if the corner is covered."],
+        coachKeys: ["Call after short throws pull defenders down.", "Only throw if WR2 has space.", "Safe miss is out of bounds."],
+        routes: [
+          { player: "WR2", type: "primary", points: [[82,74],[82,49],[94,34]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,60],[52,60]] },
+          { player: "C", type: "secondary", points: [[50,78],[48,64],[43,58]] },
+          { player: "WR3/RB", type: "block", points: [[62,67],[68,61]] },
+          { player: "QB", type: "fake", points: [[50,66],[51,64]] }
+        ],
+        ball: [[50,66],[93,36]]
+      },
+      {
+        id: "p3",
+        number: 9,
+        category: "passes",
+        name: "Drag Train",
+        primary: "WR3/RB",
+        tags: ["Pass", "Crossing", "Easy catch"],
+        desc: "Three routes cross at different depths. WR3/RB drags behind the center for a moving catch.",
+        kidWords: ["WR3/RB: run across behind the center and keep moving.", "C: go short and turn.", "QB: wait for the crossing runner."],
+        coachKeys: ["Good versus teams that chase one kid.", "Tell receivers not to bunch up.", "QB should step toward the throw."],
+        routes: [
+          { player: "WR3/RB", type: "primary", points: [[62,67],[55,62],[32,58],[18,54]] },
+          { player: "C", type: "secondary", points: [[50,78],[50,64],[43,61]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[25,61],[60,50]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[76,58],[48,48]] },
+          { player: "QB", type: "fake", points: [[50,66],[50,64]] }
+        ],
+        ball: [[50,66],[25,55]]
+      },
+      {
+        id: "t1",
+        number: 10,
+        category: "tricks",
+        name: "Reverse Rocket",
+        primary: "WR1",
+        tags: ["Trick", "Reverse", "Fun"],
+        desc: "Fake Jet Right to WR3/RB, then hand back to WR1 coming around left.",
+        kidWords: ["WR3/RB: act like you have it.", "WR1: come behind and take the secret handoff.", "QB: make the fake big."],
+        coachKeys: ["Practice exchange slowly before game speed.", "Use after Jet Right works once.", "Runner gets outside; no dancing."],
+        routes: [
+          { player: "WR3/RB", type: "fake", points: [[62,67],[50,66],[76,66],[91,58]] },
+          { player: "WR1", type: "primary", points: [[18,74],[36,70],[50,66],[28,63],[7,54]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[86,48]] },
+          { player: "C", type: "block", points: [[50,78],[50,62]] },
+          { player: "QB", type: "fake", points: [[50,66],[52,65]] }
+        ],
+        ball: [[50,66],[62,67],[50,66],[36,70]]
+      },
+      {
+        id: "t2",
+        number: 11,
+        category: "tricks",
+        name: "Center Throwback",
+        primary: "C",
+        tags: ["Trick", "Throwback", "Center"],
+        desc: "Everyone flows right. Center leaks back left for a wide-open throwback.",
+        kidWords: ["C: snap, wait, sneak left.", "QB: look right first so everyone follows.", "WRs: sell your routes like the ball is coming."],
+        coachKeys: ["Tell center not to leave too early.", "Great near midfield after outside throws.", "QB should reset feet before throwing back."],
+        routes: [
+          { player: "C", type: "primary", points: [[50,78],[50,66],[38,61],[23,56]] },
+          { player: "WR2", type: "fake", points: [[82,74],[92,56],[94,43]] },
+          { player: "WR3/RB", type: "fake", points: [[62,67],[76,62],[86,58]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,44]] },
+          { player: "QB", type: "fake", points: [[50,66],[58,64],[54,65]] }
+        ],
+        ball: [[50,66],[24,57]]
+      },
+      {
+        id: "t3",
+        number: 12,
+        category: "tricks",
+        name: "Double Pass",
+        primary: "WR2",
+        tags: ["Trick", "Pass", "Wide"],
+        desc: "QB throws backward to WR1. WR1 sets and throws across to WR2 running down the opposite sideline.",
+        kidWords: ["WR1: catch behind the line, stop, throw to WR2.", "WR2: run deep and wave late.", "QB: make the first throw soft and backward."],
+        coachKeys: ["Only use if WR1 can throw safely.", "First pass must be backward.", "If not open, WR1 runs with it."],
+        routes: [
+          { player: "WR1", type: "fake", points: [[18,74],[12,76]] },
+          { player: "WR2", type: "primary", points: [[82,74],[86,51],[88,34]] },
+          { player: "C", type: "block", points: [[50,78],[50,62]] },
+          { player: "WR3/RB", type: "secondary", points: [[62,67],[58,56],[48,51]] },
+          { player: "QB", type: "fake", points: [[50,66],[47,65]] }
+        ],
+        ball: [[50,66],[13,76],[87,36]]
+      },
+      {
+        id: "g1",
+        number: 13,
+        category: "goal",
+        name: "Goal Quick Stick",
+        primary: "C",
+        tags: ["Goal line", "Fast", "Center"],
+        desc: "Center snaps, runs two steps, and turns around. QB throws immediately before the defense can crowd.",
+        kidWords: ["C: snap, two steps, show numbers.", "QB: throw right now.", "WRs: run to the back cones."],
+        coachKeys: ["Use inside the 5-yard line.", "Ball should be out in under two seconds.", "If they cover C, call Goal Flood."],
+        routes: [
+          { player: "C", type: "primary", points: [[50,78],[50,66],[50,59]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,42]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[82,42]] },
+          { player: "WR3/RB", type: "fake", points: [[62,67],[72,62]] },
+          { player: "QB", type: "fake", points: [[50,66],[50,65]] }
+        ],
+        ball: [[50,66],[50,59]]
+      },
+      {
+        id: "g2",
+        number: 14,
+        category: "goal",
+        name: "Goal Flood",
+        primary: "WR2",
+        tags: ["Goal line", "Flood", "Right"],
+        desc: "Three kids flood the right side at different depths. QB picks the first open jersey.",
+        kidWords: ["WR2: back corner.", "WR3/RB: front cone.", "C: middle window.", "QB: pick the open yellow route first."],
+        coachKeys: ["Primary is WR2, but front-cone throw is fine.", "Good from 6 to 10 yards out.", "Keep spacing wide."],
+        routes: [
+          { player: "WR2", type: "primary", points: [[82,74],[86,52],[94,38]] },
+          { player: "WR3/RB", type: "secondary", points: [[62,67],[78,62],[91,57]] },
+          { player: "C", type: "secondary", points: [[50,78],[56,65],[68,57]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,42]] },
+          { player: "QB", type: "fake", points: [[50,66],[51,64]] }
+        ],
+        ball: [[50,66],[93,39]]
+      },
+      {
+        id: "g3",
+        number: 15,
+        category: "goal",
+        name: "Tiny Toss Left",
+        primary: "WR3/RB",
+        tags: ["Goal line", "Run", "Edge"],
+        desc: "WR3/RB gets a tiny forward toss and races to the left pylon while receivers clear the goal line.",
+        kidWords: ["WR3/RB: catch the tiny toss and sprint left.", "WR1: clear your defender to the back.", "QB: toss soft and point left."],
+        coachKeys: ["Works when defenders are stacked in the middle.", "Runner must take a flat path first.", "Use the sideline as a friend."],
+        routes: [
+          { player: "WR3/RB", type: "primary", points: [[62,67],[52,66],[34,62],[7,51]] },
+          { player: "WR1", type: "secondary", points: [[18,74],[18,42]] },
+          { player: "WR2", type: "secondary", points: [[82,74],[82,42]] },
+          { player: "C", type: "block", points: [[50,78],[50,62]] },
+          { player: "QB", type: "fake", points: [[50,66],[54,65]] }
+        ],
+        ball: [[50,66],[53,66]]
+      }
+    ];
+
+    const state = {
+      category: "openers",
+      selectedId: "o1",
+      touchStartX: 0,
+      touchStartY: 0
+    };
+
+    const els = {
+      tabs: document.getElementById("tabs"),
+      categoryTitle: document.getElementById("categoryTitle"),
+      categoryHint: document.getElementById("categoryHint"),
+      categoryCount: document.getElementById("categoryCount"),
+      playGrid: document.getElementById("playGrid"),
+      callSheetView: document.getElementById("callSheetView"),
+      quickPanel: document.getElementById("quickPanel"),
+      detailView: document.getElementById("playDetailView"),
+      detailName: document.getElementById("detailName"),
+      detailDesc: document.getElementById("detailDesc"),
+      kidWords: document.getElementById("kidWords"),
+      coachKeys: document.getElementById("coachKeys"),
+      bigDiagram: document.getElementById("bigDiagram"),
+      backBtn: document.getElementById("backBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      showBtn: document.getElementById("showBtn"),
+      showMode: document.getElementById("showMode"),
+      showName: document.getElementById("showName"),
+      showPrimary: document.getElementById("showPrimary"),
+      showDiagram: document.getElementById("showDiagram"),
+      closeShow: document.getElementById("closeShow"),
+      showPrev: document.getElementById("showPrev"),
+      showNext: document.getElementById("showNext")
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function currentPlay() {
+      return PLAYS.find(play => play.id === state.selectedId) || PLAYS[0];
+    }
+
+    function playsForCategory() {
+      return PLAYS.filter(play => play.category === state.category);
+    }
+
+    function categoryMeta(key) {
+      return CATEGORIES.find(category => category.key === key) || CATEGORIES[0];
+    }
+
+    function setCategory(key) {
+      state.category = key;
+      const first = playsForCategory()[0];
+      if (first) state.selectedId = first.id;
+      renderCallSheet();
+    }
+
+    function selectPlay(id) {
+      state.selectedId = id;
+      const play = currentPlay();
+      state.category = play.category;
+      renderDetail();
+      els.callSheetView.classList.remove("active");
+      els.quickPanel.style.display = "none";
+      els.detailView.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function backToCallSheet() {
+      els.detailView.classList.remove("active");
+      els.callSheetView.classList.add("active");
+      els.quickPanel.style.display = "";
+      renderCallSheet();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function nextPlay(delta) {
+      const index = PLAYS.findIndex(play => play.id === state.selectedId);
+      const nextIndex = (index + delta + PLAYS.length) % PLAYS.length;
+      state.selectedId = PLAYS[nextIndex].id;
+      state.category = PLAYS[nextIndex].category;
+      renderDetail();
+      if (els.showMode.classList.contains("active")) renderShow();
+    }
+
+    function renderTabs() {
+      els.tabs.innerHTML = CATEGORIES.map(category => {
+        const active = category.key === state.category ? " active" : "";
+        return `<button class="tab${active}" data-category="${category.key}" type="button">${category.label}</button>`;
+      }).join("");
+      els.tabs.querySelectorAll(".tab").forEach(button => {
+        button.addEventListener("click", () => setCategory(button.dataset.category));
+      });
+    }
+
+    function renderCallSheet() {
+      const meta = categoryMeta(state.category);
+      const plays = playsForCategory();
+      els.categoryTitle.textContent = meta.label;
+      els.categoryHint.textContent = meta.hint;
+      els.categoryCount.textContent = `${plays.length} plays`;
+      renderTabs();
+      els.playGrid.innerHTML = plays.map(play => `
+        <button class="play-btn" type="button" data-play-id="${play.id}" aria-label="Open ${escapeHtml(play.name)}">
+          <span class="play-main">
+            <span class="play-title">
+              <span class="play-num">${play.number}</span>
+              <strong>${escapeHtml(play.name)}</strong>
+            </span>
+            <span class="play-desc">${escapeHtml(play.desc)}</span>
+            <span class="play-tags">
+              <span class="tag primary">Primary: ${escapeHtml(play.primary)}</span>
+              ${play.tags.slice(0, 2).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
+            </span>
+          </span>
+          <span class="mini-field">${renderDiagram(play, { mini: true })}</span>
+        </button>
+      `).join("");
+      els.playGrid.querySelectorAll(".play-btn").forEach(button => {
+        button.addEventListener("click", () => selectPlay(button.dataset.playId));
+      });
+    }
+
+    function renderDetail() {
+      const play = currentPlay();
+      els.detailName.textContent = `${play.number}. ${play.name}`;
+      els.detailDesc.textContent = play.desc;
+      els.kidWords.innerHTML = play.kidWords.map(item => `<li>${escapeHtml(item)}</li>`).join("");
+      els.coachKeys.innerHTML = play.coachKeys.map(item => `<li>${escapeHtml(item)}</li>`).join("");
+      els.bigDiagram.innerHTML = renderDiagram(play, { mini: false });
+    }
+
+    function renderShow() {
+      const play = currentPlay();
+      els.showName.textContent = play.name;
+      els.showPrimary.textContent = `Primary: ${play.primary} • ${categoryMeta(play.category).label}`;
+      els.showDiagram.innerHTML = renderDiagram(play, { mini: false, show: true });
+    }
+
+    function openShowMode() {
+      renderShow();
+      els.showMode.classList.add("active");
+      document.body.classList.add("showing");
+      if (els.showMode.requestFullscreen) {
+        els.showMode.requestFullscreen().catch(() => {});
+      }
+    }
+
+    function closeShowMode() {
+      els.showMode.classList.remove("active");
+      document.body.classList.remove("showing");
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function pathFor(points) {
+      if (!points || points.length === 0) return "";
+      if (points.length === 1) return `M ${points[0][0]} ${points[0][1]}`;
+      let d = `M ${points[0][0]} ${points[0][1]}`;
+      for (let index = 1; index < points.length; index += 1) {
+        const point = points[index];
+        const prev = points[index - 1];
+        if (index < points.length - 1) {
+          const next = points[index + 1];
+          const cx = point[0];
+          const cy = point[1];
+          const ex = (point[0] + next[0]) / 2;
+          const ey = (point[1] + next[1]) / 2;
+          if (Math.abs(prev[0] - point[0]) + Math.abs(prev[1] - point[1]) > 3) {
+            d += ` L ${cx} ${cy}`;
+          }
+          d += ` Q ${cx} ${cy} ${ex} ${ey}`;
+        } else {
+          d += ` L ${point[0]} ${point[1]}`;
+        }
+      }
+      return d;
+    }
+
+    function arrowMarker(id, color) {
+      return `
+        <marker id="${id}" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="${color}"></path>
+        </marker>
+      `;
+    }
+
+    function routeColor(type) {
+      if (type === "primary") return "#ffd464";
+      if (type === "fake") return "#ff9f43";
+      if (type === "block") return "#57c7ff";
+      return "#ffffff";
+    }
+
+    function routeClass(type) {
+      if (type === "primary") return "primary-route";
+      if (type === "fake") return "fake-route";
+      if (type === "block") return "block-route";
+      return "secondary-route";
+    }
+
+    function renderPlayer(label, point, kind, primary, mini) {
+      const radius = mini ? 12 : 20;
+      const fontSize = mini ? 8 : 13;
+      const safeLabel = escapeHtml(label);
+      const primaryClass = primary ? " primary" : "";
+      const text = mini && label === "WR3/RB" ? "RB" : (label === "WR3/RB" ? "RB" : safeLabel);
+      return `
+        <g class="player ${kind}${primaryClass}" data-player="${safeLabel}">
+          <circle cx="${point.x}" cy="${point.y}" r="${radius}"></circle>
+          <text x="${point.x}" y="${point.y}" style="font-size:${fontSize}px">${text}</text>
+        </g>
+      `;
+    }
+
+    function renderDiagram(play, options = {}) {
+      const mini = Boolean(options.mini);
+      const show = Boolean(options.show);
+      const VB_W = 400;
+      const VB_H = 500;
+      const routeWidth = mini ? 4 : show ? 8 : 6;
+      const ballWidth = mini ? 3 : 5;
+      const playerRadius = mini ? 12 : 20;
+
+      const offense = Object.entries(BASE_OFFENSE);
+      const defense = Object.entries(BASE_DEFENSE);
+
+      // Map from player name to new position for snapping route starts
+      const playerPositions = { ...BASE_OFFENSE };
+
+      // Scale route points and snap first point to actual player position
+      const scaledRoutes = play.routes.map(route => {
+        const scaled = route.points.map(p => scalePoint(p));
+        // Snap first point to the player's actual position in the new coordinate space
+        const pos = playerPositions[route.player];
+        if (pos) {
+          scaled[0] = [pos.x, pos.y];
+        }
+        return { ...route, scaledPoints: scaled };
+      });
+
+      // Offset route start so lines begin at circle edge, not center
+      function offsetRouteStart(points) {
+        if (points.length < 2) return points;
+        const [sx, sy] = points[0];
+        const [nx, ny] = points[1];
+        const dx = nx - sx;
+        const dy = ny - sy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 1) return points;
+        const offset = playerRadius + 3;
+        const ratio = offset / dist;
+        const newStart = [sx + dx * ratio, sy + dy * ratio];
+        return [newStart, ...points.slice(1)];
+      }
+
+      const routes = scaledRoutes.map((route, index) => {
+        const color = routeColor(route.type);
+        const marker = route.type === "primary" ? "arrowGold" : route.type === "fake" ? "arrowOrange" : route.type === "block" ? "arrowBlue" : "arrowWhite";
+        const width = route.type === "primary" ? routeWidth + 2 : route.type === "block" ? routeWidth - 1.5 : routeWidth;
+        const adjustedPoints = offsetRouteStart(route.scaledPoints);
+        return `<path class="route ${routeClass(route.type)}" d="${pathFor(adjustedPoints)}" stroke="${color}" stroke-width="${width}" marker-end="url(#${marker})" aria-label="${escapeHtml(route.player)} route ${index + 1}"></path>`;
+      }).join("");
+
+      const ballScaled = play.ball ? play.ball.map(p => scalePoint(p)) : null;
+      // Snap ball start to QB position
+      if (ballScaled && ballScaled.length > 0) {
+        ballScaled[0] = [BASE_OFFENSE.QB.x, BASE_OFFENSE.QB.y];
+      }
+      const ballPath = ballScaled && ballScaled.length > 1
+        ? `<path d="${pathFor(ballScaled)}" fill="none" stroke="#7a421d" stroke-width="${ballWidth}" stroke-linecap="round" stroke-dasharray="${mini ? "6 6" : "10 10"}" marker-end="url(#arrowBall)"></path>`
+        : "";
+
+      const labels = mini ? "" : `
+        <text x="18" y="42" class="field-label" style="font-size:14px">Defense</text>
+        <text x="18" y="476" class="field-label" style="font-size:14px">Offense</text>
+        <text x="280" y="42" class="field-label" style="font-size:14px">5 defenders</text>
+      `;
+      const motionLabel = mini ? "" : `<text x="240" y="456" class="motion-label" style="font-size:14px">Gold = first look</text>`;
+
+      // Hash marks along left and right sides
+      const hashMarks = Array.from({ length: 10 }, (_, index) => {
+        const y = 70 + index * 38;
+        return `<line x1="22" y1="${y}" x2="38" y2="${y}" stroke="rgba(255,255,255,0.22)" stroke-width="2"></line><line x1="362" y1="${y}" x2="378" y2="${y}" stroke="rgba(255,255,255,0.22)" stroke-width="2"></line>`;
+      }).join("");
+
+      // Unique marker IDs per diagram instance to avoid SVG conflicts
+      const uid = play.id + (mini ? "m" : show ? "s" : "d");
+
+      return `
+        <svg viewBox="0 0 ${VB_W} ${VB_H}" role="img" aria-label="${escapeHtml(play.name)} 5-on-5 flag football diagram" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            ${arrowMarker("arrowGold" + uid, "#ffd464")}
+            ${arrowMarker("arrowWhite" + uid, "#ffffff")}
+            ${arrowMarker("arrowOrange" + uid, "#ff9f43")}
+            ${arrowMarker("arrowBlue" + uid, "#57c7ff")}
+            ${arrowMarker("arrowBall" + uid, "#7a421d")}
+            <pattern id="grass${uid}" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" fill="#16612b"></rect>
+              <path d="M0 20 L20 0" stroke="rgba(255,255,255,0.035)" stroke-width="2"></path>
+            </pattern>
+            <filter id="glow${uid}">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <rect width="${VB_W}" height="${VB_H}" fill="url(#grass${uid})"></rect>
+          <!-- Field border -->
+          <rect x="14" y="14" width="${VB_W - 28}" height="${VB_H - 28}" rx="6" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2.5"></rect>
+          <!-- Line of scrimmage -->
+          <line x1="14" y1="300" x2="${VB_W - 14}" y2="300" stroke="rgba(255,255,255,0.75)" stroke-width="3"></line>
+          <text x="${VB_W / 2}" y="294" text-anchor="middle" fill="rgba(255,255,255,0.35)" style="font-size:${mini ? 8 : 11}px;font-weight:900;text-transform:uppercase">Line of Scrimmage</text>
+          <!-- End zone line -->
+          <line x1="14" y1="60" x2="${VB_W - 14}" y2="60" stroke="rgba(215,255,104,0.45)" stroke-width="2" stroke-dasharray="8 8"></line>
+          <!-- Center line -->
+          <line x1="${VB_W / 2}" y1="14" x2="${VB_W / 2}" y2="${VB_H - 14}" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"></line>
+          ${hashMarks}
+          <!-- Routes -->
+          <g opacity="${mini ? "0.72" : "0.95"}">${routes.replaceAll("arrowGold", "arrowGold" + uid).replaceAll("arrowWhite", "arrowWhite" + uid).replaceAll("arrowOrange", "arrowOrange" + uid).replaceAll("arrowBlue", "arrowBlue" + uid)}</g>
+          <!-- Ball trajectory -->
+          ${ballPath.replaceAll("arrowBall", "arrowBall" + uid)}
+          <!-- Defense (semi-transparent) -->
+          <g opacity="0.55">${defense.map(([label, point]) => renderPlayer(label, point, "defense", false, mini)).join("")}</g>
+          <!-- Offense -->
+          ${offense.map(([label, point]) => renderPlayer(label, point, "offense", label === play.primary, mini)).join("")}
+          <!-- Ball at snap -->
+          <ellipse class="ball" cx="${200}" cy="${380}" rx="${mini ? 8 : 12}" ry="${mini ? 4 : 6}" transform="rotate(-18 200 380)"></ellipse>
+          ${labels}
+          ${motionLabel}
+        </svg>
+      `;
+    }
+
+    function wireEvents() {
+      els.backBtn.addEventListener("click", backToCallSheet);
+      els.nextBtn.addEventListener("click", () => nextPlay(1));
+      els.showBtn.addEventListener("click", openShowMode);
+      els.closeShow.addEventListener("click", closeShowMode);
+      els.showPrev.addEventListener("click", () => nextPlay(-1));
+      els.showNext.addEventListener("click", () => nextPlay(1));
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && els.showMode.classList.contains("active")) closeShowMode();
+        if (event.key === "ArrowRight") nextPlay(1);
+        if (event.key === "ArrowLeft") nextPlay(-1);
+      });
+
+      [els.showMode, els.detailView, els.callSheetView].forEach(area => {
+        area.addEventListener("touchstart", event => {
+          const touch = event.changedTouches[0];
+          state.touchStartX = touch.clientX;
+          state.touchStartY = touch.clientY;
+        }, { passive: true });
+        area.addEventListener("touchend", event => {
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - state.touchStartX;
+          const dy = touch.clientY - state.touchStartY;
+          if (Math.abs(dx) < 58 || Math.abs(dx) < Math.abs(dy)) return;
+          if (area === els.callSheetView) {
+            const categoryIndex = CATEGORIES.findIndex(category => category.key === state.category);
+            const nextCategory = CATEGORIES[(categoryIndex + (dx < 0 ? 1 : -1) + CATEGORIES.length) % CATEGORIES.length];
+            setCategory(nextCategory.key);
+          } else {
+            nextPlay(dx < 0 ? 1 : -1);
+          }
+        }, { passive: true });
+      });
+    }
+
+    function boot() {
+      renderCallSheet();
+      renderDetail();
+      wireEvents();
+    }
+
+    boot();
+  </script>
+</body>
+</html>
