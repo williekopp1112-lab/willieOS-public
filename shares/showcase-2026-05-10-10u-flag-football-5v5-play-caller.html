@@ -620,35 +620,35 @@
 
     .route.primary-route {
       stroke: var(--gold);
-      stroke-width: 6;
+      stroke-width: 8;
     }
 
     .route.secondary-route {
       stroke: rgba(255,255,255,0.92);
-      stroke-width: 4;
+      stroke-width: 5;
       stroke-dasharray: 0;
     }
 
     .route.fake-route {
       stroke: var(--orange);
-      stroke-width: 4;
-      stroke-dasharray: 8 8;
+      stroke-width: 5;
+      stroke-dasharray: 14 12;
     }
 
     .route.block-route {
       stroke: var(--blue);
-      stroke-width: 3;
-      stroke-dasharray: 4 7;
+      stroke-width: 4;
+      stroke-dasharray: 8 12;
     }
 
     .player circle {
       stroke: rgba(0,0,0,0.45);
-      stroke-width: 2;
+      stroke-width: 3;
     }
 
     .player text {
       font-family: Avenir Next, Trebuchet MS, Verdana, sans-serif;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 950;
       text-anchor: middle;
       dominant-baseline: central;
@@ -657,13 +657,13 @@
 
     .player.offense circle { fill: #f8fff0; }
     .player.offense text { fill: #06140b; }
-    .player.defense circle { fill: rgba(255,255,255,0.15); stroke: rgba(255,255,255,0.32); }
-    .player.defense text { fill: rgba(255,255,255,0.72); font-size: 10px; }
+    .player.defense circle { fill: rgba(255,255,255,0.18); stroke: rgba(255,255,255,0.35); stroke-width: 2; }
+    .player.defense text { fill: rgba(255,255,255,0.72); font-size: 11px; }
     .player.primary circle {
       fill: var(--gold);
       stroke: #071109;
-      stroke-width: 3;
-      filter: drop-shadow(0 0 8px rgba(255,212,100,0.8));
+      stroke-width: 4;
+      filter: drop-shadow(0 0 12px rgba(255,212,100,0.9));
     }
 
     .ball {
@@ -830,21 +830,27 @@
       { key: "goal", label: "Goal Line", hint: "Short field calls with fast decisions." }
     ];
 
+    // Positions in the scaled 400x500 coordinate space
     const BASE_OFFENSE = {
-      C: { x: 50, y: 78 },
-      QB: { x: 50, y: 66 },
-      WR1: { x: 18, y: 74 },
-      WR2: { x: 82, y: 74 },
-      "WR3/RB": { x: 62, y: 67 }
+      C:        { x: 200, y: 400 },
+      QB:       { x: 200, y: 350 },
+      WR1:      { x: 52,  y: 385 },
+      WR2:      { x: 348, y: 385 },
+      "WR3/RB": { x: 280, y: 348 }
     };
 
     const BASE_DEFENSE = {
-      D1: { x: 18, y: 55 },
-      D2: { x: 39, y: 56 },
-      D3: { x: 61, y: 56 },
-      D4: { x: 82, y: 55 },
-      D5: { x: 50, y: 44 }
+      D1: { x: 60,  y: 210 },
+      D2: { x: 145, y: 220 },
+      D3: { x: 255, y: 220 },
+      D4: { x: 340, y: 210 },
+      D5: { x: 200, y: 150 }
     };
+
+    // Scale route points from old 0-100 space to new 400x500 space
+    function scalePoint(p) {
+      return [p[0] * 4, p[1] * 5];
+    }
 
     const PLAYS = [
       {
@@ -1319,8 +1325,8 @@
 
     function arrowMarker(id, color) {
       return `
-        <marker id="${id}" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="strokeWidth">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="${color}"></path>
+        <marker id="${id}" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="${color}"></path>
         </marker>
       `;
     }
@@ -1340,14 +1346,15 @@
     }
 
     function renderPlayer(label, point, kind, primary, mini) {
-      const radius = mini ? 4.8 : 5.8;
+      const radius = mini ? 12 : 20;
+      const fontSize = mini ? 8 : 13;
       const safeLabel = escapeHtml(label);
       const primaryClass = primary ? " primary" : "";
-      const text = mini && label === "WR3/RB" ? "RB" : safeLabel;
+      const text = mini && label === "WR3/RB" ? "RB" : (label === "WR3/RB" ? "RB" : safeLabel);
       return `
         <g class="player ${kind}${primaryClass}" data-player="${safeLabel}">
           <circle cx="${point.x}" cy="${point.y}" r="${radius}"></circle>
-          <text x="${point.x}" y="${point.y + (mini ? 0.2 : 0)}">${text}</text>
+          <text x="${point.x}" y="${point.y}" style="font-size:${fontSize}px">${text}</text>
         </g>
       `;
     }
@@ -1355,53 +1362,115 @@
     function renderDiagram(play, options = {}) {
       const mini = Boolean(options.mini);
       const show = Boolean(options.show);
-      const routeWidth = mini ? 2.2 : show ? 6.5 : 4.6;
-      const ballWidth = mini ? 1.5 : 3.2;
+      const VB_W = 400;
+      const VB_H = 500;
+      const routeWidth = mini ? 4 : show ? 8 : 6;
+      const ballWidth = mini ? 3 : 5;
+      const playerRadius = mini ? 12 : 20;
+
       const offense = Object.entries(BASE_OFFENSE);
       const defense = Object.entries(BASE_DEFENSE);
-      const routes = play.routes.map((route, index) => {
+
+      // Map from player name to new position for snapping route starts
+      const playerPositions = { ...BASE_OFFENSE };
+
+      // Scale route points and snap first point to actual player position
+      const scaledRoutes = play.routes.map(route => {
+        const scaled = route.points.map(p => scalePoint(p));
+        // Snap first point to the player's actual position in the new coordinate space
+        const pos = playerPositions[route.player];
+        if (pos) {
+          scaled[0] = [pos.x, pos.y];
+        }
+        return { ...route, scaledPoints: scaled };
+      });
+
+      // Offset route start so lines begin at circle edge, not center
+      function offsetRouteStart(points) {
+        if (points.length < 2) return points;
+        const [sx, sy] = points[0];
+        const [nx, ny] = points[1];
+        const dx = nx - sx;
+        const dy = ny - sy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 1) return points;
+        const offset = playerRadius + 3;
+        const ratio = offset / dist;
+        const newStart = [sx + dx * ratio, sy + dy * ratio];
+        return [newStart, ...points.slice(1)];
+      }
+
+      const routes = scaledRoutes.map((route, index) => {
         const color = routeColor(route.type);
         const marker = route.type === "primary" ? "arrowGold" : route.type === "fake" ? "arrowOrange" : route.type === "block" ? "arrowBlue" : "arrowWhite";
-        const width = route.type === "primary" ? routeWidth + 1.4 : route.type === "block" ? routeWidth - 1.3 : routeWidth;
-        return `<path class="route ${routeClass(route.type)}" d="${pathFor(route.points)}" stroke="${color}" stroke-width="${width}" marker-end="url(#${marker})" aria-label="${escapeHtml(route.player)} route ${index + 1}"></path>`;
+        const width = route.type === "primary" ? routeWidth + 2 : route.type === "block" ? routeWidth - 1.5 : routeWidth;
+        const adjustedPoints = offsetRouteStart(route.scaledPoints);
+        return `<path class="route ${routeClass(route.type)}" d="${pathFor(adjustedPoints)}" stroke="${color}" stroke-width="${width}" marker-end="url(#${marker})" aria-label="${escapeHtml(route.player)} route ${index + 1}"></path>`;
       }).join("");
-      const ballPath = play.ball && play.ball.length > 1
-        ? `<path d="${pathFor(play.ball)}" fill="none" stroke="#7a421d" stroke-width="${ballWidth}" stroke-linecap="round" stroke-dasharray="${mini ? "2 2" : "5 5"}" marker-end="url(#arrowBall)"></path>`
+
+      const ballScaled = play.ball ? play.ball.map(p => scalePoint(p)) : null;
+      // Snap ball start to QB position
+      if (ballScaled && ballScaled.length > 0) {
+        ballScaled[0] = [BASE_OFFENSE.QB.x, BASE_OFFENSE.QB.y];
+      }
+      const ballPath = ballScaled && ballScaled.length > 1
+        ? `<path d="${pathFor(ballScaled)}" fill="none" stroke="#7a421d" stroke-width="${ballWidth}" stroke-linecap="round" stroke-dasharray="${mini ? "6 6" : "10 10"}" marker-end="url(#arrowBall)"></path>`
         : "";
+
       const labels = mini ? "" : `
-        <text x="5" y="11" class="field-label">Defense</text>
-        <text x="5" y="96" class="field-label">Offense: C QB WR1 WR2 WR3/RB</text>
-        <text x="76" y="11" class="field-label">5 defenders</text>
+        <text x="18" y="42" class="field-label" style="font-size:14px">Defense</text>
+        <text x="18" y="476" class="field-label" style="font-size:14px">Offense</text>
+        <text x="280" y="42" class="field-label" style="font-size:14px">5 defenders</text>
       `;
-      const motionLabel = mini ? "" : `<text x="63" y="88" class="motion-label">Gold = first look</text>`;
-      const hashMarks = Array.from({ length: 8 }, (_, index) => {
-        const y = 18 + index * 9;
-        return `<line x1="8" y1="${y}" x2="14" y2="${y}" stroke="rgba(255,255,255,0.28)" stroke-width="0.8"></line><line x1="86" y1="${y}" x2="92" y2="${y}" stroke="rgba(255,255,255,0.28)" stroke-width="0.8"></line>`;
+      const motionLabel = mini ? "" : `<text x="240" y="456" class="motion-label" style="font-size:14px">Gold = first look</text>`;
+
+      // Hash marks along left and right sides
+      const hashMarks = Array.from({ length: 10 }, (_, index) => {
+        const y = 70 + index * 38;
+        return `<line x1="22" y1="${y}" x2="38" y2="${y}" stroke="rgba(255,255,255,0.22)" stroke-width="2"></line><line x1="362" y1="${y}" x2="378" y2="${y}" stroke="rgba(255,255,255,0.22)" stroke-width="2"></line>`;
       }).join("");
+
+      // Unique marker IDs per diagram instance to avoid SVG conflicts
+      const uid = play.id + (mini ? "m" : show ? "s" : "d");
+
       return `
-        <svg viewBox="0 0 100 100" role="img" aria-label="${escapeHtml(play.name)} 5-on-5 flag football diagram with exactly five offensive players and five defenders" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 ${VB_W} ${VB_H}" role="img" aria-label="${escapeHtml(play.name)} 5-on-5 flag football diagram" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
           <defs>
-            ${arrowMarker("arrowGold", "#ffd464")}
-            ${arrowMarker("arrowWhite", "#ffffff")}
-            ${arrowMarker("arrowOrange", "#ff9f43")}
-            ${arrowMarker("arrowBlue", "#57c7ff")}
-            ${arrowMarker("arrowBall", "#7a421d")}
-            <pattern id="grass" width="8" height="8" patternUnits="userSpaceOnUse">
-              <rect width="8" height="8" fill="#16612b"></rect>
-              <path d="M0 8 L8 0" stroke="rgba(255,255,255,0.035)" stroke-width="1"></path>
+            ${arrowMarker("arrowGold" + uid, "#ffd464")}
+            ${arrowMarker("arrowWhite" + uid, "#ffffff")}
+            ${arrowMarker("arrowOrange" + uid, "#ff9f43")}
+            ${arrowMarker("arrowBlue" + uid, "#57c7ff")}
+            ${arrowMarker("arrowBall" + uid, "#7a421d")}
+            <pattern id="grass${uid}" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" fill="#16612b"></rect>
+              <path d="M0 20 L20 0" stroke="rgba(255,255,255,0.035)" stroke-width="2"></path>
             </pattern>
+            <filter id="glow${uid}">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
           </defs>
-          <rect width="100" height="100" fill="url(#grass)"></rect>
-          <rect x="4" y="4" width="92" height="92" rx="2" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1.2"></rect>
-          <line x1="4" y1="78" x2="96" y2="78" stroke="rgba(255,255,255,0.8)" stroke-width="1.4"></line>
-          <line x1="4" y1="34" x2="96" y2="34" stroke="rgba(215,255,104,0.52)" stroke-width="1.1" stroke-dasharray="3 3"></line>
-          <line x1="50" y1="4" x2="50" y2="96" stroke="rgba(255,255,255,0.1)" stroke-width="1"></line>
+          <rect width="${VB_W}" height="${VB_H}" fill="url(#grass${uid})"></rect>
+          <!-- Field border -->
+          <rect x="14" y="14" width="${VB_W - 28}" height="${VB_H - 28}" rx="6" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2.5"></rect>
+          <!-- Line of scrimmage -->
+          <line x1="14" y1="300" x2="${VB_W - 14}" y2="300" stroke="rgba(255,255,255,0.75)" stroke-width="3"></line>
+          <text x="${VB_W / 2}" y="294" text-anchor="middle" fill="rgba(255,255,255,0.35)" style="font-size:${mini ? 8 : 11}px;font-weight:900;text-transform:uppercase">Line of Scrimmage</text>
+          <!-- End zone line -->
+          <line x1="14" y1="60" x2="${VB_W - 14}" y2="60" stroke="rgba(215,255,104,0.45)" stroke-width="2" stroke-dasharray="8 8"></line>
+          <!-- Center line -->
+          <line x1="${VB_W / 2}" y1="14" x2="${VB_W / 2}" y2="${VB_H - 14}" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"></line>
           ${hashMarks}
-          <g opacity="${mini ? "0.72" : "0.95"}">${routes}</g>
-          ${ballPath}
-          ${defense.map(([label, point]) => renderPlayer(label, point, "defense", false, mini)).join("")}
+          <!-- Routes -->
+          <g opacity="${mini ? "0.72" : "0.95"}">${routes.replaceAll("arrowGold", "arrowGold" + uid).replaceAll("arrowWhite", "arrowWhite" + uid).replaceAll("arrowOrange", "arrowOrange" + uid).replaceAll("arrowBlue", "arrowBlue" + uid)}</g>
+          <!-- Ball trajectory -->
+          ${ballPath.replaceAll("arrowBall", "arrowBall" + uid)}
+          <!-- Defense (semi-transparent) -->
+          <g opacity="0.55">${defense.map(([label, point]) => renderPlayer(label, point, "defense", false, mini)).join("")}</g>
+          <!-- Offense -->
           ${offense.map(([label, point]) => renderPlayer(label, point, "offense", label === play.primary, mini)).join("")}
-          <ellipse class="ball" cx="49" cy="70" rx="${mini ? "2.4" : "3.2"}" ry="${mini ? "1.25" : "1.7"}" transform="rotate(-18 49 70)"></ellipse>
+          <!-- Ball at snap -->
+          <ellipse class="ball" cx="${200}" cy="${380}" rx="${mini ? 8 : 12}" ry="${mini ? 4 : 6}" transform="rotate(-18 200 380)"></ellipse>
           ${labels}
           ${motionLabel}
         </svg>
