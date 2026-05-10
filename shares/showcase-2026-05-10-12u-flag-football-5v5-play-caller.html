@@ -1,0 +1,1581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Mobile 12U 5-on-5 flag football play caller with offensive and defensive diagrams, call sheet, and full-screen show mode.">
+  <meta name="theme-color" content="#05080d">
+  <title>12U 5v5 Flag Play Caller</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05080d;
+      --panel: #0c121b;
+      --panel-2: #111a26;
+      --panel-3: #172231;
+      --ink: #f7fbff;
+      --muted: #a8b3c7;
+      --line: rgba(255,255,255,.16);
+      --line-strong: rgba(255,255,255,.32);
+      --accent: #ffcc2e;
+      --accent-2: #30e6a3;
+      --route: #45d5ff;
+      --lateral: #ffcc2e;
+      --blitz: #ff4560;
+      --zone: rgba(87, 142, 255, .24);
+      --run: #37f08a;
+      --trick: #ff79c6;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 8px;
+      --tap: 48px;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    [data-theme="bright"] {
+      color-scheme: light;
+      --bg: #f3f6fb;
+      --panel: #ffffff;
+      --panel-2: #e9eef6;
+      --panel-3: #dfe7f2;
+      --ink: #07111f;
+      --muted: #314054;
+      --line: rgba(7,17,31,.18);
+      --line-strong: rgba(7,17,31,.34);
+      --zone: rgba(0, 86, 206, .16);
+      --shadow: 0 16px 34px rgba(19,33,53,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--bg); }
+    body {
+      min-height: 100%;
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px),
+        radial-gradient(circle at 50% -12%, rgba(255,204,46,.20), transparent 34rem),
+        var(--bg);
+      background-size: 22px 22px, 22px 22px, auto, auto;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .app {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: max(12px, env(safe-area-inset-top)) 12px max(20px, env(safe-area-inset-bottom));
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: -1px -12px 10px;
+      padding: max(10px, env(safe-area-inset-top)) 12px 10px;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.18rem, 5vw, 2rem);
+      line-height: 1;
+      letter-spacing: 0;
+      font-weight: 850;
+    }
+
+    .subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.35;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      overflow-x: auto;
+      padding: 10px 0 1px;
+      scrollbar-width: none;
+    }
+
+    .pill-row::-webkit-scrollbar { display: none; }
+
+    .pill, .icon-btn, .tab-btn, .seg-btn {
+      min-height: var(--tap);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel-2);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+      font-weight: 750;
+      font-size: .88rem;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .pill strong {
+      color: var(--accent);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .icon-btn {
+      width: var(--tap);
+      padding: 0;
+      font-size: 1.05rem;
+    }
+
+    .tabbar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 9px;
+    }
+
+    .tab-btn {
+      min-width: 0;
+      padding: 0 6px;
+      font-size: .82rem;
+    }
+
+    .tab-btn[aria-selected="true"], .seg-btn.active, .filter-chip.active {
+      color: #07111f;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .primary-action {
+      min-height: 52px;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #07111f;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .secondary-action {
+      min-height: 52px;
+      border-radius: var(--radius);
+      background: var(--panel-3);
+      border: 1px solid var(--line);
+      font-weight: 850;
+    }
+
+    .surface {
+      display: none;
+    }
+
+    .surface.active {
+      display: block;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 14px 0 8px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 750;
+    }
+
+    .notice {
+      border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+      background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+      border-radius: var(--radius);
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+      font-size: .84rem;
+      line-height: 1.35;
+    }
+
+    .notice b {
+      color: var(--accent);
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      min-height: 38px;
+      padding: 7px 8px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 5px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .swatch.route { background: var(--route); }
+    .swatch.lateral { background: var(--lateral); }
+    .swatch.run { background: var(--run); }
+    .swatch.blitz { background: var(--blitz); }
+    .swatch.zone { background: var(--zone); height: 16px; border: 1px solid rgba(255,255,255,.25); }
+    .swatch.trick { background: var(--trick); }
+
+    .call-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .call-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      overflow: hidden;
+    }
+
+    .call-card header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .call-card h3 {
+      margin: 0;
+      font-size: .9rem;
+      line-height: 1.1;
+      font-weight: 850;
+    }
+
+    .badge {
+      display: inline-flex;
+      min-height: 26px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 9px;
+      background: var(--panel-3);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      font-size: .69rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+
+    .call-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .call-play {
+      min-height: 54px;
+      padding: 9px 10px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      text-align: left;
+      background: var(--panel);
+    }
+
+    .call-play:active, .play-card:active {
+      transform: scale(.992);
+    }
+
+    .call-play-title {
+      display: block;
+      font-weight: 850;
+      font-size: .9rem;
+      line-height: 1.15;
+    }
+
+    .call-play-meta {
+      color: var(--muted);
+      display: block;
+      margin-top: 3px;
+      font-size: .75rem;
+      line-height: 1.2;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background: var(--panel);
+      padding: 0 12px;
+      outline: none;
+      font-weight: 700;
+    }
+
+    .segment {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 7px;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 1px 0 10px;
+      scrollbar-width: none;
+    }
+
+    .filter-row::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 12px;
+      background: var(--panel-2);
+      color: var(--ink);
+      font-weight: 800;
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    .play-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .play-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(0,0,0,.18);
+    }
+
+    .play-card .diagram-wrap {
+      border-bottom: 1px solid var(--line);
+      background: #07120b;
+    }
+
+    .play-body {
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .play-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .play-title {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .intent {
+      margin: 0;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.35;
+    }
+
+    .coaching-points {
+      display: grid;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .coaching-points li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 6px;
+      color: var(--ink);
+      font-size: .8rem;
+      line-height: 1.3;
+    }
+
+    .coaching-points li::before {
+      content: ">";
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .play-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .small-btn {
+      min-height: 44px;
+      border-radius: var(--radius);
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      font-weight: 850;
+    }
+
+    .small-btn.hot {
+      background: var(--accent);
+      color: #07111f;
+      border-color: var(--accent);
+    }
+
+    .rules-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rule-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      padding: 12px;
+    }
+
+    .rule-card h3 {
+      margin: 0 0 6px;
+      font-size: .92rem;
+      font-weight: 900;
+    }
+
+    .rule-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.42;
+      font-size: .86rem;
+    }
+
+    .diagram {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4 / 5;
+      max-height: 520px;
+    }
+
+    .field-bg { fill: #07140c; }
+    .field-line { stroke: rgba(255,255,255,.32); stroke-width: .55; }
+    .hash { stroke: rgba(255,255,255,.18); stroke-width: .35; }
+    .los-line { stroke: var(--accent); stroke-width: 1.05; stroke-dasharray: 2 1.2; }
+    .blitz-line { stroke: var(--blitz); stroke-width: .8; stroke-dasharray: 1.5 1.5; opacity: .9; }
+    .zone-shape { fill: var(--zone); stroke: rgba(159,190,255,.65); stroke-width: .45; }
+    .route-line { fill: none; stroke: var(--route); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    .run-line { fill: none; stroke: var(--run); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+    .lateral-line { fill: none; stroke: var(--lateral); stroke-width: 1.25; stroke-dasharray: 2 1.15; stroke-linecap: round; stroke-linejoin: round; }
+    .blitz-path { fill: none; stroke: var(--blitz); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+    .trick-line { fill: none; stroke: var(--trick); stroke-width: 1.25; stroke-dasharray: .8 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    .player-o { fill: #ffcc2e; stroke: #07111f; stroke-width: .7; }
+    .player-d { fill: #42a5ff; stroke: #07111f; stroke-width: .7; }
+    .player-label {
+      fill: #07111f;
+      font-size: 3.2px;
+      font-weight: 900;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+    .field-label {
+      fill: rgba(255,255,255,.72);
+      font-size: 2.7px;
+      font-weight: 850;
+      letter-spacing: 0;
+      text-anchor: middle;
+    }
+    .yard-label {
+      fill: rgba(255,255,255,.46);
+      font-size: 2.3px;
+      font-weight: 800;
+      text-anchor: end;
+    }
+
+    .show-mode {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      background: var(--bg);
+      color: var(--ink);
+      padding: max(10px, env(safe-area-inset-top)) 10px max(12px, env(safe-area-inset-bottom));
+    }
+
+    .show-mode.active {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 10px;
+    }
+
+    .show-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+      min-height: 48px;
+    }
+
+    .show-kicker {
+      color: var(--accent);
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 4px;
+    }
+
+    .show-title {
+      margin: 0;
+      font-size: clamp(1.35rem, 7vw, 3rem);
+      line-height: .98;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .show-close {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      background: var(--panel-2);
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .show-stage {
+      min-height: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 10px;
+    }
+
+    .show-diagram {
+      min-height: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #07140c;
+    }
+
+    .show-diagram .diagram {
+      height: 100%;
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    .show-notes {
+      display: grid;
+      gap: 7px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .show-notes p {
+      margin: 0;
+      line-height: 1.35;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .show-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .show-controls button {
+      min-height: 54px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      font-weight: 900;
+    }
+
+    .show-controls .loud {
+      background: var(--accent);
+      color: #07111f;
+      border-color: var(--accent);
+    }
+
+    .empty {
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius);
+      color: var(--muted);
+      padding: 18px;
+      text-align: center;
+      font-weight: 750;
+    }
+
+    @media (min-width: 760px) {
+      .app { padding-left: 18px; padding-right: 18px; }
+      .topbar { margin-left: -18px; margin-right: -18px; padding-left: 18px; padding-right: 18px; }
+      .quick-actions { grid-template-columns: 220px 220px; }
+      .search-row { grid-template-columns: minmax(220px, 1fr) 280px; align-items: center; }
+      .legend { grid-template-columns: repeat(6, 1fr); }
+      .play-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .call-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rules-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .show-mode.active { padding: 18px; }
+      .show-stage { grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); grid-template-rows: minmax(0, 1fr); }
+      .show-notes { align-self: stretch; align-content: start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <main class="app" id="app">
+    <header class="topbar">
+      <div class="brand-row">
+        <div>
+          <h1>12U 5v5 Play Caller</h1>
+          <p class="subtitle">Phone-first call sheet for 5-on-5 flag football: offense, defense, diagrams, and show mode.</p>
+        </div>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle high contrast theme" title="Toggle theme">◐</button>
+      </div>
+      <div class="pill-row" aria-label="Key game rules">
+        <span class="pill"><strong>5v5</strong> exactly 5 players</span>
+        <span class="pill"><strong>QB</strong> cannot rush</span>
+        <span class="pill"><strong>Blitz</strong> 7 yards off</span>
+        <span class="pill"><strong>Lateral</strong> behind LOS can pass/run</span>
+      </div>
+      <nav class="tabbar" aria-label="Views">
+        <button class="tab-btn" data-tab="callSheet" aria-selected="true">Call Sheet</button>
+        <button class="tab-btn" data-tab="playbook" aria-selected="false">Playbook</button>
+        <button class="tab-btn" data-tab="rules" aria-selected="false">Rules</button>
+      </nav>
+    </header>
+
+    <section class="quick-actions" aria-label="Fast actions">
+      <button class="primary-action" id="showFirstBtn">SHOW PLAY</button>
+      <button class="secondary-action" id="randomBtn">Random Call</button>
+    </section>
+
+    <section id="callSheet" class="surface active" aria-label="Call sheet view">
+      <div class="notice">
+        <div><b>Today rules:</b> QB cannot rush even when rushed. Blitzers must start 7 yards off the line. QB can lateral behind LOS to a player who can pass or run.</div>
+        <div>Every diagram uses exactly 5 offensive players and 5 defensive players. Offensive players are gold; defenders are blue.</div>
+      </div>
+      <div class="legend" aria-label="Diagram legend">
+        <span class="legend-item"><span class="swatch route"></span>pass route</span>
+        <span class="legend-item"><span class="swatch lateral"></span>lateral</span>
+        <span class="legend-item"><span class="swatch run"></span>run path</span>
+        <span class="legend-item"><span class="swatch blitz"></span>blitz path</span>
+        <span class="legend-item"><span class="swatch zone"></span>zone shade</span>
+        <span class="legend-item"><span class="swatch trick"></span>trick action</span>
+      </div>
+      <div class="section-title">
+        <h2>Coach Call Sheet</h2>
+        <span class="count" id="callCount">20 calls</span>
+      </div>
+      <div class="call-grid" id="callGrid"></div>
+    </section>
+
+    <section id="playbook" class="surface" aria-label="Playbook view">
+      <div class="search-row">
+        <input id="searchInput" class="search-input" type="search" placeholder="Search plays, tags, coaching points..." autocomplete="off">
+        <div class="segment" aria-label="Offense defense toggle">
+          <button class="seg-btn active" data-side="all">All</button>
+          <button class="seg-btn" data-side="defense">Defense Only</button>
+        </div>
+      </div>
+      <div class="filter-row" id="filterRow" aria-label="Category filters"></div>
+      <div class="section-title">
+        <h2>Playbook</h2>
+        <span class="count" id="playCount">20 shown</span>
+      </div>
+      <div class="play-grid" id="playGrid"></div>
+    </section>
+
+    <section id="rules" class="surface" aria-label="Rules and coaching notes">
+      <div class="section-title">
+        <h2>Rules Encoded</h2>
+        <span class="count">sideline reminders</span>
+      </div>
+      <div class="rules-grid">
+        <article class="rule-card">
+          <h3>QB Run Rule</h3>
+          <p>The quarterback cannot rush, even when a legal blitzer crosses the line. Build answers with fast throws, handoffs, or behind-LOS laterals.</p>
+        </article>
+        <article class="rule-card">
+          <h3>Blitz Rule</h3>
+          <p>Any blitzer must start 7 yards off the line of scrimmage. The red dashed guide marks that depth on every diagram.</p>
+        </article>
+        <article class="rule-card">
+          <h3>Behind-LOS Lateral</h3>
+          <p>The QB can lateral behind the line of scrimmage to another player. That player can pass or run, which unlocks option and trick calls.</p>
+        </article>
+        <article class="rule-card">
+          <h3>5 Players Only</h3>
+          <p>Every call is built for exactly five players on offense and exactly five on defense. No 6v6 spacing or extra rusher assumptions.</p>
+        </article>
+        <article class="rule-card">
+          <h3>12U Teaching Point</h3>
+          <p>Use motion, bunches, and tags, but give each player one job. If a route is a decoy, say it clearly in the huddle.</p>
+        </article>
+        <article class="rule-card">
+          <h3>Defensive Language</h3>
+          <p>Defensive calls use shaded zones, leverage notes, and a clear rusher rule so kids understand depth before the snap.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <section class="show-mode" id="showMode" aria-modal="true" role="dialog" aria-label="Full-screen show play mode">
+    <header class="show-head">
+      <div>
+        <p class="show-kicker" id="showKicker">Call</p>
+        <h2 class="show-title" id="showTitle">Play</h2>
+      </div>
+      <button class="show-close" id="closeShow" aria-label="Close show mode">×</button>
+    </header>
+    <div class="show-stage">
+      <div class="show-diagram" id="showDiagram"></div>
+      <aside class="show-notes">
+        <p id="showIntent"></p>
+        <ul class="coaching-points" id="showPoints"></ul>
+        <p><b>Rule check:</b> QB cannot rush. Blitzers start 7 yards off. Behind-LOS lateral can create a passer or runner.</p>
+      </aside>
+    </div>
+    <footer class="show-controls">
+      <button id="prevShow">Prev</button>
+      <button class="loud" id="markFavorite">★ Call</button>
+      <button id="nextShow">Next</button>
+    </footer>
+  </section>
+
+  <script>
+    const CATEGORIES = [
+      "Hurry-Up Openers",
+      "QB Lateral/Option",
+      "Pass Plays",
+      "Run Plays",
+      "Trick Plays",
+      "Goal Line",
+      "Defensive Strategies"
+    ];
+
+    const baseOffense = {
+      TripsRight: [
+        { id: "C", x: 50, y: 82 },
+        { id: "QB", x: 50, y: 91 },
+        { id: "L", x: 18, y: 83 },
+        { id: "S", x: 66, y: 83 },
+        { id: "R", x: 82, y: 83 }
+      ],
+      BunchLeft: [
+        { id: "C", x: 50, y: 82 },
+        { id: "QB", x: 50, y: 91 },
+        { id: "L", x: 28, y: 83 },
+        { id: "S", x: 20, y: 86 },
+        { id: "R", x: 78, y: 83 }
+      ],
+      Spread: [
+        { id: "C", x: 50, y: 82 },
+        { id: "QB", x: 50, y: 91 },
+        { id: "L", x: 16, y: 83 },
+        { id: "S", x: 34, y: 83 },
+        { id: "R", x: 84, y: 83 }
+      ],
+      Tight: [
+        { id: "C", x: 50, y: 82 },
+        { id: "QB", x: 50, y: 91 },
+        { id: "L", x: 38, y: 84 },
+        { id: "S", x: 62, y: 84 },
+        { id: "R", x: 76, y: 83 }
+      ]
+    };
+
+    const baseDefense = {
+      Shell: [
+        { id: "D1", x: 18, y: 66 },
+        { id: "D2", x: 36, y: 66 },
+        { id: "D3", x: 52, y: 63 },
+        { id: "D4", x: 68, y: 66 },
+        { id: "D5", x: 84, y: 66 }
+      ],
+      Pressure: [
+        { id: "D1", x: 18, y: 64 },
+        { id: "D2", x: 38, y: 62 },
+        { id: "D3", x: 50, y: 58 },
+        { id: "D4", x: 66, y: 62 },
+        { id: "D5", x: 84, y: 64 }
+      ],
+      Goal: [
+        { id: "D1", x: 18, y: 68 },
+        { id: "D2", x: 36, y: 66 },
+        { id: "D3", x: 52, y: 62 },
+        { id: "D4", x: 68, y: 66 },
+        { id: "D5", x: 84, y: 68 }
+      ]
+    };
+
+    const PLAYS = [
+      {
+        id: "tempo-stick-snap",
+        side: "offense",
+        category: "Hurry-Up Openers",
+        title: "Tempo Stick Snap",
+        call: "Hurry right, snap on set",
+        formation: "TripsRight",
+        defense: "Shell",
+        intent: "Fast first-down throw. C sits over the ball, S runs stick, R clears the corner, L holds backside safety.",
+        points: ["No motion; win with speed to the line.", "QB catches, plants, and throws stick unless the flat defender widens.", "If stick is capped, hit C on the settle route."],
+        tags: ["hurry", "opener", "quick pass"],
+        routes: [
+          { from: "S", kind: "route", points: [[66,83],[66,70],[62,66]] },
+          { from: "R", kind: "route", points: [[82,83],[84,58],[88,45]] },
+          { from: "L", kind: "route", points: [[18,83],[16,70],[20,60]] },
+          { from: "C", kind: "route", points: [[50,82],[50,73],[54,69]] }
+        ],
+        zones: [{ x: 58, y: 58, w: 28, h: 18 }, { x: 28, y: 60, w: 22, h: 16 }]
+      },
+      {
+        id: "first-play-bubble-go",
+        side: "offense",
+        category: "Hurry-Up Openers",
+        title: "First Play Bubble-Go",
+        call: "Trips bubble, pump go",
+        formation: "TripsRight",
+        defense: "Shell",
+        intent: "Looks like a bubble screen, then punishes defenders who jump the quick throw.",
+        points: ["QB pump to S, eyes immediately to R vertical.", "S sells bubble and turns into a legal outlet behind LOS if the go is capped.", "L runs deep dig to occupy backside help."],
+        tags: ["hurry", "shot", "pump"],
+        routes: [
+          { from: "S", kind: "lateral", points: [[66,83],[74,86],[78,82]] },
+          { from: "R", kind: "route", points: [[82,83],[84,66],[84,42]] },
+          { from: "L", kind: "route", points: [[18,83],[20,64],[38,58]] },
+          { from: "C", kind: "route", points: [[50,82],[48,74],[45,70]] }
+        ],
+        zones: [{ x: 76, y: 52, w: 18, h: 22 }, { x: 12, y: 56, w: 28, h: 18 }]
+      },
+      {
+        id: "chaos-checkdown",
+        side: "offense",
+        category: "Hurry-Up Openers",
+        title: "Chaos Checkdown",
+        call: "Spread chaos, center late",
+        formation: "Spread",
+        defense: "Pressure",
+        intent: "A safe hurry-up answer against blitz. Everyone flashes vertical, then C leaks late to open grass.",
+        points: ["QB cannot run; the checkdown is the escape plan.", "C counts one beat, then bends away from the rusher.", "Wideouts keep running to create a clean underneath lane."],
+        tags: ["hurry", "anti blitz", "checkdown"],
+        routes: [
+          { from: "L", kind: "route", points: [[16,83],[14,66],[18,50]] },
+          { from: "S", kind: "route", points: [[34,83],[34,69],[42,61]] },
+          { from: "R", kind: "route", points: [[84,83],[86,67],[82,50]] },
+          { from: "C", kind: "route", points: [[50,82],[50,76],[42,71],[32,70]] },
+          { from: "D3", kind: "blitz", points: [[50,58],[50,70],[50,82]] }
+        ],
+        zones: [{ x: 28, y: 66, w: 22, h: 14 }, { x: 72, y: 62, w: 20, h: 18 }]
+      },
+      {
+        id: "qb-lateral-green-option",
+        side: "offense",
+        category: "QB Lateral/Option",
+        title: "Green Option Lateral",
+        call: "QB to S, run-pass green",
+        formation: "TripsRight",
+        defense: "Shell",
+        intent: "QB laterals behind the line to S. S can run if the edge widens or pass to R if the corner steps up.",
+        points: ["Lateral must happen behind LOS.", "S becomes the run/pass player; QB trails as emergency pitch.", "R delays one step, then releases vertical."],
+        tags: ["lateral", "option", "run pass"],
+        routes: [
+          { from: "QB", kind: "lateral", points: [[50,91],[61,91],[68,86]] },
+          { from: "S", kind: "run", points: [[66,83],[74,76],[82,68]] },
+          { from: "R", kind: "route", points: [[82,83],[84,66],[86,45]] },
+          { from: "L", kind: "route", points: [[18,83],[18,67],[28,56]] },
+          { from: "C", kind: "route", points: [[50,82],[48,74],[44,68]] }
+        ],
+        zones: [{ x: 70, y: 60, w: 24, h: 20 }]
+      },
+      {
+        id: "lefty-pop-pass",
+        side: "offense",
+        category: "QB Lateral/Option",
+        title: "Lefty Pop Pass",
+        call: "Bunch left, lateral L pop",
+        formation: "BunchLeft",
+        defense: "Pressure",
+        intent: "QB laterals to L behind LOS. L threatens edge run and throws the pop to C when D3 chases.",
+        points: ["QB must not cross LOS after the lateral.", "L should keep shoulders downhill until C clears.", "C sells block, then pops into the window."],
+        tags: ["lateral", "option", "pop pass"],
+        routes: [
+          { from: "QB", kind: "lateral", points: [[50,91],[39,90],[28,85]] },
+          { from: "L", kind: "run", points: [[28,83],[22,76],[21,68]] },
+          { from: "C", kind: "route", points: [[50,82],[49,74],[44,66]] },
+          { from: "S", kind: "route", points: [[20,86],[26,76],[36,68]] },
+          { from: "R", kind: "route", points: [[78,83],[80,66],[78,52]] },
+          { from: "D3", kind: "blitz", points: [[50,58],[45,71],[36,82]] }
+        ],
+        zones: [{ x: 34, y: 60, w: 20, h: 16 }]
+      },
+      {
+        id: "orbit-lateral-wheel",
+        side: "offense",
+        category: "QB Lateral/Option",
+        title: "Orbit Lateral Wheel",
+        call: "Orbit R, lateral wheel",
+        formation: "Spread",
+        defense: "Shell",
+        intent: "R orbits behind QB for a lateral. S runs a wheel off the orbit action and C crosses underneath.",
+        points: ["Orbit player must receive the ball behind LOS.", "If the edge collapses, R throws wheel to S.", "If safety stays deep, R runs for the sideline."],
+        tags: ["lateral", "wheel", "option"],
+        routes: [
+          { from: "R", kind: "trick", points: [[84,83],[70,91],[54,91]] },
+          { from: "QB", kind: "lateral", points: [[50,91],[55,91],[62,89]] },
+          { from: "S", kind: "route", points: [[34,83],[38,76],[50,62],[66,48]] },
+          { from: "L", kind: "route", points: [[16,83],[16,66],[24,56]] },
+          { from: "C", kind: "route", points: [[50,82],[49,75],[39,69],[27,67]] }
+        ],
+        zones: [{ x: 56, y: 46, w: 28, h: 24 }, { x: 18, y: 61, w: 22, h: 15 }]
+      },
+      {
+        id: "mesh-read",
+        side: "offense",
+        category: "Pass Plays",
+        title: "Mesh Read",
+        call: "Spread mesh, C sit",
+        formation: "Spread",
+        defense: "Shell",
+        intent: "Classic rub concept for 12U: two shallow crossers, one sit route, one clear route.",
+        points: ["Crossers pass each other at different depths to avoid contact.", "QB reads shallow left to shallow right, then C sitting.", "No receiver stops in the same window as another."],
+        tags: ["pass", "mesh", "third down"],
+        routes: [
+          { from: "L", kind: "route", points: [[16,83],[24,75],[44,72],[64,72]] },
+          { from: "S", kind: "route", points: [[34,83],[40,76],[55,74],[80,74]] },
+          { from: "R", kind: "route", points: [[84,83],[84,66],[86,48]] },
+          { from: "C", kind: "route", points: [[50,82],[50,72],[52,68]] }
+        ],
+        zones: [{ x: 34, y: 66, w: 34, h: 12 }]
+      },
+      {
+        id: "flood-right",
+        side: "offense",
+        category: "Pass Plays",
+        title: "Flood Right",
+        call: "Trips flood, high-low",
+        formation: "TripsRight",
+        defense: "Shell",
+        intent: "Three-level read to the right. Easy sideline picture for a young QB.",
+        points: ["Read flat, out, corner from low to high.", "C drifts to the flat under the routes.", "Backside L posts to keep the safety honest."],
+        tags: ["pass", "flood", "sideline"],
+        routes: [
+          { from: "C", kind: "route", points: [[50,82],[56,78],[66,76]] },
+          { from: "S", kind: "route", points: [[66,83],[68,70],[78,64]] },
+          { from: "R", kind: "route", points: [[82,83],[82,68],[74,52]] },
+          { from: "L", kind: "route", points: [[18,83],[22,68],[38,54]] }
+        ],
+        zones: [{ x: 62, y: 56, w: 30, h: 22 }, { x: 54, y: 72, w: 24, h: 10 }]
+      },
+      {
+        id: "slot-seam-switch",
+        side: "offense",
+        category: "Pass Plays",
+        title: "Slot Seam Switch",
+        call: "Trips switch seam",
+        formation: "TripsRight",
+        defense: "Pressure",
+        intent: "S and R switch releases to make defenders communicate. C is the hot answer.",
+        points: ["Use against man looks or a confused trips check.", "QB takes the seam only if D4 widens.", "C replaces blitz space if D3 comes."],
+        tags: ["pass", "switch", "seam", "anti blitz"],
+        routes: [
+          { from: "S", kind: "route", points: [[66,83],[76,75],[84,58]] },
+          { from: "R", kind: "route", points: [[82,83],[70,75],[62,54]] },
+          { from: "C", kind: "route", points: [[50,82],[51,74],[57,69]] },
+          { from: "L", kind: "route", points: [[18,83],[18,70],[24,60]] },
+          { from: "D3", kind: "blitz", points: [[50,58],[50,70],[50,82]] }
+        ],
+        zones: [{ x: 54, y: 55, w: 34, h: 22 }]
+      },
+      {
+        id: "jet-right-hand",
+        side: "offense",
+        category: "Run Plays",
+        title: "Jet Right Hand",
+        call: "Jet R, hand behind line",
+        formation: "Spread",
+        defense: "Shell",
+        intent: "Simple edge run from motion. QB gives behind LOS, then carries out a pass fake.",
+        points: ["R must receive behind LOS.", "S cracks space without blocking contact; screen the defender with route presence.", "C releases late as fake pass outlet."],
+        tags: ["run", "jet", "edge"],
+        routes: [
+          { from: "R", kind: "run", points: [[84,83],[70,89],[54,88],[38,80],[24,70],[14,60]] },
+          { from: "QB", kind: "lateral", points: [[50,91],[55,90],[61,89]] },
+          { from: "S", kind: "route", points: [[34,83],[38,76],[46,70]] },
+          { from: "L", kind: "route", points: [[16,83],[16,68],[22,58]] },
+          { from: "C", kind: "route", points: [[50,82],[52,76],[60,73]] }
+        ],
+        zones: [{ x: 10, y: 56, w: 22, h: 24 }]
+      },
+      {
+        id: "center-sneak-slip",
+        side: "offense",
+        category: "Run Plays",
+        title: "Center Sneak Slip",
+        call: "C quick slip",
+        formation: "Tight",
+        defense: "Pressure",
+        intent: "A fast center handoff/slip into the middle crease while defenders widen for routes.",
+        points: ["C snaps, pauses half beat, then slips forward.", "QB gives or quick pitches behind LOS; QB never runs.", "Wideouts release vertically to remove help."],
+        tags: ["run", "center", "short yardage"],
+        routes: [
+          { from: "C", kind: "run", points: [[50,82],[50,76],[48,69],[46,62]] },
+          { from: "QB", kind: "lateral", points: [[50,91],[50,86],[50,82]] },
+          { from: "L", kind: "route", points: [[38,84],[34,72],[28,62]] },
+          { from: "S", kind: "route", points: [[62,84],[66,72],[72,62]] },
+          { from: "R", kind: "route", points: [[76,83],[80,66],[84,52]] },
+          { from: "D3", kind: "blitz", points: [[50,58],[50,70],[50,82]] }
+        ],
+        zones: [{ x: 38, y: 58, w: 20, h: 18 }]
+      },
+      {
+        id: "counter-pull-left",
+        side: "offense",
+        category: "Run Plays",
+        title: "Counter Pull Left",
+        call: "Fake jet, L counter",
+        formation: "Spread",
+        defense: "Shell",
+        intent: "Uses jet motion to pull defenders right, then gives L a counter lane left.",
+        points: ["R motions hard as the decoy.", "L waits until the defense shifts, then takes the behind-LOS handoff.", "C crosses to occupy the middle defender."],
+        tags: ["run", "counter", "misdirection"],
+        routes: [
+          { from: "R", kind: "trick", points: [[84,83],[70,90],[58,90]] },
+          { from: "QB", kind: "lateral", points: [[50,91],[42,89],[32,85]] },
+          { from: "L", kind: "run", points: [[16,83],[27,86],[34,78],[28,66],[18,56]] },
+          { from: "S", kind: "route", points: [[34,83],[42,75],[54,70]] },
+          { from: "C", kind: "route", points: [[50,82],[48,75],[36,70]] }
+        ],
+        zones: [{ x: 12, y: 54, w: 24, h: 24 }, { x: 62, y: 70, w: 22, h: 12 }]
+      },
+      {
+        id: "double-pass-sideline",
+        side: "offense",
+        category: "Trick Plays",
+        title: "Double Pass Sideline",
+        call: "QB lateral S, S pass R",
+        formation: "TripsRight",
+        defense: "Shell",
+        intent: "Legal behind-LOS lateral creates a second passer. R sells block, then turns up sideline.",
+        points: ["S must receive the lateral behind LOS.", "QB should get out of the throwing lane after pitching.", "If corner stays deep, S runs for 4-6 yards and gets out."],
+        tags: ["trick", "double pass", "lateral"],
+        routes: [
+          { from: "QB", kind: "lateral", points: [[50,91],[60,91],[68,86]] },
+          { from: "S", kind: "trick", points: [[66,83],[72,79],[78,75]] },
+          { from: "R", kind: "route", points: [[82,83],[82,70],[88,48]] },
+          { from: "L", kind: "route", points: [[18,83],[18,66],[30,54]] },
+          { from: "C", kind: "route", points: [[50,82],[46,75],[38,69]] }
+        ],
+        zones: [{ x: 78, y: 44, w: 18, h: 26 }]
+      },
+      {
+        id: "reverse-pass-left",
+        side: "offense",
+        category: "Trick Plays",
+        title: "Reverse Pass Left",
+        call: "Jet R, reverse L pass",
+        formation: "Spread",
+        defense: "Pressure",
+        intent: "Starts as a jet run, reverses to L, then L can throw to C or run the edge.",
+        points: ["Both exchanges stay behind LOS.", "C delays across the field for the throwback.", "Use only after jet has gained yards earlier."],
+        tags: ["trick", "reverse", "pass"],
+        routes: [
+          { from: "R", kind: "trick", points: [[84,83],[70,89],[55,89]] },
+          { from: "L", kind: "run", points: [[16,83],[34,88],[48,88],[35,78],[22,64]] },
+          { from: "QB", kind: "lateral", points: [[50,91],[55,90],[62,88]] },
+          { from: "C", kind: "route", points: [[50,82],[48,75],[36,66],[24,58]] },
+          { from: "S", kind: "route", points: [[34,83],[42,72],[58,58]] },
+          { from: "D3", kind: "blitz", points: [[50,58],[50,70],[50,82]] }
+        ],
+        zones: [{ x: 18, y: 54, w: 25, h: 23 }]
+      },
+      {
+        id: "statue-liberty",
+        side: "offense",
+        category: "Trick Plays",
+        title: "Statue Liberty",
+        call: "Fake seam, behind back L",
+        formation: "Tight",
+        defense: "Shell",
+        intent: "QB shows a quick pass while L crosses behind for a hidden handoff/lateral.",
+        points: ["QB sells pass but does not run.", "L gets the ball behind LOS and immediately hits the left hash.", "R and S run hard routes so defenders turn their hips."],
+        tags: ["trick", "misdirection", "run"],
+        routes: [
+          { from: "L", kind: "run", points: [[38,84],[46,90],[52,90],[40,79],[30,66]] },
+          { from: "QB", kind: "lateral", points: [[50,91],[48,91],[45,89]] },
+          { from: "S", kind: "route", points: [[62,84],[66,70],[70,55]] },
+          { from: "R", kind: "route", points: [[76,83],[78,66],[84,50]] },
+          { from: "C", kind: "route", points: [[50,82],[54,75],[62,70]] }
+        ],
+        zones: [{ x: 24, y: 58, w: 22, h: 24 }, { x: 64, y: 54, w: 24, h: 20 }]
+      },
+      {
+        id: "goal-line-pick-flat",
+        side: "offense",
+        category: "Goal Line",
+        title: "Goal Line Pick Flat",
+        call: "Bunch pick, S flat",
+        formation: "BunchLeft",
+        defense: "Goal",
+        intent: "Compact bunch creates traffic without blocking. S wins to the flat before the defense can pass it off.",
+        points: ["Receivers run routes, not blocks.", "QB throws immediately to S if the edge defender is inside.", "C settles in the back of the end zone as second answer."],
+        tags: ["goal line", "flat", "bunch"],
+        routes: [
+          { from: "S", kind: "route", points: [[20,86],[26,80],[36,76]] },
+          { from: "L", kind: "route", points: [[28,83],[30,72],[38,64]] },
+          { from: "C", kind: "route", points: [[50,82],[50,72],[52,58]] },
+          { from: "R", kind: "route", points: [[78,83],[80,70],[74,58]] }
+        ],
+        zones: [{ x: 32, y: 68, w: 22, h: 12 }, { x: 46, y: 52, w: 18, h: 12 }]
+      },
+      {
+        id: "goal-line-shovel",
+        side: "offense",
+        category: "Goal Line",
+        title: "Goal Line Shovel",
+        call: "Tight shovel C",
+        formation: "Tight",
+        defense: "Goal",
+        intent: "Quick shovel/lateral to C after the snap, using the QB's pass fake to freeze the middle.",
+        points: ["The ball goes behind LOS before C crosses.", "QB cannot keep it; no rush by the QB.", "If middle closes, throw the speed out to R."],
+        tags: ["goal line", "shovel", "quick"],
+        routes: [
+          { from: "QB", kind: "lateral", points: [[50,91],[50,86],[50,82]] },
+          { from: "C", kind: "run", points: [[50,82],[54,76],[60,68],[63,58]] },
+          { from: "L", kind: "route", points: [[38,84],[34,73],[28,62]] },
+          { from: "S", kind: "route", points: [[62,84],[64,74],[70,64]] },
+          { from: "R", kind: "route", points: [[76,83],[84,78],[88,72]] }
+        ],
+        zones: [{ x: 52, y: 58, w: 22, h: 16 }]
+      },
+      {
+        id: "defense-umbrella-rush",
+        side: "defense",
+        category: "Defensive Strategies",
+        title: "Umbrella Rush",
+        call: "1 rusher, four umbrella",
+        formation: "TripsRight",
+        defense: "Pressure",
+        intent: "One legal rusher starts 7 yards off while four defenders keep top-down leverage.",
+        points: ["D3 is the only rusher and starts behind the red 7-yard line.", "D1 and D5 protect sideline throws first.", "Middle defenders rally to flags after the throw."],
+        tags: ["defense", "blitz", "zone"],
+        routes: [
+          { from: "D3", kind: "blitz", points: [[50,58],[50,70],[50,82]] },
+          { from: "D2", kind: "route", points: [[38,62],[35,58],[30,55]] },
+          { from: "D4", kind: "route", points: [[66,62],[69,58],[74,55]] }
+        ],
+        zones: [{ x: 10, y: 50, w: 24, h: 30 }, { x: 34, y: 47, w: 32, h: 27 }, { x: 66, y: 50, w: 24, h: 30 }]
+      },
+      {
+        id: "defense-box-and-robber",
+        side: "defense",
+        category: "Defensive Strategies",
+        title: "Box and Robber",
+        call: "Four box, one robber",
+        formation: "Spread",
+        defense: "Shell",
+        intent: "Four defenders build a shallow box; D3 robs the middle and jumps late crossers.",
+        points: ["No illegal early rush; this is coverage first.", "D3 reads QB eyes and breaks downhill after release.", "Corners stay outside-in to force throws back into help."],
+        tags: ["defense", "coverage", "robber"],
+        routes: [
+          { from: "D3", kind: "route", points: [[52,63],[50,58],[48,54],[44,58]] },
+          { from: "D1", kind: "route", points: [[18,66],[18,62],[22,58]] },
+          { from: "D5", kind: "route", points: [[84,66],[84,62],[80,58]] }
+        ],
+        zones: [{ x: 14, y: 58, w: 72, h: 20 }, { x: 38, y: 48, w: 24, h: 18 }]
+      },
+      {
+        id: "defense-red-zone-clamp",
+        side: "defense",
+        category: "Defensive Strategies",
+        title: "Red Zone Clamp",
+        call: "Goal line clamp, no free inside",
+        formation: "Tight",
+        defense: "Goal",
+        intent: "Tight red-zone defense that walls inside routes and forces a throw to the boundary.",
+        points: ["D3 mirrors C but does not cross early into contact.", "D1 and D5 sit at the goal line depth, eyes on flats.", "If a blitzer is called, he still starts 7 yards off."],
+        tags: ["defense", "goal line", "zone"],
+        routes: [
+          { from: "D2", kind: "route", points: [[36,66],[40,62],[44,58]] },
+          { from: "D3", kind: "route", points: [[52,62],[52,57],[50,52]] },
+          { from: "D4", kind: "route", points: [[68,66],[64,62],[60,58]] }
+        ],
+        zones: [{ x: 12, y: 56, w: 76, h: 22 }, { x: 24, y: 44, w: 52, h: 16 }]
+      }
+    ];
+
+    const state = {
+      tab: "callSheet",
+      side: "all",
+      category: "All",
+      query: "",
+      showIndex: 0,
+      favorites: new Set()
+    };
+
+    const els = {
+      tabButtons: [...document.querySelectorAll(".tab-btn")],
+      surfaces: [...document.querySelectorAll(".surface")],
+      callGrid: document.getElementById("callGrid"),
+      playGrid: document.getElementById("playGrid"),
+      filterRow: document.getElementById("filterRow"),
+      searchInput: document.getElementById("searchInput"),
+      playCount: document.getElementById("playCount"),
+      callCount: document.getElementById("callCount"),
+      sideButtons: [...document.querySelectorAll(".seg-btn")],
+      showMode: document.getElementById("showMode"),
+      showKicker: document.getElementById("showKicker"),
+      showTitle: document.getElementById("showTitle"),
+      showIntent: document.getElementById("showIntent"),
+      showPoints: document.getElementById("showPoints"),
+      showDiagram: document.getElementById("showDiagram"),
+      showFirstBtn: document.getElementById("showFirstBtn"),
+      randomBtn: document.getElementById("randomBtn"),
+      closeShow: document.getElementById("closeShow"),
+      prevShow: document.getElementById("prevShow"),
+      nextShow: document.getElementById("nextShow"),
+      markFavorite: document.getElementById("markFavorite"),
+      themeBtn: document.getElementById("themeBtn")
+    };
+
+    function getPlayers(play) {
+      const offense = baseOffense[play.formation].map(player => ({ ...player, side: "O" }));
+      const defense = baseDefense[play.defense].map(player => ({ ...player, side: "D" }));
+      return { offense, defense, all: [...offense, ...defense] };
+    }
+
+    function findPlayer(play, id) {
+      return getPlayers(play).all.find(player => player.id === id);
+    }
+
+    function pathFrom(points) {
+      return points.map((point, index) => `${index === 0 ? "M" : "L"} ${point[0]} ${point[1]}`).join(" ");
+    }
+
+    function svgEl(name, attrs = {}, text = "") {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+      if (text) node.textContent = text;
+      return node;
+    }
+
+    function createDiagram(play, options = {}) {
+      const svg = svgEl("svg", {
+        class: "diagram",
+        viewBox: "0 0 100 120",
+        role: "img",
+        "aria-label": `${play.title} diagram with exactly five offensive players and five defensive players`
+      });
+
+      const defs = svgEl("defs");
+      [
+        ["arrowRoute", "var(--route)"],
+        ["arrowRun", "var(--run)"],
+        ["arrowLateral", "var(--lateral)"],
+        ["arrowBlitz", "var(--blitz)"],
+        ["arrowTrick", "var(--trick)"]
+      ].forEach(([id, color]) => {
+        const marker = svgEl("marker", { id, viewBox: "0 0 10 10", refX: "8", refY: "5", markerWidth: "3.8", markerHeight: "3.8", orient: "auto-start-reverse" });
+        marker.appendChild(svgEl("path", { d: "M 0 0 L 10 5 L 0 10 z", fill: color }));
+        defs.appendChild(marker);
+      });
+      svg.appendChild(defs);
+
+      svg.appendChild(svgEl("rect", { class: "field-bg", x: 0, y: 0, width: 100, height: 120 }));
+      for (let y = 10; y <= 110; y += 10) {
+        svg.appendChild(svgEl("line", { class: "field-line", x1: 6, y1: y, x2: 94, y2: y }));
+        svg.appendChild(svgEl("text", { class: "yard-label", x: 4, y: y + .9 }, `${Math.abs(80 - y)}`));
+      }
+      for (let x = 20; x <= 80; x += 20) {
+        svg.appendChild(svgEl("line", { class: "hash", x1: x, y1: 8, x2: x, y2: 112 }));
+      }
+
+      svg.appendChild(svgEl("line", { class: "los-line", x1: 6, y1: 82, x2: 94, y2: 82 }));
+      svg.appendChild(svgEl("text", { class: "field-label", x: 87, y: 79 }, "LOS"));
+      svg.appendChild(svgEl("line", { class: "blitz-line", x1: 6, y1: 61, x2: 94, y2: 61 }));
+      svg.appendChild(svgEl("text", { class: "field-label", x: 78, y: 58 }, "7 YD BLITZ START"));
+      svg.appendChild(svgEl("line", { class: "field-line", x1: 6, y1: 30, x2: 94, y2: 30 }));
+      svg.appendChild(svgEl("text", { class: "field-label", x: 50, y: 26 }, "END ZONE"));
+
+      (play.zones || []).forEach(zone => {
+        svg.appendChild(svgEl("rect", { class: "zone-shape", x: zone.x, y: zone.y, width: zone.w, height: zone.h, rx: 2 }));
+      });
+
+      (play.routes || []).forEach(route => {
+        const player = findPlayer(play, route.from);
+        const start = player ? [[player.x, player.y]] : [];
+        const points = route.points && route.points.length ? route.points : start;
+        const cls = route.kind === "run" ? "run-line" : route.kind === "lateral" ? "lateral-line" : route.kind === "blitz" ? "blitz-path" : route.kind === "trick" ? "trick-line" : "route-line";
+        const marker = route.kind === "run" ? "arrowRun" : route.kind === "lateral" ? "arrowLateral" : route.kind === "blitz" ? "arrowBlitz" : route.kind === "trick" ? "arrowTrick" : "arrowRoute";
+        svg.appendChild(svgEl("path", { class: cls, d: pathFrom(points), "marker-end": `url(#${marker})` }));
+      });
+
+      const { offense, defense } = getPlayers(play);
+      defense.forEach(player => drawPlayer(svg, player, "player-d"));
+      offense.forEach(player => drawPlayer(svg, player, "player-o"));
+
+      if (options.compact !== true) {
+        svg.appendChild(svgEl("text", { class: "field-label", x: 50, y: 116 }, "5 offense + 5 defense shown"));
+      }
+      return svg;
+    }
+
+    function drawPlayer(svg, player, className) {
+      svg.appendChild(svgEl("circle", { class: className, cx: player.x, cy: player.y, r: 4.2 }));
+      svg.appendChild(svgEl("text", { class: "player-label", x: player.x, y: player.y + .2 }, player.id));
+    }
+
+    function groupedPlays() {
+      return CATEGORIES.map(category => ({
+        category,
+        plays: PLAYS.filter(play => play.category === category)
+      })).filter(group => group.plays.length);
+    }
+
+    function renderCallSheet() {
+      els.callCount.textContent = `${PLAYS.length} calls`;
+      els.callGrid.innerHTML = "";
+      groupedPlays().forEach(group => {
+        const card = document.createElement("article");
+        card.className = "call-card";
+        card.innerHTML = `<header><h3>${group.category}</h3><span class="badge">${group.plays.length} calls</span></header>`;
+        const list = document.createElement("div");
+        list.className = "call-list";
+        group.plays.forEach(play => {
+          const button = document.createElement("button");
+          button.className = "call-play";
+          button.innerHTML = `<span><span class="call-play-title">${play.title}</span><span class="call-play-meta">${play.call} · ${play.tags.join(", ")}</span></span><span class="badge">${play.side}</span>`;
+          button.addEventListener("click", () => openShow(PLAYS.indexOf(play)));
+          list.appendChild(button);
+        });
+        card.appendChild(list);
+        els.callGrid.appendChild(card);
+      });
+    }
+
+    function renderFilters() {
+      els.filterRow.innerHTML = "";
+      ["All", ...CATEGORIES].forEach(category => {
+        const button = document.createElement("button");
+        button.className = `filter-chip ${state.category === category ? "active" : ""}`;
+        button.textContent = category;
+        button.addEventListener("click", () => {
+          state.category = category;
+          renderFilters();
+          renderPlaybook();
+        });
+        els.filterRow.appendChild(button);
+      });
+    }
+
+    function filteredPlays() {
+      const query = state.query.trim().toLowerCase();
+      return PLAYS.filter(play => {
+        if (state.side === "defense" && play.side !== "defense") return false;
+        if (state.category !== "All" && play.category !== state.category) return false;
+        if (!query) return true;
+        const haystack = [play.title, play.call, play.category, play.intent, ...play.tags, ...play.points].join(" ").toLowerCase();
+        return haystack.includes(query);
+      });
+    }
+
+    function renderPlaybook() {
+      const plays = filteredPlays();
+      els.playGrid.innerHTML = "";
+      els.playCount.textContent = `${plays.length} shown`;
+      if (!plays.length) {
+        els.playGrid.innerHTML = `<div class="empty">No calls match that filter.</div>`;
+        return;
+      }
+      plays.forEach(play => {
+        const card = document.createElement("article");
+        card.className = "play-card";
+        const diagramWrap = document.createElement("div");
+        diagramWrap.className = "diagram-wrap";
+        diagramWrap.appendChild(createDiagram(play, { compact: true }));
+        const body = document.createElement("div");
+        body.className = "play-body";
+        body.innerHTML = `
+          <div class="play-head">
+            <div>
+              <h3 class="play-title">${play.title}</h3>
+              <p class="intent">${play.intent}</p>
+            </div>
+            <span class="badge">${play.category}</span>
+          </div>
+          <ul class="coaching-points">${play.points.map(point => `<li>${point}</li>`).join("")}</ul>
+        `;
+        const actions = document.createElement("div");
+        actions.className = "play-actions";
+        const showButton = document.createElement("button");
+        showButton.className = "small-btn hot";
+        showButton.textContent = "Show";
+        showButton.addEventListener("click", () => openShow(PLAYS.indexOf(play)));
+        const callButton = document.createElement("button");
+        callButton.className = "small-btn";
+        callButton.textContent = state.favorites.has(play.id) ? "Called ★" : "Mark Call";
+        callButton.addEventListener("click", () => {
+          state.favorites.has(play.id) ? state.favorites.delete(play.id) : state.favorites.add(play.id);
+          renderPlaybook();
+        });
+        actions.append(showButton, callButton);
+        body.appendChild(actions);
+        card.append(diagramWrap, body);
+        els.playGrid.appendChild(card);
+      });
+    }
+
+    function switchTab(tab) {
+      state.tab = tab;
+      els.tabButtons.forEach(button => button.setAttribute("aria-selected", String(button.dataset.tab === tab)));
+      els.surfaces.forEach(surface => surface.classList.toggle("active", surface.id === tab));
+    }
+
+    function openShow(index) {
+      state.showIndex = (index + PLAYS.length) % PLAYS.length;
+      const play = PLAYS[state.showIndex];
+      els.showKicker.textContent = `${play.category} · ${play.call}`;
+      els.showTitle.textContent = play.title;
+      els.showIntent.textContent = play.intent;
+      els.showPoints.innerHTML = play.points.map(point => `<li>${point}</li>`).join("");
+      els.showDiagram.innerHTML = "";
+      els.showDiagram.appendChild(createDiagram(play));
+      els.markFavorite.textContent = state.favorites.has(play.id) ? "★ Called" : "★ Call";
+      els.showMode.classList.add("active");
+      document.body.style.overflow = "hidden";
+      if (els.showMode.requestFullscreen && !document.fullscreenElement) {
+        els.showMode.requestFullscreen().catch(() => {});
+      }
+    }
+
+    function closeShow() {
+      els.showMode.classList.remove("active");
+      document.body.style.overflow = "";
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function nextShow(delta) {
+      openShow(state.showIndex + delta);
+    }
+
+    function randomCall() {
+      const pool = state.side === "defense" ? PLAYS.filter(play => play.side === "defense") : PLAYS;
+      const play = pool[Math.floor(Math.random() * pool.length)];
+      openShow(PLAYS.indexOf(play));
+    }
+
+    els.tabButtons.forEach(button => button.addEventListener("click", () => switchTab(button.dataset.tab)));
+    els.sideButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        state.side = button.dataset.side;
+        els.sideButtons.forEach(item => item.classList.toggle("active", item === button));
+        renderPlaybook();
+      });
+    });
+    els.searchInput.addEventListener("input", event => {
+      state.query = event.target.value;
+      renderPlaybook();
+    });
+    els.showFirstBtn.addEventListener("click", () => openShow(0));
+    els.randomBtn.addEventListener("click", randomCall);
+    els.closeShow.addEventListener("click", closeShow);
+    els.prevShow.addEventListener("click", () => nextShow(-1));
+    els.nextShow.addEventListener("click", () => nextShow(1));
+    els.markFavorite.addEventListener("click", () => {
+      const play = PLAYS[state.showIndex];
+      state.favorites.has(play.id) ? state.favorites.delete(play.id) : state.favorites.add(play.id);
+      openShow(state.showIndex);
+      renderPlaybook();
+    });
+    els.themeBtn.addEventListener("click", () => {
+      const body = document.body;
+      body.dataset.theme = body.dataset.theme === "dark" ? "bright" : "dark";
+    });
+    document.addEventListener("keydown", event => {
+      if (!els.showMode.classList.contains("active")) return;
+      if (event.key === "Escape") closeShow();
+      if (event.key === "ArrowRight") nextShow(1);
+      if (event.key === "ArrowLeft") nextShow(-1);
+    });
+
+    renderCallSheet();
+    renderFilters();
+    renderPlaybook();
+
+    window.__PLAYBOOK_AUDIT__ = {
+      playCount: PLAYS.length,
+      allDiagramsUseFivePerSide: PLAYS.every(play => getPlayers(play).offense.length === 5 && getPlayers(play).defense.length === 5),
+      categories: CATEGORIES.slice()
+    };
+  </script>
+</body>
+</html>
