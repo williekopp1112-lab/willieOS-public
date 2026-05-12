@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduFund Platform -- Product Architecture</title>
+<meta name="description" content="EduFund Platform product architecture: modular student data platform for ADA funding recovery and mental health billing in California K-12 schools.">
+<meta property="og:title" content="EduFund Platform | Product Architecture Document">
+<meta property="og:description" content="Phase 2 architecture for a modular student data platform starting with ADA recovery (AARC use case) and extending to mental health claims.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230d1b2a'/><text x='50' y='65' font-size='44' text-anchor='middle' fill='%2300d4aa' font-weight='bold'>EF</text></svg>">
+<style>
+:root {
+  --bg: #0a1628;
+  --bg-deep: #060f1d;
+  --surface: #0f1f38;
+  --surface-2: #152642;
+  --surface-3: #1a2f50;
+  --border: #1e3a5f;
+  --border-light: #264a70;
+  --text: #e4eaf2;
+  --text-muted: #7a8da8;
+  --text-dim: #4a6080;
+  --accent: #00d4aa;
+  --accent-bright: #00f0c0;
+  --accent-dim: rgba(0, 212, 170, 0.12);
+  --accent-glow: rgba(0, 212, 170, 0.25);
+  --cyan: #22d3ee;
+  --cyan-dim: rgba(34, 211, 238, 0.12);
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --amber: #fbbf24;
+  --amber-dim: rgba(251, 191, 36, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96, 165, 250, 0.12);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167, 139, 250, 0.12);
+  --orange: #fb923c;
+  --orange-dim: rgba(251, 146, 60, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 72px;
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slide-inner {
+  max-width: 1140px;
+  width: 100%;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+}
+
+.slide-inner::-webkit-scrollbar { width: 4px; }
+.slide-inner::-webkit-scrollbar-track { background: transparent; }
+.slide-inner::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Navigation */
+.nav-dots {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 100;
+  padding: 8px 14px;
+  background: rgba(10, 22, 40, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+  max-width: 90vw;
+  justify-content: center;
+}
+
+.nav-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none; padding: 0;
+}
+.nav-dot:hover { background: var(--text-muted); transform: scale(1.3); }
+.nav-dot.active { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); width: 18px; border-radius: 4px; }
+
+.slide-counter {
+  position: fixed;
+  bottom: 24px;
+  right: 36px;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  z-index: 100;
+}
+
+.nav-hint {
+  position: fixed;
+  bottom: 24px;
+  left: 36px;
+  font-size: 11px;
+  color: var(--text-dim);
+  z-index: 100;
+  opacity: 0.5;
+}
+
+.section-tag {
+  position: fixed;
+  top: 20px;
+  left: 36px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  z-index: 100;
+  background: rgba(10,22,40,0.8);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* Typography */
+.slide-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.slide-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.slide-subtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 720px;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* Cards */
+.card-grid {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+}
+.card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.card-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.card.highlight {
+  border-color: rgba(0,212,170,0.3);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(0,212,170,0.04) 100%);
+}
+
+.card-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.card-label.green { background: var(--green-dim); color: var(--green); }
+.card-label.blue { background: var(--blue-dim); color: var(--blue); }
+.card-label.amber { background: var(--amber-dim); color: var(--amber); }
+.card-label.red { background: var(--red-dim); color: var(--red); }
+.card-label.cyan { background: var(--cyan-dim); color: var(--cyan); }
+.card-label.purple { background: var(--purple-dim); color: var(--purple); }
+.card-label.orange { background: var(--orange-dim); color: var(--orange); }
+.card-label.accent { background: var(--accent-dim); color: var(--accent); }
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.card-body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.card-body li {
+  margin-bottom: 4px;
+  list-style: none;
+  padding-left: 14px;
+  position: relative;
+}
+.card-body li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--text-dim);
+}
+
+/* Stats */
+.stat-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+.stat-box {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-align: center;
+}
+.stat-number {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* Data tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 10px;
+}
+.data-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.data-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid rgba(30,58,95,0.4);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.data-table tr:hover td { background: rgba(0,212,170,0.03); }
+
+/* Architecture diagram */
+.arch-layer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.arch-layer-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.arch-boxes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.arch-box {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* ERD */
+.erd-entity {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.erd-header {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+}
+.erd-fields {
+  padding: 8px 14px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.erd-pk { color: var(--accent); font-weight: 600; }
+.erd-fk { color: var(--amber); }
+.erd-type { color: var(--text-dim); }
+
+/* Flow arrows */
+.flow-connector {
+  text-align: center;
+  color: var(--accent);
+  font-size: 18px;
+  padding: 4px 0;
+  letter-spacing: 2px;
+}
+
+/* Pipeline steps */
+.pipeline {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  width: 100%;
+  margin: 12px 0;
+}
+.pipeline-step {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 10px;
+  text-align: center;
+  position: relative;
+}
+.pipeline-step .step-num {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+.pipeline-step p {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+.pipeline-step h4 {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.pipeline-arrow {
+  color: var(--accent);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.badge.v1 { background: var(--green-dim); color: var(--green); }
+.badge.v2 { background: var(--blue-dim); color: var(--blue); }
+.badge.future { background: var(--purple-dim); color: var(--purple); }
+.badge.critical { background: var(--red-dim); color: var(--red); }
+
+/* Quote */
+.quote-block {
+  border-left: 3px solid var(--accent);
+  padding: 14px 20px;
+  margin: 14px 0;
+  background: var(--accent-dim);
+  border-radius: 0 8px 8px 0;
+}
+.quote-block p {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.5;
+}
+.quote-block cite {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: normal;
+  display: block;
+  margin-top: 6px;
+}
+
+/* Title slide */
+.title-slide {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.title-slide .slide-label {
+  font-size: 13px;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+.title-slide h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #e4eaf2 0%, #00d4aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.title-sub {
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 32px;
+  max-width: 650px;
+}
+.title-meta {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* Two-col layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Compact list */
+.compact-list {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.compact-list li {
+  margin-bottom: 5px;
+  list-style: none;
+  padding-left: 14px;
+  position: relative;
+}
+.compact-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--text-dim);
+}
+.compact-list strong { color: var(--text); }
+
+/* Status colors */
+.status-green { color: var(--green); }
+.status-amber { color: var(--amber); }
+.status-red { color: var(--red); }
+.status-blue { color: var(--blue); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .slide { padding: 32px 24px; }
+  .card-grid.cols-3, .card-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .pipeline { flex-direction: column; }
+  .pipeline-arrow { transform: rotate(90deg); }
+  .stat-row { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- SLIDE 1: Title -->
+<div class="slide active" data-section="Overview">
+  <div class="slide-inner title-slide">
+    <div class="slide-label">Phase 2 -- Product Architecture</div>
+    <h1>EduFund Platform</h1>
+    <p class="title-sub">A modular student data platform that recovers lost K-12 revenue -- starting with ADA attendance recovery, extending to mental health billing</p>
+    <div class="title-meta">
+      <span>Prepared May 8, 2026</span>
+      <span>Confidential</span>
+      <span>Document C: Architecture</span>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Decision Record -->
+<div class="slide" data-section="Overview">
+  <div class="slide-inner">
+    <div class="slide-label">Decision Record</div>
+    <h2>Scoping Decisions from Pre-Flight</h2>
+    <p class="slide-subtitle">This architecture is scoped per the Phase 2 pre-flight decision. Key constraints shape every design choice.</p>
+    <div class="card-grid cols-2">
+      <div class="card highlight">
+        <div class="card-label accent">Primary Scope</div>
+        <div class="card-title">Module 1: ADA Recovery Engine</div>
+        <div class="card-body">
+          <ul>
+            <li>Fully specified architecture, data model, API contracts, and implementation plan</li>
+            <li>Replaces AARC's Google Sheets workflow with automated attendance tracking and compliance reporting</li>
+            <li>v0.1 target: CSV-upload, single-tenant ADA delta demo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label blue">Deferred Scope</div>
+        <div class="card-title">Module 2: Mental Health Claims</div>
+        <div class="card-body">
+          <ul>
+            <li>Defined only at data interface/contract level -- internal architecture deferred</li>
+            <li>Avoids premature HIPAA exposure and clinical workflow complexity</li>
+            <li>Shared student record schema designed to support MH data from day one</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label green">Tech Stack</div>
+        <div class="card-title">NestJS + Prisma + PostgreSQL</div>
+        <div class="card-body">
+          <ul>
+            <li>Backend: NestJS (TypeScript, modular architecture)</li>
+            <li>ORM: Prisma (type-safe, migration-friendly)</li>
+            <li>DB: PostgreSQL with Row Level Security (RLS)</li>
+            <li>Frontend: React SPA + Tailwind CSS</li>
+            <li>Queue: BullMQ (Redis-backed job processing)</li>
+            <li>Validation: Zod schemas end-to-end</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">Key Tradeoffs</div>
+        <div class="card-title">Accepted Constraints</div>
+        <div class="card-body">
+          <ul>
+            <li>Module 2 clinical workflow design starts later</li>
+            <li>Business model presented as two scenarios pending real district revenue data</li>
+            <li>Next.js/SSR excluded -- simplifies v1 build</li>
+            <li>SIS integration elevated to first-class architectural section</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Architecture Overview -->
+<div class="slide" data-section="Architecture">
+  <div class="slide-inner">
+    <div class="slide-label">System Architecture</div>
+    <h2>Four-Layer Platform Architecture</h2>
+    <p class="slide-subtitle">Every layer is independently scalable. Module 1 (ADA Recovery) is the only module fully specified; Module 2 connects via published contracts.</p>
+
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color: var(--cyan);">Layer 1 -- Presentation</div>
+      <div class="arch-boxes">
+        <div class="arch-box" style="background: var(--cyan-dim); color: var(--cyan);">React SPA</div>
+        <div class="arch-box" style="background: var(--cyan-dim); color: var(--cyan);">District Dashboard</div>
+        <div class="arch-box" style="background: var(--cyan-dim); color: var(--cyan);">School Dashboard</div>
+        <div class="arch-box" style="background: var(--cyan-dim); color: var(--cyan);">Mobile (PWA)</div>
+      </div>
+    </div>
+
+    <div class="flow-connector">|</div>
+
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color: var(--accent);">Layer 2 -- API Gateway + Auth</div>
+      <div class="arch-boxes">
+        <div class="arch-box" style="background: var(--accent-dim); color: var(--accent);">NestJS REST API</div>
+        <div class="arch-box" style="background: var(--accent-dim); color: var(--accent);">JWT + RBAC</div>
+        <div class="arch-box" style="background: var(--accent-dim); color: var(--accent);">Rate Limiting</div>
+        <div class="arch-box" style="background: var(--accent-dim); color: var(--accent);">Audit Logger</div>
+      </div>
+    </div>
+
+    <div class="flow-connector">|</div>
+
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color: var(--blue);">Layer 3 -- Business Logic Modules</div>
+      <div class="arch-boxes">
+        <div class="arch-box" style="background: var(--green-dim); color: var(--green); border: 1px solid rgba(52,211,153,0.3);">ADA Recovery Engine <span class="badge v1">v0.1</span></div>
+        <div class="arch-box" style="background: var(--purple-dim); color: var(--purple); border: 1px dashed rgba(167,139,250,0.3);">MH Claims Engine <span class="badge future">Contract Only</span></div>
+        <div class="arch-box" style="background: var(--blue-dim); color: var(--blue);">SIS Connector Layer</div>
+        <div class="arch-box" style="background: var(--blue-dim); color: var(--blue);">Reporting Engine</div>
+      </div>
+    </div>
+
+    <div class="flow-connector">|</div>
+
+    <div class="arch-layer">
+      <div class="arch-layer-label" style="color: var(--amber);">Layer 4 -- Data + Infrastructure</div>
+      <div class="arch-boxes">
+        <div class="arch-box" style="background: var(--amber-dim); color: var(--amber);">PostgreSQL + RLS</div>
+        <div class="arch-box" style="background: var(--amber-dim); color: var(--amber);">BullMQ Jobs</div>
+        <div class="arch-box" style="background: var(--amber-dim); color: var(--amber);">Redis Cache</div>
+        <div class="arch-box" style="background: var(--amber-dim); color: var(--amber);">S3 / Object Store</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: Uber Student Database -->
+<div class="slide" data-section="Data Model">
+  <div class="slide-inner">
+    <div class="slide-label">Core Data Model</div>
+    <h2>The Uber Student Database</h2>
+    <p class="slide-subtitle">A single student record serves as the backbone for all funding recovery modules. Build the data layer once, plug in revenue modules.</p>
+
+    <div class="card-grid cols-3">
+      <div class="erd-entity">
+        <div class="erd-header" style="background: var(--accent-dim); color: var(--accent);">students</div>
+        <div class="erd-fields">
+          <span class="erd-pk">id</span> <span class="erd-type">UUID PK</span><br>
+          <span class="erd-fk">district_id</span> <span class="erd-type">UUID FK</span><br>
+          <span class="erd-fk">school_id</span> <span class="erd-type">UUID FK</span><br>
+          sis_student_id <span class="erd-type">VARCHAR</span><br>
+          ssid <span class="erd-type">VARCHAR</span><br>
+          first_name <span class="erd-type">VARCHAR</span><br>
+          last_name <span class="erd-type">VARCHAR</span><br>
+          grade_level <span class="erd-type">SMALLINT</span><br>
+          date_of_birth <span class="erd-type">DATE</span><br>
+          ethnicity_code <span class="erd-type">VARCHAR</span><br>
+          gender <span class="erd-type">VARCHAR</span><br>
+          is_el <span class="erd-type">BOOL</span><br>
+          has_iep <span class="erd-type">BOOL</span><br>
+          has_504 <span class="erd-type">BOOL</span><br>
+          medi_cal_eligible <span class="erd-type">BOOL</span><br>
+          enrollment_status <span class="erd-type">ENUM</span><br>
+          created_at <span class="erd-type">TIMESTAMPTZ</span><br>
+          updated_at <span class="erd-type">TIMESTAMPTZ</span>
+        </div>
+      </div>
+      <div class="erd-entity">
+        <div class="erd-header" style="background: var(--blue-dim); color: var(--blue);">attendance_records</div>
+        <div class="erd-fields">
+          <span class="erd-pk">id</span> <span class="erd-type">UUID PK</span><br>
+          <span class="erd-fk">student_id</span> <span class="erd-type">UUID FK</span><br>
+          <span class="erd-fk">school_id</span> <span class="erd-type">UUID FK</span><br>
+          date <span class="erd-type">DATE</span><br>
+          status <span class="erd-type">ENUM</span><br>
+          <span class="erd-type" style="color:var(--text-dim);">-- present|absent|tardy</span><br>
+          absence_type <span class="erd-type">ENUM</span><br>
+          <span class="erd-type" style="color:var(--text-dim);">-- excused|unexcused|susp</span><br>
+          period <span class="erd-type">VARCHAR</span><br>
+          minutes_present <span class="erd-type">SMALLINT</span><br>
+          source <span class="erd-type">ENUM</span><br>
+          <span class="erd-type" style="color:var(--text-dim);">-- sis_sync|csv|manual</span><br>
+          sis_sync_id <span class="erd-type">UUID FK</span><br>
+          created_at <span class="erd-type">TIMESTAMPTZ</span>
+        </div>
+      </div>
+      <div class="erd-entity">
+        <div class="erd-header" style="background: var(--green-dim); color: var(--green);">ar_sessions</div>
+        <div class="erd-fields">
+          <span class="erd-pk">id</span> <span class="erd-type">UUID PK</span><br>
+          <span class="erd-fk">school_id</span> <span class="erd-type">UUID FK</span><br>
+          session_date <span class="erd-type">DATE</span><br>
+          session_type <span class="erd-type">ENUM</span><br>
+          <span class="erd-type" style="color:var(--text-dim);">-- saturday|before|after</span><br>
+          <span class="erd-type" style="color:var(--text-dim);">-- |intersession|summer</span><br>
+          lead_teacher <span class="erd-type">VARCHAR</span><br>
+          status <span class="erd-type">ENUM</span><br>
+          <span class="erd-type" style="color:var(--text-dim);">-- planned|active|complete</span><br>
+          estimated_count <span class="erd-type">INT</span><br>
+          actual_count <span class="erd-type">INT</span><br>
+          created_at <span class="erd-type">TIMESTAMPTZ</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 14px;">
+      <div class="card-grid cols-3">
+        <div class="erd-entity">
+          <div class="erd-header" style="background: var(--green-dim); color: var(--green);">ar_enrollments</div>
+          <div class="erd-fields">
+            <span class="erd-pk">id</span> <span class="erd-type">UUID PK</span><br>
+            <span class="erd-fk">student_id</span> <span class="erd-type">UUID FK</span><br>
+            <span class="erd-fk">ar_session_id</span> <span class="erd-type">UUID FK</span><br>
+            attended <span class="erd-type">BOOL</span><br>
+            hours_credited <span class="erd-type">DECIMAL</span><br>
+            recovery_status <span class="erd-type">ENUM</span><br>
+            <span class="erd-type" style="color:var(--text-dim);">-- pending|recovered|failed</span><br>
+            recovered_at <span class="erd-type">TIMESTAMPTZ</span>
+          </div>
+        </div>
+        <div class="erd-entity">
+          <div class="erd-header" style="background: var(--amber-dim); color: var(--amber);">districts</div>
+          <div class="erd-fields">
+            <span class="erd-pk">id</span> <span class="erd-type">UUID PK</span><br>
+            name <span class="erd-type">VARCHAR</span><br>
+            cds_code <span class="erd-type">VARCHAR(14)</span><br>
+            county <span class="erd-type">VARCHAR</span><br>
+            enrollment_count <span class="erd-type">INT</span><br>
+            ada_rate <span class="erd-type">DECIMAL</span><br>
+            lcff_base_grant <span class="erd-type">DECIMAL</span><br>
+            sis_type <span class="erd-type">ENUM</span><br>
+            <span class="erd-type" style="color:var(--text-dim);">-- aeries|powerschool|ic</span><br>
+            timezone <span class="erd-type">VARCHAR</span><br>
+            settings <span class="erd-type">JSONB</span>
+          </div>
+        </div>
+        <div class="erd-entity">
+          <div class="erd-header" style="background: var(--purple-dim); color: var(--purple);">mh_service_records</div>
+          <div class="erd-fields">
+            <span class="erd-pk">id</span> <span class="erd-type">UUID PK</span><br>
+            <span class="erd-fk">student_id</span> <span class="erd-type">UUID FK</span><br>
+            service_date <span class="erd-type">DATE</span><br>
+            service_type <span class="erd-type">ENUM</span><br>
+            provider_id <span class="erd-type">UUID FK</span><br>
+            billing_code <span class="erd-type">VARCHAR</span><br>
+            claim_status <span class="erd-type">ENUM</span><br>
+            <span class="erd-type" style="color:var(--text-dim);">-- Module 2 interface only</span><br>
+            <span class="erd-type" style="color:var(--text-dim);">-- Internal schema TBD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: Module 1 Deep Dive -->
+<div class="slide" data-section="Module 1">
+  <div class="slide-inner">
+    <div class="slide-label">Module 1</div>
+    <h2>ADA Recovery Engine</h2>
+    <p class="slide-subtitle">Replaces AARC's fragmented Google Sheets/Forms/Drive/Email workflow with a unified system. Covers the full cycle: Session Prep, Saturday Supervision, Recovery.</p>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <h4>Import</h4>
+        <p>CSV upload or SIS sync of student absence data</p>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <h4>Flag</h4>
+        <p>Auto-identify CA students by absence threshold</p>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <h4>Schedule</h4>
+        <p>Create AR sessions, assign students, print invite letters</p>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <h4>Capture</h4>
+        <p>Mobile attendance at session sites (offline-capable)</p>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <h4>Recover</h4>
+        <p>Match attendance to absences, calculate ADA delta</p>
+      </div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step">
+        <div class="step-num">6</div>
+        <h4>Report</h4>
+        <p>Dashboard + CALPADS export + revenue tracking</p>
+      </div>
+    </div>
+
+    <div class="card-grid cols-2" style="margin-top: 16px;">
+      <div class="card">
+        <div class="card-label green">SB 153 Compliance</div>
+        <div class="card-title">Built for California AR Rules</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>10-day cap:</strong> System enforces max 10 AR credits per student per year (or total absences if fewer)</li>
+            <li><strong>1-hour increments:</strong> ADA generated in hourly units per SB 153</li>
+            <li><strong>Grade-aligned content:</strong> Session content tagging to verify standards alignment</li>
+            <li><strong>Session types:</strong> Before/after school, weekends, intersession, summer recess</li>
+            <li><strong>CALPADS STAS export:</strong> Generates compliant Student Absence Summary file for EOY 3 submission</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label accent">Revenue Calculation Engine</div>
+        <div class="card-title">Real-Time ADA Delta Math</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Per-district LCFF rate:</strong> Configurable base grant per ADA by grade span (K-3, 4-6, 7-8, 9-12)</li>
+            <li><strong>ADA delta formula:</strong> (recovered_hours / instructional_day_minutes) x daily_rate</li>
+            <li><strong>Reporting periods:</strong> Tracks against P1, P2, Annual certification deadlines</li>
+            <li><strong>Revenue dashboard:</strong> Real-time recovered vs. projected revenue by school, grade, session type</li>
+            <li><strong>Audit packet:</strong> Generates compliance documentation for district CFO/CBO review</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: AARC Workflow Mapping -->
+<div class="slide" data-section="Module 1">
+  <div class="slide-inner">
+    <div class="slide-label">AARC Workflow Mapping</div>
+    <h2>Current vs. Platform Workflow</h2>
+    <p class="slide-subtitle">Every pain point in AARC's manual workflow maps to a platform feature. The data extracted from their April 2026 workflow diagram drives this mapping.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>AARC Workflow Step</th>
+          <th>Current Tool</th>
+          <th>Platform Replacement</th>
+          <th>Phase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pull student absence list</td>
+          <td>Manual SIS export, email to IT</td>
+          <td>SIS Connector auto-sync or CSV upload</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+        <tr>
+          <td>Sort and deduplicate absence list</td>
+          <td>Google Sheets, manual check</td>
+          <td>Auto-dedup on import, data quality gate</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+        <tr>
+          <td>Create/print invite letters</td>
+          <td>Mail merge + print</td>
+          <td>Template engine with PDF export + digital delivery</td>
+          <td><span class="badge v2">v0.2</span></td>
+        </tr>
+        <tr>
+          <td>Session info submission (Google Sheet)</td>
+          <td>Google Sheet with manual validation</td>
+          <td>Session creation form with Zod validation, role-based access</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+        <tr>
+          <td>Friday email communications</td>
+          <td>Manual email to leads + district</td>
+          <td>Automated notifications with session summary</td>
+          <td><span class="badge v2">v0.2</span></td>
+        </tr>
+        <tr>
+          <td>Saturday field reports</td>
+          <td>Google Form per site visit</td>
+          <td>In-app field report with photo upload</td>
+          <td><span class="badge v2">v0.2</span></td>
+        </tr>
+        <tr>
+          <td>Attendance capture (paper logs)</td>
+          <td>Printed logs, manual entry</td>
+          <td>Mobile PWA with offline queue, auto-sync</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+        <tr>
+          <td>Estimates and Actuals</td>
+          <td>Google Form, submitted 3x per cycle</td>
+          <td>Auto-calculated from real attendance data</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+        <tr>
+          <td>Student recovery in SIS</td>
+          <td>Manual entry in Aeries/Synergy</td>
+          <td>Recovery engine with SIS writeback (Phase 1.5)</td>
+          <td><span class="badge v2">v0.2</span></td>
+        </tr>
+        <tr>
+          <td>Master Form submission</td>
+          <td>AARC website, Friday 5pm deadline</td>
+          <td>Auto-generated master report, deadline tracking</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+        <tr>
+          <td>Revenue tracking across districts</td>
+          <td>Separate spreadsheets per district</td>
+          <td>Unified revenue dashboard with multi-district roll-up</td>
+          <td><span class="badge v1">v0.1</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 7: SIS Integration Architecture -->
+<div class="slide" data-section="Integrations">
+  <div class="slide-inner">
+    <div class="slide-label">SIS Integration</div>
+    <h2>Connector Abstraction Layer</h2>
+    <p class="slide-subtitle">SIS integration is elevated to a first-class architectural concern. A connector abstraction decouples business logic from SIS-specific APIs.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="arch-layer" style="margin-bottom: 14px;">
+          <div class="arch-layer-label" style="color: var(--accent);">Connector Interface (Abstract)</div>
+          <div style="font-family: 'SF Mono', monospace; font-size: 11px; color: var(--text-muted); line-height: 1.7; padding: 8px 0;">
+            interface SISConnector {<br>
+            &nbsp;&nbsp;fetchStudents(schoolId): Student[]<br>
+            &nbsp;&nbsp;fetchAttendance(dateRange): AttendanceRecord[]<br>
+            &nbsp;&nbsp;fetchDemographics(studentId): Demographics<br>
+            &nbsp;&nbsp;writebackRecovery(records): Result<br>
+            &nbsp;&nbsp;healthCheck(): ConnectorStatus<br>
+            }
+          </div>
+        </div>
+
+        <div class="card-grid cols-3">
+          <div class="card" style="padding: 12px;">
+            <div class="card-label green">v0.1</div>
+            <div class="card-title" style="font-size: 13px;">CSV Connector</div>
+            <div class="card-body" style="font-size: 11px;">
+              <ul>
+                <li>Upload CSV files exported from any SIS</li>
+                <li>Zod schema validation on import</li>
+                <li>Column mapping UI</li>
+                <li>De-duplication engine</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="padding: 12px;">
+            <div class="card-label blue">v0.2</div>
+            <div class="card-title" style="font-size: 13px;">Aeries Connector</div>
+            <div class="card-body" style="font-size: 11px;">
+              <ul>
+                <li>REST API (GET student, attendance, grades endpoints)</li>
+                <li>Certificate-based auth</li>
+                <li>Nightly batch sync via BullMQ</li>
+                <li>Dominant SIS in CA</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card" style="padding: 12px;">
+            <div class="card-label purple">Future</div>
+            <div class="card-title" style="font-size: 13px;">PowerSchool</div>
+            <div class="card-body" style="font-size: 11px;">
+              <ul>
+                <li>OAuth2 plugin API</li>
+                <li>PowerQuery custom endpoints</li>
+                <li>DB extensions access</li>
+                <li>Multi-state capability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: 10px;">Data Pipeline Architecture</h3>
+        <div class="card" style="margin-bottom: 12px;">
+          <div class="card-label amber">Batch-First Sync Strategy</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Why batch-first:</strong> Districts rarely grant real-time API access. CSV and nightly batch are the realistic starting point for 90%+ of districts</li>
+              <li><strong>Sync cadence:</strong> Nightly for attendance data (via BullMQ scheduled jobs), on-demand for demographic updates</li>
+              <li><strong>Conflict resolution:</strong> SIS is source of truth for demographics; platform is source of truth for AR session data</li>
+              <li><strong>Data quality gate:</strong> Every import runs through validation before commit. Bad rows surface for operator review, never silently fail</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label cyan">Standards Support</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>OneRoster 1.1:</strong> REST + CSV rostering standard for student/class/enrollment data. Supported by Aeries, PowerSchool, Infinite Campus</li>
+              <li><strong>Ed-Fi:</strong> Comprehensive data standard. District adoption growing but uneven. Support planned for v1.0+</li>
+              <li><strong>CALPADS:</strong> California-specific. Platform must generate STAS (Student Absence Summary) files for AR reporting</li>
+              <li><strong>Middleware option:</strong> Edlink or Clever as abstraction layer evaluated; custom connectors preferred for attendance-depth data</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Security & Compliance -->
+<div class="slide" data-section="Compliance">
+  <div class="slide-inner">
+    <div class="slide-label">Security Architecture</div>
+    <h2>FERPA + HIPAA + SOC 2 from Day One</h2>
+    <p class="slide-subtitle">Compliance is architectural, not a checklist bolted on later. The regulatory stack determines data model decisions, hosting choices, and access patterns.</p>
+
+    <div class="card-grid cols-3">
+      <div class="card">
+        <div class="card-label green">Module 1 -- FERPA</div>
+        <div class="card-title">Student Education Records</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>FERPA applies</strong> to all student attendance, demographic, and academic data</li>
+            <li>Requires written parent consent for data sharing outside "school official" exception</li>
+            <li>CA-NDPA (National Data Privacy Agreement) required before first district contract</li>
+            <li>Student Privacy Pledge v2.0 signatory recommended</li>
+            <li>No PII in logs, URLs, or error reports</li>
+            <li>Data minimization: collect only what's needed for ADA recovery</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label purple">Module 2 -- HIPAA</div>
+        <div class="card-title">Protected Health Information</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>HIPAA triggered</strong> by mental health service records, clinical notes, and billing data</li>
+            <li>Business Associate Agreement (BAA) with every district required</li>
+            <li>PHI must be encrypted at rest (AES-256) and in transit (TLS 1.2+)</li>
+            <li>Access logs with 6-year retention</li>
+            <li>Breach notification within 60 days</li>
+            <li><strong>Architectural isolation:</strong> MH data stored in separate schema with stricter RLS policies</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">Infrastructure</div>
+        <div class="card-title">SOC 2 Type 2 + CA-Specific</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>SOC 2 Type 2</strong> audit within 12 months of launch (required by most district procurement)</li>
+            <li><strong>SOPIPA</strong> (Student Online Personal Information Protection Act) -- CA state law, stricter than COPPA</li>
+            <li><strong>CMIA</strong> (Confidentiality of Medical Information Act) -- CA medical data law, applies to MH records</li>
+            <li>PostgreSQL RLS enforces tenant isolation at the database level</li>
+            <li>All infrastructure on US-based cloud (AWS us-west-2 or GCP us-west1)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 14px;">
+      <div class="card-label red">Compliance Budget Estimate -- Year 1</div>
+      <div class="card-body">
+        <div class="stat-row" style="margin-top: 8px;">
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--amber);">$25K-$40K</div>
+            <div class="stat-label">SOC 2 Type 2 Audit</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--purple);">$15K-$30K</div>
+            <div class="stat-label">Legal (BAAs, NDPAs, Privacy Policy)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--green);">$10K-$20K</div>
+            <div class="stat-label">Pen Testing + Security Review</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--red);">$105K-$230K</div>
+            <div class="stat-label">Total if HIPAA (Module 2)</div>
+          </div>
+        </div>
+        <p style="font-size: 12px; color: var(--text-dim); text-align: center;">Module 1 (FERPA-only) compliance cost: $50K-$90K. Module 2 adds HIPAA layer: $55K-$140K additional. Staging Module 2 later is a deliberate cost-deferral strategy.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: Multi-Tenant Design -->
+<div class="slide" data-section="Architecture">
+  <div class="slide-inner">
+    <div class="slide-label">Multi-Tenant Architecture</div>
+    <h2>District Zone + School Zone Pattern</h2>
+    <p class="slide-subtitle">Follows AARC's existing mental model: district-level aggregation with school-level drill-down. PostgreSQL Row Level Security enforces isolation.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom: 10px;">Tenant Hierarchy</h3>
+        <div class="card" style="margin-bottom: 12px;">
+          <div style="font-family: 'SF Mono', monospace; font-size: 12px; color: var(--text-muted); line-height: 2;">
+            <span style="color: var(--amber);">Organization (AARC/ECS)</span><br>
+            &nbsp;&nbsp;<span style="color: var(--cyan);">|-- District (Pomona USD)</span><br>
+            &nbsp;&nbsp;<span style="color: var(--cyan);">|&nbsp;&nbsp;&nbsp;|-- School (Lincoln ES)</span><br>
+            &nbsp;&nbsp;<span style="color: var(--cyan);">|&nbsp;&nbsp;&nbsp;|-- School (Roosevelt MS)</span><br>
+            &nbsp;&nbsp;<span style="color: var(--cyan);">|-- District (Baldwin Park USD)</span><br>
+            &nbsp;&nbsp;<span style="color: var(--cyan);">&nbsp;&nbsp;&nbsp;&nbsp;|-- School (Sierra Vista HS)</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label accent">Row Level Security</div>
+          <div style="font-family: 'SF Mono', monospace; font-size: 11px; color: var(--text-muted); line-height: 1.7; padding: 8px 0;">
+            -- Every table gets this policy<br>
+            CREATE POLICY tenant_isolation<br>
+            &nbsp;&nbsp;ON students<br>
+            &nbsp;&nbsp;USING (district_id = <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;current_setting(<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'app.current_district_id'<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;)::uuid<br>
+            &nbsp;&nbsp;);<br><br>
+            -- Set on every request<br>
+            SET app.current_district_id = <br>
+            &nbsp;&nbsp;'uuid-from-jwt';
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: 10px;">Role-Based Access Control</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Scope</th>
+              <th>Capabilities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: var(--amber); font-weight: 600;">Platform Admin</td>
+              <td>All orgs</td>
+              <td>Full system access, tenant management</td>
+            </tr>
+            <tr>
+              <td style="color: var(--cyan); font-weight: 600;">Org Operator</td>
+              <td>All districts in org</td>
+              <td>Cross-district dashboards, session management, revenue reports</td>
+            </tr>
+            <tr>
+              <td style="color: var(--blue); font-weight: 600;">District Admin</td>
+              <td>Single district</td>
+              <td>District dashboard, school management, data import, compliance reports</td>
+            </tr>
+            <tr>
+              <td style="color: var(--green); font-weight: 600;">School Lead</td>
+              <td>Single school</td>
+              <td>Session attendance, field reports, school-level data</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted); font-weight: 600;">Teacher</td>
+              <td>Assigned sessions</td>
+              <td>Mark attendance, view assigned student lists only</td>
+            </tr>
+            <tr>
+              <td style="color: var(--purple); font-weight: 600;">District Viewer</td>
+              <td>Single district</td>
+              <td>Read-only dashboards, reports, exports</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card" style="margin-top: 12px;">
+          <div class="card-label blue">v0.1 Simplification</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Single-tenant in v0.1:</strong> RLS infrastructure present but only one org/district active</li>
+              <li>Multi-tenant activation in v0.2 when second district onboards</li>
+              <li>JWT contains district_id, school_id, role -- set as PostgreSQL session vars on each request</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Tech Stack Deep Dive -->
+<div class="slide" data-section="Tech Stack">
+  <div class="slide-inner">
+    <div class="slide-label">Technology Decisions</div>
+    <h2>Tech Stack Rationale</h2>
+    <p class="slide-subtitle">Every technology choice optimizes for three things: speed to v0.1, compliance readiness, and the ability to add Module 2 without rewriting.</p>
+
+    <div class="card-grid cols-2">
+      <div class="card">
+        <div class="card-label accent">Backend</div>
+        <div class="card-title">NestJS (TypeScript)</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Why NestJS:</strong> Module system maps directly to EduFund's module architecture (ADA module, MH module, SIS module). Each NestJS module encapsulates its own controllers, services, and Prisma repositories</li>
+            <li><strong>Why not Express:</strong> No structure. EduFund needs guards (RBAC), interceptors (audit logging), and pipes (Zod validation) at the framework level</li>
+            <li><strong>Why not Next.js API routes:</strong> Pre-flight decision excluded SSR. Separating frontend from API allows independent scaling and cleaner compliance boundary</li>
+            <li><strong>Middleware stack:</strong> Helmet (security headers), compression, CORS (district-whitelisted origins), rate limiting (per-tenant)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label blue">Frontend</div>
+        <div class="card-title">React SPA + Tailwind CSS</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Why React SPA:</strong> Dashboard-heavy app with complex state (multi-district, multi-school drill-down). SPA delivers snappy navigation for operators managing 17+ districts</li>
+            <li><strong>State management:</strong> Zustand for client state. React Query for server cache with optimistic updates</li>
+            <li><strong>Component library:</strong> Headless UI + Tailwind. No heavy component library -- keeps bundle lean for mobile/PWA</li>
+            <li><strong>Charts:</strong> Recharts for revenue dashboards. Lightweight, React-native, good enough for v0.1</li>
+            <li><strong>PWA:</strong> Service worker for offline attendance capture at school sites with spotty connectivity</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">Database</div>
+        <div class="card-title">PostgreSQL + Prisma + RLS</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Why PostgreSQL:</strong> Row Level Security for tenant isolation. JSONB for flexible district settings. Mature, proven at scale in ed-tech (PowerSchool, Clever, Panorama all use Postgres)</li>
+            <li><strong>Why Prisma:</strong> Type-safe database access, migration system, introspection. Zod integration via prisma-zod-generator for shared validation</li>
+            <li><strong>Why not Supabase:</strong> Direct Postgres with RLS gives the same security model without platform lock-in. Compliance auditors prefer infrastructure you control</li>
+            <li><strong>Hosting:</strong> AWS RDS (Multi-AZ) or Neon for serverless Postgres. Automated backups with point-in-time recovery</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label green">Infrastructure</div>
+        <div class="card-title">BullMQ + Redis + S3</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>BullMQ:</strong> Background job processing for SIS sync, CSV import validation, report generation, notification dispatch. Redis-backed with retry policies and dead-letter queues</li>
+            <li><strong>Redis:</strong> Job queue backing store + session cache + rate limit counters. Not used for primary data storage</li>
+            <li><strong>S3:</strong> CSV upload staging, generated PDF reports, audit log archives. Server-side encryption (AES-256)</li>
+            <li><strong>Deployment:</strong> Docker containers on AWS ECS Fargate (or Railway/Render for v0.1 simplicity). CI/CD via GitHub Actions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 11: Module 2 Interface -->
+<div class="slide" data-section="Module 2">
+  <div class="slide-inner">
+    <div class="slide-label">Module 2 -- Interface Contract</div>
+    <h2>Mental Health Claims Engine</h2>
+    <p class="slide-subtitle">Internal architecture deferred per pre-flight decision. This slide defines only the data contracts and integration points that Module 1 must support from day one.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 style="margin-bottom: 10px;">Shared Data Contracts</h3>
+        <div class="card" style="margin-bottom: 12px;">
+          <div class="card-label purple">Student Record Extensions</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>medi_cal_eligible</strong> (boolean) -- on students table, set by import or SIS sync</li>
+              <li><strong>has_active_iep</strong> (boolean) -- triggers specific billing code eligibility</li>
+              <li><strong>counselor_referral_date</strong> (date, nullable) -- Module 2 populates</li>
+              <li><strong>mh_screening_status</strong> (enum, nullable) -- Module 2 populates</li>
+            </ul>
+            <p style="margin-top: 8px;">Module 1 writes eligibility flags. Module 2 reads them and writes clinical fields back. Neither module accesses the other's internal tables.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label cyan">Event Bus Contract</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>student.flagged_chronic_absent</strong> -- Module 1 emits when student crosses CA threshold (10%+ absences)</li>
+              <li><strong>ar_session.student_attended</strong> -- Module 1 emits after attendance capture. Module 2 can trigger MH screening</li>
+              <li><strong>mh.service_completed</strong> -- Module 2 emits. Module 1 can track attendance impact</li>
+              <li><strong>mh.claim_submitted</strong> -- Module 2 emits. Revenue dashboard aggregates</li>
+            </ul>
+            <p style="margin-top: 8px;">BullMQ event queue in v0.1. Upgrade to EventBridge or NATS for cross-service in v1.0+.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: 10px;">Module 2 Scope (When Built)</h3>
+        <div class="card" style="margin-bottom: 12px;">
+          <div class="card-label amber">Clinical Workflow (Deferred)</div>
+          <div class="card-body">
+            <ul>
+              <li>EHR-lite: session notes, treatment plans, progress tracking for school counselors and LCSWs</li>
+              <li>CYBHI Multi-Payer Fee Schedule billing codes presented in plain language</li>
+              <li>Guided claims workflow: service documentation, provider credentialing, claim submission</li>
+              <li>Medi-Cal and private insurance submission (837P electronic claims)</li>
+              <li>Reimbursement tracking and revenue attribution</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label red">HIPAA Boundary</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Separate schema:</strong> mh_* tables in isolated PostgreSQL schema with stricter RLS</li>
+              <li><strong>Separate audit log:</strong> HIPAA requires 6-year retention vs. FERPA's 5-year</li>
+              <li><strong>Encryption:</strong> Application-level encryption for clinical notes (not just disk encryption)</li>
+              <li><strong>Access controls:</strong> Only credentialed MH providers can access clinical data. RBAC role: <code>mh_provider</code></li>
+              <li><strong>Partner option:</strong> TadHealth integration as billing backend remains viable. Build decision deferred to post-Module 1 launch</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: Dashboard Design -->
+<div class="slide" data-section="Product">
+  <div class="slide-inner">
+    <div class="slide-label">Dashboard Pattern</div>
+    <h2>District Zone + School Zone</h2>
+    <p class="slide-subtitle">Two-tier dashboard follows AARC's existing mental model. District Zone shows cross-school aggregation. School Zone shows site-level operational detail.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="card highlight" style="margin-bottom: 14px;">
+          <div class="card-label accent">District Zone Dashboard</div>
+          <div class="card-title">CFO / District Admin View</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Revenue summary:</strong> Total ADA recovered, revenue captured, projected annual impact</li>
+              <li><strong>Chronic absenteeism rate:</strong> District-wide with trendline vs. state average (19%)</li>
+              <li><strong>School comparison table:</strong> Sortable by CA rate, recovery rate, sessions completed</li>
+              <li><strong>Compliance status:</strong> CALPADS submission readiness, P1/P2/Annual certification progress</li>
+              <li><strong>AR program ROI:</strong> Cost of AR sessions vs. recovered revenue (the number that sells the platform)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label green">Key Metrics</div>
+          <div class="card-body">
+            <ul>
+              <li>ADA recovery rate (recovered days / total absent days)</li>
+              <li>Revenue per AR session (validates program efficiency)</li>
+              <li>Student re-engagement rate (attend 2+ sessions)</li>
+              <li>Cost per recovered ADA day (operating cost / recovered days)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom: 14px;">
+          <div class="card-label blue">School Zone Dashboard</div>
+          <div class="card-title">School Lead / AARC Operator View</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Session calendar:</strong> Upcoming and past AR sessions with attendance status</li>
+              <li><strong>Student roster:</strong> Eligible students, invitation status, attendance history</li>
+              <li><strong>Real-time session:</strong> Live attendance capture during Saturday sessions</li>
+              <li><strong>Recovery tracker:</strong> Per-student progress toward SB 153 cap (10 days or total absences)</li>
+              <li><strong>Field reports:</strong> Site visit notes, staffing verification, payroll data</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label amber">Mobile Experience</div>
+          <div class="card-body">
+            <ul>
+              <li>PWA installable on teacher devices (iOS Safari, Android Chrome)</li>
+              <li>Offline attendance: queue locally, sync on reconnect</li>
+              <li>Optimized for low-bandwidth school site conditions</li>
+              <li>Large touch targets for quick attendance marking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 13: Business Model -->
+<div class="slide" data-section="Business">
+  <div class="slide-inner">
+    <div class="slide-label">Business Model</div>
+    <h2>Two Scenarios: High-Touch vs. Low-Touch</h2>
+    <p class="slide-subtitle">Per pre-flight decision, both scenarios are modeled pending real district revenue data from Phase 1 pilot. Final model selected after 3-district validation.</p>
+
+    <div class="two-col">
+      <div class="card highlight">
+        <div class="card-label accent">Scenario A: Platform SaaS</div>
+        <div class="card-title">Low-Touch, Predictable Revenue</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Pricing:</strong> $500/active district/month ($5,400/yr with annual prepay)</li>
+            <li><strong>Setup fee:</strong> $8,500 one-time (covers onboarding, data migration, training)</li>
+            <li><strong>Revenue at 17 districts:</strong> $8,500/month = $102K/year recurring</li>
+            <li><strong>Revenue at 50 districts:</strong> $25,000/month = $300K/year recurring</li>
+            <li><strong>Gross margin:</strong> ~80% at scale (infrastructure costs ~$100/district/month)</li>
+          </ul>
+          <p style="margin-top: 8px;"><strong>Best for:</strong> Predictable cash flow, easier to sell, districts understand subscription models. Matches the Bizpleaser.ai Option B pricing already proposed to AARC.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label blue">Scenario B: Revenue Share</div>
+        <div class="card-title">High-Touch, Aligned Incentives</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Pricing:</strong> 7% of incremental ADA recovery revenue, paid quarterly</li>
+            <li><strong>Setup fee:</strong> $5,000 (reduced, offset by ongoing share)</li>
+            <li><strong>Revenue per district:</strong> If a district recovers $500K/year, platform earns $35K/year</li>
+            <li><strong>Revenue at 17 districts:</strong> $595K/year (at $500K avg recovery)</li>
+            <li><strong>Cap:</strong> $200K total per district over 4-year term</li>
+          </ul>
+          <p style="margin-top: 8px;"><strong>Best for:</strong> Higher revenue per district, aligned to AARC's growth, supports acquisition narrative. Matches Bizpleaser.ai Option C.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 14px;">
+      <div class="card-label green">AARC Partnership Strategy</div>
+      <div class="card-title">Partner WITH AARC, Not Against</div>
+      <div class="card-body" style="font-size: 13px;">
+        <div class="stat-row" style="margin-top: 8px;">
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--accent); font-size: 20px;">Channel Partner</div>
+            <div class="stat-label">AARC brings districts, platform delivers technology</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--blue); font-size: 20px;">White-Label Option</div>
+            <div class="stat-label">AARC branding on the platform, Bizpleaser tech underneath</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--amber); font-size: 20px;">Co-Sell via COE</div>
+            <div class="stat-label">Joint pitch through County Offices of Education</div>
+          </div>
+        </div>
+        <p style="margin-top: 8px; color: var(--text-dim); font-size: 12px;">AARC has 20+ years of domain expertise and relationships across 17+ CA districts. They validated the market. The platform replaces their tools, not their role. AARC becomes the implementation partner, not a displaced incumbent.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: Market Context -->
+<div class="slide" data-section="Business">
+  <div class="slide-inner">
+    <div class="slide-label">Market Context</div>
+    <h2>Why Now: Five Converging Forces</h2>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-number" style="color: var(--accent);">$3.6B</div>
+        <div class="stat-label">ADA Revenue Lost to Chronic Absences</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" style="color: var(--purple);">$4.6B</div>
+        <div class="stat-label">CYBHI Allocation (Barely Adopted)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" style="color: var(--red);">19%</div>
+        <div class="stat-label">CA Chronic Absenteeism Rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" style="color: var(--amber);">~14</div>
+        <div class="stat-label">Districts Billing Under CYBHI</div>
+      </div>
+    </div>
+
+    <div class="card-grid cols-2">
+      <div class="card">
+        <div class="card-body">
+          <ul>
+            <li><strong>SB 153 (July 2025):</strong> Formalizes attendance recovery programs statewide. Creates greenfield demand for compliant software. Districts can now generate ADA in 1-hour increments across Saturday, before/after school, intersession, and summer sessions</li>
+            <li><strong>ESSER cliff (Sept 2024):</strong> Federal pandemic relief expired. Districts with ESSER-funded counselors face layoffs unless they find sustainable replacement revenue. CYBHI billing is that replacement -- if they have the tools</li>
+            <li><strong>LCAP Priorities 5 & 6:</strong> Every district must fund Pupil Engagement (attendance) and School Climate (mental health). A unified platform maps to both required spending categories</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <ul>
+            <li><strong>Competitive gap:</strong> No platform combines ADA recovery with mental health billing. ECS/AARC do AR manually. TadHealth does MH billing only. The connecting tissue -- a shared student record triggering both revenue streams -- does not exist</li>
+            <li><strong>Per-district math:</strong> Mid-size district (20K enrolled, 19% CA): ADA recovery = $1.52M/year, CYBHI billing = $1.0M/year. Combined: $2.52M recoverable. Platform cost: $6K-$35K/year. ROI: 40-400x</li>
+            <li><strong>Entry wedge:</strong> ~250 medium CA districts (2,500-10,000 students) with budget authority and faster procurement cycles than large districts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>No platform in either the attendance recovery market or the mental health billing market has crossed into the other. The connecting tissue -- a shared student record that triggers both revenue streams -- does not exist.</p>
+      <cite>Phase 1 Research: Unified Platform Opportunity Thesis (May 2026)</cite>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 15: Implementation Roadmap -->
+<div class="slide" data-section="Roadmap">
+  <div class="slide-inner">
+    <div class="slide-label">Implementation</div>
+    <h2>Build Roadmap: v0.1 to v1.0</h2>
+    <p class="slide-subtitle">v0.1 is a CSV-upload, single-tenant ADA delta demo. Each subsequent version adds a capability layer without rewriting the previous one.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Version</th>
+          <th>Scope</th>
+          <th>Key Deliverables</th>
+          <th>Infrastructure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge v1">v0.1</span></td>
+          <td>ADA Delta Demo</td>
+          <td>
+            CSV upload, absence flagging, AR session CRUD, mobile attendance capture, ADA delta calculator, revenue dashboard, RBAC + audit log
+          </td>
+          <td>Single-tenant, Railway/Render, manual deploy</td>
+        </tr>
+        <tr>
+          <td><span class="badge v1">v0.2</span></td>
+          <td>Pilot Ready</td>
+          <td>
+            Aeries API connector, invite letter generation, automated notifications, field reports, CALPADS STAS export, multi-tenant activation
+          </td>
+          <td>AWS ECS, CI/CD, staging environment</td>
+        </tr>
+        <tr>
+          <td><span class="badge v2">v0.3</span></td>
+          <td>Production</td>
+          <td>
+            SOC 2 Type 2 prep, PowerSchool connector, recovery writeback to SIS, advanced reporting (P1/P2/Annual), PDF audit packets
+          </td>
+          <td>Multi-AZ RDS, CloudWatch monitoring, WAF</td>
+        </tr>
+        <tr>
+          <td><span class="badge v2">v1.0</span></td>
+          <td>Module 2 Launch</td>
+          <td>
+            Mental health claims engine, CYBHI billing codes, Medi-Cal submission, clinical notes EHR-lite, cross-module revenue dashboard
+          </td>
+          <td>HIPAA-compliant infrastructure, BAAs, separate MH schema</td>
+        </tr>
+        <tr>
+          <td><span class="badge future">v2.0+</span></td>
+          <td>Platform Expansion</td>
+          <td>
+            Special education funding module, Title I compliance, transportation reimbursement, predictive analytics, national expansion
+          </td>
+          <td>Multi-region, Ed-Fi integration, CMAS listing</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card" style="margin-top: 14px;">
+      <div class="card-label accent">v0.1 Success Criteria</div>
+      <div class="card-body">
+        <div class="stat-row" style="margin-top: 8px;">
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--accent);">1</div>
+            <div class="stat-label">District Operational</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--green);">CSV</div>
+            <div class="stat-label">Import Working End-to-End</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--blue);">$</div>
+            <div class="stat-label">ADA Delta Calculated Accurately</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="color: var(--amber);">PWA</div>
+            <div class="stat-label">Mobile Attendance Offline-Capable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 16: Risk Register -->
+<div class="slide" data-section="Risk">
+  <div class="slide-inner">
+    <div class="slide-label">Risk Assessment</div>
+    <h2>Risk Register</h2>
+
+    <div class="card-grid cols-2">
+      <div class="card">
+        <div class="card-label red">HIGH</div>
+        <div class="card-title">Regulatory Complexity</div>
+        <div class="card-body">FERPA + HIPAA + SOPIPA + CMIA + CCPA all apply simultaneously. Module 2 triggers HIPAA. Estimated compliance budget: $105K-$230K Year 1 for full platform. <strong>Mitigation:</strong> Module 1 defers HIPAA. SOC 2 Type 2 + CA-NDPA + Student Privacy Pledge for v0.1.</div>
+      </div>
+      <div class="card">
+        <div class="card-label red">HIGH</div>
+        <div class="card-title">inBloom Precedent</div>
+        <div class="card-body">The last major centralized student data platform (inBloom, 2014) was killed by privacy backlash. Any new platform touching student data faces comparison. <strong>Mitigation:</strong> Local-first architecture narrative. District-owned data. Transparent privacy practices. Opt-in only. No data monetization.</div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">MEDIUM</div>
+        <div class="card-title">SIS Integration Friction</div>
+        <div class="card-body">Districts rarely grant real-time API access. Data quality from CSV exports varies wildly. Multi-SIS environments common. <strong>Mitigation:</strong> CSV-first strategy validates the model before investing in API connectors. Data quality gate catches issues on import. Connector abstraction isolates SIS-specific complexity.</div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">MEDIUM</div>
+        <div class="card-title">AB 1159 Legislative Risk</div>
+        <div class="card-body">Pending bill could restrict AI use of student data and add private right of action. If signed, may require architectural changes. <strong>Mitigation:</strong> No AI features in v0.1. Monitor legislative session. Architecture supports feature flags for AI-powered features.</div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">MEDIUM</div>
+        <div class="card-title">TadHealth Competition</div>
+        <div class="card-body">TadHealth handles 60%+ of CA CYBHI reimbursements and won SDCOE (42 districts, 500K+ students). Series A ($5.5M) but growing fast. <strong>Mitigation:</strong> Partner option remains open. EduFund's wedge is ADA recovery, not MH billing. Build or partner decision deferred to post-Module 1.</div>
+      </div>
+      <div class="card">
+        <div class="card-label green">LOW</div>
+        <div class="card-title">District Procurement Cycle</div>
+        <div class="card-body">District procurement decisions happen March-May, contracts signed June-August. Missing a window means waiting 12 months. <strong>Mitigation:</strong> AARC partnership bypasses cold procurement. CMAS listing (planned) removes competitive bid requirement. Target summer 2026 pilot with existing AARC districts.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 17: Open Questions -->
+<div class="slide" data-section="Next Steps">
+  <div class="slide-inner">
+    <div class="slide-label">Open Questions</div>
+    <h2>Decisions That Shape Phase 3</h2>
+    <p class="slide-subtitle">These questions must be answered by real pilot data, not theory. Each one maps to a specific Phase 3 deliverable.</p>
+
+    <div class="card-grid cols-2">
+      <div class="card">
+        <div class="card-label accent">Architecture</div>
+        <div class="card-title">Build or partner for MH billing?</div>
+        <div class="card-body">TadHealth integration gets to market faster but cedes the highest-value module. Building in-house costs $105K-$230K upfront but owns the full value chain. Decision depends on Module 1 traction and AARC relationship trajectory.</div>
+      </div>
+      <div class="card">
+        <div class="card-label blue">Business Model</div>
+        <div class="card-title">SaaS or revenue share?</div>
+        <div class="card-body">SaaS ($500/district/month) is predictable and easier to sell. Revenue share (7% of incremental recovery) has higher ceiling and aligns incentives. Hybrid model (SaaS base + performance bonus) may be optimal. Needs 3-district data to model properly.</div>
+      </div>
+      <div class="card">
+        <div class="card-label green">Product</div>
+        <div class="card-title">Attendance-first or MH-first wedge?</div>
+        <div class="card-body">Pre-flight decision: attendance-first. This architecture executes that decision. But the answer may shift based on first pilot district's existing infrastructure (if they already have counselors but no billing, MH is higher urgency).</div>
+      </div>
+      <div class="card">
+        <div class="card-label amber">Go-to-Market</div>
+        <div class="card-title">Ideal pilot district profile?</div>
+        <div class="card-body">Criteria: medium CA district (5K-15K students), &gt;20% chronic absenteeism, existing counseling staff, no current Medi-Cal billing, budget authority willing to try new vendor. AARC's existing 17 districts are the first pool to evaluate.</div>
+      </div>
+      <div class="card">
+        <div class="card-label red">Risk</div>
+        <div class="card-title">How do we navigate inBloom comparison?</div>
+        <div class="card-body">inBloom was centralized, state-run, and opaque. A winning narrative: local-first architecture, district-owned data, transparent privacy practices, opt-in only. But messaging must be proactive, not reactive to privacy advocates.</div>
+      </div>
+      <div class="card">
+        <div class="card-label purple">Validation</div>
+        <div class="card-title">Per-district recovery yield?</div>
+        <div class="card-body">The $80/day x 5 recovered days x CA students math is modeled, not validated. AARC has real district data across 17 districts. Phase 1 pilot must capture actual recovery yield to validate unit economics and finalize the business model.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 18: Confidence Assessment -->
+<div class="slide" data-section="Next Steps">
+  <div class="slide-inner">
+    <div class="slide-label">Confidence Assessment</div>
+    <h2>What We Know vs. What We're Estimating</h2>
+    <p class="slide-subtitle">Transparency on data confidence levels. Every claim in this document falls into one of three buckets.</p>
+
+    <div class="card-grid cols-3">
+      <div class="card" style="border-color: rgba(52,211,153,0.3);">
+        <div class="card-label green">Verified</div>
+        <div class="card-title">Confirmed by Public Sources</div>
+        <div class="card-body">
+          <ul>
+            <li>19% CA chronic absenteeism rate (CDE 2023-24)</li>
+            <li>SB 153 effective July 2025</li>
+            <li>ESSER expired Sept 2024</li>
+            <li>CYBHI $4.6B allocation</li>
+            <li>TadHealth SDCOE contract + Anaheim case ($700K+)</li>
+            <li>No platform spans both AR and MH billing markets</li>
+            <li>AARC operates across 17+ districts in CA</li>
+            <li>CALPADS EOY 3 requires AR data submission starting 2025-26</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="border-color: rgba(251,191,36,0.3);">
+        <div class="card-label amber">Estimated</div>
+        <div class="card-title">Modeled from Available Data</div>
+        <div class="card-body">
+          <ul>
+            <li>$3.6B ADA revenue lost to absences (derived from enrollment x rate x CA %)</li>
+            <li>$1B+ untapped Medi-Cal reimbursement (modeled from eligible population x service rates)</li>
+            <li>Per-district $2.52M recovery potential (specific assumptions stated)</li>
+            <li>$80/day ADA value (mid-range LCFF rate, varies by grade span)</li>
+            <li>Platform TAM: $35M-$100M SaaS in CA</li>
+            <li>Compliance budget: $105K-$230K (based on comparable ed-tech SOC 2 + HIPAA audits)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="border-color: rgba(248,113,113,0.3);">
+        <div class="card-label red">Needs Validation</div>
+        <div class="card-title">Requires Pilot Data</div>
+        <div class="card-body">
+          <ul>
+            <li>Actual district willingness to pay for platform</li>
+            <li>Build vs. partner economics for Module 2</li>
+            <li>Real AR session yield (recovered days per student)</li>
+            <li>AR + MH correlation strength at district level</li>
+            <li>AB 1159 legislative outcome</li>
+            <li>Optimal revenue model (SaaS vs. rev share vs. hybrid)</li>
+            <li>ECS/AARC revenue share percentage (inferred 30-50%)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 19: Closing -->
+<div class="slide" data-section="Next Steps">
+  <div class="slide-inner title-slide">
+    <div class="slide-label">Phase 2 Complete</div>
+    <h1 style="font-size: clamp(28px, 4vw, 44px);">Build the Student Data Layer Once.<br>Plug In Revenue Recovery Modules.</h1>
+    <p class="title-sub">Module 1 (ADA Recovery Engine) is fully specified. v0.1 targets a single-district CSV-upload demo. The Uber Student Database supports both ADA recovery and mental health billing from day one.</p>
+    <div class="title-meta" style="flex-direction: column; gap: 12px;">
+      <div style="display: flex; gap: 24px;">
+        <span>Phase 3: v0.1 Implementation Plan</span>
+        <span>Phase 4: Pilot with AARC District</span>
+        <span>Phase 5: Module 2 Decision</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-dim); margin-top: 8px;">
+        Prepared by Gary, AI Chief of Staff | Document C: Product Architecture | May 2026
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .deck -->
+
+<!-- Navigation dots -->
+<div class="nav-dots" id="navDots"></div>
+<div class="slide-counter" id="slideCounter">1 / 19</div>
+<div class="nav-hint">Arrow keys to navigate</div>
+<div class="section-tag" id="sectionTag">Overview</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const navDots = document.getElementById('navDots');
+  const slideCounter = document.getElementById('slideCounter');
+  const sectionTag = document.getElementById('sectionTag');
+  let currentSlide = 0;
+  let isTransitioning = false;
+
+  // Build nav dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goToSlide(i));
+    navDots.appendChild(dot);
+  });
+
+  function goToSlide(index) {
+    if (isTransitioning || index === currentSlide || index < 0 || index >= slides.length) return;
+    isTransitioning = true;
+
+    const current = slides[currentSlide];
+    const next = slides[index];
+    const dots = navDots.querySelectorAll('.nav-dot');
+
+    // Reset scroll position on next slide
+    const nextInner = next.querySelector('.slide-inner');
+    if (nextInner) nextInner.scrollTop = 0;
+
+    current.classList.remove('active');
+    next.classList.add('active');
+
+    dots[currentSlide].classList.remove('active');
+    dots[index].classList.add('active');
+
+    currentSlide = index;
+    slideCounter.textContent = (currentSlide + 1) + ' / ' + slides.length;
+    sectionTag.textContent = next.dataset.section || '';
+
+    setTimeout(() => { isTransitioning = false; }, 300);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      goToSlide(currentSlide + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      goToSlide(currentSlide - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goToSlide(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goToSlide(slides.length - 1);
+    }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) goToSlide(currentSlide + 1);
+      else goToSlide(currentSlide - 1);
+    }
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
