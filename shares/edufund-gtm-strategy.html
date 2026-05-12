@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduFund Platform | Go-To-Market Strategy &amp; Sales Playbook</title>
+<meta name="description" content="Complete GTM strategy, sales playbook, pricing models, and AARC/ECS partnership proposal for EduFund Platform targeting California school districts.">
+<meta property="og:title" content="EduFund Platform | Go-To-Market Strategy">
+<meta property="og:description" content="GTM strategy, sales playbook, pricing, and partnership proposal for California school districts.">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='%230f2b3d'%3E%3Crect width='1200' height='630'/%3E%3Ctext x='600' y='315' text-anchor='middle' fill='%2334d399' font-size='64' font-family='sans-serif'%3EEduFund GTM%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f2b3d'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%2334d399' font-size='18' font-family='sans-serif' font-weight='bold'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-900: #0a1929;
+    --navy-800: #0f2b3d;
+    --navy-700: #163a50;
+    --navy-600: #1d4e6a;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748b;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --green-500: #22c55e;
+    --green-400: #34d399;
+    --green-300: #6ee7b7;
+    --green-200: #a7f3d0;
+    --green-100: #d1fae5;
+    --amber-500: #f59e0b;
+    --amber-400: #fbbf24;
+    --amber-100: #fef3c7;
+    --red-500: #ef4444;
+    --red-400: #f87171;
+    --red-100: #fee2e2;
+    --blue-500: #3b82f6;
+    --blue-400: #60a5fa;
+    --blue-100: #dbeafe;
+    --purple-500: #8b5cf6;
+    --purple-400: #a78bfa;
+    --teal-500: #14b8a6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--slate-50);
+    color: var(--slate-700);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    line-height: 1.2;
+    color: var(--navy-800);
+  }
+
+  /* ---- Navigation ---- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 25, 41, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(52, 211, 153, 0.15);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--green-400), var(--teal-500));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 18px; color: white;
+  }
+  .nav-logo-text {
+    font-family: 'Fraunces', serif;
+    font-size: 20px; font-weight: 700; color: white;
+  }
+  .nav-links {
+    display: flex; gap: 8px; list-style: none;
+  }
+  .nav-links a {
+    color: var(--slate-400);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: white;
+    background: rgba(52, 211, 153, 0.12);
+  }
+  .nav-badge {
+    font-size: 11px;
+    background: rgba(52, 211, 153, 0.2);
+    color: var(--green-400);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .mobile-toggle {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    color: white; font-size: 24px;
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 60%, #0d3b2e 100%);
+    padding: 80px 2rem 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(52, 211, 153, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; position: relative;
+    display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    padding: 6px 16px; border-radius: 24px;
+    font-size: 13px; color: var(--green-300); font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .hero-tag-dot {
+    width: 6px; height: 6px; background: var(--green-400); border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: 48px; font-weight: 800; color: white;
+    margin-bottom: 20px; letter-spacing: -0.02em;
+  }
+  .hero h1 span { color: var(--green-400); }
+  .hero-sub {
+    font-size: 18px; color: var(--slate-400); line-height: 1.7;
+    margin-bottom: 32px; max-width: 560px;
+  }
+  .hero-stats {
+    display: flex; gap: 40px;
+  }
+  .hero-stat-val {
+    font-family: 'Fraunces', serif;
+    font-size: 36px; font-weight: 700; color: var(--green-400);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 13px; color: var(--slate-400); margin-top: 4px;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 32px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-card h3 {
+    color: white; font-size: 18px; margin-bottom: 20px;
+  }
+  .hero-toc { list-style: none; }
+  .hero-toc li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-toc li:last-child { border-bottom: none; }
+  .hero-toc-num {
+    width: 28px; height: 28px;
+    background: rgba(52, 211, 153, 0.15);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--green-400);
+    flex-shrink: 0;
+  }
+  .hero-toc a {
+    color: var(--slate-300); text-decoration: none;
+    font-size: 15px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .hero-toc a:hover { color: var(--green-300); }
+
+  /* ---- Section shell ---- */
+  .section {
+    padding: 80px 2rem;
+  }
+  .section-inner {
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header {
+    margin-bottom: 48px;
+  }
+  .section-num {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--green-500);
+    margin-bottom: 12px;
+  }
+  .section-num::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--green-500);
+  }
+  .section h2 {
+    font-size: 36px; font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 17px; color: var(--slate-500);
+    max-width: 640px;
+  }
+
+  .section-alt { background: white; }
+
+  /* ---- Phases / Timeline ---- */
+  .phases-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .phase-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 14px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .phase-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .phase-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .phase-card.phase-1::before { background: var(--green-500); }
+  .phase-card.phase-2::before { background: var(--blue-500); }
+  .phase-card.phase-3::before { background: var(--purple-500); }
+  .phase-card.phase-4::before { background: var(--amber-500); }
+
+  .phase-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .phase-label {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 3px 10px; border-radius: 4px;
+  }
+  .phase-1 .phase-label { background: var(--green-100); color: #166534; }
+  .phase-2 .phase-label { background: var(--blue-100); color: #1e40af; }
+  .phase-3 .phase-label { background: rgba(139,92,246,0.1); color: #6d28d9; }
+  .phase-4 .phase-label { background: var(--amber-100); color: #92400e; }
+
+  .phase-time {
+    font-size: 12px; color: var(--slate-500); font-weight: 500;
+  }
+  .phase-card h3 {
+    font-size: 20px; margin-bottom: 12px;
+  }
+  .phase-card p {
+    font-size: 14px; color: var(--slate-600); margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .phase-actions {
+    list-style: none;
+  }
+  .phase-actions li {
+    font-size: 13px; color: var(--slate-600);
+    padding: 6px 0;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .phase-actions li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .phase-1 .phase-actions li::before { background: var(--green-500); }
+  .phase-2 .phase-actions li::before { background: var(--blue-500); }
+  .phase-3 .phase-actions li::before { background: var(--purple-500); }
+  .phase-4 .phase-actions li::before { background: var(--amber-500); }
+
+  .kill-criteria {
+    margin-top: 16px;
+    background: var(--red-100);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .kill-criteria-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--red-500);
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .kill-criteria p {
+    font-size: 13px; color: #991b1b; margin: 0;
+  }
+
+  /* ---- Channel conflict callout ---- */
+  .callout-box {
+    background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 32px;
+  }
+  .callout-box h4 {
+    font-size: 16px; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .callout-box p {
+    font-size: 14px; color: var(--slate-600); line-height: 1.7;
+  }
+
+  /* ---- ICP section ---- */
+  .icp-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .icp-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .icp-card h4 {
+    font-size: 16px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* Scoring matrix table */
+  .matrix-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 14px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--slate-200);
+  }
+  .matrix-table thead th {
+    background: var(--navy-800);
+    color: white;
+    padding: 12px 16px;
+    font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    text-align: left;
+  }
+  .matrix-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .matrix-table tbody tr:last-child td { border-bottom: none; }
+  .matrix-table tbody tr:hover { background: var(--slate-50); }
+
+  .score-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 700;
+  }
+  .score-high { background: var(--green-100); color: #166534; }
+  .score-mid { background: var(--amber-100); color: #92400e; }
+  .score-low { background: var(--red-100); color: #991b1b; }
+  .score-dnp { background: var(--slate-100); color: var(--slate-500); }
+
+  /* Decision makers */
+  .dm-list { list-style: none; }
+  .dm-item {
+    display: flex; gap: 16px; padding: 14px 0;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .dm-item:last-child { border-bottom: none; }
+  .dm-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .dm-info h5 { font-size: 15px; font-weight: 600; color: var(--navy-800); }
+  .dm-info p { font-size: 13px; color: var(--slate-500); }
+
+  /* Discovery questions */
+  .discovery-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: 32px;
+  }
+  .disc-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .disc-card h5 {
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--slate-400);
+    margin-bottom: 10px;
+  }
+  .disc-card blockquote {
+    font-size: 14px; color: var(--navy-800);
+    font-style: italic; line-height: 1.6;
+    border-left: 3px solid var(--green-400);
+    padding-left: 14px;
+    margin: 8px 0;
+  }
+
+  /* Objection handling */
+  .objection-list { margin-top: 32px; }
+  .objection-item {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .objection-header {
+    padding: 16px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; user-select: none;
+    transition: background 0.2s;
+  }
+  .objection-header:hover { background: var(--slate-50); }
+  .objection-q {
+    font-size: 15px; font-weight: 600; color: var(--navy-800);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .objection-q-icon {
+    width: 28px; height: 28px;
+    background: var(--red-100);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--red-500); flex-shrink: 0;
+  }
+  .objection-chevron {
+    width: 20px; height: 20px;
+    transition: transform 0.3s;
+    color: var(--slate-400);
+  }
+  .objection-item.open .objection-chevron { transform: rotate(180deg); }
+  .objection-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .objection-body-inner {
+    padding: 0 20px 20px;
+  }
+  .objection-body p {
+    font-size: 14px; color: var(--slate-600); line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .objection-body .response-label {
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--green-500);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* Competitive positioning */
+  .comp-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 13px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--slate-200);
+    margin-top: 32px;
+  }
+  .comp-table thead th {
+    background: var(--navy-800); color: white;
+    padding: 12px 14px; font-weight: 600;
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.04em; text-align: center;
+  }
+  .comp-table thead th:first-child { text-align: left; }
+  .comp-table tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--slate-100);
+    text-align: center;
+  }
+  .comp-table tbody td:first-child {
+    text-align: left; font-weight: 600; color: var(--navy-800);
+  }
+  .comp-table tbody tr:last-child td { border-bottom: none; }
+  .comp-table tbody tr:hover { background: var(--slate-50); }
+  .comp-check { color: var(--green-500); font-weight: 700; }
+  .comp-partial { color: var(--amber-500); font-weight: 600; }
+  .comp-no { color: var(--slate-300); }
+  .comp-highlight {
+    background: rgba(52, 211, 153, 0.06);
+  }
+
+  /* ---- ROI Calculator ---- */
+  .roi-section {
+    background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 40px;
+    color: white;
+  }
+  .roi-section h3 {
+    color: white; font-size: 24px; margin-bottom: 8px;
+  }
+  .roi-sub { color: var(--slate-400); font-size: 14px; margin-bottom: 28px; }
+  .roi-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .roi-inputs {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .roi-field label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--slate-300); margin-bottom: 6px;
+  }
+  .roi-field input[type="range"] {
+    width: 100%; margin-top: 4px;
+    accent-color: var(--green-400);
+  }
+  .roi-field .range-vals {
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--slate-500);
+  }
+  .roi-field .range-current {
+    font-size: 20px; font-weight: 700; color: var(--green-400);
+    font-family: 'Fraunces', serif;
+  }
+  .roi-results {
+    display: flex; flex-direction: column; gap: 16px;
+    justify-content: center;
+  }
+  .roi-result-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .roi-result-label {
+    font-size: 12px; color: var(--slate-400);
+    text-transform: uppercase; letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .roi-result-val {
+    font-family: 'Fraunces', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--green-400);
+    margin-top: 4px;
+  }
+  .roi-result-val.total {
+    font-size: 42px;
+  }
+  .roi-result-note {
+    font-size: 12px; color: var(--slate-500); margin-top: 4px;
+  }
+
+  /* ---- Pricing Section ---- */
+  .pricing-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 32px;
+  }
+  .pricing-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 14px;
+    padding: 28px;
+    position: relative;
+  }
+  .pricing-card.recommended {
+    border-color: var(--green-400);
+    box-shadow: 0 0 0 1px var(--green-400);
+  }
+  .pricing-rec-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--green-500); color: white;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 14px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .pricing-card h4 {
+    font-size: 20px; margin-bottom: 8px;
+  }
+  .pricing-card .pricing-desc {
+    font-size: 14px; color: var(--slate-500); margin-bottom: 20px;
+  }
+  .pricing-detail {
+    font-size: 14px; color: var(--slate-600); line-height: 1.8;
+  }
+  .pricing-detail strong { color: var(--navy-800); }
+
+  /* Pricing examples table */
+  .pricing-examples {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 14px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--slate-200);
+    margin-top: 32px;
+  }
+  .pricing-examples thead th {
+    background: var(--navy-800); color: white;
+    padding: 12px 16px; font-weight: 600;
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.04em; text-align: right;
+  }
+  .pricing-examples thead th:first-child { text-align: left; }
+  .pricing-examples tbody td {
+    padding: 14px 16px; text-align: right;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .pricing-examples tbody td:first-child {
+    text-align: left; font-weight: 600; color: var(--navy-800);
+  }
+  .pricing-examples tbody tr:last-child td { border-bottom: none; }
+  .pricing-examples tbody tr:hover { background: var(--slate-50); }
+  .pricing-examples .total-row td {
+    font-weight: 700; color: var(--navy-800);
+    background: var(--green-100);
+  }
+
+  /* Procurement callout */
+  .procurement-box {
+    background: var(--blue-100);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 32px;
+  }
+  .procurement-box h4 {
+    font-size: 16px; margin-bottom: 8px;
+    color: #1e40af;
+  }
+  .procurement-box p {
+    font-size: 14px; color: #1e40af; line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  /* ---- Partnership Section ---- */
+  .partner-cols {
+    display: grid; grid-template-columns: 7fr 3fr; gap: 32px;
+    margin-top: 32px;
+  }
+  .partner-main {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 14px;
+    padding: 32px;
+  }
+  .partner-main h4 {
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .partner-main p {
+    font-size: 15px; color: var(--slate-600); line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .scale-compare {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px;
+    align-items: center;
+    margin: 24px 0;
+  }
+  .scale-box {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .scale-box-val {
+    font-family: 'Fraunces', serif;
+    font-size: 36px; font-weight: 700;
+  }
+  .scale-box-label {
+    font-size: 13px; color: var(--slate-500); margin-top: 4px;
+  }
+  .scale-box.current .scale-box-val { color: var(--slate-500); }
+  .scale-box.future .scale-box-val { color: var(--green-500); }
+  .scale-arrow {
+    font-size: 28px; color: var(--green-500);
+    display: flex; align-items: center;
+  }
+
+  .partner-sidebar {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .partner-sidebar-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .partner-sidebar-card h5 {
+    font-size: 14px; font-weight: 700;
+    color: var(--navy-800);
+    margin-bottom: 10px;
+  }
+  .partner-sidebar-card ul {
+    list-style: none; font-size: 13px;
+    color: var(--slate-600);
+  }
+  .partner-sidebar-card ul li {
+    padding: 5px 0;
+    display: flex; align-items: flex-start; gap: 6px;
+  }
+  .partner-sidebar-card ul li::before {
+    content: '\2713';
+    color: var(--green-500); font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Revenue share table */
+  .rev-share-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 14px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--slate-200);
+    margin-top: 20px;
+  }
+  .rev-share-table thead th {
+    background: var(--navy-800); color: white;
+    padding: 12px 16px; font-weight: 600;
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.04em; text-align: right;
+  }
+  .rev-share-table thead th:first-child { text-align: left; }
+  .rev-share-table tbody td {
+    padding: 12px 16px; text-align: right;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .rev-share-table tbody td:first-child {
+    text-align: left; font-weight: 600; color: var(--navy-800);
+  }
+  .rev-share-table tbody tr:last-child td { border-bottom: none; }
+
+  /* ---- Board-ready ROI table ---- */
+  .board-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 14px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--slate-200);
+    margin-top: 24px;
+  }
+  .board-table caption {
+    text-align: left; padding: 12px 0 8px;
+    font-size: 13px; font-weight: 700;
+    color: var(--slate-500);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .board-table thead th {
+    background: var(--navy-800); color: white;
+    padding: 12px 16px; font-weight: 600;
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.04em; text-align: right;
+  }
+  .board-table thead th:first-child { text-align: left; }
+  .board-table tbody td {
+    padding: 12px 16px; text-align: right;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .board-table tbody td:first-child {
+    text-align: left; font-weight: 500; color: var(--navy-800);
+  }
+  .board-table tbody tr:last-child td { border-bottom: none; }
+  .board-table tfoot td {
+    padding: 14px 16px; text-align: right;
+    font-weight: 700; color: var(--navy-800);
+    background: var(--green-100);
+    border-top: 2px solid var(--green-400);
+  }
+  .board-table tfoot td:first-child { text-align: left; }
+
+  /* Territory map */
+  .territory-box {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 24px;
+  }
+  .territory-box h5 {
+    font-size: 14px; font-weight: 700; color: var(--navy-800);
+    margin-bottom: 12px;
+  }
+  .territory-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .territory-col h6 {
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .territory-col.aarc h6 { color: var(--blue-500); }
+  .territory-col.direct h6 { color: var(--green-500); }
+  .territory-col p {
+    font-size: 13px; color: var(--slate-600); line-height: 1.7;
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    background: var(--navy-900);
+    padding: 40px 2rem;
+    text-align: center;
+  }
+  .footer p {
+    color: var(--slate-500);
+    font-size: 13px;
+  }
+  .footer a {
+    color: var(--green-400);
+    text-decoration: none;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 36px; }
+    .phases-grid { grid-template-columns: 1fr; }
+    .icp-grid { grid-template-columns: 1fr; }
+    .discovery-grid { grid-template-columns: 1fr; }
+    .roi-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .partner-cols { grid-template-columns: 1fr; }
+    .scale-compare { grid-template-columns: 1fr; }
+    .scale-arrow { justify-content: center; transform: rotate(90deg); }
+    .territory-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 24px; }
+    .hero-card { margin-top: 20px; }
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: rgba(10,25,41,0.98);
+      padding: 16px;
+    }
+    .comp-table { font-size: 12px; }
+    .comp-table thead th, .comp-table tbody td { padding: 8px 10px; }
+  }
+
+  /* ---- Animations ---- */
+  .fade-up {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* Land & expand visual */
+  .expand-visual {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
+  .expand-step {
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+    flex: 1; min-width: 140px;
+  }
+  .expand-step h5 {
+    font-size: 13px; font-weight: 700; color: var(--navy-800);
+    margin-bottom: 4px;
+  }
+  .expand-step p {
+    font-size: 12px; color: var(--slate-500);
+  }
+  .expand-arrow {
+    font-size: 20px; color: var(--green-500);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">E</div>
+      <span class="nav-logo-text">EduFund</span>
+    </a>
+    <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="#gtm" class="active">GTM Strategy</a></li>
+      <li><a href="#playbook">Sales Playbook</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#partnership">Partnership</a></li>
+      <li><a href="#roi-calc">ROI Calculator</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        Go-To-Market Strategy
+      </div>
+      <h1>Recover <span>Lost Funding</span> for Every California School District</h1>
+      <p class="hero-sub">
+        EduFund automates ADA recovery, turning chronic absenteeism data into recovered state funding. This document outlines the four-phase GTM strategy, sales playbook, pricing models, and AARC/ECS partnership proposal.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">$3.2B+</div>
+          <div class="hero-stat-label">CA ADA funding at risk annually</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">26%</div>
+          <div class="hero-stat-label">Chronic absenteeism rate (CA avg)</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">1,000+</div>
+          <div class="hero-stat-label">School districts in California</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Document Sections</h3>
+      <ul class="hero-toc">
+        <li>
+          <span class="hero-toc-num">1</span>
+          <a href="#gtm">GTM Strategy &amp; Phased Rollout</a>
+        </li>
+        <li>
+          <span class="hero-toc-num">2</span>
+          <a href="#playbook">Sales Playbook &amp; ICP Scoring</a>
+        </li>
+        <li>
+          <span class="hero-toc-num">3</span>
+          <a href="#pricing">Pricing Strategy &amp; Models</a>
+        </li>
+        <li>
+          <span class="hero-toc-num">4</span>
+          <a href="#partnership">AARC/ECS Partnership Proposal</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1: GTM Strategy -->
+<section class="section" id="gtm">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-num">Section 01</div>
+      <h2>Go-To-Market Strategy</h2>
+      <p class="section-desc">A four-phase rollout from AARC partnership validation to multi-state expansion, with hard kill criteria at every gate.</p>
+    </div>
+
+    <div class="phases-grid">
+      <div class="phase-card phase-1 fade-up">
+        <div class="phase-top">
+          <span class="phase-label">Phase 1</span>
+          <span class="phase-time">Months 1 - 6</span>
+        </div>
+        <h3>AARC/ECS Technology Backbone</h3>
+        <p>Replace AARC's Google Sheets workflow with EduFund. Validate the platform with their existing 10+ district clients. Position as infrastructure, not competitor.</p>
+        <ul class="phase-actions">
+          <li>Deploy pilot with 3 AARC districts in first 90 days</li>
+          <li>Integrate with existing SIS data feeds (Aeries, PowerSchool, Infinite Campus)</li>
+          <li>Automate absence-to-recovery workflows currently run in spreadsheets</li>
+          <li>White-label UI under AARC brand for initial rollout</li>
+          <li>Establish baseline recovery metrics for ROI proof points</li>
+        </ul>
+        <div class="kill-criteria">
+          <div class="kill-criteria-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Kill Criteria
+          </div>
+          <p>If fewer than 2 of 3 pilot districts show measurable ADA recovery improvement within 90 days, halt expansion and diagnose product-market fit before committing additional resources.</p>
+        </div>
+      </div>
+
+      <div class="phase-card phase-2 fade-up">
+        <div class="phase-top">
+          <span class="phase-label">Phase 2</span>
+          <span class="phase-time">Months 6 - 18</span>
+        </div>
+        <h3>Direct Sales to CA Districts</h3>
+        <p>ROI-driven outreach to California districts outside AARC's territory. Show them exactly how much funding they are leaving on the table with current processes.</p>
+        <ul class="phase-actions">
+          <li>Target 50 highest-opportunity districts (ICP Tier 1 scored)</li>
+          <li>Build referenceable case studies from AARC pilot results</li>
+          <li>Conference strategy: ACSA, CASBO, CSBA annual events</li>
+          <li>Partner with county offices of education for warm introductions</li>
+          <li>Direct sales targeting non-AARC regions first (see territory map)</li>
+        </ul>
+        <div class="kill-criteria">
+          <div class="kill-criteria-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Kill Criteria
+          </div>
+          <p>If direct-sold ACV does not exceed $150K ARR by month 12, reassess whether the product can sell without the AARC relationship as the primary distribution channel.</p>
+        </div>
+      </div>
+
+      <div class="phase-card phase-3 fade-up">
+        <div class="phase-top">
+          <span class="phase-label">Phase 3</span>
+          <span class="phase-time">Months 12 - 24</span>
+        </div>
+        <h3>Mental Health Claims Module</h3>
+        <p>Add Medi-Cal mental health claims processing. Cross-sell to existing ADA recovery customers who already have the attendance data to support claims documentation.</p>
+        <ul class="phase-actions">
+          <li>Build EPSDT/LEA billing module tied to existing absence patterns</li>
+          <li>Integrate with county mental health plans and Medi-Cal systems</li>
+          <li>Cross-sell to ADA recovery customers at 40-60% conversion target</li>
+          <li>Separate pricing tier for mental health module (incremental revenue)</li>
+        </ul>
+        <div class="kill-criteria">
+          <div class="kill-criteria-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Kill Criteria
+          </div>
+          <p>If cross-sell conversion from ADA customers to mental health module falls below 25% after 6 months of availability, deprioritize and refocus resources on ADA recovery expansion.</p>
+        </div>
+      </div>
+
+      <div class="phase-card phase-4 fade-up">
+        <div class="phase-top">
+          <span class="phase-label">Phase 4</span>
+          <span class="phase-time">Months 18 - 36</span>
+        </div>
+        <h3>Multi-State Expansion</h3>
+        <p>Expand to states with similar attendance-based funding models. Replicate the AARC partnership playbook with equivalent regional organizations in target states.</p>
+        <ul class="phase-actions">
+          <li>Priority states: Texas, Florida, New York, Illinois (similar ADA funding models)</li>
+          <li>Identify AARC-equivalent organizations in each target state</li>
+          <li>Adapt platform for state-specific reporting and compliance requirements</li>
+          <li>Hire regional sales reps with district relationships in target markets</li>
+        </ul>
+        <div class="kill-criteria">
+          <div class="kill-criteria-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Kill Criteria
+          </div>
+          <p>Do not enter a new state until California generates $500K+ ARR. Each new state requires a signed channel partner before committing engineering resources to state-specific compliance work.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-box fade-up">
+      <h4>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Channel Conflict Resolution
+      </h4>
+      <p>Direct sales in Phase 2 target non-AARC regions first. A geographic boundary agreement with AARC defines protected territories for their existing and pipeline districts. Once EduFund establishes direct-sale traction in non-AARC regions, the partnership terms can be renegotiated from a position of mutual strength. See the <a href="#partnership" style="color:var(--blue-500);font-weight:600;">Partnership Proposal</a> for territory details.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Sales Playbook -->
+<section class="section section-alt" id="playbook">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-num">Section 02</div>
+      <h2>Sales Playbook</h2>
+      <p class="section-desc">ICP scoring matrix, decision-maker mapping, discovery framework, objection handling, and competitive positioning.</p>
+    </div>
+
+    <div class="icp-grid">
+      <!-- ICP Scoring Matrix -->
+      <div class="icp-card fade-up">
+        <h4>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          ICP Scoring Matrix
+        </h4>
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Criteria</th>
+              <th>Tier 1 (Ideal)</th>
+              <th>Tier 2 (Good)</th>
+              <th>DNP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ADA</td>
+              <td><span class="score-badge score-high">10K+</span></td>
+              <td><span class="score-badge score-mid">5K - 10K</span></td>
+              <td><span class="score-badge score-dnp">&lt; 2K</span></td>
+            </tr>
+            <tr>
+              <td>Chronic Absenteeism</td>
+              <td><span class="score-badge score-high">15%+</span></td>
+              <td><span class="score-badge score-mid">8% - 15%</span></td>
+              <td><span class="score-badge score-dnp">&lt; 8%</span></td>
+            </tr>
+            <tr>
+              <td>Current ADA Recovery</td>
+              <td><span class="score-badge score-high">None / Manual</span></td>
+              <td><span class="score-badge score-mid">Partial</span></td>
+              <td><span class="score-badge score-low">Fully Automated</span></td>
+            </tr>
+            <tr>
+              <td>Saturday School</td>
+              <td><span class="score-badge score-high">None</span></td>
+              <td><span class="score-badge score-mid">Exists</span></td>
+              <td><span class="score-badge score-dnp">N/A</span></td>
+            </tr>
+            <tr>
+              <td>Tech Readiness</td>
+              <td><span class="score-badge score-high">SIS API</span></td>
+              <td><span class="score-badge score-mid">CSV Export</span></td>
+              <td><span class="score-badge score-low">Paper-based</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;font-size:12px;color:var(--slate-500);">
+          <strong style="color:var(--red-500);">Do Not Pursue (DNP):</strong> Districts with sub-2K ADA or sub-8% chronic absenteeism lack the funding volume to justify platform costs. Disqualify early.
+        </div>
+      </div>
+
+      <!-- Decision Makers -->
+      <div class="icp-card fade-up">
+        <h4>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Decision Makers
+        </h4>
+        <ul class="dm-list">
+          <li class="dm-item">
+            <div class="dm-icon" style="background:var(--green-100);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green-500)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div class="dm-info">
+              <h5>Asst. Superintendent of Business</h5>
+              <p>Primary buyer. Owns budget and funding recovery. Cares about ROI and compliance.</p>
+            </div>
+          </li>
+          <li class="dm-item">
+            <div class="dm-icon" style="background:var(--blue-100);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="dm-info">
+              <h5>Chief Financial Officer</h5>
+              <p>Signs off on contracts. Validates financial projections. Needs board-ready numbers.</p>
+            </div>
+          </li>
+          <li class="dm-item">
+            <div class="dm-icon" style="background:var(--amber-100);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber-500)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="dm-info">
+              <h5>Director of Attendance</h5>
+              <p>Day-to-day user. Champion who feels the pain of manual processes. Key internal advocate.</p>
+            </div>
+          </li>
+          <li class="dm-item">
+            <div class="dm-icon" style="background:rgba(139,92,246,0.1);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple-500)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="dm-info">
+              <h5>Superintendent</h5>
+              <p>Final authority. Cares about student outcomes and board optics, not just funding. Frame accordingly.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Discovery Questions -->
+    <div class="discovery-grid fade-up">
+      <div class="disc-card">
+        <h5>Pain Quantification</h5>
+        <blockquote>"What's your current chronic absenteeism rate, and how does that compare to your target for the LCAP?"</blockquote>
+        <blockquote>"How many staff hours per week go into tracking absences and running Saturday School rosters manually?"</blockquote>
+      </div>
+      <div class="disc-card">
+        <h5>Revenue Awareness</h5>
+        <blockquote>"Do you know, roughly, how much ADA funding your district lost last year due to unrecovered absences?"</blockquote>
+        <blockquote>"If you could recover even 30% of those lost ADA days, what would that mean for your budget this year?"</blockquote>
+      </div>
+      <div class="disc-card">
+        <h5>Process Discovery</h5>
+        <blockquote>"Walk me through what happens today when a student is marked absent. Who sees that data, and when?"</blockquote>
+        <blockquote>"How do you currently identify students who qualify for independent study contracts or Saturday School?"</blockquote>
+      </div>
+      <div class="disc-card">
+        <h5>Decision Process</h5>
+        <blockquote>"If the numbers make sense, what would the approval process look like? Would this go to the board?"</blockquote>
+        <blockquote>"Are you evaluating any other solutions right now, or is this something you'd be starting fresh on?"</blockquote>
+      </div>
+    </div>
+
+    <!-- Objection Handling -->
+    <div class="objection-list fade-up">
+      <h3 style="font-size:22px;margin-bottom:20px;">Objection Handling</h3>
+
+      <div class="objection-item">
+        <div class="objection-header" onclick="toggleObjection(this)">
+          <div class="objection-q">
+            <span class="objection-q-icon">!</span>
+            "We already have Saturday School."
+          </div>
+          <svg class="objection-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="objection-body">
+          <div class="objection-body-inner">
+            <div class="response-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Recommended Response
+            </div>
+            <p>Saturday School is one recovery mechanism, and a good one. But it only works for students who show up on Saturday. EduFund identifies every recoverable ADA day across all pathways: independent study contracts, tiered reengagement, credit recovery, and Saturday School coordination. Most districts we work with find that Saturday School captures 15-20% of recoverable days. The platform captures the other 80%.</p>
+            <p>The goal is not to replace Saturday School. It is to make sure the funding you recover from Saturday School plus every other pathway adds up to the maximum your district is entitled to.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="objection-item">
+        <div class="objection-header" onclick="toggleObjection(this)">
+          <div class="objection-q">
+            <span class="objection-q-icon">!</span>
+            "Our SIS already handles attendance tracking."
+          </div>
+          <svg class="objection-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="objection-body">
+          <div class="objection-body-inner">
+            <div class="response-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Recommended Response
+            </div>
+            <p>Your SIS tracks attendance. That is its job, and it does it well. What it does not do is the next step: taking that attendance data and automatically identifying which absences are recoverable, routing students into the right recovery pathway, generating the compliance documentation, and tracking the dollars recovered.</p>
+            <p>EduFund plugs into your SIS. We read the same attendance data your staff sees, but we turn it into action. Think of it this way: your SIS tells you who was absent. We tell you which of those absences represent lost funding and exactly what to do about each one.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="objection-item">
+        <div class="objection-header" onclick="toggleObjection(this)">
+          <div class="objection-q">
+            <span class="objection-q-icon">!</span>
+            "We don't have the budget for new software."
+          </div>
+          <svg class="objection-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="objection-body">
+          <div class="objection-body-inner">
+            <div class="response-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Recommended Response
+            </div>
+            <p>That is exactly why we structured EduFund as a revenue-share. There is no upfront cost and no line item to put in next year's budget. We get paid from the funding we help you recover, funding your district would not have received otherwise. If we do not recover anything, you pay nothing.</p>
+            <p>More importantly, our hybrid model caps your cost. Once recovery exceeds the threshold, the per-student rate kicks in and your effective cost decreases as your recovery grows. A 15,000-ADA district with 12% absenteeism typically recovers $1.2M+ in the first year. The platform cost represents a fraction of that.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitive Positioning -->
+    <div class="fade-up">
+      <h3 style="font-size:22px;margin-bottom:4px;margin-top:40px;">Competitive Positioning</h3>
+      <p style="font-size:14px;color:var(--slate-500);margin-bottom:16px;">How EduFund compares to alternatives California districts evaluate today.</p>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>EduFund</th>
+            <th>Attendly</th>
+            <th>Aequitas</th>
+            <th>Kodely</th>
+            <th>Manual / Sheets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="comp-highlight">
+            <td>Automated ADA Recovery Workflows</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-partial">Partial</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+          </tr>
+          <tr>
+            <td>SIS Integration (Aeries, PowerSchool, IC)</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-partial">Limited</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+          </tr>
+          <tr class="comp-highlight">
+            <td>ROI Dashboard &amp; Board Reporting</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-partial">Basic</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+          </tr>
+          <tr>
+            <td>Multi-Pathway Recovery (IS, Saturday, Credit)</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-partial">Sat. Only</td>
+            <td class="comp-partial">IS Only</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-partial">Manual</td>
+          </tr>
+          <tr class="comp-highlight">
+            <td>Mental Health Claims (Medi-Cal)</td>
+            <td class="comp-check">Phase 3</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+          </tr>
+          <tr>
+            <td>Revenue-Share Pricing (No Upfront Cost)</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-check">Free</td>
+          </tr>
+          <tr class="comp-highlight">
+            <td>White-Label for Channel Partners</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+          </tr>
+          <tr>
+            <td>Compliance Documentation Generation</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-partial">Partial</td>
+            <td class="comp-check">&#10003;</td>
+            <td class="comp-no">&mdash;</td>
+            <td class="comp-no">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Pricing -->
+<section class="section" id="pricing">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-num">Section 03</div>
+      <h2>Pricing Strategy</h2>
+      <p class="section-desc">Two models: pure revenue-share and hybrid (recommended). Pure SaaS dropped to prevent decision paralysis and align with buyer expectations in this market.</p>
+    </div>
+
+    <div class="pricing-grid fade-up">
+      <div class="pricing-card">
+        <h4>Revenue Share</h4>
+        <p class="pricing-desc">Pay only from recovered funding. Zero upfront cost, zero risk for the district.</p>
+        <div class="pricing-detail">
+          <p><strong>Structure:</strong> 15% of net new ADA funding recovered through the platform.</p>
+          <p><strong>Best for:</strong> Districts with no current recovery program and high absenteeism. Maximum alignment of incentives.</p>
+          <p><strong>Consideration:</strong> As recovery scales, the district's effective cost per student rises. Large districts may prefer the hybrid model's cost cap.</p>
+        </div>
+      </div>
+
+      <div class="pricing-card recommended">
+        <span class="pricing-rec-badge">Recommended</span>
+        <h4>Hybrid Model</h4>
+        <p class="pricing-desc">Revenue share with a per-student cap. Best of both worlds.</p>
+        <div class="pricing-detail">
+          <p><strong>Structure:</strong> 15% of recovered ADA funding up to the cap, then switches to a flat per-student rate once recovery exceeds 2x the platform cost.</p>
+          <p><strong>Why recommended:</strong> Gives districts cost predictability at scale while preserving the zero-risk entry. As the district recovers more, their effective rate decreases, creating a built-in incentive to expand usage.</p>
+          <p><strong>Per-student rates:</strong> See the worked examples below.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing examples -->
+    <table class="pricing-examples fade-up">
+      <thead>
+        <tr>
+          <th>District Profile</th>
+          <th>ADA</th>
+          <th>Absenteeism</th>
+          <th>Est. Recoverable</th>
+          <th>Rev-Share (15%)</th>
+          <th>Hybrid Cost</th>
+          <th>District Keeps</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Small District</td>
+          <td>2,000</td>
+          <td>14%</td>
+          <td>$280K</td>
+          <td>$42K</td>
+          <td>$36K</td>
+          <td style="color:var(--green-500);font-weight:700;">$244K</td>
+        </tr>
+        <tr>
+          <td>Medium District</td>
+          <td>10,000</td>
+          <td>12%</td>
+          <td>$1.2M</td>
+          <td>$180K</td>
+          <td>$120K</td>
+          <td style="color:var(--green-500);font-weight:700;">$1.08M</td>
+        </tr>
+        <tr>
+          <td>Large District</td>
+          <td>30,000</td>
+          <td>15%</td>
+          <td>$4.5M</td>
+          <td>$675K</td>
+          <td>$300K</td>
+          <td style="color:var(--green-500);font-weight:700;">$4.2M</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--slate-500);margin-top:8px;">Estimates assume $100/ADA-day recovery rate. Actual recovery varies by district demographics, SIS data quality, and recovery pathway availability. Hybrid caps apply at 2x threshold.</p>
+
+    <!-- Board-ready ROI worked example -->
+    <div class="fade-up" style="margin-top:48px;">
+      <h3 style="font-size:22px;margin-bottom:4px;">Board-Ready ROI Example</h3>
+      <p style="font-size:14px;color:var(--slate-500);margin-bottom:4px;">Scenario: 15,000 ADA district with 12% chronic absenteeism. Ready to copy into a board presentation.</p>
+      <table class="board-table">
+        <caption>Annual ADA Recovery Projection</caption>
+        <thead>
+          <tr>
+            <th>Line Item</th>
+            <th>Calculation</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Average Daily Attendance (ADA)</td>
+            <td>Enrolled students</td>
+            <td>15,000</td>
+          </tr>
+          <tr>
+            <td>Chronic Absenteeism Rate</td>
+            <td>District-reported</td>
+            <td>12%</td>
+          </tr>
+          <tr>
+            <td>Total Absent Days</td>
+            <td>15,000 x 12% x 180 days</td>
+            <td>324,000 days</td>
+          </tr>
+          <tr>
+            <td>Recoverable Days (Est. 35%)</td>
+            <td>324,000 x 35%</td>
+            <td>113,400 days</td>
+          </tr>
+          <tr>
+            <td>ADA Funding Rate</td>
+            <td>CA state average</td>
+            <td>$65/day</td>
+          </tr>
+          <tr>
+            <td>Gross Recovery</td>
+            <td>113,400 x $65</td>
+            <td>$7,371,000</td>
+          </tr>
+          <tr>
+            <td>Realistic Recovery (30% of gross)</td>
+            <td>Conservative program estimate</td>
+            <td>$2,211,300</td>
+          </tr>
+          <tr>
+            <td>EduFund Platform Cost (Hybrid)</td>
+            <td>Capped per-student rate</td>
+            <td>($180,000)</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Net New Funding to District</td>
+            <td></td>
+            <td>$2,031,300</td>
+          </tr>
+        </tfoot>
+      </table>
+      <p style="font-size:12px;color:var(--slate-500);margin-top:8px;">Conservative scenario. Does not include mental health claims revenue (Phase 3). ROI: 11.3x on platform cost.</p>
+    </div>
+
+    <!-- Land and Expand -->
+    <div class="fade-up" style="margin-top:48px;">
+      <h3 style="font-size:22px;margin-bottom:12px;">Land and Expand</h3>
+      <p style="font-size:14px;color:var(--slate-600);margin-bottom:4px;">Start with ADA recovery, then expand to mental health claims. Each module adds incremental revenue on the same data foundation.</p>
+      <div class="expand-visual">
+        <div class="expand-step">
+          <h5>ADA Recovery</h5>
+          <p>Core module. Revenue share or hybrid.</p>
+        </div>
+        <div class="expand-arrow">&rarr;</div>
+        <div class="expand-step">
+          <h5>Mental Health Claims</h5>
+          <p>Medi-Cal billing. Cross-sell at 40-60%.</p>
+        </div>
+        <div class="expand-arrow">&rarr;</div>
+        <div class="expand-step">
+          <h5>Analytics + Board Reporting</h5>
+          <p>Premium dashboards. SaaS add-on.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="procurement-box fade-up">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Procurement Pathway Analysis
+      </h4>
+      <p>Revenue-share and hybrid models are structured as service contracts, not software licenses. In most California districts, service contracts under $100K can be approved by the superintendent without board action. Larger contracts require board approval but follow a simpler procurement pathway than software RFPs.</p>
+      <p style="margin-top:8px;">White-label deployments through AARC are positioned as an extension of AARC's existing service agreement with the district, often avoiding a separate procurement process entirely. This is a significant advantage over direct software sales.</p>
+    </div>
+
+    <!-- Interactive ROI Calculator -->
+    <div class="roi-section fade-up" id="roi-calc">
+      <h3>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" stroke-width="2" style="margin-right:8px;vertical-align:-4px;"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+        ROI Calculator
+      </h3>
+      <p class="roi-sub">Adjust the sliders to estimate recovery potential for any district profile.</p>
+      <div class="roi-grid">
+        <div class="roi-inputs">
+          <div class="roi-field">
+            <label>District ADA (Average Daily Attendance)</label>
+            <span class="range-current" id="ada-val">15,000</span>
+            <input type="range" id="ada-slider" min="1000" max="50000" step="500" value="15000" oninput="calcROI()">
+            <div class="range-vals"><span>1,000</span><span>50,000</span></div>
+          </div>
+          <div class="roi-field">
+            <label>Chronic Absenteeism Rate</label>
+            <span class="range-current" id="absence-val">12%</span>
+            <input type="range" id="absence-slider" min="5" max="40" step="1" value="12" oninput="calcROI()">
+            <div class="range-vals"><span>5%</span><span>40%</span></div>
+          </div>
+          <div class="roi-field">
+            <label>Current Recovery (% of absences already recovered)</label>
+            <span class="range-current" id="current-val">5%</span>
+            <input type="range" id="current-slider" min="0" max="50" step="5" value="5" oninput="calcROI()">
+            <div class="range-vals"><span>0%</span><span>50%</span></div>
+          </div>
+        </div>
+        <div class="roi-results">
+          <div class="roi-result-card">
+            <div class="roi-result-label">Lost ADA Days / Year</div>
+            <div class="roi-result-val" id="lost-days">324,000</div>
+          </div>
+          <div class="roi-result-card">
+            <div class="roi-result-label">Incremental Recoverable Funding</div>
+            <div class="roi-result-val total" id="recoverable-val">$1.5M</div>
+            <div class="roi-result-note" id="roi-note">After subtracting current recovery. Based on $65/ADA-day and 30% program capture rate.</div>
+          </div>
+          <div class="roi-result-card">
+            <div class="roi-result-label">Net to District (Hybrid Model)</div>
+            <div class="roi-result-val" id="net-val" style="color:white;">$1.3M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Partnership -->
+<section class="section section-alt" id="partnership">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <h2 style="font-size:14px;font-weight:700;color:var(--green-500);text-transform:uppercase;letter-spacing:0.08em;font-family:'DM Sans',sans-serif;margin-bottom:4px;">
+        <span style="display:inline-block;width:24px;height:2px;background:var(--green-500);vertical-align:middle;margin-right:8px;"></span>
+        Section 04
+      </h2>
+      <h2 style="font-size:36px;">AARC/ECS Partnership Proposal</h2>
+      <p class="section-desc">Structured 70/30 toward AARC's scaling challenge. How EduFund becomes the technology backbone that takes AARC from 10 districts to 50+.</p>
+    </div>
+
+    <div class="partner-cols fade-up">
+      <div class="partner-main">
+        <h4>AARC's Scaling Problem</h4>
+        <p>AARC has built a strong ADA recovery consulting practice serving 10+ California school districts. Their expertise in attendance policy, compliance documentation, and district relationships is their core asset. But their delivery model, built on direct consultant hours and Google Sheets, creates a ceiling.</p>
+        <p>Every new district client requires proportional consultant headcount. Onboarding is manual. Reporting is manual. Quality depends on individual consultants, not systems. AARC can not get to 50 districts without either 5x-ing their headcount (expensive, risky) or fundamentally changing how they deliver their service.</p>
+        <p>EduFund solves this. We are not a competitor to AARC's consulting practice. We are the technology layer that lets their existing consultants serve 5x more districts with the same headcount.</p>
+
+        <div class="scale-compare">
+          <div class="scale-box current">
+            <div class="scale-box-val">10</div>
+            <div class="scale-box-label">Districts Today (Manual)</div>
+          </div>
+          <div class="scale-arrow">&rarr;</div>
+          <div class="scale-box future">
+            <div class="scale-box-val">50+</div>
+            <div class="scale-box-label">Districts with EduFund</div>
+          </div>
+        </div>
+
+        <h4 style="margin-top:32px;">Revenue Comparison: 10 vs. 50 Districts</h4>
+        <table class="rev-share-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Current (10 Districts)</th>
+              <th>With EduFund (50 Districts)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Districts Served</td>
+              <td>10</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>Avg. Annual Revenue / District</td>
+              <td>$80K</td>
+              <td>$65K*</td>
+            </tr>
+            <tr>
+              <td>Total Annual Revenue</td>
+              <td>$800K</td>
+              <td style="color:var(--green-500);font-weight:700;">$3.25M</td>
+            </tr>
+            <tr>
+              <td>Consultant Headcount Required</td>
+              <td>8</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>Revenue per Consultant</td>
+              <td>$100K</td>
+              <td style="color:var(--green-500);font-weight:700;">$271K</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--slate-500);margin-top:8px;">*Lower per-district average reflects EduFund's revenue share cut. AARC retains consulting fees; EduFund receives platform revenue share. Net effect: AARC's total revenue grows 4x with only 50% more headcount.</p>
+
+        <h4 style="margin-top:32px;">Proposed Revenue Split</h4>
+        <p>For districts brought through AARC's channel, the recovered ADA funding generates revenue for both parties. AARC retains their consulting fees (unchanged from today) and receives a referral share of EduFund's platform revenue.</p>
+        <table class="rev-share-table" style="margin-top:12px;">
+          <thead>
+            <tr>
+              <th>Revenue Stream</th>
+              <th>AARC</th>
+              <th>EduFund</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Consulting Fees (Existing)</td>
+              <td>100%</td>
+              <td>0%</td>
+            </tr>
+            <tr>
+              <td>Platform Revenue Share</td>
+              <td>25%</td>
+              <td>75%</td>
+            </tr>
+            <tr>
+              <td>Mental Health Claims Module</td>
+              <td>20%</td>
+              <td>80%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="partner-sidebar">
+        <div class="partner-sidebar-card">
+          <h5>White-Label Opportunity</h5>
+          <ul>
+            <li>Platform branded as AARC's technology</li>
+            <li>AARC logo, colors, domain</li>
+            <li>Districts see AARC, not EduFund</li>
+            <li>Strengthens AARC's market position</li>
+            <li>EduFund handles all engineering</li>
+          </ul>
+        </div>
+        <div class="partner-sidebar-card">
+          <h5>What AARC Gets</h5>
+          <ul>
+            <li>5x district capacity, same headcount</li>
+            <li>Automated reporting replaces spreadsheets</li>
+            <li>Revenue share on platform fees</li>
+            <li>Mental health claims as new revenue stream</li>
+            <li>Competitive moat vs. other consultants</li>
+          </ul>
+        </div>
+        <div class="partner-sidebar-card">
+          <h5>What EduFund Gets</h5>
+          <ul>
+            <li>10+ districts on day one (AARC's clients)</li>
+            <li>Instant credibility with districts</li>
+            <li>Domain expertise transfer from AARC team</li>
+            <li>Warm introductions to new districts</li>
+            <li>Revenue from first month (no cold start)</li>
+          </ul>
+        </div>
+        <div class="partner-sidebar-card" style="background:var(--blue-100);border-color:rgba(59,130,246,0.2);">
+          <h5 style="color:#1e40af;">Procurement Advantage</h5>
+          <ul style="color:#1e40af;">
+            <li>White-label = extension of AARC's existing service contract</li>
+            <li>Avoids software procurement triggers</li>
+            <li>No separate RFP or board vote for tech stack</li>
+            <li>Faster time-to-revenue for both parties</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Territory boundaries -->
+    <div class="territory-box fade-up">
+      <h5>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy-800)" stroke-width="2" style="vertical-align:-3px;margin-right:6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Territory Boundaries
+      </h5>
+      <div class="territory-grid">
+        <div class="territory-col aarc">
+          <h6>AARC Protected Territory</h6>
+          <p>All current AARC client districts plus any district in their active pipeline (defined quarterly). AARC has right of first engagement in these territories. EduFund does not sell direct to AARC-territory districts without AARC's written consent.</p>
+        </div>
+        <div class="territory-col direct">
+          <h6>EduFund Direct Territory</h6>
+          <p>All California districts not in AARC's protected list. EduFund sells direct, retains full platform revenue. If an AARC-territory district approaches EduFund independently, EduFund routes them to AARC first. Territory boundaries reviewed annually.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>EduFund Platform &mdash; Go-To-Market Strategy &amp; Sales Playbook &mdash; May 2026</p>
+  <p style="margin-top:8px;font-size:12px;">Confidential. Prepared for internal planning purposes.</p>
+</footer>
+
+<script>
+// ROI Calculator
+function calcROI() {
+  const ada = parseInt(document.getElementById('ada-slider').value);
+  const absRate = parseInt(document.getElementById('absence-slider').value) / 100;
+  const currentRec = parseInt(document.getElementById('current-slider').value) / 100;
+
+  const schoolDays = 180;
+  const adaRate = 65; // $/day
+  const programCapture = 0.30;
+
+  const totalAbsentDays = Math.round(ada * absRate * schoolDays);
+  const recoverableDays = Math.round(totalAbsentDays * programCapture);
+  const currentRecoveredDays = Math.round(totalAbsentDays * currentRec);
+  const incrementalDays = Math.max(0, recoverableDays - currentRecoveredDays);
+  const incrementalFunding = incrementalDays * adaRate;
+
+  // Hybrid cost: lower of 15% rev-share or per-student cap
+  const revShare = incrementalFunding * 0.15;
+  const perStudentCap = ada * 12; // $12/student cap
+  const hybridCost = Math.min(revShare, perStudentCap);
+  const netToDistrict = incrementalFunding - hybridCost;
+
+  document.getElementById('ada-val').textContent = ada.toLocaleString();
+  document.getElementById('absence-val').textContent = absRate * 100 + '%';
+  document.getElementById('current-val').textContent = currentRec * 100 + '%';
+  document.getElementById('lost-days').textContent = totalAbsentDays.toLocaleString();
+  document.getElementById('recoverable-val').textContent = '$' + (incrementalFunding / 1000000).toFixed(1) + 'M';
+  document.getElementById('net-val').textContent = '$' + (netToDistrict / 1000000).toFixed(1) + 'M';
+}
+
+// Objection toggles
+function toggleObjection(header) {
+  const item = header.parentElement;
+  const body = item.querySelector('.objection-body');
+
+  if (item.classList.contains('open')) {
+    item.classList.remove('open');
+    body.style.maxHeight = '0';
+  } else {
+    // Close others
+    document.querySelectorAll('.objection-item.open').forEach(function(el) {
+      el.classList.remove('open');
+      el.querySelector('.objection-body').style.maxHeight = '0';
+    });
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+
+// Scroll animations
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // Make all elements visible by default for non-JS
+  setTimeout(function() {
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }, 3000);
+})();
+
+// Active nav link
+(function() {
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY + 100;
+    sections.forEach(function(section) {
+      var top = section.offsetTop;
+      var height = section.offsetHeight;
+      var id = section.getAttribute('id');
+      if (scrollY >= top && scrollY < top + height) {
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  });
+})();
+
+// Init calculator
+calcROI();
+</script>
+
+</body>
+</html>
