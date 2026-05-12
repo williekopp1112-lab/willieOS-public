@@ -91,6 +91,7 @@
         "willieos-mcp-server/learningSuggestions.js",
         "src/utils/database.js",
         "src/stores/aiStore.js",
+        "src/utils/actionReceipts.js",
         "src/components/ai-assistant/NotificationCard.jsx",
         "src/components/settings/SettingsWindow.jsx",
         "src/components/settings/GaryMemoryPanel.jsx"
@@ -98,7 +99,7 @@
       "depends_on": [
         "gary-deliverable-memory-learning-loop"
       ],
-      "notes": "V1 dedupes agent-opportunity nudges, saves them as reviewable Learning Suggestions, and caps Gary Inbox chat hydration so old proactive dispatch cards do not create excessive load."
+      "notes": "V1 dedupes agent-opportunity nudges, saves them as reviewable Learning Suggestions, and caps Gary Inbox chat hydration so old proactive dispatch cards do not create excessive load. External actions now append visible action receipts for published links, iMessages, and sent emails, with an automatic short follow-up when GitHub Pages links may still be propagating."
     },
     {
       "id": "gary-loop-quality",
@@ -137,6 +138,7 @@
       "files": [
         "src/utils/voiceReplyService.js",
         "src/utils/realtimeVoiceService.js",
+        "src/utils/garyOperatorService.js",
         "src/stores/aiStore.js",
         "src/components/ai-assistant/AiAssistantWindow.jsx",
         "src/components/ai-assistant/RealtimeVoiceControl.jsx",
@@ -148,7 +150,7 @@
         "src-tauri/src/openai_realtime.rs"
       ],
       "depends_on": [],
-      "notes": "V1 uses Whisper for speech-to-text and ElevenLabs for spoken turn replies. Realtime adds a live voice control layer using gpt-realtime-2 through an ephemeral Tauri-minted client secret. The Realtime model gets one handoff_to_gary tool; spoken replies stay brief while detailed tool calls and dispatches run in visible Gary chat."
+      "notes": "V1 uses Whisper for speech-to-text and ElevenLabs for spoken turn replies. Realtime adds a persistent app-rail voice control layer using gpt-realtime-2 through an ephemeral Tauri-minted client secret, so the listening session survives navigation across Gary views. Realtime now runs as a trusted local app operator with API-first actions for navigation, Gary chat, analytics, vaults, tasks, notes, contacts, search, Knowledge Graph, and settings; external/destructive work still requires confirmation, and missing-action reporting captures visual fallback gaps. Dev builds now embed the microphone usage plist too, so npx tauri dev gets the same macOS mic permission surface as packaged Gary."
     },
     {
       "id": "gary-deliverable-memory-learning-loop",
