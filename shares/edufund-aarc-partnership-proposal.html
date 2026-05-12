@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduFund x AARC — Technology Partnership Proposal</title>
+  <meta name="description" content="A formal technology partnership proposal from EduFund to AARC/ECS leadership. Replacing manual workflows with purpose-built technology for ADA recovery at scale.">
+  <meta property="og:title" content="EduFund x AARC — Technology Partnership Proposal">
+  <meta property="og:description" content="A formal technology partnership proposal from EduFund to AARC/ECS leadership. Purpose-built technology for ADA recovery at scale.">
+  <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230B0F1A' width='100' height='100'/><text y='60' x='10' font-size='40' fill='%236366F1'>EF</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230B0F1A' width='100' height='100' rx='20'/><text y='68' x='12' font-size='44' font-weight='bold' fill='%236366F1'>EF</text></svg>">
+
+  <!-- Google Fonts: Inter (headings) + Nunito (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            body: ['Nunito', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    :root {
+      --ds-bg:        #0B0F1A;
+      --ds-surface:   #131927;
+      --ds-surface2:  #1C2333;
+      --ds-primary:   #6366F1;
+      --ds-accent:    #22D3EE;
+      --ds-success:   #34D399;
+      --ds-warning:   #FBBF24;
+      --ds-text:      #F1F5F9;
+      --ds-muted:     #94A3B8;
+      --ds-border:    #1E293B;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--ds-bg);
+      color: var(--ds-text);
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* Fade-in animation for sections — always visible, animation is cosmetic only */
+    .section-animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-animate.animate-in {
+      animation: fadeSlideIn 0.6s ease-out forwards;
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: #0B0F1A !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .print-hidden { display: none !important; }
+      .section-animate.animate-in { animation: none; }
+    }
+
+    /* Smooth scrolling */
+    html { scroll-behavior: smooth; }
+
+    /* Navigation active state */
+    .nav-link {
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--ds-accent) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky navigation -->
+  <nav class="sticky top-0 z-50 print-hidden" style="background: rgba(11, 15, 26, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--ds-border);">
+    <div class="mx-auto max-w-4xl px-4 py-3 flex items-center justify-between">
+      <div class="font-sans text-sm font-bold tracking-tight" style="color: var(--ds-text);">
+        EduFund <span style="color: var(--ds-muted);">x</span> AARC
+      </div>
+      <div class="flex items-center gap-4 text-xs overflow-x-auto">
+        <a href="#executive-summary" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">Summary</a>
+        <a href="#understanding" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">Your Business</a>
+        <a href="#technology-gap" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">The Gap</a>
+        <a href="#proposal" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">Proposal</a>
+        <a href="#partnership" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">Partnership</a>
+        <a href="#implementation" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">Roadmap</a>
+        <a href="#roi" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">ROI</a>
+        <a href="#about" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">About Us</a>
+        <a href="#next-steps" class="nav-link whitespace-nowrap" style="color: var(--ds-muted);">Next Steps</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="min-h-screen py-12 px-4" style="background: var(--ds-bg); color: var(--ds-text);">
+
+    <!-- Print button -->
+    <div class="mx-auto mb-6 flex max-w-4xl justify-end print-hidden">
+      <button
+        onclick="window.print()"
+        class="rounded-lg px-5 py-2.5 font-sans text-sm font-semibold transition-opacity hover:opacity-80 cursor-pointer"
+        style="background: var(--ds-primary); color: #fff;"
+      >
+        Print / Save PDF
+      </button>
+    </div>
+
+    <div class="mx-auto max-w-4xl space-y-0">
+
+      <!-- ═══════════════════════════════════════════
+           COVER
+      ═══════════════════════════════════════════ -->
+      <section class="rounded-2xl p-10 mb-2 section-animate" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+        <!-- Letterhead -->
+        <div class="mb-8 flex items-start justify-between gap-6 flex-wrap">
+          <div>
+            <div class="font-sans text-2xl font-bold tracking-tight" style="color: var(--ds-text);">
+              EduFund
+            </div>
+            <div class="text-xs mt-0.5" style="color: var(--ds-muted);">
+              Technology for Educational Equity
+            </div>
+          </div>
+          <div class="text-right text-sm" style="color: var(--ds-muted);">
+            <div>Submitted: May 2026</div>
+            <div>Prepared by: Willie Kopp &amp; Joe Kopp</div>
+            <div>Confidential &mdash; For AARC/ECS Leadership</div>
+          </div>
+        </div>
+
+        <!-- Headline -->
+        <div class="mb-3 text-xs font-semibold tracking-widest uppercase" style="color: var(--ds-accent);">
+          Partnership Proposal
+        </div>
+        <h1 class="font-sans text-4xl font-bold leading-tight text-balance mb-4" style="color: var(--ds-text);">
+          Scaling AARC's Impact Through Purpose-Built Technology
+        </h1>
+        <p class="text-lg leading-relaxed" style="color: var(--ds-muted);">
+          A proposal from EduFund to serve as AARC's dedicated technology partner &mdash; replacing
+          manual workflows with an intelligent platform built to grow alongside your mission.
+        </p>
+
+        <!-- Stats bar -->
+        <div class="mt-8 grid grid-cols-2 gap-6 rounded-xl p-6 sm:grid-cols-4" style="background: var(--ds-surface2); border: 1px solid var(--ds-border);">
+          <div class="flex flex-col items-center gap-1 text-center">
+            <span class="font-sans text-3xl font-bold" style="color: var(--ds-primary);">50+</span>
+            <span class="text-sm leading-snug" style="color: var(--ds-muted);">Districts &mdash; our growth target together</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 text-center">
+            <span class="font-sans text-3xl font-bold" style="color: var(--ds-accent);">10x</span>
+            <span class="text-sm leading-snug" style="color: var(--ds-muted);">Operational scale without proportional overhead</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 text-center">
+            <span class="font-sans text-3xl font-bold" style="color: var(--ds-success);">90</span>
+            <span class="text-sm leading-snug" style="color: var(--ds-muted);">Day pilot to prove value before full rollout</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 text-center">
+            <span class="font-sans text-3xl font-bold" style="color: var(--ds-warning);">$0</span>
+            <span class="text-sm leading-snug" style="color: var(--ds-muted);">Technology risk to AARC during pilot phase</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           1. EXECUTIVE SUMMARY
+      ═══════════════════════════════════════════ -->
+      <section id="executive-summary" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 1</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">Executive Summary</h2>
+        <div class="mt-4 space-y-4 leading-relaxed" style="color: var(--ds-muted);">
+          <p>
+            AARC has built something genuinely rare: a legally compliant, community-trusted model for delivering
+            Saturday and Sunday supplemental instruction that school districts rely on, and one that directly
+            recovers Average Daily Attendance (ADA) funding for the students who need it most. That is the hard
+            part. You have already done it.
+          </p>
+          <p>
+            What we are offering is a technology partnership designed to remove the operational ceiling
+            that currently limits how many districts AARC can serve. Today, Google Sheets and manual
+            coordination work. But they will not scale to 20 districts, let alone 50. Every new district
+            means more spreadsheets, more manual reconciliation, more compliance exposure, and more hours
+            spent on administration instead of program delivery.
+          </p>
+          <p>
+            <span class="font-semibold" style="color: var(--ds-accent);">EduFund wants to be the technology backbone that powers AARC's next decade.</span>
+            We will build and maintain a purpose-built platform &mdash; automated attendance tracking,
+            real-time district dashboards, compliance reporting, and financial forecasting &mdash; so that
+            AARC's team can focus entirely on what they do best: running an exceptional program.
+          </p>
+          <p>
+            AARC continues to own the program, the relationships, and the operations. EduFund provides
+            the technology. Together, we grow.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           2. UNDERSTANDING YOUR BUSINESS
+      ═══════════════════════════════════════════ -->
+      <section id="understanding" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 2</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">Understanding Your Business</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          We have done our homework. Before writing a single line of code, we invested time
+          understanding exactly how AARC operates &mdash; the people, the processes, and the regulatory
+          environment your program lives inside.
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <!-- AARC Program Model Card -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-primary);">
+            <h3 class="mb-3 font-sans font-semibold" style="color: var(--ds-text);">The AARC Program Model</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Saturday and Sunday sessions at school sites, providing supplemental instruction to students who missed school days during the week</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Credentialed teachers &mdash; not tutors &mdash; delivering instruction that meets Ed Code standards and qualifies for ADA recovery reporting</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">District and school coordination: AARC works with district administrators and individual site principals to schedule, staff, and run sessions</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">ADA recovery reporting submitted to districts, allowing them to recoup state attendance funding for participating students</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Ongoing compliance with Ed Code 37223 (independent study makeup) and evolving requirements under SB 153 and SB 176</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- What Makes AARC Defensible Card -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-accent);">
+            <h3 class="mb-3 font-sans font-semibold" style="color: var(--ds-text);">What Makes AARC Defensible</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Deep relationships with district leadership built on years of reliable program delivery</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Credentialed teacher network that can staff sessions on short notice</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Operational know-how around ADA documentation that most vendors do not have</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">A compliance-first culture &mdash; AARC understands that one bad audit can end a program</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Genuine commitment to the students and families these sessions serve</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Regulatory Context Card -->
+        <div class="mt-4 rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+          <h3 class="mb-2 font-sans font-semibold" style="color: var(--ds-text);">The Regulatory Context</h3>
+          <p class="leading-relaxed" style="color: var(--ds-muted);">
+            California's Education Code 37223 permits school districts to offer makeup
+            instruction to students who were absent, and to count that attendance for ADA
+            purposes under specific conditions. SB 153 and SB 176 introduced additional
+            accountability requirements around independent study and attendance tracking &mdash;
+            requirements that have increased the documentation burden for programs like AARC
+            while simultaneously raising the stakes for non-compliance. Getting this right
+            is not optional; it is existential to the program.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           3. THE TECHNOLOGY GAP
+      ═══════════════════════════════════════════ -->
+      <section id="technology-gap" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 3</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">The Technology Gap</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          Google Sheets is a remarkable tool. It is flexible, accessible, and free &mdash; and it
+          got AARC to where it is today. But it was designed for general-purpose data management,
+          not for running a multi-district ADA recovery program. As AARC grows, the cracks in a
+          spreadsheet-based system grow with it.
+        </p>
+
+        <div class="mt-6 space-y-3">
+          <!-- Risk 1 -->
+          <div class="flex gap-4 rounded-xl p-5" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mt-1 h-2 w-2 shrink-0 rounded-full" style="background: var(--ds-warning);"></div>
+            <div>
+              <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Manual errors in attendance tracking</h4>
+              <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+                Every session record entered by hand is an opportunity for a typo, a missed entry, or a formula error. A single incorrect attendance figure in an ADA submission can trigger a district audit or a funding clawback &mdash; both of which consume enormous staff time to resolve.
+              </p>
+            </div>
+          </div>
+
+          <!-- Risk 2 -->
+          <div class="flex gap-4 rounded-xl p-5" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mt-1 h-2 w-2 shrink-0 rounded-full" style="background: var(--ds-warning);"></div>
+            <div>
+              <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Delayed financial reporting</h4>
+              <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+                When session data lives in spreadsheets, producing a financial summary requires manual consolidation. Districts often wait days for reports that should be available instantly. Delayed reporting erodes trust and makes it harder for districts to plan.
+              </p>
+            </div>
+          </div>
+
+          <!-- Risk 3 -->
+          <div class="flex gap-4 rounded-xl p-5" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mt-1 h-2 w-2 shrink-0 rounded-full" style="background: var(--ds-primary);"></div>
+            <div>
+              <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Limited scalability</h4>
+              <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+                Adding a new district today means creating a new set of spreadsheets, establishing new sharing permissions, and onboarding staff to yet another manual workflow. There is no architecture that supports growth &mdash; each new district is a new burden.
+              </p>
+            </div>
+          </div>
+
+          <!-- Risk 4 -->
+          <div class="flex gap-4 rounded-xl p-5" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mt-1 h-2 w-2 shrink-0 rounded-full" style="background: var(--ds-primary);"></div>
+            <div>
+              <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Compliance risk and audit exposure</h4>
+              <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+                State compliance requirements under Ed Code 37223 and SB 153/176 demand accurate, reproducible records. Spreadsheets do not provide an audit trail, version history, or tamper-evident recordkeeping. If AARC is audited, reconstructing compliance documentation from spreadsheets is both time-consuming and risky.
+              </p>
+            </div>
+          </div>
+
+          <!-- Risk 5 -->
+          <div class="flex gap-4 rounded-xl p-5" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mt-1 h-2 w-2 shrink-0 rounded-full" style="background: var(--ds-accent);"></div>
+            <div>
+              <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">No real-time visibility for district partners</h4>
+              <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+                District administrators currently have no self-service way to see attendance data, participation rates, or ADA recovery projections. Every status update requires AARC staff to pull data manually and send a report. This limits how many districts can be effectively served and reduces the perceived value of the partnership.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom line card -->
+        <div class="mt-5 rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-warning);">
+          <p class="font-semibold leading-relaxed" style="color: var(--ds-text);">
+            The bottom line: AARC's current technology is not a strategic risk today &mdash;
+            but it will become one as soon as the program tries to grow beyond its current
+            footprint. The cost of doing nothing is a hard ceiling on impact.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           4. OUR PROPOSAL
+      ═══════════════════════════════════════════ -->
+      <section id="proposal" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 4</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">Our Proposal &mdash; The EduFund Platform</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          We propose building a purpose-built technology platform that serves as AARC's
+          operational backbone &mdash; handling the administrative and compliance infrastructure so
+          your team can focus entirely on program quality and district relationships.
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Feature 1 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mb-3 text-2xl">&#x1F4CB;</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Automated Attendance Tracking</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              Digital sign-in at the session level. Teacher-verified attendance records with timestamps. Automatic calculation of eligible ADA minutes per student, per session, per district. No manual entry. No formula errors.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mb-3 text-2xl">&#x1F4CA;</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">District &amp; School Zone Dashboards</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              Real-time dashboards for district administrators and school site coordinators, built on top of the zone model AARC already uses. Live attendance rates, ADA recovery projections, and session calendars. No more waiting for emailed reports.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mb-3 text-2xl">&#x1F4C5;</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Session Scheduling &amp; Staffing</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              Integrated scheduling tools for planning Saturday and Sunday sessions across multiple sites. Teacher assignment and confirmation workflows. Automated reminders and capacity management.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mb-3 text-2xl">&#x2696;&#xFE0F;</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Compliance Reporting Engine</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              One-click generation of ADA recovery reports formatted to district and state requirements. Built-in audit trail with immutable session records. Compliance checklists aligned to Ed Code 37223, SB 153, and SB 176.
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mb-3 text-2xl">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Parent &amp; Student Engagement Portal</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              A simple portal for families to view their student's session attendance, upcoming schedules, and ADA recovery progress. Reduces inbound calls to AARC staff and increases family trust in the program.
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+            <div class="mb-3 text-2xl">&#x1F4B0;</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Financial Forecasting &amp; Revenue Optimization</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              Real-time revenue projections based on confirmed attendance. District-level P&amp;L views. Identification of under-served schools with the highest ADA recovery potential. Tools to model program expansion scenarios.
+            </p>
+          </div>
+        </div>
+
+        <!-- Building on what AARC already has -->
+        <div class="mt-6 rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-primary);">
+          <h3 class="mb-3 font-sans font-semibold" style="color: var(--ds-text);">Building on What AARC Already Has</h3>
+          <p class="leading-relaxed" style="color: var(--ds-muted);">
+            We are not proposing to replace AARC's existing structures. We are proposing to
+            digitize and accelerate them. The District Zone and School Zone framework your team
+            already uses becomes the organizing structure of the platform. Every report AARC
+            currently produces manually becomes an automated output. The relationships and
+            institutional knowledge your team has built over years remain with AARC. The platform
+            just makes them easier to scale.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           5. HOW WE'D WORK TOGETHER
+      ═══════════════════════════════════════════ -->
+      <section id="partnership" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 5</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">How We'd Work Together</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          This is a partnership, not a vendor relationship. The distinction matters.
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <!-- What AARC Owns -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-primary);">
+            <h3 class="mb-3 font-sans font-semibold" style="color: var(--ds-text);">What AARC Owns</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">The program design, curriculum standards, and instructional model</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">District and school relationships &mdash; every contact, contract, and conversation</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Teacher hiring, credentialing, and management</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Operational decisions about how sessions are run</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">All compliance filings and district-facing communications</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">The AARC brand and reputation</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- What EduFund Provides -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-accent);">
+            <h3 class="mb-3 font-sans font-semibold" style="color: var(--ds-text);">What EduFund Provides</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Full platform design, development, and maintenance</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Ongoing feature development based on AARC's evolving needs</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Data security, hosting, and infrastructure</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Training and onboarding for AARC staff and district contacts</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Compliance updates as state regulations evolve</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Dedicated support &mdash; we are a text message away, not a help ticket</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Commercial Structure -->
+        <div class="mt-4 rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+          <h3 class="mb-2 font-sans font-semibold" style="color: var(--ds-text);">Commercial Structure</h3>
+          <p class="leading-relaxed" style="color: var(--ds-muted);">
+            We are open to structuring this as a revenue share (EduFund earns a small percentage
+            of ADA recovery revenue generated through districts using the platform) or a
+            per-district licensing fee as the program scales. We believe in alignment &mdash; our
+            incentives should mirror AARC's growth, not work against it. We will bring specific
+            commercial terms to our next conversation once we understand your preferences.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           6. IMPLEMENTATION PLAN
+      ═══════════════════════════════════════════ -->
+      <section id="implementation" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 6</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">Implementation Plan</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          We do not ask for a leap of faith. We propose a structured 90-day pilot with one
+          district &mdash; low risk for AARC, high signal for both parties &mdash; followed by a deliberate
+          rollout as the platform proves its value.
+        </p>
+
+        <div class="mt-6">
+          <!-- Phase 1 -->
+          <div class="relative flex gap-5">
+            <div class="flex flex-col items-center">
+              <div class="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold" style="background: var(--ds-primary); color: #fff;">1</div>
+              <div class="mt-2 flex-1 w-px" style="background: var(--ds-border);"></div>
+            </div>
+            <div class="pb-8">
+              <div class="mb-0.5 flex items-baseline gap-3">
+                <h4 class="font-sans font-semibold" style="color: var(--ds-text);">Discovery &amp; Design</h4>
+                <span class="text-xs" style="color: var(--ds-accent);">Weeks 1-3</span>
+              </div>
+              <ul class="space-y-2.5">
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Deep-dive sessions with AARC operational leads to map every current workflow</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Audit of existing Google Sheets structures, report formats, and compliance documents</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">District partner interview to understand their dashboard and reporting needs</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Platform architecture and UI design review with AARC sign-off before any build begins</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="relative flex gap-5">
+            <div class="flex flex-col items-center">
+              <div class="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold" style="background: var(--ds-primary); color: #fff;">2</div>
+              <div class="mt-2 flex-1 w-px" style="background: var(--ds-border);"></div>
+            </div>
+            <div class="pb-8">
+              <div class="mb-0.5 flex items-baseline gap-3">
+                <h4 class="font-sans font-semibold" style="color: var(--ds-text);">Pilot Build</h4>
+                <span class="text-xs" style="color: var(--ds-accent);">Weeks 4-8</span>
+              </div>
+              <ul class="space-y-2.5">
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Core attendance tracking and ADA calculation engine</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">District Zone dashboard for pilot district administrators</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Compliance report generation for Ed Code 37223</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">AARC staff-facing session scheduling and teacher management tools</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Data migration from existing spreadsheets for the pilot district</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="relative flex gap-5">
+            <div class="flex flex-col items-center">
+              <div class="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold" style="background: var(--ds-primary); color: #fff;">3</div>
+              <div class="mt-2 flex-1 w-px" style="background: var(--ds-border);"></div>
+            </div>
+            <div class="pb-8">
+              <div class="mb-0.5 flex items-baseline gap-3">
+                <h4 class="font-sans font-semibold" style="color: var(--ds-text);">Pilot Launch</h4>
+                <span class="text-xs" style="color: var(--ds-accent);">Weeks 9-12</span>
+              </div>
+              <ul class="space-y-2.5">
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Soft launch with one district &mdash; sessions tracked live through the platform</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Weekly review calls between EduFund and AARC to identify issues and improvements</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Side-by-side validation: platform outputs vs. existing manual process for accuracy</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">District administrator feedback and dashboard refinement</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Go / no-go decision point at day 90</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 4 -->
+          <div class="relative flex gap-5">
+            <div class="flex flex-col items-center">
+              <div class="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-sans text-sm font-bold" style="background: var(--ds-primary); color: #fff;">4</div>
+            </div>
+            <div class="pb-2">
+              <div class="mb-0.5 flex items-baseline gap-3">
+                <h4 class="font-sans font-semibold" style="color: var(--ds-text);">Full Rollout</h4>
+                <span class="text-xs" style="color: var(--ds-accent);">Months 4-12</span>
+              </div>
+              <ul class="space-y-2.5">
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Onboarding of additional districts in priority order (up to AARC)</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Launch of parent/student engagement portal</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Financial forecasting module and revenue optimization tools</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                  <span class="leading-relaxed" style="color: var(--ds-muted);">Quarterly business reviews with AARC leadership to align on platform roadmap</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           7. INVESTMENT & ROI
+      ═══════════════════════════════════════════ -->
+      <section id="roi" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 7</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">Investment &amp; Return on Investment</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          The pilot phase carries no technology cost to AARC. EduFund absorbs the build
+          cost in exchange for the partnership opportunity. Post-pilot commercial terms
+          will be negotiated transparently, but here is how we think about the value equation:
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <!-- What It Costs -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-border);">
+            <h3 class="mb-3 font-sans text-sm font-semibold uppercase tracking-widest" style="color: var(--ds-muted);">What It Costs</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Pilot phase: No cost to AARC &mdash; EduFund funds development</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Post-pilot: Revenue share (TBD, proposed at 3-5% of platform-attributed ADA recovery) OR flat per-district licensing fee</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Staff time: Approximately 4-6 hours for the discovery phase, then minimal ongoing involvement as the platform runs</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style="background: var(--ds-primary);"></span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">No long-term contract required after the pilot &mdash; if it does not work, AARC walks away</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- What AARC Gains -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-success);">
+            <h3 class="mb-3 font-sans text-sm font-semibold uppercase tracking-widest" style="color: var(--ds-success);">What AARC Gains</h3>
+            <ul class="space-y-2.5">
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Capacity to serve 3-5x more districts without adding proportional administrative headcount</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Elimination of manual data entry errors that create compliance exposure</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Real-time financial visibility &mdash; know your ADA recovery position every day, not at month end</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Stronger district relationships through self-service dashboards and instant reporting</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">A defensible competitive moat &mdash; no other weekend ADA program will have this infrastructure</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold" style="background: var(--ds-success); color: #0B0F1A;">&#10003;</span>
+                <span class="leading-relaxed" style="color: var(--ds-muted);">Reduced audit risk through immutable, auditable attendance records</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Simple Model -->
+        <div class="mt-4 rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+          <h3 class="mb-2 font-sans font-semibold" style="color: var(--ds-text);">A Simple Model</h3>
+          <p class="leading-relaxed" style="color: var(--ds-muted);">
+            If the platform enables AARC to add 5 net-new districts over the next 18 months &mdash;
+            a conservative estimate given the operational unlocking it provides &mdash; and each
+            district generates $200,000 in program revenue, that is $1M in incremental annual
+            revenue for AARC. At a 4% revenue share, EduFund would earn approximately $40,000
+            annually against a development investment of the same order. Both parties win.
+            As AARC grows to 20, 30, or 50 districts, the math compounds &mdash; for both of us.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           8. ABOUT US
+      ═══════════════════════════════════════════ -->
+      <section id="about" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 8</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">About EduFund &mdash; Willie &amp; Joe</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          EduFund was founded on the conviction that educational equity is not just a policy
+          problem &mdash; it is an infrastructure problem. Programs like AARC already know how to
+          serve students. What they need is the operational foundation to do it at scale.
+          That is what we build.
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <!-- Willie -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-primary);">
+            <h3 class="mb-1 font-sans text-lg font-bold" style="color: var(--ds-text);">Willie Kopp</h3>
+            <div class="mb-3 text-xs font-semibold uppercase tracking-widest" style="color: var(--ds-accent);">Co-Founder</div>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              Willie brings deep experience at the intersection of education, community programs,
+              and operational leadership. He has spent years working alongside school districts
+              and community-based organizations &mdash; understanding both the regulatory environment
+              that governs programs like AARC and the practical realities of running them. Willie
+              leads partnerships and program strategy at EduFund.
+            </p>
+          </div>
+
+          <!-- Joe -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-accent);">
+            <h3 class="mb-1 font-sans text-lg font-bold" style="color: var(--ds-text);">Joe Kopp</h3>
+            <div class="mb-3 text-xs font-semibold uppercase tracking-widest" style="color: var(--ds-accent);">Co-Founder</div>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              Joe is a product and technology leader who has built software platforms for
+              complex, compliance-heavy environments. He understands that education technology
+              only creates value when it reduces burden &mdash; not when it adds another system for
+              staff to manage. Joe leads platform design and engineering at EduFund.
+            </p>
+          </div>
+        </div>
+
+        <!-- Vision -->
+        <div class="mt-4 rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border);">
+          <h3 class="mb-2 font-sans font-semibold" style="color: var(--ds-text);">Our Vision</h3>
+          <p class="leading-relaxed" style="color: var(--ds-muted);">
+            We believe that the most effective education programs in California are not the
+            ones with the most funding or the biggest brand. They are the ones run by people
+            who genuinely understand their communities and have built real trust with the families
+            they serve. AARC is exactly that kind of program. Our job is to build the technology
+            infrastructure that lets programs like AARC punch well above their weight &mdash; serving
+            more students, staying compliant, and growing sustainably &mdash; without losing the
+            human quality that makes them work.
+          </p>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="my-10 flex items-center gap-4">
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+        <div class="h-1.5 w-1.5 rounded-full" style="background: var(--ds-primary);"></div>
+        <div class="h-px flex-1" style="background: var(--ds-border);"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           9. NEXT STEPS
+      ═══════════════════════════════════════════ -->
+      <section id="next-steps" class="scroll-mt-16 section-animate">
+        <span class="mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase" style="background: var(--ds-surface2); color: var(--ds-accent);">Section 9</span>
+        <h2 class="font-sans text-2xl font-bold leading-tight text-balance" style="color: var(--ds-text);">Next Steps</h2>
+        <p class="mt-4 leading-relaxed" style="color: var(--ds-muted);">
+          We would love the opportunity to sit down with AARC leadership &mdash; in person or over
+          video &mdash; to discuss this proposal, answer questions, and hear your perspective on
+          where the program is headed. We are not here to tell AARC what it needs. We are
+          here to understand your priorities and design a partnership that genuinely serves them.
+        </p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-3">
+          <!-- Step 01 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-primary);">
+            <div class="mb-2 font-sans text-3xl font-bold" style="color: var(--ds-primary);">01</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Initial Meeting</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              A 60-minute conversation with AARC/ECS leadership to discuss this proposal,
+              answer questions, and explore mutual interest in moving forward.
+            </p>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-accent);">
+            <div class="mb-2 font-sans text-3xl font-bold" style="color: var(--ds-accent);">02</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Discovery Session</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              A working session with AARC operations staff to map current workflows,
+              review existing documentation, and identify pilot district candidates.
+            </p>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="rounded-xl p-6" style="background: var(--ds-surface); border: 1px solid var(--ds-border); border-top: 3px solid var(--ds-success);">
+            <div class="mb-2 font-sans text-3xl font-bold" style="color: var(--ds-success);">03</div>
+            <h4 class="mb-1 font-sans font-semibold" style="color: var(--ds-text);">Partnership Agreement</h4>
+            <p class="text-sm leading-relaxed" style="color: var(--ds-muted);">
+              A simple, plain-language partnership agreement covering the 90-day pilot
+              scope, commercial terms, and data governance. Then we build.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA block -->
+        <div class="mt-6 rounded-xl p-8 text-center" style="background: var(--ds-surface2); border: 1px solid var(--ds-border);">
+          <h3 class="font-sans text-xl font-bold text-balance mb-2" style="color: var(--ds-text);">
+            Ready to explore what this could look like together?
+          </h3>
+          <p class="mb-6 leading-relaxed" style="color: var(--ds-muted);">
+            We are flexible on timing and format. Reach out and we will make it work.
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-6">
+            <div>
+              <div class="text-xs uppercase tracking-widest mb-1" style="color: var(--ds-muted);">Willie Kopp</div>
+              <div class="font-sans font-semibold" style="color: var(--ds-accent);">willie@edufund.io</div>
+            </div>
+            <div class="h-8 w-px hidden sm:block" style="background: var(--ds-border);"></div>
+            <div>
+              <div class="text-xs uppercase tracking-widest mb-1" style="color: var(--ds-muted);">Joe Kopp</div>
+              <div class="font-sans font-semibold" style="color: var(--ds-accent);">joe@edufund.io</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           FOOTER
+      ═══════════════════════════════════════════ -->
+      <footer class="mt-12 rounded-xl px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style="background: var(--ds-surface); border: 1px solid var(--ds-border); color: var(--ds-muted);">
+        <div>
+          <span class="font-semibold" style="color: var(--ds-text);">EduFund</span>
+          x AARC/ECS &mdash; Technology Partnership Proposal &middot; May 2026
+        </div>
+        <div>Confidential. Prepared for AARC/ECS leadership review only.</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Scroll-triggered fade-in animation (progressive enhancement — content always visible) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var sections = document.querySelectorAll('.section-animate');
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        sections.forEach(function(section) {
+          observer.observe(section);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
