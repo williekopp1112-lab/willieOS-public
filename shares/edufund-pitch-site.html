@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduFund | Unlock Every Dollar Your District Deserves</title>
+<meta name="description" content="EduFund Platform pitch deck — ADA recovery and mental health claims automation for California school districts">
+<meta property="og:title" content="EduFund Platform | AARC × ECS">
+<meta property="og:description" content="Unlock every dollar your district deserves. ADA recovery and CYBHI billing automation.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1D3A'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='%2334D399'%3E$%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ========= RESET & VARIABLES ========= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy-900: #06101F;
+  --navy-800: #0B1D3A;
+  --navy-700: #112D55;
+  --navy-600: #1A3F6F;
+  --navy-500: #2A5A8F;
+  --slate-400: #8899AA;
+  --slate-300: #A8B8C8;
+  --slate-200: #C8D4E0;
+  --slate-100: #E8EDF2;
+  --white: #FFFFFF;
+  --green-500: #34D399;
+  --green-400: #6EE7B7;
+  --green-300: #A7F3D0;
+  --green-600: #059669;
+  --green-700: #047857;
+  --amber-500: #F59E0B;
+  --amber-400: #FBBF24;
+  --red-400: #F87171;
+  --red-500: #EF4444;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --max-w: 1140px;
+  --section-pad: 100px 24px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--slate-100);
+  background: var(--navy-900);
+  line-height: 1.65;
+  font-size: 17px;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+a { color: var(--green-400); text-decoration: none; }
+a:hover { color: var(--green-300); }
+
+img { max-width: 100%; display: block; }
+
+.container { max-width: var(--max-w); margin: 0 auto; }
+
+/* ========= NAV ========= */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(6,16,31,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 24px;
+  transition: background 0.3s;
+}
+nav .nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--green-500); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  color: var(--slate-300);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--green-400); }
+.nav-cta {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1.5px solid var(--green-500);
+  border-radius: 6px;
+  color: var(--green-400);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.25s;
+}
+.nav-cta:hover {
+  background: var(--green-500);
+  color: var(--navy-900);
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ========= SECTION BASE ========= */
+section { padding: var(--section-pad); position: relative; }
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--green-500);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 19px;
+  color: var(--slate-300);
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+/* ========= HERO ========= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(5,150,105,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(42,90,143,0.12) 0%, transparent 70%),
+    var(--navy-900);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--navy-900));
+  pointer-events: none;
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-content { z-index: 2; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-400);
+  margin-bottom: 28px;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--green-500);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5.5vw, 60px);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--green-400);
+}
+
+.hero-sub {
+  font-size: 20px;
+  color: var(--slate-300);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--green-600);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: var(--green-500);
+  color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(5,150,105,0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--slate-200);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  border: 1.5px solid var(--navy-600);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  border-color: var(--slate-400);
+  color: var(--white);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.hero-stat-val {
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: var(--green-400);
+  display: block;
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 13px;
+  color: var(--slate-400);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+/* Hero visual — abstract funding flow diagram */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-diagram {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1;
+  position: relative;
+}
+.hero-ring {
+  position: absolute;
+  border: 1.5px solid rgba(52,211,153,0.15);
+  border-radius: 50%;
+  animation: ring-rotate 30s linear infinite;
+}
+.hero-ring:nth-child(1) { inset: 0; }
+.hero-ring:nth-child(2) { inset: 40px; animation-direction: reverse; animation-duration: 25s; border-color: rgba(42,90,143,0.2); }
+.hero-ring:nth-child(3) { inset: 80px; animation-duration: 20s; }
+@keyframes ring-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.hero-center-metric {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+.hero-center-metric .amount {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 56px);
+  color: var(--green-400);
+  display: block;
+  line-height: 1;
+}
+.hero-center-metric .label {
+  font-size: 14px;
+  color: var(--slate-400);
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Floating nodes on rings */
+.hero-node {
+  position: absolute;
+  width: 56px; height: 56px;
+  background: var(--navy-700);
+  border: 1.5px solid rgba(52,211,153,0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.hero-node:nth-child(5) { top: 5%; left: 50%; transform: translateX(-50%); }
+.hero-node:nth-child(6) { top: 50%; right: 2%; transform: translateY(-50%); }
+.hero-node:nth-child(7) { bottom: 5%; left: 50%; transform: translateX(-50%); }
+.hero-node:nth-child(8) { top: 50%; left: 2%; transform: translateY(-50%); }
+
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .hero-stats { gap: 24px; }
+}
+
+/* ========= PROBLEM ========= */
+.problem {
+  background:
+    linear-gradient(to bottom, var(--navy-900), var(--navy-800)),
+    var(--navy-900);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  margin-top: 48px;
+}
+
+.problem-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 36px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.problem-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(248,113,113,0.3);
+}
+
+.problem-card .icon {
+  width: 48px; height: 48px;
+  background: rgba(248,113,113,0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.problem-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.problem-card p {
+  color: var(--slate-300);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.problem-highlight {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 72px);
+  color: var(--red-400);
+  text-align: center;
+  margin-top: 56px;
+  line-height: 1;
+  opacity: 0.9;
+}
+.problem-highlight span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--slate-400);
+  margin-top: 12px;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .problem-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ========= SOLUTION ========= */
+.solution {
+  background: var(--navy-800);
+}
+
+.solution-arch {
+  margin-top: 56px;
+}
+
+/* Modular architecture visual */
+.arch-backbone {
+  background: linear-gradient(135deg, var(--navy-700), var(--navy-600));
+  border: 1.5px solid rgba(52,211,153,0.2);
+  border-radius: 16px;
+  padding: 28px 36px;
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+.arch-backbone h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--green-400);
+}
+.arch-backbone p {
+  color: var(--slate-300);
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+.arch-arrow {
+  display: flex;
+  justify-content: center;
+  margin: -4px 0;
+}
+.arch-arrow svg {
+  width: 24px;
+  height: 32px;
+  color: var(--green-500);
+  opacity: 0.5;
+}
+
+.arch-modules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.arch-module {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: all 0.3s;
+  position: relative;
+}
+.arch-module:hover {
+  border-color: rgba(52,211,153,0.3);
+  transform: translateY(-2px);
+}
+.arch-module.active {
+  border-color: var(--green-500);
+  background: rgba(52,211,153,0.05);
+}
+.arch-module.coming-soon {
+  opacity: 0.5;
+}
+.arch-module .mod-icon {
+  width: 44px; height: 44px;
+  margin: 0 auto 14px;
+  background: rgba(52,211,153,0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.arch-module h4 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.arch-module p {
+  font-size: 14px;
+  color: var(--slate-400);
+  line-height: 1.5;
+}
+.arch-module .badge-coming {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.arch-module .badge-live {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  background: rgba(52,211,153,0.15);
+  border: 1px solid rgba(52,211,153,0.3);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 768px) {
+  .arch-modules { grid-template-columns: 1fr; }
+}
+
+/* ========= HOW IT WORKS ========= */
+.how-it-works {
+  background:
+    radial-gradient(ellipse 50% 40% at 80% 20%, rgba(5,150,105,0.06) 0%, transparent 60%),
+    var(--navy-900);
+}
+
+.workflow-steps {
+  margin-top: 56px;
+  position: relative;
+}
+
+/* Vertical line */
+.workflow-steps::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--green-500), rgba(52,211,153,0.1));
+}
+
+.workflow-step {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.step-num {
+  width: 56px; height: 56px;
+  min-width: 56px;
+  background: var(--navy-800);
+  border: 2px solid var(--green-500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--green-400);
+  z-index: 2;
+}
+
+.step-content h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.step-content p {
+  color: var(--slate-300);
+  font-size: 16px;
+  max-width: 580px;
+}
+
+@media (max-width: 600px) {
+  .workflow-steps::before { left: 20px; }
+  .step-num { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
+}
+
+/* ========= DASHBOARD ========= */
+.dashboard-section {
+  background: var(--navy-800);
+  overflow: hidden;
+}
+
+.dashboard-frame {
+  margin-top: 48px;
+  background: var(--navy-900);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.dash-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.dash-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+.dash-dot.red { background: #FF5F57; }
+.dash-dot.yellow { background: #FFBD2E; }
+.dash-dot.green { background: #27C93F; }
+.dash-tab {
+  padding: 4px 14px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--slate-300);
+  margin-left: 12px;
+}
+.dash-topbar-right { font-size: 12px; color: var(--slate-400); }
+
+.dash-body { padding: 28px; }
+
+/* Summary row */
+.dash-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.dash-kpi {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 20px;
+}
+.dash-kpi-label {
+  font-size: 12px;
+  color: var(--slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.dash-kpi-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--white);
+  margin-top: 6px;
+  line-height: 1;
+}
+.dash-kpi-change {
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 600;
+}
+.dash-kpi-change.up { color: var(--green-400); }
+.dash-kpi-change.down { color: var(--red-400); }
+
+/* 2x2 chart grid */
+.dash-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.dash-chart-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 20px;
+}
+.dash-chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate-300);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+/* Bar chart */
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 140px;
+  width: 100%;
+}
+.chart-bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+.chart-bar {
+  width: 100%;
+  max-width: 32px;
+  border-radius: 4px 4px 0 0;
+  transition: height 1s ease-out;
+}
+.chart-bar.green { background: var(--green-500); }
+.chart-bar.blue { background: var(--navy-500); }
+.chart-bar-label {
+  font-size: 11px;
+  color: var(--slate-400);
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* Line chart (SVG) */
+.chart-line-container {
+  width: 100%;
+  height: 140px;
+}
+.chart-line-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Donut chart */
+.chart-donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.chart-donut {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+}
+.chart-donut svg { width: 100%; height: 100%; }
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--slate-300);
+}
+.donut-legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  min-width: 10px;
+}
+
+/* Horizontal progress bars */
+.chart-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.progress-item-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--slate-300);
+  margin-bottom: 4px;
+}
+.progress-item-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-item-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.2s ease-out;
+}
+
+@media (max-width: 900px) {
+  .dash-summary { grid-template-columns: 1fr 1fr; }
+  .dash-charts { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .dash-summary { grid-template-columns: 1fr; }
+}
+
+/* ========= ROI CALCULATOR ========= */
+.roi-section {
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 70%, rgba(5,150,105,0.06) 0%, transparent 60%),
+    var(--navy-900);
+}
+
+.roi-calculator {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.roi-inputs {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 36px;
+}
+
+.roi-field {
+  margin-bottom: 28px;
+}
+.roi-field:last-child { margin-bottom: 0; }
+.roi-field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate-200);
+  margin-bottom: 8px;
+}
+.roi-field .field-hint {
+  font-size: 13px;
+  color: var(--slate-400);
+  margin-bottom: 8px;
+}
+
+.roi-slider-wrap {
+  position: relative;
+}
+.roi-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--navy-600);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+.roi-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px;
+  background: var(--green-500);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.4);
+  transition: transform 0.15s;
+}
+.roi-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.roi-slider::-moz-range-thumb {
+  width: 22px; height: 22px;
+  background: var(--green-500);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.slider-value {
+  position: absolute;
+  right: 0; top: -28px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--green-400);
+}
+
+.roi-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.roi-result-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s;
+}
+.roi-result-card.primary {
+  border-color: rgba(52,211,153,0.3);
+  background: rgba(52,211,153,0.04);
+}
+.roi-result-card.warning {
+  border-color: rgba(248,113,113,0.3);
+  background: rgba(248,113,113,0.04);
+}
+
+.roi-result-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.roi-result-card.primary .roi-result-label { color: var(--green-400); }
+.roi-result-card.warning .roi-result-label { color: var(--red-400); }
+
+.roi-result-value {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 48px);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.roi-result-card.primary .roi-result-value { color: var(--green-400); }
+.roi-result-card.warning .roi-result-value { color: var(--red-400); }
+
+.roi-result-detail {
+  font-size: 15px;
+  color: var(--slate-400);
+  line-height: 1.5;
+}
+
+.roi-assumptions {
+  margin-top: 12px;
+  padding: 16px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+}
+.roi-assumptions p {
+  font-size: 12px;
+  color: var(--slate-400);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .roi-calculator { grid-template-columns: 1fr; }
+}
+
+/* ========= CYBHI / MENTAL HEALTH ========= */
+.cybhi-section {
+  background: var(--navy-800);
+}
+
+.cybhi-content {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.cybhi-left { }
+
+.cybhi-revenue-range {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.cybhi-revenue-range .amount {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 52px);
+  color: var(--green-400);
+  line-height: 1;
+}
+.cybhi-revenue-range .suffix {
+  font-size: 18px;
+  color: var(--slate-400);
+}
+
+.cybhi-desc {
+  font-size: 17px;
+  color: var(--slate-300);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.cybhi-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cybhi-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--slate-200);
+}
+.cybhi-features li::before {
+  content: '';
+  width: 20px; height: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+  background: rgba(52,211,153,0.15);
+  border: 1.5px solid var(--green-500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2334D399' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px;
+}
+
+/* CYBHI workflow visual */
+.cybhi-workflow {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 32px;
+}
+.cybhi-workflow h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.cybhi-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+}
+.cybhi-step:last-child { margin-bottom: 0; }
+
+.cybhi-step-icon {
+  width: 36px; height: 36px;
+  min-width: 36px;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.cybhi-step-text h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.cybhi-step-text p {
+  font-size: 13px;
+  color: var(--slate-400);
+  line-height: 1.5;
+}
+
+.cybhi-connector {
+  width: 2px; height: 12px;
+  background: rgba(52,211,153,0.2);
+  margin-left: 17px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .cybhi-content { grid-template-columns: 1fr; }
+}
+
+/* ========= CTA ========= */
+.cta-section {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(5,150,105,0.1) 0%, transparent 60%),
+    var(--navy-900);
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.cta-section .section-title {
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+
+.cta-subtitle {
+  font-size: 19px;
+  color: var(--slate-300);
+  max-width: 540px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.cta-proof {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.cta-proof-item {
+  text-align: center;
+}
+.cta-proof-val {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--green-400);
+  display: block;
+}
+.cta-proof-label {
+  font-size: 13px;
+  color: var(--slate-400);
+  margin-top: 4px;
+}
+
+/* ========= FOOTER ========= */
+footer {
+  padding: 32px 24px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  text-align: center;
+}
+footer p {
+  font-size: 13px;
+  color: var(--slate-400);
+}
+footer a { color: var(--slate-300); }
+
+/* ========= SCROLL ANIMATIONS ========= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.35s; }
+
+/* Counter animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========= UTILITIES ========= */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<!-- ======= NAV ======= -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Edu<span>Fund</span></div>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#roi">ROI</a></li>
+      <li><a href="#cybhi">CYBHI</a></li>
+    </ul>
+    <!-- TODO: Replace with your Calendly URL -->
+    <a href="#cta" class="nav-cta">Schedule Demo</a>
+  </div>
+</nav>
+
+<!-- ======= HERO ======= -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">AARC &times; ECS Partnership</div>
+      <h1>Unlock <em>Every Dollar</em> Your District Deserves</h1>
+      <p class="hero-sub">California districts forfeit hundreds of thousands each year in unclaimed ADA funding and mental health reimbursements. EduFund recovers it automatically.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Schedule a Demo
+        </a>
+        <a href="#roi" class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          See Your ROI
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-val">$4.2M+</span>
+          <span class="hero-stat-label">Recovered for Districts</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">10+</span>
+          <span class="hero-stat-label">Districts Served</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">98%</span>
+          <span class="hero-stat-label">Compliance Rate</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-diagram">
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-center-metric">
+          <span class="amount">$50</span>
+          <span class="label">Per Absence / Day</span>
+        </div>
+        <div class="hero-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="hero-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="hero-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="hero-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= PROBLEM ======= -->
+<section class="problem" id="problem">
+  <div class="container">
+    <span class="section-label reveal">The Problem</span>
+    <h2 class="section-title reveal reveal-delay-1">Millions Left on the Table Every Year</h2>
+    <p class="section-subtitle reveal reveal-delay-2">California school districts run on thin budgets, yet most lack the tools to capture every dollar they've already earned.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>Unclaimed ADA Revenue</h3>
+        <p>When students are absent, districts can recover funding through ADA recovery programs. But manual tracking with spreadsheets means most eligible sessions are never scheduled, and $300K-$600K+ per year goes unclaimed.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-1">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>Mental Health Billing Gaps</h3>
+        <p>CYBHI (Children and Youth Behavioral Health Initiative) allows Medi-Cal reimbursement for school-based mental health services. But complicated billing codes and compliance requirements leave most districts unable to capture this revenue.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Google Sheets Infrastructure</h3>
+        <p>Most districts track absences, recovery sessions, and compliance in disconnected spreadsheets. No automation, no real-time visibility, no audit trail. Staff spend hours on data entry instead of serving students.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-3">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Compliance Risk</h3>
+        <p>ADA recovery and Medi-Cal billing require strict documentation. Manual processes introduce errors, missed deadlines, and audit exposure. One compliance failure can cost more than the revenue recovered.</p>
+      </div>
+    </div>
+
+    <div class="problem-highlight reveal">
+      $300K&ndash;$600K+
+      <span>Lost per district, per year, in ADA funding alone</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SOLUTION ======= -->
+<section class="solution" id="solution">
+  <div class="container">
+    <span class="section-label reveal">The Solution</span>
+    <h2 class="section-title reveal reveal-delay-1">One Platform. Every Revenue Stream.</h2>
+    <p class="section-subtitle reveal reveal-delay-2">EduFund is a modular platform built on a single student data backbone. Start with ADA Recovery, add modules as you grow.</p>
+
+    <div class="solution-arch reveal">
+      <div class="arch-backbone">
+        <h3>Student Data Backbone</h3>
+        <p>Unified student records, SIS integration, real-time attendance sync</p>
+      </div>
+
+      <div class="arch-arrow">
+        <svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="0" x2="12" y2="28"/><polyline points="6 22 12 28 18 22"/></svg>
+      </div>
+
+      <div class="arch-modules">
+        <div class="arch-module active">
+          <div class="mod-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>ADA Recovery</h4>
+          <p>Automated absence flagging, session scheduling, attendance tracking, and compliance reporting</p>
+          <span class="badge-live">Live</span>
+        </div>
+        <div class="arch-module">
+          <div class="mod-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h4>Mental Health Claims</h4>
+          <p>CYBHI/Medi-Cal billing automation, session documentation, revenue capture for school-based services</p>
+          <span class="badge-live">Coming Q3</span>
+        </div>
+        <div class="arch-module coming-soon">
+          <div class="mod-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h4>Future Modules</h4>
+          <p>Title I optimization, transportation claims, special education billing, grant management</p>
+          <span class="badge-coming">Roadmap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= HOW IT WORKS ======= -->
+<section class="how-it-works" id="how">
+  <div class="container">
+    <span class="section-label reveal">How It Works</span>
+    <h2 class="section-title reveal reveal-delay-1">From Absence to Revenue in 6 Steps</h2>
+    <p class="section-subtitle reveal reveal-delay-2">The ADA Recovery module turns every qualifying absence into recovered funding, automatically.</p>
+
+    <div class="workflow-steps">
+      <div class="workflow-step reveal">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Student Absence Detected</h3>
+          <p>Real-time SIS integration flags every absence as it's recorded. No manual data entry required.</p>
+        </div>
+      </div>
+      <div class="workflow-step reveal reveal-delay-1">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Eligibility Assessment</h3>
+          <p>System automatically evaluates each absence against ADA recovery criteria. Eligible sessions are flagged and routed for scheduling.</p>
+        </div>
+      </div>
+      <div class="workflow-step reveal reveal-delay-1">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Auto-Schedule Recovery Sessions</h3>
+          <p>Recovery sessions are scheduled based on student availability, teacher capacity, and facility constraints. Parents are notified automatically.</p>
+        </div>
+      </div>
+      <div class="workflow-step reveal reveal-delay-2">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Track Attendance & Completion</h3>
+          <p>Digital check-in confirms session attendance. Completion status is recorded with full audit trail for compliance documentation.</p>
+        </div>
+      </div>
+      <div class="workflow-step reveal reveal-delay-2">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Calculate ADA & Generate Reports</h3>
+          <p>Recovered ADA is calculated automatically, with compliance reports generated for state submission. Every data point is audit-ready.</p>
+        </div>
+      </div>
+      <div class="workflow-step reveal reveal-delay-3">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h3>Revenue Recovered</h3>
+          <p>Funding flows back to the district. Dashboard shows real-time recovery metrics, per-school performance, and year-over-year trends.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= DASHBOARD ======= -->
+<section class="dashboard-section" id="dashboard">
+  <div class="container">
+    <span class="section-label reveal">Dashboard Preview</span>
+    <h2 class="section-title reveal reveal-delay-1">Real-Time Visibility Into Every Dollar</h2>
+    <p class="section-subtitle reveal reveal-delay-2">District-wide and school-level views. Every metric your board and CFO need, updated daily.</p>
+
+    <div class="dashboard-frame reveal">
+      <div class="dash-topbar">
+        <div class="dash-topbar-left">
+          <span class="dash-dot red"></span>
+          <span class="dash-dot yellow"></span>
+          <span class="dash-dot green"></span>
+          <span class="dash-tab">EduFund Dashboard &mdash; Sunrise Valley USD</span>
+        </div>
+        <div class="dash-topbar-right">2025-26 School Year</div>
+      </div>
+      <div class="dash-body">
+        <!-- KPI Summary -->
+        <div class="dash-summary">
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Revenue Recovered YTD</div>
+            <div class="dash-kpi-value" data-count="437250" data-prefix="$" data-suffix="">$437,250</div>
+            <div class="dash-kpi-change up">+23% vs. prior year</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Sessions Scheduled</div>
+            <div class="dash-kpi-value">8,745</div>
+            <div class="dash-kpi-change up">+18% completion rate</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Student Engagement</div>
+            <div class="dash-kpi-value">94.2%</div>
+            <div class="dash-kpi-change up">+6.1% from Q1</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Compliance Status</div>
+            <div class="dash-kpi-value" style="color: var(--green-400);">Passing</div>
+            <div class="dash-kpi-change up">All reports submitted</div>
+          </div>
+        </div>
+
+        <!-- 2x2 Chart Grid -->
+        <div class="dash-charts">
+          <!-- Chart 1: Monthly Revenue (Bar) -->
+          <div class="dash-chart-card">
+            <div class="dash-chart-title">Monthly Revenue Recovery</div>
+            <div class="chart-bars" id="revenueChart">
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="35"></div><div class="chart-bar-label">Sep</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="52"></div><div class="chart-bar-label">Oct</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="48"></div><div class="chart-bar-label">Nov</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="61"></div><div class="chart-bar-label">Dec</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="75"></div><div class="chart-bar-label">Jan</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="82"></div><div class="chart-bar-label">Feb</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="90"></div><div class="chart-bar-label">Mar</div></div>
+              <div class="chart-bar-group"><div class="chart-bar green" data-height="72"></div><div class="chart-bar-label">Apr</div></div>
+            </div>
+          </div>
+
+          <!-- Chart 2: Session Completion (Line via SVG) -->
+          <div class="dash-chart-card">
+            <div class="dash-chart-title">Session Completion Trend</div>
+            <div class="chart-line-container">
+              <svg viewBox="0 0 300 140" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#34D399" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#34D399" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Grid lines -->
+                <line x1="0" y1="35" x2="300" y2="35" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <line x1="0" y1="70" x2="300" y2="70" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <line x1="0" y1="105" x2="300" y2="105" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <!-- Area fill -->
+                <path d="M0,120 L37,100 L75,90 L112,80 L150,60 L187,50 L225,35 L262,30 L300,25 L300,140 L0,140 Z" fill="url(#lineGrad)"/>
+                <!-- Line -->
+                <polyline points="0,120 37,100 75,90 112,80 150,60 187,50 225,35 262,30 300,25" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Dots -->
+                <circle cx="0" cy="120" r="3" fill="#34D399"/>
+                <circle cx="37" cy="100" r="3" fill="#34D399"/>
+                <circle cx="75" cy="90" r="3" fill="#34D399"/>
+                <circle cx="112" cy="80" r="3" fill="#34D399"/>
+                <circle cx="150" cy="60" r="3" fill="#34D399"/>
+                <circle cx="187" cy="50" r="3" fill="#34D399"/>
+                <circle cx="225" cy="35" r="3" fill="#34D399"/>
+                <circle cx="262" cy="30" r="3" fill="#34D399"/>
+                <circle cx="300" cy="25" r="4" fill="#34D399" stroke="#0B1D3A" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Chart 3: Absence Category Breakdown (Donut) -->
+          <div class="dash-chart-card">
+            <div class="dash-chart-title">Recovery by Category</div>
+            <div class="chart-donut-wrap">
+              <div class="chart-donut">
+                <svg viewBox="0 0 36 36">
+                  <!-- Background circle -->
+                  <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
+                  <!-- Excused absences — 45% -->
+                  <circle cx="18" cy="18" r="14" fill="none" stroke="#34D399" stroke-width="4"
+                    stroke-dasharray="39.6 48.4" stroke-dashoffset="0" transform="rotate(-90 18 18)"
+                    style="transition: stroke-dasharray 1s ease-out;"/>
+                  <!-- Unexcused — 30% -->
+                  <circle cx="18" cy="18" r="14" fill="none" stroke="#2A5A8F" stroke-width="4"
+                    stroke-dasharray="26.4 61.6" stroke-dashoffset="-39.6" transform="rotate(-90 18 18)"
+                    style="transition: stroke-dasharray 1s ease-out;"/>
+                  <!-- Chronic — 15% -->
+                  <circle cx="18" cy="18" r="14" fill="none" stroke="#FBBF24" stroke-width="4"
+                    stroke-dasharray="13.2 74.8" stroke-dashoffset="-66" transform="rotate(-90 18 18)"
+                    style="transition: stroke-dasharray 1s ease-out;"/>
+                  <!-- Other — 10% -->
+                  <circle cx="18" cy="18" r="14" fill="none" stroke="#8899AA" stroke-width="4"
+                    stroke-dasharray="8.8 79.2" stroke-dashoffset="-79.2" transform="rotate(-90 18 18)"
+                    style="transition: stroke-dasharray 1s ease-out;"/>
+                </svg>
+              </div>
+              <div class="donut-legend">
+                <div class="donut-legend-item"><span class="donut-legend-dot" style="background:#34D399"></span>Excused Absences (45%)</div>
+                <div class="donut-legend-item"><span class="donut-legend-dot" style="background:#2A5A8F"></span>Unexcused (30%)</div>
+                <div class="donut-legend-item"><span class="donut-legend-dot" style="background:#FBBF24"></span>Chronic Absence (15%)</div>
+                <div class="donut-legend-item"><span class="donut-legend-dot" style="background:#8899AA"></span>Other (10%)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart 4: School-Level Performance (Progress) -->
+          <div class="dash-chart-card">
+            <div class="dash-chart-title">School-Level Recovery Rate</div>
+            <div class="chart-progress-list">
+              <div class="progress-item">
+                <div class="progress-item-label"><span>Lincoln Elementary</span><span>96%</span></div>
+                <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%; background: var(--green-500);" data-width="96"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-label"><span>Washington Middle</span><span>91%</span></div>
+                <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%; background: var(--green-500);" data-width="91"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-label"><span>Jefferson High</span><span>87%</span></div>
+                <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%; background: var(--green-400);" data-width="87"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-label"><span>Roosevelt Elementary</span><span>82%</span></div>
+                <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%; background: var(--amber-500);" data-width="82"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-label"><span>Adams Continuation</span><span>74%</span></div>
+                <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%; background: var(--amber-400);" data-width="74"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= ROI CALCULATOR ======= -->
+<section class="roi-section" id="roi">
+  <div class="container">
+    <span class="section-label reveal">ROI Calculator</span>
+    <h2 class="section-title reveal reveal-delay-1">What Could Your District Recover?</h2>
+    <p class="section-subtitle reveal reveal-delay-2">Input your district's numbers and see projected annual recovery based on real California absence data.</p>
+
+    <div class="roi-calculator reveal">
+      <div class="roi-inputs">
+        <div class="roi-field">
+          <label>Total Student Enrollment</label>
+          <div class="field-hint">K-12 students in your district</div>
+          <div class="roi-slider-wrap">
+            <span class="slider-value" id="enrollmentVal">5,000</span>
+            <input type="range" class="roi-slider" id="enrollmentSlider" min="500" max="50000" step="100" value="5000">
+          </div>
+        </div>
+        <div class="roi-field">
+          <label>Average Absence Rate</label>
+          <div class="field-hint">Statewide average is ~10% of school days</div>
+          <div class="roi-slider-wrap">
+            <span class="slider-value" id="absenceVal">10%</span>
+            <input type="range" class="roi-slider" id="absenceSlider" min="3" max="25" step="1" value="10">
+          </div>
+        </div>
+        <div class="roi-field">
+          <label>Recovery Rate with EduFund</label>
+          <div class="field-hint">Districts on EduFund typically recover 60-80% of eligible days</div>
+          <div class="roi-slider-wrap">
+            <span class="slider-value" id="recoveryVal">70%</span>
+            <input type="range" class="roi-slider" id="recoverySlider" min="30" max="90" step="5" value="70">
+          </div>
+        </div>
+
+        <div class="roi-assumptions">
+          <p><strong>Assumptions:</strong> 180 school days/year. $50 ADA funding per student per absent day recovered. Recovery rate reflects the percentage of eligible absences that result in completed recovery sessions.</p>
+        </div>
+      </div>
+
+      <div class="roi-results">
+        <div class="roi-result-card primary">
+          <div class="roi-result-label">Projected Annual Recovery</div>
+          <div class="roi-result-value" id="roiRecovery">$315,000</div>
+          <div class="roi-result-detail" id="roiDetail">Based on 5,000 students with 10% absence rate and 70% recovery rate</div>
+        </div>
+        <div class="roi-result-card warning">
+          <div class="roi-result-label">Cost of Inaction (Per Year)</div>
+          <div class="roi-result-value" id="roiCost">$450,000</div>
+          <div class="roi-result-detail" id="roiCostDetail">Total ADA funding forfeited without a recovery program in place</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CYBHI ======= -->
+<section class="cybhi-section" id="cybhi">
+  <div class="container">
+    <span class="section-label reveal">Mental Health Claims Module</span>
+    <h2 class="section-title reveal reveal-delay-1">Turn Student Support Into Sustainable Revenue</h2>
+
+    <div class="cybhi-content">
+      <div class="cybhi-left reveal">
+        <div class="cybhi-revenue-range">
+          <span class="amount">$200K&ndash;$1M+</span>
+          <span class="suffix">/ year</span>
+        </div>
+        <p class="cybhi-desc">California's CYBHI initiative allows schools to bill Medi-Cal for mental health services delivered on campus. Most districts are leaving this revenue uncaptured because billing is complex. EduFund automates the entire claims workflow.</p>
+
+        <ul class="cybhi-features">
+          <li>Automated session documentation with billing code mapping</li>
+          <li>Real-time eligibility verification against Medi-Cal enrollment</li>
+          <li>Batch claim submission with error checking and rejection management</li>
+          <li>Provider credential tracking and NPI validation</li>
+          <li>FERPA and HIPAA compliant data handling throughout</li>
+          <li>Revenue dashboard with per-provider and per-school breakdowns</li>
+        </ul>
+      </div>
+
+      <div class="cybhi-workflow reveal reveal-delay-1">
+        <h3>CYBHI Billing Workflow</h3>
+        <div class="cybhi-step">
+          <div class="cybhi-step-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <div class="cybhi-step-text">
+            <h4>Student Receives Service</h4>
+            <p>Counselor, therapist, or social worker provides an eligible mental health service on campus</p>
+          </div>
+        </div>
+        <div class="cybhi-connector"></div>
+        <div class="cybhi-step">
+          <div class="cybhi-step-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="cybhi-step-text">
+            <h4>Auto-Document & Code</h4>
+            <p>EduFund maps the session to the correct CPT/HCPCS billing code and generates compliant documentation</p>
+          </div>
+        </div>
+        <div class="cybhi-connector"></div>
+        <div class="cybhi-step">
+          <div class="cybhi-step-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="cybhi-step-text">
+            <h4>Verify Eligibility</h4>
+            <p>Real-time check against Medi-Cal enrollment. Ineligible students are flagged before submission.</p>
+          </div>
+        </div>
+        <div class="cybhi-connector"></div>
+        <div class="cybhi-step">
+          <div class="cybhi-step-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <div class="cybhi-step-text">
+            <h4>Submit & Track Claims</h4>
+            <p>Batch claims submitted to Medi-Cal with full audit trail. Rejections auto-routed for correction and resubmission.</p>
+          </div>
+        </div>
+        <div class="cybhi-connector"></div>
+        <div class="cybhi-step">
+          <div class="cybhi-step-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="cybhi-step-text">
+            <h4>Revenue Captured</h4>
+            <p>Reimbursements flow back to the district. Dashboard tracks revenue per provider, per school, per service type.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CTA ======= -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <span class="section-label reveal">Get Started</span>
+    <h2 class="section-title reveal reveal-delay-1">See What Your District Is Missing</h2>
+    <p class="cta-subtitle reveal reveal-delay-2">AARC has recovered millions for California districts. Let us show you what EduFund can do for yours.</p>
+    <div class="cta-actions reveal reveal-delay-3">
+      <!-- TODO: Replace with your Calendly scheduling URL -->
+      <a href="https://calendly.com" target="_blank" rel="noopener" class="btn-primary" style="font-size: 17px; padding: 16px 36px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Schedule a Demo
+      </a>
+      <a href="#roi" class="btn-secondary" style="font-size: 17px; padding: 16px 36px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        See Your District's ROI
+      </a>
+    </div>
+    <div class="cta-proof reveal">
+      <div class="cta-proof-item">
+        <span class="cta-proof-val">$4.2M+</span>
+        <span class="cta-proof-label">Total Recovered</span>
+      </div>
+      <div class="cta-proof-item">
+        <span class="cta-proof-val">10+</span>
+        <span class="cta-proof-label">Districts Served</span>
+      </div>
+      <div class="cta-proof-item">
+        <span class="cta-proof-val">98%</span>
+        <span class="cta-proof-label">Compliance Rate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer>
+  <!-- TODO: Update company name and contact info -->
+  <p>&copy; 2025 EduFund Platform &mdash; An <a href="#">AARC &times; ECS</a> Partnership. All rights reserved.</p>
+</footer>
+
+<script>
+/* ========= SCROLL REVEAL ========= */
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+})();
+
+/* ========= DASHBOARD CHART ANIMATIONS ========= */
+(function() {
+  // Animate bar chart heights
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bars = entry.target.querySelectorAll('.chart-bar');
+        bars.forEach(bar => {
+          const h = bar.getAttribute('data-height');
+          bar.style.height = h + '%';
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const revenueChart = document.getElementById('revenueChart');
+  if (revenueChart) {
+    // Set initial heights to 0
+    revenueChart.querySelectorAll('.chart-bar').forEach(bar => {
+      bar.style.height = '0%';
+    });
+    barObserver.observe(revenueChart);
+  }
+
+  // Animate progress bars
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fills = entry.target.querySelectorAll('.progress-item-fill');
+        fills.forEach(fill => {
+          const w = fill.getAttribute('data-width');
+          fill.style.width = w + '%';
+        });
+        progressObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const progressLists = document.querySelectorAll('.chart-progress-list');
+  progressLists.forEach(list => progressObserver.observe(list));
+})();
+
+/* ========= ROI CALCULATOR ========= */
+(function() {
+  const enrollSlider = document.getElementById('enrollmentSlider');
+  const absenceSlider = document.getElementById('absenceSlider');
+  const recoverySlider = document.getElementById('recoverySlider');
+
+  const enrollVal = document.getElementById('enrollmentVal');
+  const absenceVal = document.getElementById('absenceVal');
+  const recoveryVal = document.getElementById('recoveryVal');
+
+  const roiRecovery = document.getElementById('roiRecovery');
+  const roiDetail = document.getElementById('roiDetail');
+  const roiCost = document.getElementById('roiCost');
+  const roiCostDetail = document.getElementById('roiCostDetail');
+
+  function formatNum(n) {
+    return n.toLocaleString('en-US');
+  }
+
+  function formatDollars(n) {
+    return '$' + formatNum(Math.round(n));
+  }
+
+  function calculate() {
+    const enrollment = parseInt(enrollSlider.value);
+    const absenceRate = parseInt(absenceSlider.value) / 100;
+    const recoveryRate = parseInt(recoverySlider.value) / 100;
+
+    const schoolDays = 180;
+    const adaPerDay = 50;
+
+    const totalAbsentDays = enrollment * schoolDays * absenceRate;
+    const eligibleDays = totalAbsentDays; // Simplified: all absences are eligible
+    const recoveredDays = eligibleDays * recoveryRate;
+    const recoveredRevenue = recoveredDays * adaPerDay;
+
+    const totalLost = eligibleDays * adaPerDay;
+
+    // Update display values
+    enrollVal.textContent = formatNum(enrollment);
+    absenceVal.textContent = absenceSlider.value + '%';
+    recoveryVal.textContent = recoverySlider.value + '%';
+
+    roiRecovery.textContent = formatDollars(recoveredRevenue);
+    roiDetail.textContent = 'Based on ' + formatNum(enrollment) + ' students with ' + absenceSlider.value + '% absence rate and ' + recoverySlider.value + '% recovery rate';
+
+    roiCost.textContent = formatDollars(totalLost);
+    roiCostDetail.textContent = formatNum(Math.round(totalAbsentDays)) + ' absent student-days at $' + adaPerDay + '/day with no recovery program';
+  }
+
+  enrollSlider.addEventListener('input', calculate);
+  absenceSlider.addEventListener('input', calculate);
+  recoverySlider.addEventListener('input', calculate);
+
+  // Initial calculation
+  calculate();
+})();
+
+/* ========= SMOOTH SCROLL FOR NAV ========= */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ========= NAV SCROLL EFFECT ========= */
+(function() {
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(6,16,31,0.95)';
+    } else {
+      nav.style.background = 'rgba(6,16,31,0.85)';
+    }
+  });
+})();
+</script>
+</body>
+</html>
