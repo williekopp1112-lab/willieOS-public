@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-05-07",
+  "updated": "2026-05-12",
   "developers": {
     "willie": {
       "name": "Willie Kopp",
@@ -16,6 +16,230 @@
     }
   },
   "features": [
+    {
+      "id": "gary-corrections-learning-loop-repair",
+      "title": "Gary Corrections Learning Loop Repair",
+      "description": "Repair the built-in corrections processor so recorded corrections reliably become learned preferences, including legacy scheduled task rows that were created without stable ids.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "src/utils/cronEngine.js",
+        "src/utils/cronEngine.test.js"
+      ],
+      "depends_on": [
+        "gary-deliverable-memory-learning-loop",
+        "gary-timing-checkin-memory-self-heal"
+      ],
+      "notes": "Reality check found the workflow scheduler and proactive trigger cooldown were already healthy, but process_corrections had a legacy scheduled_tasks row with a missing id, stale next_run_at, and null last_run_at. Startup now repairs the row to builtin-process-corrections and immediately schedules it when unprocessed corrections exist."
+    },
+    {
+      "id": "gary-knowledge-graph",
+      "title": "Gary Knowledge Graph",
+      "description": "Add an Obsidian-inspired visual graph that maps topics across Gary's notes, contacts, loops, emails, conversations, deliverables, dispatch memories, artifact memories, check-ins, briefs, transcripts, and profile memory.",
+      "status": "in_progress",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "src/components/knowledge/KnowledgeGraphView.jsx",
+        "src/utils/knowledgeGraphService.js",
+        "src/utils/universalSearch.js",
+        "src/utils/aiContext.js",
+        "willieos-mcp-server/crossAgentMemory.js",
+        "src/components/shell/AppShell.jsx",
+        "src/components/shell/SidebarNav.jsx",
+        "src/utils/appRegistry.jsx"
+      ],
+      "depends_on": [
+        "gary-deliverable-memory-learning-loop",
+        "gary-loop-quality"
+      ],
+      "notes": "V1 is query-driven and reuses universal search/FTS/artifact memory. Dispatch history is a first-class graph source, and dispatch-memory lookup now falls back to token-scored search when an installed FTS index is stale or empty. Nodes open/present source details in a right-side drawer and can hand the item to Gary for deeper synthesis."
+    },
+    {
+      "id": "gary-contact-intelligence",
+      "title": "Gary Contact Intelligence",
+      "description": "Upgrade Contacts into an AI-enabled relationship page with real contact editing, relationship filters, Gary insights, recent activity, connected item counts, and Knowledge Graph handoffs.",
+      "status": "in_progress",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "src/components/contacts/ContactsView.jsx",
+        "src/utils/contactContextService.js",
+        "src/utils/contactContextService.test.js"
+      ],
+      "depends_on": [
+        "vault-outbox-contact-management",
+        "gary-knowledge-graph"
+      ],
+      "notes": "Adapts the v0 contacts concept to Gary's real local data model without seeded contacts or hardcoded identity. Recent activity is pulled from local email, iMessage, calendar, loops, notes, chats, and meeting briefs. Adds duplicate/contact merge helpers, per-contact activity steering, and replace/remove email semantics so Gary tools can correct stale placeholders instead of only appending."
+    },
+    {
+      "id": "gary-inbox-command-center",
+      "title": "Gary Inbox Command Center",
+      "description": "Turn Gary Inbox from a raw proactive-message chat thread into a lighter approval and review surface for self-healing suggestions, agent opportunities, dispatch updates, and follow-up actions.",
+      "status": "in_progress",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "willieos-mcp-server/agentRegistry.js",
+        "willieos-mcp-server/proactiveAgentTriggers.js",
+        "willieos-mcp-server/learningSuggestions.js",
+        "src/utils/database.js",
+        "src/stores/aiStore.js",
+        "src/components/ai-assistant/NotificationCard.jsx",
+        "src/components/settings/SettingsWindow.jsx",
+        "src/components/settings/GaryMemoryPanel.jsx"
+      ],
+      "depends_on": [
+        "gary-deliverable-memory-learning-loop"
+      ],
+      "notes": "V1 dedupes agent-opportunity nudges, saves them as reviewable Learning Suggestions, and caps Gary Inbox chat hydration so old proactive dispatch cards do not create excessive load."
+    },
+    {
+      "id": "gary-loop-quality",
+      "title": "Gary Loop Quality Hardening",
+      "description": "Make loops represent real user-owned commitments by suppressing routine calendar prep loops, demoting low-confidence email/calendar items to suggestions, filtering operational dispatch/project tracking from Gary context, and preparing a cleaner foundation for the future knowledge graph.",
+      "status": "in_progress",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "src/utils/loopQuality.js",
+        "src/utils/loopService.js",
+        "src/stores/loopStore.js",
+        "src/utils/aiContext.js",
+        "src/utils/briefService.js",
+        "src/utils/garyTakeService.js",
+        "src/utils/checkinService.js",
+        "src/utils/willieProfile.js",
+        "willieos-mcp-server/loopQuality.js",
+        "willieos-mcp-server/tools/data.js"
+      ],
+      "depends_on": [
+        "gary-deliverable-memory-learning-loop",
+        "gary-timing-checkin-memory-self-heal"
+      ],
+      "notes": "Loop quality must land before the Obsidian-style Gary Graph so the graph visualizes trusted commitments and memory, not stale calendar/task noise."
+    },
+    {
+      "id": "gary-voice-chat",
+      "title": "Gary Voice: Desktop Voice Chat + Realtime Control",
+      "description": "Add voice-first Gary interaction: existing Whisper/ElevenLabs turn-based voice plus OpenAI Realtime live voice control that speaks concise coaching while handing real work into Gary chat, tools, and dispatches.",
+      "status": "in_progress",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "src/utils/voiceReplyService.js",
+        "src/utils/realtimeVoiceService.js",
+        "src/stores/aiStore.js",
+        "src/components/ai-assistant/AiAssistantWindow.jsx",
+        "src/components/ai-assistant/RealtimeVoiceControl.jsx",
+        "src/components/ai-assistant/MessageBubble.jsx",
+        "src/components/settings/AIPanel.jsx",
+        "src/components/settings/ConnectorsPanel.jsx",
+        "src-tauri/src/lib.rs",
+        "src-tauri/src/elevenlabs.rs",
+        "src-tauri/src/openai_realtime.rs"
+      ],
+      "depends_on": [],
+      "notes": "V1 uses Whisper for speech-to-text and ElevenLabs for spoken turn replies. Realtime adds a live voice control layer using gpt-realtime-2 through an ephemeral Tauri-minted client secret. The Realtime model gets one handoff_to_gary tool; spoken replies stay brief while detailed tool calls and dispatches run in visible Gary chat."
+    },
+    {
+      "id": "gary-deliverable-memory-learning-loop",
+      "title": "Gary Deliverable Memory + Suggest-First Learning Loop",
+      "description": "Ingest Gary-made deliverables into local searchable artifact memory, merge summaries into dispatch memory, surface prior work in Gary context, and expose artifact memory, learned preferences, and learning suggestions in Settings.",
+      "status": "in_progress",
+      "owner": "gary",
+      "branch": "main",
+      "priority": "high",
+      "files": [
+        "willieos-mcp-server/artifactMemory.js",
+        "willieos-mcp-server/learningSuggestions.js",
+        "willieos-mcp-server/crossAgentMemory.js",
+        "willieos-mcp-server/resultIngestion.js",
+        "src/utils/aiContext.js",
+        "src/components/settings/GaryMemoryPanel.jsx",
+        "src-tauri/src/db/mod.rs"
+      ],
+      "depends_on": [
+        "universal-spotlight-search",
+        "semantic-search-engine"
+      ],
+      "notes": "V1 uses tiered ingestion: text-like artifacts get bounded summaries; binary deliverables get searchable stubs; orphan outbox files are candidates until linked. Hermes assessment is the proof case."
+    },
+    {
+      "id": "gary-timing-checkin-memory-self-heal",
+      "title": "Gary Timing, Reminder, and Check-in Memory Self-Heal",
+      "description": "Make date-sensitive reminders expire safely, route daily check-in notifications into the actual in-app check-in flow, improve time-aware check-in questions, and index check-ins/profile learnings in FTS memory.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "codex/gary-voice-v1",
+      "priority": "high",
+      "files": [
+        "src/utils/jobRegistry.js",
+        "src/utils/reminderTemporal.js",
+        "src/utils/checkinService.js",
+        "src/utils/cronEngine.js",
+        "src/utils/notificationService.js",
+        "src/components/notifications/Toast.jsx",
+        "src/components/notifications/NotificationCenter.jsx",
+        "src/utils/universalSearch.js",
+        "willieos-mcp-server/tools/data.js",
+        "src-tauri/src/db/mod.rs"
+      ],
+      "depends_on": [
+        "gary-deliverable-memory-learning-loop"
+      ],
+      "notes": "Adds date-aware reminder expiry, a built-in daily_checkin scheduler job, notification actions that open the check-in modal, time-aware check-in context, and FTS search for daily_checkins/willie_profile."
+    },
+    {
+      "id": "gary-codex-handoff-routing-self-heal",
+      "title": "Gary Codex Handoff Routing Self-Heal",
+      "description": "Prevent generic Codex/spec/review handoff requests from being misclassified as approved visual design handoffs, while preserving the design_finalize gate for real v0/Claude Design packages.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "main",
+      "priority": "high",
+      "files": [
+        "src/utils/aiTools.js",
+        "src/stores/aiStore.js",
+        "src/tests/design-portal/aiTools.test.js"
+      ],
+      "depends_on": [
+        "gary-deliverable-memory-learning-loop"
+      ],
+      "notes": "Regression covers the exact external Codex handoff-spec phrasing that previously caused repeated design_finalize/dispatch failures and circuit-breaker loops."
+    },
+    {
+      "id": "vault-outbox-contact-management",
+      "title": "Vault Outbox Submenu & Contact Management Foundation",
+      "description": "Port the v0 Vaults outbox submenu into Gary, add real outbox category counts and filing actions, improve contact lookup confidence, and add a dedicated Contacts view for maintaining people records.",
+      "status": "review",
+      "owner": "gary",
+      "branch": "main",
+      "priority": "high",
+      "files": [
+        "src/components/vaults/VaultsView.jsx",
+        "src/stores/vaultStore.js",
+        "willieos-mcp-server/tools/vaults.js",
+        "src/utils/contactsService.js",
+        "src/components/contacts/ContactsView.jsx",
+        "src/components/shell/SidebarNav.jsx",
+        "src/components/shell/AppShell.jsx",
+        "src/utils/appRegistry.jsx",
+        "src/tests/contactsService.test.js"
+      ],
+      "depends_on": [
+        "knowledge-graph"
+      ],
+      "notes": "First foundation pass: real outbox inbox categories, move-to-vault action, phone-aware contact lookup, and editable Contacts UI. Does not yet add a full relationship graph."
+    },
     {
       "id": "email-action-opportunity-intelligence",
       "title": "Email Action Queue Opportunity Intelligence",
