@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cirrus Logic — Conversation Guide</title>
+  <meta name="description" content="Research-backed briefing on Cirrus Logic's business, strategy, and market position — prepared as a shared reference for conversation." />
+  <meta property="og:title" content="Cirrus Logic — Conversation Guide" />
+  <meta property="og:description" content="Research-backed briefing on Cirrus Logic's business, strategy, and market position." />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='%231a2b45'%3E%3Crect width='1200' height='630'/%3E%3Ctext x='600' y='315' text-anchor='middle' fill='white' font-size='48' font-family='sans-serif'%3ECirrus Logic%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231a2b45'/%3E%3Ctext x='16' y='21' text-anchor='middle' fill='white' font-size='16' font-family='sans-serif' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E" />
+  <style>
+    /* ── Reset & Base ────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #1a2b45;
+      --slate:      #2e4466;
+      --accent:     #3a6ea8;
+      --accent-lt:  #5b8ec4;
+      --mist:       #e8eef6;
+      --mist-md:    #d0dcea;
+      --text:       #1e2d3e;
+      --text-sub:   #445568;
+      --text-muted: #6b7f94;
+      --white:      #ffffff;
+      --rule:       #c8d6e5;
+      --tag-bg:     #ddeaf8;
+      --tag-text:   #1f4a82;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: var(--mist);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Page Shell ──────────────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 880px;
+      margin: 40px auto;
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 4px 32px rgba(26, 43, 69, 0.10), 0 1px 4px rgba(26, 43, 69, 0.06);
+      overflow: hidden;
+    }
+
+    /* ── Masthead ────────────────────────────────────────────────────── */
+    .masthead {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 100%);
+      padding: 48px 52px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .masthead-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 14px;
+    }
+
+    .masthead h1 {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .masthead-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.68);
+      max-width: 540px;
+      line-height: 1.5;
+    }
+
+    .masthead-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.01em;
+    }
+
+    .meta-pill strong { color: var(--white); font-weight: 600; }
+
+    /* ── Table of Contents ───────────────────────────────────────────── */
+    .toc-bar {
+      background: var(--mist);
+      border-bottom: 1px solid var(--mist-md);
+      padding: 18px 52px;
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .toc-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 20px;
+      white-space: nowrap;
+    }
+
+    .toc-bar a {
+      font-size: 12.5px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 3px 10px 3px 0;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .toc-bar a:hover { color: var(--navy); text-decoration: underline; }
+
+    .toc-sep {
+      color: var(--rule);
+      margin: 0 4px 0 0;
+      font-size: 12px;
+    }
+
+    /* ── Body / Sections ─────────────────────────────────────────────── */
+    .body-wrap { padding: 0 52px 52px; }
+
+    .section {
+      margin-top: 48px;
+      padding-top: 4px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--mist-md);
+    }
+
+    .section-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.2px;
+    }
+
+    /* ── Stat Grid ───────────────────────────────────────────────────── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--mist);
+      border: 1px solid var(--mist-md);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .stat-note {
+      font-size: 11.5px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    /* ── Prose ───────────────────────────────────────────────────────── */
+    p { font-size: 14.5px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.6; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Two-Col Callout ─────────────────────────────────────────────── */
+    .callout-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .callout-row { grid-template-columns: 1fr; }
+      .callout-row.three-col { grid-template-columns: 1fr; }
+    }
+
+    .callout {
+      background: var(--mist);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 7px 7px 0;
+      padding: 14px 16px;
+    }
+
+    .callout-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .callout ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .callout ul li {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      padding: 3px 0 3px 14px;
+      position: relative;
+      line-height: 1.45;
+    }
+
+    .callout ul li::before {
+      content: "\2192";
+      position: absolute;
+      left: 0;
+      color: var(--accent-lt);
+      font-size: 11px;
+      top: 5px;
+    }
+
+    /* ── Tag / Badge ─────────────────────────────────────────────────── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Product Table ───────────────────────────────────────────────── */
+    .product-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13.5px; }
+
+    .product-table thead tr {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .product-table thead th {
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .product-table tbody tr { border-bottom: 1px solid var(--mist-md); }
+    .product-table tbody tr:hover { background: var(--mist); }
+
+    .product-table tbody td {
+      padding: 11px 14px;
+      color: var(--text-sub);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .product-table tbody td:first-child { font-weight: 600; color: var(--text); }
+
+    /* ── Timeline ────────────────────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 28px; margin-bottom: 20px; }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--mist-md);
+      border-radius: 2px;
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--accent-lt);
+    }
+
+    .tl-date {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 3px;
+    }
+
+    .tl-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+
+    .tl-desc { font-size: 13px; color: var(--text-sub); line-height: 1.45; }
+
+    /* ── Question Cards ──────────────────────────────────────────────── */
+    .q-card {
+      border: 1px solid var(--mist-md);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      transition: box-shadow 0.15s;
+    }
+
+    .q-card:hover { box-shadow: 0 2px 12px rgba(58, 110, 168, 0.10); }
+
+    .q-number {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .q-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .q-context {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Bio Card ────────────────────────────────────────────────────── */
+    .bio-card {
+      background: var(--mist);
+      border: 1px solid var(--mist-md);
+      border-radius: 8px;
+      padding: 24px 26px;
+    }
+
+    .bio-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .bio-title {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .bio-list { list-style: none; padding: 0; }
+
+    .bio-list li {
+      display: flex;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--mist-md);
+      font-size: 13.5px;
+      color: var(--text-sub);
+      align-items: flex-start;
+      line-height: 1.45;
+    }
+
+    .bio-list li:last-child { border-bottom: none; }
+
+    .bio-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--accent);
+    }
+
+    /* ── Highlight Box ───────────────────────────────────────────────── */
+    .highlight-box {
+      background: #eef4fc;
+      border: 1px solid #c5d9f0;
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+    }
+
+    .highlight-box p {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 0;
+    }
+
+    .highlight-box strong { color: var(--navy); }
+
+    /* ── Footer ──────────────────────────────────────────────────────── */
+    .footer {
+      margin-top: 52px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-badge {
+      font-size: 11.5px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Divider ─────────────────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--mist-md);
+      margin: 8px 0 18px;
+    }
+
+    /* ── Print ───────────────────────────────────────────────────────── */
+    @media print {
+      body { background: white; }
+      .page-wrap { box-shadow: none; margin: 0; border-radius: 0; }
+      .q-card:hover { box-shadow: none; }
+      .toc-bar { display: none; }
+      a { color: var(--navy); text-decoration: none; }
+      .masthead { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .product-table thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap { margin: 0; border-radius: 0; }
+      .masthead { padding: 32px 24px 28px; }
+      .toc-bar { padding: 14px 24px; }
+      .body-wrap { padding: 0 24px 32px; }
+      .masthead h1 { font-size: 24px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .callout-row { grid-template-columns: 1fr; }
+      .callout-row.three-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── Masthead ──────────────────────────────────────────────────── -->
+  <div class="masthead">
+    <div class="masthead-eyebrow">Conversation Guide &bull; Semiconductor / Analog IC Industry</div>
+    <h1>Cirrus Logic</h1>
+    <div class="masthead-sub">
+      A research-backed briefing on Cirrus Logic's business, strategy, and market position,
+      prepared as a shared reference for our conversation.
+    </div>
+    <div class="masthead-meta">
+      <span class="meta-pill"><strong>NASDAQ:</strong> CRUS</span>
+      <span class="meta-pill"><strong>HQ:</strong> Austin, TX</span>
+      <span class="meta-pill"><strong>Founded:</strong> 1984</span>
+      <span class="meta-pill"><strong>Sector:</strong> Fabless Semiconductors</span>
+    </div>
+  </div>
+
+  <!-- ── TOC Bar ────────────────────────────────────────────────────── -->
+  <nav class="toc-bar" aria-label="Document sections">
+    <span class="toc-label">Sections</span>
+    <a href="#overview">Company Overview</a><span class="toc-sep">/</span>
+    <a href="#portfolio">Products &amp; Portfolio</a><span class="toc-sep">/</span>
+    <a href="#strategy">Growth Strategy</a><span class="toc-sep">/</span>
+    <a href="#catalysts">Recent Catalysts</a><span class="toc-sep">/</span>
+    <a href="#market">Market Landscape</a><span class="toc-sep">/</span>
+    <a href="#questions">Discussion Questions</a><span class="toc-sep">/</span>
+    <a href="#background">Willie's Background</a>
+  </nav>
+
+  <div class="body-wrap">
+
+    <!-- ── Section 1: Company Overview ───────────────────────────────── -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2>Company Overview</h2>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">FY2026 Revenue</div>
+          <div class="stat-value">$2.0B</div>
+          <div class="stat-note">Record year; +5% YoY</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">EPS (Non-GAAP)</div>
+          <div class="stat-value">$9.26</div>
+          <div class="stat-note">Up from $7.54 prior year (+23%)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Operating Margin</div>
+          <div class="stat-value">27.5%</div>
+          <div class="stat-note">Non-GAAP; +100bps YoY</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Cash / Debt</div>
+          <div class="stat-value">$1.2B / $0</div>
+          <div class="stat-note">Zero long-term debt; +$319M YoY</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Free Cash Flow</div>
+          <div class="stat-value">32%</div>
+          <div class="stat-note">$651M operating cash flow</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Share Price (approx.)</div>
+          <div class="stat-value">~$171</div>
+          <div class="stat-note">Market cap ~$9B; ~1,900 employees</div>
+        </div>
+      </div>
+
+      <p>
+        Cirrus Logic is a fabless analog and mixed-signal semiconductor company with more than four decades
+        of precision engineering. The company designs high-performance ICs that live inside consumer
+        electronics, primarily smartphones, handling audio, power conversion, haptics, and camera
+        control with exceptional signal fidelity. Being fabless, Cirrus partners with leading foundries
+        (TSMC, GlobalFoundries) rather than owning its own fabs, which enables capital-efficient scaling
+        and focus on IP development.
+      </p>
+      <p>
+        FY2026 (ended March 2026) was a record year across the board: record revenue, record EPS, and
+        record operating cash flow. CEO John Forsyth has led the company since January 2021, having joined
+        through the Wolfson Microelectronics acquisition in 2014. Apple represents the vast majority of
+        Cirrus's revenue, a strategic relationship the company is actively building on while simultaneously
+        extending its analog expertise into new markets, most visibly laptops and automotive.
+      </p>
+    </section>
+
+    <!-- ── Section 2: Products & Portfolio ───────────────────────────── -->
+    <section class="section" id="portfolio">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2>Product Portfolio</h2>
+      </div>
+
+      <table class="product-table" aria-label="Product portfolio overview">
+        <thead>
+          <tr>
+            <th>Product Family</th>
+            <th>Core ICs</th>
+            <th>Key Markets</th>
+            <th>Notable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Smart Audio</td>
+            <td>Codecs, boosted amplifiers, smart amplifiers</td>
+            <td>Smartphones (iPhone), tablets, TWS earbuds</td>
+            <td>Category-defining; latest-gen boosted amplifier and first 22nm smart codec shipped FY2025</td>
+          </tr>
+          <tr>
+            <td>Camera Controllers</td>
+            <td>HPMS ICs for OIS &amp; autofocus</td>
+            <td>Smartphones (flagship camera systems)</td>
+            <td>Precision analog &amp; DSP enabling advanced computational photography; significant revenue contributor</td>
+          </tr>
+          <tr>
+            <td>Haptics &amp; Sensing</td>
+            <td>Haptic drivers (CS40L51/52/53), force sensing controllers</td>
+            <td>Smartphones, wearables, automotive HMI</td>
+            <td>AEC-Q100 qualified haptic driver began shipping into automotive Dec 2025</td>
+          </tr>
+          <tr>
+            <td>Battery &amp; Power</td>
+            <td>Battery chargers, power conversion ICs</td>
+            <td>Smartphones, laptops, IoT</td>
+            <td>Built on Lion Semiconductor acquisition ($335M, 2021); expanding across device categories</td>
+          </tr>
+          <tr>
+            <td>PC / Laptop Audio</td>
+            <td>Smart codecs optimized for PC OEMs</td>
+            <td>Laptops (top 6 global vendors)</td>
+            <td>Revenue grew ~4x YoY ($10M to $40M); 150+ SKUs; SDCA protocol adoption accelerating</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout-row">
+        <div class="callout">
+          <div class="callout-title">Audio Segment</div>
+          <ul>
+            <li>Established market leader in smartphone audio codecs</li>
+            <li>Deep software &amp; firmware stack differentiates hardware</li>
+            <li>Consistent per-device ASP expansion across iPhone generations</li>
+            <li>Growing TWS/earbud design wins (AirPods ecosystem)</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-title">HPMS Segment</div>
+          <ul>
+            <li>~41% of revenue and growing (up from ~38% a year ago)</li>
+            <li>SAM projected: $6.8B (2025) to $9.0B (2030)</li>
+            <li>Two-thirds of CY2025 patent filings were in HPMS</li>
+            <li>Automotive &amp; laptop represent emerging growth vectors</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 3: Growth Strategy ────────────────────────────────── -->
+    <section class="section" id="strategy">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2>Growth Strategy</h2>
+      </div>
+
+      <p>
+        Cirrus Logic articulates a three-pronged growth framework, branded internally as "Challenge Accepted"
+        (launched February 2025). Each pillar builds on the company's core competency in precision analog
+        engineering while incrementally diversifying revenue streams and addressable markets. The long-term
+        SAM target is $9 billion by 2030.
+      </p>
+
+      <div class="callout-row three-col" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="callout">
+          <div class="callout-title">Pillar 1</div>
+          <ul>
+            <li><strong style="color:var(--text)">Deepen smartphone audio leadership</strong></li>
+            <li>Continue increasing audio IC content per iPhone generation</li>
+            <li>Expand into Android flagship tier</li>
+            <li>Grow TWS and wearable design wins</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-title">Pillar 2</div>
+          <ul>
+            <li><strong style="color:var(--text)">Grow HPMS content in smartphones</strong></li>
+            <li>Camera controllers, haptic drivers, power ICs all expanding per device</li>
+            <li>Leverage Apple relationship to prove technology, then extend</li>
+            <li>Compound content value through integration</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-title">Pillar 3</div>
+          <ul>
+            <li><strong style="color:var(--text)">Expand into adjacent markets</strong></li>
+            <li>Laptops / PC: shipping into top 6 OEMs today</li>
+            <li>Automotive: AEC-Q100 haptic ICs in production</li>
+            <li>IoT / industrial: longer-term horizon</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px; font-weight:700; color:var(--navy); margin:22px 0 12px;">Capital Allocation Philosophy</h3>
+
+      <div class="tag-row">
+        <span class="tag">R&amp;D Investment</span>
+        <span class="tag">Tuck-In M&amp;A (Mixed-Signal / Power / Sensing IP)</span>
+        <span class="tag">Share Repurchases</span>
+        <span class="tag">Zero Long-Term Debt Policy</span>
+      </div>
+
+      <p>
+        With $1.2B in cash, zero debt, and a recently secured $350M revolving credit facility, Cirrus has
+        significant strategic flexibility. Management has signaled preference for tuck-in acquisitions to
+        accelerate IP development in mixed-signal, power management, and sensing, complementing the organic
+        R&amp;D pipeline rather than pursuing transformational deals. The last major acquisition was
+        Lion Semiconductor in July 2021 for $335M.
+      </p>
+    </section>
+
+    <!-- ── Section 4: Recent Catalysts ───────────────────────────────── -->
+    <section class="section" id="catalysts">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2>Recent Catalysts &amp; Milestones</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">May 2026</div>
+          <div class="tl-title">Record FY2026 Results &amp; Strong Guidance</div>
+          <div class="tl-desc">
+            $2.0B revenue, $9.26 non-GAAP EPS, $651M operating cash flow. Q1 FY2027 guidance of
+            $430-490M implies 13% YoY growth at midpoint. Management cited the "strongest pipeline
+            of opportunities" in recent history and plans to increase R&amp;D investment throughout FY2027.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">March 2026</div>
+          <div class="tl-title">Apple US Manufacturing Program</div>
+          <div class="tl-desc">
+            Cirrus Logic named as a participant in Apple's US Manufacturing Program, which channels
+            $400M in investment through 2030 across new partners. Collaboration with GlobalFoundries at Malta, NY to
+            develop mixed-signal solutions for Apple applications, including advanced ICs for Face ID systems.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">December 2025</div>
+          <div class="tl-title">Automotive Market Entry</div>
+          <div class="tl-desc">
+            Began shipping AEC-Q100 qualified haptic driver ICs (CS40L51/52/53) into the automotive segment.
+            The first production-grade automotive products in Cirrus's history. Haptics and tactile feedback
+            in EV touch interfaces is a nascent but fast-growing category.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">August 2025</div>
+          <div class="tl-title">GlobalFoundries Strategic Partnership Expansion</div>
+          <div class="tl-desc">
+            Expanded long-term partnership with GlobalFoundries for next-generation BCD process technology
+            and GaN (Gallium Nitride) manufacturing at Essex Junction, Vermont.
+            US manufacturing options complement existing Singapore and Germany production, supporting
+            supply chain resilience and CHIPS Act positioning.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">May 2025</div>
+          <div class="tl-title">Compal Electronics AI Audio Partnership</div>
+          <div class="tl-desc">
+            Partnership with Compal Electronics to advance AI-powered audio enhancement for laptops,
+            supporting the PC market expansion strategy.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">February 2025</div>
+          <div class="tl-title">"Challenge Accepted" Growth Strategy</div>
+          <div class="tl-desc">
+            Launched multi-year growth strategy to sharpen focus, accelerate performance, and drive
+            profitable growth across existing and new markets.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 5: Market Landscape ───────────────────────────────── -->
+    <section class="section" id="market">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2>Market Landscape &amp; Industry Context</h2>
+      </div>
+
+      <div class="highlight-box">
+        <p>
+          <strong>The analog moat is real.</strong> In a semiconductor industry increasingly focused on
+          digital compute density (AI accelerators, GPU clusters), precision analog and mixed-signal
+          expertise remains one of the hardest technical capabilities to replicate. Cirrus has spent
+          four decades accumulating this IP, and it sits at the interface between the physical
+          world and digital systems in almost every consumer device.
+        </p>
+      </div>
+
+      <div class="callout-row">
+        <div class="callout">
+          <div class="callout-title">Macro Tailwinds</div>
+          <ul>
+            <li>CHIPS Act &amp; reshoring: US-based analog manufacturing increasingly strategically valued</li>
+            <li>AI at the edge: on-device audio processing, sensing, and haptic feedback demand rising</li>
+            <li>EV / automotive HMI: haptics, audio, and power ICs in next-gen cockpits (~300 analog chips per modern vehicle)</li>
+            <li>Premium smartphone ASP growth: more silicon content per flagship device per year</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-title">Competitive Context</div>
+          <ul>
+            <li><strong style="color:var(--text)">Texas Instruments</strong> &#8212; broad analog portfolio ($18B+ revenue); less smartphone-focused</li>
+            <li><strong style="color:var(--text)">Qualcomm</strong> &#8212; competes on integrated audio in Android SoCs</li>
+            <li><strong style="color:var(--text)">Analog Devices</strong> &#8212; industrial/aerospace analog leader; limited smartphone presence</li>
+            <li>Cirrus's deep Apple co-engineering integration creates a durable competitive moat in its primary market</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>
+        The broader semiconductor market is projected at roughly $975 billion in 2026, with the mixed-signal
+        IC segment expected to grow from $128B (2024) to $189B (2033). Cirrus Logic's strategy of focused
+        IP leadership in analog niches, deep OEM integration, and disciplined capital allocation positions
+        it as a premium acquirer for targeted IP rather than a consolidation target. The SAM expansion
+        trajectory ($6.8B to $9B by 2030) suggests the company sees significant organic runway ahead.
+      </p>
+    </section>
+
+    <!-- ── Section 6: Discussion Questions ───────────────────────────── -->
+    <section class="section" id="questions">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2>Discussion Questions</h2>
+      </div>
+
+      <p style="margin-bottom:22px;">
+        The following questions reflect genuine areas of curiosity coming into this conversation.
+        Topics where outside research only gets you so far and where the practitioner's perspective
+        is most valuable.
+      </p>
+
+      <div class="q-card">
+        <div class="q-number">Question 1 &#8212; Customer Concentration &amp; Diversification</div>
+        <div class="q-text">
+          "How is Cirrus thinking about the balance between deepening the Apple relationship and
+          diversifying the customer base, and how does that tension shape internal prioritization?"
+        </div>
+        <div class="q-context">
+          Apple remains the foundation, but the PC and automotive pushes suggest a long-term
+          diversification strategy. The pace and strategic calculus are what I'm curious to understand.
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-number">Question 2 &#8212; Adjacent Market Go-to-Market</div>
+        <div class="q-text">
+          "The expansion into automotive and laptops represents a meaningful shift in go-to-market.
+          What does that motion look like, and how does Cirrus approach markets where the Apple
+          playbook doesn't directly apply?"
+        </div>
+        <div class="q-context">
+          Winning in automotive (long qualification cycles, Tier 1 relationships) and PC OEMs (volume
+          procurement, different buyer personas) requires a different commercial model than
+          the deep co-engineering relationship Cirrus has with Apple. Understanding that transition
+          is valuable context.
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-number">Question 3 &#8212; Reshoring &amp; Supply Chain Strategy</div>
+        <div class="q-text">
+          "With the GlobalFoundries partnership and the Apple US Manufacturing Program, how is Cirrus
+          positioning for the ongoing reshoring trend, and is that more of a near-term operational
+          priority or a long-term strategic posture?"
+        </div>
+        <div class="q-context">
+          The CHIPS Act tailwinds and geopolitical dynamics around semiconductor supply chains are
+          clearly relevant to Cirrus, particularly given the US-based manufacturing angle with
+          facilities in Malta, NY and Essex Junction, VT.
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-number">Question 4 &#8212; Corporate Development</div>
+        <div class="q-text">
+          "What does the corporate development function look like at Cirrus right now? Is the
+          focus more on organic R&amp;D investment, or are there active inorganic priorities in the
+          mixed-signal and power IP spaces?"
+        </div>
+        <div class="q-context">
+          With a clean balance sheet ($1.2B cash, zero debt, new $350M credit facility) and
+          management's stated interest in tuck-in acquisitions, I'm curious about how the BD and
+          corporate development organization is structured and what the active priorities look like.
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-number">Question 5 &#8212; Sales Motion in Semiconductors</div>
+        <div class="q-text">
+          "My background is in enterprise technology sales, telecom infrastructure and networking
+          at Nokia and WWT. I'm curious how the sales and account management motion in
+          semiconductors compares, especially with concentrated strategic accounts and long
+          co-development cycles."
+        </div>
+        <div class="q-context">
+          The semiconductor commercial model (design wins, qualifications, roadmap co-development)
+          has meaningful parallels to strategic account management in enterprise tech, but also
+          distinct differences worth understanding.
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-number">Question 6 &#8212; Organizational Priorities</div>
+        <div class="q-text">
+          "Where are the biggest leverage points Cirrus is focused on right now from a go-to-market
+          or organizational standpoint? What problems are you trying to solve?"
+        </div>
+        <div class="q-context">
+          An open-ended question, intended to let the conversation go wherever is most useful.
+          Understanding where the real organizational energy is focused is often the most valuable
+          thing to learn in a conversation like this.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── Section 7: Willie's Background ────────────────────────────── -->
+    <section class="section" id="background">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2>Willie Kopp &#8212; Background Summary</h2>
+      </div>
+
+      <div class="bio-card">
+        <div class="bio-name">Willie Kopp</div>
+        <div class="bio-title">Enterprise Technology Sales Leader &#8212; Telecom / Networking Infrastructure</div>
+
+        <ul class="bio-list">
+          <li>
+            <span class="bio-icon">&#9654;</span>
+            <span>
+              <strong>15+ years</strong> in enterprise technology sales, focused on telecom and networking
+              infrastructure. Track record of building strategic account relationships, managing complex
+              sales cycles, and driving go-to-market execution across large enterprise and service provider accounts.
+            </span>
+          </li>
+          <li>
+            <span class="bio-icon">&#9654;</span>
+            <span>
+              <strong>Nokia</strong> &#8212; Wireless infrastructure sales; worked within the carrier and
+              enterprise sales motion for radio access, core network, and related infrastructure solutions.
+            </span>
+          </li>
+          <li>
+            <span class="bio-icon">&#9654;</span>
+            <span>
+              <strong>World Wide Technology (WWT)</strong> &#8212; Technology solutions integration and
+              services; deep experience in complex account management, multi-vendor solution selling, and
+              enterprise sales strategy.
+            </span>
+          </li>
+          <li>
+            <span class="bio-icon">&#9654;</span>
+            <span>
+              <strong>Core competencies:</strong> Strategic account management, go-to-market strategy,
+              enterprise relationship development, sales leadership, solution selling in technically complex
+              environments.
+            </span>
+          </li>
+          <li>
+            <span class="bio-icon">&#9654;</span>
+            <span>
+              <strong>Based:</strong> Bay Area / Livermore, CA.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- ── Footer ─────────────────────────────────────────────────────── -->
+    <div class="footer">
+      <span class="footer-text">Prepared for conversation &#8212; May 15, 2026</span>
+      <span class="footer-badge">Cirrus Logic &#8212; Conversation Guide</span>
+    </div>
+
+  </div><!-- /body-wrap -->
+</div><!-- /page-wrap -->
+
+</body>
+</html>
