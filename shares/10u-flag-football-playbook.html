@@ -611,6 +611,172 @@
       border: 0;
     }
 
+    /* Game Day Drives */
+    .drives-view {
+      display: none;
+    }
+
+    .drives-view.active {
+      display: block;
+    }
+
+    .drives-intro {
+      padding: 14px;
+      border-radius: var(--radius);
+      background: rgba(255, 212, 100, 0.06);
+      border: 1px solid rgba(255, 212, 100, 0.22);
+      margin-bottom: 14px;
+    }
+
+    .drives-intro h3 {
+      margin: 0 0 6px;
+      color: var(--gold);
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .drives-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 650;
+    }
+
+    .drive-card {
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(18, 55, 29, 0.98), rgba(10, 28, 16, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .drive-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--acid), var(--orange));
+    }
+
+    .drive-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px 4px;
+    }
+
+    .drive-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--acid);
+      color: #071109;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 950;
+      flex-shrink: 0;
+    }
+
+    .drive-header strong {
+      font-family: Impact, Avenir Next Condensed, sans-serif;
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+
+    .drive-theme {
+      padding: 0 14px 10px 58px;
+      color: var(--dim);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .drive-plays-list {
+      display: grid;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .drive-play-row {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 14px;
+      background: rgba(10, 28, 16, 0.95);
+    }
+
+    .drive-play-row.burn-row {
+      background: linear-gradient(135deg, rgba(255, 91, 91, 0.08), rgba(255, 159, 67, 0.08));
+      border-top: 1px solid rgba(255, 159, 67, 0.3);
+      border-bottom: 1px solid rgba(255, 159, 67, 0.3);
+    }
+
+    .dp-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .burn-row .dp-num {
+      background: rgba(255, 159, 67, 0.2);
+      color: var(--orange);
+    }
+
+    .dp-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dp-name {
+      font-size: 15px;
+      font-weight: 950;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .burn-badge {
+      font-size: 9px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255, 159, 67, 0.2);
+      color: var(--orange);
+      border: 1px solid rgba(255, 159, 67, 0.35);
+    }
+
+    .dp-meta {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    .dp-concept {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+      font-weight: 650;
+      margin-top: 2px;
+    }
+
     .route {
       fill: none;
       stroke-linecap: round;
@@ -754,6 +920,11 @@
       <div class="pill"><span class="dot"></span> Show, snap, celebrate</div>
     </section>
 
+    <nav class="tabs" style="margin-bottom:4px" aria-label="Main views">
+      <button class="tab active" id="tabPlays" type="button">Play Caller</button>
+      <button class="tab" id="tabDrives" type="button">Game Day Drives</button>
+    </nav>
+
     <section class="field-card call-sheet-view active" id="callSheetView" aria-label="Call sheet view">
       <nav class="tabs" id="tabs" aria-label="Play categories"></nav>
       <div class="section-head">
@@ -775,6 +946,14 @@
         <b>Sub rule</b>
         <span>Rotate WR3/RB every drive so every player touches the ball.</span>
       </div>
+    </section>
+
+    <section class="field-card drives-view" id="drivesView" aria-label="Game day drives">
+      <div class="drives-intro">
+        <h3>Repetition then Burn</h3>
+        <p>These scripted drives use repetition to train the defense. Run similar plays 2-3 times so defenders commit to stopping what they've seen, then hit them with something unexpected. The burn play at the end of each drive exploits what the defense just learned to expect. Call these drives in order. The payoff comes at the end.</p>
+      </div>
+      <div id="drivesContainer"></div>
     </section>
 
     <section class="play-detail-view" id="playDetailView" aria-label="Selected play detail">
@@ -1215,6 +1394,9 @@
       els.detailView.classList.remove("active");
       els.callSheetView.classList.add("active");
       els.quickPanel.style.display = "";
+      if (drivesViewEl) drivesViewEl.classList.remove("active");
+      if (tabPlaysBtn) tabPlaysBtn.classList.add("active");
+      if (tabDrivesBtn) tabDrivesBtn.classList.remove("active");
       renderCallSheet();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1512,6 +1694,125 @@
         }, { passive: true });
       });
     }
+
+    // ──── Game Day Drives ────
+    const DRIVES = [
+      {
+        number: 1,
+        name: "The Edge Hammer",
+        theme: "Establish the jet sweep. Make them over-commit to the edge. Then go deep over the top.",
+        plays: [
+          { name: "Jet Right", meta: "Run · Sweep Right", concept: "Jet motion right, handoff on the edge. Get 5+ yards and establish the threat.", burn: false },
+          { name: "Rocket Out", meta: "Pass · Quick Throw Right", concept: "Quick out route to the right side. Safe, easy completion. Defense still thinking about the sweep.", burn: false },
+          { name: "Jet Right", meta: "Run · Sweep Right", concept: "Same jet sweep. Defense starts crashing hard to the edge. Safeties cheat up.", burn: false },
+          { name: "Rocket Out", meta: "Pass · Quick Throw Right", concept: "Same out route. Defense expects short and right. Safeties are now close to the line.", burn: false },
+          { name: "Center Throwback", meta: "Trick · Deep Left", concept: "Fake the jet motion right. Whole defense bites on the run. Center leaks left wide open. Touchdown.", burn: true }
+        ]
+      },
+      {
+        number: 2,
+        name: "The Short Game",
+        theme: "Quick slants and outs — train them to play underneath. Then go over their heads.",
+        plays: [
+          { name: "Slant Smile", meta: "Pass · Inside Slant", concept: "Sharp inside slant. Quick throw to WR1 crossing. Gets the defense thinking underneath.", burn: false },
+          { name: "Rocket Out", meta: "Pass · Quick Throw Right", concept: "Another short throw. Defense sees a pattern — everything is at 5 yards or less.", burn: false },
+          { name: "Slant Smile", meta: "Pass · Inside Slant", concept: "Same slant. Defenders start jumping the route, cheating forward.", burn: false },
+          { name: "Drag Train", meta: "Pass · Crossing Routes", concept: "Crossing routes underneath. Everyone in the secondary is now crashing downhill.", burn: false },
+          { name: "Corner Candy", meta: "Pass · Deep Corner", concept: "Same setup — WR2 sells straight like every other route, then breaks deep to the corner. Defender bites on the short pattern. Wide open behind.", burn: true }
+        ]
+      },
+      {
+        number: 3,
+        name: "The Misdirection",
+        theme: "Jet motion right every play. Defense flows right. Then hit the left side wide open.",
+        plays: [
+          { name: "Jet Right", meta: "Run · Sweep Right", concept: "Jet motion right, handoff. Get yards and establish the right-side run threat.", burn: false },
+          { name: "Jet Right", meta: "Run · Sweep Right", concept: "Same play again. Defense is now over-shifting to the motion side every snap.", burn: false },
+          { name: "Rocket Out", meta: "Pass · Quick Throw Right", concept: "Quick pass right. Keeps the defense's eyes on the right side of the field.", burn: false },
+          { name: "Slant Smile", meta: "Pass · Inside Slant", concept: "First look left. Defense is slow to adjust — easy completion to the unguarded side.", burn: false },
+          { name: "Jet Left", meta: "Run · Sweep Left", concept: "Same jet motion — but the runner bends LEFT. Entire defense flows right out of habit. Nothing but open field.", burn: true }
+        ]
+      },
+      {
+        number: 4,
+        name: "The Bunch Breaker",
+        theme: "Short passes in the middle. Defense packs inside. Then split them wide on the edge.",
+        plays: [
+          { name: "Center Sneak", meta: "Pass · Center Release", concept: "Center snaps and runs up the middle. Easy, reliable start.", burn: false },
+          { name: "Drag Train", meta: "Pass · Crossing Routes", concept: "Crossers underneath. Defense packs the middle to stop the crossing game.", burn: false },
+          { name: "Center Sneak", meta: "Pass · Center Release", concept: "Same center release. Defense is now squeezing the middle on every play.", burn: false },
+          { name: "Slant Smile", meta: "Pass · Inside Slant", concept: "More inside action. The whole defense is sitting in the middle of the field.", burn: false },
+          { name: "Goal Flood", meta: "Pass · Flood Right", concept: "Flood three receivers to the right sideline at different depths. Defense is packed inside — the sideline is wide open. Hit WR2 on the deep corner.", burn: true }
+        ]
+      },
+      {
+        number: 5,
+        name: "The Closer",
+        theme: "Mix run and pass to keep them guessing — then combine both into the ultimate misdirection.",
+        plays: [
+          { name: "Jet Right", meta: "Run · Sweep Right", concept: "Open with the bread-and-butter run. Get the defense on their heels.", burn: false },
+          { name: "Slant Smile", meta: "Pass · Inside Slant", concept: "Quick slant. Now they've seen run and pass — they don't know what's coming.", burn: false },
+          { name: "Jet Right", meta: "Run · Sweep Right", concept: "Same sweep. Defense starts cheating run every time they see jet motion.", burn: false },
+          { name: "Bubble Pop", meta: "Pass · Quick Bubble Left", concept: "Quick bubble to WR1. Defense is caught between run and pass, slow to react.", burn: false },
+          { name: "Reverse Rocket", meta: "Trick · Reverse Left", concept: "Fake Jet Right — everyone flows right. WR1 comes around on the reverse LEFT. Defense is completely wrong-footed. Wide open field for a touchdown.", burn: true }
+        ]
+      }
+    ];
+
+    function renderDrives() {
+      const container = document.getElementById("drivesContainer");
+      container.innerHTML = DRIVES.map(drive => `
+        <div class="drive-card">
+          <div class="drive-header">
+            <div class="drive-num">${drive.number}</div>
+            <strong>${escapeHtml(drive.name)}</strong>
+          </div>
+          <div class="drive-theme">${escapeHtml(drive.theme)}</div>
+          <div class="drive-plays-list">
+            ${drive.plays.map((play, i) => `
+              <div class="drive-play-row${play.burn ? " burn-row" : ""}">
+                <div class="dp-num">${play.burn ? "🔥" : i + 1}</div>
+                <div class="dp-content">
+                  <div class="dp-name">${escapeHtml(play.name)}${play.burn ? ' <span class="burn-badge">BURN</span>' : ""}</div>
+                  <div class="dp-meta">${escapeHtml(play.meta)}</div>
+                  <div class="dp-concept">${escapeHtml(play.concept)}</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // Main view toggle
+    const drivesViewEl = document.getElementById("drivesView");
+    const tabPlaysBtn = document.getElementById("tabPlays");
+    const tabDrivesBtn = document.getElementById("tabDrives");
+
+    function showPlaysView() {
+      tabPlaysBtn.classList.add("active");
+      tabDrivesBtn.classList.remove("active");
+      els.callSheetView.classList.add("active");
+      els.quickPanel.style.display = "";
+      drivesViewEl.classList.remove("active");
+      // Also restore detail if it was showing
+      if (els.detailView.classList.contains("active")) {
+        els.callSheetView.classList.remove("active");
+      }
+    }
+
+    function showDrivesView() {
+      tabDrivesBtn.classList.add("active");
+      tabPlaysBtn.classList.remove("active");
+      els.callSheetView.classList.remove("active");
+      els.quickPanel.style.display = "none";
+      els.detailView.classList.remove("active");
+      drivesViewEl.classList.add("active");
+      renderDrives();
+    }
+
+    tabPlaysBtn.addEventListener("click", showPlaysView);
+    tabDrivesBtn.addEventListener("click", showDrivesView);
 
     function boot() {
       renderCallSheet();

@@ -674,6 +674,161 @@
       font-weight: 750;
     }
 
+    /* Game Day Drives */
+    .drives-intro {
+      border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+      background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+      border-radius: var(--radius);
+      padding: 12px;
+      display: grid;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .drives-intro h3 {
+      margin: 0;
+      color: var(--accent);
+      font-size: .92rem;
+      font-weight: 900;
+    }
+
+    .drives-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+
+    .drive-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      overflow: hidden;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .drive-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--blitz));
+    }
+
+    .drive-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 12px 4px;
+    }
+
+    .drive-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #07111f;
+      display: grid;
+      place-items: center;
+      font-size: .85rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .drive-card-head h3 {
+      margin: 0;
+      font-size: .95rem;
+      font-weight: 900;
+    }
+
+    .drive-theme {
+      padding: 0 12px 10px 54px;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.35;
+    }
+
+    .drive-plays-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .drive-play-row {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      background: var(--panel);
+    }
+
+    .drive-play-row.burn-row {
+      background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+      border-top: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+    }
+
+    .dp-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--panel-3);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .burn-row .dp-num {
+      background: color-mix(in srgb, var(--accent) 20%, var(--panel-3));
+      color: var(--accent);
+    }
+
+    .dp-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dp-name {
+      font-size: .88rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .burn-badge {
+      font-size: .62rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--accent) 20%, var(--panel));
+      color: var(--accent);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+    }
+
+    .dp-meta {
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .dp-concept {
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
     @media (min-width: 760px) {
       .app { padding-left: 18px; padding-right: 18px; }
       .topbar { margin-left: -18px; margin-right: -18px; padding-left: 18px; padding-right: 18px; }
@@ -705,9 +860,10 @@
         <span class="pill"><strong>Blitz</strong> 7 yards off</span>
         <span class="pill"><strong>Lateral</strong> behind LOS can pass/run</span>
       </div>
-      <nav class="tabbar" aria-label="Views">
+      <nav class="tabbar" style="grid-template-columns:repeat(4,1fr)" aria-label="Views">
         <button class="tab-btn" data-tab="callSheet" aria-selected="true">Call Sheet</button>
         <button class="tab-btn" data-tab="playbook" aria-selected="false">Playbook</button>
+        <button class="tab-btn" data-tab="drives" aria-selected="false">Drives</button>
         <button class="tab-btn" data-tab="rules" aria-selected="false">Rules</button>
       </nav>
     </header>
@@ -751,6 +907,14 @@
         <span class="count" id="playCount">20 shown</span>
       </div>
       <div class="play-grid" id="playGrid"></div>
+    </section>
+
+    <section id="drives" class="surface" aria-label="Game day drives">
+      <div class="drives-intro">
+        <h3>Repetition → Burn</h3>
+        <p>These scripted drives build on a simple idea: show the defense the same look until they over-commit, then punish them with the unexpected. Each drive repeats formations and concepts to establish a pattern. Defenders are trained by what they see — when they start anticipating, the burn play flips the script. Call these in sequence. The drives are designed to build on each other across a half.</p>
+      </div>
+      <div id="drivesGrid"></div>
     </section>
 
     <section id="rules" class="surface" aria-label="Rules and coaching notes">
@@ -1567,9 +1731,99 @@
       if (event.key === "ArrowLeft") nextShow(-1);
     });
 
+    // ──── Game Day Drives ────
+    const DRIVES = [
+      {
+        number: 1,
+        name: "The Flood Machine",
+        theme: "Flood right, flood right, flood right — then hit the backside wheel when nobody's watching.",
+        plays: [
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Flood the right side. QB reads high-to-low. Hit the curl or flat — move the chains.", burn: false },
+          { name: "Spread RPO", meta: "Spread · RPO", concept: "Read the overhang defender. Give or pull based on his reaction. Keep the defense honest.", burn: false },
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Same flood. Defense starts shading right, rotating their safety to the trips side.", burn: false },
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Third flood. The defense is now fully committed to the right side. Backside is empty.", burn: false },
+          { name: "Orbit Lateral Wheel", meta: "Spread · Lateral + Wheel", concept: "Orbit motion pulls eyes right. R takes the lateral and can hit S on the wheel route up the LEFT sideline — the defense is still rotated right. Wide open.", burn: true }
+        ]
+      },
+      {
+        number: 2,
+        name: "The Motion Trap",
+        theme: "Motion sweep, motion sweep. Defense chases the motion every time. Then pull the ball back.",
+        plays: [
+          { name: "Jet Right Hand", meta: "Spread · Run Right", concept: "Jet motion right, handoff on the edge. Get the defense flowing with the motion man.", burn: false },
+          { name: "Spread RPO", meta: "Spread · RPO", concept: "Give the QB a read. Defense is still thinking about the sweep. Crash = pull and throw.", burn: false },
+          { name: "Jet Right Hand", meta: "Spread · Run Right", concept: "Same sweep. Defense is now over-pursuing the motion every single snap.", burn: false },
+          { name: "Jet Right Hand", meta: "Spread · Run Right", concept: "Third sweep. Defenders are conditioned: see motion → sprint to that side.", burn: false },
+          { name: "Counter Pull Left", meta: "Spread · Run Left", concept: "Same jet motion right — everyone flows right. But the ball goes to L on the COUNTER LEFT. Entire defense is wrong. Touchdown opportunity.", burn: true }
+        ]
+      },
+      {
+        number: 3,
+        name: "The RPO Ladder",
+        theme: "Give, give, pull — then hit them with the deep shot they've been giving you all drive.",
+        plays: [
+          { name: "Spread RPO (give)", meta: "Spread · RPO", concept: "Defender sits back — hand the ball off. Establish the run threat from spread.", burn: false },
+          { name: "Spread RPO (give)", meta: "Spread · RPO", concept: "Same look, same give. The overhang defender starts cheating toward the run.", burn: false },
+          { name: "Spread RPO (pull)", meta: "Spread · RPO → Slant", concept: "Defender crashes on the run. QB pulls and hits the slant behind him. Easy throw, open window.", burn: false },
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Change the look. Flood the right side. Defense adjusts — safeties rotate right.", burn: false },
+          { name: "Double Pass Sideline", meta: "Trips Right · Trick", concept: "After a drive of run-first and short passes, go for the trick. QB laterals to S who throws deep to R up the sideline. The safety has been cheating forward all drive. Deep touchdown.", burn: true }
+        ]
+      },
+      {
+        number: 4,
+        name: "The Flood Flip",
+        theme: "Flood the same side three times. They adjust. Then flip the entire concept to the other side.",
+        plays: [
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Standard flood right. Hit whatever the defense gives you at the three levels.", burn: false },
+          { name: "Jet Right Hand", meta: "Spread · Run Right", concept: "Sweep right. Keeps the defense locked on the right side of the field.", burn: false },
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Same flood. Defense rotates hard right again. Left side of the field is empty.", burn: false },
+          { name: "Spread RPO", meta: "Spread · RPO", concept: "Balanced look. Defense is still thinking right. Pull and throw left if the window is there.", burn: false },
+          { name: "Lefty Pop Pass", meta: "Bunch Left · Lateral + Pass", concept: "Flip everything LEFT. QB laterals to L who threatens the edge and can throw to C. Defense has been rotating right for 4 plays. They're slow to adjust. The left side is wide open.", burn: true }
+        ]
+      },
+      {
+        number: 5,
+        name: "The Championship Drive",
+        theme: "Pull everything together. Run, flood, RPO — each play builds on the last. The burn play is the whole playbook combined.",
+        plays: [
+          { name: "Jet Right Hand", meta: "Spread · Run Right", concept: "Open with the run. Establish that they need to respect the motion sweep threat.", burn: false },
+          { name: "Flood Right", meta: "Trips Right · Pass", concept: "Flood right. Move the chains. Defense now has to respect run AND the flood concept.", burn: false },
+          { name: "Spread RPO", meta: "Spread · RPO", concept: "Read the defender. After the sweep and flood, the overhang is paralyzed. Take what he gives.", burn: false },
+          { name: "Jet Right Hand", meta: "Spread · Run Right", concept: "Same sweep again. Defense is in full react mode — chasing whatever they see.", burn: false },
+          { name: "Reverse Pass Left", meta: "Spread · Triple Trick", concept: "Jet motion right (defense flows right). Fake the sweep (LBs crash). Reverse to L who can throw deep to C leaking across the field. The whole defense was wrong. Game over.", burn: true }
+        ]
+      }
+    ];
+
+    function renderDrives() {
+      const container = document.getElementById("drivesGrid");
+      container.innerHTML = DRIVES.map(drive => `
+        <div class="drive-card">
+          <div class="drive-card-head">
+            <div class="drive-num">${drive.number}</div>
+            <h3>${drive.name}</h3>
+          </div>
+          <div class="drive-theme">${drive.theme}</div>
+          <div class="drive-plays-list">
+            ${drive.plays.map((play, i) => `
+              <div class="drive-play-row${play.burn ? " burn-row" : ""}">
+                <div class="dp-num">${play.burn ? "🔥" : i + 1}</div>
+                <div class="dp-content">
+                  <div class="dp-name">${play.name}${play.burn ? ' <span class="burn-badge">BURN</span>' : ""}</div>
+                  <div class="dp-meta">${play.meta}</div>
+                  <div class="dp-concept">${play.concept}</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
     renderCallSheet();
     renderFilters();
     renderPlaybook();
+    renderDrives();
 
     window.__PLAYBOOK_AUDIT__ = {
       playCount: PLAYS.length,
