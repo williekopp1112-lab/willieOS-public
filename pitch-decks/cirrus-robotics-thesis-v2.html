@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cirrus Logic Robotics Thesis — Rebuilt</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
+  background: #eef1f5;
+  color: #1a2332;
+  line-height: 1.55;
+  padding: 32px 24px 64px;
+}
+.page { max-width: 920px; margin: 0 auto; }
+.hero {
+  background: linear-gradient(135deg, #0b2447 0%, #19376d 100%);
+  color: #fff;
+  padding: 36px 32px;
+  border-radius: 12px;
+  margin-bottom: 28px;
+  box-shadow: 0 6px 24px rgba(11,36,71,0.18);
+}
+.hero .kicker {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #7ec8e3;
+  margin-bottom: 8px;
+}
+.hero h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
+  max-width: 700px;
+}
+.section {
+  background: #fff;
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-left: 4px solid #19376d;
+}
+.section.warn { border-left-color: #d97706; }
+.section.danger { border-left-color: #b91c1c; }
+.section.win { border-left-color: #15803d; }
+.section.neutral { border-left-color: #19376d; }
+.kicker {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.kicker.warn { color: #d97706; }
+.kicker.danger { color: #b91c1c; }
+.kicker.win { color: #15803d; }
+.kicker.neutral { color: #19376d; }
+.kicker.green { color: #15803d; }
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0b2447;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b2447;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+p { font-size: 15px; margin-bottom: 12px; }
+ul { margin: 10px 0 16px 0; padding-left: 22px; }
+li { margin-bottom: 8px; font-size: 14.5px; }
+.grade-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+.grade {
+  padding: 14px 14px;
+  border-radius: 8px;
+  text-align: left;
+}
+.grade.holds { background: #ecfdf5; border: 1px solid #a7f3d0; }
+.grade.shaky { background: #fffbeb; border: 1px solid #fde68a; }
+.grade.wrong { background: #fef2f2; border: 1px solid #fecaca; }
+.grade-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.grade.holds .grade-label { color: #15803d; }
+.grade.shaky .grade-label { color: #d97706; }
+.grade.wrong .grade-label { color: #b91c1c; }
+.grade-count {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0b2447;
+  line-height: 1;
+}
+.grade-desc { font-size: 12px; color: #4b5563; margin-top: 4px; }
+.callout {
+  background: #f0f7ff;
+  border-left: 3px solid #19376d;
+  padding: 14px 18px;
+  border-radius: 4px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+.callout.green { background: #ecfdf5; border-left-color: #15803d; }
+.callout.red { background: #fef2f2; border-left-color: #b91c1c; }
+.callout.amber { background: #fffbeb; border-left-color: #d97706; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 4px;
+  font-size: 13.5px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+th {
+  background: #f8fafc;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #4b5563;
+}
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag.green { background: #dcfce7; color: #166534; }
+.tag.red { background: #fee2e2; color: #991b1b; }
+.tag.amber { background: #fef3c7; color: #92400e; }
+.tag.blue { background: #dbeafe; color: #1e40af; }
+.diagram {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 28px 18px 14px;
+  margin: 18px 0 6px;
+  text-align: center;
+}
+.diagram-caption {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 8px;
+}
+.strike { text-decoration: line-through; color: #9ca3af; }
+strong { color: #0b2447; }
+.cta {
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+  color: #fff;
+  padding: 28px 32px;
+  border-radius: 12px;
+  margin-top: 28px;
+}
+.cta h2 { color: #fff; margin-bottom: 10px; }
+.cta p { color: rgba(255,255,255,0.9); }
+.cta ul li { color: rgba(255,255,255,0.95); }
+.footnote {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+.sources {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px 28px;
+  margin-top: 22px;
+  border-left: 4px solid #6b7280;
+}
+.sources h3 { margin-top: 0; }
+.sources a { color: #1e40af; text-decoration: none; word-break: break-word; }
+.sources a:hover { text-decoration: underline; }
+.sources ol { padding-left: 22px; font-size: 13px; }
+.sources li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="kicker" style="color:#7ec8e3;">STRATEGY MEMO — REBUILT</div>
+    <h1>Cirrus Logic in Robotics — A Bay Area Field Thesis</h1>
+    <p>An honest rebuild of the original Vector 3 thesis. The smartphone-to-robot analogy has the right instinct but oversells the literal product fit and gets several material facts wrong. Below is what holds, what doesn't, and a tighter pitch grounded in Cirrus's actual FY26 portfolio and the competitive reality of where TI, NXP, and ADI are already moving.</p>
+  </div>
+
+  <!-- ASSESSMENT SCORECARD -->
+  <div class="section neutral">
+    <div class="kicker neutral">PART 1 — HONEST SCORECARD</div>
+    <h2>What the original got right, wrong, and missed</h2>
+    <p>I went claim-by-claim against Cirrus's actual FY26 product portfolio, the latest earnings transcripts, and public information on the named target customers. The original is a directionally interesting story, but it has several factual errors that would be flagged immediately by anyone inside Cirrus who knows the product line — and that risk undercutting the rest of the argument.</p>
+
+    <div class="grade-box">
+      <div class="grade holds">
+        <div class="grade-label">Holds Up</div>
+        <div class="grade-count">4</div>
+        <div class="grade-desc">claims survive scrutiny</div>
+      </div>
+      <div class="grade shaky">
+        <div class="grade-label">Shaky / Overreach</div>
+        <div class="grade-count">3</div>
+        <div class="grade-desc">true in spirit, weak in detail</div>
+      </div>
+      <div class="grade wrong">
+        <div class="grade-label">Factually Wrong</div>
+        <div class="grade-count">4</div>
+        <div class="grade-desc">credibility risks if presented as-is</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Claim from original</th><th>Verdict</th><th>What I actually found</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cirrus HPMS includes camera controllers handling OIS &amp; autofocus via VCMs</td>
+          <td><span class="tag amber">Partial</span></td>
+          <td>Cirrus markets "camera controllers" as part of HPMS and says shipments and customer engagement are growing, but the public product pages don't expose specific OIS / VCM-driver part numbers. The CS40L25 haptic driver is explicitly designed to drive LRAs <em>and</em> VCMs — that's the closer technical anchor. Don't claim a dedicated OIS controller without a part number.</td>
+        </tr>
+        <tr>
+          <td>Cirrus has the CS40L haptic driver family</td>
+          <td><span class="tag green">Holds</span></td>
+          <td>CS40L25/25B and CS40L26/26B are real, shipping smartphone parts (Google Pixel 6 used CS40L25B). Cirrus also launched <strong>automotive-grade</strong> CS40L51/52/53 in 2025 for in-cabin haptics — these are more relevant to robots than the consumer parts because they're already qualified for harsher reliability targets.</td>
+        </tr>
+        <tr>
+          <td>Cirrus has audio ADCs/codecs</td>
+          <td><span class="tag green">Holds</span></td>
+          <td>Core franchise. Audio codecs &amp; amplifiers have shipped &gt;1B and &gt;3.5B cumulative units. This is the company's strongest moat and the most defensible "we know how to ship precision analog at humanoid-scale volumes" proof point.</td>
+        </tr>
+        <tr>
+          <td>"Ethernet Backbone" / high-speed data bus as a Cirrus product</td>
+          <td><span class="tag red">Wrong</span></td>
+          <td>Cirrus is <strong>not</strong> in the active Ethernet PHY business. The legacy CS8900A controller has been discontinued for years. Including this on a Cirrus-internal pitch will be spotted by anyone who knows the portfolio. Drop it entirely or replace it with something Cirrus actually sells (see Part 2).</td>
+        </tr>
+        <tr>
+          <td>Cirrus ICs are in 1B+ smartphones</td>
+          <td><span class="tag green">Holds</span></td>
+          <td>Audio codecs alone have crossed 1B cumulative; the figure is conservative if you count amplifiers. ~87% of Cirrus revenue still ties to Apple, which is exactly why diversification is the strategic priority — not a side bet.</td>
+        </tr>
+        <tr>
+          <td>Smartphone camera controller IP "translates directly" to robotic vision</td>
+          <td><span class="tag amber">Overreach</span></td>
+          <td>Robot vision and smartphone OIS solve different problems: stabilization vs. real-time depth + tracking. The honest version is that Cirrus's <em>precision analog front-end IP</em> translates — and Cirrus has a stronger, more defensible anchor here: the <strong>CS82L41/44/46 industrial imaging AFEs launched April 2026</strong>. Same DNA, already qualified for industrial scan applications, ready to be repositioned for robot perception pipelines.</td>
+        </tr>
+        <tr>
+          <td>VCM drivers control "robotic fingers"</td>
+          <td><span class="tag amber">Overreach</span></td>
+          <td>Humanoid robot finger actuators are mostly BLDC / PMSM or harmonic-drive motors, not VCMs. VCMs are used for fine positioning (~mm strokes), which maps to <em>tactile</em> feedback and micro-actuation, not joint articulation. Reframe as: "tactile feedback at the fingertip" — that's where Cirrus's haptic / VCM expertise actually fits.</td>
+        </tr>
+        <tr>
+          <td>Apptronik is Bay Area / West Coast</td>
+          <td><span class="tag red">Wrong</span></td>
+          <td>Apptronik is headquartered in <strong>Austin, TX</strong>. Backed by Google and Mercedes-Benz at a $5B+ valuation (Feb 2026). Strong target — just not from a Bay Area rep position. Replace with <strong>1X Technologies</strong> (Sunnyvale / Hayward production).</td>
+        </tr>
+        <tr>
+          <td>Boston Dynamics is Bay Area / West Coast</td>
+          <td><span class="tag red">Wrong</span></td>
+          <td>HQ in Waltham, <strong>Massachusetts</strong>. Owned by Hyundai. Atlas program is East Coast, not a Bay Area rep target.</td>
+        </tr>
+        <tr>
+          <td>Agility Robotics is Bay Area</td>
+          <td><span class="tag red">Wrong</span></td>
+          <td>HQ in <strong>Corvallis, OR</strong>; RoboFab factory in Salem, OR. West Coast — yes. Bay Area — no. Worth a quarterly trip, but not the primary patch.</td>
+        </tr>
+        <tr>
+          <td>Tesla (Optimus) is Bay Area</td>
+          <td><span class="tag green">Holds</span></td>
+          <td>Optimus engineering is at Tesla's Palo Alto + Fremont facilities. Gen 3 robots are already deployed at Fremont. The single highest-priority account by volume — Tesla targets 1M Optimus units/year by late 2026.</td>
+        </tr>
+        <tr>
+          <td>Figure AI is Bay Area</td>
+          <td><span class="tag green">Holds</span></td>
+          <td>Moved HQ to a 99K sq ft facility in <strong>San Jose</strong> in 2025. $1B+ raised. Bay Area, primary target.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- THE REBUILT THESIS -->
+  <div class="section win">
+    <div class="kicker win">PART 2 — REBUILT THESIS</div>
+    <h2>The pitch, rewritten so it survives scrutiny</h2>
+
+    <p>Cirrus has spent two decades shipping precision analog at smartphone volumes for the world's most demanding customer. That capability — not any one product line — is what humanoid robot platforms need now, in three specific places where Cirrus has differentiated FY26 product, not legacy story.</p>
+
+    <h3>1 · Robot perception — anchored on the industrial imaging AFE family</h3>
+    <p>In April 2026, Cirrus launched the <strong>CS82L41 / CS82L44 / CS82L46</strong> industrial imaging analog front-end family with redesigned SAR ADC architecture, integrated LED drive, and CMOS/LVDS outputs for high-precision scan systems. This is the strongest robotics anchor Cirrus has — already industrial-grade, already designed for machine-vision-class pipelines, and a clear roadmap from "flatbed scanner" to "robot perception subsystem" without inventing a new product line. Pair with Cirrus's in-design smart-power IC for 3D sensing (Face ID-class) and you have a credible perception-AFE story.</p>
+
+    <h3>2 · Tactile feedback &amp; fine actuation — anchored on automotive haptics</h3>
+    <p>The CS40L51/52/53 family is already <strong>automotive-qualified</strong> closed-loop haptic drivers. Industrial / humanoid reliability targets sit between consumer and automotive — Cirrus's auto parts are the right beachhead, not the consumer Pixel-grade parts. Position around fingertip tactile sensing and force feedback for teleoperation, not joint actuation (which is a different motor problem).</p>
+
+    <h3>3 · Audio I/O for human-robot interaction — the franchise</h3>
+    <p>Humanoid robots need to hear well in noisy environments, do beamforming for directional voice, and produce natural speech. Cirrus's audio codec + amplifier stack is the most production-proven HRI audio chain on earth. This is the easy win — same IP, same supply chain, immediate plug-in for any humanoid that wants to skip rolling their own audio.</p>
+
+    <h3>4 · Power &amp; battery management — the under-told story</h3>
+    <p>Cirrus has been quietly building advanced battery and power IP across recent earnings calls. Humanoid robots are battery-bound — runtime is the #1 commercial blocker (Optimus targets 8-hour shifts). Cirrus's smart-power work is more relevant than the smartphone-camera analogy.</p>
+  </div>
+
+  <!-- REBUILT DIAGRAM -->
+  <div class="section neutral">
+    <div class="kicker neutral">NEW ARCHITECTURE MAP</div>
+    <h2>Where Cirrus actually fits in a humanoid robot BOM</h2>
+    <p>This replaces the original diagram. The "Ethernet Backbone" box is removed (Cirrus doesn't sell that), and the four boxes are tied to specific FY26 product families, not aspirational categories.</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:760px; height:auto;">
+        <defs>
+          <linearGradient id="centerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b2447"/>
+            <stop offset="100%" stop-color="#19376d"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Center -->
+        <rect x="290" y="180" width="220" height="100" rx="8" fill="url(#centerGrad)" stroke="#0b2447" stroke-width="1.5"/>
+        <text x="400" y="215" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="system-ui">CIRRUS LOGIC</text>
+        <text x="400" y="238" text-anchor="middle" fill="#7ec8e3" font-size="11" font-weight="600" font-family="system-ui" letter-spacing="1">PRECISION ANALOG IP</text>
+        <text x="400" y="258" text-anchor="middle" fill="#cbd5e1" font-size="11" font-family="system-ui">audio · haptics · imaging · power</text>
+
+        <!-- Top Left: Perception -->
+        <rect x="40" y="40" width="220" height="92" rx="6" fill="#fff" stroke="#19376d" stroke-width="1.5"/>
+        <text x="150" y="65" text-anchor="middle" fill="#0b2447" font-size="13" font-weight="700" font-family="system-ui">Perception AFE</text>
+        <text x="150" y="84" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">CS82L41 / 44 / 46</text>
+        <text x="150" y="100" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">SAR ADCs · LED drive</text>
+        <text x="150" y="116" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">3D-sensing smart power</text>
+
+        <!-- Top Right: Audio HRI -->
+        <rect x="540" y="40" width="220" height="92" rx="6" fill="#fff" stroke="#19376d" stroke-width="1.5"/>
+        <text x="650" y="65" text-anchor="middle" fill="#0b2447" font-size="13" font-weight="700" font-family="system-ui">Audio I/O for HRI</text>
+        <text x="650" y="84" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">Codec + amplifier stack</text>
+        <text x="650" y="100" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">SoundClear · beamforming</text>
+        <text x="650" y="116" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">Production-proven IP</text>
+
+        <!-- Bottom Left: Haptics -->
+        <rect x="40" y="328" width="220" height="92" rx="6" fill="#fff" stroke="#19376d" stroke-width="1.5"/>
+        <text x="150" y="353" text-anchor="middle" fill="#0b2447" font-size="13" font-weight="700" font-family="system-ui">Tactile &amp; Fine Actuation</text>
+        <text x="150" y="372" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">CS40L51 / 52 / 53 (auto)</text>
+        <text x="150" y="388" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">CS40L25 / 26 (LRA + VCM)</text>
+        <text x="150" y="404" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">Closed-loop · resonance-aware</text>
+
+        <!-- Bottom Right: Power -->
+        <rect x="540" y="328" width="220" height="92" rx="6" fill="#fff" stroke="#19376d" stroke-width="1.5"/>
+        <text x="650" y="353" text-anchor="middle" fill="#0b2447" font-size="13" font-weight="700" font-family="system-ui">Power &amp; Battery</text>
+        <text x="650" y="372" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">Smart power ICs</text>
+        <text x="650" y="388" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">Battery health + longevity</text>
+        <text x="650" y="404" text-anchor="middle" fill="#4b5563" font-size="11" font-family="system-ui">Runtime is the #1 robot blocker</text>
+
+        <!-- Connections -->
+        <line x1="260" y1="86" x2="290" y2="190" stroke="#19376d" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <line x1="540" y1="86" x2="510" y2="190" stroke="#19376d" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <line x1="260" y1="374" x2="290" y2="270" stroke="#19376d" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <line x1="540" y1="374" x2="510" y2="270" stroke="#19376d" stroke-width="1.5" stroke-dasharray="4,4"/>
+      </svg>
+      <div class="diagram-caption">Cirrus's four real entry points into a humanoid robot BOM — each anchored to a shipping or announced FY26 product family, not an analogy.</div>
+    </div>
+  </div>
+
+  <!-- COMPETITIVE REALITY -->
+  <div class="section warn">
+    <div class="kicker warn">PART 3 — COMPETITIVE REALITY CHECK</div>
+    <h2>The robotics platform conversation is already happening — without Cirrus</h2>
+    <p>This is the uncomfortable part the original document didn't address, and it's where leadership will push back hardest. In March 2026, NVIDIA announced robotics platform partnerships with <strong>Texas Instruments, NXP, Analog Devices, Infineon, and Synopsys</strong> at GTC. NXP's humanoid building blocks ship 1H 2026. TI's AM13Ex MCUs integrate motor control + edge AI on a single die. Cirrus is not in this club.</p>
+
+    <div class="callout amber">
+      <strong>The reframe:</strong> Don't pitch Cirrus as the platform. Pitch Cirrus as the <em>differentiated specialty silicon</em> that gets designed in <em>alongside</em> those platforms — the way Cirrus codecs are designed in alongside Qualcomm SoCs in phones. The platform fight is over; the specialty-IP fight is wide open and starts in BOM lock-down windows over the next 12-24 months.
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Competitor</th><th>Robotics positioning</th><th>Where Cirrus still wins</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Texas Instruments</strong></td>
+          <td>NVIDIA partner; motor control, radar, sensing, power. AM13Ex MCUs cut BOM ~30%.</td>
+          <td>TI doesn't have audio-codec-class HD audio or closed-loop high-def haptics. Specialty IP, not platform.</td>
+        </tr>
+        <tr>
+          <td><strong>NXP</strong></td>
+          <td>NVIDIA Holoscan Sensor Bridge partner; sensor fusion + machine vision + motor control building blocks (1H 2026).</td>
+          <td>NXP plays for the whole pipeline; Cirrus can be the audio I/O + tactile feedback specialist that NXP designs alongside.</td>
+        </tr>
+        <tr>
+          <td><strong>Analog Devices</strong></td>
+          <td>Industrial segment grew 38% YoY in Q1 FY26 ($1.49B); broadest analog catalog in the industry.</td>
+          <td>ADI is the closest direct competitor. Cirrus wins on smartphone-scale manufacturing track record and HD audio/haptic differentiation.</td>
+        </tr>
+        <tr>
+          <td><strong>Infineon</strong></td>
+          <td>NVIDIA partner; power semiconductors and motor drive.</td>
+          <td>Power play, not signal-chain play. Different lane.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footnote">Implication: A Bay Area rep's job isn't to win the "humanoid sensor platform" RFQ — that ship sailed at GTC. It's to be inside Tesla's, Figure's, and 1X's engineering buildings <em>before they finalize their second-tier supplier lists</em> for haptic, audio, and imaging analog. That window is open right now.</p>
+  </div>
+
+  <!-- BAY AREA TARGET MAP -->
+  <div class="section neutral">
+    <div class="kicker neutral">PART 4 — BAY AREA TARGET MAP (CORRECTED)</div>
+    <h2>The actual addressable accounts within driving distance</h2>
+
+    <table>
+      <thead>
+        <tr><th>Account</th><th>Location</th><th>Status</th><th>Priority</th><th>Why now</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tesla (Optimus)</strong></td>
+          <td>Palo Alto / Fremont</td>
+          <td><span class="tag green">Bay Area</span></td>
+          <td><span class="tag red">P0</span></td>
+          <td>1,000+ Gen 3 units deployed in Fremont; targeting 1M units/yr by late 2026. Largest single TAM.</td>
+        </tr>
+        <tr>
+          <td><strong>Figure AI</strong></td>
+          <td>San Jose</td>
+          <td><span class="tag green">Bay Area</span></td>
+          <td><span class="tag red">P0</span></td>
+          <td>New 99K sq ft HQ + manufacturing. $1B+ raised. BMW pilot live.</td>
+        </tr>
+        <tr>
+          <td><strong>1X Technologies</strong></td>
+          <td>Sunnyvale / Hayward</td>
+          <td><span class="tag green">Bay Area</span></td>
+          <td><span class="tag amber">P1</span></td>
+          <td>Full-scale NEO production in Hayward; 100K units target by 2027. Often missed in target lists.</td>
+        </tr>
+        <tr>
+          <td>Agility Robotics</td>
+          <td>Corvallis / Salem, OR</td>
+          <td><span class="tag blue">West Coast</span></td>
+          <td><span class="tag amber">P1</span></td>
+          <td>RoboFab — first humanoid factory at scale (10K/yr cap). 1.5 hr flight. Worth a monthly trip.</td>
+        </tr>
+        <tr>
+          <td>Apptronik</td>
+          <td>Austin, TX</td>
+          <td><span class="tag red">Not Bay Area</span></td>
+          <td><span class="tag amber">P2</span></td>
+          <td>$5B+ valuation, Google + Mercedes backed. Hand off to Cirrus's Austin presence; partner remotely.</td>
+        </tr>
+        <tr>
+          <td>Boston Dynamics</td>
+          <td>Waltham, MA</td>
+          <td><span class="tag red">East Coast</span></td>
+          <td><span class="tag amber">P3</span></td>
+          <td>Hyundai-owned. East Coast play. Not your patch.</td>
+        </tr>
+        <tr>
+          <td>Sanctuary AI</td>
+          <td>Vancouver, BC</td>
+          <td><span class="tag blue">West Coast-adj.</span></td>
+          <td><span class="tag amber">P2</span></td>
+          <td>Worth tracking; cross-border but reachable from SF.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footnote">Note also the adjacent Bay Area robotics ecosystem: NVIDIA Isaac team (Santa Clara), Toyota Research Institute (Los Altos / Cambridge), and the embodied-AI labs at Stanford and Berkeley. Reps are useful here as scouts, not just sellers — these are the labs that influence which silicon ends up in the next-gen designs.</p>
+  </div>
+
+  <!-- WILLIE PITCH ANGLE -->
+  <div class="cta">
+    <div class="kicker" style="color:#a7f3d0;">PART 5 — THE PITCH FOR YOU, WILLIE</div>
+    <h2>What this means for your conversation with Cirrus leadership</h2>
+    <p>The version of you Cirrus needs in the Bay Area isn't a generic semiconductor rep. It's someone who can do three specific things in the next 18 months that the company can't do from Austin:</p>
+    <ul>
+      <li><strong>Be physically in the building</strong> at Tesla Palo Alto, Figure San Jose, and 1X Sunnyvale during the design-in window for second-tier supplier selection. That window closes once these companies hit production scale — and Tesla is already there.</li>
+      <li><strong>Translate Cirrus's smartphone-scale precision analog story into the language robotics engineers actually speak</strong> — perception AFEs, tactile feedback, HRI audio, power budgets. Not "we make iPhone chips." (That's how you lose the meeting.)</li>
+      <li><strong>Be Cirrus's intelligence layer</strong> on what NVIDIA, TI, and NXP are pitching to these accounts so Cirrus can position its specialty IP <em>alongside</em> those platforms rather than competing head-on.</li>
+    </ul>
+    <p style="margin-top:14px;">Honest pushback you should expect from leadership and have answers ready for: <em>"Why isn't Cirrus in the NVIDIA partnership announcements?"</em> · <em>"Don't ADI and TI already have these accounts?"</em> · <em>"What's the realistic 3-year revenue from this segment vs. just doubling down on smartphones?"</em> Walking in with the honest scorecard above, not the original doc, is how you earn the role.</p>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h3>Sources</h3>
+    <ol>
+      <li><a href="https://www.cirrus.com/products/high-performance-mixed-signal" target="_blank" rel="noopener">Cirrus Logic — High-Performance Mixed-Signal product page</a></li>
+      <li><a href="https://www.cirrus.com/products/cs40l25-25b" target="_blank" rel="noopener">Cirrus Logic — CS40L25/25B haptic driver (drives LRAs and VCMs)</a></li>
+      <li><a href="https://www.cirrus.com/products/cs40l26-26b" target="_blank" rel="noopener">Cirrus Logic — CS40L26/26B haptic driver</a></li>
+      <li><a href="https://www.cirrus.com/company/media-center/releases/2026/cirrus-logic-introduces-new-industrial-imaging-products-for-high-precision-scan-applications" target="_blank" rel="noopener">Cirrus Logic press release — CS82L41/44/46 industrial imaging family (April 2026)</a></li>
+      <li><a href="https://www.cirrus.com/company/media-center/releases/2025/cirrus-logic-introduces-new-family-of-advanced-closed-loop-haptic-drivers-for-next-generation-automotive-interfaces" target="_blank" rel="noopener">Cirrus Logic — CS40L51/52/53 automotive haptic drivers</a></li>
+      <li><a href="https://www.fool.com/earnings/call-transcripts/2026/05/07/cirrus-logic-crus-q4-2026-earnings-transcript/" target="_blank" rel="noopener">Cirrus Logic Q4 FY26 earnings transcript — Motley Fool</a></li>
+      <li><a href="https://www.investing.com/news/company-news/cirrus-logic-q4-2026-slides-beating-forecasts-9b-sam-target-by-2030-93CH-4666023" target="_blank" rel="noopener">Cirrus Logic Q4 FY26 slides — $9B SAM target by 2030</a></li>
+      <li><a href="https://www.investing.com/news/company-news/cirrus-logic-q3-fy26-slides-record-revenue-amid-diversification-push-93CH-4483392" target="_blank" rel="noopener">Cirrus Logic Q3 FY26 — HPMS at 41% of revenue, camera controller roadmap</a></li>
+      <li><a href="https://www.cirrus.com/support/technologies/ethernet-controllers" target="_blank" rel="noopener">Cirrus Logic — Ethernet controllers support page (legacy CS8900A discontinued)</a></li>
+      <li><a href="https://therealdeal.com/san-francisco/2025/03/17/figure-ai-leases-99k-sf-for-new-san-jose-headquarters-plant/" target="_blank" rel="noopener">Figure AI — 99K sq ft San Jose HQ lease (March 2025)</a></li>
+      <li><a href="https://www.cnbc.com/2026/02/11/apptronik-raises-520-million-at-5-billion-valuation-for-apollo-robot.html" target="_blank" rel="noopener">Apptronik — $520M raise at $5B valuation, Austin HQ (CNBC, Feb 2026)</a></li>
+      <li><a href="https://www.agilityrobotics.com/about/robofab" target="_blank" rel="noopener">Agility Robotics — RoboFab in Salem, Oregon</a></li>
+      <li><a href="https://interestingengineering.com/ai-robotics/1x-humanoid-robot-neo-factory-california" target="_blank" rel="noopener">1X Technologies — Hayward, CA factory; 100K NEO units by 2027</a></li>
+      <li><a href="https://www.programming-helper.com/tech/tesla-optimus-gen3-production-deployment-2026-factory-robots-revolution" target="_blank" rel="noopener">Tesla Optimus Gen 3 — 1,000+ deployed in Fremont (Jan 2026)</a></li>
+      <li><a href="https://simplywall.st/stocks/us/semiconductors/nasdaq-txn/texas-instruments/news/texas-instruments-joins-nvidia-to-target-humanoid-robots-and" target="_blank" rel="noopener">Texas Instruments + NVIDIA humanoid robotics partnership (March 2026)</a></li>
+      <li><a href="https://www.stocktitan.net/news/NXPI/nxp-delivers-new-innovations-for-advanced-physical-ai-with-mcsumuh5wz7d.html" target="_blank" rel="noopener">NXP — Holoscan Sensor Bridge humanoid robotics building blocks (1H 2026)</a></li>
+      <li><a href="https://www.theglobeandmail.com/investing/markets/stocks/ADI/pressreleases/1043742/analog-devices-industrial-segment-picks-up-pace-what-lies-ahead/" target="_blank" rel="noopener">Analog Devices Q1 FY26 — industrial segment +38% YoY ($1.49B)</a></li>
+      <li><a href="https://www.digitimes.com/news/a20260318PD236/nvidia-robotics-chipmakers-industrial-control-2026.html" target="_blank" rel="noopener">NVIDIA GTC 2026 — robotics partnerships with TI, NXP, ADI, Infineon, Synopsys</a></li>
+      <li><a href="https://www.fool.com/investing/2021/02/02/cirrus-logic-is-shaking-off-its-apple-addiction/" target="_blank" rel="noopener">Cirrus Logic — Apple concentration context (~87% of revenue)</a></li>
+      <li><a href="https://www.androidauthority.com/cirrus-logic-haptics-sponsored-3094084/" target="_blank" rel="noopener">Cirrus Logic — Google Pixel 6 uses CS40L25B haptic driver</a></li>
+    </ol>
+  </div>
+
+</div>
+</body>
+</html>
