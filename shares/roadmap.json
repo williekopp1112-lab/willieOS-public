@@ -65,11 +65,12 @@
     {
       "id": "amplifier-section-3-tier-2-rest",
       "title": "Section 3 Tier 2.2 + 2.3: frontend label cleanup + system prompt polish",
-      "status": "active-backlog",
+      "status": "shipped",
       "priority": "p1",
-      "owner": "claude-code",
-      "source_of_truth": "docs/superpowers/specs/2026-05-27-amplifier-consolidation-section-3-handoff.md",
-      "summary": "ProjectWizardCard.jsx label cleanup (unify wizard naming) + dispatch-routing.js numbering polish. ~30-40 min batched."
+      "shipped_date": "2026-05-27",
+      "commits": ["9449e51", "a6702c8"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 11",
+      "summary": "AmplifiedBadge label unified ('Amplified' not 'Council'), dispatch-routing numbering fixed, 14 tombstone comments removed, rg sweep clean."
     },
     {
       "id": "amplifier-section-3-tier-3",
