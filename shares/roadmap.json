@@ -1,1412 +1,178 @@
 {
-  "version": "1.0.0",
-  "updated": "2026-05-13",
-  "developers": {
-    "willie": {
-      "name": "Willie Kopp",
-      "github": "williekopp1112-lab"
-    },
-    "joe": {
-      "name": "Joe Ortega",
-      "github": "Joeortega1085"
-    },
-    "gary": {
-      "name": "Gary AI",
-      "github": "williekopp1112-lab"
-    }
-  },
-  "features": [
+  "schema_version": "2",
+  "last_curated": "2026-05-27",
+  "curated_by": "Willie + Cowork-Claude (post-Section-3 reset)",
+  "north_star": "WillieOS Subscription Amplifier: A portable layer that turns the AI subscriptions you already pay for into a council. You ask once. Gary asks Claude, Codex, Grok, Gemini, v0 — whichever ones you've subscribed to. Gary synthesizes their views, picks the best path, and executes the work using the same subscriptions. You see what each model said. You see why Gary chose. You get the deliverable.",
+  "lens_reference": "CLAUDE.md (6-check + anti-drift watchlist AD-1 through AD-12). Apply to every entry.",
+  "v1_hero": "Customer-Ready Deliverable with Live Mockup",
+  "v2_secret_weapon": "Family Learning Project (do NOT pull into v1)",
+  "trusted_truth_sources": [
+    "docs/development/autonomous-loop-journal.md (Sessions 1-10+)",
+    "Gary open loops (via get_open_loops MCP tool)",
+    "git log gary/active + main",
+    "Cowork notes tagged subscription-amplifier or LOCKED-LENS"
+  ],
+  "maintenance_discipline": "Update this file in the same commit as any Session N journal entry. Curator marks the date at top. If you find an entry stale, fix or remove it — do not let drift accumulate.",
+  "entries": [
     {
-      "id": "project-wizard-preflight-hardening",
-      "title": "Project Wizard Pre-flight Reliability Hardening",
-      "description": "Make project wizard phases progress consistently by avoiding unnecessary pre-flight gates for research/writer work, adding timeout fallback for stuck advisory review, recovering stale pre-flight phases, and adopting completed Codex dispatch results back into the canonical wizard phase.",
-      "status": "review",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/jobRegistry.js",
-        "src/utils/aiTools.js",
-        "src/components/dispatch/ProjectWizardCard.jsx",
-        "src/components/dispatch/projectWizardCardUtils.js",
-        "willieos-mcp-server/projectPhaseDependencies.js",
-        "willieos-mcp-server/phaseOrchestrator.js",
-        "willieos-mcp-server/dialogueOrchestrator.js",
-        "willieos-mcp-server/phaseCompletionBridge.js",
-        "willieos-mcp-server/resultIngestion.js",
-        "willieos-mcp-server/outputValidator.js",
-        "willieos-mcp-server/prompt/dispatch-routing.js",
-        "willieos-mcp-server/tools/orchestration.js"
-      ],
-      "depends_on": [
-        "dispatch-workflow-fixes"
-      ],
-      "notes": "Implemented and locally verified. Researcher, writer, analyst, and strategist phases now bypass full adversarial pre-flight while post-flight review remains available. Stale pre-flight dialogues auto-proceed after 3 minutes, stale scheduler pre-flight phases recover or re-enter cleanly, linked/manual dispatch completions can complete the wizard phase by phase loop ID or Phase N topic even when the phase map still says waiting, same-conversation and same-project Phase N dispatches are reused instead of duplicated, phase completion now queues the next ready phase immediately instead of relying only on the cron tick, Codex markdown outputs no longer fail schema validation, phase dependency normalization fixes legacy 0-based depends_on inputs and keeps final verification chained to the previous build phase, watched project dispatch follow-ups call continue_project after successful completion, the Project Wizard card reconciles direct/same-conversation phase dispatches so it reports actual completed work instead of stale pre-launch state, and Gary now has safe phase recovery tools and prompt guidance instead of trying to write project.*.phases or bypassing the wizard."
+      "id": "amplifier-foundation",
+      "title": "Subscription Amplifier foundation (classifier + orchestrator + metadata persistence)",
+      "status": "shipped",
+      "priority": "p0",
+      "shipped_date": "2026-05-27",
+      "commits": ["8591699", "72f0d0b"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Sessions 7 + 8",
+      "summary": "dispatchClassifier.js + unifiedOrchestrator.js + ledgerMeta persistence to dispatches.metadata. 43 tests green."
     },
     {
-      "id": "gary-corrections-learning-loop-repair",
-      "title": "Gary Corrections Learning Loop Repair",
-      "description": "Repair the built-in corrections processor so recorded corrections reliably become learned preferences, including legacy scheduled task rows that were created without stable ids.",
-      "status": "done",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/utils/cronEngine.js",
-        "src/utils/cronEngine.test.js"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop",
-        "gary-timing-checkin-memory-self-heal"
-      ],
-      "notes": "Shipped. Startup now repairs the legacy process_corrections scheduled_tasks row to builtin-process-corrections and immediately schedules it when unprocessed corrections exist; Process Corrections is now appearing in job activity."
+      "id": "amplifier-section-3-tier-1",
+      "title": "Section 3 Tier 1: executor layer + 6-to-2 surface collapse",
+      "status": "shipped",
+      "priority": "p0",
+      "shipped_date": "2026-05-27",
+      "commits": ["9c099d2", "c673677", "709b69c", "1653e77", "26b9211"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 9 + stub-cleanup commit",
+      "summary": "executors/ directory (4 modules + 26 tests), phaseRunner replaces council-wizard.ts, 4 redundant tools fully deleted (1094 lines), audit:tools clean, 44/44 tests green. Dispatch entry points: 6 → 2."
     },
     {
-      "id": "gary-knowledge-graph",
-      "title": "Gary Knowledge Graph",
-      "description": "Add an Obsidian-inspired visual graph that maps topics across Gary's notes, contacts, loops, emails, conversations, deliverables, dispatch memories, artifact memories, check-ins, briefs, transcripts, and profile memory.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/components/knowledge/KnowledgeGraphView.jsx",
-        "src/utils/knowledgeGraphService.js",
-        "src/utils/universalSearch.js",
-        "src/utils/aiContext.js",
-        "willieos-mcp-server/crossAgentMemory.js",
-        "src/components/shell/AppShell.jsx",
-        "src/components/shell/SidebarNav.jsx",
-        "src/utils/appRegistry.jsx"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop",
-        "gary-loop-quality"
-      ],
-      "notes": "V1 is query-driven and reuses universal search/FTS/artifact memory. Dispatch history is a first-class graph source, and graph results now enrich dispatch, dispatch-memory, artifact-memory, file, and conversation nodes with direct deliverable links. Clicking a dispatch can open its local HTML/PDF/PPTX/DOCX/XLSX output or the published GitHub Pages/v0 URL when one exists, instead of forcing the user through the old chat session. The detail panel now includes Gary's Read: deterministic cross-source insights that connect deliverable bundles, public links, outbound share trails, people like Joe, and likely next actions from chat/iMessage/email/dispatch context."
+      "id": "amplifier-section-3-tier-2-1",
+      "title": "Section 3 Tier 2.1: populate contribution_count → AmplifiedBadge renders",
+      "status": "shipped",
+      "priority": "p0",
+      "shipped_date": "2026-05-27",
+      "commits": ["af6074b"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
+      "summary": "mergeDispatchMetadata helper + executor path creates dispatch record + merges contribution_count/failure_count. 6 new tests. AmplifiedBadge now renders."
     },
     {
-      "id": "gary-contact-intelligence",
-      "title": "Gary Contact Intelligence",
-      "description": "Upgrade Contacts into an AI-enabled relationship page with real contact editing, relationship filters, Gary insights, recent activity, connected item counts, and Knowledge Graph handoffs.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/components/contacts/ContactsView.jsx",
-        "src/utils/contactContextService.js",
-        "src/utils/contactContextService.test.js"
-      ],
-      "depends_on": [
-        "vault-outbox-contact-management",
-        "gary-knowledge-graph"
-      ],
-      "notes": "Adapts the v0 contacts concept to Gary's real local data model without seeded contacts or hardcoded identity. Recent activity is pulled from local email, iMessage, calendar, loops, notes, chats, and meeting briefs. Adds duplicate/contact merge helpers, per-contact activity steering, and replace/remove email semantics so Gary tools can correct stale placeholders instead of only appending."
+      "id": "council-adapters-connected",
+      "title": "Council adapter wiring (4 of 5 connected)",
+      "status": "shipped",
+      "priority": "p0",
+      "verified_date": "2026-05-27",
+      "source_of_truth": "list_ai_subscriptions MCP tool output",
+      "summary": "claude-code (Claude Max CLI), codex-cli (ChatGPT CLI), gemini (Gemini Pro CLI), grok (Grok CLI) — all auth_mode subscription_cli. Cowork bridge wired but no live worker claiming dispatches."
     },
     {
-      "id": "gary-inbox-command-center",
-      "title": "Gary Inbox Command Center",
-      "description": "Turn Gary Inbox from a raw proactive-message chat thread into a lighter approval and review surface for self-healing suggestions, agent opportunities, dispatch updates, and follow-up actions.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/agentRegistry.js",
-        "willieos-mcp-server/proactiveAgentTriggers.js",
-        "willieos-mcp-server/learningSuggestions.js",
-        "src/utils/database.js",
-        "src/stores/aiStore.js",
-        "src/utils/actionReceipts.js",
-        "src/components/ai-assistant/NotificationCard.jsx",
-        "src/components/settings/SettingsWindow.jsx",
-        "src/components/settings/GaryMemoryPanel.jsx"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop"
-      ],
-      "notes": "V1 dedupes agent-opportunity nudges, saves them as reviewable Learning Suggestions, and caps Gary Inbox chat hydration so old proactive dispatch cards do not create excessive load. External actions now append visible action receipts for published links, iMessages, and sent emails, with an automatic short follow-up when GitHub Pages links may still be propagating."
+      "id": "overnight-autonomy",
+      "title": "Overnight autonomy infrastructure",
+      "status": "shipped",
+      "priority": "p1",
+      "shipped_date": "2026-05-26",
+      "source_of_truth": "Gary note 'Gary Overnight Configuration - Snapshot 2026-05-26'",
+      "summary": "Ceiling 60%, no quiet hours, 30-min idle, backfill on. nightly_surprise_loop workflow scheduled 2am daily, biased toward customer/deal acceleration."
     },
     {
-      "id": "gary-chat-experience-cleanup",
-      "title": "Gary Chat Experience Cleanup",
-      "description": "Tighten the core Gary chat view using the v0 chat references as inspiration while keeping the real app simple: wider reading/input area, no dead or dangerous controls, and session actions that connect to current Gary capabilities.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/components/ai-assistant/AiAssistantWindow.jsx",
-        "src/components/ai-assistant/ConversationSidebar.jsx",
-        "src/components/ai-assistant/SessionTodoRail.jsx"
-      ],
-      "depends_on": [
-        "gary-knowledge-graph",
-        "gary-inbox-command-center",
-        "gary-voice-chat"
-      ],
-      "notes": "Keeps the existing chat shell recognizable while widening the message and composer columns, removing the unconfirmed sidebar delete affordance, pruning archive from the session menu until there is a recovery UI, adding a real Map conversation action, and wiring a real Gary Activity panel toggle."
+      "id": "amplifier-section-3-tier-2-rest",
+      "title": "Section 3 Tier 2.2 + 2.3: frontend label cleanup + system prompt polish",
+      "status": "active-backlog",
+      "priority": "p1",
+      "owner": "claude-code",
+      "source_of_truth": "docs/superpowers/specs/2026-05-27-amplifier-consolidation-section-3-handoff.md",
+      "summary": "ProjectWizardCard.jsx label cleanup (unify wizard naming) + dispatch-routing.js numbering polish. ~30-40 min batched."
     },
     {
-      "id": "gary-settings-simplification",
-      "title": "Gary Settings Simplification",
-      "description": "Simplify Settings with v0-inspired grouped cards, clearer Memory & Data language, collapsible advanced controls, and preserved real integration wiring.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "src/components/settings/SettingsWindow.jsx",
-        "src/components/settings/SettingsLayout.jsx",
-        "src/components/settings/AIPanel.jsx",
-        "src/components/settings/ConnectorsPanel.jsx",
-        "src/components/settings/GaryMemoryPanel.jsx",
-        "src/components/settings/UserContextPanel.jsx",
-        "src/components/settings/SearchSettingsPanel.jsx",
-        "src/components/settings/CoworkBridgePanel.jsx"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop",
-        "gary-voice-chat"
-      ],
-      "notes": "Adapts v0's cleaner Settings hierarchy as real Tauri/React UI components without hardcoded user data or fake actions. Preserves existing settings keys, OAuth flows, voice tests, Codex/Claude Max links, memory backfill, and MCP diagnostics."
+      "id": "amplifier-section-3-tier-3",
+      "title": "Section 3 Tier 3: end-to-end smoke test against live DB",
+      "status": "active-backlog",
+      "priority": "p1",
+      "owner": "claude-code",
+      "source_of_truth": "Section 3 handoff packet T3 description",
+      "summary": "Smoke test script that fires (1) trivial single dispatch, (2) customer_deliverable amplified, (3) multi-phase. Verifies metadata + execution path. ~30 min."
     },
     {
-      "id": "gary-loop-quality",
-      "title": "Gary Loop Quality Hardening",
-      "description": "Make loops represent real user-owned commitments by suppressing routine calendar prep loops, demoting low-confidence email/calendar items to suggestions, filtering operational dispatch/project tracking from Gary context, and preparing a cleaner foundation for the future knowledge graph.",
-      "status": "done",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/utils/loopQuality.js",
-        "src/utils/loopService.js",
-        "src/stores/loopStore.js",
-        "src/utils/aiContext.js",
-        "src/utils/briefService.js",
-        "src/utils/garyTakeService.js",
-        "src/utils/checkinService.js",
-        "src/utils/willieProfile.js",
-        "willieos-mcp-server/loopQuality.js",
-        "willieos-mcp-server/tools/data.js"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop",
-        "gary-timing-checkin-memory-self-heal"
-      ],
-      "notes": "Shipped. Central actionable-loop policy now filters stale calendar/project/email noise across app and MCP contexts, with focused loopQuality tests passing. This clears the foundation for Knowledge Graph to use loops as high-signal nodes."
+      "id": "council-load-verification",
+      "title": "Council under-load verification (per-adapter failure_detail diagnosis)",
+      "status": "active-backlog",
+      "priority": "p1",
+      "owner": "claude-code",
+      "source_of_truth": "Gary note + earlier Codex flakiness diagnostic",
+      "summary": "Fire 1KB + 5KB amplified dispatches. Inspect failure_detail per adapter. Apply PTY-wrap fix to Gemini/Grok if pattern matches Codex's silent-hang. ~60-90 min."
     },
     {
-      "id": "gary-voice-chat",
-      "title": "Gary Voice: Desktop Voice Chat + Realtime Control",
-      "description": "Add voice-first Gary interaction: existing Whisper/ElevenLabs turn-based voice plus OpenAI Realtime live voice control that speaks concise coaching while handing real work into Gary chat, tools, and dispatches.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/utils/voiceReplyService.js",
-        "src/utils/realtimeVoiceService.js",
-        "src/utils/realtimeFlightRecorder.js",
-        "src/utils/realtimeVoiceTestGrid.js",
-        "src/utils/garyOperatorService.js",
-        "src/utils/knowledgeGraphRequest.js",
-        "src/stores/aiStore.js",
-        "src/components/ai-assistant/AiAssistantWindow.jsx",
-        "src/components/ai-assistant/RealtimeVoiceControl.jsx",
-        "src/components/ai-assistant/MessageBubble.jsx",
-        "src/components/knowledge/KnowledgeGraphView.jsx",
-        "src/components/settings/AIPanel.jsx",
-        "src/components/settings/ConnectorsPanel.jsx",
-        "willieos-mcp-server/tools/vaults.js",
-        "src-tauri/src/lib.rs",
-        "src-tauri/src/elevenlabs.rs",
-        "src-tauri/src/openai_realtime.rs"
-      ],
-      "depends_on": [],
-      "notes": "V1 uses Whisper for speech-to-text and ElevenLabs for spoken turn replies. Realtime adds a persistent app-rail voice control layer using gpt-realtime-2 through an ephemeral Tauri-minted client secret, so the listening session survives navigation across Gary views. Realtime now runs as a trusted local app operator with API-first actions for navigation, Gary chat, analytics, vaults, tasks, notes, contacts, search, Knowledge Graph, calendar, and settings; external/destructive work still requires confirmation, and missing-action reporting captures visual fallback gaps. A local Realtime flight recorder tracks tool gaps, unsupported actions, errors, and likely self-interruptions after hands-free tests, while Knowledge Graph voice-open requests now persist their query through navigation. Dev builds now embed the microphone usage plist too, so npx tauri dev gets the same macOS mic permission surface as packaged Gary. Latest repair pass fixed suspected-echo transcript hydration for navigation regressions, added confirmation-safe calendar create/update/delete operator coverage, added contact create/open/update voice actions, added Realtime settings panel focus, added safe vault rename support through MCP, and expanded the repeatable Realtime voice test grid so tab-specific gaps no longer collapse to diagnose-only rows. The 2026-05-13 diagnostic repair also added concrete Knowledge Graph query replacement/clear actions, task-title hydration for create_task, and fuzzy open_conversation hydration so known gaps stop recycling through report_missing_action."
+      "id": "cowork-bridge-claim-fix",
+      "title": "Cowork bridge dispatch-claim fix (no live worker claiming)",
+      "status": "active-backlog",
+      "priority": "p1",
+      "owner": "claude-code",
+      "source_of_truth": "list_ai_subscriptions output: cowork member shows connected:false despite wired DispatchBridge",
+      "summary": "Investigate why running Cowork session isn't claiming dispatches in the bridge queue. Likely config or registration fix."
     },
     {
-      "id": "gary-deliverable-memory-learning-loop",
-      "title": "Gary Deliverable Memory + Suggest-First Learning Loop",
-      "description": "Ingest Gary-made deliverables into local searchable artifact memory, merge summaries into dispatch memory, surface prior work in Gary context, and expose artifact memory, learned preferences, and learning suggestions in Settings.",
-      "status": "in_progress",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/artifactMemory.js",
-        "willieos-mcp-server/learningSuggestions.js",
-        "willieos-mcp-server/crossAgentMemory.js",
-        "willieos-mcp-server/resultIngestion.js",
-        "src/utils/aiContext.js",
-        "src/components/settings/GaryMemoryPanel.jsx",
-        "src-tauri/src/db/mod.rs"
-      ],
-      "depends_on": [
-        "universal-spotlight-search",
-        "semantic-search-engine"
-      ],
-      "notes": "V1 uses tiered ingestion: text-like artifacts get bounded summaries; binary deliverables get searchable stubs; orphan outbox files are candidates until linked. Hermes assessment is the proof case."
+      "id": "v1-hero-customer-deliverable",
+      "title": "v1 hero workflow: Customer-Ready Deliverable with Live Mockup",
+      "status": "active-backlog",
+      "priority": "p0",
+      "owner": "willie + cowork",
+      "source_of_truth": "Cowork note 'Subscription Amplifier - v1 Hero Workflow Spec'",
+      "summary": "End-to-end execution of the proposal+mockup hero. Council: Claude Code + Codex CLI + Gemini + Grok + Cowork + v0 + GPT Image 2. Output: Word doc + PDF + speaker notes + clickable v0 mockup. Target ~95-110s, $0 sub-only."
     },
     {
-      "id": "gary-timing-checkin-memory-self-heal",
-      "title": "Gary Timing, Reminder, and Check-in Memory Self-Heal",
-      "description": "Make date-sensitive reminders expire safely, route daily check-in notifications into the actual in-app check-in flow, improve time-aware check-in questions, and index check-ins/profile learnings in FTS memory.",
-      "status": "review",
-      "owner": "gary",
-      "branch": "codex/gary-voice-v1",
-      "priority": "high",
-      "files": [
-        "src/utils/jobRegistry.js",
-        "src/utils/reminderTemporal.js",
-        "src/utils/checkinService.js",
-        "src/utils/cronEngine.js",
-        "src/utils/notificationService.js",
-        "src/components/notifications/Toast.jsx",
-        "src/components/notifications/NotificationCenter.jsx",
-        "src/utils/universalSearch.js",
-        "willieos-mcp-server/tools/data.js",
-        "src-tauri/src/db/mod.rs"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop"
-      ],
-      "notes": "Adds date-aware reminder expiry, a built-in daily_checkin scheduler job, notification actions that open the check-in modal, time-aware check-in context, and FTS search for daily_checkins/willie_profile."
-    },
-    {
-      "id": "gary-codex-handoff-routing-self-heal",
-      "title": "Gary Codex Handoff Routing Self-Heal",
-      "description": "Prevent generic Codex/spec/review handoff requests from being misclassified as approved visual design handoffs, while preserving the design_finalize gate for real v0/Claude Design packages.",
-      "status": "done",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "src/utils/aiTools.js",
-        "src/stores/aiStore.js",
-        "src/tests/design-portal/aiTools.test.js"
-      ],
-      "depends_on": [
-        "gary-deliverable-memory-learning-loop"
-      ],
-      "notes": "Shipped. Regression covers the exact external Codex handoff-spec phrasing that previously caused repeated design_finalize/dispatch failures and circuit-breaker loops."
-    },
-    {
-      "id": "vault-outbox-contact-management",
-      "title": "Vault Outbox Submenu & Contact Management Foundation",
-      "description": "Port the v0 Vaults outbox submenu into Gary, add real outbox category counts and filing actions, improve contact lookup confidence, and add a dedicated Contacts view for maintaining people records.",
-      "status": "done",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "src/components/vaults/VaultsView.jsx",
-        "src/stores/vaultStore.js",
-        "willieos-mcp-server/tools/vaults.js",
-        "src/utils/contactsService.js",
-        "src/components/contacts/ContactsView.jsx",
-        "src/components/shell/SidebarNav.jsx",
-        "src/components/shell/AppShell.jsx",
-        "src/utils/appRegistry.jsx",
-        "src/tests/contactsService.test.js"
-      ],
-      "depends_on": [
-        "knowledge-graph"
-      ],
-      "notes": "Shipped foundation pass: real outbox inbox categories, move-to-vault action, phone-aware contact lookup, and editable Contacts UI. Rich relationship intelligence continues under gary-contact-intelligence."
-    },
-    {
-      "id": "vault-folder-promotion-rename",
-      "title": "Vault Folder Promotion and Rename Controls",
-      "description": "Let users turn unfiled outbox folders into real vaults in place and rename misnamed vaults from the Vaults UI.",
-      "status": "review",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "src/components/vaults/VaultsView.jsx",
-        "src/stores/vaultStore.js",
-        "src/stores/vaultStore.test.js"
-      ],
-      "depends_on": [
-        "vault-outbox-contact-management"
-      ],
-      "notes": "Adds a row action in Outbox Folders to register a folder as its own vault, plus sidebar/header rename controls backed by the existing rename_vault MCP tool."
-    },
-    {
-      "id": "email-action-opportunity-intelligence",
-      "title": "Email Action Queue Opportunity Intelligence",
-      "description": "Upgrade email-triggered action cards from generic review tasks into opportunity-aware Gary cards with structured recommendations, stakes analysis, cautions, prep questions, self-sent owner command handling, and internal telemetry filtering.",
-      "status": "done",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "src/components/dashboard/ActionQueueCard.jsx",
-        "src/components/dashboard/OpportunityActionCard.jsx",
-        "src/stores/actionStore.js",
-        "src/utils/emailTriageService.js",
-        "src/utils/opportunityAction.js",
-        "src/utils/opportunityMetadata.js",
-        "src/utils/ownerCommandMode.js",
-        "src/utils/jobRegistry.js",
-        "willieos-mcp-server/phaseEvents.js",
-        "gary-tests/opportunity-metadata.test.mjs",
-        "gary-tests/owner-command-mode.test.mjs"
-      ],
-      "depends_on": [],
-      "notes": "Shipped in 307e619. Adds v0-inspired opportunity cards, structured Gary briefs, self-sent owner command promotion, phase-event telemetry suppression, and dispatch monitor poll window alignment."
-    },
-    {
-      "id": "designer-workflow-redesign",
-      "title": "Designer Workflow Redesign (6 sub-projects after #5+#7 collapse)",
-      "description": "Redesign Gary → Designer (Claude Design / v0) → Engineer (Cowork) pipeline. Original 7 sub-projects collapsed to 6: (1) Designer Brief Packet, (2) Designer→Engineer artifact bridge, (3) Stage review gates, (4) Research/content pre-phase, (6) Claude Design MCP reliability, (8) Design Portal. The original (5) Internal-design workspace and (7) Progress surfacing were merged into (8) Design Portal — a live webview portal is simultaneously the workspace and the progress surface. Each sub-project gets its own spec → plan → implementation cycle.",
-      "status": "in_progress",
+      "id": "roadmap-rebuild-discipline",
+      "title": "Maintain roadmap.json discipline (per-session update)",
+      "status": "shipped",
+      "priority": "p2",
+      "shipped_date": "2026-05-27",
       "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "docs/superpowers/specs/2026-04-20-designer-brief-packet-design.md",
-        "docs/superpowers/specs/2026-04-21-design-portal-design.md"
-      ],
-      "depends_on": [],
-      "notes": "Sub-project #1 (Designer Brief Packet) shipped on main as of commit cb2c310. Sub-project #8 (Design Portal) spec approved, implementation plan pending. Sub-projects #2, #3, #4, #6 still spec-pending. Feature flags: designer_briefs.enabled (sub-project #1), design_portal.enabled (sub-project #8). Non-regressive — existing dispatch pipeline unchanged when flags are off."
+      "source_of_truth": "This file + CLAUDE.md update",
+      "summary": "Update roadmap.json in same commit as every journal Session N entry. Discipline note added to CLAUDE.md."
     },
     {
-      "id": "designer-brief-packet",
-      "title": "Designer Brief Packet (sub-project #1 of 7)",
-      "description": "Typed brief packet contract between Gary and designer/engineer stages. Unified schema across landing_page, battlecard, presentation, research_report, and freeform. Light user dialogue (≤3 questions), layered premier prompting (retrieval → template → style rules → meta-prompt), durable briefs table, feature-flagged staged rollout.",
-      "status": "done",
+      "id": "stale-loops-cleanup",
+      "title": "Stale open loops cleanup",
+      "status": "active-backlog",
+      "priority": "p2",
       "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "docs/superpowers/specs/2026-04-20-designer-brief-packet-design.md",
-        "src/utils/designerBriefBuilder.js",
-        "willieos-mcp-server/tools/designerBriefBuilder.js",
-        "willieos-mcp-server/designer-briefs/schema.js",
-        "willieos-mcp-server/designer-briefs/capabilityRegistry.js",
-        "willieos-mcp-server/designer-briefs/design_rules.json",
-        "willieos-mcp-server/designer-briefs/templates/",
-        "willieos-mcp-server/coworkDispatch.js",
-        "willieos-mcp-server/tools/orchestration.js",
-        "src/utils/aiTools.js"
-      ],
-      "depends_on": [
-        "designer-workflow-redesign"
-      ],
-      "notes": "Shipped on main via merge commit cb2c310. Tables: designer_briefs, designer_brief_versions, designer_brief_feedback. Piggybacks on existing vec_embeddings + embedding_metadata for retrieval."
+      "source_of_truth": "get_open_loops shows ~25 open; several match shipped work",
+      "summary": "5-min sweep to close loops that map to shipped work (Session 7 morning-review, Codex A/B/C/D wait, Grok+Gemini settings cards, etc.). Hygiene."
     },
     {
-      "id": "project-wizard-designer-handoff-bridge",
-      "title": "Project Wizard Designer→Engineer Handoff Bridge",
-      "description": "Automatically finalize completed designer phase artifacts before launching dependent engineer phases. The wizard detects v0/package handoffs, runs design_finalize, stores locked handoff metadata on the engineer phase, dispatches from the finalized engineer prompt, blocks on failed handoffs, and adds a lightweight post-build fidelity audit.",
-      "status": "review",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/phaseOrchestrator.js",
-        "willieos-mcp-server/tests/phaseOrchestratorDesignHandoff.test.js"
-      ],
-      "depends_on": [
-        "designer-workflow-redesign",
-        "design-handoff-finalize"
-      ],
-      "notes": "Implemented and locally verified. Covers v0_chat_id finalization before engineer dispatch, locked prompt replacement with package/reference/screenshot context, blocking on design_finalize failures, non-visual researcher→engineer control behavior, and post-flight fidelity audit preservation alongside research context."
+      "id": "dead-triggers-audit",
+      "title": "Audit dead proactive triggers (0 fires in 7 days)",
+      "status": "active-backlog",
+      "priority": "p2",
+      "owner": "claude-code",
+      "source_of_truth": "list_proactive_triggers output: meeting_prep, attachment_extraction, stale_loop_followup, agent_opportunity all show 0 triggers",
+      "summary": "Determine if triggers are broken or conditions never match. ~30 min investigation."
     },
     {
-      "id": "design-portal",
-      "title": "Design Portal (sub-project #8 of 6 — collapses #5 + #7)",
-      "description": "In-app webview portal that loads claude.ai/design or v0.dev (and other supported design tools via adapter pattern) inside Gary after Gary has created a project and injected a prompt. User sees the live design render, can interact natively, and refines via a bottom bar that routes back through Gary. Single-window takeover with clear Back button. Per-service login inside Gary; WKWebView persists session. URL intercept converts design-service links in Gary chat responses to portal opens.",
-      "status": "in_progress",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "docs/superpowers/specs/2026-04-21-design-portal-design.md",
-        "src/components/design-portal/",
-        "src/stores/designPortalStore.js",
-        "src/utils/designPortalRegistry.js",
-        "src/components/ai-assistant/MessageBubble.jsx",
-        "willieos-mcp-server/design-portal/adapters/claudeDesign.js",
-        "willieos-mcp-server/design-portal/adapters/v0.js",
-        "willieos-mcp-server/design-portal/registry.js",
-        "willieos-mcp-server/tools/designPortal.js",
-        "src-tauri/src/design_portal.rs",
-        "src-tauri/src/lib.rs"
-      ],
-      "depends_on": [
-        "designer-workflow-redesign",
-        "claude-design-reliability"
-      ],
-      "notes": "Phase A shell and generation handoff have landed on main. Remaining work: harden adapters, complete Claude Design reliability dependency, and finish the multi-source design workspace workflow."
+      "id": "knowledge-gaps-refresh",
+      "title": "Refresh stale knowledge categories (person, project, decision, blocker)",
+      "status": "active-backlog",
+      "priority": "p2",
+      "owner": "gary + willie",
+      "source_of_truth": "get_knowledge_gaps output: blocker/decision = 0 entries; person/project = stale since April",
+      "summary": "Gary asks 1 question per morning brief to harvest decision context (loop fc6e3341 already created). Person/project refresh via passive activity harvesting."
     },
     {
-      "id": "claude-design-reliability",
-      "title": "Claude Design MCP Reliability (sub-project #6 of 6)",
-      "description": "Harden Claude Design's Playwright-based prompt injection so it matches the consistency of v0's HTTP API path. Today: selectors, auth, waitForGeneration, and circuit breaker landed in commit 31c35db; end-to-end injection still produces inconsistent results in practice. Spec pending.",
-      "status": "review",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/claudeDesignClient.js",
-        "willieos-mcp-server/browser/selectors/claudeDesign.js",
-        "willieos-mcp-server/browser/browserEngine.js"
-      ],
-      "depends_on": [
-        "designer-workflow-redesign"
-      ],
-      "notes": "Significant reliability work shipped in commit 31c35db: browser_login for claude.ai, 7-candidate ProseMirror composer selectors, React onChange firing, and generation timeout handling. Remaining review decides whether more hardening is needed before Design Portal Phase B."
+      "id": "v2-family-learning-hero",
+      "title": "Family Learning Project hero (v2 secret weapon)",
+      "status": "reserved-v2-plus",
+      "priority": "deferred",
+      "source_of_truth": "Cowork notes tagged subscription-amplifier + magic-moment storyboard",
+      "summary": "DO NOT pull into v1. Reserved as differentiated demo. AD-4 watchlist item."
     },
     {
-      "id": "identity-generalization",
-      "title": "Identity & Path Generalization",
-      "description": "Replace all hardcoded Willie Kopp references and /Users/vault/ paths with dynamic helpers so the app works for any user.",
-      "status": "claimed",
-      "owner": "joe",
-      "branch": "joe/identity-generalization",
-      "priority": "critical",
-      "files": [
-        "src/stores/aiStore.js",
-        "src/utils/modelIntelligence.js",
-        "willieos-mcp-server/claudeCode.js",
-        "willieos-mcp-server/tools/orchestration.js",
-        "willieos-mcp-server/garySystemPrompt.js",
-        "src/components/ai-assistant/ChatMessage.jsx",
-        "src/components/settings/ProfileSettings.jsx"
-      ],
-      "prompt_file": "willieOS-generalization-prompt.md",
-      "depends_on": [],
-      "notes": "Includes Joe's 4 bug fixes from commits 08e4f02 and bb9c617."
+      "id": "v2-browser-extension",
+      "title": "Browser extension portability host",
+      "status": "reserved-v2-plus",
+      "priority": "deferred",
+      "source_of_truth": "Cowork note 'Subscription Amplifier - Portability Ceiling'",
+      "summary": "Overlay on chat.openai.com / claude.ai. Proves portability moat. ToS-adjacent — legal review before ship. AD-3 watchlist item."
     },
     {
-      "id": "email-attachments",
-      "title": "Gmail Attachment Support",
-      "description": "Add file attachment support to Gary's email tools so Gary can attach local files or Google Drive files to emails.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/gmailSend.js",
-        "willieos-mcp-server/tools/actions.js",
-        "willieos-mcp-server/tools/googleDriveShare.js",
-        "src/utils/aiTools.js"
-      ],
-      "prompt_file": "Prompt_67_Email_Attachments.md",
-      "depends_on": [],
-      "notes": "Multipart MIME builder, local file reading, Drive download helper."
+      "id": "v3-additional-hosts",
+      "title": "Slack / Teams / WhatsApp hosts + system-tray daemon",
+      "status": "reserved-v2-plus",
+      "priority": "deferred",
+      "summary": "Long-tail portability. AD-1/AD-2 territory. Not until v1+v2 prove the pattern."
     },
     {
-      "id": "output-folder-selection",
-      "title": "User-Selectable Output Folder (Local + Drive)",
-      "description": "Replace single cowork.sharedFolderPath with flexible output destination supporting local folders and Google Drive.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/components/settings/CoworkBridgePanel.jsx",
-        "willieos-mcp-server/tools/utils.js",
-        "willieos-mcp-server/coworkDispatch.js",
-        "willieos-mcp-server/claudeCode.js",
-        "willieos-mcp-server/fileBridge.js",
-        "willieos-mcp-server/resultIngestion.js",
-        "willieos-mcp-server/tools/system.js",
-        "willieos-mcp-server/tools/googleDriveShare.js",
-        "src/utils/readSharedContext.js",
-        "src/utils/coworkCleanup.js",
-        "src/utils/exportBriefing.js",
-        "src/components/settings/HealthDashboard.jsx"
-      ],
-      "prompt_file": "Prompt_68_Output_Folder_Selection.md",
-      "depends_on": [],
-      "notes": "12 files to update. Backward compatible with legacy setting."
-    },
-    {
-      "id": "get-setting-tool",
-      "title": "Add get_setting / set_setting Tools",
-      "description": "Give Gary the ability to read and write settings from chat.",
-      "status": "done",
-      "owner": "willie",
-      "branch": "willie/email-attachments",
-      "priority": "high",
-      "files": [
-        "src/utils/aiTools.js",
-        "src/stores/aiStore.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "15-minute fix. Phase 1A of intelligence upgrade plan."
-    },
-    {
-      "id": "ask-cowork",
-      "title": "Synchronous ask_cowork Tool",
-      "description": "Let Gary dispatch a question to Cowork and get a text answer back inline.",
-      "status": "planned",
-      "owner": null,
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/aiTools.js",
-        "willieos-mcp-server/coworkDispatch.js",
-        "src/stores/aiStore.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "get-setting-tool"
-      ],
-      "notes": "Intelligence multiplier. Phase 2 of upgrade plan."
-    },
-    {
-      "id": "universal-spotlight-search",
-      "title": "Universal Spotlight Search (Command+K)",
-      "description": "Transform Command+K from a command palette into a unified search-everything bar. Searches across all Gary data (emails, texts, loops, notes, contacts, calendar, dispatches) AND local files from configured search directories simultaneously. Results grouped by type with icons and contextual actions. Hybrid search: FTS5 for exact matches + sqlite-vec for semantic meaning. Proactive context surfacing — before meetings, during email composition, when contacts message you. This is the UI and search infrastructure that makes Gary's intelligence accessible in one keystroke.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/components/command-palette/CommandPalette.jsx",
-        "src/utils/universalSearch.js",
-        "src/stores/searchStore.js",
-        "src/utils/aiTools.js",
-        "src-tauri/src/search.rs"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "recursive-file-search"
-      ],
-      "notes": "Phase 1: Unified search UI across all data sources with FTS5. Phase 2: Add semantic ranking when embedding engine is ready. Phase 3: Proactive context suggestions. The search bar every productivity app wishes it had."
-    },
-    {
-      "id": "semantic-search-engine",
-      "title": "Semantic Search Engine (Embeddings + Hybrid Retrieval)",
-      "description": "Local-first semantic search engine powered by sqlite-vec and all-MiniLM embeddings via Ollama. Hybrid retrieval: runs FTS5 keyword search and vector similarity in parallel, combines scores with weighted fusion (70% vector + 30% FTS). Background indexing pipeline embeds all Gary data (emails, texts, notes, loops, files) on ingest. Cross-encoder reranking for top results. Zero cloud calls — all embeddings generated on-device using Apple Silicon. Graceful degradation to pure FTS5 if Ollama not installed. This is the intelligence layer that makes Universal Spotlight Search feel like Gary reads your mind.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/embeddingService.js",
-        "src/utils/semanticSearch.js",
-        "src-tauri/src/db/",
-        "willieos-mcp-server/aiContext.js",
-        "willieos-mcp-server/cronEngine.js",
-        "src/components/settings/SearchSettings.jsx"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "universal-spotlight-search"
-      ],
-      "notes": "sqlite-vec extension for vector storage in existing SQLite DB. all-MiniLM-L6-v2 (384-dim) for fast embeddings via Ollama. Background indexing on data ingest. Optional mxbai-embed-large reranking for premium quality. Settings UI for model selection. Storage: ~500MB for typical user data. Query latency: 60-150ms."
-    },
-    {
-      "id": "loop-priority-scoring",
-      "title": "AI Loop Priority Scoring",
-      "description": "Dynamic urgency scoring using due-date proximity, email activity, calendar context.",
-      "status": "planned",
-      "owner": null,
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "willieos-mcp-server/tools/loops.js",
-        "src/utils/jobGuardrails.js",
-        "willieos-mcp-server/cronEngine.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Numeric score alongside existing static urgency levels."
-    },
-    {
-      "id": "email-reply-drafting",
-      "title": "Contextual Email Reply Drafting",
-      "description": "Auto-generate draft replies using thread context and relationship data.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "willieos-mcp-server/tools/email.js",
-        "src/utils/connectors/gmailConnector.js",
-        "src/stores/emailStore.js",
-        "src/utils/aiTools.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "compose_smart_reply MCP tool built. Gary Draft button wired to MCP for live calendar context (4cffb29). callMcpTool export fix (ec355ef) unblocked the feature."
-    },
-    {
-      "id": "meeting-prep-autopilot",
-      "title": "Predictive Meeting Prep Autopilot",
-      "description": "Auto-trigger meeting prep 60 minutes before events with attendee intel.",
-      "status": "in_progress",
-      "owner": "willie",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "willieos-mcp-server/cronEngine.js",
-        "src/utils/telegramService.js",
-        "willieos-mcp-server/tools/calendar.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "80% built. Brief generation works. Missing: 60-minute pre-meeting cron trigger in cronEngine + Telegram push notification."
-    },
-    {
-      "id": "ambient-intelligence",
-      "title": "Ambient Intelligence & Proactive Push",
-      "description": "Pattern detection on email velocity, loop staleness, calendar density.",
-      "status": "in_progress",
-      "owner": "willie",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "willieos-mcp-server/cronEngine.js",
-        "src/utils/telegramService.js",
-        "willieos-mcp-server/tools/proactive.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "40% built. gary_take and proactive_scan exist. Missing: email velocity analysis, calendar density warnings, proactive Telegram push, ambient background job scheduling."
-    },
-    {
-      "id": "weekly-digest-polish",
-      "title": "Weekly Digest Polish",
-      "description": "Polish output format and add trend comparison to previous weeks.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "low",
-      "files": [
-        "willieos-mcp-server/ai.js",
-        "willieos-mcp-server/cronEngine.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Shipped. Context builder, trend comparison, Cowork export, Telegram notifications all wired."
-    },
-    {
-      "id": "knowledge-graph",
-      "title": "Relationship & Project Knowledge Graph",
-      "description": "Linked entity graph connecting People, Projects, Emails, Loops.",
-      "status": "done",
-      "owner": null,
-      "branch": null,
-      "priority": "low",
-      "files": [
-        "willieos-mcp-server/tools/contacts.js",
-        "willieos-mcp-server/aiContext.js",
-        "src/utils/willieProfile.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "semantic-search-engine"
-      ],
-      "notes": "Superseded by active gary-knowledge-graph implementation. Kept as the original architecture placeholder so roadmap history stays intact."
-    },
-    {
-      "id": "pdf-contract-intelligence",
-      "title": "PDF & Contract Intelligence",
-      "description": "Ingest PDF attachments, extract key terms, auto-create Open Loops.",
-      "status": "planned",
-      "owner": null,
-      "branch": null,
-      "priority": "low",
-      "files": [
-        "src/utils/connectors/gmailConnector.js",
-        "willieos-mcp-server/tools/loops.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "email-attachments"
-      ],
-      "notes": "Depends on attachment pipeline."
-    },
-    {
-      "id": "deep-work-scheduling",
-      "title": "Intelligent Deep Work Block Scheduling",
-      "description": "Reclaim.ai-style engine for proposing deep work blocks.",
-      "status": "planned",
-      "owner": null,
-      "branch": null,
-      "priority": "low",
-      "files": [
-        "src/utils/connectors/googleAuth.js",
-        "willieos-mcp-server/tools/calendar.js",
-        "willieos-mcp-server/cronEngine.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Future architecture item."
-    },
-    {
-      "id": "roadmap-db-system",
-      "title": "Gary Self-Development Roadmap (DB + MCP)",
-      "description": "SQLite roadmap_items table, MCP tools, focus enforcer, sprint planner.",
-      "status": "claimed",
-      "owner": "willie",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "src-tauri/src/db/",
-        "willieos-mcp-server/tools/roadmap.js",
-        "src/stores/aiStore.js",
-        "willieos-mcp-server/cronEngine.js"
-      ],
-      "prompt_file": "roadmap-phase1a-db-migration.md",
-      "depends_on": [
-        "identity-generalization"
-      ],
-      "notes": "6 phase prompts already built. Full playbook in roadmap-execution-order.md."
-    },
-    {
-      "id": "user-extensible-platform",
-      "title": "Self-Extending Platform (User Vibe-Codes Features)",
-      "description": "Enable each user to extend Gary through natural language. User describes a capability they want, Gary dispatches to Code which creates the DB table, MCP tool, and UI wiring. Each user's Gary becomes uniquely shaped by their needs.",
-      "status": "planned",
-      "owner": null,
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "willieos-mcp-server/tools/orchestration.js",
-        "willieos-mcp-server/coworkDispatch.js",
-        "willieos-mcp-server/claudeCode.js",
-        "src-tauri/src/db/",
-        "src/utils/aiTools.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "identity-generalization",
-        "get-setting-tool",
-        "output-folder-selection"
-      ],
-      "notes": "North star vision. Requires: safe Code dispatch with rollback, dynamic MCP tool registration, per-user DB migration system, sandbox testing before activation. This is what separates Gary from every other AI assistant — the app evolves per user."
-    },
-    {
-      "id": "recursive-file-search",
-      "title": "Configurable Search Directories & Recursive File Search",
-      "description": "Rust search_files_recursive command (depth-limited BFS), search_local_files AI tool, configurable search directories in Settings > Files, recursive resolveFilename for email attachments.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src-tauri/src/cowork.rs",
-        "src-tauri/src/lib.rs",
-        "src/utils/outputFolder.js",
-        "src/utils/aiTools.js",
-        "src/components/settings/CoworkBridgePanel.jsx",
-        "willieos-mcp-server/tools/outputFolder.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "output-folder-selection"
-      ],
-      "notes": "Gary can now find files in subdirectories across all configured search dirs. No DB migration needed."
-    },
-    {
-      "id": "gary-drive-awareness",
-      "title": "Gary System Prompt: Drive & File Output Awareness",
-      "description": "Added File Output & Google Drive section to Gary's system prompt so he knows Drive tools are built into his MCP server and stops hallucinating about external servers or Mac Mini requirements.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "src/stores/aiStore.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Fixes Gary conflating Drive MCP with Mac Mini. Clarifies local output vs Drive shareable link routing."
-    },
-    {
-      "id": "fix-cpu-spike-mcp-crash",
-      "title": "Fix CPU Spike from MCP EOF Busy-Loop & Server Crash",
-      "description": "Fixed Rust mcp.rs EOF busy-loop (1000%+ CPU), EmailCenter infinite re-render, orchestration.js duplicate imports, and DispatchDashboard timeout hardening.",
-      "status": "done",
-      "owner": "joe",
-      "branch": "joe/fix-cpu-spike-mcp-crash",
-      "priority": "critical",
-      "files": [
-        "src-tauri/src/mcp.rs",
-        "src/components/dispatch/DispatchDashboard.jsx",
-        "src/components/email/EmailCenter.jsx",
-        "willieos-mcp-server/tools/orchestration.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Merged PR #5. Root cause of MCP outage and CPU spikes."
-    },
-    {
-      "id": "remaining-hardcoded-paths",
-      "title": "Remove Remaining Hardcoded MCP Server Paths",
-      "description": "Replaced all hardcoded /Users/vault/ MCP server fallback paths with dynamic getDefaultMcpServerPath() across 8 files.",
-      "status": "done",
-      "owner": "joe",
-      "branch": "joe/remaining-hardcoded-paths",
-      "priority": "high",
-      "files": [
-        "src/components/dashboard/AgentCommandCenter.jsx",
-        "src/components/dashboard/QuickDispatchModal.jsx",
-        "src/components/dispatch/DispatchAgentWidget.jsx",
-        "src/components/settings/MCPPanel.jsx",
-        "src/stores/aiStore.js",
-        "src/utils/aiTools.js",
-        "src/utils/dispatchMonitor.js",
-        "src/utils/mcpServerManager.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "identity-generalization"
-      ],
-      "notes": "Merged PR #6. Continuation of PR #4 (mcpDefaults.js)."
-    },
-    {
-      "id": "gary-personality-audit",
-      "title": "Gary Personality & System Prompt Audit & Redesign",
-      "description": "Comprehensive audit and redesign of Gary's system prompt, personality, and behavioral constraints. Cowork audit found 19 system prompts across 14 files with 'Willie Kopp' hardcoded in 13 of them, 8 different personality definitions, and 60% of the main chat prompt consumed by operational procedures instead of personality. Goal: centralize identity into a shared garyIdentity.js module, trim chat prompt to personality-first with conditional operational blocks, standardize tone across all services, and make every prompt settings-driven for product readiness.",
-      "status": "in_progress",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/stores/aiStore.js",
-        "src/utils/modelIntelligence.js",
-        "src/utils/garyIdentity.js",
-        "src/utils/autonomousEmailService.js",
-        "src/utils/briefService.js",
-        "src/utils/garyTakeService.js",
-        "src/utils/meetingBriefService.js",
-        "src/utils/shadowService.js",
-        "src/utils/checkinService.js",
-        "src/utils/weeklyDigestService.js",
-        "src/utils/notesAgentService.js",
-        "src/utils/loopsAgentService.js",
-        "src/stores/emailStore.js",
-        "willieos-mcp-server/tools/intelligence.js",
-        "willieos-mcp-server/autonomousEmailV2.js"
-      ],
-      "prompt_file": "~/Documents/Claude WillieOS Strategy/Gary_System_Prompt_Audit.md",
-      "depends_on": [],
-      "notes": "Cowork audit complete (March 11). Modular system prompt architecture built (ce63d5a) — learned preferences integration. Remaining: centralize identity into garyIdentity.js, replace hardcoded names in 13 prompts with getUserName(), trim chat prompt operational bloat, standardize tone across services."
-    },
-    {
-      "id": "proactive-email-triage",
-      "title": "Proactive Email Triage & Missed Action Detection",
-      "description": "Automated email classification and action detection. Scans for read-but-no-action emails, bounce detection, and creates Open Loops linked to email threads. Telegram push notifications for critical items. Runs every 3 hours with guardrails (8/day cap, 15min cooldown).",
-      "status": "done",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/proactiveEmailTriage.js",
-        "src/utils/telegramNotification.js",
-        "src/utils/jobGuardrails.js",
-        "src/utils/jobRegistry.js",
-        "src/utils/loopService.js",
-        "src-tauri/src/db/mod.rs"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Built by Gary (March 11, 2026). Migrations v44 (email_thread_id on loops) and v45 (scheduled task seed). Pattern-based classification — AI fallback planned for ambiguous emails."
-    },
-    {
-      "id": "mcp-stability-stderr",
-      "title": "MCP Stability: Stderr Capture & Path Resolution",
-      "description": "Capture stderr from spawned MCP server processes for better error diagnostics. Fix dev-mode path resolution (strip /src-tauri suffix). Fix production path resolution (scan common dev directories when cwd is /).",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src-tauri/src/mcp.rs",
-        "src-tauri/src/lib.rs",
-        "src/utils/mcpDefaults.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Root cause: get_project_root() used current_dir() which returns / in production .app builds. Now scans $HOME/Developer/Active/willieOS etc. as fallback."
-    },
-    {
-      "id": "dashboard-ui-refresh",
-      "title": "Dashboard UI Refresh — New Shell, Sidebar, Home View",
-      "description": "Complete UI overhaul: new AppShell with icon-rail SidebarNav, fixed-layout HomeView (greeting, FocusCard, GarySuggestions, Timeline, InboxSummary), redesigned IntelligencePanel with active agents dock + activity feed + daily spend sparkline + quick actions, navigation store for tab routing, shared Card/SectionHeader components. Matches v0.dev reference designs.",
-      "status": "in_progress",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/components/shell/AppShell.jsx",
-        "src/components/shell/SidebarNav.jsx",
-        "src/components/shell/IntelligencePanel.jsx",
-        "src/components/dashboard/HomeView.jsx",
-        "src/components/dashboard/FocusCard.jsx",
-        "src/components/dashboard/GarySuggestions.jsx",
-        "src/components/dashboard/InboxSummary.jsx",
-        "src/components/dashboard/Dashboard.jsx",
-        "src/components/dashboard/DashboardHeader.jsx",
-        "src/components/dashboard/HeroSection.jsx",
-        "src/components/agents/AgentDock.jsx",
-        "src/components/shared/Card.jsx",
-        "src/components/shared/SectionHeader.jsx",
-        "src/stores/navigationStore.js",
-        "src/utils/formatters.js",
-        "src/App.jsx",
-        "src/index.css"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Shell and home view built (0795b8f). 5 rounds of feedback addressed — light mode, agent overlay, header overlap, click handlers. Background email preload added (ec355ef). Remaining: verify all tabs work, polish animations."
-    },
-    {
-      "id": "dispatch-workflow-fixes",
-      "title": "Dispatch Chain Auto-Trigger & Workflow Fixes",
-      "description": "Fix dispatch chains not auto-triggering after completion. Root cause: ingestResult() never called saveDispatchMemory(), so checkDependencyChain() never fired. Also implement chain_dispatch post-completion action and verify result delivery to AI chat.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/resultIngestion.js",
-        "willieos-mcp-server/dispatch.js",
-        "willieos-mcp-server/crossAgentMemory.js",
-        "src/stores/aiStore.js",
-        "src/utils/dispatchMonitor.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Shipped on main. Auto-memory save, chain_dispatch action with interpolation, result delivery, dynamic chain composition, deliverable links all working. publish_to_github_pages still stubbed."
-    },
-    {
-      "id": "imessage-integration",
-      "title": "iMessage Integration — Text Message Triage & Loop Creation",
-      "description": "Read iMessages from the local macOS chat.db, surface actionable texts in Gary's context, and auto-create Open Loops from them — mirroring the email triage pipeline. Phase 1: read-only connector that queries ~/Library/Messages/chat.db (SQLite) for recent messages, extracts sender/body/timestamp, and feeds them to Gary for triage. Phase 2: AI triage job that scans new messages, detects action items, and creates Open Loops with source_type='imessage'. Phase 3: optional Telegram push notifications for important texts.",
-      "status": "in_progress",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/connectors/imessageConnector.js",
-        "src/utils/aiTools.js",
-        "src/components/settings/ConnectorsPanel.jsx",
-        "willieos-mcp-server/tools/messages.js",
-        "willieos-mcp-server/cronEngine.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Full iMessage UI built: ConversationList, ThreadView, DraftCard, Rust imessage.rs connector. Read-only from ~/Library/Messages/chat.db. Gary auto-drafts replies with reasoning. Conversation highlight, compose auto-grow, reasoning stripping at consumption. Remaining: AI triage job for auto-loop creation, Telegram push for important texts."
-    },
-    {
-      "id": "email-loop-ui",
-      "title": "Better UI for loop started from email",
-      "description": "When a loop is email-sourced, show the email subject, sender, date, and a snippet on the loop card/detail view — not just 'started on an email'.",
-      "status": "planned",
-      "owner": "joe",
-      "branch": null,
-      "priority": "medium",
-      "files": [],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Feature idea from Joe (PR #8)."
-    },
-    {
-      "id": "gary-image-uploads",
-      "title": "Image & File Uploads in Gary Chat",
-      "description": "Support drag-drop, paste, or paperclip button for images and text-based documents (.md, .txt, .json, .csv, etc.) in Gary chat. Images sent via base64 vision, documents read as text and prepended to message.",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "src/components/ai-assistant/AiAssistantWindow.jsx",
-        "src/utils/imageAttachments.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Originally Joe's idea (PR #8). Image support built earlier, text file attachment support added March 25, 2026. Supports paste, drag-drop, and file picker."
-    },
-    {
-      "id": "pptx-verticalization-v2",
-      "title": "PPTX Verticalization Skill — V2 ZIP-Surgery Method",
-      "description": "Complete rewrite of pptx-verticalization skill using ZIP-level binary surgery (NEVER python-pptx open/save). Replaces images (Pexels API, dimension-exact) and text (XML <a:t> tags only) while preserving all layout, formatting, animations. Proven at enterprise scale: ServiceNow Sports→Healthcare for MD Anderson (41 images, 50 text changes, 19 slides, 94.7MB output). Reference implementation: /Users/vault/spence-deck/surgical_replace.py",
-      "status": "done",
-      "owner": "willie",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        ".claude/skills/pptx-verticalization/SKILL.md",
-        ".claude/skills/INDEX.md",
-        "willieos-mcp-server/prompt/dispatch-routing.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [],
-      "notes": "Installed alongside 15 ecosystem skills (01-self-improving-agent through 15-agent-designer). All ecosystem skills were already present. V2 method replaces the old python-pptx edit-in-place approach that corrupted formatting. Gary routing updated to always dispatch to Claude Code (requires Python execution)."
-    },
-    {
-      "id": "design-arsenal-client",
-      "family": "design-arsenal",
-      "title": "Claude Design Client (Playwright with API-ready abstraction)",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/claudeDesignClient.js",
-        "willieos-mcp-server/browser/selectors/claudeDesign.js"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-arsenal-tools",
-      "family": "design-arsenal",
-      "title": "Claude Design MCP tools (design_create, design_refine, design_export, design_web_capture)",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/tools/claudeDesign.js"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [
-        "design-arsenal-client"
-      ],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-arsenal-imagegen-v2",
-      "family": "design-arsenal",
-      "title": "generate_image V2 (new styles, transparent background, vault tokens)",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/tools/imageGen.js"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-arsenal-chartgen",
-      "family": "design-arsenal",
-      "title": "generate_chart tool (matplotlib + plotly)",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/tools/chartGen.js",
-        "willieos-mcp-server/scripts/render_chart.py"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-arsenal-tokens",
-      "family": "design-arsenal",
-      "title": "Design tokens threaded through phase templates",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/seedProjectTemplates.js",
-        "willieos-mcp-server/phaseOrchestrator.js"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [
-        "design-arsenal-imagegen-v2",
-        "design-arsenal-chartgen"
-      ],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-arsenal-battlecard",
-      "family": "design-arsenal",
-      "title": "Battlecard project template (5 phases)",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/seedProjectTemplates.js"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [
-        "design-arsenal-client",
-        "design-arsenal-tools",
-        "design-arsenal-imagegen-v2",
-        "design-arsenal-chartgen",
-        "design-arsenal-tokens"
-      ],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-arsenal-routing",
-      "family": "design-arsenal",
-      "title": "Capability manifest + dispatch routing updates",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/prompt/capability-manifest.js"
-      ],
-      "prompt_file": "Prompt_Design_Arsenal.md",
-      "depends_on": [
-        "design-arsenal-tools",
-        "design-arsenal-chartgen"
-      ],
-      "notes": "Merged on main as part of the full Design Arsenal pipeline in 4dcaf4f."
-    },
-    {
-      "id": "design-handoff-finalize",
-      "family": "design-arsenal",
-      "title": "Design finalize flow for v0 and Claude Design handoffs",
-      "status": "done",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/designHandoffBuilder.js",
-        "willieos-mcp-server/tools/designHandoff.js",
-        "willieos-mcp-server/v0Integration.js",
-        "src/stores/aiStore.js"
-      ],
-      "prompt_file": null,
-      "depends_on": [
-        "design-arsenal-tools",
-        "design-arsenal-routing"
-      ],
-      "notes": "Merged on main. design_finalize imports approved v0/Claude Design output, enriches it with copy/tokens/acceptance scaffolds, validates, and hands it to engineering without another design generation."
-    },
-    {
-      "id": "openai-demo-owner-command-autopilot",
-      "title": "OpenAI Demo Item 1: Owner-Command Autopilot",
-      "description": "Turn self-sent owner-command emails from review-only cards into safe, trackable Gary Activity dispatches with visible phases, acceptance criteria, full email-body context, and test prompts.",
-      "status": "done",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/ownerCommandAutopilot.js",
-        "src/utils/actionExecutor.js",
-        "src/components/email/PendingActionsView.jsx",
-        "src/stores/actionStore.js",
-        "willieos-mcp-server/tools/actions.js",
-        "willieos-mcp-server/coworkDispatch.js",
-        "docs/openai-demo-test-prompts.md"
-      ],
-      "depends_on": [
-        "email-action-opportunity-intelligence"
-      ],
-      "notes": "Merged on main through the demo readiness cleanup. Review-only owner commands now upgrade to dispatch_cowork, attach acceptance criteria/project tags, load full email body content when available, and show an Autopilot phase panel."
-    },
-    {
-      "id": "openai-demo-customer-command-center",
-      "title": "OpenAI Demo Item 2: Customer Command Center",
-      "description": "Build a reusable account-intelligence workspace for OpenAI demos that ingests customer knowledge, maps stakeholders, surfaces cross-functional use cases, and turns customer context into account plans, value hypotheses, and follow-up artifacts.",
-      "status": "done",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/components/dashboard/",
-        "src/components/ai-assistant/",
-        "src/utils/universalSearch.js",
-        "willieos-mcp-server/tools/orchestration.js",
-        "src/utils/gtmDemoDispatchTemplates.js",
-        "src/tests/gtmDemoDispatchTemplates.test.js",
-        "docs/openai-demo-test-prompts.md"
-      ],
-      "depends_on": [
-        "email-action-opportunity-intelligence"
-      ],
-      "notes": "Merged on main through the demo readiness cleanup. launch_customer_command_center_demo builds a 4-stage account-intelligence chain with tests/docs for the reusable command-center contract."
-    },
-    {
-      "id": "openai-demo-live-voice-simulations",
-      "title": "OpenAI Demo Item 3: Live Voice Simulation and Follow-Up Engine",
-      "description": "Create a voice-first prep and demo workflow where Gary can run customer/role simulations, capture spoken practice, score positioning, extract objections, and produce follow-up assets tied to the relevant account or opportunity.",
-      "status": "done",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/components/ai-assistant/",
-        "src/utils/connectors/",
-        "src/utils/gtmDemoDispatchTemplates.js",
-        "src/tests/gtmDemoDispatchTemplates.test.js",
-        "docs/openai-demo-test-prompts.md",
-        "willieos-mcp-server/tools/orchestration.js",
-        "willieos-mcp-server/resultIngestion.js"
-      ],
-      "depends_on": [
-        "email-action-opportunity-intelligence"
-      ],
-      "notes": "Merged on main through the demo readiness cleanup. launch_voice_simulation_demo builds a 4-stage rehearsal chain and keeps outbound contact blocked."
-    },
-    {
-      "id": "gary-voice-avatar-calling",
-      "title": "Wishlist: Gary Voice Avatar and Phone Concierge",
-      "description": "Explore a disclosed voice avatar for Gary that can speak with the user, rehearse conversations, and eventually place supervised phone calls for appointment booking, meeting coordination, warm transfers, and approved personal assistant workflows.",
-      "status": "planned",
-      "owner": "gary",
-      "branch": null,
-      "priority": "wishlist",
-      "files": [
-        "src/components/ai-assistant/",
-        "src/components/settings/",
-        "src/utils/connectors/",
-        "willieos-mcp-server/tools/",
-        "willieos-mcp-server/garySystemPrompt.js"
-      ],
-      "depends_on": [
-        "openai-demo-live-voice-simulations"
-      ],
-      "notes": "Aspirational product direction, not an active build ticket. Gary should be disclosed as Gary, the user's digital AI avatar/chief of staff, with his own personality, accent, and vibe. Early safe shape: in-app voice, rehearsal, appointment booking, and warm transfer with consent, transcripts, approval gates, contact allowlists, and no impersonation."
-    },
-    {
-      "id": "gary-agent-os-activity-observability",
-      "title": "Gary Agent OS Activity Observability",
-      "description": "Add a dashboard widget that summarizes local Gary activity: dispatch volume, job health, spend, active work, failed runs, and recent deliverables.",
-      "status": "review",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/garyActivityMetrics.js",
-        "src/components/dashboard/widgets/GaryActivityWidget.jsx",
-        "src/components/dashboard/HomeView.jsx",
-        "src/components/dashboard/widgetConfig.js"
-      ],
-      "depends_on": [
-        "openai-demo-owner-command-autopilot"
-      ],
-      "notes": "Implements the dashboard observability slice from the Agent OS backlog. Uses only local DB telemetry and defensive table fallbacks so clean installs and older dev DBs do not break."
-    },
-    {
-      "id": "gary-agent-os-weekly-memory-reflection",
-      "title": "Gary Agent OS Weekly Memory Reflection",
-      "description": "Create a built-in weekly job that summarizes recent dispatches, jobs, corrections, learnings, actions, and cost telemetry into a durable local memory reflection.",
-      "status": "review",
-      "owner": "gary",
-      "branch": null,
-      "priority": "high",
-      "files": [
-        "src/utils/memoryReflectionService.js",
-        "src/utils/memoryReflectionService.test.js",
-        "src/utils/database.js",
-        "src/utils/jobRegistry.js",
-        "src/utils/cronEngine.js",
-        "willieos-mcp-server/tools/jobs.js"
-      ],
-      "depends_on": [
-        "gary-agent-os-activity-observability"
-      ],
-      "notes": "Adds runtime-safe memory_reflections schema, baseline deterministic summaries, optional AI refinement, weekly built-in schedule, MCP run_job support, and focused tests."
-    },
-    {
-      "id": "gary-agent-os-ollama-provider",
-      "title": "Gary Agent OS Ollama Provider",
-      "description": "Add Ollama as a local zero-cost model provider for lightweight background and routing experiments.",
-      "status": "review",
-      "owner": "gary",
-      "branch": null,
-      "priority": "medium",
-      "files": [
-        "src/utils/aiService.js",
-        "src/utils/costTracker.js",
-        "src/components/settings/AIPanel.jsx",
-        "src/components/settings/ModelPicker.jsx",
-        "willieos-mcp-server/ai.js"
-      ],
-      "depends_on": [
-        "gary-agent-os-activity-observability"
-      ],
-      "notes": "Adds ollama/ model routing, frontend and MCP local chat calls, Settings health check, zero-cost usage logging, and local-model picker entries. Tool-heavy chat should stay on Claude/OpenRouter unless the user intentionally routes it to a text-only local model."
-    },
-    {
-      "id": "gary-onboarding-launchpad",
-      "title": "Gary Onboarding Launchpad",
-      "description": "Replace the rudimentary first-run setup wizard with an Agent OS onboarding launchpad that builds a durable user profile, checks integration readiness, connects Claude Max and Google, and generates a first personalized Gary value preview.",
-      "status": "review",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "critical",
-      "files": [
-        "src/App.jsx",
-        "src/main.jsx",
-        "src/components/onboarding/OnboardingLaunchpad.jsx",
-        "src/components/onboarding/IntegrationLogos.jsx",
-        "src/components/onboarding/OnboardingPreviewApp.jsx",
-        "src/components/settings/CodexSubscriptionCard.jsx",
-        "src/components/settings/UserContextPanel.jsx",
-        "src/utils/onboarding/",
-        "src/utils/codexService.js",
-        "src/utils/userContextProfile.js",
-        "src/utils/willieProfile.js",
-        "src/utils/database.js",
-        "src-tauri/src/db/mod.rs",
-        "willieos-mcp-server/codexDispatch.js",
-        "willieos-mcp-server/tools/orchestration.js",
-        "willieos-mcp-server/prompt/dispatch-routing.js"
-      ],
-      "depends_on": [
-        "identity-generalization"
-      ],
-      "notes": "Implements onboarding.version agent-os-v1, settings-backed completion/progress tracking, profile enrichment fields, integration readiness registry, Claude Max and Google connection reuse, branded connector logo treatment for Claude/Google/Drive/Brave/OpenAI/Perplexity/v0/Codex, inline optional integration setup for OAuth/API-key/toggle workflows, Codex CLI subscription readiness, explicit-only Codex dispatch routing through the subscription-backed CLI, standalone /onboarding-preview mock harness, SetupWizard removal, and WillieProfilePanel rename to UserContextPanel."
-    },
-    {
-      "id": "gary-vault-outbox-inbox",
-      "title": "Gary Vault Outbox Inbox",
-      "description": "Expose Gary's unfiled outbox categories and prompt folders inside the Vaults UI, then tighten dispatch output rules so generated artifacts land in outbox inboxes instead of cluttering source repo roots.",
-      "status": "review",
-      "owner": "gary",
-      "branch": "main",
-      "priority": "high",
-      "files": [
-        "src/components/vaults/VaultsView.jsx",
-        "willieos-mcp-server/tools/vaults.js",
-        "willieos-mcp-server/claudeCode.js"
-      ],
-      "depends_on": [
-        "gary-onboarding-launchpad"
-      ],
-      "notes": "Adds outbox inbox pseudo-vaults for loose root files, deliverables, showcases, reports, research, screenshots, images, and orphan top-level folders. Real vaults remain the only filing targets. Claude Code dispatch prompts now separate source edits from generated artifacts so screenshots, PDFs, handoff files, and review notes stay out of repo roots."
-    },
-    {
-      "id": "amplifier-consolidation",
-      "title": "Subscription Amplifier Consolidation — 6 entry points → 2",
-      "description": "Collapse 6 MCP dispatch entry points (dispatch, multi_stage_dispatch, consensus_dispatch, create_project_plan, run_council_wizard, run_model_council) into 2 (dispatch + run_model_council). The dispatch classifier auto-detects shape (single/chain/multi-phase) and amplification policy, routing through a new executors/ layer (singleAgentExecutor, councilExecutor, phaseRunner).",
-      "status": "review",
-      "owner": "gary",
-      "branch": "gary/active",
-      "priority": "high",
-      "files": [
-        "willieos-mcp-server/executors/index.js",
-        "willieos-mcp-server/executors/singleAgentExecutor.js",
-        "willieos-mcp-server/executors/councilExecutor.js",
-        "willieos-mcp-server/executors/phaseRunner.js",
-        "willieos-mcp-server/tools/orchestration.js",
-        "src/utils/aiTools.js",
-        "src/stores/aiStore.js",
-        "willieos-mcp-server/garySystemPrompt.js",
-        "willieos-mcp-server/prompt/dispatch-routing.js"
-      ],
-      "depends_on": [],
-      "notes": "Section 3 of the amplifier consolidation spec. Sections 1+2 (unified orchestrator + dispatch classifier) landed on main. Section 3 adds the executor layer, migrates council-wizard.ts into phaseRunner.js, wires the dispatch handler to route through executors, and deletes 4 redundant tools + 1058 lines of dead code. 26 new unit tests, audit:tools passes clean."
+      "id": "v3-custom-fine-tunes",
+      "title": "Custom Together AI / Thinking Machines fine-tunes",
+      "status": "reserved-v2-plus",
+      "priority": "deferred",
+      "summary": "Capability Map placeholder only. AD-12 watchlist item. Not before subs prove insufficient."
     }
   ]
 }
