@@ -1385,6 +1385,28 @@
         "gary-onboarding-launchpad"
       ],
       "notes": "Adds outbox inbox pseudo-vaults for loose root files, deliverables, showcases, reports, research, screenshots, images, and orphan top-level folders. Real vaults remain the only filing targets. Claude Code dispatch prompts now separate source edits from generated artifacts so screenshots, PDFs, handoff files, and review notes stay out of repo roots."
+    },
+    {
+      "id": "amplifier-consolidation",
+      "title": "Subscription Amplifier Consolidation — 6 entry points → 2",
+      "description": "Collapse 6 MCP dispatch entry points (dispatch, multi_stage_dispatch, consensus_dispatch, create_project_plan, run_council_wizard, run_model_council) into 2 (dispatch + run_model_council). The dispatch classifier auto-detects shape (single/chain/multi-phase) and amplification policy, routing through a new executors/ layer (singleAgentExecutor, councilExecutor, phaseRunner).",
+      "status": "review",
+      "owner": "gary",
+      "branch": "gary/active",
+      "priority": "high",
+      "files": [
+        "willieos-mcp-server/executors/index.js",
+        "willieos-mcp-server/executors/singleAgentExecutor.js",
+        "willieos-mcp-server/executors/councilExecutor.js",
+        "willieos-mcp-server/executors/phaseRunner.js",
+        "willieos-mcp-server/tools/orchestration.js",
+        "src/utils/aiTools.js",
+        "src/stores/aiStore.js",
+        "willieos-mcp-server/garySystemPrompt.js",
+        "willieos-mcp-server/prompt/dispatch-routing.js"
+      ],
+      "depends_on": [],
+      "notes": "Section 3 of the amplifier consolidation spec. Sections 1+2 (unified orchestrator + dispatch classifier) landed on main. Section 3 adds the executor layer, migrates council-wizard.ts into phaseRunner.js, wires the dispatch handler to route through executors, and deletes 4 redundant tools + 1058 lines of dead code. 26 new unit tests, audit:tools passes clean."
     }
   ]
 }
