@@ -73,30 +73,32 @@
     },
     {
       "id": "amplifier-section-3-tier-3",
-      "title": "Section 3 Tier 3: end-to-end smoke test against live DB",
-      "status": "active-backlog",
+      "title": "Section 3 Tier 3: end-to-end smoke test",
+      "status": "shipped",
       "priority": "p1",
-      "owner": "claude-code",
-      "source_of_truth": "Section 3 handoff packet T3 description",
-      "summary": "Smoke test script that fires (1) trivial single dispatch, (2) customer_deliverable amplified, (3) multi-phase. Verifies metadata + execution path. ~30 min."
+      "shipped_date": "2026-05-27",
+      "commits": ["dfa072d"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
+      "summary": "scripts/section-3-smoke.ts — 18 checks across 6 scenarios (trivial, deliverable, multi-phase, force-target, mergeDispatchMetadata, deleted tools). All pass."
     },
     {
       "id": "council-load-verification",
-      "title": "Council under-load verification (per-adapter failure_detail diagnosis)",
-      "status": "active-backlog",
+      "title": "Council under-load verification — gemini PTY fix shipped",
+      "status": "shipped",
       "priority": "p1",
-      "owner": "claude-code",
-      "source_of_truth": "Gary note + earlier Codex flakiness diagnostic",
-      "summary": "Fire 1KB + 5KB amplified dispatches. Inspect failure_detail per adapter. Apply PTY-wrap fix to Gemini/Grok if pattern matches Codex's silent-hang. ~60-90 min."
+      "shipped_date": "2026-05-27",
+      "commits": ["937492c"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
+      "summary": "Fired 1KB + 5KB council tests. Gemini was ok=false (1KB) and timeout (5KB) due to missing PTY wrapping — same pattern as codex/grok. Fix: added usePty to gemini adapter. Grok 5KB timeout is model speed, not infra. All adapter tests pass."
     },
     {
       "id": "cowork-bridge-claim-fix",
-      "title": "Cowork bridge dispatch-claim fix (no live worker claiming)",
-      "status": "active-backlog",
+      "title": "Cowork bridge dispatch-claim — WAI (no code fix needed)",
+      "status": "shipped",
       "priority": "p1",
-      "owner": "claude-code",
-      "source_of_truth": "list_ai_subscriptions output: cowork member shows connected:false despite wired DispatchBridge",
-      "summary": "Investigate why running Cowork session isn't claiming dispatches in the bridge queue. Likely config or registration fix."
+      "shipped_date": "2026-05-27",
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
+      "summary": "Investigation confirmed connected:false is Working As Intended. checkCoworkWorkerLiveness() correctly reports no active Cowork session. Not a bug — need a running Cowork session to show connected:true."
     },
     {
       "id": "v1-hero-customer-deliverable",
