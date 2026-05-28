@@ -94,12 +94,33 @@
     },
     {
       "id": "cowork-bridge-claim-fix",
-      "title": "Cowork bridge dispatch-claim — WAI (no code fix needed)",
+      "title": "Cowork bridge dispatch-claim — status mismatch + heartbeat fix",
       "status": "shipped",
       "priority": "p1",
       "shipped_date": "2026-05-27",
-      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
-      "summary": "Investigation confirmed connected:false is Working As Intended. checkCoworkWorkerLiveness() correctly reports no active Cowork session. Not a bug — need a running Cowork session to show connected:true."
+      "commits": ["b9dd3b8"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 12",
+      "summary": "Session 10 incorrectly called WAI. Session 12 found 3 real bugs: cowork dispatches created as pending (not dispatched), no heartbeat written during polling, liveness check missed heartbeat signal. Fixed all three + 4 tests."
+    },
+    {
+      "id": "session-13-tier1-cleanups",
+      "title": "Session 13 — phaseRunner settings trigger fix + cowork liveness + council wizard redirect",
+      "status": "shipped",
+      "priority": "p1",
+      "shipped_date": "2026-05-27",
+      "commits": ["7688c05", "f9f133e", "d2ba9b0"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 13",
+      "summary": "Three fixes: (1) phaseRunner missing _meta.version broke settings trigger on every multi-phase dispatch, (2) cowork liveness missed running/dispatched dispatches, (3) 'council wizard' phrases had no redirect after tool deletion. 7 new tests, 64 green."
+    },
+    {
+      "id": "classifier-customer-deliverable-signals",
+      "title": "Classifier — customer deliverables route to Council fan-out",
+      "status": "shipped",
+      "priority": "p0",
+      "shipped_date": "2026-05-27",
+      "commits": ["50a28fd"],
+      "source_of_truth": "docs/development/autonomous-loop-journal.md Session 12",
+      "summary": "Three new signal detectors (multi_website_reference, voice_sensitive, multi_section_deliverable). selectShape promotes customer_deliverable with signalCount >= 5 to 4-chain. Megaport hero prompt: 2-chain → 4-chain. 44 tests green."
     },
     {
       "id": "v1-hero-customer-deliverable",
@@ -119,6 +140,15 @@
       "owner": "willie",
       "source_of_truth": "This file + CLAUDE.md update",
       "summary": "Update roadmap.json in same commit as every journal Session N entry. Discipline note added to CLAUDE.md."
+    },
+    {
+      "id": "design-package-registry",
+      "title": "Reusable design package registry for Gary deliverables",
+      "status": "review",
+      "priority": "p1",
+      "owner": "willie + gary",
+      "source_of_truth": "Willie request 2026-05-27: upload/link Mega Willie pack and invoke it for LinkedIn, slides, PDFs, HTML, and charts",
+      "summary": "Gary can import ZIP snapshots or link live design folders, index SKILL/AGENTS/README/tokens/assets, resolve aliases like Megaport template, mirror package tokens, and inject package context into dispatch."
     },
     {
       "id": "stale-loops-cleanup",
