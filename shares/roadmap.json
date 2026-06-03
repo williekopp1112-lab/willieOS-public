@@ -20,7 +20,10 @@
       "status": "shipped",
       "priority": "p0",
       "shipped_date": "2026-05-27",
-      "commits": ["8591699", "72f0d0b"],
+      "commits": [
+        "8591699",
+        "72f0d0b"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Sessions 7 + 8",
       "summary": "dispatchClassifier.js + unifiedOrchestrator.js + ledgerMeta persistence to dispatches.metadata. 43 tests green."
     },
@@ -30,7 +33,13 @@
       "status": "shipped",
       "priority": "p0",
       "shipped_date": "2026-05-27",
-      "commits": ["9c099d2", "c673677", "709b69c", "1653e77", "26b9211"],
+      "commits": [
+        "9c099d2",
+        "c673677",
+        "709b69c",
+        "1653e77",
+        "26b9211"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 9 + stub-cleanup commit",
       "summary": "executors/ directory (4 modules + 26 tests), phaseRunner replaces council-wizard.ts, 4 redundant tools fully deleted (1094 lines), audit:tools clean, 44/44 tests green. Dispatch entry points: 6 → 2."
     },
@@ -40,7 +49,9 @@
       "status": "shipped",
       "priority": "p0",
       "shipped_date": "2026-05-27",
-      "commits": ["af6074b"],
+      "commits": [
+        "af6074b"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
       "summary": "mergeDispatchMetadata helper + executor path creates dispatch record + merges contribution_count/failure_count. 6 new tests. AmplifiedBadge now renders."
     },
@@ -68,7 +79,10 @@
       "status": "shipped",
       "priority": "p1",
       "shipped_date": "2026-05-27",
-      "commits": ["9449e51", "a6702c8"],
+      "commits": [
+        "9449e51",
+        "a6702c8"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 11",
       "summary": "AmplifiedBadge label unified ('Amplified' not 'Council'), dispatch-routing numbering fixed, 14 tombstone comments removed, rg sweep clean."
     },
@@ -78,7 +92,9 @@
       "status": "shipped",
       "priority": "p1",
       "shipped_date": "2026-05-27",
-      "commits": ["dfa072d"],
+      "commits": [
+        "dfa072d"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
       "summary": "scripts/section-3-smoke.ts — 18 checks across 6 scenarios (trivial, deliverable, multi-phase, force-target, mergeDispatchMetadata, deleted tools). All pass."
     },
@@ -88,7 +104,9 @@
       "status": "shipped",
       "priority": "p1",
       "shipped_date": "2026-05-27",
-      "commits": ["937492c"],
+      "commits": [
+        "937492c"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 10",
       "summary": "Fired 1KB + 5KB council tests. Gemini was ok=false (1KB) and timeout (5KB) due to missing PTY wrapping — same pattern as codex/grok. Fix: added usePty to gemini adapter. Grok 5KB timeout is model speed, not infra. All adapter tests pass."
     },
@@ -98,7 +116,9 @@
       "status": "shipped",
       "priority": "p1",
       "shipped_date": "2026-05-27",
-      "commits": ["b9dd3b8"],
+      "commits": [
+        "b9dd3b8"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 12",
       "summary": "Session 10 incorrectly called WAI. Session 12 found 3 real bugs: cowork dispatches created as pending (not dispatched), no heartbeat written during polling, liveness check missed heartbeat signal. Fixed all three + 4 tests."
     },
@@ -108,7 +128,11 @@
       "status": "shipped",
       "priority": "p1",
       "shipped_date": "2026-05-27",
-      "commits": ["7688c05", "f9f133e", "d2ba9b0"],
+      "commits": [
+        "7688c05",
+        "f9f133e",
+        "d2ba9b0"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 13",
       "summary": "Three fixes: (1) phaseRunner missing _meta.version broke settings trigger on every multi-phase dispatch, (2) cowork liveness missed running/dispatched dispatches, (3) 'council wizard' phrases had no redirect after tool deletion. 7 new tests, 64 green."
     },
@@ -118,7 +142,9 @@
       "status": "shipped",
       "priority": "p0",
       "shipped_date": "2026-05-27",
-      "commits": ["50a28fd"],
+      "commits": [
+        "50a28fd"
+      ],
       "source_of_truth": "docs/development/autonomous-loop-journal.md Session 12",
       "summary": "Three new signal detectors (multi_website_reference, voice_sensitive, multi_section_deliverable). selectShape promotes customer_deliverable with signalCount >= 5 to 4-chain. Megaport hero prompt: 2-chain → 4-chain. 44 tests green."
     },
@@ -206,6 +232,27 @@
       "status": "reserved-v2-plus",
       "priority": "deferred",
       "summary": "Capability Map placeholder only. AD-12 watchlist item. Not before subs prove insufficient."
+    },
+    {
+      "id": "design-publish-vercel-pipeline",
+      "title": "Design → Shareable Link pipeline (publish_design: GitHub client-sites + Vercel)",
+      "status": "review",
+      "priority": "p1",
+      "shipped_date": null,
+      "commits": [
+        "70c55dd",
+        "d4eb2ab",
+        "7187322",
+        "7a42852",
+        "2cd38e8",
+        "7c8e880",
+        "750ca0e",
+        "956fbad",
+        "07574c8",
+        "35799db"
+      ],
+      "source_of_truth": "docs/superpowers/plans/2026-05-28-design-publish-vercel-pipeline.md; docs/design-publish-user-guide.md",
+      "summary": "publish_design hosts any Claude Design/v0 HTML export (incl. 26MB inlined) as a live Vercel URL: designSlimmer extracts base64 assets, publishViaGitPush pushes to a per-client folder in the client-sites repo, Vercel auto-deploys, returns production+preview URLs with commit-SHA-matched deploy polling (republish-safe). vercel_link_repo one-time setup. 15 tests green, audit:tools clean. Awaiting live E2E (PMP) + merge."
     }
   ]
 }
