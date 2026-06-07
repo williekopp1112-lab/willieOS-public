@@ -15,6 +15,26 @@
   "maintenance_discipline": "Update this file in the same commit as any Session N journal entry. Curator marks the date at top. If you find an entry stale, fix or remove it — do not let drift accumulate.",
   "entries": [
     {
+      "id": "garys-mind",
+      "title": "Gary's Mind — AI memory viewer + Account Intelligence (replaces Notes window)",
+      "status": "done",
+      "priority": "p1",
+      "shipped_date": "2026-06-07",
+      "owner": "gary",
+      "commits": [
+        "76cd117",
+        "c138180",
+        "7033571",
+        "96b8627",
+        "c048f0b",
+        "5846dc9",
+        "76563b4",
+        "2eacee4"
+      ],
+      "source_of_truth": "docs/superpowers/specs/2026-06-06-garys-mind-design.md; docs/superpowers/plans/2026-06-06-garys-mind.md",
+      "summary": "Ports the v0 'Gary's Mind' prototype (v0 branch tip e119a05) into the real app as the primary notes experience. Memory viewer over real notes with provenance chips, derived types, FTS search, 30-day activity heatmap, detail drawer with on-demand-cached Gary's Take + cross-entity Related items (notes/transcripts/dispatches/loops/contacts/calendar), and rich actions (Turn Into, Ask Gary, Share Composer draft-only, Memory Packets). Replaces NotesWindow; preserves inline editing + persistent AI panel; drops folders. New migration v83 note_intelligence cache table."
+    },
+    {
       "id": "amplifier-foundation",
       "title": "Subscription Amplifier foundation (classifier + orchestrator + metadata persistence)",
       "status": "shipped",
