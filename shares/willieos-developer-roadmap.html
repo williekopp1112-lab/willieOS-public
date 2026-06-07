@@ -177,6 +177,16 @@ async function loadRoadmap() {
     const resp = await fetch(ROADMAP_URL + cacheBuster);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     ROADMAP = await resp.json();
+    // Schema-compat shim: roadmap.json v2 uses `entries`/`schema_version`/`last_curated`
+    // and has no `developers`. Map them to the fields this page was built for.
+    ROADMAP.features = ROADMAP.features || ROADMAP.entries || [];
+    ROADMAP.version = ROADMAP.version || ROADMAP.schema_version || '';
+    ROADMAP.updated = ROADMAP.updated || ROADMAP.last_curated || '';
+    ROADMAP.developers = ROADMAP.developers || { willie: { name: 'Willie' }, joe: { name: 'Joe' }, gary: { name: 'Gary' } };
+    ROADMAP.features.forEach(f => {
+      f.depends_on = f.depends_on || [];
+      if (f.owner && !ROADMAP.developers[f.owner]) ROADMAP.developers[f.owner] = { name: f.owner };
+    });
     document.getElementById('version-badge').textContent = 'v' + ROADMAP.version;
     document.getElementById('updated-date').textContent = 'Updated: ' + ROADMAP.updated;
     renderStats();
