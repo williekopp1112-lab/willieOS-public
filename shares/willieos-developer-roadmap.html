@@ -185,6 +185,8 @@ async function loadRoadmap() {
     ROADMAP.developers = ROADMAP.developers || { willie: { name: 'Willie' }, joe: { name: 'Joe' }, gary: { name: 'Gary' } };
     ROADMAP.features.forEach(f => {
       f.depends_on = f.depends_on || [];
+      f.files = f.files || [];
+      f.description = f.description || f.summary || '';
       if (f.owner && !ROADMAP.developers[f.owner]) ROADMAP.developers[f.owner] = { name: f.owner };
     });
     document.getElementById('version-badge').textContent = 'v' + ROADMAP.version;
