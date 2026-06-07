@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Megaport x Latitude.sh — Strategic Architecture & Sales Playbook</title>
+<meta name="description" content="Comprehensive strategic playbook for the combined Megaport + Latitude.sh Compute + Network-as-a-Service platform">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23E4002B'/><text x='16' y='23' text-anchor='middle' fill='white' font-size='18' font-family='system-ui'>M</text></svg>">
+<style>
+  :root {
+    --bg-primary: #06090f;
+    --bg-secondary: #0c1220;
+    --bg-tertiary: #131b2e;
+    --bg-card: #111a2c;
+    --bg-card-hover: #162038;
+    --text-primary: #eaecf2;
+    --text-secondary: #94a0b8;
+    --text-muted: #5e6b82;
+    --accent-blue: #3b82f6;
+    --accent-cyan: #22d3ee;
+    --accent-teal: #14b8a6;
+    --megaport-red: #E4002B;
+    --megaport-red-soft: rgba(228,0,43,0.12);
+    --latitude-blue: #4f7df9;
+    --border-color: #1c2840;
+    --border-subtle: rgba(255,255,255,0.04);
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --gradient-hero: linear-gradient(135deg, #E4002B 0%, #3b82f6 50%, #22d3ee 100%);
+    --gradient-megaport: linear-gradient(135deg, #E4002B, #ff4d6a);
+    --gradient-latitude: linear-gradient(135deg, #3b82f6, #22d3ee);
+    --gradient-3: linear-gradient(135deg, #8b5cf6, #ec4899);
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+    --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.2);
+    --shadow-glow-blue: 0 0 40px rgba(59,130,246,0.08);
+    --shadow-glow-red: 0 0 40px rgba(228,0,43,0.08);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+
+  /* Layout */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 272px;
+    height: 100vh;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar-header {
+    padding: 24px 20px 18px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--megaport-red);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 17px;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(228,0,43,0.3);
+  }
+
+  .logo-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 12px 10px;
+    overflow-y: auto;
+  }
+
+  .nav-group-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 6px 12px 6px;
+    margin-top: 4px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    background: rgba(59,130,246,0.06);
+    color: var(--text-primary);
+  }
+
+  .nav-link.active {
+    background: rgba(59,130,246,0.1);
+    color: var(--accent-blue);
+  }
+
+  .nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 2px; height: 18px;
+    background: var(--accent-blue);
+    border-radius: 2px;
+  }
+
+  .nav-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    width: 22px; height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    border-radius: 5px;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-link.active .nav-num {
+    background: rgba(59,130,246,0.15);
+    color: var(--accent-blue);
+  }
+
+  .sidebar-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .sidebar-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .sidebar-btn {
+    flex: 1;
+    padding: 7px 0;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .sidebar-btn:hover {
+    background: rgba(59,130,246,0.08);
+    color: var(--text-primary);
+    border-color: rgba(59,130,246,0.3);
+  }
+
+  /* Mobile Menu Toggle */
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    top: 14px; left: 14px;
+    z-index: 200;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 90;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Main Content */
+  .main {
+    margin-left: 272px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 72px 56px 56px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(228,0,43,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(59,130,246,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient-hero);
+    opacity: 0.7;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 780px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--megaport-red-soft);
+    border: 1px solid rgba(228,0,43,0.2);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--megaport-red);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    background: var(--megaport-red);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 .red { color: var(--megaport-red); }
+  .hero h1 .blue { color: var(--accent-blue); }
+  .hero h1 .dim { color: var(--text-secondary); font-weight: 600; }
+
+  .hero-desc {
+    font-size: 16.5px;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    text-align: left;
+  }
+
+  .hero-stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: var(--gradient-latitude);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .hero-stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* Content */
+  .content {
+    padding: 0 56px 96px;
+    max-width: 940px;
+  }
+
+  .section {
+    margin-top: 60px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 0;
+  }
+
+  .section-header:hover .collapse-icon { color: var(--accent-blue); }
+
+  .section-num {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-blue);
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.15);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    flex: 1;
+  }
+
+  .collapse-icon {
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+  }
+
+  .section.collapsed .collapse-icon {
+    transform: rotate(-90deg);
+  }
+
+  .section.collapsed .section-body {
+    display: none;
+  }
+
+  .section-body {
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Typography */
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 32px 0 12px;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+
+  h3:first-child { margin-top: 0; }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 24px 0 8px;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+    font-size: 14.5px;
+  }
+
+  strong { color: var(--text-primary); font-weight: 600; }
+
+  ul, ol {
+    margin: 8px 0 16px 20px;
+    color: var(--text-secondary);
+    font-size: 14.5px;
+  }
+
+  li {
+    margin-bottom: 6px;
+    line-height: 1.65;
+  }
+
+  li::marker { color: var(--accent-blue); }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+    font-size: 13px;
+    background: rgba(59,130,246,0.08);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: var(--accent-cyan);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card:hover {
+    border-color: rgba(59,130,246,0.25);
+    background: var(--bg-card-hover);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+
+  .card-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .card-grid .card { margin-bottom: 0; }
+
+  /* Callout Boxes */
+  .callout {
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-size: 14px;
+    line-height: 1.65;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .callout-insight {
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.1);
+    color: var(--text-secondary);
+  }
+  .callout-insight::before { background: var(--accent-blue); }
+
+  .callout-action {
+    background: rgba(34,197,94,0.06);
+    border: 1px solid rgba(34,197,94,0.1);
+    color: var(--text-secondary);
+  }
+  .callout-action::before { background: var(--success); }
+
+  .callout-warning {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.1);
+    color: var(--text-secondary);
+  }
+  .callout-warning::before { background: var(--warning); }
+
+  .callout-critical {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.1);
+    color: var(--text-secondary);
+  }
+  .callout-critical::before { background: var(--danger); }
+
+  .callout-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .callout-insight .callout-label { color: var(--accent-blue); }
+  .callout-action .callout-label { color: var(--success); }
+  .callout-warning .callout-label { color: var(--warning); }
+  .callout-critical .callout-label { color: var(--danger); }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  thead { background: var(--bg-tertiary); }
+
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr { transition: background 0.15s ease; }
+  tr:hover td { background: rgba(59,130,246,0.03); }
+
+  /* Tags / Badges */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .tag-red { background: rgba(228,0,43,0.1); color: var(--megaport-red); border: 1px solid rgba(228,0,43,0.15); }
+  .tag-blue { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.15); }
+  .tag-green { background: rgba(34,197,94,0.1); color: var(--success); border: 1px solid rgba(34,197,94,0.15); }
+  .tag-yellow { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.15); }
+  .tag-purple { background: rgba(139,92,246,0.1); color: #a78bfa; border: 1px solid rgba(139,92,246,0.15); }
+  .tag-cyan { background: rgba(34,211,238,0.1); color: var(--accent-cyan); border: 1px solid rgba(34,211,238,0.15); }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan), var(--success));
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -28px; top: 5px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--bg-primary);
+  }
+
+  .timeline-item:nth-child(1) .timeline-dot { background: var(--accent-blue); box-shadow: 0 0 8px rgba(59,130,246,0.4); }
+  .timeline-item:nth-child(2) .timeline-dot { background: var(--accent-cyan); box-shadow: 0 0 8px rgba(34,211,238,0.4); }
+  .timeline-item:nth-child(3) .timeline-dot { background: var(--success); box-shadow: 0 0 8px rgba(34,197,94,0.4); }
+
+  .timeline-label {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .timeline-item:nth-child(1) .timeline-label { color: var(--accent-blue); }
+  .timeline-item:nth-child(2) .timeline-label { color: var(--accent-cyan); }
+  .timeline-item:nth-child(3) .timeline-label { color: var(--success); }
+
+  .timeline-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* Price Rows */
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 14px;
+  }
+
+  .price-row:last-child { border-bottom: none; }
+  .price-label { color: var(--text-secondary); }
+  .price-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-cyan);
+  }
+
+  /* Vertical Cards */
+  .vertical-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .vertical-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .vertical-card.tier1::before { background: var(--gradient-megaport); }
+  .vertical-card.tier2::before { background: var(--gradient-latitude); }
+
+  .vertical-card:hover {
+    border-color: rgba(59,130,246,0.3);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .vertical-num {
+    font-size: 36px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    top: 10px; right: 16px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .vertical-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .vertical-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Objection Cards */
+  .objection {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-card);
+  }
+
+  .objection:hover {
+    border-color: rgba(245,158,11,0.2);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .objection-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .objection-icon {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    background: rgba(245,158,11,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    margin-top: 1px;
+  }
+
+  .objection-a {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding-left: 28px;
+    line-height: 1.65;
+  }
+
+  /* Metric Cards */
+  .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .metric-value {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .metric-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .metric-card.megaport .metric-value { color: var(--megaport-red); }
+  .metric-card.megaport::after { background: var(--gradient-megaport); }
+
+  .metric-card.latitude .metric-value { color: var(--latitude-blue); }
+  .metric-card.latitude::after { background: var(--gradient-latitude); }
+
+  /* Architecture Diagram */
+  .arch-diagram {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    margin: 24px 0;
+    text-align: center;
+    overflow-x: auto;
+    box-shadow: var(--shadow-card);
+    position: relative;
+  }
+
+  .arch-layer-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .arch-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0;
+    flex-wrap: wrap;
+  }
+
+  .arch-box {
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+  }
+
+  .arch-box.latitude {
+    background: rgba(79,125,249,0.1);
+    border: 1px solid rgba(79,125,249,0.25);
+    color: var(--latitude-blue);
+  }
+
+  .arch-box.megaport {
+    background: var(--megaport-red-soft);
+    border: 1px solid rgba(228,0,43,0.2);
+    color: var(--megaport-red);
+  }
+
+  .arch-box.cloud {
+    background: rgba(34,211,238,0.08);
+    border: 1px solid rgba(34,211,238,0.2);
+    color: var(--accent-cyan);
+  }
+
+  .arch-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .arch-connector-line {
+    height: 28px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--latitude-blue), var(--megaport-red));
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .arch-connector-line::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--megaport-red);
+  }
+
+  .arch-connector-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .arch-connector2-line {
+    height: 28px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--megaport-red), var(--accent-cyan));
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .arch-connector2-line::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--accent-cyan);
+  }
+
+  /* Low-confidence data flag */
+  .unverified {
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  .unverified::after {
+    content: ' (est.)';
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* Back to top */
+  .back-to-top {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 40px; height: 40px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    z-index: 80;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.25s ease;
+    font-size: 16px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    background: rgba(59,130,246,0.1);
+    color: var(--accent-blue);
+    border-color: rgba(59,130,246,0.3);
+  }
+
+  /* Footer */
+  .footer {
+    padding: 36px 56px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.7;
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  /* Disclaimer for source gaps */
+  .source-disclaimer {
+    background: rgba(245,158,11,0.04);
+    border: 1px solid rgba(245,158,11,0.1);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  .source-disclaimer strong {
+    color: var(--warning);
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Print */
+  @media print {
+    .sidebar, .menu-toggle, .sidebar-overlay, .back-to-top { display: none !important; }
+    .main { margin-left: 0 !important; }
+    .hero { padding: 40px 24px 30px; }
+    .content { padding: 0 24px 40px; }
+    .section.collapsed .section-body { display: block !important; }
+    .collapse-icon { display: none; }
+    body { background: white; color: #111; font-size: 11pt; }
+    .card, .callout, .vertical-card, .objection, .arch-diagram, .metric-card {
+      break-inside: avoid;
+      border-color: #ddd;
+      box-shadow: none;
+    }
+    h2, h3 { break-after: avoid; }
+    .hero-stat-value {
+      -webkit-text-fill-color: #111;
+      color: #111;
+      background: none;
+    }
+    .hero h1 .red, .hero h1 .blue { -webkit-text-fill-color: #111; }
+    table { font-size: 10pt; }
+    th { background: #f3f4f6; color: #333; }
+    td, th { border-color: #ddd; color: #333; }
+    p, li, .objection-a, .callout, .timeline-text { color: #333; }
+    a { color: #1a56db; }
+    .metric-value { color: #111 !important; }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay.active { display: block; }
+    .menu-toggle { display: flex; }
+    .main { margin-left: 0; }
+    .hero { padding: 64px 28px 40px; }
+    .hero h1 { font-size: 32px; }
+    .content { padding: 0 28px 64px; }
+    .hero-stats { gap: 24px; }
+    .hero-stat-value { font-size: 26px; }
+    .footer { padding: 28px; }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 60px 20px 32px; }
+    .hero h1 { font-size: 26px; letter-spacing: -0.5px; }
+    .hero-desc { font-size: 14px; }
+    .hero-stats { flex-direction: column; gap: 12px; }
+    .content { padding: 0 20px 48px; }
+    .section h2 { font-size: 20px; }
+    .table-wrap { font-size: 12px; }
+    th, td { padding: 8px 10px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .arch-diagram { padding: 20px 14px; }
+    .back-to-top { bottom: 16px; right: 16px; width: 36px; height: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile Menu Toggle -->
+<button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0})" aria-label="Back to top">&#8593;</button>
+
+<div class="layout">
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-mark">M</div>
+      <div>
+        <div class="logo-text">Megaport &times; Latitude</div>
+        <div class="logo-sub">Strategic Playbook</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-group-label">Sections</div>
+    <a class="nav-link" href="#executive-summary" onclick="closeMobile()">
+      <span class="nav-num">01</span> Executive Summary
+    </a>
+    <a class="nav-link" href="#platform-deep-dive" onclick="closeMobile()">
+      <span class="nav-num">02</span> Platform Deep Dive
+    </a>
+    <a class="nav-link" href="#combined-value" onclick="closeMobile()">
+      <span class="nav-num">03</span> Combined Value Prop
+    </a>
+    <a class="nav-link" href="#competitive-landscape" onclick="closeMobile()">
+      <span class="nav-num">04</span> Competitive Landscape
+    </a>
+    <a class="nav-link" href="#equinix-sunset" onclick="closeMobile()">
+      <span class="nav-num">05</span> Equinix Metal Sunset
+    </a>
+    <a class="nav-link" href="#architecture-focus" onclick="closeMobile()">
+      <span class="nav-num">06</span> Architecture Focus
+    </a>
+    <a class="nav-link" href="#sales-strategy" onclick="closeMobile()">
+      <span class="nav-num">07</span> Sales Strategy
+    </a>
+    <a class="nav-link" href="#market-opportunity" onclick="closeMobile()">
+      <span class="nav-num">08</span> Market Opportunity
+    </a>
+    <a class="nav-link" href="#proof-points" onclick="closeMobile()">
+      <span class="nav-num">09</span> Proof Points
+    </a>
+    <a class="nav-link" href="#action-plan" onclick="closeMobile()">
+      <span class="nav-num">10</span> Quick-Start Action Plan
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-actions">
+      <button class="sidebar-btn" onclick="expandAll()">Expand All</button>
+      <button class="sidebar-btn" onclick="collapseAll()">Collapse All</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-line"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Strategic Playbook &mdash; June 2026
+      </div>
+      <h1>
+        <span class="red">Megaport</span> &times; <span class="blue">Latitude.sh</span><br>
+        Strategic Architecture<br>
+        <span class="dim">&amp; Sales Playbook</span>
+      </h1>
+      <p class="hero-desc">
+        The definitive reference for building and selling solutions on the world's first combined
+        Compute + Network-as-a-Service platform. US$150M acquisition. 1,000+ data centers.
+        26 countries. One unified fabric.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">1,000+</div>
+          <div class="hero-stat-label">Data Centers</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">26</div>
+          <div class="hero-stat-label">Countries</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">$43.1M</div>
+          <div class="hero-stat-label">Latitude ARR</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">125+</div>
+          <div class="hero-stat-label">DC Partners</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 1: Executive Summary -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="executive-summary">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">01</span>
+        <h2>Executive Summary</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+        <p>
+          In November 2025, <strong>Megaport (ASX: MP1)</strong> completed its acquisition of
+          <strong>Latitude.sh</strong> for <strong>US$150M upfront</strong> plus up to
+          <strong>US$150M in performance-based earnouts</strong>, creating the world's first
+          fully integrated <strong>Compute + Network-as-a-Service (CaaS + NaaS)</strong> platform.
+        </p>
+        <p>
+          Latitude.sh brought annualized recurring revenue of <strong>US$43.1M</strong>
+          at acquisition and has already secured a <strong>US$25M compute contract</strong>
+          post-close &mdash; validating enterprise demand for the combined platform. The merged entity
+          spans <strong>1,000+ data centers</strong> across <strong>26 countries</strong> with
+          <strong>125+ data center operator partnerships</strong>.
+        </p>
+
+        <div class="callout callout-insight">
+          <span class="callout-label">Strategic Insight</span>
+          This is not a bolt-on acquisition. By combining Megaport's software-defined networking
+          fabric with Latitude.sh's bare metal and GPU compute, the platform eliminates the
+          fragmentation that has plagued enterprises trying to stitch together compute, connectivity,
+          and cloud. One platform. One API surface. One commercial relationship.
+        </div>
+
+        <h3>Why This Matters Now</h3>
+        <ul>
+          <li><strong>Equinix Metal is sunsetting June 30, 2026</strong> &mdash; creating an immediate migration pipeline worth tens of millions in displaced ARR</li>
+          <li><strong>AI/GPU demand is accelerating</strong> &mdash; Latitude.sh offers NVIDIA H100, A100, L40s, and Blackwell-architecture RTX Pro 6000 on bare metal</li>
+          <li><strong>Cloud repatriation is real</strong> &mdash; enterprises report <span class="unverified">30&ndash;40%</span> TCO reductions by moving workloads to dedicated infrastructure</li>
+          <li><strong>The combined TAM exceeds <span class="unverified">$50B</span></strong> and is growing at 20&ndash;40% CAGR across both bare metal and NaaS segments</li>
+        </ul>
+
+        <div class="callout callout-action">
+          <span class="callout-label">Bottom Line</span>
+          The architecture and sales team has a once-in-a-decade platform convergence opportunity.
+          The window is open: Equinix Metal customers need a new home, AI workloads need GPU bare metal
+          with private connectivity, and no other vendor offers both compute and network as a unified service.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 2: Platform Deep Dive -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="platform-deep-dive">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">02</span>
+        <h2>Platform Deep Dive</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Megaport Core Products</h3>
+        <p>Megaport operates the world's largest independent Network-as-a-Service platform &mdash; software-defined connectivity across a global SDN fabric.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="tag tag-red">NaaS</span> Ports</div>
+            <p>Physical on-ramps to the Megaport SDN fabric. Available in <strong>1G, 10G, and 100G</strong> capacities. The foundation of every deployment &mdash; you need a Port before any virtual service.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-red">NaaS</span> Virtual Cross Connects</div>
+            <p>Private Layer 2 connections between any two endpoints on the fabric. Point-to-point or point-to-multipoint. Provision in minutes, not months. No physical cross-connect fees.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-red">NaaS</span> Cloud Router (MCR)</div>
+            <p>Virtual Layer 3 routing &mdash; now at <strong>100G</strong>. Supports <strong>BGP, NAT Gateway, packet filtering, IPsec</strong>. <span class="tag tag-green">42% YoY</span> MCR/MVE deployment growth. Multi-cloud without physical routers.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-red">NaaS</span> Virtual Edge (MVE)</div>
+            <p>Run SD-WAN and firewall appliances natively on fabric. <strong>Cisco, Fortinet, Versa, VMware, Aruba, Palo Alto</strong>. Zero hardware deployment.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-red">NaaS</span> Megaport ONE</div>
+            <p>Unified platform experience: single control plane for provisioning, monitoring, and management across all Megaport services.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-red">NaaS</span> MegaIX &amp; Internet</div>
+            <p><strong>MegaIX</strong>: Internet Exchange for direct peering. <strong>Internet</strong>: BGP-enabled services expanding TAM beyond pure private connectivity.</p>
+          </div>
+        </div>
+
+        <h3>Latitude.sh Core Products</h3>
+        <p>Instant, API-driven bare metal compute &mdash; from CPU workhorses to GPU-accelerated AI infrastructure.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="tag tag-blue">Compute</span> Bare Metal Servers</div>
+            <p><strong>AMD EPYC 4th/5th Gen</strong> (4484PX, 4564P, 9275F). From <strong>$0.37/hr to $3.52/hr</strong>. Deploy in minutes via API or Terraform. Full root access, no hypervisor overhead.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-blue">Compute</span> GPU Instances</div>
+            <p><strong>NVIDIA H100, A100, L40s, RTX Pro 6000</strong> (Blackwell architecture). H100 at <strong>~$3.37/hr</strong>. Built for AI/ML training, inference, and rendering.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-blue">Compute</span> GPU-Accelerated VMs</div>
+            <p>Quick-start virtualized GPU plans. Cloud-like flexibility with GPU power. Ideal for dev, testing, and smaller inference workloads.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-blue">Platform</span> Kubernetes on Bare Metal</div>
+            <p>Managed K8s clusters on dedicated hardware. Bare metal performance with K8s orchestration. No shared infrastructure.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-blue">Storage</span> NVMe Storage Suite</div>
+            <p>Globally distributed NVMe-backed storage: <strong>Object, Block, and File</strong>. High-throughput, low-latency, adjacent to compute.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-blue">Platform</span> Terraform &amp; API</div>
+            <p>Full IaC via <strong>Terraform Provider</strong>. REST API for programmatic provisioning. <strong>Managed PostgreSQL</strong> for databases. <strong>Private Interconnection</strong> to AWS, GCP, Azure via Megaport fabric.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 3: Combined Value Proposition -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="combined-value">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">03</span>
+        <h2>The Combined Value Proposition</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+        <p>
+          The acquisition creates a platform no single competitor can match: <strong>stand up GPU/CPU instances
+          and privately connect them to clouds, partners, and data centers over Megaport's SDN fabric</strong> &mdash;
+          no new circuits, no public internet dependency, no vendor lock-in.
+        </p>
+
+        <h3>Reference Architecture</h3>
+        <div class="arch-diagram">
+          <span class="arch-layer-label" style="color: var(--latitude-blue);">Latitude.sh Compute Layer</span>
+          <div class="arch-row">
+            <div class="arch-box latitude">GPU Cluster (H100)</div>
+            <div class="arch-box latitude">Bare Metal (EPYC)</div>
+            <div class="arch-box latitude">K8s on Metal</div>
+            <div class="arch-box latitude">NVMe Storage</div>
+          </div>
+          <div class="arch-connector">
+            <div class="arch-connector-line"></div>
+            <span class="arch-connector-label">Private Interconnection</span>
+            <div class="arch-connector-line"></div>
+          </div>
+          <span class="arch-layer-label" style="color: var(--megaport-red);">Megaport SDN Fabric</span>
+          <div class="arch-row">
+            <div class="arch-box megaport">Ports (1/10/100G)</div>
+            <div class="arch-box megaport">MCR (L3 Routing)</div>
+            <div class="arch-box megaport">MVE (SD-WAN)</div>
+            <div class="arch-box megaport">MegaIX (Peering)</div>
+          </div>
+          <div class="arch-connector">
+            <div class="arch-connector2-line"></div>
+            <span class="arch-connector-label">VXCs (Private L2)</span>
+            <div class="arch-connector2-line"></div>
+          </div>
+          <span class="arch-layer-label" style="color: var(--accent-cyan);">Cloud &amp; Enterprise Endpoints</span>
+          <div class="arch-row">
+            <div class="arch-box cloud">AWS Direct Connect</div>
+            <div class="arch-box cloud">Azure ExpressRoute</div>
+            <div class="arch-box cloud">GCP Interconnect</div>
+            <div class="arch-box cloud">On-Prem / Partner DC</div>
+          </div>
+        </div>
+
+        <h3>Core Differentiators</h3>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Single Platform</div>
+            <p>Compute + connectivity from one vendor. One API surface. One commercial relationship. One support team. Eliminates multi-vendor complexity.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Private by Default</div>
+            <p>Bare metal + private SDN means workloads never touch the public internet. Required for regulated industries and sensitive AI/ML data pipelines.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">API-First</div>
+            <p>Both platforms have Terraform providers and REST APIs. Full IaC automation from server provisioning to network configuration. DevOps-native.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Global Reach</div>
+            <p>1,000+ data centers, 26 countries, 125+ DC operator partnerships. Deploy compute and connectivity anywhere your workloads need to run.</p>
+          </div>
+        </div>
+
+        <h3>Real-World Use Cases</h3>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="tag tag-purple">AI/ML</span> Inference Pipeline</div>
+            <p>Latitude bare metal running AI inference &rarr; MCR &rarr; AWS S3 for model storage and training data. Private path, no egress surprises, deterministic latency.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-cyan">Data</span> Multi-Cloud ETL</div>
+            <p>Latitude GPU cluster &rarr; private VXC &rarr; Azure for data pipeline orchestration. Process on bare metal, store and serve from cloud.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">Gaming</span> Game Server Infra</div>
+            <p>Latitude bare metal game servers &rarr; Megaport fabric &rarr; multi-cloud backend for auth, leaderboards, matchmaking. Low-latency player experience.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-yellow">Cost</span> Cloud Repatriation</div>
+            <p>Latitude.sh + Wasabi NAS + Megaport private interconnect = high-performance infrastructure at <strong><span class="unverified">~40%</span> TCO reduction</strong> versus hyperscaler equivalents.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 4: Competitive Landscape -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="competitive-landscape">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">04</span>
+        <h2>Competitive Landscape</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>NaaS / Interconnection Competitors</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Competitor</th>
+                <th>Strengths</th>
+                <th>Weakness vs Megaport + Latitude</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Equinix Fabric</strong></td>
+                <td>Largest DC footprint. Distributed forwarding plane. Physical cross-connects for ultra-low-latency.</td>
+                <td>Equinix ecosystem lock-in. <span class="tag tag-red">Sunsetting Metal</span>. Higher cost structure. No integrated bare metal post-sunset.</td>
+              </tr>
+              <tr>
+                <td><strong>PacketFabric</strong></td>
+                <td>Fiercest direct NaaS competitor. Competitive pricing. Developer-friendly API. Strong cloud on-ramps.</td>
+                <td>Smaller footprint. No integrated compute offering. Pure-play networking &mdash; customers source compute elsewhere.</td>
+              </tr>
+              <tr>
+                <td><strong>Console Connect</strong></td>
+                <td>Global reach via PCCW carrier network. Strong Asia-Pacific. SDN-based provisioning.</td>
+                <td>Smaller partner ecosystem. No bare metal compute. Less brand recognition in NA and Europe.</td>
+              </tr>
+              <tr>
+                <td><strong>Lumen</strong></td>
+                <td>Deep enterprise relationships. Edge capabilities. Extensive fiber network.</td>
+                <td>Legacy telco complexity. Long provisioning. Organizational inertia. No on-demand bare metal.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Bare Metal / Compute Competitors</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Competitor</th>
+                <th>Strengths</th>
+                <th>Weakness vs Latitude + Megaport</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Equinix Metal</strong></td>
+                <td>Strong brand. Enterprise trust. Physical proximity to Equinix Fabric.</td>
+                <td><span class="tag tag-red">Sunsetting June 2026</span> &mdash; customers must migrate. Massive Latitude.sh opportunity.</td>
+              </tr>
+              <tr>
+                <td><strong>Vultr</strong></td>
+                <td>Developer-friendly. Low pricing. Growing GPU options.</td>
+                <td>No integrated NaaS fabric. Cloud VMs, not true bare metal for most SKUs. Limited enterprise focus.</td>
+              </tr>
+              <tr>
+                <td><strong>Hivelocity</strong></td>
+                <td>Customizable hardware. Competitive pricing. US-focused DCs.</td>
+                <td>Limited global reach. No SDN networking. Manual provisioning workflows.</td>
+              </tr>
+              <tr>
+                <td><strong>OVHcloud</strong></td>
+                <td>Strong European presence. Budget bare metal. Broad portfolio.</td>
+                <td>Limited enterprise and NA focus. No integrated private NaaS connectivity.</td>
+              </tr>
+              <tr>
+                <td><strong>Cherry Servers</strong></td>
+                <td>Simple pricing model. Developer-friendly.</td>
+                <td>Small global footprint. No enterprise-grade networking. Limited GPU options.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-insight">
+          <span class="callout-label">Competitive Moat</span>
+          No competitor offers both <strong>bare metal compute</strong> and <strong>software-defined private networking</strong>
+          as a unified platform. Every alternative requires stitching together two or more vendors &mdash; adding complexity,
+          cost, and latency. Megaport + Latitude.sh is the only single-vendor CaaS + NaaS solution.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 5: Equinix Metal Sunset -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="equinix-sunset">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">05</span>
+        <h2>Equinix Metal Sunset &mdash; Immediate Opportunity</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+        <div class="callout callout-critical">
+          <span class="callout-label">Critical Timeline</span>
+          <strong>Equinix Metal sunset date: June 30, 2026.</strong> Every Equinix Metal customer needs
+          a migration plan within the next 30 days. This is the single largest immediate pipeline opportunity
+          for the Megaport + Latitude.sh platform.
+        </div>
+
+        <h3>Migration Offering</h3>
+        <ul>
+          <li><strong>Dedicated migration specialists</strong> at Latitude.sh to handle onboarding</li>
+          <li><strong>4 months free on long-term commitments</strong> for customers migrating from Equinix Metal</li>
+          <li>Megaport blog and marketing actively targeting displaced Equinix Metal customers</li>
+          <li>API compatibility &mdash; Latitude.sh's Terraform provider and REST API make IaC migrations straightforward</li>
+        </ul>
+
+        <h3>Why Megaport + Latitude Wins This Migration</h3>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">Win</span> Same Capability, Better Platform</div>
+            <p>Equinix Metal customers got bare metal + Equinix Fabric. Latitude.sh + Megaport offers the <em>same combination</em> without ecosystem lock-in and with competitive pricing.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">Win</span> API-First Migration Path</div>
+            <p>Both platforms are API-driven with Terraform providers. Migration is a Terraform state file update, not a forklift. Reduced risk and downtime.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">Win</span> Commercial Incentive</div>
+            <p>4 months free on committed terms removes the "we'll just figure it out on AWS" objection for budget-conscious infrastructure teams facing forced migration.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">Win</span> Upgrade Path</div>
+            <p>Customers can get bare metal + private networking &mdash; or upgrade to GPU compute, multi-cloud MCR routing, and SD-WAN via MVE that Equinix Metal never offered.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-action">
+          <span class="callout-label">Sales Action</span>
+          Build a target list of Equinix Metal customers in your territory <em>this week</em>.
+          Lead with the migration offer (4 months free), demonstrate Terraform compatibility,
+          and position the upgrade path to GPU compute and MCR as the reason to choose Latitude
+          over commodity alternatives like Vultr or Hivelocity.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 6: Architecture Focus Areas -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="architecture-focus">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">06</span>
+        <h2>Architecture Focus Areas</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Priority 1: Reference Architectures</h3>
+        <p>Blueprints every SA should have ready. Each maps a real customer need to a concrete platform deployment.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">P1</span> Hybrid Cloud</div>
+            <p><strong>Latitude bare metal &rarr; MCR &rarr; Cloud</strong> (AWS Direct Connect, Azure ExpressRoute, GCP Partner Interconnect). The bread-and-butter architecture for enterprises running workloads across bare metal and public cloud.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">P1</span> Multi-Cloud</div>
+            <p>Single Latitude deployment connected to <strong>multiple clouds via MCR</strong>. One bare metal cluster, three cloud connections. Centralized processing, distributed services.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">P1</span> AI/ML Infrastructure</div>
+            <p><strong>GPU clusters &rarr; private high-bandwidth links &rarr; cloud data lakes</strong>. Train and infer on H100/A100 GPUs. Pull training data from S3/GCS over private links. No public internet, no egress surprises.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="tag tag-green">P1</span> Edge Compute</div>
+            <p><strong>Latitude servers at edge DCs &rarr; Megaport fabric backbone</strong>. Low-latency compute at the edge with reliable backhaul to core infrastructure.</p>
+          </div>
+        </div>
+
+        <h3>Priority 2: Automation &amp; Developer Experience</h3>
+        <ul>
+          <li><strong>Terraform modules</strong> combining Megaport + Latitude providers into composable infrastructure stacks</li>
+          <li><strong>API integration playbooks</strong> with runnable examples for common provisioning workflows</li>
+          <li><strong>CI/CD pipeline templates</strong> for infrastructure provisioning (GitHub Actions, GitLab CI)</li>
+          <li><strong>Self-service portal demos</strong> showing how customers build internal platforms on the combined API</li>
+        </ul>
+
+        <h3>Priority 3: Security &amp; Compliance</h3>
+        <ul>
+          <li><strong>Private connectivity</strong> eliminating public internet exposure for all inter-site and cloud traffic</li>
+          <li><strong>MVE integration</strong> for SD-WAN and firewall at the edge (Cisco, Fortinet, Palo Alto)</li>
+          <li><strong>IPsec tunnels on MCR</strong> for encrypted transit, even over private links</li>
+          <li><strong>Compliance positioning</strong> for regulated industries: fintech (PCI DSS), healthcare (HIPAA), government (FedRAMP adjacency)</li>
+        </ul>
+
+        <div class="callout callout-warning">
+          <span class="callout-label">Architecture Team Investment</span>
+          The highest-leverage deliverable is a <strong>Terraform module library</strong> that provisions a complete
+          Latitude + Megaport stack in one <code>terraform apply</code>. It becomes the demo, the proof-of-concept,
+          and the production starter kit. Invest here first.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 7: Sales Strategy & Target Verticals -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="sales-strategy">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">07</span>
+        <h2>Sales Strategy &amp; Target Verticals</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Tier 1 Verticals &mdash; Highest Priority</h3>
+        <div class="card-grid">
+          <div class="vertical-card tier1">
+            <div class="vertical-num">1</div>
+            <div class="vertical-title">AI/ML Companies</div>
+            <div class="vertical-desc">
+              GPU bare metal + cloud connectivity. Fastest growing infrastructure segment.
+              Lead with H100/A100 availability, private data pipelines, no noisy-neighbor guarantees.
+              $3.37/hr H100 pricing undercuts many cloud GPU providers.
+            </div>
+          </div>
+          <div class="vertical-card tier1">
+            <div class="vertical-num">2</div>
+            <div class="vertical-title">Gaming &amp; Adtech</div>
+            <div class="vertical-desc">
+              Low-latency bare metal + multi-cloud. Latitude already serves this vertical.
+              Lead with deterministic performance, global edge locations, Megaport fabric for multi-cloud backend.
+            </div>
+          </div>
+          <div class="vertical-card tier1">
+            <div class="vertical-num">3</div>
+            <div class="vertical-title">Financial Services / Fintech</div>
+            <div class="vertical-desc">
+              Deterministic performance, regulatory compliance, private connectivity.
+              Lead with MCR + IPsec encrypted private transit, bare metal for tick data, compliance posture.
+            </div>
+          </div>
+          <div class="vertical-card tier1">
+            <div class="vertical-num">4</div>
+            <div class="vertical-title">SaaS Companies</div>
+            <div class="vertical-desc">
+              Cloud repatriation trend &mdash; <strong><span class="unverified">~40%</span> TCO reduction</strong> on dedicated infrastructure.
+              Lead with cost optimization, Terraform automation, managed K8s on bare metal.
+            </div>
+          </div>
+        </div>
+
+        <h3>Tier 2 Verticals</h3>
+        <div class="card-grid">
+          <div class="vertical-card tier2">
+            <div class="vertical-num">5</div>
+            <div class="vertical-title">Media &amp; Streaming</div>
+            <div class="vertical-desc">Content delivery, transcoding on bare metal, global distribution via Megaport fabric.</div>
+          </div>
+          <div class="vertical-card tier2">
+            <div class="vertical-num">6</div>
+            <div class="vertical-title">Blockchain / Web3</div>
+            <div class="vertical-desc">Validator nodes on bare metal. Latitude partners with Scale3 Labs. Private peering via MegaIX.</div>
+          </div>
+          <div class="vertical-card tier2">
+            <div class="vertical-num">7</div>
+            <div class="vertical-title">Telecom / MSPs</div>
+            <div class="vertical-desc">White-label compute + connectivity. Megaport already powers telco edge deployments.</div>
+          </div>
+          <div class="vertical-card tier2">
+            <div class="vertical-num">8</div>
+            <div class="vertical-title">Healthcare</div>
+            <div class="vertical-desc">HIPAA compliance requirements. Private connectivity for PHI. Bare metal for medical imaging AI.</div>
+          </div>
+        </div>
+
+        <h3>Buyer Personas</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Persona</th>
+                <th>Primary Concerns</th>
+                <th>Lead With</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CTO / VP Engineering</strong></td>
+                <td>Performance, developer experience, API-first architecture</td>
+                <td>Terraform providers, API demos, bare metal performance benchmarks</td>
+              </tr>
+              <tr>
+                <td><strong>VP Infra / Cloud Architect</strong></td>
+                <td>TCO, multi-cloud strategy, automation, operational simplicity</td>
+                <td>TCO calculators, reference architectures, IaC templates</td>
+              </tr>
+              <tr>
+                <td><strong>CISO</strong></td>
+                <td>Private connectivity, compliance, security posture</td>
+                <td>Private fabric architecture, IPsec/MVE capabilities, compliance positioning</td>
+              </tr>
+              <tr>
+                <td><strong>CFO / Finance</strong></td>
+                <td>Cloud cost optimization, predictable pricing</td>
+                <td>Cloud repatriation TCO analysis, committed pricing vs. on-demand</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Key Sales Motions</h3>
+        <ol>
+          <li><strong>Equinix Metal Migration</strong> &mdash; Immediate opportunity. June 2026 deadline creates urgency. Lead with migration offer.</li>
+          <li><strong>Cloud Repatriation</strong> &mdash; TCO savings narrative for moving steady-state workloads from hyperscalers to dedicated infrastructure.</li>
+          <li><strong>AI Infrastructure</strong> &mdash; GPU bare metal + private cloud connectivity bundle. The "AI-ready infrastructure" play.</li>
+          <li><strong>Land-and-Expand</strong> &mdash; Start with compute (Latitude), expand to connectivity (Megaport), or vice versa.</li>
+          <li><strong>Competitive Displacement</strong> &mdash; Win against fragmented point solutions with unified CaaS + NaaS.</li>
+        </ol>
+
+        <h3>Objection Handling</h3>
+        <div class="objection">
+          <div class="objection-q"><span class="objection-icon">?</span> "We already use AWS/Azure/GCP"</div>
+          <div class="objection-a">This complements cloud &mdash; it doesn't replace it. Private connectivity via MCR <em>enhances</em> cloud workloads: lower latency, no egress costs, better security. Many customers run 60/40 cloud-to-bare-metal and connect them privately.</div>
+        </div>
+        <div class="objection">
+          <div class="objection-q"><span class="objection-icon">?</span> "Bare metal is complex"</div>
+          <div class="objection-a">Latitude.sh has cloud-like UX with API, Terraform, and managed K8s. Deploy a bare metal server in under 5 minutes. This is cloud-native bare metal with full automation, not the bare metal of 2015.</div>
+        </div>
+        <div class="objection">
+          <div class="objection-q"><span class="objection-icon">?</span> "Megaport is just networking"</div>
+          <div class="objection-a"><em>Was</em> networking. Now compute + network in one platform. The Latitude acquisition created an integrated CaaS + NaaS offering. One API, one bill, one support team.</div>
+        </div>
+        <div class="objection">
+          <div class="objection-q"><span class="objection-icon">?</span> "GPU pricing is higher than cloud spot"</div>
+          <div class="objection-a">Dedicated hardware = <strong>predictable performance</strong>. No noisy neighbors, no spot interruptions, no capacity throttling. For production AI inference, reliability beats spot savings. And you get compliance-ready private connectivity included.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 8: Market Opportunity -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="market-opportunity">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">08</span>
+        <h2>Market Opportunity</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Addressable Market Sizing</h3>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">Bare Metal Cloud Market</div>
+            <div class="price-row">
+              <span class="price-label">2025 Market Size</span>
+              <span class="price-value unverified">$14.3B</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">2030 Projected</span>
+              <span class="price-value unverified">$36.7B</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">CAGR</span>
+              <span class="price-value unverified">20.7%</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Network-as-a-Service Market</div>
+            <div class="price-row">
+              <span class="price-label">2025 Market Size</span>
+              <span class="price-value unverified">$16.5&ndash;$33B</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">2030 Projected</span>
+              <span class="price-value unverified">$115B+</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">CAGR</span>
+              <span class="price-value unverified">28&ndash;42%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-disclaimer">
+          <strong>Note:</strong> Market sizing estimates are drawn from multiple analyst reports with varying methodologies. Figures marked (est.) reflect confidence ranges, not precise valuations. The growth direction is consistent across sources, but exact numbers may vary.
+        </div>
+
+        <div class="callout callout-insight">
+          <span class="callout-label">Combined TAM</span>
+          The combined addressable market exceeds <strong><span class="unverified">$50B</span> in 2025</strong> and is projected to
+          reach <strong><span class="unverified">$150B+</span> by 2030</strong>. Key growth drivers: AI/GPU demand, cloud repatriation,
+          multi-cloud complexity, edge compute, and regulatory compliance.
+        </div>
+
+        <h3>Growth Catalysts</h3>
+        <ul>
+          <li><strong>AI/GPU Demand</strong> &mdash; Every enterprise is building AI capabilities. GPU bare metal is the infrastructure layer; private connectivity to cloud data stores is the enabler.</li>
+          <li><strong>Cloud Repatriation</strong> &mdash; The pendulum swings back from all-in cloud. Enterprises discover significant savings on dedicated infrastructure for steady-state workloads.</li>
+          <li><strong>Multi-Cloud Complexity</strong> &mdash; 90%+ of enterprises are multi-cloud. Managing connectivity between clouds, bare metal, and on-prem is the #1 infrastructure pain point. MCR solves this.</li>
+          <li><strong>Edge Compute</strong> &mdash; IoT, 5G, and real-time applications push compute to the edge. Latitude's global footprint + Megaport fabric provides compute-at-edge with reliable backbone.</li>
+          <li><strong>Regulatory Compliance</strong> &mdash; Data sovereignty, HIPAA, PCI DSS, and GDPR requirements drive demand for private, dedicated infrastructure with known data paths.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 9: Key Metrics & Proof Points -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="proof-points">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">09</span>
+        <h2>Key Metrics &amp; Proof Points</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Megaport By the Numbers</h3>
+        <div class="card-grid">
+          <div class="metric-card megaport">
+            <div class="metric-value">1,000+</div>
+            <div class="metric-label">Enabled Locations</div>
+          </div>
+          <div class="metric-card megaport">
+            <div class="metric-value">125+</div>
+            <div class="metric-label">DC Operator Partners</div>
+          </div>
+          <div class="metric-card megaport">
+            <div class="metric-value">42%</div>
+            <div class="metric-label">MCR/MVE Growth YoY</div>
+          </div>
+          <div class="metric-card megaport">
+            <div class="metric-value">26</div>
+            <div class="metric-label">Countries</div>
+          </div>
+        </div>
+
+        <h3>Latitude.sh By the Numbers</h3>
+        <div class="card-grid">
+          <div class="metric-card latitude">
+            <div class="metric-value">$43.1M</div>
+            <div class="metric-label">ARR at Acquisition</div>
+          </div>
+          <div class="metric-card latitude">
+            <div class="metric-value">$25M</div>
+            <div class="metric-label">Post-Acq Contract</div>
+          </div>
+          <div class="metric-card latitude">
+            <div class="metric-value">~$3.37</div>
+            <div class="metric-label">H100 GPU $/hr</div>
+          </div>
+          <div class="metric-card latitude">
+            <div class="metric-value">5th Gen</div>
+            <div class="metric-label">EPYC + Blackwell</div>
+          </div>
+        </div>
+
+        <h3>Platform Validation</h3>
+        <ul>
+          <li><strong>API-First Architecture</strong> &mdash; Both platforms offer Terraform providers and REST APIs for full IaC automation</li>
+          <li><strong>G2 Reviews</strong> &mdash; Megaport rated higher than Equinix Fabric in user satisfaction across ease of use, setup, and support</li>
+          <li><strong>Enterprise Traction</strong> &mdash; $25M compute contract post-acquisition validates enterprise demand for the combined platform</li>
+          <li><strong>GPU Breadth</strong> &mdash; H100, A100, L40s, RTX Pro 6000 (Blackwell) &mdash; broadest GPU selection among independent bare metal providers</li>
+          <li><strong>100G MCR</strong> &mdash; Industry-leading virtual router capacity; competitors cap at 10G</li>
+        </ul>
+
+        <div class="source-disclaimer">
+          <strong>Gaps:</strong> Exact Equinix Metal customer count/ARR not publicly disclosed. Latitude.sh regional GPU inventory availability requires live queries. Competitor SKU-level pricing requires direct quotes. Megaport ONE integration with Latitude is ongoing; full portal unification timeline not confirmed.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- Section 10: Quick-Start Action Plan -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="section" id="action-plan">
+      <div class="section-header" onclick="toggleSection(this)">
+        <span class="section-num">10</span>
+        <h2>Quick-Start Action Plan</h2>
+        <span class="collapse-icon">&#9662;</span>
+      </div>
+      <div class="section-body">
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Month 1&ndash;2: Foundation</div>
+            <div class="timeline-text">
+              <ul style="margin-left:0; padding-left:18px;">
+                <li>Master the combined platform &mdash; get hands-on with both Megaport portal and Latitude.sh dashboard</li>
+                <li>Build first reference architecture (Hybrid Cloud Connectivity is the best starting point)</li>
+                <li>Create Terraform module: Latitude bare metal + Megaport VXC + cloud on-ramp in one <code>terraform apply</code></li>
+                <li>Identify Equinix Metal migration targets in territory &mdash; build outbound list</li>
+                <li>Develop 15-minute demo: provision server, connect to cloud, show traffic flowing privately</li>
+              </ul>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Month 3&ndash;4: Acceleration</div>
+            <div class="timeline-text">
+              <ul style="margin-left:0; padding-left:18px;">
+                <li>Build AI infrastructure demo &mdash; GPU bare metal + private cloud data pipeline</li>
+                <li>Create Terraform automation playbooks for top 3 use cases</li>
+                <li>Begin outbound to Tier 1 verticals (AI/ML, Gaming, Fintech, SaaS)</li>
+                <li>Run competitive displacement campaigns against fragmented point solutions</li>
+                <li>Build cloud repatriation TCO calculator for prospect conversations</li>
+              </ul>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Month 5&ndash;6: Scale</div>
+            <div class="timeline-text">
+              <ul style="margin-left:0; padding-left:18px;">
+                <li>Close first deals &mdash; target 2+ wins from Equinix migration and 1+ from AI infrastructure</li>
+                <li>Build case studies from early wins &mdash; document architecture, performance, TCO outcomes</li>
+                <li>Expand outbound into Tier 2 verticals (Media, Blockchain, Telecom, Healthcare)</li>
+                <li>Develop partner enablement materials for channel and MSP partners</li>
+                <li>Establish quarterly architecture review cadence with product team</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-action">
+          <span class="callout-label">Priority Actions This Week</span>
+          <ol>
+            <li>Get Latitude.sh account access and provision your first bare metal server</li>
+            <li>Set up a Megaport Port and create a VXC to your Latitude deployment</li>
+            <li>Pull the Equinix Metal customer list for your territory</li>
+            <li>Schedule internal briefing with Latitude.sh migration team</li>
+            <li>Draft your first outbound sequence targeting Equinix Metal customers</li>
+          </ol>
+        </div>
+
+        <h3>Latitude.sh Compute Pricing Reference</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Hardware</th>
+                <th>Hourly</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag tag-blue">CPU</span></td>
+                <td>AMD EPYC 4484PX</td>
+                <td>From $0.37/hr</td>
+                <td>Web serving, general compute</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-blue">CPU</span></td>
+                <td>AMD EPYC 9275F</td>
+                <td>Up to $3.52/hr</td>
+                <td>High-frequency trading, databases</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-purple">GPU</span></td>
+                <td>NVIDIA H100</td>
+                <td>~$3.37/hr</td>
+                <td>AI training &amp; inference</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-purple">GPU</span></td>
+                <td>NVIDIA A100</td>
+                <td>Varies</td>
+                <td>ML workloads, HPC</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-purple">GPU</span></td>
+                <td>NVIDIA L40s</td>
+                <td>Varies</td>
+                <td>Inference, rendering</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-purple">GPU</span></td>
+                <td>RTX Pro 6000 (Blackwell)</td>
+                <td>Varies</td>
+                <td>Next-gen AI, visualization</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /.content -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Generated by <strong>Gary</strong> &mdash; Last Updated June 1, 2026</p>
+    <p style="margin-top:6px;">Megaport (ASX: MP1) &bull; Latitude.sh &bull; Confidential &mdash; Internal Use Only</p>
+    <p class="footer-note">Some market sizing and TCO figures are estimates drawn from multiple analyst reports. Verify with primary sources before using in customer-facing materials.</p>
+  </footer>
+
+</main>
+</div>
+
+<script>
+// Sidebar toggle (mobile)
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-overlay').classList.toggle('active');
+}
+
+function closeMobile() {
+  if (window.innerWidth <= 1024) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.querySelector('.sidebar-overlay').classList.remove('active');
+  }
+}
+
+// Section collapse/expand
+function toggleSection(header) {
+  header.closest('.section').classList.toggle('collapsed');
+}
+
+function expandAll() {
+  document.querySelectorAll('.section.collapsed').forEach(s => s.classList.remove('collapsed'));
+}
+
+function collapseAll() {
+  document.querySelectorAll('.section:not(.collapsed)').forEach(s => s.classList.add('collapsed'));
+}
+
+// Active nav link on scroll (Intersection Observer)
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, {
+  rootMargin: '-10% 0px -85% 0px',
+  threshold: 0
+});
+
+sections.forEach(section => observer.observe(section));
+
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  backToTop.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobile();
+  // Ctrl/Cmd + E = expand all
+  if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+    e.preventDefault();
+    expandAll();
+  }
+  // Ctrl/Cmd + Shift + E = collapse all
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'E') {
+    e.preventDefault();
+    collapseAll();
+  }
+});
+</script>
+
+</body>
+</html>
