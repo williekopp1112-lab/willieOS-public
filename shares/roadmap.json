@@ -15,6 +15,28 @@
   "maintenance_discipline": "Update this file in the same commit as any Session N journal entry. Curator marks the date at top. If you find an entry stale, fix or remove it — do not let drift accumulate.",
   "entries": [
     {
+      "id": "video-intelligence",
+      "title": "Video → notes / study pipeline (process_video)",
+      "status": "review",
+      "priority": "p1",
+      "shipped_date": null,
+      "owner": "gary",
+      "commits": [],
+      "source_of_truth": "willieos-mcp-server/tools/video.js",
+      "summary": "MCP tool: paste a YouTube/TikTok/IG/FB/Shorts link → yt-dlp audio → Whisper transcript → structured note in Gary's Mind. mode:study → learnings + auto-queued Gary self-improvement initiatives + your-stack recommendations note. Smoke-tested live."
+    },
+    {
+      "id": "night-shift",
+      "title": "Night Shift — overnight/away autonomy queue + Gary's Initiative",
+      "status": "review",
+      "priority": "p1",
+      "shipped_date": null,
+      "owner": "gary",
+      "commits": [],
+      "source_of_truth": "src/components/nightshift/, src/utils/overnightService.js, jobRegistry overnight_runner + gary_initiative",
+      "summary": "Queue tasks (ad-hoc, from loops, email [queue], MCP add_to_night_queue) for Gary to run while away. ON/OFF + window + spend ceiling + Run now. Sequential runner dispatches each item to completion with per-item 18m watchdog + execution_mode:single routing + 1 retry; reconciles results onto result tiles (summary/files/error/cost). Gary's Initiative: daily proactive self-planning (self_evolution/feature/briefing/coding/checkup/dispatch) with rationale, capped+deduped. Recurring-jobs panel. v0 redesign (hero/starfield/result drawer). get_night_queue status tool. Migrations v85/v86."
+    },
+    {
       "id": "garys-mind",
       "title": "Gary's Mind — AI memory viewer + Account Intelligence (replaces Notes window)",
       "status": "done",
