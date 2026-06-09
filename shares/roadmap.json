@@ -15,6 +15,17 @@
   "maintenance_discipline": "Update this file in the same commit as any Session N journal entry. Curator marks the date at top. If you find an entry stale, fix or remove it — do not let drift accumulate.",
   "entries": [
     {
+      "id": "account-ingestion",
+      "title": "Whole-account video ingestion → tailored Productivity Playbook",
+      "status": "review",
+      "priority": "p1",
+      "shipped_date": null,
+      "owner": "gary",
+      "commits": [],
+      "source_of_truth": "willieos-mcp-server/tools/accountIngest.js, src/utils/accountIngestService.js, jobRegistry account_ingest_runner",
+      "summary": "Paste a TikTok/YouTube account URL → yt-dlp enumerates all videos → background runner processes each (process_video study, deduped via video_cache) → synthesizes a Productivity Playbook tailored to the user (buildContextBlock + willie_profile) + queues Gary self-improvement initiatives. Progress UI in Night Shift with Open Playbook deep-link. Migration v88. Live E2E verified first-shot (@TED, 2 videos → honest playbook + self-improvement)."
+    },
+    {
       "id": "video-intelligence",
       "title": "Video → notes / study pipeline (process_video)",
       "status": "review",
