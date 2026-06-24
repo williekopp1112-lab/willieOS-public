@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latitude Strategy Brief — Willie Kopp × Abby Byfield</title>
+<style>
+  :root {
+    --red: #E4002B;
+    --red-dim: #9e001e;
+    --navy: #0a1219;
+    --navy-mid: #111d28;
+    --navy-card: #162030;
+    --teal: #00b7c3;
+    --teal-dim: #007f88;
+    --white: #f0f4f8;
+    --muted: #8a9bb0;
+    --border: rgba(0,183,195,0.18);
+    --radius: 8px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy-mid);
+    border-bottom: 3px solid var(--red);
+    padding: 28px 24px 22px;
+  }
+  .header-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .header h1 span { color: var(--red); }
+  .header-sub {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .pill {
+    background: rgba(228,0,43,0.12);
+    border: 1px solid rgba(228,0,43,0.35);
+    color: #ff6680;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .pill.teal {
+    background: rgba(0,183,195,0.10);
+    border-color: rgba(0,183,195,0.35);
+    color: var(--teal);
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-top: 32px;
+  }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .section-num {
+    background: var(--red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-label h2 {
+    font-size: 13px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .card p, .card li {
+    font-size: 14px;
+    color: #c5d0dc;
+    line-height: 1.6;
+  }
+  .card ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+  .card ul li { margin-bottom: 4px; }
+
+  /* ── ALERT BLOCK ── */
+  .alert {
+    background: rgba(228,0,43,0.08);
+    border-left: 3px solid var(--red);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+  }
+  .alert .alert-head {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ff6680;
+    margin-bottom: 4px;
+  }
+  .alert p { font-size: 14px; color: #c5d0dc; }
+
+  /* ── TEAL HIGHLIGHT ── */
+  .teal-block {
+    background: rgba(0,183,195,0.07);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+  }
+  .teal-block .tb-head {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .teal-block p, .teal-block li { font-size: 14px; color: #c5d0dc; }
+  .teal-block ul { padding-left: 18px; margin-top: 4px; }
+  .teal-block ul li { margin-bottom: 3px; }
+
+  /* ── WEEK GRID ── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .week-card {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .week-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .week-card ul {
+    padding-left: 16px;
+    list-style: disc;
+  }
+  .week-card ul li {
+    font-size: 13px;
+    color: #c5d0dc;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+  .week-card ul li strong { color: var(--white); }
+
+  /* ── TIER TABLE ── */
+  .tier-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--radius);
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .tier-table th {
+    background: rgba(0,183,195,0.12);
+    color: var(--teal);
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .tier-table td {
+    padding: 10px 14px;
+    color: #c5d0dc;
+    border-top: 1px solid var(--border);
+  }
+  .tier-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .tier-table .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-aware { background: rgba(0,183,195,0.15); color: var(--teal); }
+  .badge-ready { background: rgba(255,200,0,0.12); color: #ffd060; }
+  .badge-certified { background: rgba(228,0,43,0.15); color: #ff6680; }
+
+  /* ── STORAGE SPLIT ── */
+  .storage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 500px) { .storage-grid { grid-template-columns: 1fr; } }
+  .storage-card {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .storage-card .sc-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .storage-card .sc-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .storage-card ul {
+    padding-left: 16px;
+    margin-top: 6px;
+  }
+  .storage-card ul li { font-size: 13px; color: #c5d0dc; margin-bottom: 4px; }
+  .sc-vast .sc-tag { color: var(--teal); }
+  .sc-wasabi .sc-tag { color: #ffd060; }
+
+  /* ── ASK BOX ── */
+  .ask-list {
+    display: grid;
+    gap: 10px;
+  }
+  .ask-item {
+    background: var(--navy-card);
+    border: 1px solid rgba(228,0,43,0.30);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .ask-num {
+    background: var(--red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ask-text strong {
+    display: block;
+    font-size: 14px;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+  .ask-text span { font-size: 13px; color: #8a9bb0; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: #4a5c70;
+  }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .stat-item {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 18px;
+    flex: 1;
+    min-width: 130px;
+  }
+  .stat-val {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-val.teal { color: var(--teal); }
+  .stat-desc { font-size: 12px; color: var(--muted); }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 10px 0 16px;
+  }
+
+  em { color: var(--teal); font-style: normal; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<div class="header">
+  <div class="header-meta">Megaport · GTM Transformation · Confidential</div>
+  <h1>Latitude GTM Strategy<br><span>Willie Kopp × Abby Byfield</span></h1>
+  <div class="header-sub">EVP GTM Transformation Briefing &nbsp;·&nbsp; June 24, 2026 &nbsp;·&nbsp; 10-min read</div>
+  <div class="pill-row">
+    <span class="pill">$43.1M ARR Acquired</span>
+    <span class="pill">$150M Deal</span>
+    <span class="pill">6 Mo Post-Acquisition</span>
+    <span class="pill teal">30-Day Action Plan</span>
+    <span class="pill teal">Equinix Metal Sunset Jun 30</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════ SECTION 1: THE PROBLEM ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">1</div>
+    <h2>The Problem Willie Is Solving</h2>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-val">70%</div>
+      <div class="stat-desc">Revenue through channel — zero Latitude enablement exists</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">0</div>
+      <div class="stat-desc">Training modules (101 / 201 / 301) for Megaport sellers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val teal">6 Mo</div>
+      <div class="stat-desc">Post-acquisition — still operationally two separate companies</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <div class="alert-head">The Core Dysfunction</div>
+    <p>Megaport sellers can't explain what Latitude is or where it fits. Sellers who do close (Guy Willner, Chopper) are landing real contracts — but the deals aren't documented, structured, or reproducible. The company doesn't know what was actually sold or why it won.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Four Failure Modes</div>
+    <ul>
+      <li><strong>No training curriculum.</strong> No 101, 201, or 301. Sellers default to ignoring Latitude or misrepresenting it.</li>
+      <li><strong>Channel is dark.</strong> 70% of revenue flows through partners who have received zero Latitude-specific enablement or certification.</li>
+      <li><strong>JIRA commercial requests are unstructured.</strong> No standard intake. Every deal looks different. Impossible to track, staff, or price consistently.</li>
+      <li><strong>Knowledge lives in two people.</strong> Guy Willner and Chopper are closing monster contracts but the playbook is in their heads, not on paper. One departure breaks the whole thing.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 2: 30-DAY PLAN ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">2</div>
+    <h2>Willie's 30-Day Action Plan</h2>
+  </div>
+
+  <div class="teal-block">
+    <div class="tb-head">The Goal</div>
+    <p>Exit Day 30 with a contract audit in hand, a structured JIRA intake template live, and the first version of Latitude 101 drafted. Not finished — drafted and stakeholder-approved.</p>
+  </div>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <div class="week-label">Week 1 · Listen</div>
+      <ul>
+        <li><strong>David Luke intro call</strong> — strongest Latitude SA, ex-Equinix Metal, dedicated migration specialist</li>
+        <li><strong>Brian Koenig (Procurement)</strong> — understand contract structure, commercial guardrails</li>
+        <li><strong>Contract audit begins</strong> — pull 3 recent Guy / Chopper deals: what was sold, how it was scoped, what pricing looked like</li>
+      </ul>
+    </div>
+    <div class="week-card">
+      <div class="week-label">Week 2 · Gap Map</div>
+      <ul>
+        <li><strong>JIRA gap analysis</strong> — map current commercial request intake against what a structured template needs to capture</li>
+        <li><strong>"Questions I Can't Answer" doc</strong> — living document seeded from shadow calls and deal reviews; becomes the 201 curriculum foundation</li>
+      </ul>
+    </div>
+    <div class="week-card">
+      <div class="week-label">Week 3 · Build</div>
+      <ul>
+        <li><strong>Latitude 101 one-pager draft</strong> — what is it, 3 problems it solves, how to spot an opportunity in conversation</li>
+        <li><strong>VAST deep dive</strong> — use cases, positioning, discovery questions</li>
+        <li><strong>Wasabi deep dive</strong> — archival use cases, pricing model, partner relevance</li>
+      </ul>
+    </div>
+    <div class="week-card">
+      <div class="week-label">Week 4 · Standardize</div>
+      <ul>
+        <li><strong>JIRA template live</strong> — standard commercial intake fields enforced</li>
+        <li><strong>SA engagement rules</strong> — when and how to loop David Luke into a deal</li>
+        <li><strong>Present audit to Abby</strong> — findings from 3 contract reviews + recommended standards going forward</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 3: EQUINIX METAL ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">3</div>
+    <h2>Equinix Metal Opportunity — Act Now</h2>
+  </div>
+
+  <div class="alert">
+    <div class="alert-head">Clock Is Running — Equinix Metal Sunsets June 30, 2026</div>
+    <p>Every Metal customer must migrate off the platform. This is not an optional upsell. It is a forced migration with a hard deadline. Latitude is positioned to win a material share of these workloads.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Why Latitude Wins This</div>
+    <ul>
+      <li><strong>Same architecture familiarity.</strong> Bare metal cloud — Metal customers understand the model. No conceptual re-education required.</li>
+      <li><strong>Commercial hook:</strong> 4 months free on long-term commitments. That's a compelling switch offer for customers already facing forced migration costs.</li>
+      <li><strong>David Luke = dedicated resource.</strong> He knows the Metal customer profile. He's the right person on every migration call.</li>
+      <li><strong>Speed advantage.</strong> Every week without a coordinated outreach motion is pipeline left on the table. This is the #1 immediate play.</li>
+    </ul>
+  </div>
+
+  <div class="teal-block">
+    <div class="tb-head">Immediate Action Required</div>
+    <p>Willie needs Abby's support to stand up a coordinated Metal migration motion in the next 30 days — coordinating David Luke, channel partners, and any existing Megaport Metal customer overlap. This window closes June 30.</p>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 4: TRAINING CURRICULUM ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">4</div>
+    <h2>Training Curriculum Vision</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">101 — Awareness (30 min)</div>
+    <p><em>Format:</em> One slide + 5-min video + cheat sheet. <em>Target:</em> Every Megaport AE and channel partner.</p>
+    <ul>
+      <li>What is Latitude? (Bare metal cloud — no virtualization overhead, global reach, enterprise-grade)</li>
+      <li>Three problems it solves: latency-sensitive workloads, AI/ML compute density, regulated data environments</li>
+      <li>How to spot an opportunity in a customer conversation — the qualifying questions</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">201 — Readiness (2 hours)</div>
+    <p><em>Format:</em> Live or recorded workshop. <em>Target:</em> AEs with Latitude pipeline, channel partners pursuing certification.</p>
+    <ul>
+      <li>Architecture fundamentals — bare metal vs. cloud, when each wins</li>
+      <li>Storage stack: VAST Data (performance) vs. Wasabi (archival) — the only two options, keep it simple</li>
+      <li>Competitive positioning against Equinix Metal, Hivelocity, and hyperscaler bare metal offerings</li>
+      <li>Discovery question library built from the "Questions I Can't Answer" doc</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">301 — Enterprise Design (Half Day)</div>
+    <p><em>Format:</em> Workshop with SA present. <em>Target:</em> Senior AEs + channel partners pursuing Certified tier.</p>
+    <ul>
+      <li>Enterprise architecture design session — scoping a real deal</li>
+      <li>Multi-location design, SLA structuring, and commercial modeling</li>
+      <li>Handed off to David Luke or qualified SA for technical deep work</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 5: CHANNEL ACTIVATION ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">5</div>
+    <h2>Channel Activation</h2>
+  </div>
+
+  <div class="teal-block">
+    <div class="tb-head">The Problem with Today's Channel</div>
+    <p>70% of revenue is channel. Zero Latitude-specific certification exists. Partners can't attach what they don't understand. A 3-tier certification model solves this systematically.</p>
+  </div>
+
+  <table class="tier-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>Requirement</th>
+        <th>Capability Unlocked</th>
+        <th>Incentive</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-aware">Aware</span></td>
+        <td>Complete Latitude 101</td>
+        <td>Identify and qualify opportunities, pass to Megaport SA</td>
+        <td>SPIFF on first Latitude attach</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-ready">Ready</span></td>
+        <td>Pass 201 + complete one shadowed deal</td>
+        <td>Position and quote independently, own discovery</td>
+        <td>Enhanced margin + MDF access</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-certified">Certified</span></td>
+        <td>Complete 301 + one delivered Latitude deployment</td>
+        <td>Design and deliver enterprise solutions end-to-end</td>
+        <td>Certified partner badge + priority deal registration</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card" style="margin-top:12px">
+    <div class="card-title">"Latitude in a Box" — Partner Kit</div>
+    <ul>
+      <li>One-page product overview (co-branded)</li>
+      <li>Discovery question card</li>
+      <li>Competitive cheat sheet (Metal, Hivelocity, hyperscalers)</li>
+      <li>Deal registration guide + JIRA intake instructions</li>
+      <li>Storage decision tree: VAST vs. Wasabi in 60 seconds</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 6: STORAGE STACK ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">6</div>
+    <h2>The Storage Stack — Keep It Simple</h2>
+  </div>
+
+  <div class="teal-block">
+    <div class="tb-head">Two Options. Full Stop.</div>
+    <p>One of the fastest ways to lose a deal is to overwhelm sellers with options. Latitude's storage story is clean: <em>VAST</em> for performance workloads, <em>Wasabi</em> for archival. That's the answer to every storage question until the customer is in a 301-level design session.</p>
+  </div>
+
+  <div class="storage-grid">
+    <div class="storage-card sc-vast">
+      <div class="sc-name">VAST Data</div>
+      <div class="sc-tag">Performance &amp; Flash</div>
+      <div class="divider"></div>
+      <ul>
+        <li>AI / ML training and inference workloads</li>
+        <li>High-throughput databases</li>
+        <li>Media rendering and post-production</li>
+        <li>Any workload where latency is measured in microseconds</li>
+        <li>Ask: "Is your team bottlenecked by storage IOPS?"</li>
+      </ul>
+    </div>
+    <div class="storage-card sc-wasabi">
+      <div class="sc-name">Wasabi</div>
+      <div class="sc-tag">Archival &amp; Cold Storage</div>
+      <div class="divider"></div>
+      <ul>
+        <li>Backup and disaster recovery</li>
+        <li>Compliance archive (HIPAA, SEC, FINRA)</li>
+        <li>Long-term media and log retention</li>
+        <li>S3-compatible — simple migration from AWS S3</li>
+        <li>Ask: "How much are you spending on AWS S3 or Glacier?"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 7: ASK FROM ABBY ══════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">7</div>
+    <h2>Willie's Ask from Abby</h2>
+  </div>
+
+  <div class="ask-list">
+    <div class="ask-item">
+      <div class="ask-num">1</div>
+      <div class="ask-text">
+        <strong>Access to Recent Guy / Chopper Contracts</strong>
+        <span>The 3-deal audit in Week 1 requires access to finalized agreements. Willie needs Abby to open the door with legal/procurement to pull these. Without real contract data, the audit is guesswork.</span>
+      </div>
+    </div>
+    <div class="ask-item">
+      <div class="ask-num">2</div>
+      <div class="ask-text">
+        <strong>Authority to Standardize JIRA Commercial Intake</strong>
+        <span>The current JIRA workflow is freeform. Willie needs executive backing to mandate a standard template — otherwise sellers and SAs will route around it. This needs to be a GTM-wide directive, not a suggestion.</span>
+      </div>
+    </div>
+    <div class="ask-item">
+      <div class="ask-num">3</div>
+      <div class="ask-text">
+        <strong>Green Light to Build 101 / 201 / 301 Curriculum</strong>
+        <span>Willie will draft the curriculum. But it needs Abby's organizational support to get published, distributed to the channel, and included in onboarding. Curriculum without an owner doesn't get used.</span>
+      </div>
+    </div>
+    <div class="ask-item">
+      <div class="ask-num">4</div>
+      <div class="ask-text">
+        <strong>Intro to Cam Daniel — Weekly Cadence</strong>
+        <span>A direct weekly cadence with Cam ensures Willie can escalate blockers fast, stay aligned on Latitude product direction, and surface field feedback in real time. This is a force-multiplier for everything above.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<div class="footer">
+  Prepared by Willie Kopp &nbsp;·&nbsp; Latitude GTM &amp; Technical Enablement &nbsp;·&nbsp; June 24, 2026<br>
+  Megaport · Latitude.sh · Confidential — Not for External Distribution
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
