@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Latitude ICP Deep Dive — Why Bare Metal Wins</title>
+  <meta name="description" content="A premium strategy site for defending why Latitude bare metal plus Megaport private fabric wins for AI, CI/CD, developer, data, security, gaming, and edge infrastructure platforms." />
+  <meta property="og:title" content="Latitude ICP Deep Dive — Why Bare Metal Wins" />
+  <meta property="og:description" content="Technical truth, Modal and Blacksmith architectures, target ICP list, and ROI model for Latitude bare metal plus Megaport private connectivity." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23091324'/%3E%3Cpath d='M14 43 32 12l18 31H14Z' fill='%23E4002B'/%3E%3Ccircle cx='32' cy='34' r='8' fill='%2300D4FF'/%3E%3C/svg%3E" />
+  <style>
+    :root { --bg: #06101f; --bg2: #091a31; --panel: rgba(13,31,55,.78); --panel-strong: #10233d; --line: rgba(138,176,211,.22); --text: #f2f7ff; --muted: #a9b8cd; --faint: #7f91aa; --red: #E4002B; --cyan: #00D4FF; --blue: #377dff; --green: #6ee7b7; --amber: #f7c948; --shadow: 0 24px 80px rgba(0,0,0,.38); --spring: cubic-bezier(.16,1,.3,1); --spring-tight: cubic-bezier(.22,.61,.2,1.08); }
+    * { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; color: var(--text); background: radial-gradient(circle at 18% 12%, rgba(0,212,255,.12), transparent 30%), radial-gradient(circle at 88% 8%, rgba(228,0,43,.15), transparent 28%), linear-gradient(140deg, #040914 0%, #071425 42%, #0a1b30 100%); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.62; letter-spacing: 0; overflow-x: hidden; }
+    a { color: var(--cyan); text-decoration: none; } a:hover { color: #7beaff; }
+    .grain { position: fixed; inset: 0; pointer-events: none; opacity: .18; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E"); }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(4,9,20,.78); border-bottom: 1px solid var(--line); }
+    .nav { max-width: 1220px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 210px; } .mark { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.16); background: linear-gradient(140deg, rgba(228,0,43,.9), rgba(0,212,255,.85)); box-shadow: 0 10px 28px rgba(228,0,43,.18); clip-path: polygon(50% 0, 100% 28%, 86% 100%, 14% 100%, 0 28%); } .brand strong { display:block; font-size: 14px; line-height: 1.1; } .brand span { display:block; color: var(--muted); font-size: 12px; }
+    .navlinks { display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; } .navlinks a { color: var(--muted); font-size: 13px; padding: 8px 10px; border-radius: 999px; transition: color .35s var(--spring), background .35s var(--spring), transform .35s var(--spring); } .navlinks a:hover, .navlinks a.active { color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
+    main, header, footer { position: relative; z-index: 1; } .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 24px 90px; border-bottom: 1px solid var(--line); overflow: hidden; } .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent 92%); }
+    .hero-inner { max-width: 1220px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1.1fr) minmax(320px,.9fr); gap: 46px; align-items: center; } .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; background: rgba(0,212,255,.08); border: 1px solid rgba(0,212,255,.28); padding: 7px 10px; border-radius: 999px; } .eyebrow i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 5px rgba(228,0,43,.14); }
+    h1 { font-family: ui-serif, Georgia, Cambria, serif; font-size: clamp(48px, 7vw, 96px); line-height: .95; letter-spacing: 0; margin: 24px 0 22px; } .hero-copy { max-width: 780px; color: #c8d6e8; font-size: clamp(18px, 2vw, 22px); } .hero-actions { display:flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; } .btn { display: inline-flex; align-items: center; gap: 9px; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,.16); color: var(--text); background: rgba(255,255,255,.06); transition: transform .35s var(--spring), border-color .35s var(--spring), background .35s var(--spring); font-weight: 700; font-size: 14px; } .btn.primary { background: var(--red); border-color: rgba(228,0,43,.8); box-shadow: 0 16px 38px rgba(228,0,43,.22); } .btn:hover { transform: translateY(-2px); color: var(--text); border-color: rgba(0,212,255,.55); background: rgba(255,255,255,.1); } .btn.primary:hover { background: #ff1742; }
+    .hero-visual { position: relative; min-height: 520px; border: 1px solid var(--line); border-radius: 8px; background: linear-gradient(160deg, rgba(16,35,61,.8), rgba(6,16,31,.96)); box-shadow: var(--shadow); padding: 24px; overflow: hidden; } .radar { position: absolute; inset: 22px; border: 1px solid rgba(0,212,255,.18); border-radius: 50%; background: radial-gradient(circle, transparent 22%, rgba(0,212,255,.05) 23%, transparent 24%, transparent 44%, rgba(0,212,255,.04) 45%, transparent 46%, transparent 66%, rgba(0,212,255,.04) 67%, transparent 68%), conic-gradient(from 180deg, rgba(228,0,43,.0), rgba(228,0,43,.22), rgba(0,212,255,.18), rgba(228,0,43,0)); animation: sweep 13s var(--spring) infinite alternate; } @keyframes sweep { from { transform: rotate(-8deg) scale(.98); } to { transform: rotate(18deg) scale(1.02); } } .node { position: absolute; width: 13px; height: 13px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 9px rgba(0,212,255,.12), 0 0 28px rgba(0,212,255,.8); } .node.red { background: var(--red); box-shadow: 0 0 0 9px rgba(228,0,43,.13), 0 0 28px rgba(228,0,43,.75); } .n1 { left:24%; top:24%; } .n2 { left:64%; top:18%; } .n3 { left:74%; top:58%; } .n4 { left:36%; top:71%; }
+    .hero-card { position: absolute; left: 24px; right: 24px; bottom: 24px; padding: 18px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; background: rgba(4,9,20,.82); backdrop-filter: blur(10px); } .hero-card h2 { margin: 0 0 8px; font-size: 20px; } .hero-card p { margin: 0; color: var(--muted); font-size: 14px; } .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; } .stat { border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 13px; background: rgba(255,255,255,.045); } .stat b { display:block; font-size: 22px; color: var(--text); } .stat small { color: var(--muted); font-size: 12px; }
+    section { padding: 96px 24px; border-bottom: 1px solid var(--line); } .wrap { max-width: 1220px; margin: 0 auto; } .section-head { max-width: 850px; margin-bottom: 34px; } .kicker { color: var(--red); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; } h2 { font-family: ui-serif, Georgia, Cambria, serif; font-size: clamp(34px, 4vw, 58px); line-height: 1.02; letter-spacing: 0; margin: 10px 0 14px; } .lede { color: #c4d1e4; font-size: 18px; max-width: 860px; } .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; } .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap: 18px; } .panel, details, .target-card, .table-wrap { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: 0 16px 50px rgba(0,0,0,.16); } .panel { padding: 22px; } .panel h3, details h3, .target-card h3 { margin: 0 0 10px; font-size: 22px; line-height: 1.2; } .panel p { color: var(--muted); margin: 0 0 12px; } .panel p:last-child { margin-bottom: 0; } .callout { border-left: 4px solid var(--red); background: linear-gradient(90deg, rgba(228,0,43,.15), rgba(0,212,255,.06)); padding: 18px 20px; border-radius: 8px; margin: 22px 0; color: #dce9fa; }
+    details { margin: 13px 0; overflow: hidden; } summary { cursor: pointer; list-style: none; padding: 19px 22px; display:flex; align-items:center; justify-content:space-between; gap: 16px; font-weight: 800; font-size: 19px; color: var(--text); } summary::-webkit-details-marker { display:none; } summary::after { content: "+"; color: var(--cyan); width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid rgba(0,212,255,.3); border-radius: 50%; transition: transform .35s var(--spring), background .35s var(--spring); flex: 0 0 auto; } details[open] summary::after { content: "−"; transform: rotate(180deg); background: rgba(0,212,255,.08); } .details-body { padding: 0 22px 22px; color: var(--muted); } .details-body p { margin-top: 0; } .truth-grid { display:grid; grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: 20px; align-items:start; } .metric-list { display:grid; gap: 12px; margin-top: 18px; } .metric-row { display:flex; gap: 12px; align-items:flex-start; padding: 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 8px; background: rgba(255,255,255,.04); } .metric-row b { color: var(--cyan); min-width: 90px; }
+    .diagram { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: rgba(5,13,26,.72); overflow: auto; } .diagram svg { width: 100%; min-width: 720px; height: auto; display:block; } .svg-box { fill: rgba(16,35,61,.96); stroke: rgba(169,184,205,.34); stroke-width: 1.2; rx: 10; } .svg-box.red { fill: rgba(228,0,43,.18); stroke: rgba(228,0,43,.8); } .svg-box.cyan { fill: rgba(0,212,255,.12); stroke: rgba(0,212,255,.65); } .svg-box.cloud { fill: rgba(55,125,255,.12); stroke: rgba(55,125,255,.65); } .svg-text { fill: #eef6ff; font-size: 15px; font-weight: 700; } .svg-small { fill: #a9b8cd; font-size: 12px; } .svg-line { stroke: rgba(0,212,255,.72); stroke-width: 2.5; fill:none; marker-end: url(#arrow); } .svg-line.red { stroke: rgba(228,0,43,.78); } .svg-line.cloud { stroke: rgba(55,125,255,.85); }
+    .target-tools { display:flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 24px; } .filter-btn { border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.055); color: var(--muted); border-radius: 999px; padding: 9px 12px; cursor:pointer; transition: transform .3s var(--spring), color .3s var(--spring), background .3s var(--spring); } .filter-btn:hover, .filter-btn.active { transform: translateY(-1px); color: var(--text); background: rgba(228,0,43,.22); border-color: rgba(228,0,43,.55); } .target-list { display:grid; gap: 14px; } .target-card { display:grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 20px; transition: transform .35s var(--spring), border-color .35s var(--spring), background .35s var(--spring); } .target-card:hover { transform: translateY(-2px); border-color: rgba(0,212,255,.45); background: rgba(14,36,64,.9); } .target-index { color: rgba(0,212,255,.72); font-family: ui-serif, Georgia, serif; font-size: 32px; line-height: 1; } .target-cat { color: var(--red); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; } .target-card p { margin: 0 0 9px; color: var(--muted); } .target-card strong { color: #dce8fb; } .target-meta { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; } .target-meta span { border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 10px; color: var(--muted); font-size: 13px; background: rgba(255,255,255,.04); }
+    .table-wrap { overflow: auto; } table { width: 100%; border-collapse: collapse; min-width: 860px; } th, td { padding: 14px 15px; border-bottom: 1px solid rgba(255,255,255,.1); text-align:left; vertical-align: top; } th { color: var(--text); background: rgba(255,255,255,.06); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; } td { color: var(--muted); } tr { transition: background .28s var(--spring); } tbody tr:hover { background: rgba(0,212,255,.065); } .win { color: var(--green); font-weight: 800; } .risk { color: var(--amber); font-weight: 800; } .redtext { color: #ff6f86; font-weight: 800; } .roi-model { display:grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 20px; align-items:start; } .formula { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #d8f7ff; background: rgba(0,0,0,.28); border: 1px solid rgba(0,212,255,.18); border-radius: 8px; padding: 14px; overflow:auto; } .sources-list { columns: 2; column-gap: 34px; color: var(--muted); } .sources-list li { margin: 0 0 9px; break-inside: avoid; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--spring), transform .8s var(--spring); } .reveal.visible { opacity: 1; transform: translateY(0); } footer { padding: 38px 24px; color: var(--muted); background: #030814; } footer .wrap { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center; }
+    @media (max-width: 920px) { .hero-inner, .truth-grid, .grid-3, .grid-2, .roi-model { grid-template-columns: 1fr; } .hero { padding-top: 76px; } .hero-visual { min-height: 390px; } .stat-strip { grid-template-columns: repeat(2, 1fr); } .nav { align-items:flex-start; } .navlinks { max-width: 100%; justify-content:flex-start; overflow:auto; padding-bottom: 2px; } .target-meta { grid-template-columns: 1fr; } section { padding: 82px 20px; } }
+    @media (max-width: 560px) { .nav { padding: 12px 16px; display:block; } .brand { margin-bottom: 10px; } .hero { padding: 70px 18px 74px; } .hero-actions { display:grid; } .stat-strip { grid-template-columns: 1fr; } .target-card { grid-template-columns: 1fr; } h1 { font-size: 46px; } h2 { font-size: 34px; } summary { font-size: 17px; } .sources-list { columns: 1; } }
+    @media print { body { background: #fff; color: #111; } .grain, .topbar, .hero-visual, .target-tools, .btn { display:none !important; } section, .hero { padding: 24px 0; border-bottom: 1px solid #ccc; min-height: 0; } .wrap, .hero-inner { max-width: none; display:block; } .panel, details, .target-card, .table-wrap { box-shadow:none; border: 1px solid #ccc; background:#fff; } a { color:#0645ad; } .reveal { opacity:1 !important; transform:none !important; } details { page-break-inside: avoid; } details:not([open]) .details-body { display:block; } }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <nav class="topbar"><div class="nav"><a class="brand" href="#top" aria-label="Back to top"><span class="mark" aria-hidden="true"></span><span><strong>Latitude War Room</strong><span>Bare Metal ICP Brief</span></span></a><div class="navlinks" aria-label="Section navigation"><a href="#truth">Technical Truth</a><a href="#architecture">Architecture</a><a href="#targets">Targets</a><a href="#roi">ROI</a><a href="#playbook">SA Playbook</a><a href="#sources">Sources</a></div></div></nav>
+  <header id="top" class="hero"><div class="hero-inner"><div class="reveal visible"><div class="eyebrow"><i></i> Prepared for Willie Kopp · Megaport / Latitude GTM</div><h1>Latitude ICP Deep Dive — Why Bare Metal Wins</h1><p class="hero-copy">The customer is not “anyone who uses GPUs.” The best Latitude customer is a platform company whose own product gets worse when cloud VM abstraction adds jitter, overhead, egress taxes, or opaque scheduling. Modal and Blacksmith are the pattern: they resell infrastructure outcomes to developers, so every microsecond, cache hit, GPU utilization point, and dollar of egress becomes their gross margin.</p><div class="hero-actions"><a class="btn primary" href="#truth">Read the technical defense</a><a class="btn" href="#targets">Open ICP target list</a><a class="btn" href="#roi">Model the ROI</a></div></div><div class="hero-visual reveal visible" aria-label="Megaport and Latitude network visual"><div class="radar"></div><span class="node red n1"></span><span class="node n2"></span><span class="node red n3"></span><span class="node n4"></span><div class="hero-card"><h2>Compute + private fabric is the wedge</h2><p>Latitude supplies dedicated silicon. Megaport supplies private paths to hyperscalers, data centers, and network services. Together, the pitch changes from “cheaper servers” to “a private execution layer for performance-sensitive platforms.”</p><div class="stat-strip"><div class="stat"><b><span data-count="1100">0</span>+</b><small>Megaport data centers</small></div><div class="stat"><b>$<span data-count="300">0</span>M</b><small>Latitude deal value</small></div><div class="stat"><b><span data-count="73">0</span>%</b><small>H100 savings vs legacy $98/hr cloud list</small></div><div class="stat"><b><span data-count="40">0</span>x</b><small>Docker build gains cited by Blacksmith</small></div></div></div></div></div></header>
+  <main>
+    <section id="brief"><div class="wrap"><div class="section-head reveal"><div class="kicker">Executive Read</div><h2>The winning ICP is infrastructure resale with performance promises.</h2><p class="lede">Latitude should not chase generic cloud migration. The strongest buyers are companies whose product is a compute abstraction for someone else: serverless AI platforms, CI/CD runners, cloud development environments, managed data systems, game-server orchestration, security scanning, real-time media, and edge compute layers. They already sell speed, isolation, locality, or predictable cost. Bare metal improves the unit economics and the SLA behind those promises.</p></div><div class="grid-3"><article class="panel reveal"><h3>1. Bare metal is not nostalgia.</h3><p>It is the removal of abstraction where abstraction has become the bottleneck. Cloud VMs are brilliant for elasticity and procurement speed, but they still virtualize CPU scheduling, memory topology, disk, network, and often accelerator access. When a platform is at scale, the useful question is not “can the workload run on EC2?” It can. The question is “how much product margin and p99 performance is being donated to the hypervisor, shared storage, egress model, and noisy fabric?”</p></article><article class="panel reveal"><h3>2. Megaport changes the story.</h3><p>Plain bare metal can sound like a cheaper server. Latitude plus Megaport becomes a private compute layer: dedicated CPU/GPU/NVMe nodes connected through private VXCs, MCR, cloud on-ramps, internet exchange, and service-provider reach. The customer can keep S3, Azure Blob, BigQuery, GitHub, package registries, or enterprise data where it is while moving hot execution onto dedicated silicon.</p></article><article class="panel reveal"><h3>3. Modal and Blacksmith are archetypes.</h3><p>Modal monetizes GPU execution. Blacksmith monetizes fast builds. Both win when the substrate is faster, cheaper, more deterministic, and easier to defend to their own customers. That is the ICP filter: if the target’s own value proposition includes performance, concurrency, isolation, low latency, cache locality, GPU availability, or cost transparency, Latitude has a strategic conversation instead of a commodity hosting conversation.</p></article></div><div class="callout reveal"><strong>Defensible positioning:</strong> “Latitude is for platforms that cannot hide infrastructure variability from their customers. Hyperscalers sell general-purpose elasticity. Latitude sells dedicated execution with private reach to the clouds those customers still depend on.”</div></div></section>
+    <section id="truth"><div class="wrap"><div class="section-head reveal"><div class="kicker">Section 1</div><h2>Why bare metal beats cloud VMs: the deep technical truth.</h2><p class="lede">A hypervisor is not a logo on an architecture diagram. It is an active software and hardware mediation layer between the workload and the machine. For general apps, that trade is often worth it. For high-throughput AI, CI, data, security scanning, and real-time platforms, the hidden tax shows up in p99 latency, GPU utilization, cache misses, I/O variance, and unit cost.</p></div><div class="truth-grid"><div class="panel reveal"><h3>The shorthand Willie should use</h3><p><strong>VMs optimize for fleet abstraction.</strong> They let AWS, Azure, and Google carve huge machines into many rentable shapes. The provider gets high utilization and control. The customer gets elasticity and managed primitives.</p><p><strong>Bare metal optimizes for workload truth.</strong> The customer sees the real topology: sockets, cores, NUMA domains, PCIe lanes, NVMe devices, NIC queues, interrupts, kernel, and GPU links. That visibility is not academic. It is exactly where performance engineers recover the last 10-30% of a system.</p><div class="metric-list"><div class="metric-row"><b>CPU</b><span>No CPU steal from another tenant and no scheduler layer translating virtual CPUs into physical execution slots.</span></div><div class="metric-row"><b>Memory</b><span>Full RAM footprint and direct NUMA-aware placement instead of a topology abstracted by the host.</span></div><div class="metric-row"><b>GPU</b><span>Direct device access and predictable CPU↔GPU paths, critical for high-QPS inference and distributed training.</span></div><div class="metric-row"><b>I/O</b><span>Local PCIe NVMe and direct NIC tuning instead of network-attached storage and virtual devices.</span></div></div></div><div>
+      <details class="reveal" open><summary>Hypervisor Tax: the 5-15% that never reaches customer code</summary><div class="details-body"><p>A cloud VM is a guest operating system running on a virtual machine monitor. AWS Nitro, Azure Hyper-V, and Google’s KVM-based stack all exist to virtualize hardware: the CPU becomes vCPU, physical RAM becomes guest memory, disk becomes a virtual block device, and the NIC becomes a virtual network interface. The hypervisor schedules those virtual resources onto real silicon and enforces isolation between tenants.</p><p>That work has a cost. Modern virtualization is far better than the old emulation era, but “near native” is not “native.” The overhead depends on the workload: CPU-bound code may lose only a few percent on a well-tuned KVM/Nitro path, while interrupt-heavy networking, storage-heavy builds, and mixed CPU/GPU workloads can lose materially more. A defensible field range is 5-15% of raw CPU efficiency for many real production mixes, with occasional higher penalties when I/O and scheduling contention dominate.</p><p>The easiest analogy: a hypervisor is a brilliant hotel front desk. It allocates rooms, keeps guests isolated, routes requests, handles locks, and keeps the building full. But if you are building a factory, you may not want every forklift, delivery, door key, and power switch mediated by the front desk. Bare metal gives the platform the factory floor.</p><p>Memory is part of the same tax. Providers reserve host memory for their virtualization layer, device emulation, metadata, and management plane. Guest-visible memory is the instance shape, not the entire physical machine. On some large VMs the customer sees a clean number like 256 GiB, but host overhead and page management still sit outside the guest. On bare metal, the operating system sees and controls the whole installed memory footprint, and the performance engineer can use huge pages, lock memory, tune allocators, and place pages deliberately.</p><p>I/O is where the abstraction becomes expensive quickly. Every disk read, disk write, network packet, interrupt, and DMA mapping moves through a virtual device layer or hardware-assisted virtualization path. A few microseconds per operation sounds harmless until a CI fleet performs millions of tiny file operations, an inference service launches thousands of kernels per second, or a data platform fans out object reads across hundreds of shards. Microseconds compound into p99 tails.</p></div></details>
+      <details class="reveal"><summary>Noisy Neighbor: shared hardware means borrowed variance</summary><div class="details-body"><p>Cloud VMs share physical hosts, host-level network paths, storage systems, and management planes. The provider’s isolation mechanisms are good enough for most applications. They are not a guarantee that another tenant’s burst, the host scheduler, a hot NIC queue, or a storage service event will never touch your latency distribution.</p><p>CPU steal is the visible clue. In Linux, the <code>%st</code> column in <code>top</code> is time when the guest wanted CPU but the hypervisor did not let it run because the physical CPU was doing something else. Datadog’s explanation is blunt: from the app’s point of view, stolen CPU cycles are cycles the app could have used. On busy or oversubscribed hosts, teams have reported steal spikes that materially hurt throughput. The exact rate varies by instance type, provider, region, and neighbor mix, so Willie should avoid pretending every EC2 instance sees 20% steal. The defensible claim is better: any steal above low single digits is unplanned latency and capacity loss, and bare metal takes that class of risk to zero because there is no co-tenant scheduler.</p><p>Network jitter follows the same pattern. Shared NICs, virtual switches, host interrupts, noisy placement groups, and provider network fabric events can all widen p99 and p999 latency. For AI inference, tail latency is the SLA. A median of 45 ms with a p99 of 240 ms can be worse than a median of 55 ms with a p99 of 80 ms, because users and upstream services experience the tail. Bare metal gives the platform direct control over NIC queues, IRQ affinity, congestion control, and packet processing. The result is not magic latency everywhere; it is lower variance and fewer hidden schedulers in the path.</p><p>This is why the “dedicated instance” objection is incomplete. Dedicated tenancy can reduce same-host tenant competition, but it does not remove every shared component. The instance can still rely on shared provider storage, shared region network paths, managed control planes, and provider-defined host settings. Latitude’s strongest answer is single-tenant hardware plus a private fabric strategy: fewer shared layers in compute, and fewer unpredictable public-internet paths in network.</p></div></details>
+      <details class="reveal"><summary>NUMA and Memory Locality: topology is performance</summary><div class="details-body"><p>Modern AMD EPYC systems are not just “a lot of cores.” They are topology. NUMA means Non-Uniform Memory Access: memory access speed depends on where the memory physically sits relative to the CPU core doing the work. Local memory is attached to the same socket or NUMA domain. Remote memory crosses interconnects and costs more latency and less bandwidth.</p><p>The practical difference can be large. AMD’s NUMA material explains the basic rule: local memory has lower latency than memory attached to another NUMA domain. Independent EPYC testing shows tens of nanoseconds of penalty when memory locality is blurred, and multi-socket systems can show much larger gaps. That sounds tiny only if the workload touches memory once. Data systems, model serving runtimes, feature stores, vector indexes, build tools, compression, and packet processing touch memory constantly. Remote memory turns into lost QPS and wider p99.</p><p>Hypervisors often abstract or reshape NUMA topology so a VM sees a simplified machine. That is convenient for portability. It is bad when the application could have done better with the truth. If a scheduler places a CPU-heavy process on one socket while its memory pages live mostly on another, the code still runs, but it quietly pays the remote-memory toll. Worse, the application may not know why performance fluctuates.</p><p>Bare metal lets operators pin processes, containers, and interrupt handlers to specific NUMA nodes. They can bind memory allocation with <code>numactl</code>, configure Kubernetes topology manager policies, align GPU workers with the CPU socket closest to the relevant PCIe root complex, and keep hot buffers near the threads that use them. For GPU workloads this matters because CPU↔GPU data transfer, preprocessing, tokenization, networking, and storage reads often bottleneck the accelerator. The GPU is only “fast” if the rest of the machine feeds it predictably.</p></div></details>
+      <details class="reveal"><summary>PCIe Passthrough and GPU Performance: accelerators hate abstraction</summary><div class="details-body"><p>GPU workloads are full of small coordination events: CUDA kernel launches, memory copies, synchronization points, NCCL communication, queue management, and host-side preprocessing. Every layer that adds latency or jitter around those events hurts utilization. A GPU at 62% utilization is not a cheaper GPU; it is expensive silicon waiting for the rest of the stack.</p><p>Cloud GPU instances can expose accelerators through different mechanisms, including full-device assignment, SR-IOV, vGPU, or provider-specific virtualization. Hardware-assisted paths can be excellent, and NVIDIA documents SR-IOV as a way for packets to bypass hypervisor CPU/kernel processing in accelerated network designs. Supermicro’s GPU passthrough explainer captures the core advantage: direct assignment bypasses much of the hypervisor abstraction and can deliver near-native performance. That is exactly the point. The closer the workload gets to direct hardware, the less value the VM abstraction adds.</p><p>Latitude’s bare-metal pitch should avoid an overbroad claim that every hyperscaler GPU is “vGPU and slow.” High-end cloud GPU nodes are often very capable. The defensible claim is that Latitude gives the customer the full machine, full device topology, and full software control. There is no cloud provider host kernel between the customer and PCIe device policy. There is no need to accept provider choices about guest shape, MIG policy, kernel version, driver cadence, huge pages, or NIC/GPU affinity.</p><p>For inference, that control can improve GPU utilization and tail latency: fewer scheduling surprises, tighter CPU pinning, explicit batching, direct disk/cache paths, and topology-aware worker placement. A realistic target is 10-20% better effective utilization for mature teams that can tune the stack. For training, the same control helps gradient synchronization: NCCL, NVLink/NVSwitch topology, PCIe locality, and network interrupt affinity can be tuned together rather than inferred through a VM boundary.</p></div></details>
+      <details class="reveal"><summary>Kernel and Network Stack Control: DPDK, XDP, eBPF, huge pages</summary><div class="details-body"><p>On bare metal, the customer owns the kernel. That sounds mundane until the customer cares about packets, memory pages, interrupts, or latency. They can enable 2 MiB or 1 GiB huge pages, tune <code>sysctl</code>, choose a low-latency kernel, isolate CPU cores, bind NIC queues to cores, adjust congestion control, and run specialized packet processing stacks.</p><p>DPDK is the clearest example. The Data Plane Development Kit bypasses much of the Linux kernel network stack and lets user-space applications poll NIC queues directly with zero-copy techniques. In conventional networking, packets pass through kernel layers, interrupt handling, context switches, socket buffers, and scheduler decisions before the application acts. DPDK trades general-purpose convenience for low latency and high packet rate. In low-latency systems, reducing a network path from tens of microseconds toward single-digit microseconds can be the whole product.</p><p>Cloud VMs may offer enhanced networking, SR-IOV, and high bandwidth, but standard VMs do not let the customer reprogram the physical NIC or host kernel. XDP and eBPF at the NIC/driver layer are similar. They are powerful because they move decisions closer to the packet. On a VM, the customer is usually limited to the guest-visible interface and whatever provider abstractions are exposed. On bare metal, the platform can run packet filters, load balancers, telemetry, and custom routing closer to the wire.</p><p>Megaport extends this advantage. A tuned network stack on a Latitude server is valuable. A tuned network stack attached to private cloud on-ramps, MCR routing, and predictable VXC paths is a differentiated architecture. For regulated AI platforms, CI systems pulling private packages, and data platforms joining cloud object stores, the point is not only lower latency. It is fewer public internet paths, cleaner controls, better auditability, and stronger p99 behavior.</p></div></details>
+      <details class="reveal"><summary>Storage Performance: local NVMe beats remote block for hot paths</summary><div class="details-body"><p>Hyperscaler block storage is convenient because it is durable, resizable, replicated, snapshot-friendly, and separately managed from compute. That convenience is exactly why it is slower and more variable than local NVMe. AWS io2 Block Express is very good by cloud-block standards: AWS documents up to 256,000 IOPS, 4,000 MB/s, and average latency under 500 microseconds for 16 KiB operations on Nitro. That is impressive for network-attached storage. It is still not the same as local SSD sitting directly on the PCIe bus.</p><p>Local NVMe routinely reaches very high random IOPS with latency around the low hundreds of microseconds or better under tuned conditions, and there is no separate storage network hop. For CI/CD, this is decisive. A large build is not one big read. It is thousands or millions of small file stats, opens, cache lookups, decompressions, layer reads, package installs, and compiler writes. Remote cache and object storage add round trips. Local NVMe turns cache hits into disk hits inside the same machine.</p><p>Blacksmith is the clean story. Its public site says jobs run on bare-metal gaming CPUs, cache downloads are 4x faster, and Docker builds can be 40x faster because Docker layers persist on NVMe across runs. Their docs report 2x to 40x improvements from Docker layer caching. That is not a generic “bare metal is faster” claim; it is the exact mechanism: keep hot build state local and persistent where the runner executes.</p><p>For AI platforms, local NVMe matters too. Model weights, tokenizer files, compiled kernels, embedding indexes, datasets, and batch spill files all punish remote storage. The fastest H100 cluster can still idle if it repeatedly pulls weights from object storage or churns through network block volumes. Latitude’s value is to pair GPU/CPU with local disks and let the platform decide what stays hot.</p></div></details>
+      <details class="reveal"><summary>Predictable Cost: platform companies need margin, not just discounts</summary><div class="details-body"><p>At platform scale, infrastructure cost is not an engineering footnote. It is cost of goods sold. If Modal serves more customer workloads per GPU, its gross margin improves. If Blacksmith runs the same build minutes with fewer servers, it can price aggressively without starving the business. If an edge platform avoids egress spikes, it can offer simple pricing instead of passing cloud surprises to customers.</p><p>The current H100 pricing story requires nuance. The original brief cites AWS p5.48xlarge at roughly $98/hr for 8 H100s, or about $861K per year at 24x7 use. Current public pricing aggregators show AWS p5.48xlarge closer to $55.04/hr in us-east, while Azure ND96isr H100 and GCP a3-highgpu-8g aggregators still show roughly $98/hr and $88/hr respectively. Latitude public and aggregator pricing has also moved: the brief’s conservative $3.37/GPU-hour implies $26.96/hr for 8 H100s, while current public starting prices can appear lower depending on region, PCIe/SXM shape, and availability.</p><p>The defensible move in front of a customer is to model three cases: current list, committed cloud discount, and committed Latitude. Even with the lower current AWS comparison, $26.96/hr versus $55.04/hr is about 51% lower before storage and egress. Against the older or Azure/GCP high-$80s to high-$90s comparisons, the savings land near the brief’s 70%+ claim. Latitude’s December 2025 changelog also says yearly reserved GPU pricing can receive 50% off hourly rates, which makes committed platform economics even more compelling.</p><p>Egress is the hidden tax. AWS’s own EC2 pricing page notes data transfer out charges after the free allowance, and market references commonly cite $0.09/GB for the first 10 TB tier. Latitude’s networking page says servers include 20 TB outbound monthly and lists much lower overage bands in many regions. More importantly, Megaport private connectivity changes the architecture: move hot execution out of public cloud, keep data relationships private, and stop treating public internet egress as an unavoidable platform tax.</p></div></details>
+    </div></div></div></section>
+    <section id="architecture"><div class="wrap"><div class="section-head reveal"><div class="kicker">Section 2</div><h2>The architecture: how it actually works.</h2><p class="lede">The combined Latitude + Megaport architecture is not a rip-and-replace of AWS, Azure, or GCP. It is a private execution layer for the hot path. Keep object stores, customer VPCs, enterprise identity, observability, and repositories where they already live. Move the compute that needs deterministic performance onto dedicated silicon and attach it privately.</p></div><div class="grid-2"><article class="panel reveal"><h3>Modal pattern: serverless AI on dedicated GPU metal</h3><p>Modal’s customers submit workloads through Modal’s API and SDK. Modal’s scheduler decides where to run those functions, containers, batch jobs, or inference endpoints. In the Latitude architecture, the scheduler provisions containers onto bare-metal GPU servers rather than treating cloud GPU VMs as the only substrate.</p><p>The H100/A100/L40S machines expose the real topology: GPUs connected through PCIe/NVLink/NVSwitch paths, local NVMe for model/cache/data staging, and CPU NUMA domains that can be pinned to preprocessing workers. Modal can run its own container runtime, batching strategy, model cache policy, kernel, huge pages, and network settings. The platform gets the determinism of owned infrastructure without building every data center relationship itself.</p><p>When a Modal customer needs data from S3, Azure Blob, BigQuery, Snowflake, or a private enterprise network, traffic should not hairpin over the public internet. Megaport provides the private fabric. A VXC or MCR path connects the Latitude facility to cloud on-ramps or customer networks. That path reduces public internet exposure, improves latency predictability, and supports compliance narratives around private data movement.</p><p>The result is global inference with local bare metal: US, EU, LATAM, and APAC GPU pools close to end users, with private paths back to whatever cloud still holds the customer’s data. Modal keeps its serverless developer experience. Latitude disappears under the product as the performance substrate.</p></article><div class="diagram reveal" aria-label="Modal architecture diagram"><svg viewBox="0 0 920 540" role="img"><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#00D4FF" /></marker></defs><rect class="svg-box cloud" x="30" y="54" width="180" height="74" rx="10"/><text class="svg-text" x="54" y="88">Modal customer</text><text class="svg-small" x="54" y="110">API / SDK / workload</text><path class="svg-line" d="M210 91 C260 91 252 91 300 91"/><rect class="svg-box" x="300" y="40" width="210" height="104" rx="10"/><text class="svg-text" x="326" y="78">Modal orchestration</text><text class="svg-small" x="326" y="100">scheduler · images · routing</text><text class="svg-small" x="326" y="120">placement · autoscale</text><path class="svg-line red" d="M405 144 C405 190 405 194 405 238"/><rect class="svg-box red" x="248" y="238" width="315" height="132" rx="10"/><text class="svg-text" x="276" y="276">Latitude GPU bare metal</text><text class="svg-small" x="276" y="300">H100 / A100 / L40S · direct PCIe</text><text class="svg-small" x="276" y="322">local NVMe model cache · NUMA pinning</text><text class="svg-small" x="276" y="344">full kernel and network stack control</text><path class="svg-line" d="M563 304 C630 304 630 304 690 304"/><rect class="svg-box cyan" x="690" y="236" width="196" height="138" rx="10"/><text class="svg-text" x="718" y="274">Megaport fabric</text><text class="svg-small" x="718" y="298">VXC · MCR · cloud on-ramps</text><text class="svg-small" x="718" y="320">private paths, not internet</text><text class="svg-small" x="718" y="342">multi-cloud attachment</text><path class="svg-line cloud" d="M788 236 C788 188 750 172 702 148"/><path class="svg-line cloud" d="M788 374 C788 426 752 444 704 462"/><rect class="svg-box cloud" x="574" y="52" width="232" height="84" rx="10"/><text class="svg-text" x="604" y="86">Cloud data sources</text><text class="svg-small" x="604" y="108">S3 · Azure Blob · BigQuery</text><rect class="svg-box cloud" x="574" y="436" width="232" height="72" rx="10"/><text class="svg-text" x="604" y="470">Customer networks</text><text class="svg-small" x="604" y="492">enterprise VPCs · regulated data</text><text class="svg-small" x="274" y="410">Value: higher GPU utilization, lower tail latency, private data ingress/egress, global inference regions.</text></svg></div></div><div class="grid-2" style="margin-top:18px;"><div class="diagram reveal" aria-label="Blacksmith architecture diagram"><svg viewBox="0 0 920 540" role="img"><defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#00D4FF" /></marker></defs><rect class="svg-box cloud" x="34" y="58" width="190" height="78" rx="10"/><text class="svg-text" x="62" y="92">Developer push</text><text class="svg-small" x="62" y="114">GitHub repo event</text><path class="svg-line" marker-end="url(#arrow2)" d="M224 97 C276 97 276 97 330 97"/><rect class="svg-box" x="330" y="46" width="214" height="102" rx="10"/><text class="svg-text" x="356" y="82">GitHub Actions</text><text class="svg-small" x="356" y="104">workflow trigger</text><text class="svg-small" x="356" y="126">routes to Blacksmith</text><path class="svg-line red" marker-end="url(#arrow2)" d="M437 148 C437 190 437 202 437 238"/><rect class="svg-box red" x="246" y="238" width="382" height="156" rx="10"/><text class="svg-text" x="280" y="276">Blacksmith runner on Latitude</text><text class="svg-small" x="280" y="300">bare metal high-clock CPU · single tenant</text><text class="svg-small" x="280" y="322">local NVMe build cache and Docker layers</text><text class="svg-small" x="280" y="344">zero CPU steal · predictable p99 build time</text><text class="svg-small" x="280" y="366">persistent cache across workflow runs</text><path class="svg-line" marker-end="url(#arrow2)" d="M628 316 C690 316 690 316 746 316"/><rect class="svg-box cyan" x="746" y="238" width="142" height="156" rx="10"/><text class="svg-text" x="774" y="276">Megaport</text><text class="svg-small" x="774" y="300">private fabric</text><text class="svg-small" x="774" y="322">registry paths</text><text class="svg-small" x="774" y="344">internet services</text><path class="svg-line cloud" marker-end="url(#arrow2)" d="M817 238 C817 192 770 174 716 148"/><path class="svg-line cloud" marker-end="url(#arrow2)" d="M817 394 C817 438 778 454 730 466"/><rect class="svg-box cloud" x="592" y="60" width="230" height="74" rx="10"/><text class="svg-text" x="620" y="92">Package registries</text><text class="svg-small" x="620" y="114">npm · PyPI · containers</text><rect class="svg-box cloud" x="592" y="450" width="230" height="70" rx="10"/><text class="svg-text" x="620" y="482">Results to GitHub</text><text class="svg-small" x="620" y="504">logs · status · artifacts</text><text class="svg-small" x="250" y="432">Value: cache locality, fast CPUs, deterministic runners, lower cloud storage and egress exposure.</text></svg></div><article class="panel reveal"><h3>Blacksmith pattern: CI/CD runners with local state</h3><p>A developer pushes code to GitHub. The GitHub Actions event triggers a workflow, but instead of running on GitHub’s default hosted runner, the job routes to a Blacksmith runner. The runner is a Latitude bare-metal server with high single-core CPU performance and local NVMe. That matters because CI is a file-system workload disguised as a compute workload.</p><p>The runner pulls dependencies, checks out source, restores caches, builds Docker layers, compiles code, runs tests, and uploads artifacts. In a generic cloud runner, much of that state is remote, temporary, or expensive to persist. In the Latitude pattern, build artifacts and Docker layers stay on local NVMe across runs. The warm path is local disk rather than remote object storage. That is why Blacksmith can credibly market faster cache downloads and dramatically faster Docker builds.</p><p>Megaport strengthens the runner model in two ways. First, it can provide reliable, private, low-latency paths to package mirrors, enterprise artifact stores, and cloud registries where a customer’s dependencies live. Second, it gives Blacksmith a clearer security story: source code, packages, artifacts, and logs can move through private fabric and controlled internet services rather than relying on best-effort public paths for every dependency pull.</p><p>The strategic idea is not “replace GitHub.” It is “keep GitHub as the control plane and replace the slow execution substrate.” That same pattern applies to Depot, Namespace, Gitpod, Coder, and any platform whose users judge the product by wait time.</p></article></div></div></section>
+    <section id="targets"><div class="wrap"><div class="section-head reveal"><div class="kicker">Section 3</div><h2>Expanded target list: companies that look like Modal and Blacksmith.</h2><p class="lede">The list below is not a generic TAM dump. It is an ICP map. Each account sells an infrastructure outcome to developers, AI teams, security teams, data teams, media builders, or game studios. Current infrastructure notes are estimates from public positioning unless stated otherwise; the point is to identify where a Latitude conversation has technical and financial leverage.</p></div><div class="target-tools" aria-label="Filter target companies"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="AI Infrastructure Platforms">AI Infra</button><button class="filter-btn" data-filter="Developer Platforms">Developer</button><button class="filter-btn" data-filter="Data Infrastructure">Data</button><button class="filter-btn" data-filter="Gaming & Streaming Infrastructure">Gaming/Streaming</button><button class="filter-btn" data-filter="Security & Compliance Infrastructure">Security</button><button class="filter-btn" data-filter="Edge Compute Platforms">Edge</button></div><div class="target-list">
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">01</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Together AI</h3>
+      <p><strong>What they do:</strong> An AI acceleration cloud for training, fine-tuning, and serving open models, with a developer API and enterprise customers building on top of its model catalog.</p>
+      <p><strong>Current estimated infrastructure:</strong> Publicly positions itself as a large GPU cloud and has announced Blackwell expansion; likely a mix of leased/owned GPU clusters, colocation, and hyperscaler/network peering.</p>
+      <p><strong>Why Latitude fits:</strong> A committed Latitude footprint gives Together deterministic H100/L40S capacity outside hyperscaler queues, while Megaport private cloud paths support customers that need data ingress from AWS/Azure/GCP without public internet variability.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $5M-$25M+</span>
+        <span><strong>Target:</strong> VP Infrastructure, Head of AI Cloud, CFO/FinOps</span>
+        <span><strong>Signal:</strong> Recent large funding and developer growth make GPU margin and capacity strategy board-level issues.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">02</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Fireworks AI</h3>
+      <p><strong>What they do:</strong> High-throughput inference and fine-tuning platform for open models, serving enterprise workloads where latency and token economics matter.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs optimized inference clusters and dedicated deployments; public materials emphasize elastic global inference and managed training infrastructure.</p>
+      <p><strong>Why Latitude fits:</strong> Fireworks sells speed. Bare metal improves scheduler control, reduces virtualization noise, and lets its inference stack own the kernel, networking, and GPU topology instead of tuning around cloud VM constraints.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $3M-$20M</span>
+        <span><strong>Target:</strong> VP Infrastructure, Head of Inference, CTO</span>
+        <span><strong>Signal:</strong> Series C capital and token volume growth create pressure to lock efficient capacity before demand spikes.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">03</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Baseten</h3>
+      <p><strong>What they do:</strong> Inference infrastructure platform helping companies deploy, optimize, and scale open and custom AI models.</p>
+      <p><strong>Current estimated infrastructure:</strong> Reported to source compute from many cloud providers; likely operates across hyperscalers and specialized GPU clouds with dedicated customer capacity.</p>
+      <p><strong>Why Latitude fits:</strong> Baseten already arbitrages infrastructure. Latitude offers a controllable bare-metal tranche for high-volume models where every percentage point of GPU utilization drops straight into gross margin.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $5M-$25M+</span>
+        <span><strong>Target:</strong> Head of Infrastructure, VP Engineering, Head of Capacity</span>
+        <span><strong>Signal:</strong> Recent mega-round and inference demand make cost-of-goods a strategic moat, not a backend detail.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">04</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>DeepInfra</h3>
+      <p><strong>What they do:</strong> Production inference cloud for open models, priced around token delivery and model hosting.</p>
+      <p><strong>Current estimated infrastructure:</strong> Publicly raised to expand global inference capacity; likely runs GPU clusters from specialized providers and colocation partners.</p>
+      <p><strong>Why Latitude fits:</strong> DeepInfra needs global H100/L40S capacity with predictable networking. Latitude plus Megaport creates regional pods close to customers and private interconnect for enterprise data paths.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $2M-$12M</span>
+        <span><strong>Target:</strong> Infrastructure Lead, VP Product, CFO</span>
+        <span><strong>Signal:</strong> Series B explicitly funds global capacity expansion.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">05</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>RunPod</h3>
+      <p><strong>What they do:</strong> AI developer cloud offering GPU pods, serverless endpoints, and clusters for training and inference.</p>
+      <p><strong>Current estimated infrastructure:</strong> Uses a mix of secure cloud data center capacity and community cloud hosts, with a broad GPU SKU catalog.</p>
+      <p><strong>Why Latitude fits:</strong> RunPod can use Latitude as premium secure capacity for enterprises that want dedicated bare metal, SOC/compliance posture, and stronger networking than community supply can provide.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $2M-$15M</span>
+        <span><strong>Target:</strong> VP Cloud Operations, Head of Enterprise, Capacity Planning</span>
+        <span><strong>Signal:</strong> ARR scale and enterprise demand increase the need for reliable, committed supply.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">06</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Replicate</h3>
+      <p><strong>What they do:</strong> Model hosting marketplace and API where developers run image, video, audio, and LLM models without managing GPUs.</p>
+      <p><strong>Current estimated infrastructure:</strong> Public pricing indicates GPU-second billing; likely blends cloud GPU supply with optimized model serving infrastructure.</p>
+      <p><strong>Why Latitude fits:</strong> Replicate’s spiky marketplace can keep burst on cloud while moving sustained high-volume models to Latitude, improving margins and reducing cold-start variability for popular models.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$8M</span>
+        <span><strong>Target:</strong> Head of Platform, VP Infrastructure, FinOps</span>
+        <span><strong>Signal:</strong> As models move from hobby traffic to production apps, per-second cloud GPU economics invert.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">07</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Lambda</h3>
+      <p><strong>What they do:</strong> GPU cloud and private cluster provider offering instances, 1-Click Clusters, and reserved capacity.</p>
+      <p><strong>Current estimated infrastructure:</strong> Owns/leases GPU data center capacity and sells on-demand and committed GPU clusters.</p>
+      <p><strong>Why Latitude fits:</strong> Lambda is more likely a competitive benchmark than a near-term buyer, but Latitude can win where global bare metal plus Megaport fabric beats a single-provider cluster footprint.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> Partnership/competitive intelligence</span>
+        <span><strong>Target:</strong> Infrastructure Strategy, Partnerships</span>
+        <span><strong>Signal:</strong> Customer-side demand for multi-cloud private connectivity may create joint scenarios.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">08</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Anyscale</h3>
+      <p><strong>What they do:</strong> The commercial company behind Ray, helping teams run distributed AI workloads and model pipelines across clouds.</p>
+      <p><strong>Current estimated infrastructure:</strong> Multi-cloud orchestration product; likely deploys into customer clouds and managed cloud environments rather than owning all compute.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude can become the bare-metal execution substrate for Ray clusters where customers need stable CPU/GPU topology, local NVMe, and faster inter-node behavior than generic VM pools.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M</span>
+        <span><strong>Target:</strong> Head of Cloud Partnerships, VP Product, Solutions Architecture</span>
+        <span><strong>Signal:</strong> Ray workloads are increasingly training/inference heavy, and customers ask for lower cloud spend.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">09</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Hugging Face</h3>
+      <p><strong>What they do:</strong> The AI collaboration hub, with Inference Endpoints and dedicated model-serving products for teams deploying models from the Hub.</p>
+      <p><strong>Current estimated infrastructure:</strong> Inference Endpoints are sold on dedicated instances across cloud providers; infrastructure likely maps to AWS/Azure/GCP and partner capacity.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude gives Hugging Face a premium dedicated endpoint tier for regulated customers that want private interconnect and predictable bare-metal performance for long-running models.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $2M-$15M</span>
+        <span><strong>Target:</strong> VP Inference, Head of Cloud Partnerships, Enterprise Product</span>
+        <span><strong>Signal:</strong> Inference demand keeps climbing as open-source model adoption expands.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">10</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>CoreWeave</h3>
+      <p><strong>What they do:</strong> Large-scale AI cloud provider selling GPU clusters and managed AI infrastructure.</p>
+      <p><strong>Current estimated infrastructure:</strong> Owns large GPU fleet and data center commitments; a direct competitor for large committed GPU deals.</p>
+      <p><strong>Why Latitude fits:</strong> Mostly a competitive foil. The lesson for Latitude is that committed GPU capacity can command huge contracts; the differentiator must be global bare metal plus Megaport private connectivity rather than raw GPU inventory alone.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> Competitive benchmark</span>
+        <span><strong>Target:</strong> Competitive intel, not primary GTM</span>
+        <span><strong>Signal:</strong> Public revenue growth validates enterprise demand for non-hyperscaler AI cloud.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="AI Infrastructure Platforms">
+    <div class="target-index">11</div>
+    <div>
+      <div class="target-cat">AI Infrastructure Platforms</div>
+      <h3>Cerebras</h3>
+      <p><strong>What they do:</strong> AI chip and cloud inference company built around wafer-scale systems and very fast model serving.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs specialized Cerebras hardware rather than commodity NVIDIA GPUs, with cloud services layered on top.</p>
+      <p><strong>Why Latitude fits:</strong> Not a clean compute resale buyer, but a strategic pattern match: customers pay for lower latency and better price-performance. Latitude should use Cerebras as proof that infrastructure differentiation still sells.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> Competitive/partner optional</span>
+        <span><strong>Target:</strong> Partnerships, Strategic Alliances</span>
+        <span><strong>Signal:</strong> AI inference is hot enough that specialized infrastructure vendors are reaching public-market scale.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">12</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Blacksmith</h3>
+      <p><strong>What they do:</strong> Hosted GitHub Actions runners positioned around faster CI on bare metal, local NVMe cache, and lower cost than default hosted runners.</p>
+      <p><strong>Current estimated infrastructure:</strong> Already uses bare metal runners and NVMe-backed caching; landed customer pattern for Latitude.</p>
+      <p><strong>Why Latitude fits:</strong> The fit is direct: single-tenant CPUs, local NVMe Docker/cache persistence, predictable scheduling, and private network paths to registries can all sharpen Blacksmith’s core value prop.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M expanding to $10M+</span>
+        <span><strong>Target:</strong> Founder/CTO, Head of Infrastructure</span>
+        <span><strong>Signal:</strong> Public claims of 2x faster builds, 4x cache reads, and 40x Docker gains need enough capacity to sustain growth.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">13</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Depot</h3>
+      <p><strong>What they do:</strong> Fast remote build platform focused on Docker image builds, GitHub Actions acceleration, and persistent build cache.</p>
+      <p><strong>Current estimated infrastructure:</strong> Likely runs dedicated builders with persistent cache on cloud or colocation infrastructure.</p>
+      <p><strong>Why Latitude fits:</strong> Depot’s economics depend on cache locality and CPU throughput. Latitude bare metal with local NVMe can back premium builder fleets and Megaport can improve registry/cloud artifact paths.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$4M</span>
+        <span><strong>Target:</strong> CTO, VP Infrastructure, Head of Product</span>
+        <span><strong>Signal:</strong> Docker layer caching is a clear performance differentiator, and AI coding increases build volume.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">14</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Namespace</h3>
+      <p><strong>What they do:</strong> Ephemeral cloud development and CI infrastructure for faster tests, runners, and remote execution.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs high-volume ephemeral compute, likely on hyperscalers and dedicated nodes.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude improves runner density and predictable p99 build times, while local NVMe makes repeated test/build workloads far cheaper than remote block storage.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M</span>
+        <span><strong>Target:</strong> Infrastructure Lead, CTO</span>
+        <span><strong>Signal:</strong> Runner alternatives are competing on speed and unit economics.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">15</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Railway</h3>
+      <p><strong>What they do:</strong> Developer cloud for deploying apps and services with a simplified workflow and growing AI-native developer demand.</p>
+      <p><strong>Current estimated infrastructure:</strong> Operates its own platform over cloud/data center infrastructure; recently raised to expand global data center footprint.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude can give Railway a bare-metal region strategy for high-density CPU workloads and AI-adjacent services that need better cost per container than hyperscaler VMs.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$10M</span>
+        <span><strong>Target:</strong> Head of Infrastructure, VP Engineering, CFO</span>
+        <span><strong>Signal:</strong> Series B funds global infrastructure expansion.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">16</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Render</h3>
+      <p><strong>What they do:</strong> Managed cloud platform for web services, databases, workers, and AI-native app infrastructure.</p>
+      <p><strong>Current estimated infrastructure:</strong> Likely runs managed Kubernetes/VM substrate on hyperscalers and partner infrastructure.</p>
+      <p><strong>Why Latitude fits:</strong> Render’s long-running services and stateful AI workloads are margin-sensitive. Bare metal can back reserved plans, private networking, and high-performance persistent services.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$10M</span>
+        <span><strong>Target:</strong> VP Infrastructure, Head of Compute, CFO</span>
+        <span><strong>Signal:</strong> Recent funding and AI-app focus signal active infrastructure planning.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">17</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Fly.io</h3>
+      <p><strong>What they do:</strong> Distributed app platform that runs workloads close to users and supports databases, machines, and edge-like deployment.</p>
+      <p><strong>Current estimated infrastructure:</strong> Operates a global distributed cloud with its own regional footprint and underlying servers.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude is a strong expansion or overflow substrate in regions where Fly wants dedicated CPU/NVMe with private cloud paths, especially for stateful workloads near users.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$8M</span>
+        <span><strong>Target:</strong> Infrastructure/Operations leadership, CEO/CTO</span>
+        <span><strong>Signal:</strong> Edge and AI workloads increase need for regional capacity.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">18</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Gitpod</h3>
+      <p><strong>What they do:</strong> Cloud Development Environment platform providing ready-to-code workspaces for professional software teams.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs ephemeral developer workspaces on cloud infrastructure and Kubernetes.</p>
+      <p><strong>Why Latitude fits:</strong> CDE workloads are CPU, memory, disk, and snapshot heavy. Bare metal can reduce workspace startup variability and improve cost per active developer for enterprise fleets.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$4M</span>
+        <span><strong>Target:</strong> VP Engineering, Head of Cloud Operations</span>
+        <span><strong>Signal:</strong> Enterprises want isolated, compliant CDEs, not only cheap ephemeral VMs.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Developer Platforms">
+    <div class="target-index">19</div>
+    <div>
+      <div class="target-cat">Developer Platforms</div>
+      <h3>Coder</h3>
+      <p><strong>What they do:</strong> Enterprise CDE platform that runs workspaces across customer infrastructure and clouds.</p>
+      <p><strong>Current estimated infrastructure:</strong> Often deployed into customer VPCs or Kubernetes clusters; Coder itself influences infrastructure choices for enterprises.</p>
+      <p><strong>Why Latitude fits:</strong> A partnership could make Latitude/Megaport a recommended private bare-metal workspace substrate for regulated engineering teams that need fast local builds and private access to cloud assets.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$3M partner-led</span>
+        <span><strong>Target:</strong> Partnerships, Field CTO, Enterprise Product</span>
+        <span><strong>Signal:</strong> Security and developer productivity budgets are converging.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Data Infrastructure">
+    <div class="target-index">20</div>
+    <div>
+      <div class="target-cat">Data Infrastructure</div>
+      <h3>ClickHouse</h3>
+      <p><strong>What they do:</strong> Real-time analytics database company selling ClickHouse Cloud and AI/observability data infrastructure.</p>
+      <p><strong>Current estimated infrastructure:</strong> Cloud database service across major clouds, with high CPU, memory, NVMe, and network needs.</p>
+      <p><strong>Why Latitude fits:</strong> ClickHouse performance is extremely sensitive to CPU cache, disk latency, and network consistency. Bare-metal NVMe tiers can serve latency-sensitive customers cheaper than VM plus network-attached disk.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $2M-$20M</span>
+        <span><strong>Target:</strong> VP Cloud Infrastructure, Head of Cloud FinOps, CTO</span>
+        <span><strong>Signal:</strong> Recent $400M raise and AI analytics expansion increase platform capacity needs.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Data Infrastructure">
+    <div class="target-index">21</div>
+    <div>
+      <div class="target-cat">Data Infrastructure</div>
+      <h3>MotherDuck</h3>
+      <p><strong>What they do:</strong> Serverless DuckDB-based cloud data warehouse for lean analytics and app-facing SQL workloads.</p>
+      <p><strong>Current estimated infrastructure:</strong> Serverless data warehouse using cloud compute and storage under the hood.</p>
+      <p><strong>Why Latitude fits:</strong> For hot interactive workloads, local NVMe and dedicated CPU can improve query latency and margin. Megaport private data paths help customers join cloud object stores without public internet exposure.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M</span>
+        <span><strong>Target:</strong> Head of Infrastructure, CTO, Cloud Partnerships</span>
+        <span><strong>Signal:</strong> Cost pressure versus Snowflake/BigQuery is core to the value proposition.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Data Infrastructure">
+    <div class="target-index">22</div>
+    <div>
+      <div class="target-cat">Data Infrastructure</div>
+      <h3>Starburst</h3>
+      <p><strong>What they do:</strong> Trino-based data lake analytics platform for querying distributed data across object stores and warehouses.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs SaaS analytics clusters and customer-managed deployments across clouds.</p>
+      <p><strong>Why Latitude fits:</strong> Trino clusters hit CPU, memory, network, and cache hard. Latitude can back premium performance pools for customers with stable query volume and strict data-plane requirements.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$10M</span>
+        <span><strong>Target:</strong> VP Cloud, Head of Infrastructure, Alliances</span>
+        <span><strong>Signal:</strong> Data lakehouse buyers increasingly demand lower TCO and private connectivity.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Data Infrastructure">
+    <div class="target-index">23</div>
+    <div>
+      <div class="target-cat">Data Infrastructure</div>
+      <h3>Confluent / IBM</h3>
+      <p><strong>What they do:</strong> Managed Kafka/Flink/data streaming platform now tied to IBM’s AI data strategy.</p>
+      <p><strong>Current estimated infrastructure:</strong> Confluent Cloud runs on hyperscalers and in customer environments, with heavy network and storage demands.</p>
+      <p><strong>Why Latitude fits:</strong> Bare metal is a fit for dedicated Kafka/Flink clusters where network jitter and storage consistency dominate p99 latency; Megaport private fabric is highly relevant for hybrid enterprise data movement.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $5M-$25M partner/enterprise</span>
+        <span><strong>Target:</strong> IBM Hybrid Cloud alliances, Confluent Cloud Infrastructure</span>
+        <span><strong>Signal:</strong> IBM acquisition makes hybrid/private data movement strategic.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Gaming & Streaming Infrastructure">
+    <div class="target-index">24</div>
+    <div>
+      <div class="target-cat">Gaming & Streaming Infrastructure</div>
+      <h3>Edgegap</h3>
+      <p><strong>What they do:</strong> Regionless multiplayer game server hosting and orchestration platform using edge, cloud, and bare-metal placement.</p>
+      <p><strong>Current estimated infrastructure:</strong> Hybrid cloud and bare metal; public materials explicitly position bare metal for lower steady-state cost and cloud for burst.</p>
+      <p><strong>Why Latitude fits:</strong> A textbook Latitude ICP: latency-sensitive, multi-region, developer-facing platform with strong reasons to avoid hyperscaler egress and VM jitter.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M</span>
+        <span><strong>Target:</strong> CEO/CTO, Head of Infrastructure Partnerships</span>
+        <span><strong>Signal:</strong> Its own messaging emphasizes bare metal savings and egress-free economics.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Gaming & Streaming Infrastructure">
+    <div class="target-index">25</div>
+    <div>
+      <div class="target-cat">Gaming & Streaming Infrastructure</div>
+      <h3>Gameye</h3>
+      <p><strong>What they do:</strong> Dedicated game server orchestration platform emphasizing consistent bare-metal hosting and predictable bandwidth economics.</p>
+      <p><strong>Current estimated infrastructure:</strong> Bare-metal oriented game server fleets with orchestration software.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude can expand geographic reach and add Megaport connectivity for publishers that need private cloud asset and telemetry paths.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$3M</span>
+        <span><strong>Target:</strong> Founder/CTO, Infrastructure Operations</span>
+        <span><strong>Signal:</strong> Hathora shutdown creates customer migration churn in multiplayer hosting.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Gaming & Streaming Infrastructure">
+    <div class="target-index">26</div>
+    <div>
+      <div class="target-cat">Gaming & Streaming Infrastructure</div>
+      <h3>Livepeer</h3>
+      <p><strong>What they do:</strong> Open network for real-time AI video generation, transformation, and inference.</p>
+      <p><strong>Current estimated infrastructure:</strong> Decentralized GPU network and orchestration layer for video jobs.</p>
+      <p><strong>Why Latitude fits:</strong> Latitude can provide reliable professional GPU supply for premium Livepeer capacity where customers need SLAs, H100/L40S availability, and private enterprise connections.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M</span>
+        <span><strong>Target:</strong> Protocol/Product leadership, Infrastructure Partnerships</span>
+        <span><strong>Signal:</strong> AI video usage and fees hit reported highs in 2026.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Gaming & Streaming Infrastructure">
+    <div class="target-index">27</div>
+    <div>
+      <div class="target-cat">Gaming & Streaming Infrastructure</div>
+      <h3>Inworld AI</h3>
+      <p><strong>What they do:</strong> AI runtime and character platform for games and interactive consumer applications.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs latency-sensitive AI inference for NPCs/agents, likely across cloud GPU/CPU infrastructure.</p>
+      <p><strong>Why Latitude fits:</strong> Real-time game AI needs predictable p99 latency. Latitude GPU/CPU nodes near game regions plus Megaport private paths can reduce tail latency and protect margins at scale.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$8M</span>
+        <span><strong>Target:</strong> VP Infrastructure, CTO, Head of Runtime</span>
+        <span><strong>Signal:</strong> Consumer app scaling from prototype to millions of users forces infra decisions early.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Security & Compliance Infrastructure">
+    <div class="target-index">28</div>
+    <div>
+      <div class="target-cat">Security & Compliance Infrastructure</div>
+      <h3>Chainguard</h3>
+      <p><strong>What they do:</strong> Software supply-chain security company selling hardened open-source images and continuous compliance artifacts.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs build, signing, scanning, and registry infrastructure; likely cloud-heavy with high CI/build volume.</p>
+      <p><strong>Why Latitude fits:</strong> Secure builds benefit from isolated bare-metal workers, private connectivity, and deterministic cache/storage. Latitude can support premium compliant build pipelines without noisy shared hosts.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $1M-$8M</span>
+        <span><strong>Target:</strong> VP Engineering, Head of Platform Security, Infrastructure Lead</span>
+        <span><strong>Signal:</strong> Growth and compliance positioning make private, auditable infrastructure valuable.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Security & Compliance Infrastructure">
+    <div class="target-index">29</div>
+    <div>
+      <div class="target-cat">Security & Compliance Infrastructure</div>
+      <h3>Semgrep</h3>
+      <p><strong>What they do:</strong> Developer security platform running static analysis, SCA, AI-assisted scanning, and code-security workflows.</p>
+      <p><strong>Current estimated infrastructure:</strong> Cloud scanning workloads with CPU-heavy analysis and CI integration.</p>
+      <p><strong>Why Latitude fits:</strong> Bare-metal CPU pools with local source/cache storage can improve scan throughput and protect customer code paths via private connectivity.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$5M</span>
+        <span><strong>Target:</strong> Head of Cloud Platform, VP Engineering</span>
+        <span><strong>Signal:</strong> AI-generated code expands scan volume and compute demand.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Security & Compliance Infrastructure">
+    <div class="target-index">30</div>
+    <div>
+      <div class="target-cat">Security & Compliance Infrastructure</div>
+      <h3>Socket</h3>
+      <p><strong>What they do:</strong> Software supply-chain security platform detecting malicious packages and risky open-source dependencies.</p>
+      <p><strong>Current estimated infrastructure:</strong> Large package analysis, crawling, sandboxing, and customer CI integrations.</p>
+      <p><strong>Why Latitude fits:</strong> Package malware analysis is isolation-sensitive. Dedicated bare-metal sandboxes plus private interconnect give Socket a stronger story for regulated enterprise customers.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$4M</span>
+        <span><strong>Target:</strong> CTO, Head of Infrastructure, Security Operations</span>
+        <span><strong>Signal:</strong> Recent Series C funds broader ecosystem coverage including AI-adjacent package types.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Security & Compliance Infrastructure">
+    <div class="target-index">31</div>
+    <div>
+      <div class="target-cat">Security & Compliance Infrastructure</div>
+      <h3>Snyk</h3>
+      <p><strong>What they do:</strong> Developer security platform for code, open source, containers, and cloud.</p>
+      <p><strong>Current estimated infrastructure:</strong> Mature SaaS with scanning and analysis workloads across languages and enterprise tenants.</p>
+      <p><strong>Why Latitude fits:</strong> Snyk’s highest-volume enterprise scanning could use dedicated compute pools to control p99 scan time, isolate customer code, and reduce hyperscaler spend.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $2M-$15M</span>
+        <span><strong>Target:</strong> VP Cloud Infrastructure, VP Product Security, FinOps</span>
+        <span><strong>Signal:</strong> IPO readiness and margin discipline usually pull infrastructure costs under review.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Edge Compute Platforms">
+    <div class="target-index">32</div>
+    <div>
+      <div class="target-cat">Edge Compute Platforms</div>
+      <h3>Cloudflare Workers</h3>
+      <p><strong>What they do:</strong> Global developer platform for edge compute, storage, queues, AI, and routing on Cloudflare’s network.</p>
+      <p><strong>Current estimated infrastructure:</strong> Runs on Cloudflare’s own global network and highly optimized isolation substrate.</p>
+      <p><strong>Why Latitude fits:</strong> Unlikely near-term buyer because it owns the substrate, but useful as a benchmark: developers want global placement, low cold start, and low egress. Latitude can target smaller platforms trying to offer similar properties without owning 300+ cities.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> Benchmark/partner only</span>
+        <span><strong>Target:</strong> Partnerships, not primary sales</span>
+        <span><strong>Signal:</strong> Workers keeps expanding into full-stack developer infrastructure.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Edge Compute Platforms">
+    <div class="target-index">33</div>
+    <div>
+      <div class="target-cat">Edge Compute Platforms</div>
+      <h3>Fastly Compute</h3>
+      <p><strong>What they do:</strong> Serverless edge compute and delivery platform for low-latency applications, APIs, and AI-aware caching.</p>
+      <p><strong>Current estimated infrastructure:</strong> Fastly-owned edge cloud and CDN network.</p>
+      <p><strong>Why Latitude fits:</strong> Mostly a competitive pattern match. Where Fastly customers need dedicated origin compute or GPU-adjacent preprocessing, Latitude/Megaport can attach private bare-metal backends to edge delivery.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> Partner/strategic</span>
+        <span><strong>Target:</strong> Cloud Partnerships, Product Alliances</span>
+        <span><strong>Signal:</strong> AI traffic and edge compute revenue growth pressure the platform to diversify capacity.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Edge Compute Platforms">
+    <div class="target-index">34</div>
+    <div>
+      <div class="target-cat">Edge Compute Platforms</div>
+      <h3>Akamai Cloud / Linode</h3>
+      <p><strong>What they do:</strong> Distributed cloud and edge compute platform with GPU-accelerated AI and global application delivery.</p>
+      <p><strong>Current estimated infrastructure:</strong> Akamai-owned cloud plus Linode footprint.</p>
+      <p><strong>Why Latitude fits:</strong> Competitive benchmark. Akamai proves demand for distributed compute near users; Latitude can win with developer-friendly bare metal plus Megaport private fabric where customers need hardware control.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> Competitive benchmark</span>
+        <span><strong>Target:</strong> Not primary target</span>
+        <span><strong>Signal:</strong> Akamai is explicitly selling distributed cloud for AI inference.</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="target-card reveal" data-cat="Edge Compute Platforms">
+    <div class="target-index">35</div>
+    <div>
+      <div class="target-cat">Edge Compute Platforms</div>
+      <h3>Fermyon</h3>
+      <p><strong>What they do:</strong> Serverless WebAssembly cloud and runtime company focused on lightweight, portable serverless apps.</p>
+      <p><strong>Current estimated infrastructure:</strong> Wasm cloud platform likely on commodity cloud and partner infrastructure.</p>
+      <p><strong>Why Latitude fits:</strong> Wasm workloads are dense and CPU-sensitive. Bare metal can improve tenant density, cold-start consistency, and data-local placement for enterprise deployments.</p>
+      <div class="target-meta">
+        <span><strong>Deal:</strong> $500K-$3M</span>
+        <span><strong>Target:</strong> CTO, Head of Cloud, Partnerships</span>
+        <span><strong>Signal:</strong> Serverless AI and edge app demand increase need for efficient CPU substrate.</span>
+      </div>
+    </div>
+  </article></div></div></section>
+    <section id="roi"><div class="wrap"><div class="section-head reveal"><div class="kicker">Section 4</div><h2>The ROI and value story, with real numbers.</h2><p class="lede">Use this framework in customer conversations. Do not argue “bare metal is always cheaper.” Argue that for stable, high-utilization platform workloads, dedicated hardware plus private fabric often wins on total cost, p99 performance, and product margin. Then model the customer’s exact duty cycle, regions, egress, storage, and committed capacity.</p></div><div class="table-wrap reveal"><table><thead><tr><th>Resource</th><th>Latitude / Megaport model</th><th>AWS</th><th>Azure</th><th>GCP</th><th>Defensible takeaway</th></tr></thead><tbody><tr><td>8x H100 node</td><td><span class="win">$26.96/hr</span> using conservative $3.37/GPU-hr brief model; current public starting prices may appear lower by region/SKU.</td><td>$55.04/hr current p5.48xlarge aggregator; older/list comparisons around $98/hr appear in market references.</td><td>~$98.32/hr for Standard_ND96isr_H100_v5 pricing aggregator.</td><td>~$87.84-$88.49/hr for a3-highgpu-8g current aggregators.</td><td>Latitude is ~51% lower than current AWS aggregator and ~69-73% lower than Azure/GCP or older high-list H100 comparisons before egress/storage.</td></tr><tr><td>8x H100 annual 24x7</td><td><span class="win">~$236K/year</span> at $26.96/hr.</td><td>~$482K/year at $55.04/hr; ~$861K/year at $98.32/hr.</td><td>~$861K/year.</td><td>~$770K-$775K/year.</td><td>At 100 GPUs, the delta can reach millions per year; committed Latitude discounts can widen the spread.</td></tr><tr><td>A100 / L40S inference tier</td><td>L40S public Latitude aggregator starts around $0.74/GPU-hr; older Latitude changelog listed L40S options from roughly $1.04-$1.32/hr depending shape.</td><td>p4d.24xlarge A100 aggregator at ~$21.96/hr for 8x A100 40GB.</td><td>Azure A100/H100 VM rates vary heavily by region and reserved term.</td><td>GCP A2/A3 rates vary heavily by region; A2 8x A100 third-party references often land in the $35-$40/hr range.</td><td>L40S can be a killer inference SKU when H100 is overkill. Do not force every AI workload into H100 economics.</td></tr><tr><td>High-performance CPU node</td><td>Latitude c3.large.x86 public pricing: AMD EPYC 7443P, 24 cores, 256GB RAM, 2x NVMe, from $0.68/hr.</td><td>c7i.12xlarge: 48 vCPU, 96 GiB, about $2.142/hr.</td><td>F48s v2: 48 vCPU, 96 GiB, about $2.03/hr in one aggregator; other calculators vary.</td><td>c3-standard-44: 44 vCPU, 176GB, about $2.22/hr min.</td><td>For CPU-heavy CI, data, and security scanning, Latitude can be materially cheaper while offering more memory and local NVMe.</td></tr><tr><td>Hot storage</td><td>Local NVMe on PCIe bus; included with many server shapes. Latitude object storage lists no egress charges on storage products.</td><td>EBS io2 Block Express: up to 256K IOPS and under 500µs average latency for 16KiB I/O, plus provisioned capacity/IOPS cost.</td><td>Managed disks provide durability and snapshots but add network/storage abstraction.</td><td>Persistent Disk/Hyperdisk and Local SSD options; managed durability often implies networked storage path.</td><td>Remote block is great for durable volumes. Local NVMe wins for hot caches, Docker layers, model weights, and scratch.</td></tr><tr><td>Egress / private movement</td><td>Latitude servers include 20TB free outbound monthly; published overage starts far below hyperscaler internet egress in many regions. Megaport private fabric can bypass public internet paths.</td><td>AWS charges data transfer out after free allowance; common first-tier internet egress references are around $0.09/GB.</td><td>Azure internet egress is tiered and region-specific.</td><td>GCP internet egress is tiered and region-specific.</td><td>The “cloud tax” often shows up after compute: cross-AZ, internet egress, NAT, and storage movement.</td></tr></tbody></table></div><div class="roi-model" style="margin-top:22px;"><div class="panel reveal"><h3>Example TCO: 64 H100s plus CPU runners</h3><p>Assume a platform operates eight 8x H100 nodes at 70% average utilization, plus 50 CPU build/scanning/data nodes, 200 TB/month public egress equivalent, and 150 TB hot cache/storage. The first-order compute math already favors Latitude. The second-order gains come from higher utilization, lower egress, and local caches.</p><div class="formula">H100 annual delta vs current AWS aggregator:<br>8 nodes × 8,760 hrs × ($55.04 - $26.96) = ~$1.97M/year<br><br>H100 annual delta vs $98/hr cloud list:<br>8 nodes × 8,760 hrs × ($98.32 - $26.96) = ~$5.00M/year<br><br>CPU annual delta example:<br>50 nodes × 8,760 hrs × ($2.14 - $0.68) = ~$639K/year</div></div><div class="panel reveal"><h3>What performance means in business terms</h3><p><strong>For Modal:</strong> a 10-20% effective GPU utilization improvement means the same fleet can serve more customer jobs before the next capacity purchase. If 100 H100s cost roughly $2.96M/year at the conservative Latitude model, a 15% utilization gain is economically similar to finding 15 extra H100s without buying them. That can translate into faster customer onboarding, fewer queueing events, and better gross margin on usage-based compute.</p><p><strong>For Blacksmith:</strong> 2-4x faster CI is not only developer happiness. If 200 engineers wait 20 minutes less per day, that is roughly 66 engineering hours/day recovered. At $125/hour fully loaded, that is more than $2M/year of avoided waiting. The customer may not buy on that exact spreadsheet, but it frames why CI speed is budget-worthy.</p><p><strong>For any platform company:</strong> predictable substrate cost makes pricing easier. If the provider knows the cost of an inference minute, build minute, workspace hour, query slot, or game-session vCPU, it can package the product confidently. If the substrate is a pile of variable cloud VMs, storage IOPS, cross-AZ charges, NAT, and egress, pricing becomes defensive.</p><p><strong>The Megaport multiplier:</strong> private connectivity adds security, compliance, deterministic latency, and multi-cloud access on top of compute savings. That lets the SA team sell an architecture, not a cheaper SKU.</p></div></div><div class="table-wrap reveal" style="margin-top:22px;"><table><thead><tr><th>Dimension</th><th>Bare metal expectation</th><th>Cloud VM expectation</th><th>How to prove it</th></tr></thead><tbody><tr><td>Latency consistency</td><td>Lower p99/p999 jitter because there is no co-tenant host scheduler and fewer virtual I/O layers.</td><td>Good median; tails can widen from shared fabric, virtual devices, or host scheduling.</td><td>Run wrk2/ghz for inference APIs, fio for storage, iperf3 and qperf for network, and compare p50/p95/p99/p999.</td></tr><tr><td>GPU utilization</td><td>Higher sustained utilization when CPU, NUMA, PCIe, cache, and network are tuned together.</td><td>Strong on high-end GPU instances, but host/shape constraints limit low-level tuning.</td><td>Use DCGM, Nsight Systems, vLLM metrics, token/sec, batch latency, and GPU idle-time attribution.</td></tr><tr><td>Storage I/O</td><td>Local NVMe, high IOPS, low latency, ideal for cache-heavy hot paths.</td><td>Network block storage can be excellent but adds storage-network dependency and provisioned ceilings.</td><td>fio random read/write, unpack/build benchmarks, Docker layer restore, model load time.</td></tr><tr><td>Network control</td><td>Kernel, DPDK/XDP/eBPF, IRQ affinity, NIC queues, and private fabric are tunable.</td><td>Guest networking is tunable; host/NIC layer remains provider-controlled.</td><td>qperf latency, pktgen, real registry pulls, cloud object reads, and private path failover tests.</td></tr><tr><td>Cost predictability</td><td>Committed capacity, included local disks, published egress model, private interconnect planning.</td><td>Elastic and convenient, but TCO includes egress, storage, NAT, cross-AZ, and premium instance pricing.</td><td>Normalize to cost per useful unit: token, build minute, query, test run, session, or scan.</td></tr></tbody></table></div></div></section>
+    <section id="playbook"><div class="wrap"><div class="section-head reveal"><div class="kicker">Section 5</div><h2>What Megaport’s SA team needs to build.</h2><p class="lede">The GTM motion should make the architecture easy to believe and easy to test. A platform company will not move because a deck says bare metal is faster. It will move when the SA team shows a reference pattern, reproducible benchmark, Terraform path, and security story that maps to the customer’s product metric.</p></div><div class="grid-2"><article class="panel reveal"><h3>Reference architectures</h3><p>Build two flagship templates: AI platform and CI/CD platform. Each should include a topology diagram, server bill of materials, VXC/MCR layout, cloud on-ramp targets, security controls, telemetry, and operational runbook. For AI, show model cache, object-store ingress, private cloud data, and multi-region inference. For CI, show GitHub trigger, runner pool, NVMe cache, package registries, artifact path, and customer network isolation.</p></article><article class="panel reveal"><h3>Terraform modules</h3><p>Create modules that provision Latitude servers, SSH/user-data, RAID/local disk layout, private network settings, Megaport VXC/MCR components, cloud on-ramps, firewall policy, and labels for cost attribution. The module should make the combined product feel like one platform rather than two portals stitched together by a heroic SA.</p></article><article class="panel reveal"><h3>Benchmarks with scripts</h3><p>Publish reproducible tests, not slides. Include vLLM inference, fio NVMe vs EBS, Docker layer restore, package install, kernel compile, NCCL multi-GPU smoke, qperf latency, iperf3 throughput, and p99 API latency. Each benchmark should include scripts, instance/server specs, region, pricing assumption, and a “how to challenge this result” note. That builds credibility with technical buyers.</p></article><article class="panel reveal"><h3>Security architecture</h3><p>Document how private connectivity reduces attack surface: no public ingress for management, private cloud data paths, private artifact pulls, scoped firewall rules, customer-controlled keys, logging, SOC 2 evidence collection, and incident response boundaries. Regulated buyers need the words “private” and “dedicated” translated into controls auditors can inspect.</p></article></div><div class="callout reveal"><strong>SA qualification question:</strong> “Which product metric gets worse when your compute substrate is noisy, remote, or expensive: token latency, build time, query latency, cache hit cost, game session jitter, scan time, or gross margin?” If they can answer that, Latitude has a wedge.</div></div></section>
+    <section id="sources"><div class="wrap"><div class="section-head reveal"><div class="kicker">Sources</div><h2>Resources and references.</h2><p class="lede">Pricing changes quickly. Use these sources for the strategy logic, then refresh quote-level numbers before a customer proposal. The ROI section deliberately separates current public aggregator figures from older/list figures so Willie can defend the claim without being trapped by stale numbers.</p></div><ol class="sources-list reveal"><li><a href="https://www.megaport.com/blog/megaport-and-latitude-bringing-compute-and-connectivity-together/">Megaport acquisition blog</a></li>
+<li><a href="https://www.megaport.com/ecosystem/">Megaport ecosystem footprint</a></li>
+<li><a href="https://www.gtlaw.com.au/news/gilbert-tobin-advises-megaport-on-its-acquisition-of-latitude.sh-and-its-%24220-million-equity-raising">Megaport/Latitude acquisition legal summary</a></li>
+<li><a href="https://www.latitude.sh/pricing">Latitude pricing</a></li>
+<li><a href="https://gpuperhour.com/providers/latitudesh">Latitude GPU pricing aggregator</a></li>
+<li><a href="https://www.latitude.sh/changelog/updated-gpu-pricing-for-reserved-instances">Latitude reserved GPU discount changelog</a></li>
+<li><a href="https://www.latitude.sh/pricing/networking">Latitude networking pricing</a></li>
+<li><a href="https://instances.vantage.sh/aws/ec2/p5.48xlarge">AWS EC2 p5.48xlarge pricing aggregator</a></li>
+<li><a href="https://instances.vantage.sh/aws/ec2/p4d.24xlarge">AWS EC2 p4d.24xlarge pricing aggregator</a></li>
+<li><a href="https://docs.aws.amazon.com/ebs/latest/userguide/provisioned-iops.html">AWS EBS io2 Block Express docs</a></li>
+<li><a href="https://aws.amazon.com/ec2/pricing/on-demand/">AWS EC2 on-demand pricing</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ndh100v5-series">Azure ND H100 v5 docs</a></li>
+<li><a href="https://cloudprice.net/vm/Standard_ND96isr_H100_v5">Azure ND96isr H100 pricing aggregator</a></li>
+<li><a href="https://docs.cloud.google.com/compute/docs/gpus">Google A3 H100 docs</a></li>
+<li><a href="https://cloudprice.net/gcp/compute/instances/a3-highgpu-8g">GCP a3-highgpu-8g pricing aggregator</a></li>
+<li><a href="https://www.datadoghq.com/blog/understanding-aws-stolen-cpu-and-how-it-affects-your-apps/">Datadog on AWS stolen CPU</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/AMD-Optimizes-EPYC-Memory-With-NUMA.pdf">AMD NUMA whitepaper</a></li>
+<li><a href="https://docs.nvidia.com/vgpu/latest/grid-vgpu-user-guide/index.html">NVIDIA vGPU documentation</a></li>
+<li><a href="https://www.supermicro.com/en/glossary/gpu-passthrough">Supermicro GPU passthrough explainer</a></li>
+<li><a href="https://docs.nvidia.com/ncx/ncp-software-reference-guide/latest/performance-requirements.html">NVIDIA Cloud Accelerator SR-IOV performance requirements</a></li>
+<li><a href="https://modal.com/">Modal homepage</a></li>
+<li><a href="https://www.datacenterdynamics.com/en/news/modal-labs-secures-funding/">Modal Series C report</a></li>
+<li><a href="https://www.blacksmith.sh/">Blacksmith homepage</a></li>
+<li><a href="https://docs.blacksmith.sh/blacksmith-caching/docker-builds">Blacksmith Docker cache docs</a></li>
+<li><a href="https://www.together.ai/blog/together-ai-announcing-305m-series-b">Together AI Series B</a></li>
+<li><a href="https://fireworks.ai/blog/series-c">Fireworks AI Series C</a></li>
+<li><a href="https://www.businesswire.com/news/home/20260622645563/en/Baseten-Raises-%241.5-Billion-to-Power-the-Next-Era-of-AI-Inference">Baseten funding</a></li>
+<li><a href="https://deepinfra.com/series-b">DeepInfra Series B</a></li>
+<li><a href="https://www.runpod.io/press/runpod-ai-cloud-surpasses-120m-in-arr">RunPod ARR milestone</a></li>
+<li><a href="https://render.com/blog/series-c-extension">Render Series C extension</a></li>
+<li><a href="https://finance.yahoo.com/news/railway-raises-100-million-series-140100124.html">Railway Series B</a></li>
+<li><a href="https://fly.io/blog/we-raised-a-bunch-of-money/">Fly.io funding</a></li>
+<li><a href="https://clickhouse.com/blog/clickhouse-raises-400-million-series-d-acquires-langfuse-launches-postgres">ClickHouse Series D</a></li>
+<li><a href="https://edgegap.com/platform/bare-metal-game-server-hosting-orchestration">Edgegap bare metal hosting</a></li>
+<li><a href="https://livepeer.org/blog/q1-2026-messari-state-of-livepeer">Livepeer AI video</a></li>
+<li><a href="https://www.chainguard.dev/unchained/announcing-chainguards-series-d-building-the-safe-source-for-all-open-source">Chainguard Series D</a></li>
+<li><a href="https://socket.dev/blog/series-c">Socket Series C</a></li>
+<li><a href="https://www.fastly.com/products/edge-compute">Fastly edge compute</a></li>
+<li><a href="https://www.akamai.com/cloud">Akamai Cloud</a></li></ol></div></section>
+  </main>
+  <footer><div class="wrap"><div>Generated by Gary | Last Updated June 25, 2026</div><div>Latitude ICP Deep Dive — Why Bare Metal Wins</div></div></footer>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => { for (const entry of entries) if (entry.isIntersecting) entry.target.classList.add('visible'); }, { threshold: 0.05 });
+    revealEls.forEach(el => io.observe(el));
+    setTimeout(() => revealEls.forEach(el => el.classList.add('visible')), 2000);
+    const navLinks = [...document.querySelectorAll('.navlinks a')];
+    const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const navObserver = new IntersectionObserver(entries => { const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0]; if (!visible) return; navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + visible.target.id)); }, { threshold: 0.2 });
+    sections.forEach(s => navObserver.observe(s));
+    const counters = document.querySelectorAll('[data-count]');
+    const countOnce = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting || entry.target.dataset.done) return; entry.target.dataset.done = '1'; const target = Number(entry.target.dataset.count); const start = performance.now(); const duration = 1400; function tick(now) { const t = Math.min((now - start) / duration, 1); const eased = 1 - Math.pow(1 - t, 4); entry.target.textContent = Math.round(target * eased).toLocaleString(); if (t < 1) requestAnimationFrame(tick); } requestAnimationFrame(tick); }); }, { threshold: 0.05 });
+    counters.forEach(c => countOnce.observe(c));
+    document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { const filter = btn.dataset.filter; document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn)); document.querySelectorAll('.target-card').forEach(card => { const show = filter === 'all' || card.dataset.cat === filter; card.style.display = show ? 'grid' : 'none'; }); }); });
+  </script>
+</body>
+</html>
