@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Megaport RSU vesting analysis calculator with editable inputs, vesting table, and cumulative vesting chart.">
+  <title>Megaport RSU Vesting Analysis</title>
+  <style>
+    :root {
+      --megaport-primary: #2B1F6B;
+      --megaport-accent: #00C7B7;
+      --ink: #111827;
+      --muted: #64748b;
+      --panel: #ffffff;
+      --page: #f5f7fb;
+      --line: #dbe3ef;
+      --soft-primary: rgba(43, 31, 107, 0.08);
+      --soft-accent: rgba(0, 199, 183, 0.12);
+      --shadow: 0 22px 60px rgba(15, 23, 42, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 10%, rgba(0, 199, 183, 0.18), transparent 26rem),
+        linear-gradient(135deg, #f9fbff 0%, #eef3fb 54%, #f8fafc 100%);
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 48px;
+    }
+
+    .hero {
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(43, 31, 107, 0.98), rgba(43, 31, 107, 0.88)),
+        linear-gradient(90deg, var(--megaport-accent), var(--megaport-primary));
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -46% auto;
+      width: 420px;
+      height: 420px;
+      border: 64px solid rgba(0, 199, 183, 0.16);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #bff8f3;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow:before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--megaport-accent);
+      box-shadow: 0 0 0 5px rgba(0, 199, 183, 0.17);
+    }
+
+    h1 {
+      margin: 12px 0 10px;
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 0.96;
+      letter-spacing: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      max-width: 730px;
+      margin: 0;
+      color: #d8e0ff;
+      line-height: 1.6;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+      align-items: start;
+    }
+
+    .grid > * {
+      min-width: 0;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.93);
+      border: 1px solid rgba(219, 227, 239, 0.88);
+      border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      min-width: 0;
+    }
+
+    .panel-header {
+      padding: 18px 20px 0;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--megaport-primary);
+      font-size: 18px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .controls {
+      padding: 18px 20px 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid #cad5e2;
+      border-radius: 7px;
+      padding: 11px 12px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--megaport-accent);
+      box-shadow: 0 0 0 4px rgba(0, 199, 183, 0.16);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .metric {
+      padding: 15px;
+      border-radius: 8px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      min-height: 104px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric .value {
+      margin-top: 10px;
+      color: var(--megaport-primary);
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1;
+      font-weight: 850;
+      word-break: break-word;
+    }
+
+    .metric .sub {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .chart-panel,
+    .table-panel {
+      padding: 20px;
+    }
+
+    .chart-wrap {
+      margin-top: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      overflow: hidden;
+    }
+
+    #vesting-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 280px;
+    }
+
+    .table-panel {
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      margin-top: 14px;
+      max-height: 520px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid #e6edf6;
+      text-align: right;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    th:first-child,
+    td:first-child,
+    th:nth-child(2),
+    td:nth-child(2) {
+      text-align: left;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      color: #fff;
+      background: var(--megaport-primary);
+      font-weight: 800;
+    }
+
+    tr:nth-child(even) td {
+      background: #fafcff;
+    }
+
+    tr.is-vested td {
+      background: var(--soft-accent);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: var(--soft-primary);
+      color: var(--megaport-primary);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .footnote {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 920px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 16px;
+      }
+
+      .hero,
+      .chart-panel,
+      .table-panel {
+        padding: 18px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div class="eyebrow">Megaport Equity Planning</div>
+      <h1>Megaport RSU Vesting Analysis</h1>
+      <p>Model a four-year RSU grant with a 25% cliff at year one, then monthly or quarterly vesting through month 48. Edit the assumptions to update the table, values, and cumulative vesting chart.</p>
+    </header>
+
+    <div class="grid">
+      <aside class="panel" aria-labelledby="input-section-title">
+        <div class="panel-header">
+          <h2 id="input-section-title">Grant Inputs</h2>
+        </div>
+        <form class="controls" id="grant-form">
+          <label for="total-rsu-grant-count">
+            Total RSU grant count
+            <input id="total-rsu-grant-count" name="total-rsu-grant-count" type="number" min="0" step="1" value="12000" inputmode="numeric">
+          </label>
+
+          <label for="grant-date">
+            Grant date
+            <input id="grant-date" name="grant-date" type="date" value="2025-06-01">
+          </label>
+
+          <label for="vesting-schedule">
+            4-year vesting schedule after year-one cliff
+            <select id="vesting-schedule" name="vesting-schedule">
+              <option value="monthly" selected>25% cliff, then monthly</option>
+              <option value="quarterly">25% cliff, then quarterly</option>
+            </select>
+          </label>
+
+          <label for="stock-price-at-grant">
+            Stock price at grant
+            <input id="stock-price-at-grant" name="stock-price-at-grant" type="number" min="0" step="0.01" value="8.50" inputmode="decimal">
+          </label>
+
+          <label for="current-stock-price">
+            Current stock price
+            <input id="current-stock-price" name="current-stock-price" type="number" min="0" step="0.01" value="12.00" inputmode="decimal">
+          </label>
+
+          <div class="hint">Values are estimates for planning only. Taxes, withholding, trading windows, and broker rounding are not modeled.</div>
+        </form>
+      </aside>
+
+      <section aria-label="Vesting output">
+        <div class="metrics" id="summary-metrics"></div>
+
+        <section class="panel chart-panel" aria-labelledby="chart-title">
+          <h2 id="chart-title">Cumulative Vesting Over 48 Months</h2>
+          <div class="chart-wrap">
+            <svg id="vesting-chart" viewBox="0 0 960 340" role="img" aria-labelledby="chart-title chart-desc">
+              <desc id="chart-desc">Bar chart showing cumulative RSU vesting month by month over 48 months.</desc>
+            </svg>
+          </div>
+        </section>
+
+        <section class="panel table-panel" aria-labelledby="table-title">
+          <h2 id="table-title">Vesting Schedule Table</h2>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Period</th>
+                  <th scope="col">Vest Date</th>
+                  <th scope="col">Newly Vested Shares</th>
+                  <th scope="col">Vested Shares</th>
+                  <th scope="col">Unvested Shares</th>
+                  <th scope="col">Current Value of Vested</th>
+                  <th scope="col">Projected Value per Period</th>
+                </tr>
+              </thead>
+              <tbody id="vesting-table-body"></tbody>
+            </table>
+          </div>
+          <p class="footnote">Projected value per period uses the current stock price and the shares vesting in that period.</p>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const ids = {
+        grantCount: 'total-rsu-grant-count',
+        grantDate: 'grant-date',
+        schedule: 'vesting-schedule',
+        grantPrice: 'stock-price-at-grant',
+        currentPrice: 'current-stock-price',
+      };
+
+      const elements = Object.fromEntries(
+        Object.entries(ids).map(([key, id]) => [key, document.getElementById(id)])
+      );
+      const summary = document.getElementById('summary-metrics');
+      const tableBody = document.getElementById('vesting-table-body');
+      const chart = document.getElementById('vesting-chart');
+
+      function numberValue(input) {
+        const value = Number.parseFloat(input.value);
+        return Number.isFinite(value) && value > 0 ? value : 0;
+      }
+
+      function parseGrantDate(value) {
+        const [year, month, day] = String(value || '').split('-').map(Number);
+        if (!year || !month || !day) return null;
+        const date = new Date(year, month - 1, day);
+        return Number.isNaN(date.getTime()) ? null : date;
+      }
+
+      function addMonths(date, months) {
+        const next = new Date(date);
+        const originalDay = next.getDate();
+        next.setMonth(next.getMonth() + months, 1);
+        const lastDay = new Date(next.getFullYear(), next.getMonth() + 1, 0).getDate();
+        next.setDate(Math.min(originalDay, lastDay));
+        return next;
+      }
+
+      function formatDate(date) {
+        return new Intl.DateTimeFormat('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        }).format(date);
+      }
+
+      function formatShares(value) {
+        return value.toLocaleString('en-US', {
+          minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+          maximumFractionDigits: 2,
+        });
+      }
+
+      function formatMoney(value) {
+        return value.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        });
+      }
+
+      function buildVestingEvents(totalShares, grantDate, cadence) {
+        const cliffShares = totalShares * 0.25;
+        const remainingShares = totalShares - cliffShares;
+        const events = [{
+          label: 'Month 12 cliff',
+          month: 12,
+          date: addMonths(grantDate, 12),
+          newlyVested: cliffShares,
+        }];
+
+        if (cadence === 'quarterly') {
+          const quarterlyShares = remainingShares / 12;
+          for (let period = 1; period <= 12; period += 1) {
+            const month = 12 + (period * 3);
+            events.push({
+              label: `Quarter ${period} / Month ${month}`,
+              month,
+              date: addMonths(grantDate, month),
+              newlyVested: quarterlyShares,
+            });
+          }
+        } else {
+          const monthlyShares = remainingShares / 36;
+          for (let month = 13; month <= 48; month += 1) {
+            events.push({
+              label: `Month ${month}`,
+              month,
+              date: addMonths(grantDate, month),
+              newlyVested: monthlyShares,
+            });
+          }
+        }
+
+        let cumulative = 0;
+        return events.map((event, index) => {
+          cumulative = index === events.length - 1
+            ? totalShares
+            : Math.min(totalShares, cumulative + event.newlyVested);
+          return {
+            ...event,
+            cumulative,
+            unvested: Math.max(0, totalShares - cumulative),
+          };
+        });
+      }
+
+      function buildMonthlyChartData(events, totalShares) {
+        let current = 0;
+        return Array.from({ length: 48 }, (_, index) => {
+          const month = index + 1;
+          for (const event of events) {
+            if (event.month === month) current = event.cumulative;
+          }
+          return {
+            month,
+            shares: current,
+            percent: totalShares > 0 ? current / totalShares : 0,
+          };
+        });
+      }
+
+      function getCurrentVest(events) {
+        const today = new Date();
+        return events.reduce((latest, event) => (
+          event.date <= today ? event : latest
+        ), { cumulative: 0, unvested: numberValue(elements.grantCount) });
+      }
+
+      function renderSummary({ totalShares, grantPrice, currentPrice, currentVest }) {
+        const grantValue = totalShares * grantPrice;
+        const currentTotalValue = totalShares * currentPrice;
+        const delta = currentTotalValue - grantValue;
+        const vestedValue = currentVest.cumulative * currentPrice;
+        const unvestedShares = Math.max(0, totalShares - currentVest.cumulative);
+
+        const metrics = [
+          ['Vested shares', formatShares(currentVest.cumulative), `${formatShares(unvestedShares)} unvested`],
+          ['Current vested value', formatMoney(vestedValue), `At ${formatMoney(currentPrice)} per share`],
+          ['Grant-date value', formatMoney(grantValue), `At ${formatMoney(grantPrice)} per share`],
+          ['Current total value', formatMoney(currentTotalValue), `${delta >= 0 ? '+' : ''}${formatMoney(delta)} vs. grant`],
+        ];
+
+        summary.innerHTML = metrics.map(([label, value, sub]) => `
+          <article class="metric">
+            <div class="label">${label}</div>
+            <div class="value">${value}</div>
+            <div class="sub">${sub}</div>
+          </article>
+        `).join('');
+      }
+
+      function renderTable(events, totalShares, currentPrice) {
+        const today = new Date();
+        tableBody.innerHTML = events.map((event) => {
+          const rowClass = event.date <= today ? ' class="is-vested"' : '';
+          return `
+            <tr${rowClass}>
+              <td><span class="status-pill">${event.label}</span></td>
+              <td>${formatDate(event.date)}</td>
+              <td>${formatShares(event.newlyVested)}</td>
+              <td>${formatShares(event.cumulative)}</td>
+              <td>${formatShares(Math.max(0, totalShares - event.cumulative))}</td>
+              <td>${formatMoney(event.cumulative * currentPrice)}</td>
+              <td>${formatMoney(event.newlyVested * currentPrice)}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      function renderChart(monthlyData) {
+        const width = 960;
+        const height = 340;
+        const padding = { top: 34, right: 26, bottom: 48, left: 56 };
+        const plotWidth = width - padding.left - padding.right;
+        const plotHeight = height - padding.top - padding.bottom;
+        const barGap = 3;
+        const barWidth = (plotWidth / monthlyData.length) - barGap;
+        const axisY = padding.top + plotHeight;
+        const gridLines = [0, 0.25, 0.5, 0.75, 1];
+
+        const grid = gridLines.map((value) => {
+          const y = axisY - (plotHeight * value);
+          return `
+            <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="#dbe3ef" stroke-width="1" />
+            <text x="18" y="${y + 4}" fill="#64748b" font-size="12">${Math.round(value * 100)}%</text>
+          `;
+        }).join('');
+
+        const bars = monthlyData.map((point, index) => {
+          const x = padding.left + (index * (plotWidth / monthlyData.length));
+          const barHeight = Math.max(0, plotHeight * point.percent);
+          const y = axisY - barHeight;
+          const fill = point.month <= 12 ? '#2B1F6B' : '#00C7B7';
+          return `
+            <rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(1, barWidth).toFixed(2)}" height="${barHeight.toFixed(2)}" rx="2" fill="${fill}" opacity="0.9">
+              <title>Month ${point.month}: ${Math.round(point.percent * 100)}% vested</title>
+            </rect>
+          `;
+        }).join('');
+
+        const markers = [12, 24, 36, 48].map((month) => {
+          const x = padding.left + ((month - 0.5) * (plotWidth / monthlyData.length));
+          return `
+            <line x1="${x}" y1="${axisY}" x2="${x}" y2="${axisY + 6}" stroke="#64748b" />
+            <text x="${x}" y="${axisY + 24}" fill="#475569" font-size="12" text-anchor="middle">M${month}</text>
+          `;
+        }).join('');
+
+        chart.innerHTML = `
+          <rect width="${width}" height="${height}" fill="#ffffff" />
+          ${grid}
+          ${bars}
+          <line x1="${padding.left}" y1="${axisY}" x2="${width - padding.right}" y2="${axisY}" stroke="#94a3b8" stroke-width="1.5" />
+          ${markers}
+          <text x="${padding.left}" y="22" fill="#2B1F6B" font-size="14" font-weight="800">Cumulative vested shares</text>
+          <text x="${width - padding.right}" y="${height - 12}" fill="#64748b" font-size="12" text-anchor="end">48-month grant term</text>
+        `;
+      }
+
+      function render() {
+        const totalShares = numberValue(elements.grantCount);
+        const grantDate = parseGrantDate(elements.grantDate.value) || new Date();
+        const cadence = elements.schedule.value;
+        const grantPrice = numberValue(elements.grantPrice);
+        const currentPrice = numberValue(elements.currentPrice);
+        const events = buildVestingEvents(totalShares, grantDate, cadence);
+        const currentVest = getCurrentVest(events);
+
+        renderSummary({ totalShares, grantPrice, currentPrice, currentVest });
+        renderTable(events, totalShares, currentPrice);
+        renderChart(buildMonthlyChartData(events, totalShares));
+      }
+
+      document.getElementById('grant-form').addEventListener('input', render);
+      document.getElementById('grant-form').addEventListener('change', render);
+      render();
+    })();
+  </script>
+</body>
+</html>
