@@ -1,0 +1,1802 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LATITUDE × MEGAPORT — Integration War Room</title>
+  <meta name="description" content="Interactive strategy ideation site for the Latitude x Megaport integration working lunch.">
+  <meta property="og:title" content="LATITUDE × MEGAPORT — Integration War Room">
+  <meta property="og:description" content="Integration strategy, whale hunting, enablement, incentives, and 30-day action planning.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Monoton&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230d0221'/%3E%3Cg fill='%23f72585'%3E%3Crect x='1' y='3' width='1' height='10'/%3E%3Crect x='2' y='3' width='1' height='2'/%3E%3Crect x='3' y='5' width='1' height='2'/%3E%3Crect x='4' y='7' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='2'/%3E%3Crect x='6' y='3' width='1' height='2'/%3E%3Crect x='7' y='3' width='1' height='10'/%3E%3C/g%3E%3Cg fill='%234cc9f0'%3E%3Crect x='8' y='3' width='1' height='8'/%3E%3Crect x='9' y='11' width='1' height='1'/%3E%3Crect x='10' y='9' width='1' height='2'/%3E%3Crect x='10' y='12' width='1' height='1'/%3E%3Crect x='11' y='11' width='1' height='1'/%3E%3Crect x='12' y='9' width='1' height='2'/%3E%3Crect x='12' y='12' width='1' height='1'/%3E%3Crect x='13' y='11' width='1' height='1'/%3E%3Crect x='14' y='3' width='1' height='8'/%3E%3C/g%3E%3Crect x='1' y='14' width='14' height='1' fill='%23ffba08'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --pink: #f72585;
+      --pink-soft: #ff5fa8;
+      --teal: #4cc9f0;
+      --teal-soft: #8de4ff;
+      --violet: #8338ec;
+      --violet-soft: #b07aff;
+      --amber: #ffba08;
+      --black: #000000;
+      --cream: #fff5e1;
+      --cream-muted: #e8d9c0;
+      --muted: #a89cb8;
+      --surface: #0d0221;
+      --surface-2: #1a0b3d;
+      --line: rgba(255, 245, 225, 0.18);
+      --line-strong: rgba(255, 245, 225, 0.34);
+      --gradient: linear-gradient(135deg, #f72585 0%, #b5179e 40%, #8338ec 80%, #4361ee 100%);
+      --scanlines: repeating-linear-gradient(0deg, rgba(255,245,225,0.04) 0px 1px, transparent 1px 3px);
+      --glow-pink: 0 0 6px rgba(247,37,133,0.85), 0 0 14px rgba(247,37,133,0.55);
+      --glow-teal: 0 0 6px rgba(76,201,240,0.85), 0 0 14px rgba(76,201,240,0.55);
+      --shadow-8: 4px 4px 0 0 #0d0221;
+      --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(247,37,133,0.14), transparent 26%),
+        radial-gradient(circle at 82% 10%, rgba(76,201,240,0.12), transparent 24%),
+        radial-gradient(circle at 72% 82%, rgba(131,56,236,0.18), transparent 28%),
+        #000;
+      color: var(--cream);
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.9) 0 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.65) 0 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.38) 0 1px, transparent 1px);
+      background-position: 20px 40px, 140px 90px, 70px 160px;
+      background-size: 240px 180px, 310px 230px, 190px 140px;
+      opacity: 0.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    summary {
+      font: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -80px;
+      z-index: 50;
+      background: var(--cream);
+      color: var(--surface);
+      padding: 10px 12px;
+      border: 2px solid var(--pink);
+      transition: top 180ms var(--ease-snap);
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      min-height: 64px;
+      border-bottom: 2px solid rgba(255,245,225,0.16);
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      color: var(--cream);
+      white-space: nowrap;
+    }
+
+    .pixel-mw {
+      width: 24px;
+      height: 24px;
+      image-rendering: pixelated;
+      flex: 0 0 auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      color: var(--cream-muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      white-space: nowrap;
+      transition:
+        color 180ms var(--ease-snap),
+        border-color 180ms var(--ease-snap),
+        background 180ms var(--ease-snap);
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--teal);
+      border-color: rgba(76,201,240,0.5);
+      background: rgba(76,201,240,0.08);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      background:
+        var(--scanlines),
+        linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(13,2,33,0.45) 62%, #000 100%);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(transparent 0 62%, rgba(247,37,133,0.16) 62% 100%),
+        repeating-linear-gradient(0deg, transparent 0 39px, rgba(76,201,240,0.28) 39px 40px),
+        repeating-linear-gradient(90deg, transparent 0 39px, rgba(76,201,240,0.18) 39px 40px);
+      transform: perspective(560px) rotateX(64deg) translateY(48%);
+      transform-origin: bottom center;
+      opacity: 0.62;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 18px;
+      background:
+        linear-gradient(180deg,
+          var(--pink) 0 12%,
+          var(--teal) 12% 22%,
+          var(--violet) 22% 78%,
+          var(--teal) 78% 88%,
+          var(--pink) 88% 100%);
+      box-shadow: 0 0 28px rgba(247,37,133,0.5);
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+      padding: 110px 0 88px;
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .eyebrow,
+    .badge,
+    .mini-label {
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.7;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      text-shadow: var(--glow-teal);
+      margin: 0 0 18px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 820px;
+      color: var(--pink);
+      font-family: "Monoton", cursive;
+      font-size: 96px;
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: var(--glow-pink);
+    }
+
+    .hero-subtitle {
+      margin: 28px 0 0;
+      max-width: 680px;
+      color: var(--cream);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .hero-date {
+      margin: 16px 0 0;
+      color: var(--cream-muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+    }
+
+    .hero-actions {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .pixel-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 12px 16px;
+      border: 2px solid var(--cream);
+      background: var(--surface);
+      color: var(--cream);
+      box-shadow: 4px 4px 0 0 var(--pink);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.3;
+      transition:
+        transform 180ms var(--ease-snap),
+        box-shadow 180ms var(--ease-snap),
+        color 180ms var(--ease-snap);
+    }
+
+    .pixel-button.secondary {
+      box-shadow: 4px 4px 0 0 var(--teal);
+    }
+
+    .pixel-button:hover {
+      transform: translate(-2px, -2px);
+      color: var(--teal);
+    }
+
+    .pixel-button:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 0 var(--pink);
+    }
+
+    .war-console {
+      border: 2px solid var(--cream);
+      background: rgba(13, 2, 33, 0.92);
+      box-shadow: var(--shadow-8);
+      padding: 22px;
+      position: relative;
+    }
+
+    .war-console::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(76,201,240,0.35);
+      pointer-events: none;
+    }
+
+    .console-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--teal);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      margin-bottom: 22px;
+    }
+
+    .radar {
+      position: relative;
+      aspect-ratio: 1;
+      border: 2px solid rgba(76,201,240,0.82);
+      background:
+        radial-gradient(circle at center, rgba(76,201,240,0.22) 0 2px, transparent 3px),
+        radial-gradient(circle at center, transparent 0 22%, rgba(76,201,240,0.08) 22% 23%, transparent 23% 43%, rgba(76,201,240,0.1) 43% 44%, transparent 44% 64%, rgba(76,201,240,0.12) 64% 65%, transparent 65%),
+        linear-gradient(90deg, transparent 49.5%, rgba(76,201,240,0.35) 49.5% 50.5%, transparent 50.5%),
+        linear-gradient(0deg, transparent 49.5%, rgba(76,201,240,0.35) 49.5% 50.5%, transparent 50.5%),
+        #05000e;
+      overflow: hidden;
+    }
+
+    .radar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: conic-gradient(from 0deg, rgba(247,37,133,0.0), rgba(247,37,133,0.55), rgba(247,37,133,0.0) 28%);
+      animation: sweep 4s var(--ease-snap) infinite;
+    }
+
+    .radar-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--pink);
+      border: 2px solid var(--cream);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 12px rgba(247,37,133,0.7);
+    }
+
+    .radar-dot:nth-child(1) { left: 62%; top: 28%; }
+    .radar-dot:nth-child(2) { left: 35%; top: 42%; background: var(--teal); box-shadow: 0 0 12px rgba(76,201,240,0.7); }
+    .radar-dot:nth-child(3) { left: 72%; top: 68%; background: var(--amber); box-shadow: 0 0 12px rgba(255,186,8,0.7); }
+    .radar-dot:nth-child(4) { left: 44%; top: 76%; }
+
+    @keyframes sweep {
+      to { transform: rotate(360deg); }
+    }
+
+    .console-readout {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+      color: var(--cream-muted);
+      font-family: "VT323", monospace;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+
+    .readout-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px dashed rgba(255,245,225,0.2);
+      padding-bottom: 8px;
+    }
+
+    .readout-row strong {
+      color: var(--teal);
+      font-weight: 400;
+    }
+
+    section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    section:nth-of-type(even) {
+      background: rgba(13,2,33,0.48);
+    }
+
+    .section-inner {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--teal);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.7;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 22px;
+      height: 10px;
+      background: var(--gradient);
+      border: 1px solid var(--cream);
+      box-shadow: 2px 2px 0 0 var(--surface);
+    }
+
+    .section-title {
+      max-width: 830px;
+      margin: 0 0 18px;
+      color: var(--cream);
+      font-size: 44px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .section-lede {
+      max-width: 760px;
+      color: var(--cream-muted);
+      font-size: 19px;
+      line-height: 1.45;
+      margin-bottom: 34px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .pixel-card {
+      position: relative;
+      min-width: 0;
+      border: 2px solid var(--cream);
+      background: var(--surface);
+      box-shadow: var(--shadow-8);
+      padding: 20px;
+      transition:
+        transform 200ms var(--ease-snap),
+        border-color 200ms var(--ease-snap),
+        background 200ms var(--ease-snap);
+    }
+
+    .pixel-card:hover {
+      transform: translate(-3px, -3px);
+      border-color: var(--teal);
+      background: #12042e;
+    }
+
+    .pixel-card.pink { border-color: var(--pink); }
+    .pixel-card.teal { border-color: var(--teal); }
+    .pixel-card.violet { border-color: var(--violet-soft); }
+    .pixel-card.amber { border-color: var(--amber); }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      border: 2px solid currentColor;
+      color: var(--teal);
+      background: rgba(76,201,240,0.08);
+      flex: 0 0 auto;
+    }
+
+    .icon-box.pink { color: var(--pink); background: rgba(247,37,133,0.08); }
+    .icon-box.amber { color: var(--amber); background: rgba(255,186,8,0.08); }
+    .icon-box.violet { color: var(--violet-soft); background: rgba(131,56,236,0.12); }
+
+    .icon-box svg {
+      width: 23px;
+      height: 23px;
+      stroke-width: 2;
+    }
+
+    .pixel-card h3 {
+      margin: 0 0 8px;
+      color: var(--cream);
+      font-size: 22px;
+      line-height: 1.12;
+    }
+
+    .pixel-card p,
+    .pixel-card li {
+      color: var(--cream-muted);
+    }
+
+    .pixel-card p {
+      margin-bottom: 0;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255,245,225,0.34);
+      background: rgba(255,245,225,0.05);
+      color: var(--cream);
+      font-size: 9px;
+    }
+
+    .badge.pink { color: var(--pink-soft); border-color: rgba(247,37,133,0.55); }
+    .badge.teal { color: var(--teal-soft); border-color: rgba(76,201,240,0.55); }
+    .badge.amber { color: var(--amber); border-color: rgba(255,186,8,0.55); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin: 32px 0;
+    }
+
+    .stat-card {
+      border: 2px solid var(--cream);
+      background: #07021a;
+      box-shadow: var(--shadow-8);
+      padding: 18px 14px;
+      min-height: 138px;
+    }
+
+    .stat-value {
+      display: block;
+      color: var(--pink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 10px;
+      color: var(--cream-muted);
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .status-card {
+      border: 2px solid var(--line-strong);
+      background: rgba(13,2,33,0.86);
+      padding: 16px;
+      min-height: 178px;
+      box-shadow: var(--shadow-8);
+    }
+
+    .status-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 14px;
+      border: 2px solid currentColor;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .status-card.bad .status-mark { color: var(--pink); }
+    .status-card.good .status-mark { color: #00f5a0; }
+    .status-card.progress .status-mark { color: var(--amber); }
+
+    .status-card h3 {
+      margin: 0 0 8px;
+      color: var(--cream);
+      font-size: 18px;
+      line-height: 1.12;
+    }
+
+    .status-card p {
+      margin: 0;
+      color: var(--cream-muted);
+      font-size: 14px;
+      line-height: 1.38;
+    }
+
+    .whale-grid {
+      grid-template-columns: repeat(7, minmax(260px, 1fr));
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x proximity;
+    }
+
+    .whale-grid .pixel-card {
+      scroll-snap-align: start;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .play {
+      margin: 16px 0 0;
+      padding: 14px;
+      border-left: 4px solid var(--pink);
+      background: rgba(247,37,133,0.08);
+      color: var(--cream);
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .drilldown {
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    .drilldown summary {
+      cursor: pointer;
+      color: var(--teal);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.6;
+      list-style: none;
+      outline: none;
+    }
+
+    .drilldown summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .drilldown summary::before {
+      content: ">";
+      color: var(--pink);
+      margin-right: 8px;
+    }
+
+    .drilldown[open] summary::before {
+      content: "v";
+    }
+
+    .drilldown .detail-body {
+      margin-top: 12px;
+      border-top: 1px dashed rgba(255,245,225,0.24);
+      padding-top: 12px;
+      color: var(--cream-muted);
+      font-size: 14px;
+    }
+
+    .moves-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      counter-reset: moves;
+    }
+
+    .move-card {
+      min-height: 260px;
+      padding-top: 58px;
+      border-color: rgba(247,37,133,0.82);
+    }
+
+    .move-card::before {
+      counter-increment: moves;
+      content: counter(moves, decimal-leading-zero);
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      color: var(--teal);
+      font-family: "Press Start 2P", monospace;
+      font-size: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 2px solid var(--cream);
+      box-shadow: var(--shadow-8);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,245,225,0.14);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--teal);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.55;
+      background: rgba(76,201,240,0.08);
+    }
+
+    td {
+      color: var(--cream-muted);
+    }
+
+    td strong {
+      color: var(--cream);
+    }
+
+    .partner-stack,
+    .phase-stack,
+    .roadmap-stack,
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .partner-card {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .partner-card h3 {
+      color: var(--teal);
+    }
+
+    .course-card {
+      min-height: 252px;
+    }
+
+    .course-level {
+      display: inline-flex;
+      margin-bottom: 14px;
+      color: var(--pink);
+      font-family: "Monoton", cursive;
+      font-size: 56px;
+      line-height: 1;
+      text-shadow: var(--glow-pink);
+    }
+
+    .battle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .phase-card {
+      display: grid;
+      grid-template-columns: 140px 1fr 180px;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .phase-card .phase-tag {
+      color: var(--pink);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .phase-card .phase-metric {
+      color: var(--teal);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .roadmap-card {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 24px;
+      align-items: start;
+      border-left: 8px solid var(--pink);
+    }
+
+    .roadmap-card:nth-child(2n) {
+      border-left-color: var(--teal);
+    }
+
+    .roadmap-card:nth-child(3n) {
+      border-left-color: var(--violet-soft);
+    }
+
+    .roadmap-label {
+      color: var(--amber);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      top: 20px;
+      bottom: 20px;
+      width: 4px;
+      background: var(--gradient);
+    }
+
+    .week-card {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 20px;
+      position: relative;
+      padding-left: 0;
+    }
+
+    .week-marker {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--cream);
+      background: var(--surface-2);
+      color: var(--teal);
+      box-shadow: var(--shadow-8);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      z-index: 1;
+    }
+
+    .week-body {
+      border: 2px solid var(--cream);
+      background: var(--surface);
+      box-shadow: var(--shadow-8);
+      padding: 20px;
+    }
+
+    .week-body h3 {
+      margin: 0 0 10px;
+      color: var(--cream);
+      font-size: 22px;
+    }
+
+    .week-body ul,
+    .pixel-card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .week-body li + li,
+    .pixel-card li + li {
+      margin-top: 7px;
+    }
+
+    .note-strip {
+      margin-top: 30px;
+      border: 2px solid var(--teal);
+      background: rgba(76,201,240,0.08);
+      padding: 18px;
+      color: var(--cream);
+      box-shadow: var(--shadow-8);
+      font-family: "VT323", monospace;
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .footer {
+      padding: 58px 0;
+      border-top: 18px solid transparent;
+      border-image: linear-gradient(180deg,
+        var(--pink) 0 12%,
+        var(--teal) 12% 22%,
+        var(--violet) 22% 78%,
+        var(--teal) 78% 88%,
+        var(--pink) 88% 100%) 18;
+      background: #000;
+    }
+
+    .footer-inner {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      color: var(--cream-muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+    }
+
+    .footer strong {
+      color: var(--cream);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+        opacity 620ms var(--ease-out),
+        transform 620ms var(--ease-out);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 70ms; }
+    .delay-2 { transition-delay: 140ms; }
+    .delay-3 { transition-delay: 210ms; }
+
+    @media (max-width: 1024px) {
+      .nav-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 72px;
+      }
+
+      .grid.three,
+      .grid.four,
+      .moves-grid,
+      .stats-grid,
+      .status-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .moves-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .partner-card,
+      .phase-card,
+      .roadmap-card {
+        grid-template-columns: 1fr;
+      }
+
+      .phase-card .phase-metric {
+        text-align: left;
+      }
+
+      .battle-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 15px;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .hero-inner,
+      .section-inner,
+      .footer-inner {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero h1 {
+        font-size: 56px;
+        line-height: 1.05;
+      }
+
+      .hero-subtitle {
+        font-size: 21px;
+      }
+
+      .section-title {
+        font-size: 34px;
+      }
+
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .moves-grid,
+      .stats-grid,
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions,
+      .footer-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .pixel-button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .week-card {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 29px;
+        bottom: auto;
+        height: calc(100% - 120px);
+      }
+
+      .war-console {
+        padding: 16px;
+      }
+
+      .console-top {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media print {
+      html,
+      body {
+        background: #fff;
+        color: #111;
+      }
+
+      body::before,
+      .nav,
+      .hero::before,
+      .hero::after,
+      .pixel-button {
+        display: none !important;
+      }
+
+      .hero,
+      section,
+      section:nth-of-type(even),
+      .footer {
+        background: #fff !important;
+        color: #111 !important;
+        padding: 32px 0;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding: 24px 0;
+      }
+
+      .hero h1,
+      .section-title,
+      .course-level {
+        color: #111 !important;
+        text-shadow: none !important;
+      }
+
+      .pixel-card,
+      .status-card,
+      .stat-card,
+      .week-body,
+      .war-console,
+      .table-wrap {
+        background: #fff !important;
+        color: #111 !important;
+        border-color: #111 !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+      }
+
+      .pixel-card p,
+      .pixel-card li,
+      .status-card p,
+      td,
+      .section-lede,
+      .hero-date,
+      .hero-subtitle {
+        color: #222 !important;
+      }
+
+      a[href]::after {
+        content: "";
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#current-state">Skip to strategy board</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Latitude War Room home">
+        <svg class="pixel-mw" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true">
+          <rect width="16" height="16" fill="#0d0221"></rect>
+          <g fill="#f72585">
+            <rect x="1" y="3" width="1" height="10"></rect><rect x="2" y="3" width="1" height="2"></rect><rect x="3" y="5" width="1" height="2"></rect><rect x="4" y="7" width="1" height="1"></rect><rect x="5" y="5" width="1" height="2"></rect><rect x="6" y="3" width="1" height="2"></rect><rect x="7" y="3" width="1" height="10"></rect>
+          </g>
+          <g fill="#4cc9f0">
+            <rect x="8" y="3" width="1" height="8"></rect><rect x="9" y="11" width="1" height="1"></rect><rect x="10" y="9" width="1" height="2"></rect><rect x="10" y="12" width="1" height="1"></rect><rect x="11" y="11" width="1" height="1"></rect><rect x="12" y="9" width="1" height="2"></rect><rect x="12" y="12" width="1" height="1"></rect><rect x="13" y="11" width="1" height="1"></rect><rect x="14" y="3" width="1" height="8"></rect>
+          </g>
+          <rect x="1" y="14" width="14" height="1" fill="#ffba08"></rect>
+        </svg>
+        <span>WAR ROOM</span>
+      </a>
+      <div class="nav-links">
+        <a href="#current-state">Reality</a>
+        <a href="#whales">Whales</a>
+        <a href="#bold-moves">Bold moves</a>
+        <a href="#channel">Channel</a>
+        <a href="#internal">Internal</a>
+        <a href="#comp">Comp</a>
+        <a href="#machine">Machine</a>
+        <a href="#action-plan">30 days</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="reveal visible">
+        <p class="eyebrow">LATITUDE × MEGAPORT — Integration War Room</p>
+        <h1>LATITUDE WAR ROOM</h1>
+        <p class="hero-subtitle">Integration Strategy & Whale Hunting Playbook</p>
+        <p class="hero-date">June 24, 2026 — Willie × Abbey Session</p>
+        <div class="hero-actions" aria-label="Page shortcuts">
+          <a class="pixel-button" href="#whales"><i data-lucide="crosshair"></i> Hunt whales</a>
+          <a class="pixel-button secondary" href="#action-plan"><i data-lucide="calendar-days"></i> 30-day plan</a>
+        </div>
+      </div>
+      <aside class="war-console reveal visible delay-1" aria-label="War room radar">
+        <div class="console-top">
+          <span>LATITUDE OPS</span>
+          <span>MODE: LUNCH</span>
+        </div>
+        <div class="radar" aria-hidden="true">
+          <span class="radar-dot"></span>
+          <span class="radar-dot"></span>
+          <span class="radar-dot"></span>
+          <span class="radar-dot"></span>
+        </div>
+        <div class="console-readout">
+          <div class="readout-row"><span>ARR base</span><strong>$43.1M</strong></div>
+          <div class="readout-row"><span>First whale</span><strong>$25M</strong></div>
+          <div class="readout-row"><span>Channel mix</span><strong>70%</strong></div>
+          <div class="readout-row"><span>Metal sunset</span><strong>06.30.26</strong></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="current-state" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">01 - Reality check</span>
+        <h2 class="section-title">The acquisition is real. The operating system is still booting.</h2>
+        <p class="section-lede">Latitude gives Megaport compute, GPUs, and bare metal credibility on day one. The gap is not vision. The gap is repeatability: comp, training, channel muscle, and post-sale handoff.</p>
+
+        <div class="stats-grid" aria-label="Key acquisition and market stats">
+          <div class="stat-card">
+            <span class="stat-value counter" data-target="43.1" data-prefix="$" data-suffix="M" data-decimals="1">$43.1M</span>
+            <span class="stat-label">Latitude ARR at acquisition</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value counter" data-target="25" data-prefix="$" data-suffix="M" data-decimals="0">$25M</span>
+            <span class="stat-label">Post-acquisition compute contract</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value counter" data-target="1000" data-prefix="" data-suffix="+" data-decimals="0">1000+</span>
+            <span class="stat-label">Data centers in Megaport reach</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value counter" data-target="26" data-prefix="" data-suffix="" data-decimals="0">26</span>
+            <span class="stat-label">Countries with network reach</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value counter" data-target="50" data-prefix="$" data-suffix="B+" data-decimals="0">$50B+</span>
+            <span class="stat-label">Combined NaaS + compute TAM</span>
+          </div>
+        </div>
+
+        <div class="status-grid">
+          <article class="status-card bad">
+            <span class="status-mark" aria-hidden="true">❌</span>
+            <h3>Comp status</h3>
+            <p>Not quota comped. Sellers get spiffs only, so Latitude is easy to admire and easy to forget.</p>
+          </article>
+          <article class="status-card bad">
+            <span class="status-mark" aria-hidden="true">❌</span>
+            <h3>Training status</h3>
+            <p>Sellers, SAs, and channel teams are not yet trained on the story, discovery path, or attach logic.</p>
+          </article>
+          <article class="status-card bad">
+            <span class="status-mark" aria-hidden="true">❌</span>
+            <h3>Channel readiness</h3>
+            <p>Data Center Operators, agents, and resellers have no enablement kit. That matters when 70% of business is channel-led.</p>
+          </article>
+          <article class="status-card good">
+            <span class="status-mark" aria-hidden="true">✅</span>
+            <h3>Early wins</h3>
+            <p>Guy and Chopper proved the whale motion can land. The moat story has a proof point.</p>
+          </article>
+          <article class="status-card progress">
+            <span class="status-mark" aria-hidden="true">🔄</span>
+            <h3>Product integration</h3>
+            <p>Portal, billing, product packaging, storage attach, and operations handoffs are in flight.</p>
+          </article>
+        </div>
+
+        <div class="note-strip">Chopper model: land the massive whales now, deepen the moat, then harden comp, integrations, enablement, and repeatability around the motion.</div>
+      </div>
+    </section>
+
+    <section id="whales" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">02 - Whale hunting</span>
+        <h2 class="section-title">Immediate targets: crazy enough to matter, grounded enough to run.</h2>
+        <p class="section-lede">The first job is not broad market education. It is targeted pressure on the accounts where bare metal, GPUs, private fabric, storage, and urgency can turn into seven-figure and eight-figure commitments.</p>
+
+        <div class="grid whale-grid" aria-label="Whale target cards">
+          <article class="pixel-card pink">
+            <div class="card-head">
+              <div>
+                <h3>AI/ML Infrastructure Giants</h3>
+                <span class="badge pink">$10M+ GPU spend</span>
+              </div>
+              <span class="icon-box pink"><i data-lucide="brain-circuit"></i></span>
+            </div>
+            <p>Companies spending real money on training and inference need deterministic hardware, predictable economics, and fast paths to cloud data lakes.</p>
+            <div class="play">Play: Latitude GPU + Megaport private fabric to cloud data lakes = no noisy neighbors, deterministic performance.</div>
+            <div class="badge-row"><span class="badge teal">Inference</span><span class="badge">Training</span><span class="badge amber">Data lake attach</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Ask for GPU waste, cloud egress burn, model-serving jitter, and where training data lives. The hook is not "cheaper compute"; it is controlled throughput.</div>
+            </details>
+          </article>
+
+          <article class="pixel-card teal">
+            <div class="card-head">
+              <div>
+                <h3>Equinix Metal Refugees</h3>
+                <span class="badge amber">Deadline: June 30, 2026</span>
+              </div>
+              <span class="icon-box"><i data-lucide="ship-wheel"></i></span>
+            </div>
+            <p>A forced migration creates urgency, budget, and executive attention. The switching pain is already happening.</p>
+            <div class="play">Play: 4 months free on long-term commits, dedicated migration specialists, same bare metal quality + Megaport fabric bonus.</div>
+            <div class="badge-row"><span class="badge teal">Migration desk</span><span class="badge pink">Contract rescue</span><span class="badge">Private fabric</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Target known Metal footprint, ask what cannot move to shared cloud, then package migration as a board-level risk reduction plan.</div>
+            </details>
+          </article>
+
+          <article class="pixel-card violet">
+            <div class="card-head">
+              <div>
+                <h3>Financial Services / HFT</h3>
+                <span class="badge teal">Latency + compliance</span>
+              </div>
+              <span class="icon-box violet"><i data-lucide="activity"></i></span>
+            </div>
+            <p>These teams care about jitter, isolation, auditability, and private paths more than generic cloud elasticity.</p>
+            <div class="play">Play: Bare metal + private SDN = zero public internet exposure, sub-ms jitter, compliance-ready architecture.</div>
+            <div class="badge-row"><span class="badge">HFT</span><span class="badge amber">Risk</span><span class="badge teal">Private SDN</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Lead with determinism. Bring a reference architecture that shows private connectivity, storage path, failover, and audit boundaries.</div>
+            </details>
+          </article>
+
+          <article class="pixel-card pink">
+            <div class="card-head">
+              <div>
+                <h3>Hyperscaler Repatriators</h3>
+                <span class="badge pink">40% TCO pressure</span>
+              </div>
+              <span class="icon-box pink"><i data-lucide="cloud-off"></i></span>
+            </div>
+            <p>SaaS companies want out of the most expensive cloud workloads without severing the cloud services they still need.</p>
+            <div class="play">Play: Latitude compute at a fraction of cloud cost + Megaport fabric keeps you connected to clouds you still need.</div>
+            <div class="badge-row"><span class="badge amber">TCO</span><span class="badge">Hybrid</span><span class="badge teal">Cloud attach</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Ask where cloud spend is stable, not spiky. Those workloads are the repatriation wedge.</div>
+            </details>
+          </article>
+
+          <article class="pixel-card teal">
+            <div class="card-head">
+              <div>
+                <h3>Gaming / Adtech</h3>
+                <span class="badge teal">Low-latency edge</span>
+              </div>
+              <span class="icon-box"><i data-lucide="gamepad-2"></i></span>
+            </div>
+            <p>Game servers and bidding platforms punish latency, jitter, and overloaded shared infrastructure.</p>
+            <div class="play">Play: GPU-powered game servers + global Megaport fabric = under 10ms to any cloud backend.</div>
+            <div class="badge-row"><span class="badge">Game servers</span><span class="badge pink">Ad auctions</span><span class="badge amber">Regional bursts</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Pitch global proximity and private backend reach. Package with launch calendar support for game drops or campaign peaks.</div>
+            </details>
+          </article>
+
+          <article class="pixel-card violet">
+            <div class="card-head">
+              <div>
+                <h3>Gov / Defense / Healthcare</h3>
+                <span class="badge amber">Sovereignty</span>
+              </div>
+              <span class="icon-box violet"><i data-lucide="shield-check"></i></span>
+            </div>
+            <p>Shared tenancy, data sovereignty, HIPAA, FedRAMP, and air-gapped operating models all create a dedicated hardware case.</p>
+            <div class="play">Play: Dedicated hardware in sovereign locations + private connectivity, zero shared tenancy.</div>
+            <div class="badge-row"><span class="badge teal">HIPAA</span><span class="badge">Air gap</span><span class="badge pink">Sovereign</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Do not start with "cloud alternative." Start with risk boundaries, locality, and who is allowed to touch the data path.</div>
+            </details>
+          </article>
+
+          <article class="pixel-card amber">
+            <div class="card-head">
+              <div>
+                <h3>Mega AI Lab Deals</h3>
+                <span class="badge amber">$25M+ next shot</span>
+              </div>
+              <span class="icon-box amber"><i data-lucide="factory"></i></span>
+            </div>
+            <p>Enterprise AI inference platforms, autonomous vehicle companies, and LLM providers need a turnkey AI factory.</p>
+            <div class="play">Play: Custom GPU cluster + dedicated Megaport backbone + VAST high-performance storage = turnkey AI factory.</div>
+            <div class="badge-row"><span class="badge pink">VAST</span><span class="badge teal">Backbone</span><span class="badge">AI factory</span></div>
+            <details class="drilldown">
+              <summary>Openers</summary>
+              <div class="detail-body">Bring Brian Koenig into the packaging early. Procurement clarity can become a sales advantage when the hardware build is large.</div>
+            </details>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bold-moves" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">03 - Bold moves</span>
+        <h2 class="section-title">Audacious ideas to accelerate from acquired asset to category move.</h2>
+        <p class="section-lede">These are not all meant to ship at once. They are prompts for Abbey and Willie to sort into "do now," "prototype," and "keep in the drawer until the next whale asks for it."</p>
+
+        <div class="grid moves-grid">
+          <article class="pixel-card move-card"><h3>Latitude Labs</h3><p>Give marquee logos free GPU credits to build on the platform, then turn their wins into public proof.</p></article>
+          <article class="pixel-card move-card"><h3>Competitive Displacement Fund</h3><p>Create a $5M war chest to buy out Equinix Metal contracts and convert urgency into committed revenue.</p></article>
+          <article class="pixel-card move-card"><h3>AI Factory in a Box</h3><p>Pre-configured GPU cluster + Megaport fabric + VAST storage as one SKU, one reference architecture, one quote.</p></article>
+          <article class="pixel-card move-card"><h3>Developer Evangelist Program</h3><p>Hire 3 developer advocates, ship a Latitude SDK motion, and run hackathons against real GPU workloads.</p></article>
+          <article class="pixel-card move-card"><h3>Strategic Alliance with NVIDIA</h3><p>Co-brand "NVIDIA Superchip on Latitude" powered by Megaport private connectivity.</p></article>
+          <article class="pixel-card move-card"><h3>Zero to Inference in 60 Minutes</h3><p>Publicly demo a full AI deployment from private data path to live inference before lunch ends.</p></article>
+          <article class="pixel-card move-card"><h3>White-Label Compute for MSPs</h3><p>Let managed service providers resell Latitude under their brand with Megaport attach built in.</p></article>
+          <article class="pixel-card move-card"><h3>Quarterly Whale Deal Blitz</h3><p>Run a dedicated 2-week sprint with exec alignment and targeted outbound to the top 20 accounts.</p></article>
+          <article class="pixel-card move-card"><h3>Customer Advisory Board</h3><p>Invite 10 marquee customers to co-design the compute, storage, and network roadmap.</p></article>
+          <article class="pixel-card move-card"><h3>The Megaport Moat</h3><p>Brief Gartner and Forrester on CaaS + NaaS as a category, not a bundle.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="channel" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">04 - Channel enablement</span>
+        <h2 class="section-title">The channel cannot sell what it cannot explain in one page.</h2>
+        <p class="section-lede">If 70% of Megaport motion runs through partners, Latitude enablement has to be partner-native from the start. Not a seller deck repurposed as a PDF. A real partner operating kit.</p>
+
+        <div class="partner-stack">
+          <article class="pixel-card partner-card">
+            <h3>Certification Program</h3>
+            <p><strong>Latitude Certified Partner</strong> with Bronze, Silver, and Gold tiers. Online modules for positioning, hands-on labs for deployment, and a practical exam where the partner builds a bare metal + Megaport architecture.</p>
+          </article>
+          <article class="pixel-card partner-card">
+            <h3>Co-Selling Motions</h3>
+            <p>Joint account planning with dedicated Latitude overlay specialists for channel. The overlay does first 3 deals with the partner, then shifts into coaching mode.</p>
+          </article>
+          <article class="pixel-card partner-card">
+            <h3>Deal Registration</h3>
+            <p>First-to-register gets protected margin, starting at 15-20% and escalating with deal size, multi-year term, and storage/network attach.</p>
+          </article>
+          <article class="pixel-card partner-card">
+            <h3>Partner Portal Content</h3>
+            <p>Battlecards, ROI calculator, reference architectures, customer-facing one-pagers, migration checklists, and "first meeting" discovery scripts.</p>
+          </article>
+          <article class="pixel-card partner-card">
+            <h3>At-a-Glance</h3>
+            <p>One visual by partner type: DC Operators sell capacity and locality; Agents sell commercial simplicity; Resellers sell modernization and attach.</p>
+          </article>
+        </div>
+
+        <div class="table-wrap" style="margin-top: 22px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Partner type</th>
+                <th>Primary angle</th>
+                <th>Suggested margin</th>
+                <th>Accelerators</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Data Center Operators</strong></td>
+                <td>Keep workloads in facility; add private cloud and storage attach.</td>
+                <td>15-18%</td>
+                <td>Bonus margin for regional exclusivity or committed migration volume.</td>
+              </tr>
+              <tr>
+                <td><strong>Agents</strong></td>
+                <td>Simple commercial wedge into AI, repatriation, and Equinix Metal displacement.</td>
+                <td>12-16%</td>
+                <td>Quarterly spiffs for first Latitude deal, largest deal, and most deals.</td>
+              </tr>
+              <tr>
+                <td><strong>Traditional Resellers</strong></td>
+                <td>Bundle compute, connectivity, VAST, and Wasabi into managed modernization offers.</td>
+                <td>15-20%</td>
+                <td>Volume escalators at $250K, $500K, and $1M annualized bookings.</td>
+              </tr>
+              <tr>
+                <td><strong>MSPs</strong></td>
+                <td>White-label compute with Megaport network under their managed service wrapper.</td>
+                <td>18-22%</td>
+                <td>Higher margin for white-label commitments and support handoff readiness.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="internal" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">05 - Internal enablement</span>
+        <h2 class="section-title">SAs and account reps need a ladder, not a library.</h2>
+        <p class="section-lede">Training should move from "what is Latitude?" to "how do I design and sell a real architecture?" The goal is not content completion. The goal is seller confidence and SA repeatability.</p>
+
+        <div class="grid three">
+          <article class="pixel-card course-card">
+            <span class="course-level">101</span>
+            <h3>Latitude Fundamentals</h3>
+            <p>What it is, how bare metal works, core positioning, basic demo, and when not to pitch it.</p>
+          </article>
+          <article class="pixel-card course-card">
+            <span class="course-level">201</span>
+            <h3>Storage + Attach</h3>
+            <p>VAST integration, Wasabi NNIs, Megaport attach architecture, and where storage changes the deal size.</p>
+          </article>
+          <article class="pixel-card course-card">
+            <span class="course-level">301</span>
+            <h3>Enterprise AI Reference Architectures</h3>
+            <p>GPU cluster design, inference pipelines, data gravity, high-performance storage, and customer proof points.</p>
+          </article>
+        </div>
+
+        <div class="battle-grid">
+          <article class="pixel-card teal">
+            <div class="card-head">
+              <h3>Competitive Battlecard</h3>
+              <span class="icon-box"><i data-lucide="swords"></i></span>
+            </div>
+            <p>Position against Equinix, Vultr, OVHcloud, and Hivelocity with objection handling for price, footprint, support, migration, and network attach.</p>
+            <ul>
+              <li>Equinix: sunset urgency plus migration path.</li>
+              <li>Vultr/OVHcloud: commodity compute versus private architecture.</li>
+              <li>Hivelocity: bare metal quality plus Megaport fabric moat.</li>
+            </ul>
+          </article>
+          <article class="pixel-card pink">
+            <div class="card-head">
+              <h3>Demo Lab + SA Certification</h3>
+              <span class="icon-box pink"><i data-lucide="flask-conical"></i></span>
+            </div>
+            <p>A sandbox where SAs can spin up Latitude + Megaport in 15 minutes, then certify into graduated levels tied to comp accelerators and deal support eligibility.</p>
+            <ul>
+              <li>Lab 1: bare metal provisioning.</li>
+              <li>Lab 2: private cloud attach.</li>
+              <li>Lab 3: AI cluster + VAST storage reference.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="comp" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">06 - Comp architecture</span>
+        <h2 class="section-title">Incentives have to evolve before the field treats Latitude as core.</h2>
+        <p class="section-lede">Spiffs can start motion, but quota creates muscle memory. The bridge needs to be clear enough for leadership, sellers, SAs, and channel partners to understand what changes and when.</p>
+
+        <div class="phase-stack">
+          <article class="pixel-card phase-card">
+            <span class="phase-tag">Phase 1 - Now</span>
+            <div>
+              <h3>Spiff-only launch motion</h3>
+              <p>Keep $500-$2K per closed deal as the near-term spark while enablement and qualification catch up.</p>
+            </div>
+            <span class="phase-metric">$500-$2K</span>
+          </article>
+          <article class="pixel-card phase-card teal">
+            <span class="phase-tag">Phase 2 - Q3</span>
+            <div>
+              <h3>Quota-eligible overlay</h3>
+              <p>Make Latitude 10-15% of total quota for applicable roles, with overlay support for account teams.</p>
+            </div>
+            <span class="phase-metric">10-15%</span>
+          </article>
+          <article class="pixel-card phase-card pink">
+            <span class="phase-tag">Phase 3 - Q4+</span>
+            <div>
+              <h3>Full quota inclusion</h3>
+              <p>Full quota credit with accelerators. Deals above $100K receive a 2x multiplier when they include network and storage attach.</p>
+            </div>
+            <span class="phase-metric">2x</span>
+          </article>
+        </div>
+
+        <div class="grid two" style="margin-top: 22px;">
+          <article class="pixel-card">
+            <h3>Channel margin recommendations</h3>
+            <p>Protect margin for registered deals, escalate for larger commitments, and pay extra when partners include Megaport fabric and storage attach instead of compute-only resale.</p>
+          </article>
+          <article class="pixel-card amber">
+            <h3>Quarterly channel spiffs</h3>
+            <p>Run "first Latitude deal," "largest Latitude deal," and "most Latitude deals" incentives every quarter. Keep the mechanic simple enough that partners remember it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="machine" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">07 - Megaport machine</span>
+        <h2 class="section-title">Integration means Latitude shows up everywhere the Megaport business already runs.</h2>
+        <p class="section-lede">The win is not a sidecar compute product. The win is compute, network, and storage becoming one commercial and operational motion.</p>
+
+        <div class="roadmap-stack">
+          <article class="pixel-card roadmap-card">
+            <span class="roadmap-label">Product</span>
+            <p><strong>Latitude in Megaport ONE portal:</strong> single login, unified billing, usage visibility, and attach prompts where network services are already managed.</p>
+          </article>
+          <article class="pixel-card roadmap-card">
+            <span class="roadmap-label">Sales process</span>
+            <p><strong>Discovery in every call:</strong> add Latitude questions to standard Megaport discovery so reps surface compute, GPU, storage, and repatriation signals early.</p>
+          </article>
+          <article class="pixel-card roadmap-card">
+            <span class="roadmap-label">Deal desk</span>
+            <p><strong>Combined pricing desk:</strong> one commercial path for Megaport + Latitude + VAST + Wasabi, with Brian Koenig looped in for procurement-heavy deals.</p>
+          </article>
+          <article class="pixel-card roadmap-card">
+            <span class="roadmap-label">Post-sale</span>
+            <p><strong>Deal-to-Design gate:</strong> create a design handoff checklist and intake process before orders become ambiguous JIRA requests.</p>
+          </article>
+          <article class="pixel-card roadmap-card">
+            <span class="roadmap-label">Customer success</span>
+            <p><strong>Combined QBRs:</strong> show network, compute, storage usage, performance, savings, and next expansion plays in one customer view.</p>
+          </article>
+          <article class="pixel-card roadmap-card">
+            <span class="roadmap-label">Marketing</span>
+            <p><strong>Joint market voice:</strong> case studies, webinar series, and analyst briefings that make CaaS + NaaS feel like a category.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="action-plan" class="reveal">
+      <div class="section-inner">
+        <span class="section-kicker">08 - 30-day action plan</span>
+        <h2 class="section-title">Four weeks to turn the lunch into operating rhythm.</h2>
+        <p class="section-lede">This plan keeps the first month narrow: extract the whale pattern, make the field story teachable, attack the Equinix Metal window, and install one post-sale gate that prevents chaos.</p>
+
+        <div class="timeline">
+          <article class="week-card">
+            <div class="week-marker">W1</div>
+            <div class="week-body">
+              <h3>Audit what already worked</h3>
+              <ul>
+                <li>Review recent Guy/Chopper contracts and build a sold-vs-capability matrix.</li>
+                <li>Meet David Luke for SA reality check and Equinix Metal migration pattern capture.</li>
+                <li>Identify where Brian Koenig needs to join procurement-heavy whale deals.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="week-card">
+            <div class="week-marker">W2</div>
+            <div class="week-body">
+              <h3>Make the story teachable</h3>
+              <ul>
+                <li>Draft 101/201/301 curriculum framework with SA certification checkpoints.</li>
+                <li>Build the channel at-a-glance one-pager for DC Ops, agents, and resellers.</li>
+                <li>Create the first ROI calculator outline for repatriation and Metal displacement.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="week-card">
+            <div class="week-marker">W3</div>
+            <div class="week-body">
+              <h3>Launch the urgent campaign</h3>
+              <ul>
+                <li>Launch Equinix Metal migration campaign with 4-month-free offer guardrails.</li>
+                <li>Create competitive battlecard v1 against Equinix, Vultr, OVHcloud, and Hivelocity.</li>
+                <li>Define the whale blitz account list with top 20 targets and executive sponsor map.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="week-card">
+            <div class="week-marker">W4</div>
+            <div class="week-body">
+              <h3>Install the operating system</h3>
+              <ul>
+                <li>Present unified vision to leadership: whale motion, channel enablement, comp bridge, product integration.</li>
+                <li>Pilot Deal-to-Design intake gate with Cam Daniel and SA leadership.</li>
+                <li>Pick first 3 customer stories to pursue for the Megaport Moat analyst campaign.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="note-strip">Lunch close: what do we greenlight Monday, what do we prototype this month, and what gets parked until a whale asks for it?</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Built by Gary</strong> — Willie's AI Chief of Staff | Strategy Session: June 24, 2026
+      </div>
+      <svg class="pixel-mw" viewBox="0 0 16 16" shape-rendering="crispEdges" role="img" aria-label="Pixel MW badge">
+        <rect width="16" height="16" fill="#0d0221"></rect>
+        <g fill="#f72585">
+          <rect x="1" y="3" width="1" height="10"></rect><rect x="2" y="3" width="1" height="2"></rect><rect x="3" y="5" width="1" height="2"></rect><rect x="4" y="7" width="1" height="1"></rect><rect x="5" y="5" width="1" height="2"></rect><rect x="6" y="3" width="1" height="2"></rect><rect x="7" y="3" width="1" height="10"></rect>
+        </g>
+        <g fill="#4cc9f0">
+          <rect x="8" y="3" width="1" height="8"></rect><rect x="9" y="11" width="1" height="1"></rect><rect x="10" y="9" width="1" height="2"></rect><rect x="10" y="12" width="1" height="1"></rect><rect x="11" y="11" width="1" height="1"></rect><rect x="12" y="9" width="1" height="2"></rect><rect x="12" y="12" width="1" height="1"></rect><rect x="13" y="11" width="1" height="1"></rect><rect x="14" y="3" width="1" height="8"></rect>
+        </g>
+        <rect x="1" y="14" width="14" height="1" fill="#ffba08"></rect>
+      </svg>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    const revealables = Array.from(document.querySelectorAll(".reveal"));
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+    const counters = Array.from(document.querySelectorAll(".counter"));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function formatCounter(value, element) {
+      const decimals = Number(element.dataset.decimals || 0);
+      const prefix = element.dataset.prefix || "";
+      const suffix = element.dataset.suffix || "";
+      return `${prefix}${value.toFixed(decimals)}${suffix}`;
+    }
+
+    function animateCounter(element) {
+      if (element.dataset.animated === "true" || reduceMotion) return;
+      element.dataset.animated = "true";
+      const target = Number(element.dataset.target || 0);
+      const duration = 1100;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent = formatCounter(target * eased, element);
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          element.textContent = formatCounter(target, element);
+        }
+      }
+
+      element.textContent = formatCounter(0, element);
+      requestAnimationFrame(tick);
+    }
+
+    function revealAll(animateCounters = false) {
+      revealables.forEach((item) => item.classList.add("visible"));
+      if (animateCounters) {
+        counters.forEach(animateCounter);
+      }
+    }
+
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            entry.target.querySelectorAll(".counter").forEach(animateCounter);
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      revealables.forEach((item) => revealObserver.observe(item));
+
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
+        });
+      }, { threshold: 0.05, rootMargin: "-35% 0px -55% 0px" });
+
+      document.querySelectorAll("main section[id]").forEach((section) => navObserver.observe(section));
+    } else {
+      revealAll(true);
+    }
+
+    setTimeout(() => revealAll(false), 2000);
+
+    window.addEventListener("beforeprint", () => {
+      document.querySelectorAll("details").forEach((detail) => detail.open = true);
+      revealAll(false);
+    });
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
