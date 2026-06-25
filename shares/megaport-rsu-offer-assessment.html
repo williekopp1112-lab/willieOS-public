@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Megaport RSU Offer Assessment - William Kopp</title>
+  <meta name="description" content="Senior financial planner assessment of William Kopp's Megaport RSU offer, including vesting, tax planning, risks, and advisor questions.">
+  <meta property="og:title" content="Megaport RSU Offer Assessment - William Kopp">
+  <meta property="og:description" content="Prepared by Gary | Senior Financial Analysis">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23091423'/%3E%3Cpath d='M12 42h40M16 34l9-9 9 7 14-16' fill='none' stroke='%236ee7d8' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='49' cy='16' r='5' fill='%23f6c66d'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #06101f;
+      --bg-2: #0a1628;
+      --panel: rgba(14, 28, 48, 0.78);
+      --panel-strong: rgba(18, 37, 63, 0.94);
+      --line: rgba(180, 203, 230, 0.18);
+      --text: #f4f7fb;
+      --muted: #a9bad0;
+      --soft: #d7e2ee;
+      --teal: #6ee7d8;
+      --gold: #f6c66d;
+      --coral: #ff8f70;
+      --blue: #7db5ff;
+      --green: #95e6a3;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      --spring: cubic-bezier(.34, 1.56, .64, 1);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(110, 231, 216, 0.14), transparent 28rem),
+        radial-gradient(circle at 88% 18%, rgba(246, 198, 109, 0.12), transparent 30rem),
+        linear-gradient(150deg, var(--bg), #091423 46%, #101726);
+      color: var(--text);
+      font-family: "Aptos", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 240ms var(--ease);
+    }
+
+    a:hover {
+      color: #b8fff6;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 78vh;
+      display: grid;
+      align-items: center;
+      padding: 92px 0 64px;
+    }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow:before {
+      content: "";
+      width: 38px;
+      height: 2px;
+      background: var(--teal);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+      line-height: 1.06;
+    }
+
+    h1 {
+      max-width: 980px;
+      font-size: clamp(3.25rem, 7.5vw, 6.75rem);
+      font-weight: 850;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+    }
+
+    h3 {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 800;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 26px 0 0;
+      color: var(--soft);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: end;
+      margin-top: 54px;
+    }
+
+    .metric-grid,
+    .overview-grid,
+    .assessment-grid,
+    .advisor-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .metric-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .metric,
+    .card,
+    .note,
+    .callout,
+    .timeline-card,
+    .question,
+    .step {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      transition: transform 260ms var(--spring), border-color 260ms var(--ease), background 260ms var(--ease);
+    }
+
+    .metric:hover,
+    .card:hover,
+    .question:hover,
+    .step:hover {
+      transform: translateY(-3px);
+      border-color: rgba(110, 231, 216, 0.38);
+      background: rgba(19, 39, 66, 0.92);
+    }
+
+    .metric {
+      padding: 22px;
+    }
+
+    .metric .label,
+    .fact-label {
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .metric .value {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .metric .small {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card {
+      padding: 26px;
+      border-left: 4px solid var(--gold);
+      background: rgba(246, 198, 109, 0.09);
+    }
+
+    .hero-card p {
+      margin: 12px 0 0;
+      color: var(--soft);
+    }
+
+    section {
+      padding: 96px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-head p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .overview-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .card {
+      padding: 28px;
+    }
+
+    .fact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 18px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fact-value {
+      color: var(--soft);
+      font-weight: 650;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 0.86rem;
+      font-weight: 760;
+    }
+
+    .badge:before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--teal);
+    }
+
+    .note {
+      padding: 24px;
+      border-left: 4px solid var(--teal);
+    }
+
+    .note p,
+    .callout p,
+    .card p {
+      margin: 12px 0 0;
+      color: var(--soft);
+    }
+
+    .assessment-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card.good {
+      border-top: 4px solid var(--green);
+    }
+
+    .card.risk {
+      border-top: 4px solid var(--coral);
+    }
+
+    .card.tax {
+      border-top: 4px solid var(--blue);
+    }
+
+    ul,
+    ol {
+      margin: 18px 0 0;
+      padding-left: 1.2rem;
+      color: var(--soft);
+    }
+
+    li + li {
+      margin-top: 10px;
+    }
+
+    .callout {
+      margin-top: 22px;
+      padding: 26px;
+      background:
+        linear-gradient(135deg, rgba(110, 231, 216, 0.12), rgba(125, 181, 255, 0.08)),
+        rgba(12, 25, 43, 0.94);
+    }
+
+    .timeline-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 18px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    td {
+      color: var(--soft);
+      font-weight: 620;
+    }
+
+    .bar-cell {
+      width: 260px;
+    }
+
+    .bar-track {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.09);
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .mini-chart {
+      position: relative;
+      min-height: 170px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+    }
+
+    .mini-chart strong {
+      color: var(--text);
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .mini-chart span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 8px;
+    }
+
+    .mini-chart:before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 74px;
+      height: var(--h);
+      max-height: 78px;
+      background: linear-gradient(180deg, rgba(110, 231, 216, 0.88), rgba(125, 181, 255, 0.42));
+    }
+
+    .advisor-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .question {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .question .num {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      background: rgba(110, 231, 216, 0.12);
+      color: var(--teal);
+      font-weight: 900;
+    }
+
+    .question p {
+      margin: 0;
+      color: var(--soft);
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 20px;
+      padding: 24px;
+    }
+
+    .phase {
+      color: var(--gold);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--soft);
+    }
+
+    .source-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 42px 0 56px;
+      background: rgba(0, 0, 0, 0.22);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    footer strong {
+      color: var(--text);
+    }
+
+    .print-note {
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .overview-grid,
+      .assessment-grid,
+      .advisor-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid,
+      .chart-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 24px, 1160px);
+      }
+
+      .hero {
+        padding: 76px 0 48px;
+      }
+
+      .hero:before {
+        inset: 12px;
+      }
+
+      section {
+        padding: 74px 0;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 16px;
+      }
+
+      .metric-grid,
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric,
+      .card,
+      .note,
+      .callout {
+        padding: 20px;
+      }
+
+      .fact,
+      .step {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .question {
+        grid-template-columns: 38px 1fr;
+      }
+
+      .question .num {
+        width: 38px;
+        height: 38px;
+      }
+
+      table {
+        min-width: 700px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #111827;
+      }
+
+      .metric,
+      .card,
+      .note,
+      .callout,
+      .timeline-card,
+      .question,
+      .step {
+        background: #fff;
+        color: #111827;
+        box-shadow: none;
+        border-color: #d1d5db;
+        backdrop-filter: none;
+      }
+
+      p,
+      li,
+      td,
+      .fact-value,
+      .subtitle {
+        color: #1f2937;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      section {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="shell">
+        <p class="eyebrow">Restricted Stock Unit Review</p>
+        <h1>Megaport RSU Offer Assessment &mdash; William Kopp</h1>
+        <p class="subtitle">Prepared by Gary | Senior Financial Analysis</p>
+
+        <div class="hero-grid">
+          <div class="metric-grid" aria-label="Offer highlights">
+            <div class="metric">
+              <div class="label">Offer Value</div>
+              <div class="value">A$254,396</div>
+              <div class="small">USD $180,000 converted at USD 1.00 = AUD 1.41331</div>
+            </div>
+            <div class="metric">
+              <div class="label">Company</div>
+              <div class="value">Megaport</div>
+              <div class="small">Megaport Limited, ASX: MP1</div>
+            </div>
+            <div class="metric">
+              <div class="label">Vesting</div>
+              <div class="value">3 annual tranches</div>
+              <div class="small">One-third on each Issue Date</div>
+            </div>
+            <div class="metric">
+              <div class="label">Accept By</div>
+              <div class="value">1 Jul 2026</div>
+              <div class="small">5:00pm AEST per invitation</div>
+            </div>
+          </div>
+
+          <aside class="hero-card card">
+            <h3>Planner read</h3>
+            <p>This is a meaningful equity grant with public-market liquidity, but the tax exposure is real. The offer creates taxable wage income at each vesting event, and normal supplemental withholding may be too low if William is already in a high federal and California bracket.</p>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <section id="overview">
+      <div class="shell">
+        <div class="section-head">
+          <h2>1. RSU Offer Overview</h2>
+          <p>Terms extracted from the Megaport Restricted Stock Unit Offer dated 16 June 2026 and the attached Employee Share Plan rules.</p>
+        </div>
+
+        <div class="overview-grid">
+          <article class="card">
+            <h3>Core Terms</h3>
+            <div class="fact-list">
+              <div class="fact">
+                <div class="fact-label">Company</div>
+                <div class="fact-value">Megaport Limited (ACN 607 301 959), ordinary shares traded on the ASX under MP1.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Offer Date</div>
+                <div class="fact-value">16 June 2026. Application form shown as dated 24 June 2026.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Grant Date</div>
+                <div class="fact-value">Not fixed in the offer. If accepted, rights are granted at the next quarterly RSU issue date after employment commencement; the Employee Share Account will show the final Grant Date.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Share Value</div>
+                <div class="fact-value">A$254,396, calculated from USD $180,000 at an exchange rate of USD 1.00 to AUD 1.41331.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Share Price at Grant</div>
+                <div class="fact-value">Not stated. The plan uses an Acquisition Price formula based on two 5-trading-day VWAP windows, then selects the lower value.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Total RSU Units</div>
+                <div class="fact-value">Not stated as a fixed number. Formula: 100% of Share Value divided by Acquisition Price, rounded down to the nearest whole RSU.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Vesting and Restrictions</h3>
+            <div class="fact-list">
+              <div class="fact">
+                <div class="fact-label">Schedule</div>
+                <div class="fact-value">1 September 2027, 1 September 2028, and 1 September 2029. Each tranche is one-third of the RSU Grant, with whole-share rounding possible.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Cliff</div>
+                <div class="fact-value">Effectively a first annual cliff through 1 September 2027, followed by annual vesting. This is more back-loaded than the common US 4-year schedule with a 1-year cliff and monthly or quarterly vesting afterward.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Performance Conditions</div>
+                <div class="fact-value">No performance hurdles are stated for this offer. The primary condition is continued service through each Issue Date.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Acceleration</div>
+                <div class="fact-value">The Employee Share Plan gives the Board discretion on a change of control to remove restrictions and deem share rights vested and exercised. This is discretionary; no automatic double-trigger acceleration is stated.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Sale Restrictions</div>
+                <div class="fact-value">After issue, shares are not subject to a Disposal Restriction or Holding Lock Period, but sales remain subject to Megaport's Securities Trading Policy, insider trading restrictions, U.S. resale restrictions, and up to five business days of administrative processing.</div>
+              </div>
+              <div class="fact">
+                <div class="fact-label">Forfeiture</div>
+                <div class="fact-value">Unissued shares are forfeited if employment ends, or notice of termination is given or received, before the relevant Issue Date. Vested issued shares are retained after leaving.</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="callout">
+          <h3>Acquisition Price and Estimated Units</h3>
+          <p>The official Acquisition Price is the lower of the 5 consecutive trading day VWAP ending immediately before 1 March 2026 and the 5 consecutive trading day VWAP ending immediately before 1 June 2026. Public end-of-day close/volume data suggests the February 23-27 window was materially lower than the May 25-29 window. Using close/volume as a proxy only, the lower window is about A$8.1469, implying approximately 31,226 RSUs and roughly 10,408 shares per annual tranche after rounding. The official EquatePlus/Megaport VWAP calculation controls.</p>
+          <div class="badge-row">
+            <span class="badge">Official RSU count pending</span>
+            <span class="badge">Estimated only: about 31.2k units</span>
+            <span class="badge">Ask how rounding remainders are handled</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="assessment">
+      <div class="shell">
+        <div class="section-head">
+          <h2>2. Senior Financial Planner Assessment</h2>
+          <p>This analysis assumes William is a California resident and U.S. taxpayer, based on the offer's U.S. and California supplements. Confirm filing status, salary, residency, and payroll setup before relying on tax estimates.</p>
+        </div>
+
+        <div class="assessment-grid">
+          <article class="card good">
+            <h3>The Good</h3>
+            <ul>
+              <li><strong>Material wealth-building opportunity:</strong> The stated offer value is USD $180,000 at grant-value conversion, with upside if Megaport's share price rises before or after vesting.</li>
+              <li><strong>Public-company liquidity:</strong> MP1 trades on the ASX, and issued shares are not subject to a stated holding lock. That is a real advantage versus private-company RSUs that may vest without liquidity.</li>
+              <li><strong>No purchase price:</strong> Participation has no initial monetary cost, and Megaport covers issue, transfer, brokerage, GST, and administration costs tied to issuing or allocating shares.</li>
+              <li><strong>Service-based vesting:</strong> No performance hurdles are stated. If William remains employed through each Issue Date, the path to vesting is straightforward.</li>
+              <li><strong>Potential change-of-control relief:</strong> The plan gives the Board discretion to accelerate vesting or remove restrictions in a change of control. This is favorable to have, but it is not guaranteed.</li>
+            </ul>
+          </article>
+
+          <article class="card risk">
+            <h3>Potential Pitfalls and Risks</h3>
+            <ul>
+              <li><strong>Taxable wage income at vesting:</strong> The fair market value of shares delivered at vest is generally ordinary wage income, reportable on Form W-2. It is not taxed only when sold.</li>
+              <li><strong>Withholding may be short:</strong> Federal supplemental withholding can be 22% up to $1 million of supplemental wages, while William's actual marginal rate may be 32%, 35%, or 37% depending on total income.</li>
+              <li><strong>California impact:</strong> California income tax, SDI, and payroll withholding can materially increase the cash needed at vest. California's top marginal PIT rate is 12.3%, with an additional 1% tax on taxable income over $1 million.</li>
+              <li><strong>Concentration risk:</strong> Salary, career risk, and equity exposure are tied to the same company. Holding vested shares can quickly create single-stock exposure that is larger than intended.</li>
+              <li><strong>Forfeiture risk:</strong> Unissued tranches are lost if employment ends or notice is given or received before the Issue Date. There is no stated pro-rata vesting.</li>
+              <li><strong>Recoupment and clawback:</strong> Fraud, dishonesty, gross misconduct, disrepute, financial misstatement, required legal or policy clawback, unsupported vesting, or bad-leaver status can trigger lapse, forfeiture, or repayment.</li>
+              <li><strong>Trading restrictions:</strong> The offer says issued shares have no holding lock, but Megaport's Securities Trading Policy, insider trading rules, blackout periods, U.S. resale restrictions, and foreign brokerage logistics can still delay sale.</li>
+              <li><strong>Currency risk:</strong> Shares trade in AUD. U.S. taxable income and sale proceeds must be translated to USD, and the final economic value depends on AUD/USD at vest and sale.</li>
+            </ul>
+          </article>
+
+          <article class="card tax">
+            <h3>Tax Planning Recommendations</h3>
+            <ul>
+              <li><strong>Default posture:</strong> Same-day sale or sell-to-cover plus scheduled diversification is the cleanest baseline unless William has a strong, documented reason to hold more MP1 exposure.</li>
+              <li><strong>Plan for a federal gap:</strong> On an illustrative USD $60,000 tranche, 22% federal withholding is $13,200. If the marginal rate is 35%, the federal shortfall alone is about $7,800, before state and payroll taxes.</li>
+              <li><strong>Coordinate estimated taxes:</strong> Ask the tax advisor whether to make quarterly estimated payments or increase W-4 withholding before each vest, especially if payroll sell-to-cover does not cover the full liability.</li>
+              <li><strong>Confirm California method:</strong> Have payroll explain whether RSU settlement uses regular withholding, California supplemental withholding, and separate SDI withholding. Do not assume the shares sold for taxes cover the actual California liability.</li>
+              <li><strong>83(b) election likely N/A:</strong> RSUs generally do not transfer actual property at grant, so there is typically no Section 83(b) election to file. Confirm this with the tax advisor because the offer's tax summary mentions Section 83(b) in a dividend context.</li>
+              <li><strong>AMT:</strong> RSUs are not like incentive stock options and usually do not create a special AMT preference item. High ordinary income can still affect AMT calculations and phaseouts, so the advisor should model the full return.</li>
+              <li><strong>Foreign account reporting:</strong> Because the shares may be held through Computershare/EquatePlus or an offshore custody structure, ask about FBAR and Form 8938 thresholds.</li>
+              <li><strong>10b5-1 and trading windows:</strong> If William will have regular material nonpublic information, ask whether a pre-cleared trading plan or standing sale instruction is allowed under Megaport policy and applicable U.S./Australian rules.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="shell">
+        <div class="section-head">
+          <h2>3. Vesting Timeline Visualization</h2>
+          <p>The table shows the official Issue Dates and the offer's one-third-per-tranche structure. Estimated unit counts use the public close/volume proxy described above, not Megaport's official VWAP.</p>
+        </div>
+
+        <div class="timeline-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tranche</th>
+                  <th>Issue Date</th>
+                  <th>Official Terms</th>
+                  <th>Estimated Shares*</th>
+                  <th>Cumulative Estimated Shares*</th>
+                  <th class="bar-cell">Cumulative Progress</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>1 September 2027</td>
+                  <td>One-third of RSU Grant; subject to continued service</td>
+                  <td>~10,408</td>
+                  <td>~10,408</td>
+                  <td class="bar-cell"><div class="bar-track"><div class="bar" style="width: 33.33%"></div></div></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>1 September 2028</td>
+                  <td>One-third of RSU Grant; subject to continued service</td>
+                  <td>~10,408</td>
+                  <td>~20,816</td>
+                  <td class="bar-cell"><div class="bar-track"><div class="bar" style="width: 66.66%"></div></div></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>1 September 2029</td>
+                  <td>One-third of RSU Grant; subject to continued service</td>
+                  <td>~10,408</td>
+                  <td>~31,224</td>
+                  <td class="bar-cell"><div class="bar-track"><div class="bar" style="width: 100%"></div></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-grid" aria-label="Estimated cumulative vesting chart">
+          <div class="mini-chart" style="--h: 26px">
+            <strong>33%</strong>
+            <span>Vested after Sep 2027 tranche</span>
+          </div>
+          <div class="mini-chart" style="--h: 52px">
+            <strong>67%</strong>
+            <span>Vested after Sep 2028 tranche</span>
+          </div>
+          <div class="mini-chart" style="--h: 78px">
+            <strong>100%</strong>
+            <span>Vested after Sep 2029 tranche</span>
+          </div>
+        </div>
+
+        <p class="print-note">*Estimated shares assume an estimated RSU Grant of 31,226 units. If one-third tranches are rounded down independently, the schedule may deliver 31,224 shares and leave two units unresolved. Confirm the official share-account calculation and remainder handling.</p>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="shell">
+        <div class="section-head">
+          <h2>4. Key Questions for Your Tax Advisor</h2>
+          <p>These questions are tailored to the Megaport offer terms, California residency, and cross-border ASX share mechanics.</p>
+        </div>
+
+        <div class="advisor-grid">
+          <div class="question"><div class="num">1</div><p>At each 2027, 2028, and 2029 vest, how should the fair market value of ASX-listed MP1 shares be converted from AUD to USD for W-2 reporting and personal tax modeling?</p></div>
+          <div class="question"><div class="num">2</div><p>Based on salary, bonus, spouse income, and deductions, what federal and California marginal rates should William expect in each vesting year?</p></div>
+          <div class="question"><div class="num">3</div><p>Will payroll withhold federal income tax at 22% or another method, and will California withholding use regular wage tables, a supplemental rate, or a stock-compensation treatment?</p></div>
+          <div class="question"><div class="num">4</div><p>Should William make quarterly estimated tax payments, increase Form W-4 withholding, or reserve cash from each vest to cover any expected shortfall?</p></div>
+          <div class="question"><div class="num">5</div><p>Is there any Section 83(b) or Section 409A issue in this specific RSU structure, given that settlement occurs on the Issue Dates after service conditions are met?</p></div>
+          <div class="question"><div class="num">6</div><p>Could holding MP1 shares through EquatePlus, Computershare, or another foreign account trigger FBAR or Form 8938 reporting?</p></div>
+          <div class="question"><div class="num">7</div><p>If shares are sold on ASX, what records should be kept for AUD proceeds, FX conversion, basis, brokerage, and short-term versus long-term capital gain treatment?</p></div>
+          <div class="question"><div class="num">8</div><p>Does William need a written diversification policy, standing sale instruction, or 10b5-1-style plan because of Megaport trading windows, blackout periods, or potential access to material nonpublic information?</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="actions">
+      <div class="shell">
+        <div class="section-head">
+          <h2>5. Action Items and Next Steps</h2>
+          <p>Prioritized checklist for accepting the offer, setting tax controls, and managing each vesting event without avoidable surprises.</p>
+        </div>
+
+        <div class="step-list">
+          <div class="step">
+            <div class="phase">Before accepting</div>
+            <p>Confirm the offer is conditional only on employment commencement, read the full Offer Terms and Plan Rules, and ask Megaport or EquatePlus for the official Acquisition Price, RSU Grant count, and treatment of rounding remainders.</p>
+          </div>
+          <div class="step">
+            <div class="phase">Before accepting</div>
+            <p>Ask HR/payroll for a written explanation of vesting tax withholding mechanics: sell-to-cover, payroll withholding, cash payment, brokerage costs, currency conversion, and whether shares can be sold immediately after the five-business-day processing period.</p>
+          </div>
+          <div class="step">
+            <div class="phase">At grant</div>
+            <p>Save the final grant confirmation, Grant Date, official RSU count, Acquisition Price, plan documents, and Megaport Securities Trading Policy in a permanent tax folder.</p>
+          </div>
+          <div class="step">
+            <div class="phase">Before each vest</div>
+            <p>Thirty to sixty days before each Issue Date, update the tax projection with current MP1 price, AUD/USD rate, expected salary/bonus, spouse income, and year-to-date withholding.</p>
+          </div>
+          <div class="step">
+            <div class="phase">At each vest</div>
+            <p>Document the fair market value, AUD/USD conversion rate, shares withheld or sold, taxes remitted, net shares received, brokerage, and any blackout-period constraint that affected sale timing.</p>
+          </div>
+          <div class="step">
+            <div class="phase">After each vest</div>
+            <p>Decide quickly whether to same-day-sell, sell-to-cover and hold a capped position, or hold intentionally. A practical default is to diversify most vested shares unless MP1 exposure fits the household investment policy.</p>
+          </div>
+          <div class="step">
+            <div class="phase">Annually</div>
+            <p>Reconcile W-2, brokerage statements, foreign account records, FBAR/Form 8938 exposure, capital gain/loss records, and any employer equity statements before filing federal and California returns.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>Recommended Approach</h3>
+          <p>Treat the grant as compensation first and an investment second. Accepting the grant is economically attractive if William expects to stay through the vesting dates, but each tranche should have a tax plan and a sell/hold decision before it vests. The safest default is sell-to-cover or same-day sale for most shares, then retain only the amount of MP1 exposure that would still make sense if it were purchased with cash.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="references">
+      <div class="shell">
+        <div class="section-head">
+          <h2>References</h2>
+          <p>Primary document reviewed plus current external tax and market references consulted on 25 June 2026.</p>
+        </div>
+
+        <div class="card">
+          <h3>Sources Consulted</h3>
+          <div class="source-list">
+            <span>Megaport Restricted Stock Unit Offer for William Kopp, dated 16 June 2026, including General Terms, Specific Terms, U.S. tax notes, Plan Rules, California Supplement, and Application Form.</span>
+            <span><a href="https://www.irs.gov/pub/irs-pdf/p15.pdf">IRS Publication 15 (2026)</a>: federal supplemental wage withholding at 22% up to $1 million and 37% above $1 million.</span>
+            <span><a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill">IRS 2026 tax inflation adjustments</a>: federal marginal brackets and AMT exemption references.</span>
+            <span><a href="https://www.ssa.gov/oact/cola/cbb.html">Social Security Administration contribution and benefit base</a>: 2026 Social Security wage base and OASDI rate.</span>
+            <span><a href="https://www.irs.gov/newsroom/us-taxation-of-stock-based-compensation-received-by-nonresident-aliens-youtube-video-text-script">IRS stock-based compensation discussion</a>: RSU vesting value generally included as ordinary income and reported on Form W-2.</span>
+            <span><a href="https://edd.ca.gov/siteassets/files/pdf_pub_ctr/de44.pdf">California EDD 2026 Employer's Guide</a> and <a href="https://edd.ca.gov/siteassets/files/pdf_pub_ctr/de231ps.pdf">EDD supplemental wage withholding information sheet</a>: California SDI and supplemental withholding reference points.</span>
+            <span><a href="https://stockanalysis.com/quote/asx/MP1/history/">StockAnalysis ASX:MP1 historical data</a>, sourced to S&amp;P Global Market Intelligence, used only for non-official close/volume proxy calculations.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <strong>Disclaimer:</strong> This assessment is for informational purposes only and does not constitute tax, legal, or investment advice. Consult a qualified tax professional before making decisions.
+    </div>
+  </footer>
+</body>
+</html>
