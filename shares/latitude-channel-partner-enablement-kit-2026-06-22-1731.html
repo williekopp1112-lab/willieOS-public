@@ -1,0 +1,1445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Latitude in a Box: a channel partner enablement kit for Megaport partners selling compute, network, and storage together.">
+  <meta property="og:title" content="Latitude in a Box - Channel Partner Enablement Kit">
+  <meta property="og:description" content="A field-ready partner kit for spotting, pitching, registering, and co-selling Latitude opportunities.">
+  <title>Latitude in a Box - Channel Partner Enablement Kit</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2340275D'/%3E%3Cpath d='M10 45 22 15l10 18 10-18 12 30h-9l-5-14-8 14-8-14-5 14z' fill='%23F915A2'/%3E%3Cpath d='M10 45h44' stroke='%230088C6' stroke-width='5'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --red: #ff0000;
+      --pink: #f915a2;
+      --plum: #40275d;
+      --blue: #0088c6;
+      --slate: #404141;
+      --ink: #050510;
+      --panel: #11111d;
+      --panel-2: #171828;
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #f7f7fb;
+      --muted: #b8bdc8;
+      --soft: rgba(255, 255, 255, 0.06);
+      --good: #3de2a4;
+      --warn: #ffd166;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.38);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 5%, rgba(249, 21, 162, 0.22), transparent 30rem),
+        radial-gradient(circle at 92% 10%, rgba(0, 136, 198, 0.25), transparent 34rem),
+        linear-gradient(135deg, #050510 0%, #11111d 44%, #1a1026 100%);
+      font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.23;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black 0, transparent 85%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 34px;
+      align-items: center;
+      padding: 42px 0 28px;
+    }
+
+    .topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 0 7px rgba(249, 21, 162, 0.18);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 11ch;
+      margin: 24px 0 18px;
+      font-size: clamp(3.4rem, 8.4vw, 7.8rem);
+      line-height: 0.86;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      color: #e7e9f2;
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--red));
+      box-shadow: 0 18px 38px rgba(249, 21, 162, 0.22);
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 48px rgba(249, 21, 162, 0.32);
+      outline: none;
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .signal-box {
+      position: relative;
+      min-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(249, 21, 162, 0.22), transparent 28%),
+        linear-gradient(330deg, rgba(0, 136, 198, 0.22), transparent 34%),
+        rgba(17, 17, 29, 0.84);
+      box-shadow: var(--shadow);
+    }
+
+    .signal-box::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      transform: rotate(-3deg);
+    }
+
+    .box-label {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: white;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .box-visual {
+      position: absolute;
+      inset: 70px 20px 28px;
+      display: grid;
+      place-items: center;
+    }
+
+    .cube {
+      width: min(78%, 370px);
+      aspect-ratio: 1;
+      position: relative;
+      transform: rotate(-10deg);
+    }
+
+    .cube .face {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+    }
+
+    .cube .face:nth-child(1) {
+      transform: translate(28px, -28px);
+      background: linear-gradient(135deg, rgba(249, 21, 162, 0.42), rgba(255, 0, 0, 0.18));
+    }
+
+    .cube .face:nth-child(2) {
+      transform: translate(-22px, 22px);
+      background: linear-gradient(135deg, rgba(0, 136, 198, 0.38), rgba(64, 39, 93, 0.4));
+    }
+
+    .cube .face:nth-child(3) {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 26px;
+      background: rgba(5, 5, 16, 0.72);
+    }
+
+    .cube strong {
+      display: block;
+      font-size: clamp(2.1rem, 5vw, 4.5rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+
+    .cube span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 5, 16, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-inner a {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .nav-inner a:hover,
+    .nav-inner a:focus-visible {
+      color: white;
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+    }
+
+    section {
+      scroll-margin-top: 82px;
+      padding: 46px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(280px, 0.42fr);
+      gap: 26px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      color: var(--pink);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 0.96;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pink), var(--blue));
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+      line-height: 1.1;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .pitch-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 20px;
+      align-items: stretch;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(64, 39, 93, 0.75), rgba(5, 5, 16, 0.88)),
+        rgba(17, 17, 29, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    blockquote {
+      margin: 0;
+      font-size: clamp(1.5rem, 3.2vw, 3rem);
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .talk-track {
+      display: grid;
+      gap: 10px;
+    }
+
+    .talk-track div {
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .talk-track strong {
+      display: block;
+      margin-bottom: 4px;
+      color: white;
+    }
+
+    .talk-track span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .tier-shell {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .tier-tabs {
+      display: grid;
+      gap: 10px;
+    }
+
+    .tier-tab {
+      width: 100%;
+      min-height: 88px;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      color: white;
+      background: rgba(255, 255, 255, 0.055);
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .tier-tab:hover,
+    .tier-tab:focus-visible {
+      transform: translateX(3px);
+      outline: none;
+    }
+
+    .tier-tab[aria-selected="true"] {
+      border-color: rgba(249, 21, 162, 0.72);
+      background: linear-gradient(135deg, rgba(249, 21, 162, 0.2), rgba(0, 136, 198, 0.08));
+    }
+
+    .tier-tab strong {
+      display: block;
+      font-size: 1.15rem;
+    }
+
+    .tier-tab span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .tier-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(17, 17, 29, 0.88);
+      min-height: 284px;
+    }
+
+    .tier-panel h3 {
+      margin-bottom: 8px;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    .tier-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #eef0f8;
+      font-size: 0.85rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .check-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .check-list li {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .check-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.35em;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.9);
+    }
+
+    .spotter {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .signal-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .signal {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.055);
+      cursor: pointer;
+    }
+
+    .signal input {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--pink);
+      margin-top: 2px;
+    }
+
+    .signal strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .signal span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .fit-card {
+      position: sticky;
+      top: 72px;
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(249, 21, 162, 0.16), rgba(0, 136, 198, 0.1)), rgba(17, 17, 29, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .score-ring {
+      width: 164px;
+      height: 164px;
+      margin: 8px auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--pink) calc(var(--score) * 1%), rgba(255, 255, 255, 0.1) 0);
+    }
+
+    .score-ring div {
+      width: 122px;
+      height: 122px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #080812;
+      text-align: center;
+    }
+
+    .score-ring strong {
+      display: block;
+      font-size: 2.6rem;
+      line-height: 1;
+    }
+
+    .score-ring span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .quick-ref {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .ref-tabs {
+      display: grid;
+      gap: 9px;
+    }
+
+    .ref-tab {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      color: white;
+      background: rgba(255, 255, 255, 0.055);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .ref-tab[aria-selected="true"] {
+      border-color: rgba(0, 136, 198, 0.88);
+      background: rgba(0, 136, 198, 0.17);
+    }
+
+    .ref-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(17, 17, 29, 0.86);
+      overflow: hidden;
+    }
+
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .ref-item {
+      min-height: 176px;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ref-item:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .ref-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.04rem;
+    }
+
+    .ref-item span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .range {
+      display: inline-flex;
+      margin-top: 14px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(249, 21, 162, 0.14);
+      color: #ffd9ef;
+      font-size: 0.84rem;
+    }
+
+    .motion {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+    }
+
+    .motion-step {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr) 250px;
+      gap: 16px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.055);
+      counter-increment: step;
+    }
+
+    .motion-step::before {
+      content: counter(step, decimal-leading-zero);
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--blue));
+      font-weight: 800;
+    }
+
+    .owner {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .incentives {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .incentive {
+      min-height: 260px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(150deg, rgba(255, 0, 0, 0.15), transparent 46%),
+        rgba(17, 17, 29, 0.88);
+    }
+
+    .incentive b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--warn);
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .incentive h3 {
+      font-size: 1.55rem;
+      line-height: 1.05;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .resource {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.055);
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .resource:hover,
+    .resource:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(0, 136, 198, 0.76);
+      outline: none;
+    }
+
+    .resource small {
+      color: var(--muted);
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.055);
+      overflow: hidden;
+    }
+
+    details + details {
+      margin-top: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: white;
+      font-weight: 700;
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 18px 18px;
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 36px 0 50px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer b {
+      color: white;
+    }
+
+    @media (max-width: 940px) {
+      .hero,
+      .section-head,
+      .tier-shell,
+      .spotter,
+      .quick-ref,
+      .pitch-card {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 30px;
+      }
+
+      .signal-box {
+        min-height: 420px;
+      }
+
+      .card-grid,
+      .metric-row,
+      .incentives,
+      .resource-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .fit-card {
+        position: static;
+      }
+
+      .motion-step {
+        grid-template-columns: 58px minmax(0, 1fr);
+      }
+
+      .owner {
+        grid-column: 1 / -1;
+      }
+
+      .ref-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ref-item:nth-child(3n) {
+        border-right: 1px solid var(--line);
+      }
+
+      .ref-item:nth-child(2n) {
+        border-right: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 22px, 1180px);
+      }
+
+      h1 {
+        font-size: clamp(3rem, 18vw, 4.8rem);
+      }
+
+      section {
+        padding: 36px 0;
+      }
+
+      .card-grid,
+      .metric-row,
+      .incentives,
+      .resource-grid,
+      .two-col,
+      .ref-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pitch-card {
+        padding: 16px;
+      }
+
+      blockquote {
+        font-size: 1.45rem;
+      }
+
+      .signal {
+        grid-template-columns: 34px minmax(0, 1fr);
+      }
+
+      .signal-box {
+        min-height: 360px;
+      }
+
+      .box-label {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <div class="topline"><span class="pulse"></span>Channel Partner Enablement Kit</div>
+        <h1>Latitude in a Box</h1>
+        <p class="hero-copy">You already sell Megaport connectivity. Now you can sell the compute that connects to it. This kit gives partner sellers a short pitch, a qualification path, and a co-selling motion that makes Latitude feel like the next attach, not a new product to memorize.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#pitch" aria-label="Jump to the 60-second pitch">Start with the pitch</a>
+          <a class="btn secondary" href="#spotter" aria-label="Jump to opportunity spotting guide">Spot a deal</a>
+          <a class="btn secondary" href="#tiers" aria-label="Jump to partner engagement tiers">Pick a tier</a>
+        </div>
+        <div class="metric-row" aria-label="Partner context metrics">
+          <div class="metric"><strong>70%</strong><span>Revenue through route-to-market partners</span></div>
+          <div class="metric"><strong>3</strong><span>Engagement tiers from intro to delivery</span></div>
+          <div class="metric"><strong>5</strong><span>Customer signals that point to Latitude</span></div>
+          <div class="metric"><strong>1</strong><span>Platform story: compute, network, storage</span></div>
+        </div>
+      </div>
+      <div class="signal-box" aria-hidden="true">
+        <div class="box-label">
+          <span>Compute + Network + Storage</span>
+          <span>Partner Ready</span>
+        </div>
+        <div class="box-visual">
+          <div class="cube">
+            <div class="face"></div>
+            <div class="face"></div>
+            <div class="face">
+              <div>
+                <strong>Attach Latitude</strong>
+                <span>To every right-fit cloud and AI conversation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="sticky-nav" aria-label="Page sections">
+      <div class="nav-inner">
+        <a href="#welcome">Welcome</a>
+        <a href="#pitch">60-Second Pitch</a>
+        <a href="#tiers">Tiers</a>
+        <a href="#spotter">Opportunity Signals</a>
+        <a href="#quick-ref">Quick Reference</a>
+        <a href="#cosell">Co-Selling</a>
+        <a href="#incentives">Incentives</a>
+        <a href="#resources">Resources</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </nav>
+
+    <section id="welcome">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Partner Welcome</div>
+          <h2>The same conversation, one layer higher.</h2>
+        </div>
+        <p>Latitude is the compute side of the cloud connectivity motion partners already know. Start where you are trusted: private connectivity, cloud cost pressure, and workload placement.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Do not relearn the sale.</h3>
+          <p>Lead with the Megaport NaaS story: fast provisioning, private paths, flexible capacity. Latitude adds dedicated compute and storage to the same customer outcome.</p>
+        </article>
+        <article class="card">
+          <h3>Attach, then expand.</h3>
+          <p>The first win can be a GPU test bed, private cloud extension, migration landing zone, or dedicated compliance workload. The expansion comes after the customer sees the platform working.</p>
+        </article>
+        <article class="card">
+          <h3>Bring SA support early.</h3>
+          <p>Partners keep the relationship. Megaport SA helps qualify workload fit, shape the design, and reduce technical risk before the quote gets formal.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">The 60-Second Pitch</div>
+          <h2>Read this out loud.</h2>
+        </div>
+        <p>Use this when a customer mentions cloud spend, GPU projects, compliance, data sovereignty, bare metal, or private connectivity.</p>
+      </div>
+      <div class="pitch-card">
+        <div>
+          <blockquote id="pitchText">Your cloud bill is growing. Your AI workloads need dedicated GPUs. And your compliance team wants private connectivity. What if you could get bare metal compute, private network, and storage - all on one platform, one bill?</blockquote>
+          <div class="hero-actions">
+            <button class="btn" id="copyPitch" type="button">Copy pitch</button>
+            <a class="btn secondary" href="#spotter">Qualify the account</a>
+          </div>
+        </div>
+        <div class="talk-track" aria-label="Pitch flow">
+          <div><strong>Open</strong><span>Cloud cost, AI demand, compliance pressure.</span></div>
+          <div><strong>Frame</strong><span>Dedicated compute connected privately to the rest of their architecture.</span></div>
+          <div><strong>Ask</strong><span>"Which workload should we price first?"</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tiers">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Three Tiers of Engagement</div>
+          <h2>Choose the partner motion.</h2>
+        </div>
+        <p>Not every partner needs to become a Latitude architect on day one. The program lets teams participate at the level that matches their sellers, SAs, and customer base.</p>
+      </div>
+      <div class="tier-shell">
+        <div class="tier-tabs" role="tablist" aria-label="Latitude partner tiers">
+          <button class="tier-tab" id="tab-aware" role="tab" aria-selected="true" aria-controls="panel-aware" data-tier="aware" type="button">
+            <strong>Tier 1: Latitude Aware</strong>
+            <span>Spot the opportunity, make the intro, earn a referral fee.</span>
+          </button>
+          <button class="tier-tab" id="tab-ready" role="tab" aria-selected="false" aria-controls="panel-ready" data-tier="ready" type="button">
+            <strong>Tier 2: Latitude Ready</strong>
+            <span>Position, quote, and close with SA support.</span>
+          </button>
+          <button class="tier-tab" id="tab-certified" role="tab" aria-selected="false" aria-controls="panel-certified" data-tier="certified" type="button">
+            <strong>Tier 3: Latitude Certified</strong>
+            <span>Design and deliver with full partner capability.</span>
+          </button>
+        </div>
+        <article class="tier-panel" id="tierPanel" role="tabpanel" aria-labelledby="tab-aware">
+          <h3>Latitude Aware</h3>
+          <p>Best for agents, resellers, and DC partners that can identify a fit but do not want to own solution design yet.</p>
+          <div class="tier-meta">
+            <span class="pill">Training: 101 primer</span>
+            <span class="pill">Motion: referral</span>
+            <span class="pill">Reward: referral fee</span>
+          </div>
+          <div class="two-col">
+            <div>
+              <h3 style="font-size:1.05rem;">Partner does</h3>
+              <ul class="check-list">
+                <li>Listens for the five Latitude signals.</li>
+                <li>Uses the 60-second pitch.</li>
+                <li>Registers the deal and books discovery.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 style="font-size:1.05rem;">Megaport does</h3>
+              <ul class="check-list">
+                <li>Runs discovery and workload fit.</li>
+                <li>Shapes the first quote.</li>
+                <li>Keeps the partner looped in.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="spotter">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Opportunity Spotting Guide</div>
+          <h2>Five signals that say, "this is a Latitude deal."</h2>
+        </div>
+        <p>Tap the signals you hear in the account. The score gives the seller a simple next step without forcing them to become a compute specialist.</p>
+      </div>
+      <div class="spotter">
+        <div class="signal-list">
+          <label class="signal">
+            <input type="checkbox" data-signal>
+            <span><strong>Growing cloud spend on compute-heavy workloads</strong><span>Customer is asking how to reduce VM, data transfer, or reserved instance waste.</span></span>
+          </label>
+          <label class="signal">
+            <input type="checkbox" data-signal>
+            <span><strong>AI/ML initiatives requiring GPUs</strong><span>They need predictable access to GPU capacity for training, inference, rendering, or simulation.</span></span>
+          </label>
+          <label class="signal">
+            <input type="checkbox" data-signal>
+            <span><strong>Compliance requirements for dedicated infrastructure</strong><span>Security, audit, sovereignty, or regulated data rules make shared cloud less attractive.</span></span>
+          </label>
+          <label class="signal">
+            <input type="checkbox" data-signal>
+            <span><strong>Equinix Metal customer with migration pressure</strong><span>They need a fast path from known bare metal patterns into a new operating model.</span></span>
+          </label>
+          <label class="signal">
+            <input type="checkbox" data-signal>
+            <span><strong>Multi-cloud architecture needing private interconnect for compute</strong><span>The workload needs to sit near several clouds, data centers, or SaaS platforms without public internet dependency.</span></span>
+          </label>
+        </div>
+        <aside class="fit-card" aria-live="polite">
+          <div class="score-ring" id="scoreRing" style="--score: 0">
+            <div>
+              <strong id="scoreNumber">0</strong>
+              <span>Fit score</span>
+            </div>
+          </div>
+          <h3 id="scoreTitle">Start listening for signals.</h3>
+          <p id="scoreCopy">One strong signal is enough for a partner intro. Two or more means register the deal and bring an SA into discovery.</p>
+          <div class="tier-meta">
+            <span class="pill" id="scoreAction">Next: ask about workload type</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="quick-ref">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Product Quick Reference</div>
+          <h2>A plain-English menu.</h2>
+        </div>
+        <p>Keep the first conversation simple. Confirm final configuration and price in the calculator with Megaport SA support.</p>
+      </div>
+      <div class="quick-ref">
+        <div class="ref-tabs" role="tablist" aria-label="Product reference categories">
+          <button class="ref-tab" role="tab" aria-selected="true" data-ref="cpu" type="button">CPU options</button>
+          <button class="ref-tab" role="tab" aria-selected="false" data-ref="gpu" type="button">GPU options</button>
+          <button class="ref-tab" role="tab" aria-selected="false" data-ref="storage" type="button">Storage options</button>
+          <button class="ref-tab" role="tab" aria-selected="false" data-ref="attach" type="button">Megaport attach</button>
+          <button class="ref-tab" role="tab" aria-selected="false" data-ref="pricing" type="button">Pricing bands</button>
+        </div>
+        <div class="ref-panel" id="refPanel">
+          <div class="ref-grid">
+            <div class="ref-item"><strong>General purpose CPU</strong><span>For app servers, private cloud, dev/test, and migration landing zones.</span><span class="range">Budget: $$</span></div>
+            <div class="ref-item"><strong>Memory-heavy CPU</strong><span>For databases, analytics, cache layers, and stateful workloads.</span><span class="range">Budget: $$-$$$</span></div>
+            <div class="ref-item"><strong>High-frequency CPU</strong><span>For latency-sensitive trading, routing, and performance-bound services.</span><span class="range">Budget: $$$</span></div>
+            <div class="ref-item"><strong>First question</strong><span>"What workload are you trying to pull out of public cloud?"</span></div>
+            <div class="ref-item"><strong>Fit cue</strong><span>Stable demand, predictable traffic, private data, or cost pressure.</span></div>
+            <div class="ref-item"><strong>SA checkpoint</strong><span>Confirm cores, memory, geography, operating system, and handoff model.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cosell">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Co-Selling Motion</div>
+          <h2>Who does what.</h2>
+        </div>
+        <p>The partner owns the customer relationship. Megaport SA owns the deep technical validation. The motion is designed to move quickly without making the partner carry design risk alone.</p>
+      </div>
+      <div class="motion">
+        <div class="motion-step">
+          <div>
+            <h3>Spot and register</h3>
+            <p>Partner identifies a signal, captures workload basics, and submits deal registration before detailed design.</p>
+          </div>
+          <div class="owner">Owner: Partner seller<br>SLA: Same business day acknowledgement</div>
+        </div>
+        <div class="motion-step">
+          <div>
+            <h3>Discovery call</h3>
+            <p>Partner brings customer context. Megaport SA asks about workload, location, performance, data path, and compliance needs.</p>
+          </div>
+          <div class="owner">Owner: Partner + Megaport SA<br>SLA: SA response within 24 business hours</div>
+        </div>
+        <div class="motion-step">
+          <div>
+            <h3>Solution shape</h3>
+            <p>Megaport SA recommends CPU/GPU, storage, network attach, and deployment assumptions. Partner keeps commercial ownership.</p>
+          </div>
+          <div class="owner">Owner: Megaport SA<br>SLA: Draft design in 2 business days</div>
+        </div>
+        <div class="motion-step">
+          <div>
+            <h3>Quote and close</h3>
+            <p>Partner presents the combined compute, network, and storage story. Megaport supports technical objections and procurement detail.</p>
+          </div>
+          <div class="owner">Owner: Partner commercial lead<br>SLA: Quote target set by deal size</div>
+        </div>
+        <div class="motion-step">
+          <div>
+            <h3>Deploy and expand</h3>
+            <p>Start with one workload. After it runs cleanly, expand into adjacent regions, cloud paths, storage tiers, or GPU capacity.</p>
+          </div>
+          <div class="owner">Owner: Partner success + Megaport<br>SLA: Expansion review in first 30 days</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="incentives">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Incentive Structure</div>
+          <h2>Make the first attach worth chasing.</h2>
+        </div>
+        <p>Use incentives to drive behavior: first intro, bundled close, and repeatable quarterly performance.</p>
+      </div>
+      <div class="incentives">
+        <article class="incentive">
+          <b>SPIFF</b>
+          <h3>First Latitude attach</h3>
+          <p>Pay a seller SPIFF when their account closes its first Latitude order attached to an existing or new Megaport network opportunity.</p>
+          <span class="pill">Best for: Tier 1 and Tier 2 activation</span>
+        </article>
+        <article class="incentive">
+          <b>Margin uplift</b>
+          <h3>Bundled compute + network</h3>
+          <p>Increase margin when compute, private connectivity, and storage are sold as a bundled solution instead of a standalone network motion.</p>
+          <span class="pill">Best for: partner-led quoting</span>
+        </article>
+        <article class="incentive">
+          <b>Quarterly bonus</b>
+          <h3>Latitude revenue targets</h3>
+          <p>Reward partners that turn Latitude into a repeatable motion across sellers, not a one-off specialist deal.</p>
+          <span class="pill">Best for: Tier 3 scale</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="resources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Resources</div>
+          <h2>The links a seller needs.</h2>
+        </div>
+        <p>Public Megaport links are included as starting points. Replace them with Latitude-specific partner portal URLs when those assets are published.</p>
+      </div>
+      <div class="resource-grid">
+        <a class="resource" href="https://portal.megaport.com/" target="_blank" rel="noopener"><strong>Demo Environment</strong><small>Guided click path for compute, storage, and Megaport attach.</small><span>Open portal</span></a>
+        <a class="resource" href="https://pricing.megaport.com/" target="_blank" rel="noopener"><strong>Pricing Calculator</strong><small>Budgetary pricing and quote handoff for partner sellers.</small><span>Build estimate</span></a>
+        <a class="resource" href="https://docs.megaport.com/" target="_blank" rel="noopener"><strong>Technical Briefs</strong><small>CPU, GPU, storage, network attach, and migration patterns.</small><span>Read docs</span></a>
+        <a class="resource" href="https://www.megaport.com/contact/" target="_blank" rel="noopener"><strong>SA Contact List</strong><small>Regional SA routing, escalation paths, and response SLA.</small><span>Find contact</span></a>
+        <a class="resource" href="https://www.megaport.com/partners/agents/deal-registration/" target="_blank" rel="noopener"><strong>Deal Registration Portal</strong><small>Register early to protect the partner motion and trigger SA support.</small><span>Register deal</span></a>
+        <a class="resource" href="https://partner-docs.megaport.com/" target="_blank" rel="noopener"><strong>201 Training</strong><small>Latitude Ready curriculum for positioning, quoting, and close support.</small><span>Start training</span></a>
+        <a class="resource" href="https://www.megaport.com/partners/" target="_blank" rel="noopener"><strong>301 Workshop</strong><small>Latitude Certified workshop for design and delivery capability.</small><span>Book workshop</span></a>
+        <a class="resource" href="#faq"><strong>Objection Guide</strong><small>Short answers for cloud cost, GPU availability, compliance, and migration risk.</small><span>Open FAQ</span></a>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Field FAQ</div>
+          <h2>Answers before the first customer call.</h2>
+        </div>
+        <p>Short, partner-safe language for early conversations. Deep architecture questions should go to the Megaport SA.</p>
+      </div>
+      <details open>
+        <summary>Is Latitude replacing Megaport NaaS?</summary>
+        <p>No. Treat Latitude as an attach motion. Partners still lead with network outcomes, then add dedicated compute and storage when the workload needs it.</p>
+      </details>
+      <details>
+        <summary>When should I bring in a Megaport SA?</summary>
+        <p>Bring in an SA after one clear signal or whenever the customer asks about GPUs, bare metal sizing, storage performance, migration timing, or compliance architecture.</p>
+      </details>
+      <details>
+        <summary>Can a Tier 1 partner still earn on the deal?</summary>
+        <p>Yes. Tier 1 is designed for referral participation. The partner spots the deal, makes the intro, registers it, and earns through the referral model.</p>
+      </details>
+      <details>
+        <summary>What is the easiest first workload?</summary>
+        <p>Start with a bounded workload: GPU proof of concept, private cloud extension, migration landing zone, regulated app tier, or a known Equinix Metal migration candidate.</p>
+      </details>
+      <details>
+        <summary>What if the customer asks for exact pricing?</summary>
+        <p>Use the pricing calculator for a budget band, then confirm with Megaport SA. Do not treat the first estimate as a formal quote.</p>
+      </details>
+    </section>
+
+    <footer class="footer">
+      <p><b>Partner note:</b> This kit is a field enablement draft. Replace placeholder resource links, SPIFF amounts, margin percentages, and portal URLs with the active Megaport partner program details before broad distribution.</p>
+    </footer>
+  </main>
+
+  <script>
+    const tierData = {
+      aware: {
+        title: "Latitude Aware",
+        intro: "Best for agents, resellers, and DC partners that can identify a fit but do not want to own solution design yet.",
+        pills: ["Training: 101 primer", "Motion: referral", "Reward: referral fee"],
+        partner: ["Listens for the five Latitude signals.", "Uses the 60-second pitch.", "Registers the deal and books discovery."],
+        megaport: ["Runs discovery and workload fit.", "Shapes the first quote.", "Keeps the partner looped in."]
+      },
+      ready: {
+        title: "Latitude Ready",
+        intro: "Best for partners that can position Latitude, manage the commercial cycle, and close with Megaport SA support.",
+        pills: ["Training: 201 required", "Motion: co-sell", "Reward: margin + SPIFF"],
+        partner: ["Leads customer positioning and commercial next steps.", "Collects workload basics before SA discovery.", "Quotes with approved calculator output."],
+        megaport: ["Provides SA support for design and objections.", "Reviews quote assumptions before customer presentation.", "Supports technical close."]
+      },
+      certified: {
+        title: "Latitude Certified",
+        intro: "Best for partners ready to design, deliver, and expand Latitude as a repeatable services motion.",
+        pills: ["Training: 301 workshop", "Motion: partner-led delivery", "Reward: uplift + quarterly bonus"],
+        partner: ["Owns solution design with certified architects.", "Builds repeatable offers around AI, compliance, migration, or private cloud.", "Runs post-sale expansion motions."],
+        megaport: ["Certifies partner team capability.", "Provides escalation support for complex designs.", "Reviews quarterly pipeline and target performance."]
+      }
+    };
+
+    const refData = {
+      cpu: [
+        ["General purpose CPU", "For app servers, private cloud, dev/test, and migration landing zones.", "Budget: $$"],
+        ["Memory-heavy CPU", "For databases, analytics, cache layers, and stateful workloads.", "Budget: $$-$$$"],
+        ["High-frequency CPU", "For latency-sensitive trading, routing, and performance-bound services.", "Budget: $$$"],
+        ["First question", "\"What workload are you trying to pull out of public cloud?\"", ""],
+        ["Fit cue", "Stable demand, predictable traffic, private data, or cost pressure.", ""],
+        ["SA checkpoint", "Confirm cores, memory, geography, operating system, and handoff model.", ""]
+      ],
+      gpu: [
+        ["Single-node GPU", "For proof of concept, inference, rendering, and pilot AI workloads.", "Budget: $$$"],
+        ["Multi-GPU cluster", "For training, simulation, batch inference, or high-volume AI work.", "Budget: $$$$"],
+        ["Reserved capacity", "For teams that cannot wait on public cloud GPU availability.", "Budget: quote"],
+        ["First question", "\"Do you need GPUs all month or only for bursts?\"", ""],
+        ["Fit cue", "Dedicated performance matters more than absolute cheapest spot pricing.", ""],
+        ["SA checkpoint", "Confirm GPU type, memory, framework, data gravity, and network path.", ""]
+      ],
+      storage: [
+        ["Object storage", "For backups, logs, unstructured data, AI datasets, and archive tiers.", "Budget: $/TB"],
+        ["Block storage", "For databases, app volumes, and low-latency stateful workloads.", "Budget: $$"],
+        ["File storage", "For shared datasets, media pipelines, and team-accessed workloads.", "Budget: $$-$$$"],
+        ["First question", "\"How much data moves in and out of the workload?\"", ""],
+        ["Fit cue", "Storage sits near compute and private network paths.", ""],
+        ["SA checkpoint", "Confirm capacity, performance, retention, backup, and data transfer expectations.", ""]
+      ],
+      attach: [
+        ["Megaport Port", "Dedicated physical port for private connectivity into the Megaport fabric.", "Budget: by speed"],
+        ["Virtual Cross Connect", "Private connection to cloud, data center, SaaS, or partner endpoints.", "Budget: by bandwidth"],
+        ["Cloud Router", "Routing fabric for multi-cloud paths without managing extra hardware.", "Budget: by design"],
+        ["First question", "\"Where does this workload need to connect privately?\"", ""],
+        ["Fit cue", "The customer wants private cloud access, data center reach, or SaaS paths.", ""],
+        ["SA checkpoint", "Confirm metro, cloud region, bandwidth, redundancy, and routing model.", ""]
+      ],
+      pricing: [
+        ["CPU workload", "Use for steady app, database, and private cloud workloads.", "Budget: hundreds to low thousands monthly"],
+        ["GPU workload", "Use for AI, ML, rendering, simulation, or accelerated compute.", "Budget: low thousands to five figures monthly"],
+        ["Storage", "Use for object, block, or file data attached to the workload.", "Budget: per TB monthly"],
+        ["Network attach", "Use for private connectivity, redundancy, and cloud/data center paths.", "Budget: depends on speed and metro"],
+        ["Discount lever", "Bundled compute plus network can support margin uplift.", "Confirm program terms"],
+        ["Quote rule", "Calculator estimate first. Formal quote after SA validation.", "Do not overcommit"]
+      ]
+    };
+
+    const panel = document.getElementById("tierPanel");
+    document.querySelectorAll(".tier-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tier-tab").forEach((item) => item.setAttribute("aria-selected", "false"));
+        tab.setAttribute("aria-selected", "true");
+        const tier = tierData[tab.dataset.tier];
+        panel.setAttribute("aria-labelledby", tab.id);
+        panel.innerHTML = `
+          <h3>${tier.title}</h3>
+          <p>${tier.intro}</p>
+          <div class="tier-meta">${tier.pills.map((pill) => `<span class="pill">${pill}</span>`).join("")}</div>
+          <div class="two-col">
+            <div>
+              <h3 style="font-size:1.05rem;">Partner does</h3>
+              <ul class="check-list">${tier.partner.map((item) => `<li>${item}</li>`).join("")}</ul>
+            </div>
+            <div>
+              <h3 style="font-size:1.05rem;">Megaport does</h3>
+              <ul class="check-list">${tier.megaport.map((item) => `<li>${item}</li>`).join("")}</ul>
+            </div>
+          </div>`;
+      });
+    });
+
+    const refPanel = document.getElementById("refPanel");
+    document.querySelectorAll(".ref-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".ref-tab").forEach((item) => item.setAttribute("aria-selected", "false"));
+        tab.setAttribute("aria-selected", "true");
+        refPanel.innerHTML = `<div class="ref-grid">${refData[tab.dataset.ref].map(([title, copy, range]) => `
+          <div class="ref-item"><strong>${title}</strong><span>${copy}</span>${range ? `<span class="range">${range}</span>` : ""}</div>
+        `).join("")}</div>`;
+      });
+    });
+
+    const signals = Array.from(document.querySelectorAll("[data-signal]"));
+    const scoreRing = document.getElementById("scoreRing");
+    const scoreNumber = document.getElementById("scoreNumber");
+    const scoreTitle = document.getElementById("scoreTitle");
+    const scoreCopy = document.getElementById("scoreCopy");
+    const scoreAction = document.getElementById("scoreAction");
+
+    function updateScore() {
+      const count = signals.filter((signal) => signal.checked).length;
+      const score = count * 20;
+      scoreRing.style.setProperty("--score", String(score));
+      scoreNumber.textContent = String(score);
+      if (count === 0) {
+        scoreTitle.textContent = "Start listening for signals.";
+        scoreCopy.textContent = "One strong signal is enough for a partner intro. Two or more means register the deal and bring an SA into discovery.";
+        scoreAction.textContent = "Next: ask about workload type";
+      } else if (count === 1) {
+        scoreTitle.textContent = "Worth an intro.";
+        scoreCopy.textContent = "Capture the workload, current platform, target location, and timing. Then ask if they want a quick fit check.";
+        scoreAction.textContent = "Next: make a Tier 1 referral";
+      } else if (count < 4) {
+        scoreTitle.textContent = "Register the deal.";
+        scoreCopy.textContent = "This is a solid Latitude candidate. Register it, book discovery, and bring the SA in before pricing gets specific.";
+        scoreAction.textContent = "Next: Tier 2 co-sell";
+      } else {
+        scoreTitle.textContent = "High-fit Latitude motion.";
+        scoreCopy.textContent = "Multiple signals point to a bundled compute, network, and storage opportunity. Treat this as a priority co-sell.";
+        scoreAction.textContent = "Next: SA-led design session";
+      }
+    }
+
+    signals.forEach((signal) => signal.addEventListener("change", updateScore));
+
+    const copyButton = document.getElementById("copyPitch");
+    copyButton.addEventListener("click", async () => {
+      const text = document.getElementById("pitchText").innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyButton.textContent = "Copied";
+      } catch (error) {
+        copyButton.textContent = "Select pitch text";
+      }
+      window.setTimeout(() => {
+        copyButton.textContent = "Copy pitch";
+      }, 1600);
+    });
+  </script>
+</body>
+</html>
